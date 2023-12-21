@@ -1932,7 +1932,14 @@ class PaymentIntent(
                 """
                 _inner_class_types = {"manual_entry": ManualEntry}
 
+            class MandateOptions(StripeObject):
+                collection_method: Optional[Literal["paper"]]
+                """
+                Mandate collection method
+                """
+
             financial_connections: Optional[FinancialConnections]
+            mandate_options: Optional[MandateOptions]
             preferred_settlement_speed: Optional[
                 Literal["fastest", "standard"]
             ]
@@ -1956,7 +1963,8 @@ class PaymentIntent(
             Bank account verification method.
             """
             _inner_class_types = {
-                "financial_connections": FinancialConnections
+                "financial_connections": FinancialConnections,
+                "mandate_options": MandateOptions,
             }
 
         class WechatPay(StripeObject):
@@ -3241,6 +3249,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -3276,6 +3290,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -5861,6 +5883,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -5896,6 +5924,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -8474,6 +8510,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -8509,6 +8551,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
