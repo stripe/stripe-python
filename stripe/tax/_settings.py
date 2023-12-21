@@ -6,7 +6,6 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-from urllib.parse import quote_plus
 
 
 class Settings(
@@ -161,16 +160,13 @@ class Settings(
     status_details: StatusDetails
 
     @classmethod
-    def modify(
-        cls, id: str, **params: Unpack["Settings.ModifyParams"]
-    ) -> "Settings":
+    def modify(cls, **params: Unpack["Settings.ModifyParams"]) -> "Settings":
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Settings",
-            cls._static_request("post", url, params=params),
+            cls._static_request("post", cls.class_url(), params=params),
         )
 
     @classmethod

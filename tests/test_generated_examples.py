@@ -3704,6 +3704,15 @@ class TestGeneratedExamples(object):
             query_string="",
         )
 
+    def test_tax_settings_post(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.tax.Settings.modify(defaults={"tax_code": "txcd_10000000"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/settings",
+            query_string="",
+            post_data="defaults[tax_code]=txcd_10000000",
+        )
+
     def test_tax_transactions_create_from_calculation_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
