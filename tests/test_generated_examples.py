@@ -3673,6 +3673,45 @@ class TestGeneratedExamples(object):
             post_data="active=False",
         )
 
+    def test_tax_registrations_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.tax.Registration.list(status="all")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/registrations",
+            query_string="status=all",
+        )
+
+    def test_tax_registrations_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.tax.Registration.create(
+            country="IE",
+            country_options={"ie": {"type": "oss_union"}},
+            active_from="now",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/registrations",
+            query_string="",
+            post_data="country=IE&country_options[ie][type]=oss_union&active_from=now",
+        )
+
+    def test_tax_registrations_post_2(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.tax.Registration.modify(
+            "taxreg_xxxxxxxxxxxxx",
+            expires_at="now",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
+            query_string="",
+            post_data="expires_at=now",
+        )
+
     def test_tax_settings_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.tax.Settings.retrieve()
         http_client_mock.assert_requested(
