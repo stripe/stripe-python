@@ -1527,6 +1527,34 @@ class TestGeneratedExamples(object):
             post_data="features[0]=balance",
         )
 
+    def test_financial_connections_accounts_subscribe_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.financial_connections.Account.subscribe(
+            "fa_123",
+            features=["transactions"],
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fa_123/subscribe",
+            query_string="",
+            post_data="features[0]=transactions",
+        )
+
+    def test_financial_connections_accounts_unsubscribe_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.financial_connections.Account.unsubscribe(
+            "fa_123",
+            features=["transactions"],
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fa_123/unsubscribe",
+            query_string="",
+            post_data="features[0]=transactions",
+        )
+
     def test_financial_connections_sessions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -1577,6 +1605,26 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+        )
+
+    def test_financial_connections_transactions_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.financial_connections.Transaction.retrieve("tr_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/transactions/tr_123",
+            query_string="",
+        )
+
+    def test_financial_connections_transactions_get_2(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.financial_connections.Transaction.list(account="fca_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/transactions",
+            query_string="account=fca_xyz",
         )
 
     def test_identity_verification_reports_get(
