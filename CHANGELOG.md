@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.11.0b1 - 2023-12-22
+* [#1177](https://github.com/stripe/stripe-python/pull/1177) Update generated code for beta
+
 ## 7.10.0 - 2023-12-22
 * [#1176](https://github.com/stripe/stripe-python/pull/1176) Update generated code
   * Add support for new resource `FinancialConnections.Transaction`
