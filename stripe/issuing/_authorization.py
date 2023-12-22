@@ -247,7 +247,9 @@ class Authorization(
             """
             The entity that requested the exemption, either the acquiring merchant or the Issuing user.
             """
-            type: Literal["low_value_transaction", "transaction_risk_analysis"]
+            type: Literal[
+                "low_value_transaction", "transaction_risk_analysis", "unknown"
+            ]
             """
             The specific exemption claimed for this authorization.
             """
@@ -618,7 +620,9 @@ class Authorization(
         """
         The entity that requested the exemption, either the acquiring merchant or the Issuing user.
         """
-        type: Literal["low_value_transaction", "transaction_risk_analysis"]
+        type: Literal[
+            "low_value_transaction", "transaction_risk_analysis", "unknown"
+        ]
         """
         The specific exemption claimed for this authorization.
         """

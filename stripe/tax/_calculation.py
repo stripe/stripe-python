@@ -157,6 +157,36 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         _inner_class_types = {"address": Address, "tax_ids": TaxId}
 
+    class ShipFromDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
+
     class ShippingCost(StripeObject):
         class TaxBreakdown(StripeObject):
             class Jurisdiction(StripeObject):
@@ -366,6 +396,12 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         A list of items the customer is purchasing.
         """
+        ship_from_details: NotRequired[
+            "Calculation.CreateParamsShipFromDetails"
+        ]
+        """
+        Details about the address from which the goods are being shippped.
+        """
         shipping_cost: NotRequired["Calculation.CreateParamsShippingCost"]
         """
         Shipping cost details to be used for the calculation.
@@ -391,6 +427,38 @@ class Calculation(CreateableAPIResource["Calculation"]):
         tax_code: NotRequired["str"]
         """
         The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
+        """
+
+    class CreateParamsShipFromDetails(TypedDict):
+        address: "Calculation.CreateParamsShipFromDetailsAddress"
+        """
+        The address from which the goods are being shipped from.
+        """
+
+    class CreateParamsShipFromDetailsAddress(TypedDict):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
 
     class CreateParamsLineItem(TypedDict):
@@ -436,7 +504,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             "List[Calculation.CreateParamsCustomerDetailsTaxId]"
         ]
         """
-        The customer's tax IDs.
+        The customer's tax IDs. Stripe Tax might consider a transaction with applicable tax IDs to be B2B, which might affect the tax calculation result. Stripe Tax doesn't validate tax IDs for correctness.
         """
         taxability_override: NotRequired[
             "Literal['customer_exempt', 'none', 'reverse_charge']"
@@ -599,6 +667,10 @@ class Calculation(CreateableAPIResource["Calculation"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    ship_from_details: Optional[ShipFromDetails]
+    """
+    The details of the ship from location, such as the address.
+    """
     shipping_cost: Optional[ShippingCost]
     """
     The shipping cost details for the calculation.
@@ -729,6 +801,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     _inner_class_types = {
         "customer_details": CustomerDetails,
+        "ship_from_details": ShipFromDetails,
         "shipping_cost": ShippingCost,
         "tax_breakdown": TaxBreakdown,
     }

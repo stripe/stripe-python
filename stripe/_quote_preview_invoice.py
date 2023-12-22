@@ -479,6 +479,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -1219,9 +1220,6 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
     """
     issuer: Optional[Issuer]
-    """
-    The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-    """
     last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.

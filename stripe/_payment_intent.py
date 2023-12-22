@@ -243,6 +243,7 @@ class PaymentIntent(
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -1534,7 +1535,9 @@ class PaymentIntent(
             """
             Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
             """
-            request_three_d_secure: Optional[Literal["any", "automatic"]]
+            request_three_d_secure: Optional[
+                Literal["any", "automatic", "challenge"]
+            ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
@@ -1929,7 +1932,14 @@ class PaymentIntent(
                 """
                 _inner_class_types = {"manual_entry": ManualEntry}
 
+            class MandateOptions(StripeObject):
+                collection_method: Optional[Literal["paper"]]
+                """
+                Mandate collection method
+                """
+
             financial_connections: Optional[FinancialConnections]
+            mandate_options: Optional[MandateOptions]
             preferred_settlement_speed: Optional[
                 Literal["fastest", "standard"]
             ]
@@ -1953,7 +1963,8 @@ class PaymentIntent(
             Bank account verification method.
             """
             _inner_class_types = {
-                "financial_connections": FinancialConnections
+                "financial_connections": FinancialConnections,
+                "mandate_options": MandateOptions,
             }
 
         class WechatPay(StripeObject):
@@ -3238,6 +3249,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -3273,6 +3290,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -3780,7 +3805,9 @@ class PaymentIntent(
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
@@ -5856,6 +5883,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -5891,6 +5924,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -6398,7 +6439,9 @@ class PaymentIntent(
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
@@ -8467,6 +8510,12 @@ class PaymentIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -8502,6 +8551,14 @@ class PaymentIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -9009,7 +9066,9 @@ class PaymentIntent(
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """

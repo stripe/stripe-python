@@ -495,6 +495,7 @@ class Invoice(
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -6649,9 +6650,6 @@ class Invoice(
     The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     """
     issuer: Optional[Issuer]
-    """
-    The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-    """
     last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.
