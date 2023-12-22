@@ -568,7 +568,14 @@ class SetupIntent(
                 For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
                 """
 
+            class MandateOptions(StripeObject):
+                collection_method: Optional[Literal["paper"]]
+                """
+                Mandate collection method
+                """
+
             financial_connections: Optional[FinancialConnections]
+            mandate_options: Optional[MandateOptions]
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -576,7 +583,8 @@ class SetupIntent(
             Bank account verification method.
             """
             _inner_class_types = {
-                "financial_connections": FinancialConnections
+                "financial_connections": FinancialConnections,
+                "mandate_options": MandateOptions,
             }
 
         acss_debit: Optional[AcssDebit]
@@ -683,6 +691,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -700,6 +714,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -1626,6 +1648,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -1643,6 +1671,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -2563,6 +2599,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -2580,6 +2622,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(

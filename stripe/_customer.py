@@ -433,7 +433,7 @@ class Customer(
             "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]"
         ]
         """
-        Default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
+        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
         """
         default_payment_method: NotRequired["str"]
         """
@@ -772,7 +772,7 @@ class Customer(
             "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]"
         ]
         """
-        Default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
+        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
         """
         default_payment_method: NotRequired["str"]
         """
