@@ -51,7 +51,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Whether the embedded component is enabled.
             """
-            features: Optional[Features]
+            features: Features
             _inner_class_types = {"features": Features}
 
         class Payments(StripeObject):
@@ -73,7 +73,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Whether the embedded component is enabled.
             """
-            features: Optional[Features]
+            features: Features
             _inner_class_types = {"features": Features}
 
         class Payouts(StripeObject):
@@ -95,13 +95,13 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Whether the embedded component is enabled.
             """
-            features: Optional[Features]
+            features: Features
             _inner_class_types = {"features": Features}
 
         account_onboarding: AccountOnboarding
-        payment_details: Optional[PaymentDetails]
-        payments: Optional[Payments]
-        payouts: Optional[Payouts]
+        payment_details: PaymentDetails
+        payments: Payments
+        payouts: Payouts
         _inner_class_types = {
             "account_onboarding": AccountOnboarding,
             "payment_details": PaymentDetails,
