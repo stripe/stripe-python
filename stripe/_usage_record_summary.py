@@ -45,5 +45,4 @@ class UsageRecordSummary(StripeObject):
     """
     The total usage within this usage period.
     """
-
     _inner_class_types = {"period": Period}

@@ -142,5 +142,4 @@ class CalculationLineItem(StripeObject):
     """
     The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource.
     """
-
     _inner_class_types = {"tax_breakdown": TaxBreakdown}

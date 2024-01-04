@@ -188,7 +188,6 @@ class InvoiceLineItem(StripeObject):
     """
     The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
     """
-
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "period": Period,

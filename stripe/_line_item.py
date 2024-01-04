@@ -116,5 +116,4 @@ class LineItem(StripeObject):
     """
     The taxes applied to the line item.
     """
-
     _inner_class_types = {"discounts": Discount, "taxes": Tax}
