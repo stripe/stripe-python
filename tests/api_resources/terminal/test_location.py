@@ -5,7 +5,7 @@ TEST_RESOURCE_ID = "loc_123"
 
 
 class TestLocation(object):
-    def test_is_creatable(self, request_mock):
+    def test_is_creatable(self, http_client_mock):
         resource = stripe.terminal.Location.create(
             display_name="name",
             address={
@@ -16,52 +16,60 @@ class TestLocation(object):
                 "city": "San Francisco",
             },
         )
-        request_mock.assert_requested("post", "/v1/terminal/locations")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/locations",
+            post_data="display_name=name&address[city]=San+Francisco&address[country]=US&address[line1]=line1&address[postal_code]=12345&address[state]=CA",
+        )
         assert isinstance(resource, stripe.terminal.Location)
 
-    def test_is_listable(self, request_mock):
+    def test_is_listable(self, http_client_mock):
         resources = stripe.terminal.Location.list()
-        request_mock.assert_requested("get", "/v1/terminal/locations")
+        http_client_mock.assert_requested("get", path="/v1/terminal/locations")
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.terminal.Location)
 
-    def test_is_modifiable(self, request_mock):
+    def test_is_modifiable(self, http_client_mock):
         resource = stripe.terminal.Location.modify(
             TEST_RESOURCE_ID, display_name="new-name"
         )
-        request_mock.assert_requested(
-            "post", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/locations/%s" % TEST_RESOURCE_ID,
+            post_data="display_name=new-name",
         )
         assert isinstance(resource, stripe.terminal.Location)
 
-    def test_is_retrievable(self, request_mock):
+    def test_is_retrievable(self, http_client_mock):
         resource = stripe.terminal.Location.retrieve(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "get", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "get", path="/v1/terminal/locations/%s" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.terminal.Location)
 
-    def test_is_saveable(self, request_mock):
+    def test_is_saveable(self, http_client_mock):
         resource = stripe.terminal.Location.retrieve(TEST_RESOURCE_ID)
         resource.display_name = "new-name"
         location = resource.save()
-        request_mock.assert_requested(
-            "post", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/locations/%s" % TEST_RESOURCE_ID,
+            post_data="display_name=new-name",
         )
         assert isinstance(resource, stripe.terminal.Location)
         assert resource is location
 
-    def test_is_deletable(self, request_mock):
+    def test_is_deletable(self, http_client_mock):
         resource = stripe.terminal.Location.retrieve(TEST_RESOURCE_ID)
         resource.delete()
-        request_mock.assert_requested(
-            "delete", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "delete", path="/v1/terminal/locations/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
 
-    def test_can_delete(self, request_mock):
+    def test_can_delete(self, http_client_mock):
         resource = stripe.terminal.Location.delete(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "delete", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "delete", path="/v1/terminal/locations/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True

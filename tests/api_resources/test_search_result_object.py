@@ -13,22 +13,28 @@ class TestSearchResultObject(object):
             "mykey",
         )
 
-    def test_search(self, request_mock, search_result_object):
-        request_mock.stub_request(
+    def test_search(self, http_client_mock, search_result_object):
+        http_client_mock.stub_request(
             "get",
-            "/my/path",
-            {
-                "object": "search_result",
-                "data": [{"object": "charge", "foo": "bar"}],
-            },
+            path="/my/path",
+            query_string="myparam=you",
+            rbody=json.dumps(
+                {
+                    "object": "search_result",
+                    "data": [{"object": "charge", "foo": "bar"}],
+                }
+            ),
         )
 
         res = search_result_object.search(
             myparam="you", stripe_account="acct_123"
         )
 
-        request_mock.assert_requested(
-            "get", "/my/path", {"myparam": "you"}, None
+        http_client_mock.assert_requested(
+            "get",
+            path="/my/path",
+            query_string="myparam=you",
+            stripe_account="acct_123",
         )
         assert isinstance(res, stripe.SearchResultObject)
         assert res.stripe_account == "acct_123"
@@ -61,7 +67,7 @@ class TestSearchResultObject(object):
         )
         assert bool(empty) is False
 
-    def test_next_search_result_page(self, request_mock):
+    def test_next_search_result_page(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             {
                 "object": "search_result",
@@ -73,26 +79,29 @@ class TestSearchResultObject(object):
             None,
         )
 
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "get",
-            "/things",
-            {
-                "object": "search_result",
-                "data": [{"id": 2}],
-                "has_more": False,
-                "url": "/things",
-            },
+            path="/things",
+            query_string="page=next_page_token",
+            rbody=json.dumps(
+                {
+                    "object": "search_result",
+                    "data": [{"id": 2}],
+                    "has_more": False,
+                    "url": "/things",
+                }
+            ),
         )
 
         next_sro = sro.next_search_result_page()
 
-        request_mock.assert_requested(
-            "get", "/things", {"page": "next_page_token"}, None
+        http_client_mock.assert_requested(
+            "get", path="/things", query_string="page=next_page_token"
         )
         assert not next_sro.is_empty
         assert next_sro.data[0].id == 2
 
-    def test_next_search_result_page_with_filters(self, request_mock):
+    def test_next_search_result_page_with_filters(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             {
                 "object": "search_result",
@@ -105,16 +114,19 @@ class TestSearchResultObject(object):
         )
         sro._retrieve_params = {"expand": ["data.source"], "limit": 3}
 
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "get",
-            "/things",
-            {
-                "object": "search_result",
-                "data": [{"id": 2}],
-                "has_more": False,
-                "next_page": None,
-                "url": "/things",
-            },
+            path="/things",
+            query_string="expand[0]=data.source&limit=3&page=next_page_token",
+            rbody=json.dumps(
+                {
+                    "object": "search_result",
+                    "data": [{"id": 2}],
+                    "has_more": False,
+                    "next_page": None,
+                    "url": "/things",
+                }
+            ),
         )
 
         next_sro = sro.next_search_result_page()
@@ -176,38 +188,40 @@ class TestAutoPaging:
 
         return model
 
-    def test_iter_one_page(self, request_mock):
+    def test_iter_one_page(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], False, None),
             "mykey",
         )
 
-        request_mock.assert_no_request()
+        http_client_mock.assert_no_request()
 
         seen = [item["id"] for item in sro.auto_paging_iter()]
 
         assert seen == ["pm_123", "pm_124"]
 
-    def test_iter_two_pages(self, request_mock):
+    def test_iter_two_pages(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], True, "token"),
             "mykey",
         )
         sro._retrieve_params = {"foo": "bar"}
 
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "get",
-            "/v1/pageablemodels",
-            self.pageable_model_response(["pm_125", "pm_126"], False, None),
+            path="/v1/pageablemodels",
+            query_string="page=token&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_125", "pm_126"], False, None)
+            ),
         )
 
         seen = [item["id"] for item in sro.auto_paging_iter()]
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "get",
-            "/v1/pageablemodels",
-            {"page": "token", "foo": "bar"},
-            None,
+            path="/v1/pageablemodels",
+            query_string="page=token&foo=bar",
         )
 
         assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]

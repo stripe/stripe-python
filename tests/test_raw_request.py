@@ -1,28 +1,11 @@
 from __future__ import absolute_import, division, print_function
 
-import json
 import datetime
-
-import pytest
 
 import stripe
 from stripe._api_version import _ApiVersion
 
-from tests.test_api_requestor import APIHeaderMatcher
 from tests.test_api_requestor import GMT1
-from tests.test_api_requestor import QueryMatcher
-
-
-class JSONMatcher(object):
-    def __init__(self, expected_json):
-        self.expected = json.loads(expected_json)
-
-    def __eq__(self, other_json):
-        other = json.loads(other_json)
-        return self.expected == other
-
-    def __repr__(self):
-        return "JSONMatcher(%r)" % self.expected
 
 
 class TestRawRequest(object):
@@ -33,41 +16,30 @@ class TestRawRequest(object):
     }
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
-    POST_ABS_URL = stripe.api_base + POST_REL_URL
-    GET_ABS_URL = stripe.api_base + GET_REL_URL
 
-    @pytest.fixture(autouse=True)
-    def setup_stripe(self, http_client, http_client_async):
-        orig_attrs = {
-            "api_key": stripe.api_key,
-            "api_version": stripe.api_version,
-            "default_http_client": stripe.default_http_client,
-            "default_http_client_async": stripe.default_http_client_async,
-        }
-        stripe.api_key = "sk_test_123"
-        stripe.api_version = "2017-12-14"
-        stripe.default_http_client = http_client
-        stripe.default_http_client_async = http_client_async
-        yield
-        stripe.api_key = orig_attrs["api_key"]
-        stripe.api_version = orig_attrs["api_version"]
-        stripe.default_http_client = orig_attrs["default_http_client"]
-        stripe.default_http_client_async = orig_attrs[
-            "default_http_client_async"
-        ]
-
-    def test_form_request_get(self, mock_response, check_call):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_form_request_get(self, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path=self.GET_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
 
         resp = stripe.raw_request("get", self.GET_REL_URL)
-
-        check_call("get", abs_url=self.GET_ABS_URL)
+        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_form_request_post(self, mock_response, check_call):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_form_request_post(self, http_client_mock):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
 
         expectation = "type=standard&int=123&datetime=1356994801"
 
@@ -75,21 +47,24 @@ class TestRawRequest(object):
             "post", self.POST_REL_URL, **self.ENCODE_INPUTS
         )
 
-        check_call(
+        http_client_mock.assert_requested(
             "post",
-            abs_url=self.POST_ABS_URL,
-            headers=APIHeaderMatcher(
-                content_type="application/x-www-form-urlencoded",
-                request_method="post",
-            ),
-            post_data=QueryMatcher(stripe.util.parse_qsl(expectation)),
+            path=self.POST_REL_URL,
+            content_type="application/x-www-form-urlencoded",
+            post_data=expectation,
         )
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_preview_request_post(self, mock_response, check_call):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_preview_request_post(self, http_client_mock):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
 
         params = dict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
         expectation = (
@@ -98,54 +73,63 @@ class TestRawRequest(object):
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
 
-        check_call(
+        http_client_mock.assert_requested(
             "post",
-            abs_url=self.POST_ABS_URL,
-            headers=APIHeaderMatcher(
-                content_type="application/json",
-                request_method="post",
-            ),
-            post_data=JSONMatcher(expectation),
+            path=self.POST_REL_URL,
+            content_type="application/json",
+            post_data=expectation,
+            is_json=True,
         )
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_form_request_with_extra_headers(self, mock_response, check_call):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_form_request_with_extra_headers(self, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path=self.GET_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
 
-        extraHeaders = {"foo": "bar", "Stripe-Account": "acct_123"}
-        params = {"headers": extraHeaders}
+        extra_headers = {"foo": "bar", "Stripe-Account": "acct_123"}
+        params = {"headers": extra_headers}
 
         stripe.raw_request("get", self.GET_REL_URL, **params)
 
-        check_call(
+        http_client_mock.assert_requested(
             "get",
-            abs_url=self.GET_ABS_URL,
-            headers=APIHeaderMatcher(extra=extraHeaders, request_method="get"),
+            path=self.GET_REL_URL,
+            extra_headers=extra_headers,
         )
 
-    def test_preview_request_default_api_version(
-        self, mock_response, check_call
-    ):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_preview_request_default_api_version(self, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path=self.GET_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
         params = {"api_mode": "preview"}
 
         stripe.raw_request("get", self.GET_REL_URL, **params)
 
-        check_call(
+        http_client_mock.assert_requested(
             "get",
-            abs_url=self.GET_ABS_URL,
-            headers=APIHeaderMatcher(
-                extra={"Stripe-Version": _ApiVersion.PREVIEW},
-                request_method="get",
-            ),
+            path=self.GET_REL_URL,
+            stripe_version=_ApiVersion.PREVIEW,
         )
 
-    def test_preview_request_overridden_api_version(
-        self, mock_response, check_call
-    ):
-        mock_response('{"id": "acct_123", "object": "account"}', 200)
+    def test_preview_request_overridden_api_version(self, http_client_mock):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
         stripe_version_override = "2023-05-15.preview"
         params = {
             "api_mode": "preview",
@@ -154,15 +138,13 @@ class TestRawRequest(object):
 
         stripe.raw_request("post", self.POST_REL_URL, **params)
 
-        check_call(
+        http_client_mock.assert_requested(
             "post",
-            abs_url=self.POST_ABS_URL,
-            headers=APIHeaderMatcher(
-                extra={"Stripe-Version": stripe_version_override},
-                content_type="application/json",
-                request_method="post",
-            ),
-            post_data=json.dumps({}),
+            path=self.POST_REL_URL,
+            content_type="application/json",
+            stripe_version=stripe_version_override,
+            post_data="{}",
+            is_json=True,
         )
 
     @pytest.mark.asyncio

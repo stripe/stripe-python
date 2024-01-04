@@ -624,9 +624,6 @@ class PaymentLink(
                 """
 
             issuer: Optional[Issuer]
-            """
-            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-            """
             _inner_class_types = {"issuer": Issuer}
 
         class TrialSettings(StripeObject):
@@ -649,9 +646,6 @@ class PaymentLink(
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         invoice_settings: Optional[InvoiceSettings]
-        """
-        All invoices will be billed using the specified settings.
-        """
         metadata: Dict[str, str]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link.

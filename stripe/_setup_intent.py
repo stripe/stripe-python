@@ -229,6 +229,7 @@ class SetupIntent(
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -597,7 +598,14 @@ class SetupIntent(
                 """
                 _inner_class_types = {"manual_entry": ManualEntry}
 
+            class MandateOptions(StripeObject):
+                collection_method: Optional[Literal["paper"]]
+                """
+                Mandate collection method
+                """
+
             financial_connections: Optional[FinancialConnections]
+            mandate_options: Optional[MandateOptions]
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -605,7 +613,8 @@ class SetupIntent(
             Bank account verification method.
             """
             _inner_class_types = {
-                "financial_connections": FinancialConnections
+                "financial_connections": FinancialConnections,
+                "mandate_options": MandateOptions,
             }
 
         acss_debit: Optional[AcssDebit]
@@ -718,6 +727,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -735,6 +750,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -818,7 +841,9 @@ class SetupIntent(
         """
         Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
@@ -1686,6 +1711,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -1703,6 +1734,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -1786,7 +1825,9 @@ class SetupIntent(
         """
         Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
@@ -2642,6 +2683,12 @@ class SetupIntent(
         """
         Additional fields for Financial Connections Session creation
         """
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         networks: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
         ]
@@ -2659,6 +2706,14 @@ class SetupIntent(
         requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
         """
         Triggers validations to run across the selected networks
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -2742,7 +2797,9 @@ class SetupIntent(
         """
         Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """

@@ -127,7 +127,10 @@ class Mandate(APIResource["Mandate"]):
             """
 
         class UsBankAccount(StripeObject):
-            pass
+            collection_method: Optional[Literal["paper"]]
+            """
+            Mandate collection method
+            """
 
         acss_debit: Optional[AcssDebit]
         au_becs_debit: Optional[AuBecsDebit]
