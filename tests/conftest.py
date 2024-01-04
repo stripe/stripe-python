@@ -104,3 +104,21 @@ def http_client_mock_streaming(mocker):
     stripe.default_http_client = mock_client.get_mock_http_client()
     yield mock_client
     stripe.default_http_client = old_client
+
+
+@pytest.fixture
+def http_client_mock_async(mocker):
+    mock_client = HTTPClientMock(mocker, is_async=True)
+    old_client = stripe.default_http_client_async
+    stripe.default_http_client_async = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client_async = old_client
+
+
+@pytest.fixture
+def http_client_mock_streaming_async(mocker):
+    mock_client = HTTPClientMock(mocker, is_streaming=True, is_async=True)
+    old_client = stripe.default_http_client_async
+    stripe.default_http_client_async = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client_async = old_client

@@ -6,6 +6,7 @@ import stripe
 from stripe._api_version import _ApiVersion
 
 from tests.test_api_requestor import GMT1
+import pytest
 
 
 class TestRawRequest(object):
@@ -148,14 +149,18 @@ class TestRawRequest(object):
         )
 
     @pytest.mark.asyncio
-    async def test_form_request_get_async(
-        self, mock_response_async, check_call_async
-    ):
-        mock_response_async('{"id": "acct_123", "object": "account"}', 200)
+    async def test_form_request_get_async(self, http_client_mock_async):
+        http_client_mock_async.stub_request(
+            "get",
+            path=self.GET_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
 
         resp = await stripe.raw_request_async("get", self.GET_REL_URL)
 
-        check_call_async("get", abs_url=self.GET_ABS_URL)
+        http_client_mock_async.assert_requested("get", path=self.GET_REL_URL)
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
