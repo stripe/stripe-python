@@ -68,5 +68,4 @@ class TransactionLineItem(StripeObject):
     """
     If `reversal`, this line item reverses an earlier transaction.
     """
-
     _inner_class_types = {"reversal": Reversal}

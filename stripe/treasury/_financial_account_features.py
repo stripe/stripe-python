@@ -500,7 +500,6 @@ class FinancialAccountFeatures(StripeObject):
     """
     OutboundTransfers contains outbound transfers features for a FinancialAccount.
     """
-
     _inner_class_types = {
         "card_issuing": CardIssuing,
         "deposit_insurance": DepositInsurance,

@@ -471,7 +471,6 @@ class QuoteLine(StripeObject):
     """
     Settings related to subscription trials.
     """
-
     _inner_class_types = {
         "actions": Action,
         "applies_to": AppliesTo,
