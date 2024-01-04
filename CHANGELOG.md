@@ -1,5 +1,19 @@
 # Changelog
 
+## 7.12.0b1 - 2024-01-04
+* [#1187](https://github.com/stripe/stripe-python/pull/1187) Update generated code for beta
+  * Updated stable APIs to the latest version
+
+
+## 7.11.0 - 2024-01-04
+* [#1186](https://github.com/stripe/stripe-python/pull/1186) Update generated code
+  * Add support for `retrieve` on resource `tax.Registration`
+  * Change type from `Optional[PaymentDetails]` to `PaymentDetails` of `payment_details` on field `AccountSession.Components`
+  * Change type from `Optional[Payments]` to `Payments` of `payments` on field `AccountSession.Components`
+  * Change type from `Optional[Payouts]` to `Payouts` of `payouts` on field `AccountSession.Components`
+  * Change type from `Optional[Features]` to `Features` of `features` on fields `AccountSession.Components.PaymentDetails`, `AccountSession.Components.Payments`, and `AccountSession.Components.Payouts`
+  * Change type from `Optional[InvoiceSettings]` to `InvoiceSettings` of `invoice_settings` on field `SubscriptionSchedule.DefaultSettings`
+
 ## 7.11.0b1 - 2023-12-22
 * [#1177](https://github.com/stripe/stripe-python/pull/1177) Update generated code for beta
 
