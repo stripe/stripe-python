@@ -117,10 +117,7 @@ class SubscriptionSchedule(
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        invoice_settings: Optional[InvoiceSettings]
-        """
-        The subscription schedule's default invoice settings.
-        """
+        invoice_settings: InvoiceSettings
         on_behalf_of: Optional[ExpandableField["Account"]]
         """
         The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.

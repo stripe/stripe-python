@@ -696,12 +696,12 @@ class Registration(
         If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
         """
 
-    class CreateParamsCountryOptions(
-        TypedDict(
-            "CreateParamsCountryOptions",
-            {"is": NotRequired["Registration.CreateParamsCountryOptionsIs"]},
-        ),
-    ):
+    _CreateParamsCountryOptionsBase = TypedDict(
+        "CreateParamsCountryOptions",
+        {"is": NotRequired["Registration.CreateParamsCountryOptionsIs"]},
+    )
+
+    class CreateParamsCountryOptions(_CreateParamsCountryOptionsBase):
         ae: NotRequired["Registration.CreateParamsCountryOptionsAe"]
         """
         Options for the registration in AE.
@@ -1594,6 +1594,12 @@ class Registration(
         If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         """
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     active_from: int
     """
     Time at which the registration becomes active. Measured in seconds since the Unix epoch.
@@ -1699,5 +1705,16 @@ class Registration(
             "Registration",
             cls._static_request("post", url, params=params),
         )
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["Registration.RetrieveParams"]
+    ) -> "Registration":
+        """
+        Returns a Tax Registration object.
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
 
     _inner_class_types = {"country_options": CountryOptions}
