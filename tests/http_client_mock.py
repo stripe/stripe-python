@@ -185,17 +185,27 @@ class StripeRequestCall(object):
 
 
 class HTTPClientMock(object):
-    def __init__(self, mocker, is_streaming=False):
-        self.mock_client = mocker.Mock(
-            wraps=stripe.http_client.new_default_http_client()
-        )
+    def __init__(self, mocker, is_streaming=False, is_async=False):
+        if is_async:
+            self.mock_client = mocker.Mock(
+                wraps=stripe.http_client.new_default_http_client_async()
+            )
+        else:
+            self.mock_client = mocker.Mock(
+                wraps=stripe.http_client.new_default_http_client()
+            )
+
+        self.is_async = is_async
         self.mock_client._verify_ssl_certs = True
         self.mock_client.name = "mockclient"
-        self.func = (
-            self.mock_client.request_with_retries
-            if not is_streaming
-            else self.mock_client.request_stream_with_retries
-        )
+        if is_async and is_streaming:
+            self.func = self.mock_client.request_stream_with_retries_async
+        elif is_async and not is_streaming:
+            self.func = self.mock_client.request_with_retries_async
+        elif is_streaming:
+            self.func = self.mock_client.request_stream_with_retries
+        else:
+            self.func = self.mock_client.request_with_retries
         self.registered_responses = {}
 
     def get_mock_http_client(self) -> Mock:
@@ -230,12 +240,21 @@ class HTTPClientMock(object):
                 (called_method, called_path, called_query)
             ]
 
+        async def awaitable(x):
+            return x
+
         self.registered_responses[
             (method, path, urlencode(parse_and_sort(query_string)))
         ] = (
-            rbody,
-            rcode,
-            rheaders,
+            awaitable(
+                (
+                    rbody,
+                    rcode,
+                    rheaders,
+                )
+            )
+            if self.is_async
+            else (rbody, rcode, rheaders)
         )
 
         self.func.side_effect = custom_side_effect

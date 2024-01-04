@@ -7,7 +7,7 @@ from stripe._util import (
 from stripe._api_version import _ApiVersion
 
 
-def raw_request(method_, url_, **params):
+def _raw_request_args(method_, url_, **params):
     params = None if params is None else params.copy()  # type: ignore
     api_key = read_special_variable(params, "api_key", None)
     idempotency_key = read_special_variable(params, "idempotency_key", None)
@@ -38,7 +38,24 @@ def raw_request(method_, url_, **params):
         headers = {} if headers is None else headers.copy()
         headers.update({"Stripe-Context": stripe_context})
 
+    return requestor, method_, url_, params, headers, api_mode
+
+
+def raw_request(method_, url_, **params):
+    requestor, method_, url_, params, headers, api_mode = _raw_request_args(
+        method_, url_, **params
+    )
     response, _ = requestor.request(method_, url_, params, headers, api_mode)
+    return response
+
+
+async def raw_request_async(method_, url_, **params):
+    requestor, method_, url_, params, headers, api_mode = _raw_request_args(
+        method_, url_, **params
+    )
+    response, _ = await requestor.request_async(
+        method_, url_, params, headers, api_mode
+    )
     return response
 
 

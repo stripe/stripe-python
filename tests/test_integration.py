@@ -1,5 +1,4 @@
 import platform
-import sys
 from threading import Thread, Lock
 import json
 import warnings
@@ -14,13 +13,10 @@ from typing import List, Dict, Tuple, Optional
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
-if sys.version_info[0] < 3:
-    from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-else:
-    from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-class TestHandler(BaseHTTPRequestHandler):
+class MyTestHandler(BaseHTTPRequestHandler):
     num_requests = 0
 
     requests = defaultdict(Queue)
@@ -54,9 +50,11 @@ class TestHandler(BaseHTTPRequestHandler):
         status = provided_status or self.default_status
         headers = provided_headers or self.default_headers
         body = provided_body or self.default_body
+        content_length = len(body)
         self.send_response(status)
         for header_name, header_value in headers.items():
             self.send_header(header_name, header_value)
+        self.send_header("Content-Length", str(content_length))
         self.end_headers()
         self.wfile.write(body)
         return
@@ -86,6 +84,7 @@ class TestIntegration(object):
             "api_base": stripe.api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
+            "default_http_client_async": stripe.default_http_client_async,
             "enable_telemetry": stripe.enable_telemetry,
             "max_network_retries": stripe.max_network_retries,
             "proxy": stripe.proxy,
@@ -99,7 +98,9 @@ class TestIntegration(object):
         yield
         stripe.api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
-        stripe.default_http_client = orig_attrs["default_http_client"]
+        stripe.default_http_client_async = orig_attrs[
+            "default_http_client_async"
+        ]
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
         stripe.max_network_retries = orig_attrs["max_network_retries"]
         stripe.proxy = orig_attrs["proxy"]
@@ -117,7 +118,7 @@ class TestIntegration(object):
         self.mock_server_thread.start()
 
     def test_hits_api_base(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -128,7 +129,7 @@ class TestIntegration(object):
         assert reqs[0].path == "/v1/balance"
 
     def test_hits_proxy_through_default_http_client(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -149,21 +150,19 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 2
 
     def test_hits_proxy_through_custom_client(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.default_http_client = (
-            stripe.http_client.new_default_http_client(
-                proxy="http://localhost:%s" % self.mock_server_port
-            )
+        stripe.default_http_client = stripe.new_default_http_client(
+            proxy="http://localhost:%s" % self.mock_server_port
         )
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
 
     def test_passes_client_telemetry_when_enabled(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             def do_request(self, req_num):
                 if req_num == 0:
                     time.sleep(31 / 1000)  # 31 ms
@@ -215,7 +214,7 @@ class TestIntegration(object):
         assert "usage" not in metrics
 
     def test_uses_thread_local_client_telemetry(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             local_num_requests = 0
             seen_metrics = set()
             stats_lock = Lock()
@@ -244,7 +243,7 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
         stripe.enable_telemetry = True
-        stripe.default_http_client = stripe.http_client.RequestsClient()
+        stripe.default_http_client = stripe.RequestsClient()
 
         def work():
             stripe.Balance.retrieve()
@@ -258,3 +257,78 @@ class TestIntegration(object):
 
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
+
+    @pytest.mark.asyncio
+    async def test_async_raw_request_success(self):
+        class MockServerRequestHandler(MyTestHandler):
+            default_body = '{"id": "cus_123", "object": "customer"}'.encode(
+                "utf-8"
+            )
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        resp = await stripe.raw_request_async(
+            "post", "/v1/customers", description="My test customer"
+        )
+        cus = stripe.deserialize(resp.data)
+
+        reqs = MockServerRequestHandler.get_requests(1)
+        req = reqs[0]
+
+        assert req.path == "/v1/customers"
+        assert req.command == "POST"
+        assert isinstance(cus, stripe.Customer)
+
+    @pytest.mark.asyncio
+    async def test_async_raw_request_timeout(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                time.sleep(0.02)
+                return super().do_request(n)
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.default_http_client_async = stripe.HTTPXClient()
+        stripe.default_http_client_async._timeout = 0.01
+        stripe.max_network_retries = 0
+
+        exception = None
+        try:
+            await stripe.raw_request_async(
+                "post", "/v1/customers", description="My test customer"
+            )
+        except stripe.APIConnectionError as e:
+            exception = e
+
+        assert exception is not None
+
+        assert "A ReadTimeout was raised" in str(exception.user_message)
+
+    @pytest.mark.asyncio
+    async def test_async_raw_request_retries(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                if n == 0:
+                    return (
+                        500,
+                        {"Request-Id": "req_1"},
+                        b'{"error": {"message": "Internal server error"}}',
+                    )
+                return (200, None, None)
+
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        await stripe.raw_request_async(
+            "post", "/v1/customers", description="My test customer"
+        )
+
+        reqs = MockServerRequestHandler.get_requests(2)
+        req = reqs[0]
+
+        assert req.path == "/v1/customers"

@@ -9,6 +9,10 @@ import requests
 from tests.stripe_mock import StripeMock
 from tests.http_client_mock import HTTPClientMock
 
+
+pytest_plugins = ("pytest_asyncio",)
+
+
 MOCK_MINIMUM_VERSION = "0.109.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
@@ -64,13 +68,16 @@ def setup_stripe():
         "api_key": stripe.api_key,
         "client_id": stripe.client_id,
         "default_http_client": stripe.default_http_client,
+        "default_http_client_async": stripe.default_http_client_async,
     }
     http_client = stripe.http_client.new_default_http_client()
+    http_client_async = stripe.http_client.new_default_http_client_async()
     stripe.api_base = MOCK_API_BASE
     stripe.upload_api_base = MOCK_API_BASE
     stripe.api_key = MOCK_API_KEY
     stripe.client_id = "ca_123"
     stripe.default_http_client = http_client
+    stripe.default_http_client_async = http_client_async
     yield
     http_client.close()
     stripe.api_base = orig_attrs["api_base"]
@@ -78,6 +85,7 @@ def setup_stripe():
     stripe.api_key = orig_attrs["api_key"]
     stripe.client_id = orig_attrs["client_id"]
     stripe.default_http_client = orig_attrs["default_http_client"]
+    stripe.default_http_client_async = orig_attrs["default_http_client_async"]
 
 
 @pytest.fixture
@@ -96,3 +104,21 @@ def http_client_mock_streaming(mocker):
     stripe.default_http_client = mock_client.get_mock_http_client()
     yield mock_client
     stripe.default_http_client = old_client
+
+
+@pytest.fixture
+def http_client_mock_async(mocker):
+    mock_client = HTTPClientMock(mocker, is_async=True)
+    old_client = stripe.default_http_client_async
+    stripe.default_http_client_async = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client_async = old_client
+
+
+@pytest.fixture
+def http_client_mock_streaming_async(mocker):
+    mock_client = HTTPClientMock(mocker, is_streaming=True, is_async=True)
+    old_client = stripe.default_http_client_async
+    stripe.default_http_client_async = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client_async = old_client

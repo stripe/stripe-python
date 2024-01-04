@@ -5,6 +5,7 @@ import time
 import random
 import threading
 import json
+import asyncio
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -21,10 +22,15 @@ from typing import (
     ClassVar,
     Union,
     cast,
+    Mapping,
 )
 from typing_extensions import (
     NoReturn,
+    Self,
     TypedDict,
+    Awaitable,
+    Type,
+    Never,
 )
 
 # - Requests is the preferred HTTP library
@@ -42,6 +48,12 @@ try:
     import pycurl  # pyright: ignore
 except ImportError:
     pycurl = None
+
+try:
+    import httpx
+    from httpx import Timeout as HTTPXTimeout
+except ImportError:
+    httpx = None
 
 try:
     import requests
@@ -100,8 +112,18 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
     return impl(*args, **kwargs)
 
 
-class HTTPClientBase(object):
+def new_default_http_client_async(
+    *args: Any, **kwargs: Any
+) -> "HTTPClientAsync":
+    if httpx:
+        impl = HTTPXClient
+    else:
+        impl = NoImportFoundAsyncClient
 
+    return impl(*args, **kwargs)
+
+
+class HTTPClientBase(object):
     name: ClassVar[str]
 
     class _Proxy(TypedDict):
@@ -316,14 +338,12 @@ class HTTPClient(HTTPClientBase):
                     assert connection_error is not None
                     raise connection_error
 
-    def request(self, method, url, headers, post_data=None, *, _usage=None):
+    def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(
-        self, method, url, headers, post_data=None, *, _usage=None
-    ):
+    def request_stream(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
@@ -331,6 +351,106 @@ class HTTPClient(HTTPClientBase):
     def close(self):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `close`"
+        )
+
+
+class HTTPClientAsync(HTTPClientBase):
+    async def request_with_retries_async(
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Any]:
+        return await self._request_with_retries_internal_async(
+            method, url, headers, post_data, is_streaming=False, _usage=_usage
+        )
+
+    async def request_stream_with_retries_async(
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Any]:
+        return await self._request_with_retries_internal_async(
+            method, url, headers, post_data, is_streaming=True, _usage=_usage
+        )
+
+    @classmethod
+    async def sleep_async(cls: Type[Self], secs: float) -> Awaitable[None]:
+        raise NotImplementedError(
+            "HTTPClientAsync subclasses must implement `sleep`"
+        )
+
+    async def _request_with_retries_internal_async(
+        self, method, url, headers, post_data, is_streaming, *, _usage=None
+    ):
+        self._add_telemetry_header(headers)
+
+        num_retries = 0
+
+        while True:
+            request_start = _now_ms()
+
+            try:
+                if is_streaming:
+                    response = await self.request_stream_async(
+                        method, url, headers, post_data
+                    )
+                else:
+                    response = await self.request_async(
+                        method, url, headers, post_data
+                    )
+                connection_error = None
+            except APIConnectionError as e:
+                connection_error = e
+                response = None
+
+            if self._should_retry(response, connection_error, num_retries):
+                if connection_error:
+                    _util.log_info(
+                        "Encountered a retryable error %s"
+                        % connection_error.user_message
+                    )
+                num_retries += 1
+                sleep_time = self._sleep_time_seconds(num_retries, response)
+                _util.log_info(
+                    (
+                        "Initiating retry %i for request %s %s after "
+                        "sleeping %.2f seconds."
+                        % (num_retries, method, url, sleep_time)
+                    )
+                )
+                await self.sleep_async(sleep_time)
+            else:
+                if response is not None:
+                    self._record_request_metrics(
+                        response, request_start, usage=_usage
+                    )
+
+                    return response
+                else:
+                    assert connection_error is not None
+                    raise connection_error
+
+    async def request_async(self, method, url, headers, post_data=None):
+        raise NotImplementedError(
+            "HTTPClientAsync subclasses must implement `request`"
+        )
+
+    async def request_stream_async(self, method, url, headers, post_data=None):
+        raise NotImplementedError(
+            "HTTPClientAsync subclasses must implement `request_stream`"
+        )
+
+    async def close_async(self):
+        raise NotImplementedError(
+            "HTTPClientAsync subclasses must implement `close_async`"
         )
 
 
@@ -804,3 +924,95 @@ class Urllib2Client(HTTPClient):
 
     def close(self):
         pass
+
+
+class HTTPXClient(HTTPClientAsync):
+    name = "httpx"
+
+    def __init__(
+        self, timeout: Optional[Union[float, "HTTPXTimeout"]] = 80, **kwargs
+    ):
+        super(HTTPXClient, self).__init__(**kwargs)
+
+        assert httpx is not None
+        self.httpx = httpx
+
+        kwargs = {}
+        if self._verify_ssl_certs:
+            kwargs["verify"] = stripe.ca_bundle_path
+        else:
+            kwargs["verify"] = False
+
+        self._client = httpx.AsyncClient(**kwargs)
+        self._timeout = timeout
+
+    def sleep_async(self, secs):
+        return asyncio.sleep(secs)
+
+    async def request_async(
+        self, method, url, headers, post_data=None, timeout=80.0
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
+        kwargs = {}
+
+        if self._proxy:
+            kwargs["proxies"] = self._proxy
+
+        if self._timeout:
+            kwargs["timeout"] = self._timeout
+
+        try:
+            response = await self._client.request(
+                method, url, headers=headers, data=post_data or {}, **kwargs
+            )
+            response.raise_for_status()
+        except Exception as e:
+            self._handle_request_error(e)
+
+        content = response.content
+        status_code = response.status_code
+        response_headers = response.headers
+        return content, status_code, response_headers
+
+    def _handle_request_error(self, e) -> NoReturn:
+        msg = (
+            "Unexpected error communicating with Stripe. If this "
+            "problem persists, let us know at support@stripe.com."
+        )
+        err = "A %s was raised" % (type(e).__name__,)
+        should_retry = True
+
+        msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
+        raise APIConnectionError(msg, should_retry=should_retry)
+
+    async def request_stream_async(self, method, url, headers, post_data=None):
+        raise NotImplementedError()
+
+    async def close(self):
+        await self._client.aclose()
+
+
+class NoImportFoundAsyncClient(HTTPClientAsync):
+    def __init__(self, **kwargs):
+        super(NoImportFoundAsyncClient, self).__init__(**kwargs)
+
+    @staticmethod
+    def raise_async_client_import_error() -> Never:
+        raise ImportError(
+            (
+                "Import httpx not found. To make async http requests,"
+                "You must either install httpx or define your own"
+                "async http client by subclassing stripe.HTTPClientAsync"
+                "and setting stripe.default_http_client to an instance of it."
+            )
+        )
+
+    async def request_async(
+        self, method, url, headers, post_data=None
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
+        self.raise_async_client_import_error()
+
+    async def request_stream_async(self, method, url, headers, post_data=None):
+        self.raise_async_client_import_error()
+
+    async def close_async(self):
+        self.raise_async_client_import_error()
