@@ -14,11 +14,14 @@ class TestAPIResource(object):
 
         @classmethod
         def my_method(cls, **params) -> "MyDeletableResource":
-            return cast("MyDeletableResource", cls._static_request(
-                "post",
-                cls.class_url(),
-                params=params,
-            ))
+            return cast(
+                "MyDeletableResource",
+                cls._static_request(
+                    "post",
+                    cls.class_url(),
+                    params=params,
+                ),
+            )
 
     def test_retrieve_and_refresh(self, http_client_mock):
         path = "/v1/myresources/foo%2A"
@@ -215,7 +218,12 @@ class TestAPIResource(object):
             rbody='{"id": "foo"}',
         )
 
-        res = self.MyDeletableResource.retrieve("foo", api_key="newkey", stripe_version="2023-01-01", stripe_account="foo")
+        res = self.MyDeletableResource.retrieve(
+            "foo",
+            api_key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="foo",
+        )
 
         http_client_mock.assert_requested(
             "get",
@@ -242,6 +250,7 @@ class TestAPIResource(object):
 
     def test_class_method_forwards_options(self, http_client_mock):
         from stripe._object_classes import OBJECT_CLASSES
+
         OBJECT_CLASSES["myresource"] = self.MyDeletableResource
 
         http_client_mock.stub_request(
@@ -250,7 +259,9 @@ class TestAPIResource(object):
             rbody='{"id": "foo", "object": "myresource"}',
         )
 
-        res = self.MyDeletableResource.my_method(api_key="newkey", stripe_version="2023-01-01", stripe_account="foo")
+        res = self.MyDeletableResource.my_method(
+            api_key="newkey", stripe_version="2023-01-01", stripe_account="foo"
+        )
 
         http_client_mock.assert_requested(
             "post",

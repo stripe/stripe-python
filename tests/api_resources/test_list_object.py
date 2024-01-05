@@ -395,6 +395,6 @@ class TestAutoPaging:
         http_client_mock.assert_requested(
             "delete",
             path="/v1/products/prod_001",
-            api_key="sk_test_iter_forwards_options"
+            api_key="sk_test_iter_forwards_options",
         )
         assert lo.data[0].api_key == "sk_test_iter_forwards_options"
