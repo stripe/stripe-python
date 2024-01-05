@@ -90,6 +90,18 @@ class Settings(
         The place where your business is located.
         """
 
+    class ModifyParamsDefaults(TypedDict):
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'inferred_by_currency']"
+        ]
+        """
+        Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
+        """
+        tax_code: NotRequired["str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+
     class ModifyParamsHeadOffice(TypedDict):
         address: "Settings.ModifyParamsHeadOfficeAddress"
         """
@@ -120,18 +132,6 @@ class Settings(
         state: NotRequired["str"]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class ModifyParamsDefaults(TypedDict):
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'inferred_by_currency']"
-        ]
-        """
-        Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
-        """
-        tax_code: NotRequired["str"]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
 
     class RetrieveParams(RequestOptions):

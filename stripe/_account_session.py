@@ -161,30 +161,60 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Configuration for the payouts embedded component.
         """
 
-    class CreateParamsComponentsPayouts(TypedDict):
+    class CreateParamsComponentsAccountOnboarding(TypedDict):
         enabled: bool
         """
         Whether the embedded component is enabled.
         """
         features: NotRequired[
-            "AccountSession.CreateParamsComponentsPayoutsFeatures"
+            "AccountSession.CreateParamsComponentsAccountOnboardingFeatures"
         ]
         """
         The list of features enabled in the embedded component.
         """
 
-    class CreateParamsComponentsPayoutsFeatures(TypedDict):
-        edit_payout_schedule: NotRequired["bool"]
+    class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
+        enabled: bool
         """
-        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether the embedded component is enabled.
         """
-        instant_payouts: NotRequired["bool"]
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingPromotionFeatures"
+        ]
         """
-        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        The list of features enabled in the embedded component.
         """
-        standard_payouts: NotRequired["bool"]
+
+    class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsPaymentDetails(TypedDict):
+        enabled: bool
         """
-        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentDetailsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
+        capture_payments: NotRequired["bool"]
+        """
+        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        dispute_management: NotRequired["bool"]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired["bool"]
+        """
+        Whether to allow sending refunds. This is `true` by default.
         """
 
     class CreateParamsComponentsPayments(TypedDict):
@@ -213,61 +243,31 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Whether to allow sending refunds. This is `true` by default.
         """
 
-    class CreateParamsComponentsPaymentDetails(TypedDict):
+    class CreateParamsComponentsPayouts(TypedDict):
         enabled: bool
         """
         Whether the embedded component is enabled.
         """
         features: NotRequired[
-            "AccountSession.CreateParamsComponentsPaymentDetailsFeatures"
+            "AccountSession.CreateParamsComponentsPayoutsFeatures"
         ]
         """
         The list of features enabled in the embedded component.
         """
 
-    class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
-        capture_payments: NotRequired["bool"]
+    class CreateParamsComponentsPayoutsFeatures(TypedDict):
+        edit_payout_schedule: NotRequired["bool"]
         """
-        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
-        dispute_management: NotRequired["bool"]
+        instant_payouts: NotRequired["bool"]
         """
-        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
-        refund_management: NotRequired["bool"]
+        standard_payouts: NotRequired["bool"]
         """
-        Whether to allow sending refunds. This is `true` by default.
+        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
-
-    class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsCapitalFinancingPromotionFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsAccountOnboarding(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsAccountOnboardingFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
-        pass
 
     account: str
     """

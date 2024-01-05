@@ -411,82 +411,6 @@ class Calculation(CreateableAPIResource["Calculation"]):
         Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.
         """
 
-    class CreateParamsShippingCost(TypedDict):
-        amount: NotRequired["int"]
-        """
-        A positive integer in cents representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
-        """
-        shipping_rate: NotRequired["str"]
-        """
-        If provided, the [shipping rate](https://stripe.com/docs/api/shipping_rates/object)'s `amount`, `tax_code` and `tax_behavior` are used. If you provide a shipping rate, then you cannot pass the `amount`, `tax_code`, or `tax_behavior` parameters.
-        """
-        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
-        """
-        Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. Defaults to `exclusive`.
-        """
-        tax_code: NotRequired["str"]
-        """
-        The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
-        """
-
-    class CreateParamsShipFromDetails(TypedDict):
-        address: "Calculation.CreateParamsShipFromDetailsAddress"
-        """
-        The address from which the goods are being shipped from.
-        """
-
-    class CreateParamsShipFromDetailsAddress(TypedDict):
-        city: NotRequired["Literal['']|str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: str
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["Literal['']|str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["Literal['']|str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["Literal['']|str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["Literal['']|str"]
-        """
-        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class CreateParamsLineItem(TypedDict):
-        amount: int
-        """
-        A positive integer in cents representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
-        """
-        product: NotRequired["str"]
-        """
-        If provided, the product's `tax_code` will be used as the line item's `tax_code`.
-        """
-        quantity: NotRequired["int"]
-        """
-        The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
-        """
-        reference: NotRequired["str"]
-        """
-        A custom identifier for this line item, which must be unique across the line items in the calculation. The reference helps identify each line item in exported [tax reports](https://stripe.com/docs/tax/reports).
-        """
-        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
-        """
-        Specifies whether the `amount` includes taxes. Defaults to `exclusive`.
-        """
-        tax_code: NotRequired["str"]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
-        """
-
     class CreateParamsCustomerDetails(TypedDict):
         address: NotRequired["Calculation.CreateParamsCustomerDetailsAddress"]
         """
@@ -511,6 +435,32 @@ class Calculation(CreateableAPIResource["Calculation"]):
         ]
         """
         Overrides the tax calculation result to allow you to not collect tax from your customer. Use this if you've manually checked your customer's tax exemptions. Prefer providing the customer's `tax_ids` where possible, which automatically determines whether `reverse_charge` applies.
+        """
+
+    class CreateParamsCustomerDetailsAddress(TypedDict):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State, county, province, or region. We recommend sending [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code value when possible.
         """
 
     class CreateParamsCustomerDetailsTaxId(TypedDict):
@@ -590,7 +540,39 @@ class Calculation(CreateableAPIResource["Calculation"]):
         Value of the tax ID.
         """
 
-    class CreateParamsCustomerDetailsAddress(TypedDict):
+    class CreateParamsLineItem(TypedDict):
+        amount: int
+        """
+        A positive integer in cents representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        """
+        product: NotRequired["str"]
+        """
+        If provided, the product's `tax_code` will be used as the line item's `tax_code`.
+        """
+        quantity: NotRequired["int"]
+        """
+        The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
+        """
+        reference: NotRequired["str"]
+        """
+        A custom identifier for this line item, which must be unique across the line items in the calculation. The reference helps identify each line item in exported [tax reports](https://stripe.com/docs/tax/reports).
+        """
+        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
+        """
+        Specifies whether the `amount` includes taxes. Defaults to `exclusive`.
+        """
+        tax_code: NotRequired["str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
+        """
+
+    class CreateParamsShipFromDetails(TypedDict):
+        address: "Calculation.CreateParamsShipFromDetailsAddress"
+        """
+        The address from which the goods are being shipped from.
+        """
+
+    class CreateParamsShipFromDetailsAddress(TypedDict):
         city: NotRequired["Literal['']|str"]
         """
         City, district, suburb, town, or village.
@@ -613,7 +595,25 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         state: NotRequired["Literal['']|str"]
         """
-        State, county, province, or region. We recommend sending [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code value when possible.
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
+    class CreateParamsShippingCost(TypedDict):
+        amount: NotRequired["int"]
+        """
+        A positive integer in cents representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        """
+        shipping_rate: NotRequired["str"]
+        """
+        If provided, the [shipping rate](https://stripe.com/docs/api/shipping_rates/object)'s `amount`, `tax_code` and `tax_behavior` are used. If you provide a shipping rate, then you cannot pass the `amount`, `tax_code`, or `tax_behavior` parameters.
+        """
+        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
+        """
+        Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. Defaults to `exclusive`.
+        """
+        tax_code: NotRequired["str"]
+        """
+        The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
         """
 
     class ListLineItemsParams(RequestOptions):

@@ -102,12 +102,6 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         Configuration for the pricing table.
         """
 
-    class CreateParamsComponentsPricingTable(TypedDict):
-        enabled: bool
-        """
-        Whether the pricing table is enabled.
-        """
-
     class CreateParamsComponentsPaymentElement(TypedDict):
         enabled: bool
         """
@@ -136,6 +130,12 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         payment_method_update: NotRequired["Literal['auto', 'never']"]
         """
         Controls whether the Payment Element allows the updating of a saved payment method.
+        """
+
+    class CreateParamsComponentsPricingTable(TypedDict):
+        enabled: bool
+        """
+        Whether the pricing table is enabled.
         """
 
     client_secret: str

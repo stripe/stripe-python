@@ -138,16 +138,6 @@ class FinancialAccount(
         The currencies the FinancialAccount can hold a balance in.
         """
 
-    class CreateParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
-        """
-        Restricts all inbound money movement.
-        """
-        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
-        """
-        Restricts all outbound money movement.
-        """
-
     class CreateParamsFeatures(TypedDict):
         card_issuing: NotRequired[
             "FinancialAccount.CreateParamsFeaturesCardIssuing"
@@ -192,73 +182,13 @@ class FinancialAccount(
         Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         """
 
-    class CreateParamsFeaturesOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class CreateParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
+    class CreateParamsFeaturesCardIssuing(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class CreateParamsFeaturesOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class CreateParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class CreateParamsFeaturesInboundTransfersAch(TypedDict):
+    class CreateParamsFeaturesDepositInsurance(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -278,16 +208,86 @@ class FinancialAccount(
         Whether the FinancialAccount should have the Feature.
         """
 
-    class CreateParamsFeaturesDepositInsurance(TypedDict):
+    class CreateParamsFeaturesInboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.CreateParamsFeaturesInboundTransfersAch"
+        ]
+        """
+        Enables ACH Debits via the InboundTransfers API.
+        """
+
+    class CreateParamsFeaturesInboundTransfersAch(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class CreateParamsFeaturesCardIssuing(TypedDict):
+    class CreateParamsFeaturesIntraStripeFlows(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
+        """
+
+    class CreateParamsFeaturesOutboundPayments(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundPayments API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundPayments API.
+        """
+
+    class CreateParamsFeaturesOutboundPaymentsAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class CreateParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class CreateParamsFeaturesOutboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.CreateParamsFeaturesOutboundTransfersAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundTransfers API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.CreateParamsFeaturesOutboundTransfersUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundTransfers API.
+        """
+
+    class CreateParamsFeaturesOutboundTransfersAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class CreateParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class CreateParamsPlatformRestrictions(TypedDict):
+        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        """
+        Restricts all inbound money movement.
+        """
+        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        """
+        Restricts all outbound money movement.
         """
 
     class ListParams(RequestOptions):
@@ -347,16 +347,6 @@ class FinancialAccount(
         The set of functionalities that the platform can restrict on the FinancialAccount.
         """
 
-    class ModifyParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
-        """
-        Restricts all inbound money movement.
-        """
-        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
-        """
-        Restricts all outbound money movement.
-        """
-
     class ModifyParamsFeatures(TypedDict):
         card_issuing: NotRequired[
             "FinancialAccount.ModifyParamsFeaturesCardIssuing"
@@ -401,73 +391,13 @@ class FinancialAccount(
         Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         """
 
-    class ModifyParamsFeaturesOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class ModifyParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
+    class ModifyParamsFeaturesCardIssuing(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class ModifyParamsFeaturesOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class ModifyParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class ModifyParamsFeaturesInboundTransfersAch(TypedDict):
+    class ModifyParamsFeaturesDepositInsurance(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -487,25 +417,95 @@ class FinancialAccount(
         Whether the FinancialAccount should have the Feature.
         """
 
-    class ModifyParamsFeaturesDepositInsurance(TypedDict):
+    class ModifyParamsFeaturesInboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.ModifyParamsFeaturesInboundTransfersAch"
+        ]
+        """
+        Enables ACH Debits via the InboundTransfers API.
+        """
+
+    class ModifyParamsFeaturesInboundTransfersAch(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class ModifyParamsFeaturesCardIssuing(TypedDict):
+    class ModifyParamsFeaturesIntraStripeFlows(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class RetrieveParams(RequestOptions):
+    class ModifyParamsFeaturesOutboundPayments(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundPayments API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundPayments API.
+        """
+
+    class ModifyParamsFeaturesOutboundPaymentsAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class ModifyParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class ModifyParamsFeaturesOutboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundTransfers API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundTransfers API.
+        """
+
+    class ModifyParamsFeaturesOutboundTransfersAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class ModifyParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class ModifyParamsPlatformRestrictions(TypedDict):
+        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        """
+        Restricts all inbound money movement.
+        """
+        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        """
+        Restricts all outbound money movement.
+        """
+
+    class RetrieveFeaturesParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
         """
 
-    class RetrieveFeaturesParams(RequestOptions):
+    class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -559,73 +559,13 @@ class FinancialAccount(
         Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         """
 
-    class UpdateFeaturesParamsOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class UpdateFeaturesParamsOutboundTransfersUsDomesticWire(TypedDict):
+    class UpdateFeaturesParamsCardIssuing(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class UpdateFeaturesParamsOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class UpdateFeaturesParamsOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class UpdateFeaturesParamsInboundTransfersAch(TypedDict):
+    class UpdateFeaturesParamsDepositInsurance(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -645,13 +585,73 @@ class FinancialAccount(
         Whether the FinancialAccount should have the Feature.
         """
 
-    class UpdateFeaturesParamsDepositInsurance(TypedDict):
+    class UpdateFeaturesParamsInboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.UpdateFeaturesParamsInboundTransfersAch"
+        ]
+        """
+        Enables ACH Debits via the InboundTransfers API.
+        """
+
+    class UpdateFeaturesParamsInboundTransfersAch(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
         """
 
-    class UpdateFeaturesParamsCardIssuing(TypedDict):
+    class UpdateFeaturesParamsIntraStripeFlows(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class UpdateFeaturesParamsOutboundPayments(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundPayments API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundPayments API.
+        """
+
+    class UpdateFeaturesParamsOutboundPaymentsAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class UpdateFeaturesParamsOutboundPaymentsUsDomesticWire(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class UpdateFeaturesParamsOutboundTransfers(TypedDict):
+        ach: NotRequired[
+            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersAch"
+        ]
+        """
+        Enables ACH transfers via the OutboundTransfers API.
+        """
+        us_domestic_wire: NotRequired[
+            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersUsDomesticWire"
+        ]
+        """
+        Enables US domestic wire transfers via the OutboundTransfers API.
+        """
+
+    class UpdateFeaturesParamsOutboundTransfersAch(TypedDict):
+        requested: bool
+        """
+        Whether the FinancialAccount should have the Feature.
+        """
+
+    class UpdateFeaturesParamsOutboundTransfersUsDomesticWire(TypedDict):
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.

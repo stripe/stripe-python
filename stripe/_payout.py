@@ -114,7 +114,7 @@ class Payout(
         Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
         """
 
-    class ListParamsCreated(TypedDict):
+    class ListParamsArrivalDate(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -132,7 +132,7 @@ class Payout(
         Maximum value to filter by (inclusive)
         """
 
-    class ListParamsArrivalDate(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
