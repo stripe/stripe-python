@@ -332,7 +332,7 @@ class SubscriptionSchedule(
             "Literal['cancel', 'none', 'release', 'renew']"
         ]
         """
-        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         """
         expand: NotRequired["List[str]"]
         """
@@ -828,7 +828,7 @@ class SubscriptionSchedule(
             "Literal['cancel', 'none', 'release', 'renew']"
         ]
         """
-        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         """
         expand: NotRequired["List[str]"]
         """
@@ -1238,7 +1238,7 @@ class SubscriptionSchedule(
     default_settings: DefaultSettings
     end_behavior: Literal["cancel", "none", "release", "renew"]
     """
-    Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+    Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
     """
     id: str
     """
