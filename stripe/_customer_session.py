@@ -77,7 +77,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParams(RequestOptions):
         components: "CustomerSession.CreateParamsComponents"
         """
-        Configuration for each component.
+        Configuration for each component. 1 component must be enabled.
         """
         customer: str
         """
