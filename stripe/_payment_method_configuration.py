@@ -1051,449 +1051,15 @@ class PaymentMethodConfiguration(
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
         """
 
-    class CreateParamsWechatPay(TypedDict):
+    class CreateParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsWechatPayDisplayPreference"
+            "PaymentMethodConfiguration.CreateParamsAcssDebitDisplayPreference"
         ]
         """
         Whether or not the payment method should be displayed.
         """
 
-    class CreateParamsWechatPayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsUsBankAccount(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsUsBankAccountDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsSofort(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsSofortDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsSofortDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsSepaDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsSepaDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsSepaDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsRevolutPay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsRevolutPayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsRevolutPayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsPromptpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsPromptpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPromptpayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsPaypal(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsPaypalDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsPaynow(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsPaynowDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPaynowDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsP24(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsP24DisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsP24DisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsOxxo(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsOxxoDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsLink(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsLinkDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsLinkDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsKonbini(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsKonbiniDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsKonbiniDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsKlarna(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsKlarnaDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsKlarnaDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsJcb(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsJcbDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsJcbDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsIdeal(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsIdealDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsIdealDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsGrabpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsGrabpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsGrabpayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsGooglePay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsGooglePayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsGooglePayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsGiropay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsGiropayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsGiropayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsFpx(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsFpxDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsFpxDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsEps(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsEpsDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsEpsDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsCashapp(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsCashappDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsCashappDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsCartesBancaires(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsCartesBancairesDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsCartesBancairesDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsCard(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsCardDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsCardDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsBoleto(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsBoletoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsBoletoDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsBlik(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsBlikDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsBlikDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsBancontact(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsBancontactDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsBancontactDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsBacsDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsBacsDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsBacsDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsAuBecsDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsAuBecsDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsAuBecsDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsApplePayLater(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsApplePayLaterDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsApplePayLaterDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsApplePay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsApplePayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsApplePayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsAlipay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsAlipayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsAlipayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class CreateParamsAfterpayClearpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsAfterpayClearpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsAfterpayClearpayDisplayPreference(TypedDict):
+    class CreateParamsAcssDebitDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -1513,15 +1079,449 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
-    class CreateParamsAcssDebit(TypedDict):
+    class CreateParamsAfterpayClearpay(TypedDict):
         display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsAcssDebitDisplayPreference"
+            "PaymentMethodConfiguration.CreateParamsAfterpayClearpayDisplayPreference"
         ]
         """
         Whether or not the payment method should be displayed.
         """
 
-    class CreateParamsAcssDebitDisplayPreference(TypedDict):
+    class CreateParamsAfterpayClearpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsAlipay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsAlipayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsApplePay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsApplePayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsApplePayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsApplePayLater(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsApplePayLaterDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsApplePayLaterDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsAuBecsDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsAuBecsDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsAuBecsDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBacsDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBacsDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBacsDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBancontact(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBancontactDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBlik(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBlikDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBlikDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBoleto(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBoletoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBoletoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsCardDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsCartesBancaires(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsCartesBancairesDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsCartesBancairesDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsCashapp(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsCashappDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsCashappDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsEps(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsEpsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsEpsDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsFpx(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsFpxDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsFpxDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsGiropay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsGiropayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsGiropayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsGooglePay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsGooglePayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsGooglePayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsGrabpay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsGrabpayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsGrabpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsIdeal(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsIdealDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsIdealDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsJcb(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsJcbDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsJcbDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsKlarna(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsKlarnaDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKlarnaDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsKonbini(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsKonbiniDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsLink(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsLinkDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsLinkDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsOxxo(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsOxxoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsP24(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsP24DisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsP24DisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPaynow(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPaynowDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaynowDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPaypal(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPaypalDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPromptpay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPromptpayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPromptpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsRevolutPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsRevolutPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsSepaDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSepaDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSepaDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsSofort(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSofortDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSofortDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsUsBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsUsBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsWechatPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsWechatPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsWechatPayDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -1715,449 +1715,15 @@ class PaymentMethodConfiguration(
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
         """
 
-    class ModifyParamsWechatPay(TypedDict):
+    class ModifyParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsWechatPayDisplayPreference"
+            "PaymentMethodConfiguration.ModifyParamsAcssDebitDisplayPreference"
         ]
         """
         Whether or not the payment method should be displayed.
         """
 
-    class ModifyParamsWechatPayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsUsBankAccount(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsUsBankAccountDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsSofort(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsSofortDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsSofortDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsSepaDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsSepaDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsSepaDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsRevolutPay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsRevolutPayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsRevolutPayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsPromptpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsPromptpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsPromptpayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsPaypal(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsPaypalDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsPaynow(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsPaynowDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsPaynowDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsP24(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsP24DisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsP24DisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsOxxo(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsOxxoDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsLink(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsLinkDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsLinkDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsKonbini(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsKonbiniDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsKonbiniDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsKlarna(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsKlarnaDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsKlarnaDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsJcb(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsJcbDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsJcbDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsIdeal(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsIdealDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsIdealDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsGrabpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsGrabpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsGrabpayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsGooglePay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsGooglePayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsGooglePayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsGiropay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsGiropayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsGiropayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsFpx(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsFpxDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsFpxDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsEps(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsEpsDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsEpsDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsCashapp(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsCashappDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsCashappDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsCartesBancaires(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsCartesBancairesDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsCartesBancairesDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsCard(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsCardDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsCardDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsBoleto(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsBoletoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsBoletoDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsBlik(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsBlikDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsBlikDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsBancontact(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsBancontactDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsBancontactDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsBacsDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsBacsDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsBacsDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsAuBecsDebit(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsAuBecsDebitDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsAuBecsDebitDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsApplePayLater(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsApplePayLaterDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsApplePayLaterDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsApplePay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsApplePayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsApplePayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsAlipay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsAlipayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsAlipayDisplayPreference(TypedDict):
-        preference: NotRequired["Literal['none', 'off', 'on']"]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class ModifyParamsAfterpayClearpay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsAfterpayClearpayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsAfterpayClearpayDisplayPreference(TypedDict):
+    class ModifyParamsAcssDebitDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -2177,15 +1743,449 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
-    class ModifyParamsAcssDebit(TypedDict):
+    class ModifyParamsAfterpayClearpay(TypedDict):
         display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsAcssDebitDisplayPreference"
+            "PaymentMethodConfiguration.ModifyParamsAfterpayClearpayDisplayPreference"
         ]
         """
         Whether or not the payment method should be displayed.
         """
 
-    class ModifyParamsAcssDebitDisplayPreference(TypedDict):
+    class ModifyParamsAfterpayClearpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsAlipay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsAlipayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsApplePay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsApplePayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsApplePayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsApplePayLater(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsApplePayLaterDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsApplePayLaterDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsAuBecsDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsAuBecsDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsAuBecsDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBacsDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBacsDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBacsDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBancontact(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBancontactDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBlik(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBlikDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBlikDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBoleto(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBoletoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBoletoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsCardDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsCartesBancaires(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsCartesBancairesDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsCartesBancairesDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsCashapp(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsCashappDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsCashappDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsEps(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsEpsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsEpsDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsFpx(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsFpxDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsFpxDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsGiropay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsGiropayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsGiropayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsGooglePay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsGooglePayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsGooglePayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsGrabpay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsGrabpayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsGrabpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsIdeal(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsIdealDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsIdealDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsJcb(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsJcbDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsJcbDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsKlarna(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsKlarnaDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsKlarnaDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsKonbini(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsKonbiniDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsLink(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsLinkDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsLinkDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsOxxo(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsOxxoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsP24(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsP24DisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsP24DisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsPaynow(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPaynowDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPaynowDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsPaypal(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPaypalDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsPromptpay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPromptpayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPromptpayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsRevolutPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsRevolutPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsSepaDebit(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSepaDebitDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSepaDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsSofort(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSofortDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSofortDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsUsBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsUsBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsWechatPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsWechatPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsWechatPayDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.

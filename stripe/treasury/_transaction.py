@@ -151,15 +151,7 @@ class Transaction(ListableAPIResource["Transaction"]):
         A filter for the `status_transitions.posted_at` timestamp. When using this filter, `status=posted` and `order_by=posted_at` must also be specified.
         """
 
-    class ListParamsStatusTransitions(TypedDict):
-        posted_at: NotRequired[
-            "Transaction.ListParamsStatusTransitionsPostedAt|int"
-        ]
-        """
-        Returns Transactions with `posted_at` within the specified range.
-        """
-
-    class ListParamsStatusTransitionsPostedAt(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -177,7 +169,15 @@ class Transaction(ListableAPIResource["Transaction"]):
         Maximum value to filter by (inclusive)
         """
 
-    class ListParamsCreated(TypedDict):
+    class ListParamsStatusTransitions(TypedDict):
+        posted_at: NotRequired[
+            "Transaction.ListParamsStatusTransitionsPostedAt|int"
+        ]
+        """
+        Returns Transactions with `posted_at` within the specified range.
+        """
+
+    class ListParamsStatusTransitionsPostedAt(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)

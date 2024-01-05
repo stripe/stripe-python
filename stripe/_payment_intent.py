@@ -1925,1198 +1925,71 @@ class PaymentIntent(
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
-    class ConfirmParamsShipping(TypedDict):
-        address: "PaymentIntent.ConfirmParamsShippingAddress"
+    class ConfirmParamsMandateData(TypedDict):
+        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance"
         """
-        Shipping address.
-        """
-        carrier: NotRequired["str"]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: str
-        """
-        Recipient name.
-        """
-        phone: NotRequired["str"]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: NotRequired["str"]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        This hash contains details about the customer acceptance of the Mandate.
         """
 
-    class ConfirmParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+    class ConfirmParamsMandateData2(TypedDict):
+        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance2"
         """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
+        This hash contains details about the customer acceptance of the Mandate.
         """
 
-    class ConfirmParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
+    class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
+        accepted_at: NotRequired["int"]
         """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        The time at which the customer accepted the Mandate.
+        """
+        offline: NotRequired[
+            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline"
+        ]
+        """
+        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
+        """
+        online: NotRequired[
+            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
+        ]
+        """
+        If this is a Mandate accepted online, this hash contains details about the online acceptance.
+        """
+        type: Literal["offline", "online"]
+        """
+        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
         """
 
-    class ConfirmParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebit"
-        ]
+    class ConfirmParamsMandateDataCustomerAcceptance2(TypedDict):
+        online: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline2"
         """
-        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
+        If this is a Mandate accepted online, this hash contains details about the online acceptance.
         """
-        affirm: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAffirm"
-        ]
+        type: Literal["online"]
         """
-        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
-        """
-        afterpay_clearpay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAfterpayClearpay"
-        ]
-        """
-        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
-        """
-        alipay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAlipay"
-        ]
-        """
-        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
-        """
-        au_becs_debit: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAuBecsDebit"
-        ]
-        """
-        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
-        """
-        bacs_debit: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit"
-        ]
-        """
-        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
-        """
-        bancontact: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBancontact"
-        ]
-        """
-        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
-        """
-        blik: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBlik"
-        ]
-        """
-        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
-        """
-        boleto: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBoleto"
-        ]
-        """
-        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
-        """
-        card: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCard"
-        ]
-        """
-        Configuration for any card payments attempted on this PaymentIntent.
-        """
-        card_present: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardPresent"
-        ]
-        """
-        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        cashapp: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCashapp"
-        ]
-        """
-        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
-        """
-        customer_balance: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalance"
-        ]
-        """
-        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
-        """
-        eps: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsEps"
-        ]
-        """
-        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
-        """
-        fpx: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsFpx"
-        ]
-        """
-        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
-        """
-        giropay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGiropay"
-        ]
-        """
-        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
-        """
-        grabpay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay"
-        ]
-        """
-        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
-        """
-        ideal: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal"
-        ]
-        """
-        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
-        """
-        interac_present: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsInteracPresent"
-        ]
-        """
-        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        klarna: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarna"
-        ]
-        """
-        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
-        """
-        konbini: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKonbini"
-        ]
-        """
-        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        link: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsLink"
-        ]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        oxxo: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsOxxo"
-        ]
-        """
-        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
-        """
-        p24: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsP24"
-        ]
-        """
-        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
-        """
-        paynow: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaynow"
-        ]
-        """
-        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
-        """
-        paypal: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        pix: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix"
-        ]
-        """
-        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
-        """
-        promptpay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPromptpay"
-        ]
-        """
-        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        revolut_pay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay"
-        ]
-        """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
-        """
-        sepa_debit: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        sofort: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort"
-        ]
-        """
-        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
-        """
-        us_bank_account: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
-        """
-        wechat_pay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsWechatPay"
-        ]
-        """
-        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
-        """
-        zip: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsZip"
-        ]
-        """
-        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
+        The type of customer acceptance information included with the Mandate.
         """
 
-    class ConfirmParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
-        """
-        The app ID registered with WeChat Pay. Only required when client is ios or android.
-        """
-        client: Literal["android", "ios", "web"]
-        """
-        The client type that the end customer will pay from
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-        ]
-        """
-        Additional fields for Financial Connections Session creation
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        networks: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
-        """
-        Additional fields for network related functions
-        """
-        preferred_settlement_speed: NotRequired[
-            "Literal['']|Literal['fastest', 'standard']"
-        ]
-        """
-        Preferred transaction settlement speed
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
-        preferred_language: NotRequired[
-            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
-        ]
-        """
-        Language shown to the payer on redirect.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+    class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
+    class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
+        ip_address: str
         """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
-        """
-        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
-        """
-        expires_at: NotRequired["int"]
-        """
-        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
-        ]
-        """
-        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
-        """
-        reference: NotRequired["str"]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
-        risk_correlation_id: NotRequired["str"]
-        """
-        The risk correlation ID for an on-session payment using a saved PayPal payment method.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        tos_shown_and_accepted: NotRequired["bool"]
-        """
-        Confirm that the payer has accepted the P24 terms and conditions.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        persistent_token: NotRequired["str"]
-        """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired["Literal['']|str"]
-        """
-        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
-        """
-        expires_after_days: NotRequired["Literal['']|int"]
-        """
-        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
-        """
-        expires_at: NotRequired["Literal['']|int"]
-        """
-        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
-        """
-        product_description: NotRequired["Literal['']|str"]
-        """
-        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
-        ]
-        """
-        Preferred language of the Klarna authorization page that the customer is redirected to
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsInteracPresent(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodOptionsIdeal(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCustomerBalance(TypedDict):
-        bank_transfer: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-        ]
-        """
-        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
-        """
-        funding_type: NotRequired["Literal['bank_transfer']"]
-        """
-        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
-        TypedDict,
-    ):
-        eu_bank_transfer: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-        ]
-        """
-        Configuration for the eu_bank_transfer funding type.
-        """
-        requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
-        ]
-        """
-        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-        """
-        type: Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
-        """
-        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-        TypedDict,
-    ):
-        country: str
-        """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
-        """
-        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-        """
-        request_incremental_authorization_support: NotRequired["bool"]
-        """
-        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        cvc_token: NotRequired["str"]
-        """
-        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
-        """
-        installments: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments"
-        ]
-        """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
-
-        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter indicates that a transaction will be marked
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
-        """
-        request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
-        """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
-        """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
-        """
-        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        three_d_secure: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this payment.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: str
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
-        """
-        The exemption requested via 3DS and accepted by the issuer at authentication time.
-        """
-        network_options: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: str
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: Literal["1.0.2", "2.1.0", "2.2.0"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
+        The IP address from which the Mandate was accepted by the customer.
         """
-        Setting to true enables installments for this PaymentIntent.
-        This will cause the response to contain a list of available installment plans.
-        Setting to false will prevent any selected plan from applying to a charge.
+        user_agent: str
         """
-        plan: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan"
-        ]
+        The user agent of the browser from which the Mandate was accepted by the customer.
         """
-        The selected installment plan to use for this payment attempt.
-        This parameter can only be provided during confirmation.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
-        count: int
-        """
-        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
-        """
-        interval: Literal["month"]
-        """
-        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
-        One of `month`.
-        """
-        type: Literal["fixed_count"]
-        """
-        Type of installment plan, one of `fixed_count`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
-        """
-        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-        """
-        Preferred language of the Bancontact authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAlipay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        reference: NotRequired["str"]
-        """
-        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
-        This field differs from the statement descriptor and item name.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired["str"]
-        """
-        Preferred language of the Affirm authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
+    class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
+        ip_address: NotRequired["str"]
         """
-        Payment schedule for the mandate.
+        The IP address from which the Mandate was accepted by the customer.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        user_agent: NotRequired["str"]
         """
-        Transaction type of the mandate.
+        The user agent of the browser from which the Mandate was accepted by the customer.
         """
 
     class ConfirmParamsPaymentMethodData(TypedDict):
@@ -3347,177 +2220,50 @@ class PaymentIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class ConfirmParamsPaymentMethodDataZip(TypedDict):
+    class ConfirmParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataWechatPay(TypedDict):
+    class ConfirmParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class ConfirmParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodDataKlarnaDob"
-        ]
-        """
-        Customer's date of birth
-        """
-
-    class ConfirmParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class ConfirmParamsPaymentMethodDataBlik(TypedDict):
+    class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -3566,118 +2312,1372 @@ class PaymentIntent(
         State, county, province, or region.
         """
 
-    class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+    class ConfirmParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
+    class ConfirmParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataKlarnaDob"
+        ]
+        """
+        Customer's date of birth
+        """
+
+    class ConfirmParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class ConfirmParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+    class ConfirmParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class ConfirmParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataAffirm(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
-
-    class ConfirmParamsMandateData2(TypedDict):
-        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance2"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptance2(TypedDict):
-        online: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline2"
-        """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
-        """
-        type: Literal["online"]
-        """
-        The type of customer acceptance information included with the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
-        ip_address: NotRequired["str"]
-        """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: NotRequired["str"]
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class ConfirmParamsMandateData(TypedDict):
-        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
-        """
-        The time at which the customer accepted the Mandate.
-        """
-        offline: NotRequired[
-            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline"
+    class ConfirmParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebit"
         ]
         """
-        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
+        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
         """
-        online: NotRequired[
-            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
+        affirm: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAffirm"
         ]
         """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
+        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
         """
-        type: Literal["offline", "online"]
+        afterpay_clearpay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAfterpayClearpay"
+        ]
         """
-        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
+        """
+        alipay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAlipay"
+        ]
+        """
+        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        au_becs_debit: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAuBecsDebit"
+        ]
+        """
+        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
+        """
+        bacs_debit: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
+        """
+        bancontact: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBancontact"
+        ]
+        """
+        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        blik: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBlik"
+        ]
+        """
+        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
+        """
+        boleto: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBoleto"
+        ]
+        """
+        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
+        """
+        card: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+        card_present: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        cashapp: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCashapp"
+        ]
+        """
+        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        customer_balance: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
+        """
+        eps: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsEps"
+        ]
+        """
+        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
+        """
+        fpx: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsFpx"
+        ]
+        """
+        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
+        """
+        giropay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGiropay"
+        ]
+        """
+        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
+        """
+        grabpay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay"
+        ]
+        """
+        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        ideal: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal"
+        ]
+        """
+        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
+        """
+        interac_present: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsInteracPresent"
+        ]
+        """
+        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        klarna: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
+        """
+        konbini: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKonbini"
+        ]
+        """
+        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        link: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsLink"
+        ]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        oxxo: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsOxxo"
+        ]
+        """
+        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
+        """
+        p24: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsP24"
+        ]
+        """
+        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        paynow: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaynow"
+        ]
+        """
+        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
+        """
+        paypal: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        pix: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
+        """
+        promptpay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPromptpay"
+        ]
+        """
+        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        revolut_pay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay"
+        ]
+        """
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        """
+        sepa_debit: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        sofort: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort"
+        ]
+        """
+        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        us_bank_account: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
+        """
+        wechat_pay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsWechatPay"
+        ]
+        """
+        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
+        """
+        zip: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsZip"
+        ]
+        """
+        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
         """
 
-    class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: str
+    class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
         """
-        The IP address from which the Mandate was accepted by the customer.
+        Additional fields for Mandate creation
         """
-        user_agent: str
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
         """
-        The user agent of the browser from which the Mandate was accepted by the customer.
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
         """
 
-    class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
+    class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAffirm(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired["str"]
+        """
+        Preferred language of the Affirm authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        reference: NotRequired["str"]
+        """
+        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
+        This field differs from the statement descriptor and item name.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAlipay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
+        code: NotRequired["str"]
+        """
+        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBoleto(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        cvc_token: NotRequired["str"]
+        """
+        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
+        """
+        installments: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+
+        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter indicates that a transaction will be marked
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
+        """
+        request_extended_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        """
+        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+        """
+        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
+        """
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+        """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        enabled: NotRequired["bool"]
+        """
+        Setting to true enables installments for this PaymentIntent.
+        This will cause the response to contain a list of available installment plans.
+        Setting to false will prevent any selected plan from applying to a charge.
+        """
+        plan: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan"
+        ]
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: int
+        """
+        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+        """
+        interval: Literal["month"]
+        """
+        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
+        request_extended_authorization: NotRequired["bool"]
+        """
+        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+        """
+        request_incremental_authorization_support: NotRequired["bool"]
+        """
+        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        This field was released by mistake and will be removed in the next major version
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCashapp(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCustomerBalance(TypedDict):
+        bank_transfer: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["Literal['bank_transfer']"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for the eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsEps(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsFpx(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsGiropay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsIdeal(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKonbini(TypedDict):
+        confirmation_number: NotRequired["Literal['']|str"]
+        """
+        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
+        """
+        expires_after_days: NotRequired["Literal['']|int"]
+        """
+        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
+        """
+        expires_at: NotRequired["Literal['']|int"]
+        """
+        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsP24(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        tos_shown_and_accepted: NotRequired["bool"]
+        """
+        Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+        ]
+        """
+        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        """
+        reference: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        risk_correlation_id: NotRequired["str"]
+        """
+        The risk correlation ID for an on-session payment using a saved PayPal payment method.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
+        expires_after_seconds: NotRequired["int"]
+        """
+        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        """
+        expires_at: NotRequired["int"]
+        """
+        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        """
+
+    class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
+        preferred_language: NotRequired[
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        ]
+        """
+        Language shown to the payer on redirect.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
+        """
+        Additional fields for Financial Connections Session creation
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        networks: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
+        """
+        Additional fields for network related functions
+        """
+        preferred_settlement_speed: NotRequired[
+            "Literal['']|Literal['fastest', 'standard']"
+        ]
+        """
+        Preferred transaction settlement speed
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
+        """
+
+    class ConfirmParamsPaymentMethodOptionsWechatPay(TypedDict):
+        app_id: NotRequired["str"]
+        """
+        The app ID registered with WeChat Pay. Only required when client is ios or android.
+        """
+        client: Literal["android", "ios", "web"]
+        """
+        The client type that the end customer will pay from
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsZip(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ConfirmParamsShipping(TypedDict):
+        address: "PaymentIntent.ConfirmParamsShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: str
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+
+    class ConfirmParamsShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
 
     class CreateParams(RequestOptions):
         amount: int
@@ -3828,1217 +3828,57 @@ class PaymentIntent(
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
-    class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+    class CreateParamsAutomaticPaymentMethods(TypedDict):
+        allow_redirects: NotRequired["Literal['always', 'never']"]
         """
-        The amount that will be transferred automatically when a charge succeeds.
-        The amount is capped at the total transaction amount and if no amount is set,
-        the full amount is transferred.
+        Controls whether this PaymentIntent will accept redirect-based payment methods.
 
-        If you intend to collect a fee and you need a more robust reporting experience, using
-        [application_fee_amount](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-application_fee_amount)
-        might be a better fit for your integration.
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
         """
-        destination: str
+        enabled: bool
         """
-        If specified, successful charges will be attributed to the destination
-        account for tax reporting, and the funds from charges will be transferred
-        to the destination account. The ID of the resulting transfer will be
-        returned on the successful charge's `transfer` field.
+        Whether this feature is enabled.
         """
 
-    class CreateParamsShipping(TypedDict):
-        address: "PaymentIntent.CreateParamsShippingAddress"
+    class CreateParamsMandateData(TypedDict):
+        customer_acceptance: "PaymentIntent.CreateParamsMandateDataCustomerAcceptance"
         """
-        Shipping address.
-        """
-        carrier: NotRequired["str"]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: str
-        """
-        Recipient name.
-        """
-        phone: NotRequired["str"]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: NotRequired["str"]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        This hash contains details about the customer acceptance of the Mandate.
         """
 
-    class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+    class CreateParamsMandateDataCustomerAcceptance(TypedDict):
+        accepted_at: NotRequired["int"]
         """
-        City, district, suburb, town, or village.
+        The time at which the customer accepted the Mandate.
         """
-        country: NotRequired["str"]
+        offline: NotRequired[
+            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
+        ]
         """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
         """
-        line1: NotRequired["str"]
+        online: NotRequired[
+            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
+        ]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        If this is a Mandate accepted online, this hash contains details about the online acceptance.
         """
-        line2: NotRequired["str"]
+        type: Literal["offline", "online"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
+        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
         """
 
-    class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebit"
-        ]
-        """
-        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
-        """
-        affirm: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAffirm"
-        ]
-        """
-        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
-        """
-        afterpay_clearpay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAfterpayClearpay"
-        ]
-        """
-        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
-        """
-        alipay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAlipay"
-        ]
-        """
-        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
-        """
-        au_becs_debit: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAuBecsDebit"
-        ]
-        """
-        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
-        """
-        bacs_debit: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit"
-        ]
-        """
-        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
-        """
-        bancontact: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBancontact"
-        ]
-        """
-        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
-        """
-        blik: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBlik"
-        ]
-        """
-        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
-        """
-        boleto: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBoleto"
-        ]
-        """
-        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
-        """
-        card: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCard"
-        ]
-        """
-        Configuration for any card payments attempted on this PaymentIntent.
-        """
-        card_present: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardPresent"
-        ]
-        """
-        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        cashapp: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCashapp"
-        ]
-        """
-        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
-        """
-        customer_balance: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalance"
-        ]
-        """
-        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
-        """
-        eps: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsEps"
-        ]
-        """
-        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
-        """
-        fpx: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsFpx"
-        ]
-        """
-        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
-        """
-        giropay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGiropay"
-        ]
-        """
-        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
-        """
-        grabpay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay"
-        ]
-        """
-        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
-        """
-        ideal: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdeal"
-        ]
-        """
-        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
-        """
-        interac_present: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsInteracPresent"
-        ]
-        """
-        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        klarna: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKlarna"
-        ]
-        """
-        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
-        """
-        konbini: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKonbini"
-        ]
-        """
-        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        link: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsLink"
-        ]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        oxxo: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsOxxo"
-        ]
-        """
-        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
-        """
-        p24: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsP24"
-        ]
-        """
-        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
-        """
-        paynow: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaynow"
-        ]
-        """
-        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
-        """
-        paypal: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        pix: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix"
-        ]
-        """
-        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
-        """
-        promptpay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPromptpay"
-        ]
-        """
-        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        revolut_pay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay"
-        ]
-        """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
-        """
-        sepa_debit: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        sofort: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSofort"
-        ]
-        """
-        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
-        """
-        us_bank_account: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
-        """
-        wechat_pay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsWechatPay"
-        ]
-        """
-        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
-        """
-        zip: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsZip"
-        ]
-        """
-        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
-        """
-
-    class CreateParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
-        """
-        The app ID registered with WeChat Pay. Only required when client is ios or android.
-        """
-        client: Literal["android", "ios", "web"]
-        """
-        The client type that the end customer will pay from
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-        ]
-        """
-        Additional fields for Financial Connections Session creation
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        networks: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
-        """
-        Additional fields for network related functions
-        """
-        preferred_settlement_speed: NotRequired[
-            "Literal['']|Literal['fastest', 'standard']"
-        ]
-        """
-        Preferred transaction settlement speed
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class CreateParamsPaymentMethodOptionsSofort(TypedDict):
-        preferred_language: NotRequired[
-            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
-        ]
-        """
-        Language shown to the payer on redirect.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+    class CreateParamsMandateDataCustomerAcceptanceOffline(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
+    class CreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
+        ip_address: str
         """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        The IP address from which the Mandate was accepted by the customer.
         """
-
-    class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        user_agent: str
         """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
-        """
-        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
-        """
-        expires_at: NotRequired["int"]
-        """
-        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
-        ]
-        """
-        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
-        """
-        reference: NotRequired["str"]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
-        risk_correlation_id: NotRequired["str"]
-        """
-        The risk correlation ID for an on-session payment using a saved PayPal payment method.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        tos_shown_and_accepted: NotRequired["bool"]
-        """
-        Confirm that the payer has accepted the P24 terms and conditions.
-        """
-
-    class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        persistent_token: NotRequired["str"]
-        """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired["Literal['']|str"]
-        """
-        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
-        """
-        expires_after_days: NotRequired["Literal['']|int"]
-        """
-        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
-        """
-        expires_at: NotRequired["Literal['']|int"]
-        """
-        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
-        """
-        product_description: NotRequired["Literal['']|str"]
-        """
-        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
-        ]
-        """
-        Preferred language of the Klarna authorization page that the customer is redirected to
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsInteracPresent(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodOptionsIdeal(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
-        bank_transfer: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-        ]
-        """
-        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
-        """
-        funding_type: NotRequired["Literal['bank_transfer']"]
-        """
-        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
-        TypedDict,
-    ):
-        eu_bank_transfer: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-        ]
-        """
-        Configuration for the eu_bank_transfer funding type.
-        """
-        requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
-        ]
-        """
-        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-        """
-        type: Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
-        """
-        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-        TypedDict,
-    ):
-        country: str
-        """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
-        """
-        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-        """
-        request_incremental_authorization_support: NotRequired["bool"]
-        """
-        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
-
-    class CreateParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        cvc_token: NotRequired["str"]
-        """
-        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
-        """
-        installments: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments"
-        ]
-        """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
-
-        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter indicates that a transaction will be marked
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
-        """
-        request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
-        """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
-        """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
-        """
-        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        three_d_secure: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this payment.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: str
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
-        """
-        The exemption requested via 3DS and accepted by the issuer at authentication time.
-        """
-        network_options: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: str
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: Literal["1.0.2", "2.1.0", "2.2.0"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
-        """
-        Setting to true enables installments for this PaymentIntent.
-        This will cause the response to contain a list of available installment plans.
-        Setting to false will prevent any selected plan from applying to a charge.
-        """
-        plan: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
-        ]
-        """
-        The selected installment plan to use for this payment attempt.
-        This parameter can only be provided during confirmation.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
-        count: int
-        """
-        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
-        """
-        interval: Literal["month"]
-        """
-        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
-        One of `month`.
-        """
-        type: Literal["fixed_count"]
-        """
-        Type of installment plan, one of `fixed_count`.
-        """
-
-    class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
-        """
-        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
-        """
-
-    class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-        """
-        Preferred language of the Bancontact authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        reference: NotRequired["str"]
-        """
-        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
-        This field differs from the statement descriptor and item name.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired["str"]
-        """
-        Preferred language of the Affirm authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
-        """
-        Payment schedule for the mandate.
-        """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
+        The user agent of the browser from which the Mandate was accepted by the customer.
         """
 
     class CreateParamsPaymentMethodData(TypedDict):
@@ -5269,177 +4109,50 @@ class PaymentIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class CreateParamsPaymentMethodDataZip(TypedDict):
+    class CreateParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataWechatPay(TypedDict):
+    class CreateParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class CreateParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodDataKlarnaDob"
-        ]
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class CreateParamsPaymentMethodDataBlik(TypedDict):
+    class CreateParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -5488,103 +4201,1390 @@ class PaymentIntent(
         State, county, province, or region.
         """
 
-    class CreateParamsPaymentMethodDataBancontact(TypedDict):
+    class CreateParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
+    class CreateParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataKlarnaDob"
+        ]
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class CreateParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class CreateParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class CreateParamsPaymentMethodDataAlipay(TypedDict):
+    class CreateParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataAffirm(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
-
-    class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "PaymentIntent.CreateParamsMandateDataCustomerAcceptance"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class CreateParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
-        """
-        The time at which the customer accepted the Mandate.
-        """
-        offline: NotRequired[
-            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebit"
         ]
         """
-        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
+        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
         """
-        online: NotRequired[
-            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
+        affirm: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAffirm"
         ]
         """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
+        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
         """
-        type: Literal["offline", "online"]
+        afterpay_clearpay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAfterpayClearpay"
+        ]
         """
-        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
+        """
+        alipay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAlipay"
+        ]
+        """
+        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        au_becs_debit: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAuBecsDebit"
+        ]
+        """
+        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
+        """
+        bacs_debit: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
+        """
+        bancontact: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBancontact"
+        ]
+        """
+        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        blik: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBlik"
+        ]
+        """
+        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
+        """
+        boleto: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBoleto"
+        ]
+        """
+        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
+        """
+        card: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+        card_present: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        cashapp: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCashapp"
+        ]
+        """
+        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        customer_balance: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
+        """
+        eps: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsEps"
+        ]
+        """
+        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
+        """
+        fpx: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsFpx"
+        ]
+        """
+        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
+        """
+        giropay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGiropay"
+        ]
+        """
+        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
+        """
+        grabpay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay"
+        ]
+        """
+        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        ideal: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdeal"
+        ]
+        """
+        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
+        """
+        interac_present: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsInteracPresent"
+        ]
+        """
+        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        klarna: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
+        """
+        konbini: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKonbini"
+        ]
+        """
+        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        link: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsLink"
+        ]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        oxxo: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsOxxo"
+        ]
+        """
+        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
+        """
+        p24: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsP24"
+        ]
+        """
+        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        paynow: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaynow"
+        ]
+        """
+        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
+        """
+        paypal: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        pix: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
+        """
+        promptpay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPromptpay"
+        ]
+        """
+        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        revolut_pay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay"
+        ]
+        """
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        """
+        sepa_debit: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        sofort: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSofort"
+        ]
+        """
+        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        us_bank_account: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
+        """
+        wechat_pay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsWechatPay"
+        ]
+        """
+        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
+        """
+        zip: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsZip"
+        ]
+        """
+        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
         """
 
-    class CreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: str
+    class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
         """
-        The IP address from which the Mandate was accepted by the customer.
+        Additional fields for Mandate creation
         """
-        user_agent: str
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
         """
-        The user agent of the browser from which the Mandate was accepted by the customer.
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
         """
 
-    class CreateParamsMandateDataCustomerAcceptanceOffline(TypedDict):
+    class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired["str"]
+        """
+        Preferred language of the Affirm authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        reference: NotRequired["str"]
+        """
+        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
+        This field differs from the statement descriptor and item name.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsBlik(TypedDict):
+        code: NotRequired["str"]
+        """
+        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        cvc_token: NotRequired["str"]
+        """
+        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
+        """
+        installments: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+
+        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter indicates that a transaction will be marked
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
+        """
+        request_extended_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        """
+        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+        """
+        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
+        """
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+        """
+        three_d_secure: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        enabled: NotRequired["bool"]
+        """
+        Setting to true enables installments for this PaymentIntent.
+        This will cause the response to contain a list of available installment plans.
+        Setting to false will prevent any selected plan from applying to a charge.
+        """
+        plan: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
+        ]
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: int
+        """
+        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+        """
+        interval: Literal["month"]
+        """
+        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        request_extended_authorization: NotRequired["bool"]
+        """
+        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+        """
+        request_incremental_authorization_support: NotRequired["bool"]
+        """
+        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        This field was released by mistake and will be removed in the next major version
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
+        bank_transfer: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["Literal['bank_transfer']"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for the eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class CreateParamsPaymentMethodOptionsEps(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsFpx(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsIdeal(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
-    class CreateParamsAutomaticPaymentMethods(TypedDict):
-        allow_redirects: NotRequired["Literal['always', 'never']"]
+    class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls whether this PaymentIntent will accept redirect-based payment methods.
+        Controls when the funds will be captured from the customer's account.
 
-        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        enabled: bool
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+        ]
         """
-        Whether this feature is enabled.
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
+        confirmation_number: NotRequired["Literal['']|str"]
+        """
+        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
+        """
+        expires_after_days: NotRequired["Literal['']|int"]
+        """
+        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
+        """
+        expires_at: NotRequired["Literal['']|int"]
+        """
+        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsP24(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        tos_shown_and_accepted: NotRequired["bool"]
+        """
+        Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+        ]
+        """
+        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        """
+        reference: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        risk_correlation_id: NotRequired["str"]
+        """
+        The risk correlation ID for an on-session payment using a saved PayPal payment method.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        expires_after_seconds: NotRequired["int"]
+        """
+        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        """
+        expires_at: NotRequired["int"]
+        """
+        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodOptionsSofort(TypedDict):
+        preferred_language: NotRequired[
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        ]
+        """
+        Language shown to the payer on redirect.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
+        """
+        Additional fields for Financial Connections Session creation
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        networks: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
+        """
+        Additional fields for network related functions
+        """
+        preferred_settlement_speed: NotRequired[
+            "Literal['']|Literal['fastest', 'standard']"
+        ]
+        """
+        Preferred transaction settlement speed
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsPaymentMethodOptionsWechatPay(TypedDict):
+        app_id: NotRequired["str"]
+        """
+        The app ID registered with WeChat Pay. Only required when client is ios or android.
+        """
+        client: Literal["android", "ios", "web"]
+        """
+        The client type that the end customer will pay from
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsZip(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsShipping(TypedDict):
+        address: "PaymentIntent.CreateParamsShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: str
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+
+    class CreateParamsShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class CreateParamsTransferData(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The amount that will be transferred automatically when a charge succeeds.
+        The amount is capped at the total transaction amount and if no amount is set,
+        the full amount is transferred.
+
+        If you intend to collect a fee and you need a more robust reporting experience, using
+        [application_fee_amount](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-application_fee_amount)
+        might be a better fit for your integration.
+        """
+        destination: str
+        """
+        If specified, successful charges will be attributed to the destination
+        account for tax reporting, and the funds from charges will be transferred
+        to the destination account. The ID of the resulting transfer will be
+        returned on the successful charge's `transfer` field.
         """
 
     class IncrementAuthorizationParams(RequestOptions):
@@ -5770,1200 +5770,6 @@ class PaymentIntent(
         transfer_group: NotRequired["str"]
         """
         A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-
-    class ModifyParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
-        """
-        The amount that will be transferred automatically when a charge succeeds.
-        """
-
-    class ModifyParamsShipping(TypedDict):
-        address: "PaymentIntent.ModifyParamsShippingAddress"
-        """
-        Shipping address.
-        """
-        carrier: NotRequired["str"]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: str
-        """
-        Recipient name.
-        """
-        phone: NotRequired["str"]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: NotRequired["str"]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-
-    class ModifyParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebit"
-        ]
-        """
-        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
-        """
-        affirm: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAffirm"
-        ]
-        """
-        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
-        """
-        afterpay_clearpay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAfterpayClearpay"
-        ]
-        """
-        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
-        """
-        alipay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAlipay"
-        ]
-        """
-        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
-        """
-        au_becs_debit: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAuBecsDebit"
-        ]
-        """
-        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
-        """
-        bacs_debit: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit"
-        ]
-        """
-        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
-        """
-        bancontact: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBancontact"
-        ]
-        """
-        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
-        """
-        blik: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBlik"
-        ]
-        """
-        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
-        """
-        boleto: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBoleto"
-        ]
-        """
-        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
-        """
-        card: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCard"
-        ]
-        """
-        Configuration for any card payments attempted on this PaymentIntent.
-        """
-        card_present: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardPresent"
-        ]
-        """
-        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        cashapp: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCashapp"
-        ]
-        """
-        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
-        """
-        customer_balance: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalance"
-        ]
-        """
-        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
-        """
-        eps: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsEps"
-        ]
-        """
-        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
-        """
-        fpx: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsFpx"
-        ]
-        """
-        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
-        """
-        giropay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGiropay"
-        ]
-        """
-        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
-        """
-        grabpay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay"
-        ]
-        """
-        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
-        """
-        ideal: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal"
-        ]
-        """
-        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
-        """
-        interac_present: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsInteracPresent"
-        ]
-        """
-        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
-        """
-        klarna: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKlarna"
-        ]
-        """
-        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
-        """
-        konbini: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKonbini"
-        ]
-        """
-        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        link: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsLink"
-        ]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        oxxo: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsOxxo"
-        ]
-        """
-        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
-        """
-        p24: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsP24"
-        ]
-        """
-        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
-        """
-        paynow: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaynow"
-        ]
-        """
-        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
-        """
-        paypal: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        pix: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix"
-        ]
-        """
-        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
-        """
-        promptpay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPromptpay"
-        ]
-        """
-        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        revolut_pay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay"
-        ]
-        """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
-        """
-        sepa_debit: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        sofort: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSofort"
-        ]
-        """
-        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
-        """
-        us_bank_account: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
-        """
-        wechat_pay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsWechatPay"
-        ]
-        """
-        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
-        """
-        zip: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsZip"
-        ]
-        """
-        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
-        """
-
-    class ModifyParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
-        """
-        The app ID registered with WeChat Pay. Only required when client is ios or android.
-        """
-        client: Literal["android", "ios", "web"]
-        """
-        The client type that the end customer will pay from
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-        ]
-        """
-        Additional fields for Financial Connections Session creation
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        networks: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
-        """
-        Additional fields for network related functions
-        """
-        preferred_settlement_speed: NotRequired[
-            "Literal['']|Literal['fastest', 'standard']"
-        ]
-        """
-        Preferred transaction settlement speed
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
-        preferred_language: NotRequired[
-            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
-        ]
-        """
-        Language shown to the payer on redirect.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-        """
-
-    class ModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
-        """
-        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
-        """
-        expires_at: NotRequired["int"]
-        """
-        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
-        ]
-        """
-        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
-        """
-        reference: NotRequired["str"]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
-        risk_correlation_id: NotRequired["str"]
-        """
-        The risk correlation ID for an on-session payment using a saved PayPal payment method.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        tos_shown_and_accepted: NotRequired["bool"]
-        """
-        Confirm that the payer has accepted the P24 terms and conditions.
-        """
-
-    class ModifyParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        persistent_token: NotRequired["str"]
-        """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired["Literal['']|str"]
-        """
-        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
-        """
-        expires_after_days: NotRequired["Literal['']|int"]
-        """
-        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
-        """
-        expires_at: NotRequired["Literal['']|int"]
-        """
-        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
-        """
-        product_description: NotRequired["Literal['']|str"]
-        """
-        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
-        ]
-        """
-        Preferred language of the Klarna authorization page that the customer is redirected to
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsInteracPresent(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodOptionsIdeal(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCustomerBalance(TypedDict):
-        bank_transfer: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-        ]
-        """
-        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
-        """
-        funding_type: NotRequired["Literal['bank_transfer']"]
-        """
-        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
-        TypedDict,
-    ):
-        eu_bank_transfer: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-        ]
-        """
-        Configuration for the eu_bank_transfer funding type.
-        """
-        requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
-        ]
-        """
-        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-        """
-        type: Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
-        """
-        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-        TypedDict,
-    ):
-        country: str
-        """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
-        """
-        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-        """
-        request_incremental_authorization_support: NotRequired["bool"]
-        """
-        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
-
-    class ModifyParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        cvc_token: NotRequired["str"]
-        """
-        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
-        """
-        installments: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments"
-        ]
-        """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
-
-        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
-        """
-        mandate_options: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter indicates that a transaction will be marked
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
-        """
-        request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
-        """
-        request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
-        ]
-        """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
-        """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
-        """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
-        """
-        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
-        """
-        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
-        """
-        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        three_d_secure: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this payment.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: str
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
-        """
-        The exemption requested via 3DS and accepted by the issuer at authentication time.
-        """
-        network_options: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: str
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: Literal["1.0.2", "2.1.0", "2.2.0"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
-        """
-        Setting to true enables installments for this PaymentIntent.
-        This will cause the response to contain a list of available installment plans.
-        Setting to false will prevent any selected plan from applying to a charge.
-        """
-        plan: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallmentsPlan"
-        ]
-        """
-        The selected installment plan to use for this payment attempt.
-        This parameter can only be provided during confirmation.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
-        count: int
-        """
-        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
-        """
-        interval: Literal["month"]
-        """
-        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
-        One of `month`.
-        """
-        type: Literal["fixed_count"]
-        """
-        Type of installment plan, one of `fixed_count`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
-        """
-        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
-        """
-        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
-        """
-
-    class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-        """
-        Preferred language of the Bancontact authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAlipay(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        reference: NotRequired["str"]
-        """
-        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
-        This field differs from the statement descriptor and item name.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds will be captured from the customer's account.
-
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-        """
-        preferred_locale: NotRequired["str"]
-        """
-        Preferred language of the Affirm authorization page that the customer is redirected to.
-        """
-        setup_future_usage: NotRequired["Literal['none']"]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session', 'on_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
-        """
-        Payment schedule for the mandate.
-        """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
         """
 
     class ModifyParamsPaymentMethodData(TypedDict):
@@ -7194,177 +6000,50 @@ class PaymentIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class ModifyParamsPaymentMethodDataZip(TypedDict):
+    class ModifyParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataWechatPay(TypedDict):
+    class ModifyParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class ModifyParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodDataKlarnaDob"
-        ]
-        """
-        Customer's date of birth
-        """
-
-    class ModifyParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class ModifyParamsPaymentMethodDataBlik(TypedDict):
+    class ModifyParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -7413,70 +6092,1377 @@ class PaymentIntent(
         State, county, province, or region.
         """
 
-    class ModifyParamsPaymentMethodDataBancontact(TypedDict):
+    class ModifyParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
+    class ModifyParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class ModifyParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataKlarnaDob"
+        ]
+        """
+        Customer's date of birth
+        """
+
+    class ModifyParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class ModifyParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class ModifyParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+    class ModifyParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class ModifyParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAffirm(TypedDict):
+    class ModifyParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebit"
+        ]
+        """
+        If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
+        """
+        affirm: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAffirm"
+        ]
+        """
+        If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
+        """
+        afterpay_clearpay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAfterpayClearpay"
+        ]
+        """
+        If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
+        """
+        alipay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAlipay"
+        ]
+        """
+        If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        au_becs_debit: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAuBecsDebit"
+        ]
+        """
+        If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
+        """
+        bacs_debit: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
+        """
+        bancontact: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBancontact"
+        ]
+        """
+        If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        blik: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBlik"
+        ]
+        """
+        If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
+        """
+        boleto: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBoleto"
+        ]
+        """
+        If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
+        """
+        card: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+        card_present: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        cashapp: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCashapp"
+        ]
+        """
+        If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        customer_balance: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
+        """
+        eps: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsEps"
+        ]
+        """
+        If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
+        """
+        fpx: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsFpx"
+        ]
+        """
+        If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
+        """
+        giropay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGiropay"
+        ]
+        """
+        If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
+        """
+        grabpay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay"
+        ]
+        """
+        If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        ideal: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal"
+        ]
+        """
+        If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
+        """
+        interac_present: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsInteracPresent"
+        ]
+        """
+        If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
+        """
+        klarna: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this sub-hash contains details about the Klarna payment method options.
+        """
+        konbini: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKonbini"
+        ]
+        """
+        If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        link: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsLink"
+        ]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        oxxo: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsOxxo"
+        ]
+        """
+        If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
+        """
+        p24: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsP24"
+        ]
+        """
+        If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        paynow: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaynow"
+        ]
+        """
+        If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
+        """
+        paypal: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        pix: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
+        """
+        promptpay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPromptpay"
+        ]
+        """
+        If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        revolut_pay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay"
+        ]
+        """
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        """
+        sepa_debit: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        sofort: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSofort"
+        ]
+        """
+        If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        us_bank_account: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
+        """
+        wechat_pay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsWechatPay"
+        ]
+        """
+        If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
+        """
+        zip: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsZip"
+        ]
+        """
+        If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAffirm(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired["str"]
+        """
+        Preferred language of the Affirm authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        reference: NotRequired["str"]
+        """
+        An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
+        This field differs from the statement descriptor and item name.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAlipay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsBlik(TypedDict):
+        code: NotRequired["str"]
+        """
+        The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+        """
+
+    class ModifyParamsPaymentMethodOptionsBoleto(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        cvc_token: NotRequired["str"]
+        """
+        A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
+        """
+        installments: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+
+        For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter indicates that a transaction will be marked
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
+        """
+        request_extended_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        """
+        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+        """
+        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        """
+        Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
+        """
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+        """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        enabled: NotRequired["bool"]
+        """
+        Setting to true enables installments for this PaymentIntent.
+        This will cause the response to contain a list of available installment plans.
+        Setting to false will prevent any selected plan from applying to a charge.
+        """
+        plan: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallmentsPlan"
+        ]
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: int
+        """
+        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+        """
+        interval: Literal["month"]
+        """
+        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
+        request_extended_authorization: NotRequired["bool"]
+        """
+        Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+        """
+        request_incremental_authorization_support: NotRequired["bool"]
+        """
+        Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        """
+        request_incremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        This field was released by mistake and will be removed in the next major version
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class ModifyParamsPaymentMethodOptionsCashapp(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCustomerBalance(TypedDict):
+        bank_transfer: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["Literal['bank_transfer']"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for the eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsEps(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsFpx(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsGiropay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsIdeal(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
+    class ModifyParamsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Customer's bank account number.
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        institution_number: str
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+        ]
         """
-        Institution number of the customer's bank.
+        Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        transit_number: str
+        setup_future_usage: NotRequired["Literal['none']"]
         """
-        Transit number of the customer's bank.
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsKonbini(TypedDict):
+        confirmation_number: NotRequired["Literal['']|str"]
+        """
+        An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores. Must not consist of only zeroes and could be rejected in case of insufficient uniqueness. We recommend to use the customer's phone number.
+        """
+        expires_after_days: NotRequired["Literal['']|int"]
+        """
+        The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
+        """
+        expires_at: NotRequired["Literal['']|int"]
+        """
+        The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsOxxo(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsP24(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        tos_shown_and_accepted: NotRequired["bool"]
+        """
+        Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaynow(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+        ]
+        """
+        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        """
+        reference: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        risk_correlation_id: NotRequired["str"]
+        """
+        The risk correlation ID for an on-session payment using a saved PayPal payment method.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPix(TypedDict):
+        expires_after_seconds: NotRequired["int"]
+        """
+        The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        """
+        expires_at: NotRequired["int"]
+        """
+        The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        """
+
+    class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
+        preferred_language: NotRequired[
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        ]
+        """
+        Language shown to the payer on redirect.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
+        """
+        Additional fields for Financial Connections Session creation
+        """
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        networks: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
+        """
+        Additional fields for network related functions
+        """
+        preferred_settlement_speed: NotRequired[
+            "Literal['']|Literal['fastest', 'standard']"
+        ]
+        """
+        Preferred transaction settlement speed
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
+        """
+
+    class ModifyParamsPaymentMethodOptionsWechatPay(TypedDict):
+        app_id: NotRequired["str"]
+        """
+        The app ID registered with WeChat Pay. Only required when client is ios or android.
+        """
+        client: Literal["android", "ios", "web"]
+        """
+        The client type that the end customer will pay from
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsZip(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsShipping(TypedDict):
+        address: "PaymentIntent.ModifyParamsShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: str
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+
+    class ModifyParamsShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class ModifyParamsTransferData(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The amount that will be transferred automatically when a charge succeeds.
         """
 
     class RetrieveParams(RequestOptions):
         client_secret: NotRequired["str"]
         """
         The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class VerifyMicrodepositsParams(RequestOptions):
-        amounts: NotRequired["List[int]"]
-        """
-        Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
-        """
-        descriptor_code: NotRequired["str"]
-        """
-        A six-character code starting with SM present in the microdeposit sent to the bank account.
         """
         expand: NotRequired["List[str]"]
         """
@@ -7499,6 +7485,20 @@ class PaymentIntent(
         query: str
         """
         The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for payment intents](https://stripe.com/docs/search#query-fields-for-payment-intents).
+        """
+
+    class VerifyMicrodepositsParams(RequestOptions):
+        amounts: NotRequired["List[int]"]
+        """
+        Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
+        """
+        descriptor_code: NotRequired["str"]
+        """
+        A six-character code starting with SM present in the microdeposit sent to the bank account.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     amount: int

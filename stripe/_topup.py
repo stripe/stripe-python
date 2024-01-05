@@ -110,7 +110,7 @@ class Topup(
         Only return top-ups that have the given status. One of `canceled`, `failed`, `pending` or `succeeded`.
         """
 
-    class ListParamsCreated(TypedDict):
+    class ListParamsAmount(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -128,7 +128,7 @@ class Topup(
         Maximum value to filter by (inclusive)
         """
 
-    class ListParamsAmount(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)

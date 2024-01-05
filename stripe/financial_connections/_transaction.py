@@ -59,12 +59,6 @@ class Transaction(ListableAPIResource["Transaction"]):
         A filter on the list based on the object `transaction_refresh` field. The value can be a dictionary with the following options:
         """
 
-    class ListParamsTransactionRefresh(TypedDict):
-        after: str
-        """
-        Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
-        """
-
     class ListParamsTransactedAt(TypedDict):
         gt: NotRequired["int"]
         """
@@ -81,6 +75,12 @@ class Transaction(ListableAPIResource["Transaction"]):
         lte: NotRequired["int"]
         """
         Maximum value to filter by (inclusive)
+        """
+
+    class ListParamsTransactionRefresh(TypedDict):
+        after: str
+        """
+        Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
         """
 
     class RetrieveParams(RequestOptions):

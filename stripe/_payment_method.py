@@ -1162,199 +1162,50 @@ class PaymentMethod(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class CreateParamsZip(TypedDict):
+    class CreateParamsAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class CreateParamsAffirm(TypedDict):
         pass
 
-    class CreateParamsWechatPay(TypedDict):
+    class CreateParamsAfterpayClearpay(TypedDict):
         pass
 
-    class CreateParamsUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class CreateParamsBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class CreateParamsSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class CreateParamsSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class CreateParamsRevolutPay(TypedDict):
-        pass
-
-    class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPromptpay(TypedDict):
-        pass
-
-    class CreateParamsPix(TypedDict):
-        pass
-
-    class CreateParamsPaypal(TypedDict):
-        pass
-
-    class CreateParamsPaynow(TypedDict):
-        pass
-
-    class CreateParamsP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsOxxo(TypedDict):
-        pass
-
-    class CreateParamsLink(TypedDict):
-        pass
-
-    class CreateParamsKonbini(TypedDict):
-        pass
-
-    class CreateParamsKlarna(TypedDict):
-        dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob"]
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class CreateParamsInteracPresent(TypedDict):
-        pass
-
-    class CreateParamsIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsGrabpay(TypedDict):
-        pass
-
-    class CreateParamsGiropay(TypedDict):
-        pass
-
-    class CreateParamsFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsCustomerBalance(TypedDict):
-        pass
-
-    class CreateParamsCashapp(TypedDict):
-        pass
-
-    class CreateParamsCard2(TypedDict):
-        token: str
-        """
-        For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
-        """
-
-    class CreateParamsCard(TypedDict):
-        cvc: NotRequired["str"]
-        """
-        The card's CVC. It is highly recommended to always include this value.
-        """
-        exp_month: int
-        """
-        Two-digit number representing the card's expiration month.
-        """
-        exp_year: int
-        """
-        Four-digit number representing the card's expiration year.
-        """
-        number: str
-        """
-        The card number, as a string without any separators.
-        """
-
-    class CreateParamsBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class CreateParamsBlik(TypedDict):
+    class CreateParamsBancontact(TypedDict):
         pass
 
     class CreateParamsBillingDetails(TypedDict):
@@ -1403,51 +1254,200 @@ class PaymentMethod(
         State, county, province, or region.
         """
 
-    class CreateParamsBancontact(TypedDict):
+    class CreateParamsBlik(TypedDict):
         pass
 
-    class CreateParamsBacsDebit(TypedDict):
+    class CreateParamsBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class CreateParamsCard(TypedDict):
+        cvc: NotRequired["str"]
+        """
+        The card's CVC. It is highly recommended to always include this value.
+        """
+        exp_month: int
+        """
+        Two-digit number representing the card's expiration month.
+        """
+        exp_year: int
+        """
+        Four-digit number representing the card's expiration year.
+        """
+        number: str
+        """
+        The card number, as a string without any separators.
+        """
+
+    class CreateParamsCard2(TypedDict):
+        token: str
+        """
+        For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
+        """
+
+    class CreateParamsCashapp(TypedDict):
+        pass
+
+    class CreateParamsCustomerBalance(TypedDict):
+        pass
+
+    class CreateParamsEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsGiropay(TypedDict):
+        pass
+
+    class CreateParamsGrabpay(TypedDict):
+        pass
+
+    class CreateParamsIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsKlarna(TypedDict):
+        dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob"]
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class CreateParamsKonbini(TypedDict):
+        pass
+
+    class CreateParamsLink(TypedDict):
+        pass
+
+    class CreateParamsOxxo(TypedDict):
+        pass
+
+    class CreateParamsP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaynow(TypedDict):
+        pass
+
+    class CreateParamsPaypal(TypedDict):
+        pass
+
+    class CreateParamsPix(TypedDict):
+        pass
+
+    class CreateParamsPromptpay(TypedDict):
+        pass
+
+    class CreateParamsRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class CreateParamsSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class CreateParamsAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class CreateParamsAlipay(TypedDict):
+    class CreateParamsWechatPay(TypedDict):
         pass
 
-    class CreateParamsAfterpayClearpay(TypedDict):
+    class CreateParamsZip(TypedDict):
         pass
-
-    class CreateParamsAffirm(TypedDict):
-        pass
-
-    class CreateParamsAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
 
     class DetachParams(RequestOptions):
         expand: NotRequired["List[str]"]
@@ -1511,25 +1511,6 @@ class PaymentMethod(
         If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
         """
 
-    class ModifyParamsUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Bank account type.
-        """
-
-    class ModifyParamsLink(TypedDict):
-        pass
-
-    class ModifyParamsCard(TypedDict):
-        exp_month: NotRequired["int"]
-        """
-        Two-digit number representing the card's expiration month.
-        """
-        exp_year: NotRequired["int"]
-        """
-        Four-digit number representing the card's expiration year.
-        """
-
     class ModifyParamsBillingDetails(TypedDict):
         address: NotRequired[
             "Literal['']|PaymentMethod.ModifyParamsBillingDetailsAddress"
@@ -1574,6 +1555,25 @@ class PaymentMethod(
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class ModifyParamsCard(TypedDict):
+        exp_month: NotRequired["int"]
+        """
+        Two-digit number representing the card's expiration month.
+        """
+        exp_year: NotRequired["int"]
+        """
+        Four-digit number representing the card's expiration year.
+        """
+
+    class ModifyParamsLink(TypedDict):
+        pass
+
+    class ModifyParamsUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Bank account type.
         """
 
     class RetrieveParams(RequestOptions):

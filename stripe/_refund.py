@@ -343,6 +343,12 @@ class Refund(
         A transfer can be reversed only by the application that created the charge.
         """
 
+    class ExpireParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class ListParams(RequestOptions):
         ending_before: NotRequired["str"]
         """
@@ -372,12 +378,6 @@ class Refund(
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ExpireParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.

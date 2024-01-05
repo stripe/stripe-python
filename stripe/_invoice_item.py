@@ -144,6 +144,26 @@ class InvoiceItem(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+
+    class CreateParamsPeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
     class CreateParamsPriceData(TypedDict):
         currency: str
         """
@@ -166,26 +186,6 @@ class InvoiceItem(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
-    class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
 
     class DeleteParams(RequestOptions):
@@ -306,6 +306,26 @@ class InvoiceItem(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+
+    class ModifyParamsPeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
     class ModifyParamsPriceData(TypedDict):
         currency: str
         """
@@ -328,26 +348,6 @@ class InvoiceItem(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyParamsPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
-    class ModifyParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
 
     class RetrieveParams(RequestOptions):
