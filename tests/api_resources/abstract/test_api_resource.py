@@ -2,8 +2,6 @@ import pytest
 
 import stripe
 
-from typing import cast
-
 
 class TestAPIResource(object):
     class MyResource(stripe.APIResource):
@@ -13,14 +11,11 @@ class TestAPIResource(object):
         OBJECT_NAME = "myresource"
 
         @classmethod
-        def my_method(cls, **params) -> "MyDeletableResource":
-            return cast(
-                "MyDeletableResource",
-                cls._static_request(
-                    "post",
-                    cls.class_url(),
-                    params=params,
-                ),
+        def my_method(cls, **params):
+            return cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
             )
 
     def test_retrieve_and_refresh(self, http_client_mock):
