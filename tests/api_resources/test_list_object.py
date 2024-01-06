@@ -326,3 +326,63 @@ class TestAutoPaging:
             "get", path="/v1/charges", query_string="limit=25&foo=bar"
         )
         assert seen == ["ch_001"]
+
+    def test_iter_forwards_api_key(self, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/charges",
+            rbody='{"object": "list", "data": [{"id": "ch_001"}], "url": "/v1/charges", "has_more": true}',
+        )
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/charges",
+            query_string="starting_after=ch_001",
+            rbody='{"object": "list", "data": [{"id": "ch_002"}], "url": "/v1/charges", "has_more": false}',
+        )
+
+        lo = stripe.Charge.list(api_key="sk_test_iter_forwards_options")
+
+        assert lo.api_key == "sk_test_iter_forwards_options"
+
+        seen = [item["id"] for item in lo.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get", path="/v1/charges", api_key="sk_test_iter_forwards_options"
+        )
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges",
+            query_string="starting_after=ch_001",
+            api_key="sk_test_iter_forwards_options",
+        )
+        assert seen == ["ch_001", "ch_002"]
+
+    def test_forwards_api_key_to_nested_resources(self, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/products",
+            rbody='{"object": "list", "data": [{"id": "prod_001", "object": "product"}], "url": "/v1/products", "has_more": true}',
+        )
+
+        lo = stripe.Product.list(api_key="sk_test_iter_forwards_options")
+        assert lo.api_key == "sk_test_iter_forwards_options"
+
+        http_client_mock.assert_requested(
+            "get", path="/v1/products", api_key="sk_test_iter_forwards_options"
+        )
+
+        http_client_mock.stub_request(
+            "delete",
+            path="/v1/products/prod_001",
+        )
+
+        lo.data[0].delete()
+
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/products/prod_001",
+            api_key="sk_test_iter_forwards_options",
+        )
+        assert lo.data[0].api_key == "sk_test_iter_forwards_options"
