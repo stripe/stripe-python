@@ -2618,6 +2618,10 @@ class PaymentIntent(
         """
 
     class CaptureParamsPaymentDetailsFlightSegment(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The flight segment amount.
+        """
         arrival_airport: NotRequired["str"]
         """
         The International Air Transport Association (IATA) airport code for the arrival airport.
@@ -2714,6 +2718,10 @@ class PaymentIntent(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        number_of_rooms: NotRequired["int"]
+        """
+        The number of rooms on the booking
+        """
         passengers: NotRequired[
             "List[PaymentIntent.CaptureParamsPaymentDetailsLodgingPassenger]"
         ]
@@ -2723,6 +2731,10 @@ class PaymentIntent(
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
+        """
+        room_class: NotRequired["str"]
+        """
+        The room class for this purchase.
         """
         room_nights: NotRequired["int"]
         """
@@ -3414,6 +3426,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentDetailsFlightSegment(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The flight segment amount.
+        """
         arrival_airport: NotRequired["str"]
         """
         The International Air Transport Association (IATA) airport code for the arrival airport.
@@ -3510,6 +3526,10 @@ class PaymentIntent(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        number_of_rooms: NotRequired["int"]
+        """
+        The number of rooms on the booking
+        """
         passengers: NotRequired[
             "List[PaymentIntent.ConfirmParamsPaymentDetailsLodgingPassenger]"
         ]
@@ -3519,6 +3539,10 @@ class PaymentIntent(
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
+        """
+        room_class: NotRequired["str"]
+        """
+        The room class for this purchase.
         """
         room_nights: NotRequired["int"]
         """
@@ -6011,6 +6035,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentDetailsFlightSegment(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The flight segment amount.
+        """
         arrival_airport: NotRequired["str"]
         """
         The International Air Transport Association (IATA) airport code for the arrival airport.
@@ -6107,6 +6135,10 @@ class PaymentIntent(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        number_of_rooms: NotRequired["int"]
+        """
+        The number of rooms on the booking
+        """
         passengers: NotRequired[
             "List[PaymentIntent.CreateParamsPaymentDetailsLodgingPassenger]"
         ]
@@ -6116,6 +6148,10 @@ class PaymentIntent(
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
+        """
+        room_class: NotRequired["str"]
+        """
+        The room class for this purchase.
         """
         room_nights: NotRequired["int"]
         """
@@ -8630,6 +8666,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentDetailsFlightSegment(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The flight segment amount.
+        """
         arrival_airport: NotRequired["str"]
         """
         The International Air Transport Association (IATA) airport code for the arrival airport.
@@ -8726,6 +8766,10 @@ class PaymentIntent(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        number_of_rooms: NotRequired["int"]
+        """
+        The number of rooms on the booking
+        """
         passengers: NotRequired[
             "List[PaymentIntent.ModifyParamsPaymentDetailsLodgingPassenger]"
         ]
@@ -8735,6 +8779,10 @@ class PaymentIntent(
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
+        """
+        room_class: NotRequired["str"]
+        """
+        The room class for this purchase.
         """
         room_nights: NotRequired["int"]
         """
