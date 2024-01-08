@@ -75,11 +75,11 @@ class Cardholder(
             class UserTermsAcceptance(StripeObject):
                 date: Optional[int]
                 """
-                The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+                The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
                 """
                 ip: Optional[str]
                 """
-                The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+                The IP address from which the cardholder accepted the Authorized User Terms.
                 """
                 user_agent: Optional[str]
                 """
@@ -88,7 +88,7 @@ class Cardholder(
 
             user_terms_acceptance: Optional[UserTermsAcceptance]
             """
-            Information about cardholder acceptance of [Authorized User Terms](https://stripe.com/docs/issuing/cards).
+            Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
             """
             _inner_class_types = {"user_terms_acceptance": UserTermsAcceptance}
 
@@ -1245,7 +1245,7 @@ class Cardholder(
             "Cardholder.CreateParamsIndividualCardIssuingUserTermsAcceptance"
         ]
         """
-        Information about cardholder acceptance of [Authorized User Terms](https://stripe.com/docs/issuing/cards).
+        Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
         """
 
     class CreateParamsIndividualCardIssuingUserTermsAcceptance(TypedDict):
@@ -1513,7 +1513,7 @@ class Cardholder(
             "Cardholder.ModifyParamsIndividualCardIssuingUserTermsAcceptance"
         ]
         """
-        Information about cardholder acceptance of [Authorized User Terms](https://stripe.com/docs/issuing/cards).
+        Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
         """
 
     class ModifyParamsIndividualCardIssuingUserTermsAcceptance(TypedDict):
