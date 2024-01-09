@@ -84,6 +84,28 @@ class Subscription(
         """
         _inner_class_types = {"liability": Liability}
 
+    class BillingCycleAnchorConfig(StripeObject):
+        day_of_month: int
+        """
+        The day of the month of the billing_cycle_anchor.
+        """
+        hour: Optional[int]
+        """
+        The hour of the day of the billing_cycle_anchor.
+        """
+        minute: Optional[int]
+        """
+        The minute of the hour of the billing_cycle_anchor.
+        """
+        month: Optional[int]
+        """
+        The month to start full cycle billing periods.
+        """
+        second: Optional[int]
+        """
+        The second of the minute of the billing_cycle_anchor.
+        """
+
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
         """
@@ -476,6 +498,12 @@ class Subscription(
         """
         A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
         """
+        billing_cycle_anchor_config: NotRequired[
+            "Subscription.CreateParamsBillingCycleAnchorConfig"
+        ]
+        """
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        """
         billing_thresholds: NotRequired[
             "Literal['']|Subscription.CreateParamsBillingThresholds"
         ]
@@ -735,6 +763,28 @@ class Subscription(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsBillingCycleAnchorConfig(TypedDict):
+        day_of_month: int
+        """
+        The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        """
+        hour: NotRequired["int"]
+        """
+        The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        """
+        minute: NotRequired["int"]
+        """
+        The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        """
+        month: NotRequired["int"]
+        """
+        The month to start full cycle billing periods. Ranges from 1 to 12.
+        """
+        second: NotRequired["int"]
+        """
+        The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
@@ -2094,6 +2144,10 @@ class Subscription(
     """
     The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     """
+    billing_cycle_anchor_config: Optional[BillingCycleAnchorConfig]
+    """
+    The fixed values used to calculate the `billing_cycle_anchor`.
+    """
     billing_thresholds: Optional[BillingThresholds]
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
@@ -2669,6 +2723,7 @@ class Subscription(
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
+        "billing_cycle_anchor_config": BillingCycleAnchorConfig,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "pause_collection": PauseCollection,
