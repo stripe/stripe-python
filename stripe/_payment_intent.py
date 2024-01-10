@@ -4389,7 +4389,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
@@ -5287,7 +5287,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -6998,7 +6998,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
@@ -7896,7 +7896,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
@@ -9629,7 +9629,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
@@ -10527,7 +10527,7 @@ class PaymentIntent(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(

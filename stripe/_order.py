@@ -1318,7 +1318,7 @@ class Order(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
@@ -2430,7 +2430,7 @@ class Order(
             "Literal['automatic', 'instant', 'microdeposits']"
         ]
         """
-        Verification method for the intent
+        Bank account verification method.
         """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
