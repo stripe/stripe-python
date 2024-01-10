@@ -164,3 +164,29 @@ class TestRawRequest(object):
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
+
+    def test_raw_request_usage_reported(self, http_client_mock):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        expectation = "type=standard&int=123&datetime=1356994801"
+
+        resp = stripe.raw_request(
+            "post", self.POST_REL_URL, **self.ENCODE_INPUTS
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            path=self.POST_REL_URL,
+            content_type="application/x-www-form-urlencoded",
+            post_data=expectation,
+            usage=["raw_request"],
+        )
+
+        deserialized = stripe.deserialize(resp)
+        assert isinstance(deserialized, stripe.Account)

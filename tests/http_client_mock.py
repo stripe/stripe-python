@@ -25,12 +25,18 @@ def extract_api_base(abs_url):
 
 class StripeRequestCall(object):
     def __init__(
-        self, method=None, abs_url=None, headers=None, post_data=None
+        self,
+        method=None,
+        abs_url=None,
+        headers=None,
+        post_data=None,
+        usage=None,
     ):
         self.method = method
         self.abs_url = abs_url
         self.headers = headers
         self.post_data = post_data
+        self.usage = usage
 
     @classmethod
     def from_mock_call(cls, mock_call):
@@ -39,6 +45,7 @@ class StripeRequestCall(object):
             abs_url=mock_call[0][1],
             headers=mock_call[0][2],
             post_data=mock_call[0][3],
+            usage=mock_call[1]["_usage"],
         )
 
     def __repr__(self):
@@ -71,6 +78,7 @@ class StripeRequestCall(object):
         extra_headers=None,
         post_data=None,
         is_json=False,
+        usage=None,
     ):
         # METHOD
         if method is not None:
@@ -103,6 +111,8 @@ class StripeRequestCall(object):
             self.assert_header("User-Agent", user_agent)
         if extra_headers is not None:
             self.assert_extra_headers(extra_headers)
+        if usage is not None:
+            self.assert_usage(usage)
 
         # BODY
         if post_data is not None:
@@ -168,6 +178,12 @@ class StripeRequestCall(object):
                     "Expected header %s to be %s, got %s"
                     % (header, value, actual_value)
                 )
+
+    def assert_usage(self, expected):
+        if self.usage != expected:
+            raise AssertionError(
+                "Expected usage to be %s, got %s" % (expected, self.usage)
+            )
 
     def assert_post_data(self, expected, is_json=False):
         actual_data = self.post_data
@@ -308,6 +324,7 @@ class HTTPClientMock(object):
         extra_headers=None,
         post_data=None,
         is_json=False,
+        usage=None,
     ) -> None:
         if abs_url and (api_base or path or query_string):
             raise ValueError(
@@ -337,6 +354,7 @@ class HTTPClientMock(object):
             extra_headers=extra_headers,
             post_data=post_data,
             is_json=is_json,
+            usage=usage,
         )
 
     def assert_no_request(self):

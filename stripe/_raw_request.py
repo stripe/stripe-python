@@ -38,23 +38,39 @@ def _raw_request_args(method_, url_, **params):
         headers = {} if headers is None else headers.copy()
         headers.update({"Stripe-Context": stripe_context})
 
-    return requestor, method_, url_, params, headers, api_mode
+    usage = ["raw_request"]
+
+    return requestor, method_, url_, params, headers, api_mode, usage
 
 
 def raw_request(method_, url_, **params):
-    requestor, method_, url_, params, headers, api_mode = _raw_request_args(
-        method_, url_, **params
+    (
+        requestor,
+        method_,
+        url_,
+        params,
+        headers,
+        api_mode,
+        usage,
+    ) = _raw_request_args(method_, url_, **params)
+    response, _ = requestor.request(
+        method_, url_, params, headers, api_mode, _usage=usage
     )
-    response, _ = requestor.request(method_, url_, params, headers, api_mode)
     return response
 
 
 async def raw_request_async(method_, url_, **params):
-    requestor, method_, url_, params, headers, api_mode = _raw_request_args(
-        method_, url_, **params
-    )
+    (
+        requestor,
+        method_,
+        url_,
+        params,
+        headers,
+        api_mode,
+        usage,
+    ) = _raw_request_args(method_, url_, **params)
     response, _ = await requestor.request_async(
-        method_, url_, params, headers, api_mode
+        method_, url_, params, headers, api_mode, _usage=usage
     )
     return response
 
