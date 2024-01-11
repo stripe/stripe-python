@@ -1046,9 +1046,7 @@ class PaymentMethod(
         """
         If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
         """
-        card: NotRequired[
-            "PaymentMethod.CreateParamsCard|PaymentMethod.CreateParamsCard2"
-        ]
+        card: NotRequired["PaymentMethod.CreateParamsCard"]
         """
         If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
         """
@@ -1281,21 +1279,19 @@ class PaymentMethod(
         """
         The card's CVC. It is highly recommended to always include this value.
         """
-        exp_month: int
+        exp_month: NotRequired["int"]
         """
         Two-digit number representing the card's expiration month.
         """
-        exp_year: int
+        exp_year: NotRequired["int"]
         """
         Four-digit number representing the card's expiration year.
         """
-        number: str
+        number: NotRequired["str"]
         """
         The card number, as a string without any separators.
         """
-
-    class CreateParamsCard2(TypedDict):
-        token: str
+        token: NotRequired["str"]
         """
         For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
         """

@@ -2895,7 +2895,7 @@ class PaymentIntent(
         ID of the mandate that's used for this payment.
         """
         mandate_data: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsMandateData|PaymentIntent.ConfirmParamsMandateData2"
+            "Literal['']|PaymentIntent.ConfirmParamsMandateData"
         ]
         off_session: NotRequired["bool|Literal['one_off', 'recurring']"]
         """
@@ -2963,13 +2963,9 @@ class PaymentIntent(
         """
 
     class ConfirmParamsMandateData(TypedDict):
-        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class ConfirmParamsMandateData2(TypedDict):
-        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance2"
+        customer_acceptance: NotRequired[
+            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance"
+        ]
         """
         This hash contains details about the customer acceptance of the Mandate.
         """
@@ -2996,30 +2992,10 @@ class PaymentIntent(
         The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
         """
 
-    class ConfirmParamsMandateDataCustomerAcceptance2(TypedDict):
-        online: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline2"
-        """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
-        """
-        type: Literal["online"]
-        """
-        The type of customer acceptance information included with the Mandate.
-        """
-
     class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
         pass
 
     class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: str
-        """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: str
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
         ip_address: NotRequired["str"]
         """
         The IP address from which the Mandate was accepted by the customer.
