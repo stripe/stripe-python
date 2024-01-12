@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.13.0b1 - 2024-01-12
+* [#1189](https://github.com/stripe/stripe-python/pull/1189) Update generated code for beta
+* [#1191](https://github.com/stripe/stripe-python/pull/1191) Beta: report `raw_request` usage
+* [#1165](https://github.com/stripe/stripe-python/pull/1165) Beta: raw_request_async with HTTPX
+
 ## 7.12.0 - 2024-01-12
 * [#1188](https://github.com/stripe/stripe-python/pull/1188) Update generated code
   * Add support for new resource `CustomerSession`
