@@ -906,6 +906,20 @@ class TestGeneratedExamples(object):
             query_string="",
         )
 
+    def test_customer_sessions_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.CustomerSession.create(
+            customer="cus_123",
+            components={"buy_button": {"enabled": True}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customer_sessions",
+            query_string="",
+            post_data="customer=cus_123&components[buy_button][enabled]=True",
+        )
+
     def test_customers_balance_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:

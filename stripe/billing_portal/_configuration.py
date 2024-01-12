@@ -206,10 +206,18 @@ class Configuration(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
-    class CreateParamsLoginPage(TypedDict):
-        enabled: bool
+    class CreateParamsBusinessProfile(TypedDict):
+        headline: NotRequired["Literal['']|str"]
         """
-        Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
+        The messaging shown to customers in the portal.
+        """
+        privacy_policy_url: NotRequired["str"]
+        """
+        A link to the business's publicly available privacy policy.
+        """
+        terms_of_service_url: NotRequired["str"]
+        """
+        A link to the business's publicly available terms of service.
         """
 
     class CreateParamsFeatures(TypedDict):
@@ -250,45 +258,26 @@ class Configuration(
         Information about updating subscriptions in the portal.
         """
 
-    class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
-        default_allowed_updates: Union[
-            Literal[""], List[Literal["price", "promotion_code", "quantity"]]
+    class CreateParamsFeaturesCustomerUpdate(TypedDict):
+        allowed_updates: NotRequired[
+            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
         ]
         """
-        The types of subscription updates that are supported. When empty, subscriptions are not updateable.
+        The types of customer updates that are supported. When empty, customers are not updateable.
         """
         enabled: bool
         """
         Whether the feature is enabled.
         """
-        products: Union[
-            Literal[""],
-            List[
-                "Configuration.CreateParamsFeaturesSubscriptionUpdateProduct"
-            ],
-        ]
+
+    class CreateParamsFeaturesInvoiceHistory(TypedDict):
+        enabled: bool
         """
-        The list of up to 10 products that support subscription updates.
-        """
-        proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
-        ]
-        """
-        Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+        Whether the feature is enabled.
         """
 
-    class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
-        prices: List[str]
-        """
-        The list of price IDs for the product that a subscription can be updated to.
-        """
-        product: str
-        """
-        The product id.
-        """
-
-    class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired["bool"]
+    class CreateParamsFeaturesPaymentMethodUpdate(TypedDict):
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -339,42 +328,53 @@ class Configuration(
         Which cancellation reasons will be given as options to the customer.
         """
 
-    class CreateParamsFeaturesPaymentMethodUpdate(TypedDict):
-        enabled: bool
+    class CreateParamsFeaturesSubscriptionPause(TypedDict):
+        enabled: NotRequired["bool"]
         """
         Whether the feature is enabled.
         """
 
-    class CreateParamsFeaturesInvoiceHistory(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
-        """
-
-    class CreateParamsFeaturesCustomerUpdate(TypedDict):
-        allowed_updates: NotRequired[
-            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
+    class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
+        default_allowed_updates: Union[
+            Literal[""], List[Literal["price", "promotion_code", "quantity"]]
         ]
         """
-        The types of customer updates that are supported. When empty, customers are not updateable.
+        The types of subscription updates that are supported. When empty, subscriptions are not updateable.
         """
         enabled: bool
         """
         Whether the feature is enabled.
         """
+        products: Union[
+            Literal[""],
+            List[
+                "Configuration.CreateParamsFeaturesSubscriptionUpdateProduct"
+            ],
+        ]
+        """
+        The list of up to 10 products that support subscription updates.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+        """
 
-    class CreateParamsBusinessProfile(TypedDict):
-        headline: NotRequired["Literal['']|str"]
+    class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        prices: List[str]
         """
-        The messaging shown to customers in the portal.
+        The list of price IDs for the product that a subscription can be updated to.
         """
-        privacy_policy_url: NotRequired["str"]
+        product: str
         """
-        A link to the business's publicly available privacy policy.
+        The product id.
         """
-        terms_of_service_url: NotRequired["str"]
+
+    class CreateParamsLoginPage(TypedDict):
+        enabled: bool
         """
-        A link to the business's publicly available terms of service.
+        Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
         """
 
     class ListParams(RequestOptions):
@@ -435,12 +435,18 @@ class Configuration(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
-    class ModifyParamsLoginPage(TypedDict):
-        enabled: bool
+    class ModifyParamsBusinessProfile(TypedDict):
+        headline: NotRequired["Literal['']|str"]
         """
-        Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
-
-        Set to `false` to deactivate the `login_page.url`.
+        The messaging shown to customers in the portal.
+        """
+        privacy_policy_url: NotRequired["Literal['']|str"]
+        """
+        A link to the business's publicly available privacy policy.
+        """
+        terms_of_service_url: NotRequired["Literal['']|str"]
+        """
+        A link to the business's publicly available terms of service.
         """
 
     class ModifyParamsFeatures(TypedDict):
@@ -481,42 +487,26 @@ class Configuration(
         Information about updating subscriptions in the portal.
         """
 
-    class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
-        default_allowed_updates: NotRequired[
-            "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
+    class ModifyParamsFeaturesCustomerUpdate(TypedDict):
+        allowed_updates: NotRequired[
+            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
         ]
         """
-        The types of subscription updates that are supported. When empty, subscriptions are not updateable.
+        The types of customer updates that are supported. When empty, customers are not updateable.
         """
         enabled: NotRequired["bool"]
         """
         Whether the feature is enabled.
         """
-        products: NotRequired[
-            "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]"
-        ]
+
+    class ModifyParamsFeaturesInvoiceHistory(TypedDict):
+        enabled: bool
         """
-        The list of up to 10 products that support subscription updates.
-        """
-        proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
-        ]
-        """
-        Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+        Whether the feature is enabled.
         """
 
-    class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
-        prices: List[str]
-        """
-        The list of price IDs for the product that a subscription can be updated to.
-        """
-        product: str
-        """
-        The product id.
-        """
-
-    class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired["bool"]
+    class ModifyParamsFeaturesPaymentMethodUpdate(TypedDict):
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -555,42 +545,52 @@ class Configuration(
         Which cancellation reasons will be given as options to the customer.
         """
 
-    class ModifyParamsFeaturesPaymentMethodUpdate(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
-        """
-
-    class ModifyParamsFeaturesInvoiceHistory(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
-        """
-
-    class ModifyParamsFeaturesCustomerUpdate(TypedDict):
-        allowed_updates: NotRequired[
-            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
-        ]
-        """
-        The types of customer updates that are supported. When empty, customers are not updateable.
-        """
+    class ModifyParamsFeaturesSubscriptionPause(TypedDict):
         enabled: NotRequired["bool"]
         """
         Whether the feature is enabled.
         """
 
-    class ModifyParamsBusinessProfile(TypedDict):
-        headline: NotRequired["Literal['']|str"]
+    class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
+        default_allowed_updates: NotRequired[
+            "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
+        ]
         """
-        The messaging shown to customers in the portal.
+        The types of subscription updates that are supported. When empty, subscriptions are not updateable.
         """
-        privacy_policy_url: NotRequired["Literal['']|str"]
+        enabled: NotRequired["bool"]
         """
-        A link to the business's publicly available privacy policy.
+        Whether the feature is enabled.
         """
-        terms_of_service_url: NotRequired["Literal['']|str"]
+        products: NotRequired[
+            "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]"
+        ]
         """
-        A link to the business's publicly available terms of service.
+        The list of up to 10 products that support subscription updates.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+        """
+
+    class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        prices: List[str]
+        """
+        The list of price IDs for the product that a subscription can be updated to.
+        """
+        product: str
+        """
+        The product id.
+        """
+
+    class ModifyParamsLoginPage(TypedDict):
+        enabled: bool
+        """
+        Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
+
+        Set to `false` to deactivate the `login_page.url`.
         """
 
     class RetrieveParams(RequestOptions):

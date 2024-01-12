@@ -240,30 +240,6 @@ class OutboundPayment(
         The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
         """
 
-    class CreateParamsEndUserDetails(TypedDict):
-        ip_address: NotRequired["str"]
-        """
-        IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
-        """
-        present: bool
-        """
-        `True` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.
-        """
-
-    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
-        us_bank_account: NotRequired[
-            "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        Optional fields for `us_bank_account`.
-        """
-
-    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
-        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
-        """
-        The US bank account network that must be used for this OutboundPayment. If not set, we will default to the PaymentMethod's preferred network.
-        """
-
     class CreateParamsDestinationPaymentMethodData(TypedDict):
         billing_details: NotRequired[
             "OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetails"
@@ -288,28 +264,6 @@ class OutboundPayment(
         ]
         """
         Required hash if type is set to `us_bank_account`.
-        """
-
-    class CreateParamsDestinationPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type: individual or company.
-        """
-        account_number: NotRequired["str"]
-        """
-        Account number of the bank account.
-        """
-        account_type: NotRequired["Literal['checking', 'savings']"]
-        """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
         """
 
     class CreateParamsDestinationPaymentMethodDataBillingDetails(TypedDict):
@@ -360,6 +314,58 @@ class OutboundPayment(
         State, county, province, or region.
         """
 
+    class CreateParamsDestinationPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
+        account_number: NotRequired["str"]
+        """
+        Account number of the bank account.
+        """
+        account_type: NotRequired["Literal['checking', 'savings']"]
+        """
+        Account type: checkings or savings. Defaults to checking if omitted.
+        """
+        financial_connections_account: NotRequired["str"]
+        """
+        The ID of a Financial Connections Account to use as a payment method.
+        """
+        routing_number: NotRequired["str"]
+        """
+        Routing number of the bank account.
+        """
+
+    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
+        us_bank_account: NotRequired[
+            "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        Optional fields for `us_bank_account`.
+        """
+
+    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
+        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
+        """
+        The US bank account network that must be used for this OutboundPayment. If not set, we will default to the PaymentMethod's preferred network.
+        """
+
+    class CreateParamsEndUserDetails(TypedDict):
+        ip_address: NotRequired["str"]
+        """
+        IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
+        """
+        present: bool
+        """
+        `True` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.
+        """
+
+    class FailParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class ListParams(RequestOptions):
         customer: NotRequired["str"]
         """
@@ -392,19 +398,13 @@ class OutboundPayment(
         Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
         """
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class FailParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     class PostParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.

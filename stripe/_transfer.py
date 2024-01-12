@@ -84,6 +84,28 @@ class Transfer(
         A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
         """
 
+    class CreateReversalParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        refund_application_fee: NotRequired["bool"]
+        """
+        Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
+        """
+
     class ListParams(RequestOptions):
         created: NotRequired["Transfer.ListParamsCreated|int"]
         destination: NotRequired["str"]
@@ -129,64 +151,6 @@ class Transfer(
         Maximum value to filter by (inclusive)
         """
 
-    class ModifyParams(RequestOptions):
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateReversalParams(RequestOptions):
-        amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        refund_application_fee: NotRequired["bool"]
-        """
-        Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
-        """
-
-    class RetrieveReversalParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ModifyReversalParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
     class ListReversalsParams(RequestOptions):
         ending_before: NotRequired["str"]
         """
@@ -203,6 +167,42 @@ class Transfer(
         starting_after: NotRequired["str"]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ModifyParams(RequestOptions):
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class ModifyReversalParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveReversalParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     amount: int

@@ -211,5 +211,4 @@ class FundingInstructions(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-
     _inner_class_types = {"bank_transfer": BankTransfer}

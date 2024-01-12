@@ -133,52 +133,10 @@ class SubscriptionItem(
         Options that configure the trial on the subscription item.
         """
 
-    class CreateParamsTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
+    class CreateParamsBillingThresholds(TypedDict):
+        usage_gte: int
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class CreateParamsPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -223,10 +181,70 @@ class SubscriptionItem(
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
-    class CreateParamsBillingThresholds(TypedDict):
-        usage_gte: int
+    class CreateParamsPriceData(TypedDict):
+        currency: str
         """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class CreateParamsTrial(TypedDict):
+        converts_to: NotRequired["List[str]"]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class CreateUsageRecordParams(RequestOptions):
+        action: NotRequired["Literal['increment', 'set']"]
+        """
+        Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        quantity: int
+        """
+        The usage quantity for the specified timestamp.
+        """
+        timestamp: NotRequired["Literal['now']|int"]
+        """
+        The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided.
         """
 
     class DeleteParams(RequestOptions):
@@ -265,6 +283,24 @@ class SubscriptionItem(
         subscription: str
         """
         The ID of the subscription whose items will be retrieved.
+        """
+
+    class ListUsageRecordSummariesParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ModifyParams(RequestOptions):
@@ -335,42 +371,10 @@ class SubscriptionItem(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class ModifyParamsPriceData(TypedDict):
-        currency: str
+    class ModifyParamsBillingThresholds(TypedDict):
+        usage_gte: int
         """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyParamsPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsDiscount(TypedDict):
@@ -415,52 +419,48 @@ class SubscriptionItem(
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
-    class ModifyParamsBillingThresholds(TypedDict):
-        usage_gte: int
+    class ModifyParamsPriceData(TypedDict):
+        currency: str
         """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class ModifyParamsPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
         """
 
     class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
-        """
-
-    class CreateUsageRecordParams(RequestOptions):
-        action: NotRequired["Literal['increment', 'set']"]
-        """
-        Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        quantity: int
-        """
-        The usage quantity for the specified timestamp.
-        """
-        timestamp: NotRequired["Literal['now']|int"]
-        """
-        The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided.
-        """
-
-    class ListUsageRecordSummariesParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     billing_thresholds: Optional[BillingThresholds]

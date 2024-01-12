@@ -97,16 +97,16 @@ class Coupon(
         Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
         """
 
-    class CreateParamsCurrencyOptions(TypedDict):
-        amount_off: int
-        """
-        A positive integer representing the amount to subtract from an invoice total.
-        """
-
     class CreateParamsAppliesTo(TypedDict):
         products: NotRequired["List[str]"]
         """
         An array of Product IDs that this Coupon will apply to.
+        """
+
+    class CreateParamsCurrencyOptions(TypedDict):
+        amount_off: int
+        """
+        A positive integer representing the amount to subtract from an invoice total.
         """
 
     class DeleteParams(RequestOptions):

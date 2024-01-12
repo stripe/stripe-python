@@ -895,13 +895,613 @@ class Registration(
         Options for the registration in ZA.
         """
 
-    class CreateParamsCountryOptionsZa(TypedDict):
+    class CreateParamsCountryOptionsAe(TypedDict):
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
-    class CreateParamsCountryOptionsVn(TypedDict):
+    class CreateParamsCountryOptionsAt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsAtStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsAu(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsBeStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsBg(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBgStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsBgStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsCa(TypedDict):
+        province_standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsCaProvinceStandard"
+        ]
+        """
+        Options for the provincial tax registration.
+        """
+        type: Literal["province_standard", "simplified", "standard"]
+        """
+        Type of registration to be created in Canada.
+        """
+
+    class CreateParamsCountryOptionsCaProvinceStandard(TypedDict):
+        province: str
+        """
+        Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        """
+
+    class CreateParamsCountryOptionsCh(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCl(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCo(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCy(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsCyStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsCyStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsCz(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsCzStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsCzStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsDe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsDeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsDeStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsDk(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsDkStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsDkStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsEe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsEeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsEeStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsEs(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsEsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsEsStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsFi(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsFiStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsFiStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsFr(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsFrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsFrStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsGb(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGr(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsGrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsGrStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsHr(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsHrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsHrStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsHu(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsHuStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsHuStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsId(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsIe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsIeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsIeStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsIs(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsIt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsItStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsItStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsJp(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsKr(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsLt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsLtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsLtStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsLu(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsLuStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsLuStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsLv(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsLvStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsLvStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsMt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsMtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsMtStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsMx(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMy(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsNl(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsNlStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsNlStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsNo(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsNz(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsPl(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsPlStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsPlStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsPt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsPtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsPtStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsRo(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsRoStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsRoStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsSa(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsSeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsSeStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsSg(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSi(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsSiStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsSiStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsSk(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsSkStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
+        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+        """
+        Type of registration to be created in an EU country.
+        """
+
+    class CreateParamsCountryOptionsSkStandard(TypedDict):
+        place_of_supply_scheme: Literal["small_seller", "standard"]
+        """
+        Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsTh(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsTr(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
@@ -934,625 +1534,25 @@ class Registration(
         Type of registration to be created in the US.
         """
 
-    class CreateParamsCountryOptionsUsLocalLeaseTax(TypedDict):
-        jurisdiction: str
-        """
-        A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
-        """
-
     class CreateParamsCountryOptionsUsLocalAmusementTax(TypedDict):
         jurisdiction: str
         """
         A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `06613` (Bloomington), `21696` (East Dundee), `24582` (Evanston), and `68081` (Schiller Park).
         """
 
-    class CreateParamsCountryOptionsTr(TypedDict):
+    class CreateParamsCountryOptionsUsLocalLeaseTax(TypedDict):
+        jurisdiction: str
+        """
+        A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
+        """
+
+    class CreateParamsCountryOptionsVn(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
         """
 
-    class CreateParamsCountryOptionsTh(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsSk(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsSkStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsSkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsSi(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsSiStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsSiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsSg(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsSe(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsSeStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsSeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsSa(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsRo(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsRoStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsRoStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsPt(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsPtStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsPtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsPl(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsPlStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsPlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsNz(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsNo(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsNl(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsNlStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsNlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsMy(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsMx(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsMt(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsMtStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsMtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsLv(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsLvStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsLvStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsLu(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsLuStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsLuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsLt(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsLtStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsLtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsKr(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsJp(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsIt(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsItStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsItStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsIs(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsIe(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsIeStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsIeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsId(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsHu(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsHuStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsHuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsHr(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsHrStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsHrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsGr(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsGrStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsGrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsGb(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsFr(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsFrStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsFrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsFi(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsFiStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsFiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsEs(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsEsStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsEsStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsEe(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsEeStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsEeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsDk(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsDkStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsDkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsDe(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsDeStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsDeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsCz(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsCzStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsCzStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsCy(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsCyStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsCyStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsCo(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsCl(TypedDict):
-        type: Literal["simplified"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsCh(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsCa(TypedDict):
-        province_standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsCaProvinceStandard"
-        ]
-        """
-        Options for the provincial tax registration.
-        """
-        type: Literal["province_standard", "simplified", "standard"]
-        """
-        Type of registration to be created in Canada.
-        """
-
-    class CreateParamsCountryOptionsCaProvinceStandard(TypedDict):
-        province: str
-        """
-        Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-        """
-
-    class CreateParamsCountryOptionsBg(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsBgStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsBgStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsBe(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsBeStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsBeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsAu(TypedDict):
-        type: Literal["standard"]
-        """
-        Type of registration to be created in `country`.
-        """
-
-    class CreateParamsCountryOptionsAt(TypedDict):
-        standard: NotRequired[
-            "Registration.CreateParamsCountryOptionsAtStandard"
-        ]
-        """
-        Options for the standard registration.
-        """
-        type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
-        """
-        Type of registration to be created in an EU country.
-        """
-
-    class CreateParamsCountryOptionsAtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
-        """
-        Place of supply scheme used in an EU standard registration.
-        """
-
-    class CreateParamsCountryOptionsAe(TypedDict):
+    class CreateParamsCountryOptionsZa(TypedDict):
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.

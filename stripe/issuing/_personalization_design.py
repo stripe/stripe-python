@@ -102,6 +102,12 @@ class PersonalizationDesign(
         The reason(s) the carrier text was rejected.
         """
 
+    class ActivateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class CreateParams(RequestOptions):
         card_logo: NotRequired["str"]
         """
@@ -144,12 +150,6 @@ class PersonalizationDesign(
         If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         """
 
-    class CreateParamsPreferences(TypedDict):
-        is_default: bool
-        """
-        Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
-        """
-
     class CreateParamsCarrierText(TypedDict):
         footer_body: NotRequired["Literal['']|str"]
         """
@@ -166,6 +166,18 @@ class PersonalizationDesign(
         header_title: NotRequired["Literal['']|str"]
         """
         The header title text of the carrier letter.
+        """
+
+    class CreateParamsPreferences(TypedDict):
+        is_default: bool
+        """
+        Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
+        """
+
+    class DeactivateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class ListParams(RequestOptions):
@@ -252,12 +264,6 @@ class PersonalizationDesign(
         If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         """
 
-    class ModifyParamsPreferences(TypedDict):
-        is_default: bool
-        """
-        Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
-        """
-
     class ModifyParamsCarrierText(TypedDict):
         footer_body: NotRequired["Literal['']|str"]
         """
@@ -276,22 +282,10 @@ class PersonalizationDesign(
         The header title text of the carrier letter.
         """
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+    class ModifyParamsPreferences(TypedDict):
+        is_default: bool
         """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ActivateParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class DeactivateParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
+        Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         """
 
     class RejectParams(RequestOptions):
@@ -316,6 +310,12 @@ class PersonalizationDesign(
         ]
         """
         The reason(s) the carrier text was rejected.
+        """
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     card_logo: Optional[ExpandableField["File"]]

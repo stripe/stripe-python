@@ -213,6 +213,86 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         Set if a ReceivedCredit cannot be reversed.
         """
 
+    class CreateParams(RequestOptions):
+        amount: int
+        """
+        Amount (in cents) to be transferred.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        financial_account: str
+        """
+        The FinancialAccount to send funds to.
+        """
+        initiating_payment_method_details: NotRequired[
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails"
+        ]
+        """
+        Initiating payment method details for the object.
+        """
+        network: Literal["ach", "us_domestic_wire"]
+        """
+        The rails used for the object.
+        """
+        network_details: NotRequired[
+            "ReceivedCredit.CreateParamsNetworkDetails"
+        ]
+        """
+        Details about the network used for the ReceivedCredit.
+        """
+
+    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
+        type: Literal["us_bank_account"]
+        """
+        The source type.
+        """
+        us_bank_account: NotRequired[
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
+        ]
+        """
+        Optional fields for `us_bank_account`.
+        """
+
+    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
+        account_holder_name: NotRequired["str"]
+        """
+        The bank account holder's name.
+        """
+        account_number: NotRequired["str"]
+        """
+        The bank account number.
+        """
+        routing_number: NotRequired["str"]
+        """
+        The bank account's routing number.
+        """
+
+    class CreateParamsNetworkDetails(TypedDict):
+        ach: NotRequired["ReceivedCredit.CreateParamsNetworkDetailsAch"]
+        """
+        Optional fields for `ach`.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedCredit.
+        """
+
+    class CreateParamsNetworkDetailsAch(TypedDict):
+        addenda: NotRequired["str"]
+        """
+        ACH Addenda record
+        """
+
     class ListParams(RequestOptions):
         ending_before: NotRequired["str"]
         """
@@ -255,86 +335,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        amount: int
-        """
-        Amount (in cents) to be transferred.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount to send funds to.
-        """
-        initiating_payment_method_details: NotRequired[
-            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails"
-        ]
-        """
-        Initiating payment method details for the object.
-        """
-        network: Literal["ach", "us_domestic_wire"]
-        """
-        The rails used for the object.
-        """
-        network_details: NotRequired[
-            "ReceivedCredit.CreateParamsNetworkDetails"
-        ]
-        """
-        Details about the network used for the ReceivedCredit.
-        """
-
-    class CreateParamsNetworkDetails(TypedDict):
-        ach: NotRequired["ReceivedCredit.CreateParamsNetworkDetailsAch"]
-        """
-        Optional fields for `ach`.
-        """
-        type: Literal["ach"]
-        """
-        The type of flow that originated the ReceivedCredit.
-        """
-
-    class CreateParamsNetworkDetailsAch(TypedDict):
-        addenda: NotRequired["str"]
-        """
-        ACH Addenda record
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
-        type: Literal["us_bank_account"]
-        """
-        The source type.
-        """
-        us_bank_account: NotRequired[
-            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
-        ]
-        """
-        Optional fields for `us_bank_account`.
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired["str"]
-        """
-        The bank account holder's name.
-        """
-        account_number: NotRequired["str"]
-        """
-        The bank account number.
-        """
-        routing_number: NotRequired["str"]
-        """
-        The bank account's routing number.
         """
 
     amount: int

@@ -180,53 +180,6 @@ class Product(
         A URL of a publicly-accessible webpage for this product.
         """
 
-    class CreateParamsProvisioning(TypedDict):
-        gift_card: NotRequired["Product.CreateParamsProvisioningGiftCard"]
-        type: Literal["gift_card"]
-        """
-        The type of provisioning, only `gift_card` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCard(TypedDict):
-        fixed_amount: NotRequired[
-            "Product.CreateParamsProvisioningGiftCardFixedAmount"
-        ]
-        type: Literal["fixed_amount"]
-        """
-        The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCardFixedAmount(TypedDict):
-        amount: int
-        """
-        The initial amount with which the provisioned gift card will be created.
-        """
-        currency: str
-
-    class CreateParamsPackageDimensions(TypedDict):
-        height: float
-        """
-        Height, in inches. Maximum precision is 2 decimal places.
-        """
-        length: float
-        """
-        Length, in inches. Maximum precision is 2 decimal places.
-        """
-        weight: float
-        """
-        Weight, in ounces. Maximum precision is 2 decimal places.
-        """
-        width: float
-        """
-        Width, in inches. Maximum precision is 2 decimal places.
-        """
-
-    class CreateParamsFeature(TypedDict):
-        name: str
-        """
-        The feature's name. Up to 80 characters long.
-        """
-
     class CreateParamsDefaultPriceData(TypedDict):
         currency: str
         """
@@ -257,16 +210,6 @@ class Product(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class CreateParamsDefaultPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
-        """
-
     class CreateParamsDefaultPriceDataCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
             "Product.CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount"
@@ -295,6 +238,26 @@ class Product(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        """
+        maximum: NotRequired["int"]
+        """
+        The maximum unit amount the customer can specify for this item.
+        """
+        minimum: NotRequired["int"]
+        """
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        """
+        preset: NotRequired["int"]
+        """
+        The starting unit amount which can be updated by the customer.
+        """
+
     class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired["int"]
         """
@@ -317,25 +280,62 @@ class Product(
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         """
 
-    class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(
-        TypedDict,
-    ):
-        enabled: bool
+    class CreateParamsDefaultPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
         """
-        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        maximum: NotRequired["int"]
+        interval_count: NotRequired["int"]
         """
-        The maximum unit amount the customer can specify for this item.
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
         """
-        minimum: NotRequired["int"]
+
+    class CreateParamsFeature(TypedDict):
+        name: str
         """
-        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        The feature's name. Up to 80 characters long.
         """
-        preset: NotRequired["int"]
+
+    class CreateParamsPackageDimensions(TypedDict):
+        height: float
         """
-        The starting unit amount which can be updated by the customer.
+        Height, in inches. Maximum precision is 2 decimal places.
         """
+        length: float
+        """
+        Length, in inches. Maximum precision is 2 decimal places.
+        """
+        weight: float
+        """
+        Weight, in ounces. Maximum precision is 2 decimal places.
+        """
+        width: float
+        """
+        Width, in inches. Maximum precision is 2 decimal places.
+        """
+
+    class CreateParamsProvisioning(TypedDict):
+        gift_card: NotRequired["Product.CreateParamsProvisioningGiftCard"]
+        type: Literal["gift_card"]
+        """
+        The type of provisioning, only `gift_card` currently supported.
+        """
+
+    class CreateParamsProvisioningGiftCard(TypedDict):
+        fixed_amount: NotRequired[
+            "Product.CreateParamsProvisioningGiftCardFixedAmount"
+        ]
+        type: Literal["fixed_amount"]
+        """
+        The specific type of gift_card provisioning, only `fixed_amount` currently supported.
+        """
+
+    class CreateParamsProvisioningGiftCardFixedAmount(TypedDict):
+        amount: int
+        """
+        The initial amount with which the provisioned gift card will be created.
+        """
+        currency: str
 
     class DeleteParams(RequestOptions):
         pass
@@ -463,6 +463,12 @@ class Product(
         A URL of a publicly-accessible webpage for this product.
         """
 
+    class ModifyParamsFeature(TypedDict):
+        name: str
+        """
+        The feature's name. Up to 80 characters long.
+        """
+
     class ModifyParamsPackageDimensions(TypedDict):
         height: float
         """
@@ -479,12 +485,6 @@ class Product(
         width: float
         """
         Width, in inches. Maximum precision is 2 decimal places.
-        """
-
-    class ModifyParamsFeature(TypedDict):
-        name: str
-        """
-        The feature's name. Up to 80 characters long.
         """
 
     class RetrieveParams(RequestOptions):

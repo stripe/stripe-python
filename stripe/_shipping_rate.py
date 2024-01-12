@@ -128,6 +128,40 @@ class ShippingRate(
         The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
         """
 
+    class CreateParamsDeliveryEstimate(TypedDict):
+        maximum: NotRequired[
+            "ShippingRate.CreateParamsDeliveryEstimateMaximum"
+        ]
+        """
+        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+        """
+        minimum: NotRequired[
+            "ShippingRate.CreateParamsDeliveryEstimateMinimum"
+        ]
+        """
+        The lower bound of the estimated range. If empty, represents no lower bound.
+        """
+
+    class CreateParamsDeliveryEstimateMaximum(TypedDict):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class CreateParamsDeliveryEstimateMinimum(TypedDict):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
     class CreateParamsFixedAmount(TypedDict):
         amount: int
         """
@@ -154,40 +188,6 @@ class ShippingRate(
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
-        """
-
-    class CreateParamsDeliveryEstimate(TypedDict):
-        maximum: NotRequired[
-            "ShippingRate.CreateParamsDeliveryEstimateMaximum"
-        ]
-        """
-        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
-        """
-        minimum: NotRequired[
-            "ShippingRate.CreateParamsDeliveryEstimateMinimum"
-        ]
-        """
-        The lower bound of the estimated range. If empty, represents no lower bound.
-        """
-
-    class CreateParamsDeliveryEstimateMinimum(TypedDict):
-        unit: Literal["business_day", "day", "hour", "month", "week"]
-        """
-        A unit of time.
-        """
-        value: int
-        """
-        Must be greater than 0.
-        """
-
-    class CreateParamsDeliveryEstimateMaximum(TypedDict):
-        unit: Literal["business_day", "day", "hour", "month", "week"]
-        """
-        A unit of time.
-        """
-        value: int
-        """
-        Must be greater than 0.
         """
 
     class ListParams(RequestOptions):

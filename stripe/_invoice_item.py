@@ -149,40 +149,6 @@ class InvoiceItem(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class CreateParamsPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
     class CreateParamsDiscount(TypedDict):
         coupon: NotRequired["str"]
         """
@@ -223,6 +189,40 @@ class InvoiceItem(
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsPeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
+    class CreateParamsPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
     class DeleteParams(RequestOptions):
@@ -347,40 +347,6 @@ class InvoiceItem(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class ModifyParamsPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyParamsPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
     class ModifyParamsDiscount(TypedDict):
         coupon: NotRequired["str"]
         """
@@ -421,6 +387,40 @@ class InvoiceItem(
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsPeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
+    class ModifyParamsPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
     class RetrieveParams(RequestOptions):

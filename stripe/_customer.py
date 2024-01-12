@@ -217,6 +217,78 @@ class Customer(
         """
         _inner_class_types = {"location": Location}
 
+    class CreateBalanceTransactionParams(RequestOptions):
+        amount: int
+        """
+        The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class CreateFundingInstructionsParams(RequestOptions):
+        bank_transfer: "Customer.CreateFundingInstructionsParamsBankTransfer"
+        """
+        Additional parameters for `bank_transfer` funding types
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        funding_type: Literal["bank_transfer"]
+        """
+        The `funding_type` to get the instructions for.
+        """
+
+    class CreateFundingInstructionsParamsBankTransfer(TypedDict):
+        eu_bank_transfer: NotRequired[
+            "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['iban', 'sort_code', 'spei', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The type of the `bank_transfer`
+        """
+
+    class CreateFundingInstructionsParamsBankTransferEuBankTransfer(TypedDict):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
     class CreateParams(RequestOptions):
         address: NotRequired["Literal['']|Customer.CreateParamsAddress"]
         """
@@ -301,6 +373,137 @@ class Customer(
         """
         validate: NotRequired["bool"]
 
+    class CreateParamsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class CreateParamsCashBalance(TypedDict):
+        settings: NotRequired["Customer.CreateParamsCashBalanceSettings"]
+        """
+        Settings controlling the behavior of the customer's cash balance,
+        such as reconciliation of funds received.
+        """
+
+    class CreateParamsCashBalanceSettings(TypedDict):
+        reconciliation_mode: NotRequired[
+            "Literal['automatic', 'manual', 'merchant_default']"
+        ]
+        """
+        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+        """
+
+    class CreateParamsInvoiceSettings(TypedDict):
+        custom_fields: NotRequired[
+            "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]"
+        ]
+        """
+        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
+        """
+        default_payment_method: NotRequired["str"]
+        """
+        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
+        """
+        footer: NotRequired["str"]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        rendering_options: NotRequired[
+            "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions"
+        ]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+
+    class CreateParamsInvoiceSettingsCustomField(TypedDict):
+        name: str
+        """
+        The name of the custom field. This may be up to 30 characters.
+        """
+        value: str
+        """
+        The value of the custom field. This may be up to 30 characters.
+        """
+
+    class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+
+    class CreateParamsShipping(TypedDict):
+        address: "Customer.CreateParamsShippingAddress"
+        """
+        Customer shipping address.
+        """
+        name: str
+        """
+        Customer name.
+        """
+        phone: NotRequired["str"]
+        """
+        Customer phone (including extension).
+        """
+
+    class CreateParamsShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class CreateParamsTax(TypedDict):
+        ip_address: NotRequired["Literal['']|str"]
+        """
+        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
+        """
+        validate_location: NotRequired["Literal['deferred', 'immediately']"]
+        """
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        """
+
     class CreateParamsTaxIdDatum(TypedDict):
         type: Literal[
             "ad_nrt",
@@ -378,141 +581,121 @@ class Customer(
         Value of the tax ID.
         """
 
-    class CreateParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
+    class CreateSourceParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
+        Specifies which fields in the response should be expanded.
         """
-        validate_location: NotRequired["Literal['deferred', 'immediately']"]
+        metadata: NotRequired["Dict[str, str]"]
         """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        source: str
+        """
+        Please refer to full [documentation](https://stripe.com/docs/api) instead.
+        """
+        validate: NotRequired["bool"]
 
-    class CreateParamsShipping(TypedDict):
-        address: "Customer.CreateParamsShippingAddress"
+    class CreateTaxIdParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        Customer shipping address.
+        Specifies which fields in the response should be expanded.
         """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired["str"]
-        """
-        Customer phone (including extension).
-        """
-
-    class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]"
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
         ]
         """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
-        """
-        default_payment_method: NotRequired["str"]
-        """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired["str"]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-
-    class CreateParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 30 characters.
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        Value of the tax ID.
         """
 
-    class CreateParamsCashBalance(TypedDict):
-        settings: NotRequired["Customer.CreateParamsCashBalanceSettings"]
+    class DeleteDiscountParams(RequestOptions):
+        pass
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class DeleteSourceParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
+        Specifies which fields in the response should be expanded.
         """
 
-    class CreateParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            "Literal['automatic', 'manual', 'merchant_default']"
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
+    class DeleteTaxIdParams(RequestOptions):
+        pass
 
-    class CreateParamsAddress(TypedDict):
-        city: NotRequired["str"]
+    class FundCashBalanceParams(RequestOptions):
+        amount: int
         """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateFundingInstructionsParams(RequestOptions):
-        bank_transfer: "Customer.CreateFundingInstructionsParamsBankTransfer"
-        """
-        Additional parameters for `bank_transfer` funding types
+        Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).
         """
         currency: str
         """
@@ -522,48 +705,46 @@ class Customer(
         """
         Specifies which fields in the response should be expanded.
         """
-        funding_type: Literal["bank_transfer"]
+        reference: NotRequired["str"]
         """
-        The `funding_type` to get the instructions for.
-        """
-
-    class CreateFundingInstructionsParamsBankTransfer(TypedDict):
-        eu_bank_transfer: NotRequired[
-            "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
-        ]
-        """
-        Configuration for eu_bank_transfer funding type.
-        """
-        requested_address_types: NotRequired[
-            "List[Literal['iban', 'sort_code', 'spei', 'zengin']]"
-        ]
-        """
-        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-        """
-        type: Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
-        """
-        The type of the `bank_transfer`
+        A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
         """
 
-    class CreateFundingInstructionsParamsBankTransferEuBankTransfer(TypedDict):
-        country: str
+    class ListBalanceTransactionsParams(RequestOptions):
+        ending_before: NotRequired["str"]
         """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class DeleteParams(RequestOptions):
-        pass
-
-    class DeleteDiscountParams(RequestOptions):
-        pass
+    class ListCashBalanceTransactionsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
     class ListParams(RequestOptions):
         created: NotRequired["Customer.ListParamsCreated|int"]
@@ -632,6 +813,78 @@ class Customer(
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
+        """
+
+    class ListSourcesParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        object: NotRequired["str"]
+        """
+        Filter sources according to a particular object type.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListTaxIdsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ModifyBalanceTransactionParams(RequestOptions):
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class ModifyCashBalanceParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        settings: NotRequired["Customer.ModifyCashBalanceParamsSettings"]
+        """
+        A hash of settings for this cash balance.
+        """
+
+    class ModifyCashBalanceParamsSettings(TypedDict):
+        reconciliation_mode: NotRequired[
+            "Literal['automatic', 'manual', 'merchant_default']"
+        ]
+        """
+        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
         """
 
     class ModifyParams(RequestOptions):
@@ -717,14 +970,85 @@ class Customer(
         """
         validate: NotRequired["bool"]
 
-    class ModifyParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
+    class ModifyParamsAddress(TypedDict):
+        city: NotRequired["str"]
         """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
+        City, district, suburb, town, or village.
         """
-        validate_location: NotRequired["Literal['deferred', 'immediately']"]
+        country: NotRequired["str"]
         """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class ModifyParamsCashBalance(TypedDict):
+        settings: NotRequired["Customer.ModifyParamsCashBalanceSettings"]
+        """
+        Settings controlling the behavior of the customer's cash balance,
+        such as reconciliation of funds received.
+        """
+
+    class ModifyParamsCashBalanceSettings(TypedDict):
+        reconciliation_mode: NotRequired[
+            "Literal['automatic', 'manual', 'merchant_default']"
+        ]
+        """
+        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+        """
+
+    class ModifyParamsInvoiceSettings(TypedDict):
+        custom_fields: NotRequired[
+            "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]"
+        ]
+        """
+        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
+        """
+        default_payment_method: NotRequired["str"]
+        """
+        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
+        """
+        footer: NotRequired["str"]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        rendering_options: NotRequired[
+            "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions"
+        ]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+
+    class ModifyParamsInvoiceSettingsCustomField(TypedDict):
+        name: str
+        """
+        The name of the custom field. This may be up to 30 characters.
+        """
+        value: str
+        """
+        The value of the custom field. This may be up to 30 characters.
+        """
+
+    class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
 
     class ModifyParamsShipping(TypedDict):
@@ -767,262 +1091,14 @@ class Customer(
         State, county, province, or region.
         """
 
-    class ModifyParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]"
-        ]
+    class ModifyParamsTax(TypedDict):
+        ip_address: NotRequired["Literal['']|str"]
         """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
+        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
         """
-        default_payment_method: NotRequired["str"]
+        validate_location: NotRequired["Literal['deferred', 'immediately']"]
         """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired["str"]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-
-    class ModifyParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 30 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 30 characters.
-        """
-
-    class ModifyParamsCashBalance(TypedDict):
-        settings: NotRequired["Customer.ModifyParamsCashBalanceSettings"]
-        """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
-        """
-
-    class ModifyParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            "Literal['automatic', 'manual', 'merchant_default']"
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class ModifyParamsAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrievePaymentMethodParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class SearchParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        page: NotRequired["str"]
-        """
-        A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
-        """
-        query: str
-        """
-        The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for customers](https://stripe.com/docs/search#query-fields-for-customers).
-        """
-
-    class ModifyCashBalanceParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        settings: NotRequired["Customer.ModifyCashBalanceParamsSettings"]
-        """
-        A hash of settings for this cash balance.
-        """
-
-    class ModifyCashBalanceParamsSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            "Literal['automatic', 'manual', 'merchant_default']"
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class RetrieveCashBalanceParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class FundCashBalanceParams(RequestOptions):
-        amount: int
-        """
-        Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        reference: NotRequired["str"]
-        """
-        A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
-        """
-
-    class CreateBalanceTransactionParams(RequestOptions):
-        amount: int
-        """
-        The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class RetrieveBalanceTransactionParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ModifyBalanceTransactionParams(RequestOptions):
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class ListBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveCashBalanceTransactionParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListCashBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class CreateSourceParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        source: str
-        """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
-        """
-        validate: NotRequired["bool"]
-
-    class RetrieveSourceParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
         """
 
     class ModifySourceParams(RequestOptions):
@@ -1124,113 +1200,40 @@ class Customer(
         State, county, province, or region.
         """
 
-    class DeleteSourceParams(RequestOptions):
+    class RetrieveBalanceTransactionParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
         """
 
-    class ListSourcesParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
+    class RetrieveCashBalanceParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        object: NotRequired["str"]
-        """
-        Filter sources according to a particular object type.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class CreateTaxIdParams(RequestOptions):
+    class RetrieveCashBalanceTransactionParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
         """
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "bg_uic",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "ch_vat",
-            "cl_tin",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "hk_br",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kr_brn",
-            "li_uid",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "no_vat",
-            "nz_gst",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sv_nit",
-            "th_vat",
-            "tr_tin",
-            "tw_vat",
-            "ua_vat",
-            "us_ein",
-            "uy_ruc",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Specifies which fields in the response should be expanded.
         """
-        value: str
+
+    class RetrievePaymentMethodParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        Value of the tax ID.
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveSourceParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class RetrieveTaxIdParams(RequestOptions):
@@ -1239,14 +1242,7 @@ class Customer(
         Specifies which fields in the response should be expanded.
         """
 
-    class DeleteTaxIdParams(RequestOptions):
-        pass
-
-    class ListTaxIdsParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
+    class SearchParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -1255,9 +1251,13 @@ class Customer(
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        page: NotRequired["str"]
         """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
+        """
+        query: str
+        """
+        The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for customers](https://stripe.com/docs/search#query-fields-for-customers).
         """
 
     address: Optional[Address]

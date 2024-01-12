@@ -26,6 +26,12 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
 
     class Components(StripeObject):
+        class BuyButton(StripeObject):
+            enabled: bool
+            """
+            Whether the buy button is enabled.
+            """
+
         class PaymentElement(StripeObject):
             class Features(StripeObject):
                 payment_method_remove: Literal["auto", "never"]
@@ -61,6 +67,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             Whether the pricing table is enabled.
             """
 
+        buy_button: Optional[BuyButton]
+        """
+        This hash contains whether the buy button is enabled.
+        """
         payment_element: Optional[PaymentElement]
         """
         This hash contains whether the payment element is enabled and the features it supports.
@@ -70,6 +80,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         This hash contains whether the pricing table is enabled.
         """
         _inner_class_types = {
+            "buy_button": BuyButton,
             "payment_element": PaymentElement,
             "pricing_table": PricingTable,
         }
@@ -77,7 +88,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParams(RequestOptions):
         components: "CustomerSession.CreateParamsComponents"
         """
-        Configuration for each component.
+        Configuration for each component. 1 component must be enabled.
         """
         customer: str
         """
@@ -89,6 +100,12 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
 
     class CreateParamsComponents(TypedDict):
+        buy_button: NotRequired[
+            "CustomerSession.CreateParamsComponentsBuyButton"
+        ]
+        """
+        Configuration for buy button.
+        """
         payment_element: NotRequired[
             "CustomerSession.CreateParamsComponentsPaymentElement"
         ]
@@ -102,10 +119,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         Configuration for the pricing table.
         """
 
-    class CreateParamsComponentsPricingTable(TypedDict):
+    class CreateParamsComponentsBuyButton(TypedDict):
         enabled: bool
         """
-        Whether the pricing table is enabled.
+        Whether the buy button is enabled.
         """
 
     class CreateParamsComponentsPaymentElement(TypedDict):
@@ -136,6 +153,12 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         payment_method_update: NotRequired["Literal['auto', 'never']"]
         """
         Controls whether the Payment Element allows the updating of a saved payment method.
+        """
+
+    class CreateParamsComponentsPricingTable(TypedDict):
+        enabled: bool
+        """
+        Whether the pricing table is enabled.
         """
 
     client_secret: str

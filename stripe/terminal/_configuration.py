@@ -305,10 +305,16 @@ class Configuration(
         An object containing device type specific settings for Verifone P400 readers
         """
 
-    class CreateParamsVerifoneP400(TypedDict):
+    class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
         A File ID representing an image you would like displayed on the reader.
+        """
+
+    class CreateParamsOffline(TypedDict):
+        enabled: bool
+        """
+        Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
     class CreateParamsTipping(TypedDict):
@@ -369,161 +375,7 @@ class Configuration(
         Tipping configuration for USD
         """
 
-    class CreateParamsTippingUsd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingSgd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingSek(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingNzd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingNok(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingMyr(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingHkd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingGbp(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingEur(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingDkk(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingCzk(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class CreateParamsTippingChf(TypedDict):
+    class CreateParamsTippingAud(TypedDict):
         fixed_amounts: NotRequired["List[int]"]
         """
         Fixed amounts displayed when collecting a tip
@@ -551,7 +403,7 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class CreateParamsTippingAud(TypedDict):
+    class CreateParamsTippingChf(TypedDict):
         fixed_amounts: NotRequired["List[int]"]
         """
         Fixed amounts displayed when collecting a tip
@@ -565,13 +417,161 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class CreateParamsOffline(TypedDict):
-        enabled: bool
+    class CreateParamsTippingCzk(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
         """
-        Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class CreateParamsBbposWiseposE(TypedDict):
+    class CreateParamsTippingDkk(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingEur(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingGbp(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingHkd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingMyr(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingNok(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingNzd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingSek(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingSgd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingUsd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsVerifoneP400(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
         A File ID representing an image you would like displayed on the reader.
@@ -628,10 +628,16 @@ class Configuration(
         An object containing device type specific settings for Verifone P400 readers
         """
 
-    class ModifyParamsVerifoneP400(TypedDict):
+    class ModifyParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
         A File ID representing an image you would like displayed on the reader.
+        """
+
+    class ModifyParamsOffline(TypedDict):
+        enabled: bool
+        """
+        Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
     class ModifyParamsTipping(TypedDict):
@@ -692,161 +698,7 @@ class Configuration(
         Tipping configuration for USD
         """
 
-    class ModifyParamsTippingUsd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingSgd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingSek(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingNzd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingNok(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingMyr(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingHkd(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingGbp(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingEur(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingDkk(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingCzk(TypedDict):
-        fixed_amounts: NotRequired["List[int]"]
-        """
-        Fixed amounts displayed when collecting a tip
-        """
-        percentages: NotRequired["List[int]"]
-        """
-        Percentages displayed when collecting a tip
-        """
-        smart_tip_threshold: NotRequired["int"]
-        """
-        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-        """
-
-    class ModifyParamsTippingChf(TypedDict):
+    class ModifyParamsTippingAud(TypedDict):
         fixed_amounts: NotRequired["List[int]"]
         """
         Fixed amounts displayed when collecting a tip
@@ -874,7 +726,7 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class ModifyParamsTippingAud(TypedDict):
+    class ModifyParamsTippingChf(TypedDict):
         fixed_amounts: NotRequired["List[int]"]
         """
         Fixed amounts displayed when collecting a tip
@@ -888,13 +740,161 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class ModifyParamsOffline(TypedDict):
-        enabled: bool
+    class ModifyParamsTippingCzk(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
         """
-        Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
-    class ModifyParamsBbposWiseposE(TypedDict):
+    class ModifyParamsTippingDkk(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingEur(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingGbp(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingHkd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingMyr(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingNok(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingNzd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingSek(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingSgd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingUsd(TypedDict):
+        fixed_amounts: NotRequired["List[int]"]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired["List[int]"]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired["int"]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsVerifoneP400(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
         A File ID representing an image you would like displayed on the reader.

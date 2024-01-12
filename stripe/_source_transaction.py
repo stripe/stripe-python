@@ -167,7 +167,6 @@ class SourceTransaction(StripeObject):
     """
     The type of source this transaction is attached to.
     """
-
     _inner_class_types = {
         "ach_credit_transfer": AchCreditTransfer,
         "chf_credit_transfer": ChfCreditTransfer,

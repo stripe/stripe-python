@@ -84,6 +84,28 @@ class Subscription(
         """
         _inner_class_types = {"liability": Liability}
 
+    class BillingCycleAnchorConfig(StripeObject):
+        day_of_month: int
+        """
+        The day of the month of the billing_cycle_anchor.
+        """
+        hour: Optional[int]
+        """
+        The hour of the day of the billing_cycle_anchor.
+        """
+        minute: Optional[int]
+        """
+        The minute of the hour of the billing_cycle_anchor.
+        """
+        month: Optional[int]
+        """
+        The month to start full cycle billing periods.
+        """
+        second: Optional[int]
+        """
+        The second of the minute of the billing_cycle_anchor.
+        """
+
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
         """
@@ -312,12 +334,14 @@ class Subscription(
                     "card",
                     "cashapp",
                     "customer_balance",
+                    "eps",
                     "fpx",
                     "giropay",
                     "grabpay",
                     "ideal",
                     "konbini",
                     "link",
+                    "p24",
                     "paynow",
                     "paypal",
                     "promptpay",
@@ -474,6 +498,12 @@ class Subscription(
         """
         A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
         """
+        billing_cycle_anchor_config: NotRequired[
+            "Subscription.CreateParamsBillingCycleAnchorConfig"
+        ]
+        """
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        """
         billing_thresholds: NotRequired[
             "Literal['']|Subscription.CreateParamsBillingThresholds"
         ]
@@ -621,46 +651,346 @@ class Subscription(
         Settings related to subscription trials.
         """
 
-    class CreateParamsTrialSettings(TypedDict):
-        end_behavior: "Subscription.CreateParamsTrialSettingsEndBehavior"
+    class CreateParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            "List[Subscription.CreateParamsAddInvoiceItemDiscount]"
+        ]
         """
-        Defines how the subscription should behave when the user's free trial ends.
+        The coupons to redeem into discounts for the item.
         """
-
-    class CreateParamsTrialSettingsEndBehavior(TypedDict):
-        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        price: NotRequired["str"]
         """
-        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        The ID of the price object.
         """
-
-    class CreateParamsTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        price_data: NotRequired[
+            "Subscription.CreateParamsAddInvoiceItemPriceData"
+        ]
         """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        destination: str
+        quantity: NotRequired["int"]
         """
-        ID of an existing, connected Stripe account.
+        Quantity for this item. Defaults to 1.
         """
-
-    class CreateParamsPrebilling(TypedDict):
-        iterations: int
+        tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        This is used to determine the number of billing cycles to prebill.
-        """
-        update_behavior: NotRequired["Literal['prebill', 'reset']"]
-        """
-        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         """
 
-    class CreateParamsPendingInvoiceItemInterval(TypedDict):
+    class CreateParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class CreateParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         """
-        Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsAddInvoiceItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
+        """
+        liability: NotRequired[
+            "Subscription.CreateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
+    class CreateParamsBillingCycleAnchorConfig(TypedDict):
+        day_of_month: int
+        """
+        The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        """
+        hour: NotRequired["int"]
+        """
+        The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        """
+        minute: NotRequired["int"]
+        """
+        The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        """
+        month: NotRequired["int"]
+        """
+        The month to start full cycle billing periods. Ranges from 1 to 12.
+        """
+        second: NotRequired["int"]
+        """
+        The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        """
+
+    class CreateParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired["int"]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired["bool"]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsInvoiceSettings(TypedDict):
+        issuer: NotRequired["Subscription.CreateParamsInvoiceSettingsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class CreateParamsInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
+    class CreateParamsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|Subscription.CreateParamsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Subscription.CreateParamsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        plan: NotRequired["str"]
+        """
+        Plan ID for this item, as a string.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of the price object.
+        """
+        price_data: NotRequired["Subscription.CreateParamsItemPriceData"]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        quantity: NotRequired["int"]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+        trial: NotRequired["Subscription.CreateParamsItemTrial"]
+        """
+        Define options to configure the trial on the subscription item.
+        """
+
+    class CreateParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class CreateParamsItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        recurring: "Subscription.CreateParamsItemPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class CreateParamsItemTrial(TypedDict):
+        converts_to: NotRequired["List[str]"]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
         """
 
     class CreateParamsPaymentSettings(TypedDict):
@@ -671,7 +1001,7 @@ class Subscription(
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'p24', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -721,14 +1051,12 @@ class Subscription(
         This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
         """
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
-        TypedDict,
-    ):
-        financial_connections: NotRequired[
-            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections"
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
         ]
         """
-        Additional fields for Financial Connections Session creation
+        Additional fields for Mandate creation
         """
         verification_method: NotRequired[
             "Literal['automatic', 'instant', 'microdeposits']"
@@ -737,24 +1065,53 @@ class Subscription(
         Verification method for the intent
         """
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
         TypedDict,
     ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
+        transaction_type: NotRequired["Literal['business', 'personal']"]
         """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired[
-            "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
-        ]
-        """
-        List of data features that you would like to retrieve upon account creation.
+        Transaction type of the mandate.
         """
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
-        pass
+    class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
+        """
+        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired["int"]
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
         TypedDict,
@@ -792,52 +1149,17 @@ class Subscription(
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
-        mandate_options: NotRequired[
-            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
-        """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
+    class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions(
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
         TypedDict,
     ):
-        amount: NotRequired["int"]
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: NotRequired["Literal['fixed', 'maximum']"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-
-    class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-        """
-        Preferred language of the Bancontact authorization page that the customer is redirected to.
-        """
-
-    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
-        mandate_options: NotRequired[
-            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
+        financial_connections: NotRequired[
+            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections"
         ]
         """
-        Additional fields for Mandate creation
+        Additional fields for Financial Connections Session creation
         """
         verification_method: NotRequired[
             "Literal['automatic', 'instant', 'microdeposits']"
@@ -846,332 +1168,62 @@ class Subscription(
         Verification method for the intent
         """
 
-    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
-        """
-
-    class CreateParamsItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Subscription.CreateParamsItemBillingThresholds"
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
         ]
         """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        discounts: NotRequired[
-            "Literal['']|List[Subscription.CreateParamsItemDiscount]"
+        prefetch: NotRequired[
+            "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
         ]
         """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        metadata: NotRequired["Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired["str"]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired["str"]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired["Subscription.CreateParamsItemPriceData"]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired["int"]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-        trial: NotRequired["Subscription.CreateParamsItemTrial"]
-        """
-        Define options to configure the trial on the subscription item.
+        List of data features that you would like to retrieve upon account creation.
         """
 
-    class CreateParamsItemTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class CreateParamsItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Subscription.CreateParamsItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsItemPriceDataRecurring(TypedDict):
+    class CreateParamsPendingInvoiceItemInterval(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
         """
 
-    class CreateParamsItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+    class CreateParamsPrebilling(TypedDict):
+        iterations: int
         """
-        ID of the coupon to create a new discount for.
+        This is used to determine the number of billing cycles to prebill.
         """
-        discount: NotRequired["str"]
+        update_behavior: NotRequired["Literal['prebill', 'reset']"]
         """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Subscription.CreateParamsItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         """
 
-    class CreateParamsItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Subscription.CreateParamsItemDiscountDiscountEndDuration"
-        ]
+    class CreateParamsTransferData(TypedDict):
+        amount_percent: NotRequired["float"]
         """
-        Time span for the redeemed discount.
+        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         """
-        timestamp: NotRequired["int"]
+        destination: str
         """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
+        ID of an existing, connected Stripe account.
         """
 
-    class CreateParamsItemDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
+    class CreateParamsTrialSettings(TypedDict):
+        end_behavior: "Subscription.CreateParamsTrialSettingsEndBehavior"
         """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        Defines how the subscription should behave when the user's free trial ends.
         """
 
-    class CreateParamsItemBillingThresholds(TypedDict):
-        usage_gte: int
+    class CreateParamsTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
         """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class CreateParamsInvoiceSettings(TypedDict):
-        issuer: NotRequired["Subscription.CreateParamsInvoiceSettingsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class CreateParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Subscription.CreateParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-
-    class CreateParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Subscription.CreateParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired["int"]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreateParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class CreateParamsBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired["bool"]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
-    class CreateParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
-        """
-        liability: NotRequired[
-            "Subscription.CreateParamsAutomaticTaxLiability"
-        ]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class CreateParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class CreateParamsAddInvoiceItem(TypedDict):
-        discounts: NotRequired[
-            "List[Subscription.CreateParamsAddInvoiceItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the item.
-        """
-        price: NotRequired["str"]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired[
-            "Subscription.CreateParamsAddInvoiceItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired["int"]
-        """
-        Quantity for this item. Defaults to 1.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
-        """
-
-    class CreateParamsAddInvoiceItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsAddInvoiceItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-
-    class CreateParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired["int"]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreateParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
     class DeleteDiscountParams(RequestOptions):
@@ -1234,7 +1286,13 @@ class Subscription(
         Filter for subscriptions that are associated with the specified test clock. The response will not include subscriptions with test clocks if this and the customer parameter is not set.
         """
 
-    class ListParamsCurrentPeriodStart(TypedDict):
+    class ListParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
+        """
+
+    class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -1270,7 +1328,7 @@ class Subscription(
         Maximum value to filter by (inclusive)
         """
 
-    class ListParamsCreated(TypedDict):
+    class ListParamsCurrentPeriodStart(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -1286,12 +1344,6 @@ class Subscription(
         lte: NotRequired["int"]
         """
         Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
         """
 
     class ModifyParams(RequestOptions):
@@ -1462,247 +1514,198 @@ class Subscription(
         Settings related to subscription trials.
         """
 
-    class ModifyParamsTrialSettings(TypedDict):
-        end_behavior: "Subscription.ModifyParamsTrialSettingsEndBehavior"
+    class ModifyParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            "List[Subscription.ModifyParamsAddInvoiceItemDiscount]"
+        ]
         """
-        Defines how the subscription should behave when the user's free trial ends.
+        The coupons to redeem into discounts for the item.
         """
-
-    class ModifyParamsTrialSettingsEndBehavior(TypedDict):
-        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        price: NotRequired["str"]
         """
-        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        The ID of the price object.
         """
-
-    class ModifyParamsTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        price_data: NotRequired[
+            "Subscription.ModifyParamsAddInvoiceItemPriceData"
+        ]
         """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        destination: str
+        quantity: NotRequired["int"]
         """
-        ID of an existing, connected Stripe account.
+        Quantity for this item. Defaults to 1.
         """
-
-    class ModifyParamsPrebilling(TypedDict):
-        iterations: int
+        tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        This is used to determine the number of billing cycles to prebill.
-        """
-        update_behavior: NotRequired["Literal['prebill', 'reset']"]
-        """
-        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
         """
 
-    class ModifyParamsPendingInvoiceItemInterval(TypedDict):
+    class ModifyParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class ModifyParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         """
-        Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: int
         """
-        The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
-        """
-
-    class ModifyParamsPaymentSettings(TypedDict):
-        payment_method_options: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptions"
-        ]
-        """
-        Payment-method-specific configuration to provide to invoices created by the subscription.
-        """
-        payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
-        ]
-        """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
-        """
-        save_default_payment_method: NotRequired[
-            "Literal['off', 'on_subscription']"
-        ]
-        """
-        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
+    class ModifyParamsAddInvoiceItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
         ]
         """
-        This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        bancontact: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact"
-        ]
+        unit_amount: NotRequired["int"]
         """
-        This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        card: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCard"
-        ]
+        unit_amount_decimal: NotRequired["str"]
         """
-        This sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
-        """
-        customer_balance: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
-        ]
-        """
-        This sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
-        """
-        konbini: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini"
-        ]
-        """
-        This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
-        """
-        us_bank_account: NotRequired[
-            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
-        TypedDict,
-    ):
-        financial_connections: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections"
+    class ModifyParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
+        """
+        liability: NotRequired[
+            "Subscription.ModifyParamsAutomaticTaxLiability"
         ]
         """
-        Additional fields for Financial Connections Session creation
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+
+    class ModifyParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
+    class ModifyParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired["int"]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired["bool"]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
+    class ModifyParamsCancellationDetails(TypedDict):
+        comment: NotRequired["Literal['']|str"]
+        """
+        Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+        """
+        feedback: NotRequired[
+            "Literal['']|Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']"
         ]
         """
-        Verification method for the intent
+        The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Subscription.ModifyParamsDiscountDiscountEnd"
         ]
         """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        Details to determine how long the discount should be applied for.
         """
-        prefetch: NotRequired[
-            "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.ModifyParamsDiscountDiscountEndDuration"
         ]
         """
-        List of data features that you would like to retrieve upon account creation.
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
-        pass
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
-        TypedDict,
-    ):
-        bank_transfer: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
-        ]
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
         """
-        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         """
-        funding_type: NotRequired["str"]
+        interval_count: int
         """
-        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
-        TypedDict,
-    ):
-        eu_bank_transfer: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-        ]
+    class ModifyParamsInvoiceSettings(TypedDict):
+        issuer: NotRequired["Subscription.ModifyParamsInvoiceSettingsIssuer"]
         """
-        Configuration for eu_bank_transfer funding type.
-        """
-        type: NotRequired["str"]
-        """
-        The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         """
 
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-        TypedDict,
-    ):
-        country: str
+    class ModifyParamsInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
         """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        The connected account being referenced when `type` is `account`.
         """
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
-        mandate_options: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions"
-        ]
+        type: Literal["account", "self"]
         """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
-        """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions(
-        TypedDict,
-    ):
-        amount: NotRequired["int"]
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: NotRequired["Literal['fixed', 'maximum']"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-        """
-        Preferred language of the Bancontact authorization page that the customer is redirected to.
-        """
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
-        mandate_options: NotRequired[
-            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
-        TypedDict,
-    ):
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
-        """
-
-    class ModifyParamsPauseCollection(TypedDict):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-        """
-        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        """
-        resumes_at: NotRequired["int"]
-        """
-        The time after which the subscription will resume collecting payments.
+        Type of the account referenced in the request.
         """
 
     class ModifyParamsItem(TypedDict):
@@ -1755,42 +1758,10 @@ class Subscription(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class ModifyParamsItemPriceData(TypedDict):
-        currency: str
+    class ModifyParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
         """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Subscription.ModifyParamsItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyParamsItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsItemDiscount(TypedDict):
@@ -1835,141 +1806,7 @@ class Subscription(
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
-    class ModifyParamsItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class ModifyParamsInvoiceSettings(TypedDict):
-        issuer: NotRequired["Subscription.ModifyParamsInvoiceSettingsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class ModifyParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class ModifyParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Subscription.ModifyParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-
-    class ModifyParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Subscription.ModifyParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired["int"]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class ModifyParamsCancellationDetails(TypedDict):
-        comment: NotRequired["Literal['']|str"]
-        """
-        Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
-        """
-        feedback: NotRequired[
-            "Literal['']|Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']"
-        ]
-        """
-        The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
-        """
-
-    class ModifyParamsBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired["bool"]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
-    class ModifyParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
-        """
-        liability: NotRequired[
-            "Subscription.ModifyParamsAutomaticTaxLiability"
-        ]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class ModifyParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class ModifyParamsAddInvoiceItem(TypedDict):
-        discounts: NotRequired[
-            "List[Subscription.ModifyParamsAddInvoiceItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the item.
-        """
-        price: NotRequired["str"]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired[
-            "Subscription.ModifyParamsAddInvoiceItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired["int"]
-        """
-        Quantity for this item. Defaults to 1.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
-        """
-
-    class ModifyParamsAddInvoiceItemPriceData(TypedDict):
+    class ModifyParamsItemPriceData(TypedDict):
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1977,6 +1814,10 @@ class Subscription(
         product: str
         """
         The ID of the product that this price will belong to.
+        """
+        recurring: "Subscription.ModifyParamsItemPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
             "Literal['exclusive', 'inclusive', 'unspecified']"
@@ -1993,46 +1834,257 @@ class Subscription(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class ModifyParamsAddInvoiceItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-
-    class ModifyParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired["int"]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class ModifyParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
+    class ModifyParamsItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: int
+        interval_count: NotRequired["int"]
         """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class ModifyParamsPauseCollection(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+        resumes_at: NotRequired["int"]
+        """
+        The time after which the subscription will resume collecting payments.
+        """
+
+    class ModifyParamsPaymentSettings(TypedDict):
+        payment_method_options: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptions"
+        ]
+        """
+        Payment-method-specific configuration to provide to invoices created by the subscription.
+        """
+        payment_method_types: NotRequired[
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'p24', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
+        ]
+        """
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        """
+        save_default_payment_method: NotRequired[
+            "Literal['off', 'on_subscription']"
+        ]
+        """
+        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
+        ]
+        """
+        This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
+        """
+        bancontact: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact"
+        ]
+        """
+        This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+        """
+        card: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
+        """
+        customer_balance: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        This sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+        """
+        konbini: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini"
+        ]
+        """
+        This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        us_bank_account: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
+        TypedDict,
+    ):
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
+        """
+        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired["int"]
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
+        TypedDict,
+    ):
+        bank_transfer: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["str"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for eu_bank_transfer funding type.
+        """
+        type: NotRequired["str"]
+        """
+        The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
+        TypedDict,
+    ):
+        financial_connections: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
+        """
+        Additional fields for Financial Connections Session creation
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired[
+            "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
+        ]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+
+    class ModifyParamsPendingInvoiceItemInterval(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class ModifyParamsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+        update_behavior: NotRequired["Literal['prebill', 'reset']"]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+        """
+
+    class ModifyParamsTransferData(TypedDict):
+        amount_percent: NotRequired["float"]
+        """
+        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        """
+        destination: str
+        """
+        ID of an existing, connected Stripe account.
+        """
+
+    class ModifyParamsTrialSettings(TypedDict):
+        end_behavior: "Subscription.ModifyParamsTrialSettingsEndBehavior"
+        """
+        Defines how the subscription should behave when the user's free trial ends.
+        """
+
+    class ModifyParamsTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        """
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
     class ResumeParams(RequestOptions):
@@ -2091,6 +2143,10 @@ class Subscription(
     billing_cycle_anchor: int
     """
     The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
+    """
+    billing_cycle_anchor_config: Optional[BillingCycleAnchorConfig]
+    """
+    The fixed values used to calculate the `billing_cycle_anchor`.
     """
     billing_thresholds: Optional[BillingThresholds]
     """
@@ -2667,6 +2723,7 @@ class Subscription(
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
+        "billing_cycle_anchor_config": BillingCycleAnchorConfig,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "pause_collection": PauseCollection,

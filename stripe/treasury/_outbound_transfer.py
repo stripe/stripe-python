@@ -225,6 +225,20 @@ class OutboundTransfer(
         Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
         """
 
+    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
+        us_bank_account: NotRequired[
+            "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        Optional fields for `us_bank_account`.
+        """
+
+    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
+        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
+        """
+        Designate the OutboundTransfer as using a US bank account network configuration.
+        """
+
     class CreateParamsNetworkDetails(TypedDict):
         ach: NotRequired["OutboundTransfer.CreateParamsNetworkDetailsAch"]
         """
@@ -241,18 +255,10 @@ class OutboundTransfer(
         Addenda record data associated with this OutboundTransfer.
         """
 
-    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
-        us_bank_account: NotRequired[
-            "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
-        ]
+    class FailParams(RequestOptions):
+        expand: NotRequired["List[str]"]
         """
-        Optional fields for `us_bank_account`.
-        """
-
-    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
-        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
-        """
-        Designate the OutboundTransfer as using a US bank account network configuration.
+        Specifies which fields in the response should be expanded.
         """
 
     class ListParams(RequestOptions):
@@ -283,19 +289,13 @@ class OutboundTransfer(
         Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
         """
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class FailParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     class PostParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.

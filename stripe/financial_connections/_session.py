@@ -110,24 +110,6 @@ class Session(CreateableAPIResource["Session"]):
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
 
-    class CreateParamsManualEntry(TypedDict):
-        mode: NotRequired["Literal['automatic', 'custom']"]
-        """
-        Whether manual entry will be handled by Stripe during the Session.
-        """
-
-    class CreateParamsLimits(TypedDict):
-        accounts: int
-        """
-        The number of accounts that can be linked in this Session.
-        """
-
-    class CreateParamsFilters(TypedDict):
-        countries: List[str]
-        """
-        List of countries from which to collect accounts.
-        """
-
     class CreateParamsAccountHolder(TypedDict):
         account: NotRequired["str"]
         """
@@ -140,6 +122,24 @@ class Session(CreateableAPIResource["Session"]):
         type: Literal["account", "customer"]
         """
         Type of account holder to collect accounts for.
+        """
+
+    class CreateParamsFilters(TypedDict):
+        countries: List[str]
+        """
+        List of countries from which to collect accounts.
+        """
+
+    class CreateParamsLimits(TypedDict):
+        accounts: int
+        """
+        The number of accounts that can be linked in this Session.
+        """
+
+    class CreateParamsManualEntry(TypedDict):
+        mode: NotRequired["Literal['automatic', 'custom']"]
+        """
+        Whether manual entry will be handled by Stripe during the Session.
         """
 
     class RetrieveParams(RequestOptions):
