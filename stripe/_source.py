@@ -549,136 +549,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         usage: NotRequired["Literal['reusable', 'single_use']"]
 
-    class CreateParamsSourceOrder(TypedDict):
-        items: NotRequired["List[Source.CreateParamsSourceOrderItem]"]
-        """
-        List of items constituting the order.
-        """
-        shipping: NotRequired["Source.CreateParamsSourceOrderShipping"]
-        """
-        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        """
-
-    class CreateParamsSourceOrderShipping(TypedDict):
-        address: "Source.CreateParamsSourceOrderShippingAddress"
-        """
-        Shipping address.
-        """
-        carrier: NotRequired["str"]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: NotRequired["str"]
-        """
-        Recipient name.
-        """
-        phone: NotRequired["str"]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: NotRequired["str"]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-
-    class CreateParamsSourceOrderShippingAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: str
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsSourceOrderItem(TypedDict):
-        amount: NotRequired["int"]
-        currency: NotRequired["str"]
-        description: NotRequired["str"]
-        parent: NotRequired["str"]
-        """
-        The ID of the SKU being ordered.
-        """
-        quantity: NotRequired["int"]
-        """
-        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-        """
-        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
-
-    class CreateParamsRedirect(TypedDict):
-        return_url: str
-        """
-        The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
-        """
-
-    class CreateParamsReceiver(TypedDict):
-        refund_attributes_method: NotRequired[
-            "Literal['email', 'manual', 'none']"
-        ]
-        """
-        The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
-        """
-
-    class CreateParamsOwner(TypedDict):
-        address: NotRequired["Source.CreateParamsOwnerAddress"]
-        """
-        Owner's address.
-        """
-        email: NotRequired["str"]
-        """
-        Owner's email address.
-        """
-        name: NotRequired["str"]
-        """
-        Owner's full name.
-        """
-        phone: NotRequired["str"]
-        """
-        Owner's phone number.
-        """
-
-    class CreateParamsOwnerAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
     class CreateParamsMandate(TypedDict):
         acceptance: NotRequired["Source.CreateParamsMandateAcceptance"]
         """
@@ -733,6 +603,12 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         The user agent of the browser from which the mandate was accepted or refused by the customer.
         """
 
+    class CreateParamsMandateAcceptanceOffline(TypedDict):
+        contact_email: str
+        """
+        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        """
+
     class CreateParamsMandateAcceptanceOnline(TypedDict):
         date: NotRequired["int"]
         """
@@ -747,10 +623,134 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         The user agent of the browser from which the mandate was accepted or refused by the customer.
         """
 
-    class CreateParamsMandateAcceptanceOffline(TypedDict):
-        contact_email: str
+    class CreateParamsOwner(TypedDict):
+        address: NotRequired["Source.CreateParamsOwnerAddress"]
         """
-        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        Owner's address.
+        """
+        email: NotRequired["str"]
+        """
+        Owner's email address.
+        """
+        name: NotRequired["str"]
+        """
+        Owner's full name.
+        """
+        phone: NotRequired["str"]
+        """
+        Owner's phone number.
+        """
+
+    class CreateParamsOwnerAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class CreateParamsReceiver(TypedDict):
+        refund_attributes_method: NotRequired[
+            "Literal['email', 'manual', 'none']"
+        ]
+        """
+        The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
+        """
+
+    class CreateParamsRedirect(TypedDict):
+        return_url: str
+        """
+        The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
+        """
+
+    class CreateParamsSourceOrder(TypedDict):
+        items: NotRequired["List[Source.CreateParamsSourceOrderItem]"]
+        """
+        List of items constituting the order.
+        """
+        shipping: NotRequired["Source.CreateParamsSourceOrderShipping"]
+        """
+        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
+        """
+
+    class CreateParamsSourceOrderItem(TypedDict):
+        amount: NotRequired["int"]
+        currency: NotRequired["str"]
+        description: NotRequired["str"]
+        parent: NotRequired["str"]
+        """
+        The ID of the SKU being ordered.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
+        """
+        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
+
+    class CreateParamsSourceOrderShipping(TypedDict):
+        address: "Source.CreateParamsSourceOrderShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: NotRequired["str"]
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+
+    class CreateParamsSourceOrderShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
         """
 
     class ListSourceTransactionsParams(RequestOptions):
@@ -795,122 +795,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         source_order: NotRequired["Source.ModifyParamsSourceOrder"]
         """
         Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-        """
-
-    class ModifyParamsSourceOrder(TypedDict):
-        items: NotRequired["List[Source.ModifyParamsSourceOrderItem]"]
-        """
-        List of items constituting the order.
-        """
-        shipping: NotRequired["Source.ModifyParamsSourceOrderShipping"]
-        """
-        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        """
-
-    class ModifyParamsSourceOrderShipping(TypedDict):
-        address: "Source.ModifyParamsSourceOrderShippingAddress"
-        """
-        Shipping address.
-        """
-        carrier: NotRequired["str"]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: NotRequired["str"]
-        """
-        Recipient name.
-        """
-        phone: NotRequired["str"]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: NotRequired["str"]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-
-    class ModifyParamsSourceOrderShippingAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: str
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsSourceOrderItem(TypedDict):
-        amount: NotRequired["int"]
-        currency: NotRequired["str"]
-        description: NotRequired["str"]
-        parent: NotRequired["str"]
-        """
-        The ID of the SKU being ordered.
-        """
-        quantity: NotRequired["int"]
-        """
-        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-        """
-        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
-
-    class ModifyParamsOwner(TypedDict):
-        address: NotRequired["Source.ModifyParamsOwnerAddress"]
-        """
-        Owner's address.
-        """
-        email: NotRequired["str"]
-        """
-        Owner's email address.
-        """
-        name: NotRequired["str"]
-        """
-        Owner's full name.
-        """
-        phone: NotRequired["str"]
-        """
-        Owner's phone number.
-        """
-
-    class ModifyParamsOwnerAddress(TypedDict):
-        city: NotRequired["str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["str"]
-        """
-        State, county, province, or region.
         """
 
     class ModifyParamsMandate(TypedDict):
@@ -967,6 +851,12 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         The user agent of the browser from which the mandate was accepted or refused by the customer.
         """
 
+    class ModifyParamsMandateAcceptanceOffline(TypedDict):
+        contact_email: str
+        """
+        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        """
+
     class ModifyParamsMandateAcceptanceOnline(TypedDict):
         date: NotRequired["int"]
         """
@@ -981,10 +871,120 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         The user agent of the browser from which the mandate was accepted or refused by the customer.
         """
 
-    class ModifyParamsMandateAcceptanceOffline(TypedDict):
-        contact_email: str
+    class ModifyParamsOwner(TypedDict):
+        address: NotRequired["Source.ModifyParamsOwnerAddress"]
         """
-        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        Owner's address.
+        """
+        email: NotRequired["str"]
+        """
+        Owner's email address.
+        """
+        name: NotRequired["str"]
+        """
+        Owner's full name.
+        """
+        phone: NotRequired["str"]
+        """
+        Owner's phone number.
+        """
+
+    class ModifyParamsOwnerAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
+    class ModifyParamsSourceOrder(TypedDict):
+        items: NotRequired["List[Source.ModifyParamsSourceOrderItem]"]
+        """
+        List of items constituting the order.
+        """
+        shipping: NotRequired["Source.ModifyParamsSourceOrderShipping"]
+        """
+        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
+        """
+
+    class ModifyParamsSourceOrderItem(TypedDict):
+        amount: NotRequired["int"]
+        currency: NotRequired["str"]
+        description: NotRequired["str"]
+        parent: NotRequired["str"]
+        """
+        The ID of the SKU being ordered.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
+        """
+        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
+
+    class ModifyParamsSourceOrderShipping(TypedDict):
+        address: "Source.ModifyParamsSourceOrderShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: NotRequired["str"]
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+
+    class ModifyParamsSourceOrderShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
         """
 
     class RetrieveParams(RequestOptions):

@@ -296,6 +296,44 @@ class Reader(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
+    class PresentPaymentMethodParams(RequestOptions):
+        amount_tip: NotRequired["int"]
+        """
+        Simulated on-reader tip amount.
+        """
+        card_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsCardPresent"
+        ]
+        """
+        Simulated data for the card_present payment method.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        interac_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsInteracPresent"
+        ]
+        """
+        Simulated data for the interac_present payment method.
+        """
+        type: NotRequired["Literal['card_present', 'interac_present']"]
+        """
+        Simulated payment type.
+        """
+
+    class PresentPaymentMethodParamsCardPresent(TypedDict):
+        number: NotRequired["str"]
+        """
+        The card number, as a string without any separators.
+        """
+
+    class PresentPaymentMethodParamsInteracPresent(TypedDict):
+        number: NotRequired["str"]
+        """
+        Card Number
+        """
+
     class ProcessPaymentIntentParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -433,44 +471,6 @@ class Reader(
         quantity: int
         """
         The quantity of the line item being purchased.
-        """
-
-    class PresentPaymentMethodParams(RequestOptions):
-        amount_tip: NotRequired["int"]
-        """
-        Simulated on-reader tip amount.
-        """
-        card_present: NotRequired[
-            "Reader.PresentPaymentMethodParamsCardPresent"
-        ]
-        """
-        Simulated data for the card_present payment method.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        interac_present: NotRequired[
-            "Reader.PresentPaymentMethodParamsInteracPresent"
-        ]
-        """
-        Simulated data for the interac_present payment method.
-        """
-        type: NotRequired["Literal['card_present', 'interac_present']"]
-        """
-        Simulated payment type.
-        """
-
-    class PresentPaymentMethodParamsInteracPresent(TypedDict):
-        number: NotRequired["str"]
-        """
-        Card Number
-        """
-
-    class PresentPaymentMethodParamsCardPresent(TypedDict):
-        number: NotRequired["str"]
-        """
-        The card number, as a string without any separators.
         """
 
     action: Optional[Action]

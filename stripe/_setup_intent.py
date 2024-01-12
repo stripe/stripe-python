@@ -620,7 +620,7 @@ class SetupIntent(
         Specifies which fields in the response should be expanded.
         """
         mandate_data: NotRequired[
-            "Literal['']|SetupIntent.ConfirmParamsMandateData|SetupIntent.ConfirmParamsMandateData2"
+            "Literal['']|SetupIntent.ConfirmParamsMandateData"
         ]
         payment_method: NotRequired["str"]
         """
@@ -650,314 +650,47 @@ class SetupIntent(
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
-    class ConfirmParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebit"
+    class ConfirmParamsMandateData(TypedDict):
+        customer_acceptance: NotRequired[
+            "SetupIntent.ConfirmParamsMandateDataCustomerAcceptance"
         ]
         """
-        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
-        """
-        card: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsCard"]
-        """
-        Configuration for any card setup attempted on this SetupIntent.
-        """
-        link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsLink"]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        paypal: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        sepa_debit: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        us_bank_account: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
+        This hash contains details about the customer acceptance of the Mandate.
         """
 
-    class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+    class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
+        accepted_at: NotRequired["int"]
+        """
+        The time at which the customer accepted the Mandate.
+        """
+        offline: NotRequired[
+            "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline"
         ]
         """
-        Additional fields for Financial Connections Session creation
+        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
         """
-        mandate_options: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        online: NotRequired[
+            "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
         ]
         """
-        Additional fields for Mandate creation
+        If this is a Mandate accepted online, this hash contains details about the online acceptance.
         """
-        networks: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
+        type: Literal["offline", "online"]
         """
-        Additional fields for network related functions
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
+        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
         """
 
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-
-    class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+    class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
-        billing_agreement_id: NotRequired["str"]
+    class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
+        ip_address: NotRequired["str"]
         """
-        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+        The IP address from which the Mandate was accepted by the customer.
         """
-
-    class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
-        persistent_token: NotRequired["str"]
+        user_agent: NotRequired["str"]
         """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter signals that a card has been collected
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        three_d_secure: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this setup.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: NotRequired["str"]
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        network_options: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: NotRequired["str"]
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        currency: str
-        """
-        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        currency: NotRequired["Literal['cad', 'usd']"]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        mandate_options: NotRequired[
-            "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
-        """
-        List of Stripe products where this mandate can be selected automatically.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
-        """
-        Payment schedule for the mandate.
-        """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
+        The user agent of the browser from which the Mandate was accepted by the customer.
         """
 
     class ConfirmParamsPaymentMethodData(TypedDict):
@@ -1174,175 +907,50 @@ class SetupIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class ConfirmParamsPaymentMethodDataZip(TypedDict):
+    class ConfirmParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataWechatPay(TypedDict):
+    class ConfirmParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class ConfirmParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataKlarnaDob"]
-        """
-        Customer's date of birth
-        """
-
-    class ConfirmParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class ConfirmParamsPaymentMethodDataBlik(TypedDict):
+    class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -1391,118 +999,486 @@ class SetupIntent(
         State, county, province, or region.
         """
 
-    class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+    class ConfirmParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
+    class ConfirmParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataKlarnaDob"]
+        """
+        Customer's date of birth
+        """
+
+    class ConfirmParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class ConfirmParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+    class ConfirmParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class ConfirmParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataAffirm(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
-
-    class ConfirmParamsMandateData2(TypedDict):
-        customer_acceptance: "SetupIntent.ConfirmParamsMandateDataCustomerAcceptance2"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptance2(TypedDict):
-        online: "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline2"
-        """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
-        """
-        type: Literal["online"]
-        """
-        The type of customer acceptance information included with the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
-        ip_address: NotRequired["str"]
-        """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: NotRequired["str"]
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class ConfirmParamsMandateData(TypedDict):
-        customer_acceptance: "SetupIntent.ConfirmParamsMandateDataCustomerAcceptance"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
-        """
-        The time at which the customer accepted the Mandate.
-        """
-        offline: NotRequired[
-            "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline"
+    class ConfirmParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebit"
         ]
         """
-        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
+        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
-        online: NotRequired[
-            "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
+        card: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsCard"]
+        """
+        Configuration for any card setup attempted on this SetupIntent.
+        """
+        link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsLink"]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        paypal: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsPaypal"
         ]
         """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         """
-        type: Literal["offline", "online"]
+        sepa_debit: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
+        ]
         """
-        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
         """
-
-    class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: str
+        us_bank_account: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
+        ]
         """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: str
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
+        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
         """
 
-    class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
+    class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        currency: NotRequired["Literal['cad', 'usd']"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
+        """
+        List of Stripe products where this mandate can be selected automatically.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter signals that a card has been collected
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        three_d_secure: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this setup.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        currency: str
+        """
+        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: NotRequired["str"]
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        network_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: NotRequired["str"]
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
+        billing_agreement_id: NotRequired["str"]
+        """
+        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
+        """
+        Additional fields for Financial Connections Session creation
+        """
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        networks: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
+        """
+        Additional fields for network related functions
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
+        """
 
     class CreateParams(RequestOptions):
         attach_to_self: NotRequired["bool"]
@@ -1597,324 +1573,57 @@ class SetupIntent(
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
-    class CreateParamsSingleUse(TypedDict):
-        amount: int
+    class CreateParamsAutomaticPaymentMethods(TypedDict):
+        allow_redirects: NotRequired["Literal['always', 'never']"]
         """
-        Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+        Controls whether this SetupIntent will accept redirect-based payment methods.
+
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
         """
-        currency: str
+        enabled: bool
         """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        Whether this feature is enabled.
         """
 
-    class CreateParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebit"
-        ]
+    class CreateParamsMandateData(TypedDict):
+        customer_acceptance: "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
         """
-        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
-        """
-        card: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsCard"]
-        """
-        Configuration for any card setup attempted on this SetupIntent.
-        """
-        link: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsLink"]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        paypal: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        sepa_debit: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        us_bank_account: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
+        This hash contains details about the customer acceptance of the Mandate.
         """
 
-    class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+    class CreateParamsMandateDataCustomerAcceptance(TypedDict):
+        accepted_at: NotRequired["int"]
+        """
+        The time at which the customer accepted the Mandate.
+        """
+        offline: NotRequired[
+            "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
         ]
         """
-        Additional fields for Financial Connections Session creation
+        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
         """
-        mandate_options: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        online: NotRequired[
+            "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
         ]
         """
-        Additional fields for Mandate creation
+        If this is a Mandate accepted online, this hash contains details about the online acceptance.
         """
-        networks: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
+        type: Literal["offline", "online"]
         """
-        Additional fields for network related functions
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
+        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
         """
 
-    class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-
-    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+    class CreateParamsMandateDataCustomerAcceptanceOffline(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
-        billing_agreement_id: NotRequired["str"]
+    class CreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
+        ip_address: str
         """
-        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+        The IP address from which the Mandate was accepted by the customer.
         """
-
-    class CreateParamsPaymentMethodOptionsLink(TypedDict):
-        persistent_token: NotRequired["str"]
+        user_agent: str
         """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-
-    class CreateParamsPaymentMethodOptionsCard(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter signals that a card has been collected
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        three_d_secure: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this setup.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: NotRequired["str"]
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        network_options: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: NotRequired["str"]
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        currency: str
-        """
-        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        currency: NotRequired["Literal['cad', 'usd']"]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        mandate_options: NotRequired[
-            "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
-        """
-        List of Stripe products where this mandate can be selected automatically.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
-        """
-        Payment schedule for the mandate.
-        """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
+        The user agent of the browser from which the Mandate was accepted by the customer.
         """
 
     class CreateParamsPaymentMethodData(TypedDict):
@@ -2131,175 +1840,50 @@ class SetupIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class CreateParamsPaymentMethodDataZip(TypedDict):
+    class CreateParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataWechatPay(TypedDict):
+    class CreateParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class CreateParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired["SetupIntent.CreateParamsPaymentMethodDataKlarnaDob"]
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class CreateParamsPaymentMethodDataBlik(TypedDict):
+    class CreateParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2348,103 +1932,495 @@ class SetupIntent(
         State, county, province, or region.
         """
 
-    class CreateParamsPaymentMethodDataBancontact(TypedDict):
+    class CreateParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
+    class CreateParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired["SetupIntent.CreateParamsPaymentMethodDataKlarnaDob"]
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class CreateParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class CreateParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class CreateParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class CreateParamsPaymentMethodDataAlipay(TypedDict):
+    class CreateParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataAffirm(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
-
-    class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class CreateParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
-        """
-        The time at which the customer accepted the Mandate.
-        """
-        offline: NotRequired[
-            "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebit"
         ]
         """
-        If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
+        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
-        online: NotRequired[
-            "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
+        card: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsCard"]
+        """
+        Configuration for any card setup attempted on this SetupIntent.
+        """
+        link: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsLink"]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        paypal: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsPaypal"
         ]
         """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         """
-        type: Literal["offline", "online"]
+        sepa_debit: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit"
+        ]
         """
-        The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
         """
-
-    class CreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: str
+        us_bank_account: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
+        ]
         """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: str
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
+        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
         """
 
-    class CreateParamsMandateDataCustomerAcceptanceOffline(TypedDict):
+    class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        currency: NotRequired["Literal['cad', 'usd']"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
+
+    class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
+        """
+        List of Stripe products where this mandate can be selected automatically.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter signals that a card has been collected
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        three_d_secure: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this setup.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        currency: str
+        """
+        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: NotRequired["str"]
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        network_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: NotRequired["str"]
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class CreateParamsPaymentMethodOptionsLink(TypedDict):
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
+        billing_agreement_id: NotRequired["str"]
+        """
+        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+        """
+
+    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
 
-    class CreateParamsAutomaticPaymentMethods(TypedDict):
-        allow_redirects: NotRequired["Literal['always', 'never']"]
+    class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
         """
-        Controls whether this SetupIntent will accept redirect-based payment methods.
+        Additional fields for Financial Connections Session creation
+        """
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        networks: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
+        """
+        Additional fields for network related functions
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
 
-        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
         """
-        enabled: bool
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        Whether this feature is enabled.
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
+        """
+
+    class CreateParamsSingleUse(TypedDict):
+        amount: int
+        """
+        Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
 
     class ListParams(RequestOptions):
@@ -2556,316 +2532,6 @@ class SetupIntent(
         payment_method_types: NotRequired["List[str]"]
         """
         The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"].
-        """
-
-    class ModifyParamsPaymentMethodOptions(TypedDict):
-        acss_debit: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebit"
-        ]
-        """
-        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
-        """
-        card: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsCard"]
-        """
-        Configuration for any card setup attempted on this SetupIntent.
-        """
-        link: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsLink"]
-        """
-        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
-        """
-        paypal: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsPaypal"
-        ]
-        """
-        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        sepa_debit: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
-        ]
-        """
-        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
-        """
-        us_bank_account: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
-        ]
-        """
-        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
-        financial_connections: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-        ]
-        """
-        Additional fields for Financial Connections Session creation
-        """
-        mandate_options: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        networks: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
-        ]
-        """
-        Additional fields for network related functions
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
-        """
-        Triggers validations to run across the selected networks
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
-        TypedDict,
-    ):
-        collection_method: NotRequired["Literal['']|Literal['paper']"]
-        """
-        The method used to collect offline mandate customer acceptance.
-        """
-
-    class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
-        TypedDict,
-    ):
-        permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
-        ]
-        """
-        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
-        """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired["str"]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-
-    class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
-        billing_agreement_id: NotRequired["str"]
-        """
-        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
-        """
-
-    class ModifyParamsPaymentMethodOptionsLink(TypedDict):
-        persistent_token: NotRequired["str"]
-        """
-        [Deprecated] This is a legacy parameter that no longer has any function.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCard(TypedDict):
-        mandate_options: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
-        ]
-        """
-        Configuration options for setting up an eMandate for cards issued in India.
-        """
-        moto: NotRequired["bool"]
-        """
-        When specified, this parameter signals that a card has been collected
-        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
-        parameter can only be provided during confirmation.
-        """
-        network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
-        ]
-        """
-        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
-        """
-        request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
-        ]
-        """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-        """
-        three_d_secure: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
-        ]
-        """
-        If 3D Secure authentication was performed with a third-party provider,
-        the authentication details to use for this setup.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-        ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
-        ]
-        """
-        The `transStatus` returned from the card Issuer's ACS in the ARes.
-        """
-        cryptogram: NotRequired["str"]
-        """
-        The cryptogram, also known as the "authentication value" (AAV, CAVV or
-        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
-        (Most 3D Secure providers will return the base64-encoded version, which
-        is what you should specify here.)
-        """
-        electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
-        ]
-        """
-        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
-        provider and indicates what degree of authentication was performed.
-        """
-        network_options: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
-        ]
-        """
-        Network specific 3DS fields. Network specific arguments require an
-        explicit card brand choice. The parameter `payment_method_options.card.network``
-        must be populated accordingly
-        """
-        requestor_challenge_indicator: NotRequired["str"]
-        """
-        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
-        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
-        """
-        transaction_id: NotRequired["str"]
-        """
-        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
-        Transaction ID (dsTransID).
-        """
-        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
-        """
-        The version of 3D Secure that was performed.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
-        TypedDict,
-    ):
-        cartes_bancaires: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
-        ]
-        """
-        Cartes Bancaires-specific 3DS fields.
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
-        TypedDict,
-    ):
-        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
-        """
-        The cryptogram calculation algorithm used by the card Issuer's ACS
-        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
-        messageExtension: CB-AVALGO
-        """
-        cb_exemption: NotRequired["str"]
-        """
-        The exemption indicator returned from Cartes Bancaires in the ARes.
-        message extension: CB-EXEMPTION; string (4 characters)
-        This is a 3 byte bitmap (low significant byte first and most significant
-        bit first) that has been Base64 encoded
-        """
-        cb_score: NotRequired["int"]
-        """
-        The risk score returned from Cartes Bancaires in the ARes.
-        message extension: CB-SCORE; numeric value 0-99
-        """
-
-    class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
-        amount: int
-        """
-        Amount to be charged for future payments.
-        """
-        amount_type: Literal["fixed", "maximum"]
-        """
-        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
-        """
-        currency: str
-        """
-        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired["str"]
-        """
-        A description of the mandate or subscription that is meant to be displayed to the customer.
-        """
-        end_date: NotRequired["int"]
-        """
-        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
-        """
-        interval: Literal["day", "month", "sporadic", "week", "year"]
-        """
-        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
-        """
-        interval_count: NotRequired["int"]
-        """
-        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
-        """
-        reference: str
-        """
-        Unique identifier for the mandate or subscription.
-        """
-        start_date: int
-        """
-        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
-        """
-        supported_types: NotRequired["List[Literal['india']]"]
-        """
-        Specifies the type of mandates supported. Possible values are `india`.
-        """
-
-    class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        currency: NotRequired["Literal['cad', 'usd']"]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        mandate_options: NotRequired[
-            "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation
-        """
-        verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
-        ]
-        """
-        Verification method for the intent
-        """
-
-    class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired["Literal['']|str"]
-        """
-        A URL for custom mandate text to render during confirmation step.
-        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-        """
-        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
-        """
-        List of Stripe products where this mandate can be selected automatically.
-        """
-        interval_description: NotRequired["str"]
-        """
-        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-        """
-        payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
-        ]
-        """
-        Payment schedule for the mandate.
-        """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
-        """
-        Transaction type of the mandate.
         """
 
     class ModifyParamsPaymentMethodData(TypedDict):
@@ -3082,175 +2748,50 @@ class SetupIntent(
         If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
         """
 
-    class ModifyParamsPaymentMethodDataZip(TypedDict):
+    class ModifyParamsPaymentMethodDataAcssDebit(TypedDict):
+        account_number: str
+        """
+        Customer's bank account number.
+        """
+        institution_number: str
+        """
+        Institution number of the customer's bank.
+        """
+        transit_number: str
+        """
+        Transit number of the customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataAffirm(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataWechatPay(TypedDict):
+    class ModifyParamsPaymentMethodDataAfterpayClearpay(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+    class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
+        account_number: str
         """
-        Account holder type: individual or company.
+        The account number for the bank account.
         """
+        bsb_number: str
+        """
+        Bank-State-Branch number of the bank account.
+        """
+
+    class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
         account_number: NotRequired["str"]
         """
-        Account number of the bank account.
+        Account number of the bank account that the funds will be debited from.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        sort_code: NotRequired["str"]
         """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired["str"]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired["str"]
-        """
-        Routing number of the bank account.
+        Sort code of the bank account. (e.g., `10-20-30`)
         """
 
-    class ModifyParamsPaymentMethodDataSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPix(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataPaynow(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataP24(TypedDict):
-        bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataOxxo(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataLink(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataKonbini(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataKlarna(TypedDict):
-        dob: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataKlarnaDob"]
-        """
-        Customer's date of birth
-        """
-
-    class ModifyParamsPaymentMethodDataKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataIdeal(TypedDict):
-        bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataGiropay(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataEps(TypedDict):
-        bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
-        ]
-        """
-        The customer's bank.
-        """
-
-    class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataCashapp(TypedDict):
-        pass
-
-    class ModifyParamsPaymentMethodDataBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class ModifyParamsPaymentMethodDataBlik(TypedDict):
+    class ModifyParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -3299,50 +2840,485 @@ class SetupIntent(
         State, county, province, or region.
         """
 
-    class ModifyParamsPaymentMethodDataBancontact(TypedDict):
+    class ModifyParamsPaymentMethodDataBlik(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
+    class ModifyParamsPaymentMethodDataBoleto(TypedDict):
+        tax_id: str
+        """
+        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
+        """
+
+    class ModifyParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataEps(TypedDict):
+        bank: NotRequired[
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataFpx(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type for FPX transaction
+        """
+        bank: Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bsn",
+            "cimb",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataGiropay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataIdeal(TypedDict):
+        bank: NotRequired[
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataKlarna(TypedDict):
+        dob: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataKlarnaDob"]
+        """
+        Customer's date of birth
+        """
+
+    class ModifyParamsPaymentMethodDataKlarnaDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
+    class ModifyParamsPaymentMethodDataKonbini(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataOxxo(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataP24(TypedDict):
+        bank: NotRequired[
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+        ]
+        """
+        The customer's bank.
+        """
+
+    class ModifyParamsPaymentMethodDataPaynow(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPix(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
+        iban: str
+        """
+        IBAN of the bank account.
+        """
+
+    class ModifyParamsPaymentMethodDataSofort(TypedDict):
+        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+        """
+        Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        Account holder type: individual or company.
+        """
         account_number: NotRequired["str"]
         """
-        Account number of the bank account that the funds will be debited from.
+        Account number of the bank account.
         """
-        sort_code: NotRequired["str"]
+        account_type: NotRequired["Literal['checking', 'savings']"]
         """
-        Sort code of the bank account. (e.g., `10-20-30`)
+        Account type: checkings or savings. Defaults to checking if omitted.
         """
-
-    class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
-        account_number: str
+        financial_connections_account: NotRequired["str"]
         """
-        The account number for the bank account.
+        The ID of a Financial Connections Account to use as a payment method.
         """
-        bsb_number: str
+        routing_number: NotRequired["str"]
         """
-        Bank-State-Branch number of the bank account.
+        Routing number of the bank account.
         """
 
-    class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+    class ModifyParamsPaymentMethodDataWechatPay(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAfterpayClearpay(TypedDict):
+    class ModifyParamsPaymentMethodDataZip(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAffirm(TypedDict):
+    class ModifyParamsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebit"
+        ]
+        """
+        If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
+        """
+        card: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsCard"]
+        """
+        Configuration for any card setup attempted on this SetupIntent.
+        """
+        link: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsLink"]
+        """
+        If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        paypal: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        sepa_debit: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        us_bank_account: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
+        currency: NotRequired["Literal['cad', 'usd']"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
+
+    class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        default_for: NotRequired["List[Literal['invoice', 'subscription']]"]
+        """
+        List of Stripe products where this mandate can be selected automatically.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCard(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate for cards issued in India.
+        """
+        moto: NotRequired["bool"]
+        """
+        When specified, this parameter signals that a card has been collected
+        as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
+        parameter can only be provided during confirmation.
+        """
+        network: NotRequired[
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+        ]
+        """
+        Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
+        """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        three_d_secure: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this setup.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+        amount: int
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: Literal["fixed", "maximum"]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        currency: str
+        """
+        Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired["int"]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        interval: Literal["day", "month", "sporadic", "week", "year"]
+        """
+        Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+        """
+        reference: str
+        """
+        Unique identifier for the mandate or subscription.
+        """
+        start_date: int
+        """
+        Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+        """
+        supported_types: NotRequired["List[Literal['india']]"]
+        """
+        Specifies the type of mandates supported. Possible values are `india`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: NotRequired["str"]
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        network_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: NotRequired["str"]
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: NotRequired["Literal['1.0.2', '2.1.0', '2.2.0']"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
+
+    class ModifyParamsPaymentMethodOptionsLink(TypedDict):
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
+        billing_agreement_id: NotRequired["str"]
+        """
+        The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+        """
+
+    class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataAcssDebit(TypedDict):
-        account_number: str
+    class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
+        financial_connections: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
+        ]
         """
-        Customer's bank account number.
+        Additional fields for Financial Connections Session creation
         """
-        institution_number: str
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions"
+        ]
         """
-        Institution number of the customer's bank.
+        Additional fields for Mandate creation
         """
-        transit_number: str
+        networks: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
+        ]
         """
-        Transit number of the customer's bank.
+        Additional fields for network related functions
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Bank account verification method.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
+        TypedDict,
+    ):
+        permissions: NotRequired[
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+        ]
+        """
+        The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
+        TypedDict,
+    ):
+        collection_method: NotRequired["Literal['']|Literal['paper']"]
+        """
+        The method used to collect offline mandate customer acceptance.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        """
+        Triggers validations to run across the selected networks
         """
 
     class RetrieveParams(RequestOptions):

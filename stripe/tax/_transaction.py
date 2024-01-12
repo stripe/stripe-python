@@ -336,16 +336,6 @@ class Transaction(APIResource["Transaction"]):
         The shipping cost to reverse.
         """
 
-    class CreateReversalParamsShippingCost(TypedDict):
-        amount: int
-        """
-        The amount to reverse, in negative integer cents.
-        """
-        amount_tax: int
-        """
-        The amount of tax to reverse, in negative integer cents.
-        """
-
     class CreateReversalParamsLineItem(TypedDict):
         amount: int
         """
@@ -370,6 +360,16 @@ class Transaction(APIResource["Transaction"]):
         reference: str
         """
         A custom identifier for this line item in the reversal transaction, such as 'L1-refund'.
+        """
+
+    class CreateReversalParamsShippingCost(TypedDict):
+        amount: int
+        """
+        The amount to reverse, in negative integer cents.
+        """
+        amount_tax: int
+        """
+        The amount of tax to reverse, in negative integer cents.
         """
 
     class ListLineItemsParams(RequestOptions):

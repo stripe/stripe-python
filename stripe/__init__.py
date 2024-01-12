@@ -243,6 +243,7 @@ from stripe._customer_balance_transaction import (
 from stripe._customer_cash_balance_transaction import (
     CustomerCashBalanceTransaction as CustomerCashBalanceTransaction,
 )
+from stripe._customer_session import CustomerSession as CustomerSession
 from stripe._discount import Discount as Discount
 from stripe._dispute import Dispute as Dispute
 from stripe._ephemeral_key import EphemeralKey as EphemeralKey

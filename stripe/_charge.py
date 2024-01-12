@@ -1784,14 +1784,20 @@ class Charge(
         A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options).
         """
 
-    class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
-        """
-        The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
-        """
-        destination: str
+    class CreateParamsDestination(TypedDict):
+        account: str
         """
         ID of an existing, connected Stripe account.
+        """
+        amount: NotRequired["int"]
+        """
+        The amount to transfer to the destination account without creating an `Application Fee` object. Cannot be combined with the `application_fee` parameter. Must be less than or equal to the charge amount.
+        """
+
+    class CreateParamsRadarOptions(TypedDict):
+        session: NotRequired["str"]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
     class CreateParamsShipping(TypedDict):
@@ -1842,20 +1848,14 @@ class Charge(
         State, county, province, or region.
         """
 
-    class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsDestination(TypedDict):
-        account: str
-        """
-        ID of an existing, connected Stripe account.
-        """
+    class CreateParamsTransferData(TypedDict):
         amount: NotRequired["int"]
         """
-        The amount to transfer to the destination account without creating an `Application Fee` object. Cannot be combined with the `application_fee` parameter. Must be less than or equal to the charge amount.
+        The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
+        """
+        destination: str
+        """
+        ID of an existing, connected Stripe account.
         """
 
     class ListParams(RequestOptions):
@@ -1941,6 +1941,12 @@ class Charge(
         A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
         """
 
+    class ModifyParamsFraudDetails(TypedDict):
+        user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
+        """
+        Either `safe` or `fraudulent`.
+        """
+
     class ModifyParamsShipping(TypedDict):
         address: "Charge.ModifyParamsShippingAddress"
         """
@@ -1987,12 +1993,6 @@ class Charge(
         state: NotRequired["str"]
         """
         State, county, province, or region.
-        """
-
-    class ModifyParamsFraudDetails(TypedDict):
-        user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
-        """
-        Either `safe` or `fraudulent`.
         """
 
     class RetrieveParams(RequestOptions):

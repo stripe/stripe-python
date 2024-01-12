@@ -137,7 +137,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         Only return TransactionEntries associated with this Transaction.
         """
 
-    class ListParamsEffectiveAt(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)
@@ -155,7 +155,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         Maximum value to filter by (inclusive)
         """
 
-    class ListParamsCreated(TypedDict):
+    class ListParamsEffectiveAt(TypedDict):
         gt: NotRequired["int"]
         """
         Minimum value to filter by (exclusive)

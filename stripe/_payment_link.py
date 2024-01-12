@@ -773,61 +773,342 @@ class PaymentLink(
         The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
         """
 
-    class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+    class CreateParamsAfterCompletion(TypedDict):
+        hosted_confirmation: NotRequired[
+            "PaymentLink.CreateParamsAfterCompletionHostedConfirmation"
+        ]
         """
-        The amount that will be transferred automatically when a charge succeeds.
+        Configuration when `type=hosted_confirmation`.
         """
-        destination: str
+        redirect: NotRequired[
+            "PaymentLink.CreateParamsAfterCompletionRedirect"
+        ]
         """
-        If specified, successful charges will be attributed to the destination
-        account for tax reporting, and the funds from charges will be transferred
-        to the destination account. The ID of the resulting transfer will be
-        returned on the successful charge's `transfer` field.
+        Configuration when `type=redirect`.
+        """
+        type: Literal["hosted_confirmation", "redirect"]
+        """
+        The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         """
 
-    class CreateParamsTaxIdCollection(TypedDict):
+    class CreateParamsAfterCompletionHostedConfirmation(TypedDict):
+        custom_message: NotRequired["str"]
+        """
+        A custom message to display to the customer after the purchase is complete.
+        """
+
+    class CreateParamsAfterCompletionRedirect(TypedDict):
+        url: str
+        """
+        The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        """
+
+    class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        Set to `true` to enable tax ID collection.
+        If `true`, tax will be calculated automatically using the customer's location.
         """
 
-    class CreateParamsSubscriptionData(TypedDict):
+    class CreateParamsConsentCollection(TypedDict):
+        payment_method_reuse_agreement: NotRequired[
+            "PaymentLink.CreateParamsConsentCollectionPaymentMethodReuseAgreement"
+        ]
+        """
+        Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+        """
+        promotions: NotRequired["Literal['auto', 'none']"]
+        """
+        If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+        Session will determine whether to display an option to opt into promotional communication
+        from the merchant depending on the customer's locale. Only available to US merchants.
+        """
+        terms_of_service: NotRequired["Literal['none', 'required']"]
+        """
+        If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
+        There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+        """
+
+    class CreateParamsConsentCollectionPaymentMethodReuseAgreement(TypedDict):
+        position: Literal["auto", "hidden"]
+        """
+        Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+        defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
+        """
+
+    class CreateParamsCustomField(TypedDict):
+        dropdown: NotRequired["PaymentLink.CreateParamsCustomFieldDropdown"]
+        """
+        Configuration for `type=dropdown` fields.
+        """
+        key: str
+        """
+        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
+        """
+        label: "PaymentLink.CreateParamsCustomFieldLabel"
+        """
+        The label for the field, displayed to the customer.
+        """
+        numeric: NotRequired["PaymentLink.CreateParamsCustomFieldNumeric"]
+        """
+        Configuration for `type=numeric` fields.
+        """
+        optional: NotRequired["bool"]
+        """
+        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+        """
+        text: NotRequired["PaymentLink.CreateParamsCustomFieldText"]
+        """
+        Configuration for `type=text` fields.
+        """
+        type: Literal["dropdown", "numeric", "text"]
+        """
+        The type of the field.
+        """
+
+    class CreateParamsCustomFieldDropdown(TypedDict):
+        options: List["PaymentLink.CreateParamsCustomFieldDropdownOption"]
+        """
+        The options available for the customer to select. Up to 200 options allowed.
+        """
+
+    class CreateParamsCustomFieldDropdownOption(TypedDict):
+        label: str
+        """
+        The label for the option, displayed to the customer. Up to 100 characters.
+        """
+        value: str
+        """
+        The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
+        """
+
+    class CreateParamsCustomFieldLabel(TypedDict):
+        custom: str
+        """
+        Custom text for the label, displayed to the customer. Up to 50 characters.
+        """
+        type: Literal["custom"]
+        """
+        The type of the label.
+        """
+
+    class CreateParamsCustomFieldNumeric(TypedDict):
+        maximum_length: NotRequired["int"]
+        """
+        The maximum character length constraint for the customer's input.
+        """
+        minimum_length: NotRequired["int"]
+        """
+        The minimum character length requirement for the customer's input.
+        """
+
+    class CreateParamsCustomFieldText(TypedDict):
+        maximum_length: NotRequired["int"]
+        """
+        The maximum character length constraint for the customer's input.
+        """
+        minimum_length: NotRequired["int"]
+        """
+        The minimum character length requirement for the customer's input.
+        """
+
+    class CreateParamsCustomText(TypedDict):
+        after_submit: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsCustomTextAfterSubmit"
+        ]
+        """
+        Custom text that should be displayed after the payment confirmation button.
+        """
+        shipping_address: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress"
+        ]
+        """
+        Custom text that should be displayed alongside shipping address collection.
+        """
+        submit: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsCustomTextSubmit"
+        ]
+        """
+        Custom text that should be displayed alongside the payment confirmation button.
+        """
+        terms_of_service_acceptance: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance"
+        ]
+        """
+        Custom text that should be displayed in place of the default terms of service agreement text.
+        """
+
+    class CreateParamsCustomTextAfterSubmit(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class CreateParamsCustomTextShippingAddress(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class CreateParamsCustomTextSubmit(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class CreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class CreateParamsInvoiceCreation(TypedDict):
+        enabled: bool
+        """
+        Whether the feature is enabled
+        """
+        invoice_data: NotRequired[
+            "PaymentLink.CreateParamsInvoiceCreationInvoiceData"
+        ]
+        """
+        Invoice PDF configuration.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceData(TypedDict):
+        account_tax_ids: NotRequired["Literal['']|List[str]"]
+        """
+        The account tax IDs associated with the invoice.
+        """
+        custom_fields: NotRequired[
+            "Literal['']|List[PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField]"
+        ]
+        """
+        Default custom fields to be displayed on invoices for this customer.
+        """
         description: NotRequired["str"]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        footer: NotRequired["str"]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        rendering_options: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions"
+        ]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
+        name: str
+        """
+        The name of the custom field. This may be up to 30 characters.
+        """
+        value: str
+        """
+        The value of the custom field. This may be up to 30 characters.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+
+    class CreateParamsLineItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "PaymentLink.CreateParamsLineItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The quantity of the line item being purchased.
+        """
+
+    class CreateParamsLineItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative Integer.
+        """
+        maximum: NotRequired["int"]
+        """
+        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+        """
+        minimum: NotRequired["int"]
+        """
+        The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        """
+
+    class CreateParamsPaymentIntentData(TypedDict):
+        capture_method: NotRequired[
+            "Literal['automatic', 'automatic_async', 'manual']"
+        ]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
         """
         metadata: NotRequired["Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
-        trial_period_days: NotRequired["int"]
+        setup_future_usage: NotRequired["Literal['off_session', 'on_session']"]
         """
-        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+
+        When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+
+        When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+
+        If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
+
+        If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+
+        When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         """
-        trial_settings: NotRequired[
-            "PaymentLink.CreateParamsSubscriptionDataTrialSettings"
-        ]
+        statement_descriptor: NotRequired["str"]
         """
-        Settings related to subscription trials.
+        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        """
+        statement_descriptor_suffix: NotRequired["str"]
+        """
+        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_group: NotRequired["str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
 
-    class CreateParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+    class CreateParamsPhoneNumberCollection(TypedDict):
+        enabled: bool
         """
-        Defines how the subscription should behave when the user's free trial ends.
-        """
-
-    class CreateParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
-        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
-        """
-        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        Set to `true` to enable phone number collection.
         """
 
-    class CreateParamsShippingOption(TypedDict):
-        shipping_rate: NotRequired["str"]
+    class CreateParamsRestrictions(TypedDict):
+        completed_sessions: "PaymentLink.CreateParamsRestrictionsCompletedSessions"
         """
-        The ID of the Shipping Rate to use for this shipping option.
+        Configuration for the `completed_sessions` restriction type.
+        """
+
+    class CreateParamsRestrictionsCompletedSessions(TypedDict):
+        limit: int
+        """
+        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         """
 
     class CreateParamsShippingAddressCollection(TypedDict):
@@ -1077,349 +1358,64 @@ class PaymentLink(
         shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
         """
 
-    class CreateParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+    class CreateParamsShippingOption(TypedDict):
+        shipping_rate: NotRequired["str"]
         """
-        Configuration for the `completed_sessions` restriction type.
-        """
-
-    class CreateParamsRestrictionsCompletedSessions(TypedDict):
-        limit: int
-        """
-        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
+        The ID of the Shipping Rate to use for this shipping option.
         """
 
-    class CreateParamsPhoneNumberCollection(TypedDict):
-        enabled: bool
-        """
-        Set to `true` to enable phone number collection.
-        """
-
-    class CreateParamsPaymentIntentData(TypedDict):
-        capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
-        ]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
+    class CreateParamsSubscriptionData(TypedDict):
         description: NotRequired["str"]
         """
-        An arbitrary string attached to the object. Often useful for displaying to users.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         metadata: NotRequired["Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
-        setup_future_usage: NotRequired["Literal['off_session', 'on_session']"]
+        trial_period_days: NotRequired["int"]
         """
-        Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
-
-        When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
-
-        When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
-
-        If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
-
-        If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
-
-        When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
-        statement_descriptor: NotRequired["str"]
-        """
-        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
-        """
-        statement_descriptor_suffix: NotRequired["str"]
-        """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-        """
-        transfer_group: NotRequired["str"]
-        """
-        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-        """
-
-    class CreateParamsLineItem(TypedDict):
-        adjustable_quantity: NotRequired[
-            "PaymentLink.CreateParamsLineItemAdjustableQuantity"
+        trial_settings: NotRequired[
+            "PaymentLink.CreateParamsSubscriptionDataTrialSettings"
         ]
         """
-        When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
-        """
-        price: str
-        """
-        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
-        """
-        quantity: int
-        """
-        The quantity of the line item being purchased.
+        Settings related to subscription trials.
         """
 
-    class CreateParamsLineItemAdjustableQuantity(TypedDict):
+    class CreateParamsSubscriptionDataTrialSettings(TypedDict):
+        end_behavior: "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        """
+        Defines how the subscription should behave when the user's free trial ends.
+        """
+
+    class CreateParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        """
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        """
+
+    class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to true if the quantity can be adjusted to any non-negative Integer.
-        """
-        maximum: NotRequired["int"]
-        """
-        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
-        """
-        minimum: NotRequired["int"]
-        """
-        The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        Set to `true` to enable tax ID collection.
         """
 
-    class CreateParamsInvoiceCreation(TypedDict):
-        enabled: bool
+    class CreateParamsTransferData(TypedDict):
+        amount: NotRequired["int"]
         """
-        Whether the feature is enabled
+        The amount that will be transferred automatically when a charge succeeds.
         """
-        invoice_data: NotRequired[
-            "PaymentLink.CreateParamsInvoiceCreationInvoiceData"
-        ]
+        destination: str
         """
-        Invoice PDF configuration.
-        """
-
-    class CreateParamsInvoiceCreationInvoiceData(TypedDict):
-        account_tax_ids: NotRequired["Literal['']|List[str]"]
-        """
-        The account tax IDs associated with the invoice.
-        """
-        custom_fields: NotRequired[
-            "Literal['']|List[PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField]"
-        ]
-        """
-        Default custom fields to be displayed on invoices for this customer.
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        footer: NotRequired["str"]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
+        If specified, successful charges will be attributed to the destination
+        account for tax reporting, and the funds from charges will be transferred
+        to the destination account. The ID of the resulting transfer will be
+        returned on the successful charge's `transfer` field.
         """
 
-    class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-
-    class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 30 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 30 characters.
-        """
-
-    class CreateParamsCustomText(TypedDict):
-        after_submit: NotRequired[
-            "Literal['']|PaymentLink.CreateParamsCustomTextAfterSubmit"
-        ]
-        """
-        Custom text that should be displayed after the payment confirmation button.
-        """
-        shipping_address: NotRequired[
-            "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress"
-        ]
-        """
-        Custom text that should be displayed alongside shipping address collection.
-        """
-        submit: NotRequired[
-            "Literal['']|PaymentLink.CreateParamsCustomTextSubmit"
-        ]
-        """
-        Custom text that should be displayed alongside the payment confirmation button.
-        """
-        terms_of_service_acceptance: NotRequired[
-            "Literal['']|PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance"
-        ]
-        """
-        Custom text that should be displayed in place of the default terms of service agreement text.
-        """
-
-    class CreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class CreateParamsCustomTextSubmit(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class CreateParamsCustomTextShippingAddress(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class CreateParamsCustomTextAfterSubmit(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class CreateParamsCustomField(TypedDict):
-        dropdown: NotRequired["PaymentLink.CreateParamsCustomFieldDropdown"]
-        """
-        Configuration for `type=dropdown` fields.
-        """
-        key: str
-        """
-        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
-        """
-        label: "PaymentLink.CreateParamsCustomFieldLabel"
-        """
-        The label for the field, displayed to the customer.
-        """
-        numeric: NotRequired["PaymentLink.CreateParamsCustomFieldNumeric"]
-        """
-        Configuration for `type=numeric` fields.
-        """
-        optional: NotRequired["bool"]
-        """
-        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
-        """
-        text: NotRequired["PaymentLink.CreateParamsCustomFieldText"]
-        """
-        Configuration for `type=text` fields.
-        """
-        type: Literal["dropdown", "numeric", "text"]
-        """
-        The type of the field.
-        """
-
-    class CreateParamsCustomFieldText(TypedDict):
-        maximum_length: NotRequired["int"]
-        """
-        The maximum character length constraint for the customer's input.
-        """
-        minimum_length: NotRequired["int"]
-        """
-        The minimum character length requirement for the customer's input.
-        """
-
-    class CreateParamsCustomFieldNumeric(TypedDict):
-        maximum_length: NotRequired["int"]
-        """
-        The maximum character length constraint for the customer's input.
-        """
-        minimum_length: NotRequired["int"]
-        """
-        The minimum character length requirement for the customer's input.
-        """
-
-    class CreateParamsCustomFieldLabel(TypedDict):
-        custom: str
-        """
-        Custom text for the label, displayed to the customer. Up to 50 characters.
-        """
-        type: Literal["custom"]
-        """
-        The type of the label.
-        """
-
-    class CreateParamsCustomFieldDropdown(TypedDict):
-        options: List["PaymentLink.CreateParamsCustomFieldDropdownOption"]
-        """
-        The options available for the customer to select. Up to 200 options allowed.
-        """
-
-    class CreateParamsCustomFieldDropdownOption(TypedDict):
-        label: str
-        """
-        The label for the option, displayed to the customer. Up to 100 characters.
-        """
-        value: str
-        """
-        The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
-        """
-
-    class CreateParamsConsentCollection(TypedDict):
-        payment_method_reuse_agreement: NotRequired[
-            "PaymentLink.CreateParamsConsentCollectionPaymentMethodReuseAgreement"
-        ]
-        """
-        Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
-        """
-        promotions: NotRequired["Literal['auto', 'none']"]
-        """
-        If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
-        Session will determine whether to display an option to opt into promotional communication
-        from the merchant depending on the customer's locale. Only available to US merchants.
-        """
-        terms_of_service: NotRequired["Literal['none', 'required']"]
-        """
-        If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
-        There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
-        """
-
-    class CreateParamsConsentCollectionPaymentMethodReuseAgreement(TypedDict):
-        position: Literal["auto", "hidden"]
-        """
-        Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
-        defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
-        """
-
-    class CreateParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        If `true`, tax will be calculated automatically using the customer's location.
-        """
-
-    class CreateParamsAfterCompletion(TypedDict):
-        hosted_confirmation: NotRequired[
-            "PaymentLink.CreateParamsAfterCompletionHostedConfirmation"
-        ]
-        """
-        Configuration when `type=hosted_confirmation`.
-        """
-        redirect: NotRequired[
-            "PaymentLink.CreateParamsAfterCompletionRedirect"
-        ]
-        """
-        Configuration when `type=redirect`.
-        """
-        type: Literal["hosted_confirmation", "redirect"]
-        """
-        The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
-        """
-
-    class CreateParamsAfterCompletionRedirect(TypedDict):
-        url: str
-        """
-        The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
-        """
-
-    class CreateParamsAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired["str"]
-        """
-        A custom message to display to the customer after the purchase is complete.
-        """
-
-    class ListParams(RequestOptions):
-        active: NotRequired["bool"]
-        """
-        Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
-        """
+    class ListLineItemsParams(RequestOptions):
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -1437,7 +1433,11 @@ class PaymentLink(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class ListLineItemsParams(RequestOptions):
+    class ListParams(RequestOptions):
+        active: NotRequired["bool"]
+        """
+        Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -1555,28 +1555,290 @@ class PaymentLink(
         When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
         """
 
-    class ModifyParamsSubscriptionData(TypedDict):
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
-        """
-        trial_settings: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsSubscriptionDataTrialSettings"
+    class ModifyParamsAfterCompletion(TypedDict):
+        hosted_confirmation: NotRequired[
+            "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation"
         ]
         """
-        Settings related to subscription trials.
+        Configuration when `type=hosted_confirmation`.
+        """
+        redirect: NotRequired[
+            "PaymentLink.ModifyParamsAfterCompletionRedirect"
+        ]
+        """
+        Configuration when `type=redirect`.
+        """
+        type: Literal["hosted_confirmation", "redirect"]
+        """
+        The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         """
 
-    class ModifyParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+    class ModifyParamsAfterCompletionHostedConfirmation(TypedDict):
+        custom_message: NotRequired["str"]
         """
-        Defines how the subscription should behave when the user's free trial ends.
+        A custom message to display to the customer after the purchase is complete.
         """
 
-    class ModifyParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
-        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+    class ModifyParamsAfterCompletionRedirect(TypedDict):
+        url: str
         """
-        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+        """
+
+    class ModifyParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        If `true`, tax will be calculated automatically using the customer's location.
+        """
+
+    class ModifyParamsCustomField(TypedDict):
+        dropdown: NotRequired["PaymentLink.ModifyParamsCustomFieldDropdown"]
+        """
+        Configuration for `type=dropdown` fields.
+        """
+        key: str
+        """
+        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
+        """
+        label: "PaymentLink.ModifyParamsCustomFieldLabel"
+        """
+        The label for the field, displayed to the customer.
+        """
+        numeric: NotRequired["PaymentLink.ModifyParamsCustomFieldNumeric"]
+        """
+        Configuration for `type=numeric` fields.
+        """
+        optional: NotRequired["bool"]
+        """
+        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+        """
+        text: NotRequired["PaymentLink.ModifyParamsCustomFieldText"]
+        """
+        Configuration for `type=text` fields.
+        """
+        type: Literal["dropdown", "numeric", "text"]
+        """
+        The type of the field.
+        """
+
+    class ModifyParamsCustomFieldDropdown(TypedDict):
+        options: List["PaymentLink.ModifyParamsCustomFieldDropdownOption"]
+        """
+        The options available for the customer to select. Up to 200 options allowed.
+        """
+
+    class ModifyParamsCustomFieldDropdownOption(TypedDict):
+        label: str
+        """
+        The label for the option, displayed to the customer. Up to 100 characters.
+        """
+        value: str
+        """
+        The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
+        """
+
+    class ModifyParamsCustomFieldLabel(TypedDict):
+        custom: str
+        """
+        Custom text for the label, displayed to the customer. Up to 50 characters.
+        """
+        type: Literal["custom"]
+        """
+        The type of the label.
+        """
+
+    class ModifyParamsCustomFieldNumeric(TypedDict):
+        maximum_length: NotRequired["int"]
+        """
+        The maximum character length constraint for the customer's input.
+        """
+        minimum_length: NotRequired["int"]
+        """
+        The minimum character length requirement for the customer's input.
+        """
+
+    class ModifyParamsCustomFieldText(TypedDict):
+        maximum_length: NotRequired["int"]
+        """
+        The maximum character length constraint for the customer's input.
+        """
+        minimum_length: NotRequired["int"]
+        """
+        The minimum character length requirement for the customer's input.
+        """
+
+    class ModifyParamsCustomText(TypedDict):
+        after_submit: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsCustomTextAfterSubmit"
+        ]
+        """
+        Custom text that should be displayed after the payment confirmation button.
+        """
+        shipping_address: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress"
+        ]
+        """
+        Custom text that should be displayed alongside shipping address collection.
+        """
+        submit: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsCustomTextSubmit"
+        ]
+        """
+        Custom text that should be displayed alongside the payment confirmation button.
+        """
+        terms_of_service_acceptance: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance"
+        ]
+        """
+        Custom text that should be displayed in place of the default terms of service agreement text.
+        """
+
+    class ModifyParamsCustomTextAfterSubmit(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class ModifyParamsCustomTextShippingAddress(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class ModifyParamsCustomTextSubmit(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class ModifyParamsCustomTextTermsOfServiceAcceptance(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class ModifyParamsInvoiceCreation(TypedDict):
+        enabled: bool
+        """
+        Whether the feature is enabled
+        """
+        invoice_data: NotRequired[
+            "PaymentLink.ModifyParamsInvoiceCreationInvoiceData"
+        ]
+        """
+        Invoice PDF configuration.
+        """
+
+    class ModifyParamsInvoiceCreationInvoiceData(TypedDict):
+        account_tax_ids: NotRequired["Literal['']|List[str]"]
+        """
+        The account tax IDs associated with the invoice.
+        """
+        custom_fields: NotRequired[
+            "Literal['']|List[PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField]"
+        ]
+        """
+        Default custom fields to be displayed on invoices for this customer.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        footer: NotRequired["str"]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        rendering_options: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions"
+        ]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+
+    class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
+        name: str
+        """
+        The name of the custom field. This may be up to 30 characters.
+        """
+        value: str
+        """
+        The value of the custom field. This may be up to 30 characters.
+        """
+
+    class ModifyParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+
+    class ModifyParamsLineItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "PaymentLink.ModifyParamsLineItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
+        """
+        id: str
+        """
+        The ID of an existing line item on the payment link.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of the line item being purchased.
+        """
+
+    class ModifyParamsLineItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative Integer.
+        """
+        maximum: NotRequired["int"]
+        """
+        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+        """
+        minimum: NotRequired["int"]
+        """
+        The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        """
+
+    class ModifyParamsPaymentIntentData(TypedDict):
+        description: NotRequired["Literal['']|str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        statement_descriptor: NotRequired["Literal['']|str"]
+        """
+        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        """
+        statement_descriptor_suffix: NotRequired["Literal['']|str"]
+        """
+        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_group: NotRequired["Literal['']|str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
+
+    class ModifyParamsRestrictions(TypedDict):
+        completed_sessions: "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        """
+        Configuration for the `completed_sessions` restriction type.
+        """
+
+    class ModifyParamsRestrictionsCompletedSessions(TypedDict):
+        limit: int
+        """
+        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         """
 
     class ModifyParamsShippingAddressCollection(TypedDict):
@@ -1826,290 +2088,28 @@ class PaymentLink(
         shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
         """
 
-    class ModifyParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
-        """
-        Configuration for the `completed_sessions` restriction type.
-        """
-
-    class ModifyParamsRestrictionsCompletedSessions(TypedDict):
-        limit: int
-        """
-        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
-        """
-
-    class ModifyParamsPaymentIntentData(TypedDict):
-        description: NotRequired["Literal['']|str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
+    class ModifyParamsSubscriptionData(TypedDict):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
-        statement_descriptor: NotRequired["Literal['']|str"]
-        """
-        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
-        """
-        statement_descriptor_suffix: NotRequired["Literal['']|str"]
-        """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-        """
-        transfer_group: NotRequired["Literal['']|str"]
-        """
-        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-        """
-
-    class ModifyParamsLineItem(TypedDict):
-        adjustable_quantity: NotRequired[
-            "PaymentLink.ModifyParamsLineItemAdjustableQuantity"
+        trial_settings: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsSubscriptionDataTrialSettings"
         ]
         """
-        When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
-        """
-        id: str
-        """
-        The ID of an existing line item on the payment link.
-        """
-        quantity: NotRequired["int"]
-        """
-        The quantity of the line item being purchased.
+        Settings related to subscription trials.
         """
 
-    class ModifyParamsLineItemAdjustableQuantity(TypedDict):
-        enabled: bool
+    class ModifyParamsSubscriptionDataTrialSettings(TypedDict):
+        end_behavior: "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
         """
-        Set to true if the quantity can be adjusted to any non-negative Integer.
-        """
-        maximum: NotRequired["int"]
-        """
-        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
-        """
-        minimum: NotRequired["int"]
-        """
-        The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        Defines how the subscription should behave when the user's free trial ends.
         """
 
-    class ModifyParamsInvoiceCreation(TypedDict):
-        enabled: bool
+    class ModifyParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
         """
-        Whether the feature is enabled
-        """
-        invoice_data: NotRequired[
-            "PaymentLink.ModifyParamsInvoiceCreationInvoiceData"
-        ]
-        """
-        Invoice PDF configuration.
-        """
-
-    class ModifyParamsInvoiceCreationInvoiceData(TypedDict):
-        account_tax_ids: NotRequired["Literal['']|List[str]"]
-        """
-        The account tax IDs associated with the invoice.
-        """
-        custom_fields: NotRequired[
-            "Literal['']|List[PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField]"
-        ]
-        """
-        Default custom fields to be displayed on invoices for this customer.
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        footer: NotRequired["str"]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class ModifyParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-
-    class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 30 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 30 characters.
-        """
-
-    class ModifyParamsCustomText(TypedDict):
-        after_submit: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsCustomTextAfterSubmit"
-        ]
-        """
-        Custom text that should be displayed after the payment confirmation button.
-        """
-        shipping_address: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress"
-        ]
-        """
-        Custom text that should be displayed alongside shipping address collection.
-        """
-        submit: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsCustomTextSubmit"
-        ]
-        """
-        Custom text that should be displayed alongside the payment confirmation button.
-        """
-        terms_of_service_acceptance: NotRequired[
-            "Literal['']|PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance"
-        ]
-        """
-        Custom text that should be displayed in place of the default terms of service agreement text.
-        """
-
-    class ModifyParamsCustomTextTermsOfServiceAcceptance(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class ModifyParamsCustomTextSubmit(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class ModifyParamsCustomTextShippingAddress(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class ModifyParamsCustomTextAfterSubmit(TypedDict):
-        message: str
-        """
-        Text may be up to 1200 characters in length.
-        """
-
-    class ModifyParamsCustomField(TypedDict):
-        dropdown: NotRequired["PaymentLink.ModifyParamsCustomFieldDropdown"]
-        """
-        Configuration for `type=dropdown` fields.
-        """
-        key: str
-        """
-        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
-        """
-        label: "PaymentLink.ModifyParamsCustomFieldLabel"
-        """
-        The label for the field, displayed to the customer.
-        """
-        numeric: NotRequired["PaymentLink.ModifyParamsCustomFieldNumeric"]
-        """
-        Configuration for `type=numeric` fields.
-        """
-        optional: NotRequired["bool"]
-        """
-        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
-        """
-        text: NotRequired["PaymentLink.ModifyParamsCustomFieldText"]
-        """
-        Configuration for `type=text` fields.
-        """
-        type: Literal["dropdown", "numeric", "text"]
-        """
-        The type of the field.
-        """
-
-    class ModifyParamsCustomFieldText(TypedDict):
-        maximum_length: NotRequired["int"]
-        """
-        The maximum character length constraint for the customer's input.
-        """
-        minimum_length: NotRequired["int"]
-        """
-        The minimum character length requirement for the customer's input.
-        """
-
-    class ModifyParamsCustomFieldNumeric(TypedDict):
-        maximum_length: NotRequired["int"]
-        """
-        The maximum character length constraint for the customer's input.
-        """
-        minimum_length: NotRequired["int"]
-        """
-        The minimum character length requirement for the customer's input.
-        """
-
-    class ModifyParamsCustomFieldLabel(TypedDict):
-        custom: str
-        """
-        Custom text for the label, displayed to the customer. Up to 50 characters.
-        """
-        type: Literal["custom"]
-        """
-        The type of the label.
-        """
-
-    class ModifyParamsCustomFieldDropdown(TypedDict):
-        options: List["PaymentLink.ModifyParamsCustomFieldDropdownOption"]
-        """
-        The options available for the customer to select. Up to 200 options allowed.
-        """
-
-    class ModifyParamsCustomFieldDropdownOption(TypedDict):
-        label: str
-        """
-        The label for the option, displayed to the customer. Up to 100 characters.
-        """
-        value: str
-        """
-        The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
-        """
-
-    class ModifyParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        If `true`, tax will be calculated automatically using the customer's location.
-        """
-
-    class ModifyParamsAfterCompletion(TypedDict):
-        hosted_confirmation: NotRequired[
-            "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation"
-        ]
-        """
-        Configuration when `type=hosted_confirmation`.
-        """
-        redirect: NotRequired[
-            "PaymentLink.ModifyParamsAfterCompletionRedirect"
-        ]
-        """
-        Configuration when `type=redirect`.
-        """
-        type: Literal["hosted_confirmation", "redirect"]
-        """
-        The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
-        """
-
-    class ModifyParamsAfterCompletionRedirect(TypedDict):
-        url: str
-        """
-        The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
-        """
-
-    class ModifyParamsAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired["str"]
-        """
-        A custom message to display to the customer after the purchase is complete.
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
     class RetrieveParams(RequestOptions):

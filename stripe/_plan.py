@@ -147,38 +147,6 @@ class Plan(
         Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
         """
 
-    class CreateParamsTransformUsage(TypedDict):
-        divide_by: int
-        """
-        Divide usage by this number.
-        """
-        round: Literal["down", "up"]
-        """
-        After division, either round the result `up` or `down`.
-        """
-
-    class CreateParamsTier(TypedDict):
-        flat_amount: NotRequired["int"]
-        """
-        The flat billing amount for an entire tier, regardless of the number of units in the tier.
-        """
-        flat_amount_decimal: NotRequired["str"]
-        """
-        Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        The per unit billing amount for each individual unit for which this tier applies.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-        up_to: Union[Literal["inf"], int]
-        """
-        Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
-        """
-
     class CreateParamsProduct(TypedDict):
         active: NotRequired["bool"]
         """
@@ -209,6 +177,38 @@ class Plan(
         unit_label: NotRequired["str"]
         """
         A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
+
+    class CreateParamsTier(TypedDict):
+        flat_amount: NotRequired["int"]
+        """
+        The flat billing amount for an entire tier, regardless of the number of units in the tier.
+        """
+        flat_amount_decimal: NotRequired["str"]
+        """
+        Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        The per unit billing amount for each individual unit for which this tier applies.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+        up_to: Union[Literal["inf"], int]
+        """
+        Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
+        """
+
+    class CreateParamsTransformUsage(TypedDict):
+        divide_by: int
+        """
+        Divide usage by this number.
+        """
+        round: Literal["down", "up"]
+        """
+        After division, either round the result `up` or `down`.
         """
 
     class DeleteParams(RequestOptions):

@@ -256,17 +256,51 @@ class Price(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class CreateParamsTransformQuantity(TypedDict):
-        divide_by: int
+    class CreateParamsCurrencyOptions(TypedDict):
+        custom_unit_amount: NotRequired[
+            "Price.CreateParamsCurrencyOptionsCustomUnitAmount"
+        ]
         """
-        Divide usage by this number.
+        When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         """
-        round: Literal["down", "up"]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
         """
-        After division, either round the result `up` or `down`.
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        tiers: NotRequired["List[Price.CreateParamsCurrencyOptionsTier]"]
+        """
+        Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
-    class CreateParamsTier(TypedDict):
+    class CreateParamsCurrencyOptionsCustomUnitAmount(TypedDict):
+        enabled: bool
+        """
+        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        """
+        maximum: NotRequired["int"]
+        """
+        The maximum unit amount the customer can specify for this item.
+        """
+        minimum: NotRequired["int"]
+        """
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        """
+        preset: NotRequired["int"]
+        """
+        The starting unit amount which can be updated by the customer.
+        """
+
+    class CreateParamsCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired["int"]
         """
         The flat billing amount for an entire tier, regardless of the number of units in the tier.
@@ -288,28 +322,22 @@ class Price(
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         """
 
-    class CreateParamsRecurring(TypedDict):
-        aggregate_usage: NotRequired[
-            "Literal['last_during_period', 'last_ever', 'max', 'sum']"
-        ]
+    class CreateParamsCustomUnitAmount(TypedDict):
+        enabled: bool
         """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
+        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
         """
-        interval: Literal["day", "month", "week", "year"]
+        maximum: NotRequired["int"]
         """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        The maximum unit amount the customer can specify for this item.
         """
-        interval_count: NotRequired["int"]
+        minimum: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
         """
-        trial_period_days: NotRequired["int"]
+        preset: NotRequired["int"]
         """
-        Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
-        """
-        usage_type: NotRequired["Literal['licensed', 'metered']"]
-        """
-        Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+        The starting unit amount which can be updated by the customer.
         """
 
     class CreateParamsProductData(TypedDict):
@@ -344,51 +372,31 @@ class Price(
         A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         """
 
-    class CreateParamsCustomUnitAmount(TypedDict):
-        enabled: bool
-        """
-        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
-        """
-        maximum: NotRequired["int"]
-        """
-        The maximum unit amount the customer can specify for this item.
-        """
-        minimum: NotRequired["int"]
-        """
-        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
-        """
-        preset: NotRequired["int"]
-        """
-        The starting unit amount which can be updated by the customer.
-        """
-
-    class CreateParamsCurrencyOptions(TypedDict):
-        custom_unit_amount: NotRequired[
-            "Price.CreateParamsCurrencyOptionsCustomUnitAmount"
+    class CreateParamsRecurring(TypedDict):
+        aggregate_usage: NotRequired[
+            "Literal['last_during_period', 'last_ever', 'max', 'sum']"
         ]
         """
-        When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
+        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
         """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
+        interval: Literal["day", "month", "week", "year"]
         """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        tiers: NotRequired["List[Price.CreateParamsCurrencyOptionsTier]"]
+        interval_count: NotRequired["int"]
         """
-        Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
         """
-        unit_amount: NotRequired["int"]
+        trial_period_days: NotRequired["int"]
         """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
         """
-        unit_amount_decimal: NotRequired["str"]
+        usage_type: NotRequired["Literal['licensed', 'metered']"]
         """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
         """
 
-    class CreateParamsCurrencyOptionsTier(TypedDict):
+    class CreateParamsTier(TypedDict):
         flat_amount: NotRequired["int"]
         """
         The flat billing amount for an entire tier, regardless of the number of units in the tier.
@@ -410,22 +418,14 @@ class Price(
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         """
 
-    class CreateParamsCurrencyOptionsCustomUnitAmount(TypedDict):
-        enabled: bool
+    class CreateParamsTransformQuantity(TypedDict):
+        divide_by: int
         """
-        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        Divide usage by this number.
         """
-        maximum: NotRequired["int"]
+        round: Literal["down", "up"]
         """
-        The maximum unit amount the customer can specify for this item.
-        """
-        minimum: NotRequired["int"]
-        """
-        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
-        """
-        preset: NotRequired["int"]
-        """
-        The starting unit amount which can be updated by the customer.
+        After division, either round the result `up` or `down`.
         """
 
     class ListParams(RequestOptions):
@@ -474,16 +474,6 @@ class Price(
         Only return prices of type `recurring` or `one_time`.
         """
 
-    class ListParamsRecurring(TypedDict):
-        interval: NotRequired["Literal['day', 'month', 'week', 'year']"]
-        """
-        Filter by billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        usage_type: NotRequired["Literal['licensed', 'metered']"]
-        """
-        Filter by the usage type for this price. Can be either `metered` or `licensed`.
-        """
-
     class ListParamsCreated(TypedDict):
         gt: NotRequired["int"]
         """
@@ -500,6 +490,16 @@ class Price(
         lte: NotRequired["int"]
         """
         Maximum value to filter by (inclusive)
+        """
+
+    class ListParamsRecurring(TypedDict):
+        interval: NotRequired["Literal['day', 'month', 'week', 'year']"]
+        """
+        Filter by billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        usage_type: NotRequired["Literal['licensed', 'metered']"]
+        """
+        Filter by the usage type for this price. Can be either `metered` or `licensed`.
         """
 
     class ModifyParams(RequestOptions):
@@ -566,6 +566,24 @@ class Price(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class ModifyParamsCurrencyOptionsCustomUnitAmount(TypedDict):
+        enabled: bool
+        """
+        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        """
+        maximum: NotRequired["int"]
+        """
+        The maximum unit amount the customer can specify for this item.
+        """
+        minimum: NotRequired["int"]
+        """
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        """
+        preset: NotRequired["int"]
+        """
+        The starting unit amount which can be updated by the customer.
+        """
+
     class ModifyParamsCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired["int"]
         """
@@ -586,24 +604,6 @@ class Price(
         up_to: Union[Literal["inf"], int]
         """
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
-        """
-
-    class ModifyParamsCurrencyOptionsCustomUnitAmount(TypedDict):
-        enabled: bool
-        """
-        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
-        """
-        maximum: NotRequired["int"]
-        """
-        The maximum unit amount the customer can specify for this item.
-        """
-        minimum: NotRequired["int"]
-        """
-        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
-        """
-        preset: NotRequired["int"]
-        """
-        The starting unit amount which can be updated by the customer.
         """
 
     class RetrieveParams(RequestOptions):

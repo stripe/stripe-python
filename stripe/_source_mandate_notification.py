@@ -93,7 +93,6 @@ class SourceMandateNotification(StripeObject):
     """
     The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`.
     """
-
     _inner_class_types = {
         "acss_debit": AcssDebit,
         "bacs_debit": BacsDebit,

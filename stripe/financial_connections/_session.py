@@ -83,12 +83,6 @@ class Session(CreateableAPIResource["Session"]):
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
 
-    class CreateParamsFilters(TypedDict):
-        countries: List[str]
-        """
-        List of countries from which to collect accounts.
-        """
-
     class CreateParamsAccountHolder(TypedDict):
         account: NotRequired["str"]
         """
@@ -101,6 +95,12 @@ class Session(CreateableAPIResource["Session"]):
         type: Literal["account", "customer"]
         """
         Type of account holder to collect accounts for.
+        """
+
+    class CreateParamsFilters(TypedDict):
+        countries: List[str]
+        """
+        List of countries from which to collect accounts.
         """
 
     class RetrieveParams(RequestOptions):

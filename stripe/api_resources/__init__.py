@@ -62,6 +62,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
+    from stripe.api_resources.customer_session import CustomerSession
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.dispute import Dispute
     from stripe.api_resources.ephemeral_key import EphemeralKey

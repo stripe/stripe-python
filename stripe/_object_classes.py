@@ -36,6 +36,7 @@ OBJECT_CLASSES = {
     stripe.Customer.OBJECT_NAME: stripe.Customer,
     stripe.CustomerBalanceTransaction.OBJECT_NAME: stripe.CustomerBalanceTransaction,
     stripe.CustomerCashBalanceTransaction.OBJECT_NAME: stripe.CustomerCashBalanceTransaction,
+    stripe.CustomerSession.OBJECT_NAME: stripe.CustomerSession,
     stripe.Discount.OBJECT_NAME: stripe.Discount,
     stripe.Dispute.OBJECT_NAME: stripe.Dispute,
     stripe.EphemeralKey.OBJECT_NAME: stripe.EphemeralKey,

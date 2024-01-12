@@ -239,52 +239,34 @@ class Session(CreateableAPIResource["Session"]):
         Type of flow that the customer will go through.
         """
 
-    class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
-        discounts: NotRequired[
-            "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]"
+    class CreateParamsFlowDataAfterCompletion(TypedDict):
+        hosted_confirmation: NotRequired[
+            "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation"
         ]
         """
-        The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+        Configuration when `after_completion.type=hosted_confirmation`.
         """
-        items: List[
-            "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
+        redirect: NotRequired[
+            "Session.CreateParamsFlowDataAfterCompletionRedirect"
         ]
         """
-        The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
+        Configuration when `after_completion.type=redirect`.
         """
-        subscription: str
+        type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
         """
-        The ID of the subscription to be updated.
-        """
-
-    class CreateParamsFlowDataSubscriptionUpdateConfirmItem(TypedDict):
-        id: str
-        """
-        The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
-        """
-        price: NotRequired["str"]
-        """
-        The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
-        """
-        quantity: NotRequired["int"]
-        """
-        [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
+        The specified behavior after the flow is completed.
         """
 
-    class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
-        coupon: NotRequired["str"]
+    class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
+        custom_message: NotRequired["str"]
         """
-        The ID of the coupon to apply to this subscription update.
-        """
-        promotion_code: NotRequired["str"]
-        """
-        The ID of a promotion code to apply to this subscription update.
+        A custom message to display to the customer after the flow is completed.
         """
 
-    class CreateParamsFlowDataSubscriptionUpdate(TypedDict):
-        subscription: str
+    class CreateParamsFlowDataAfterCompletionRedirect(TypedDict):
+        return_url: str
         """
-        The ID of the subscription to be updated.
+        The URL the customer will be redirected to after the flow is completed.
         """
 
     class CreateParamsFlowDataSubscriptionCancel(TypedDict):
@@ -317,34 +299,52 @@ class Session(CreateableAPIResource["Session"]):
         The ID of the coupon to be offered.
         """
 
-    class CreateParamsFlowDataAfterCompletion(TypedDict):
-        hosted_confirmation: NotRequired[
-            "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation"
-        ]
+    class CreateParamsFlowDataSubscriptionUpdate(TypedDict):
+        subscription: str
         """
-        Configuration when `after_completion.type=hosted_confirmation`.
-        """
-        redirect: NotRequired[
-            "Session.CreateParamsFlowDataAfterCompletionRedirect"
-        ]
-        """
-        Configuration when `after_completion.type=redirect`.
-        """
-        type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
-        """
-        The specified behavior after the flow is completed.
+        The ID of the subscription to be updated.
         """
 
-    class CreateParamsFlowDataAfterCompletionRedirect(TypedDict):
-        return_url: str
+    class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
+        discounts: NotRequired[
+            "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]"
+        ]
         """
-        The URL the customer will be redirected to after the flow is completed.
+        The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+        """
+        items: List[
+            "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
+        ]
+        """
+        The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
+        """
+        subscription: str
+        """
+        The ID of the subscription to be updated.
         """
 
-    class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired["str"]
+    class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
+        coupon: NotRequired["str"]
         """
-        A custom message to display to the customer after the flow is completed.
+        The ID of the coupon to apply to this subscription update.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        The ID of a promotion code to apply to this subscription update.
+        """
+
+    class CreateParamsFlowDataSubscriptionUpdateConfirmItem(TypedDict):
+        id: str
+        """
+        The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
+        """
+        price: NotRequired["str"]
+        """
+        The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
+        """
+        quantity: NotRequired["int"]
+        """
+        [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
         """
 
     configuration: ExpandableField["Configuration"]
