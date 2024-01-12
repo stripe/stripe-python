@@ -183,16 +183,6 @@ class File(ListableAPIResource["File"]):
         instance.refresh()
         return instance
 
-    # This resource can have two different object names. In latter API
-    # versions, only `file` is used, but since stripe-python may be used with
-    # any API version, we need to support deserializing the older
-    # `file_upload` object into the same class.
-    OBJECT_NAME_ALT = "file_upload"
-
-    @classmethod
-    def class_url(cls):
-        return "/v1/files"
-
     @classmethod
     def create(
         # 'api_version' is deprecated, please use 'stripe_version'
@@ -221,6 +211,16 @@ class File(ListableAPIResource["File"]):
                 response, api_key, version, stripe_account
             ),
         )
+
+    # This resource can have two different object names. In latter API
+    # versions, only `file` is used, but since stripe-python may be used with
+    # any API version, we need to support deserializing the older
+    # `file_upload` object into the same class.
+    OBJECT_NAME_ALT = "file_upload"
+
+    @classmethod
+    def class_url(cls):
+        return "/v1/files"
 
 
 # For backwards compatibility, the `File` class is aliased to `FileUpload`.
