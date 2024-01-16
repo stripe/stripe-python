@@ -74,7 +74,7 @@ jobs:
           - { version: "3.7" , env: "py37" }
           - { version: "3.8" , env: "py38" }
           - { version: "3.9" , env: "py39" }
-          - { version: "3.10" , env: "py310" }
+          - { version: "3.10" , env: "py310 t" }
           - { version: "3.11" , env: "py311" }
           - { version: "3.12" , env: "py312" }
           - { version: "pypy-3.7" , env: "py3.7" }
