@@ -2319,9 +2319,17 @@ class Invoice(
         """
         List of invoice items to add or update in the upcoming invoice preview.
         """
+        issuer: NotRequired["Invoice.UpcomingLinesParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         limit: NotRequired["int"]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        on_behalf_of: NotRequired["Literal['']|str"]
+        """
+        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
         schedule: NotRequired["str"]
         """
@@ -2717,6 +2725,16 @@ class Invoice(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class UpcomingLinesParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
     class UpcomingLinesParamsSubscriptionItem(TypedDict):
         billing_thresholds: NotRequired[
             "Literal['']|Invoice.UpcomingLinesParamsSubscriptionItemBillingThresholds"
@@ -2841,6 +2859,14 @@ class Invoice(
         invoice_items: NotRequired["List[Invoice.UpcomingParamsInvoiceItem]"]
         """
         List of invoice items to add or update in the upcoming invoice preview.
+        """
+        issuer: NotRequired["Invoice.UpcomingParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+        on_behalf_of: NotRequired["Literal['']|str"]
+        """
+        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
         schedule: NotRequired["str"]
         """
@@ -3226,6 +3252,16 @@ class Invoice(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class UpcomingParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpcomingParamsSubscriptionItem(TypedDict):
