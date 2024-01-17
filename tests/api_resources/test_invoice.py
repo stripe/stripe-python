@@ -137,7 +137,7 @@ class TestInvoice(object):
         )
         assert isinstance(resource, stripe.Invoice)
 
-    def test_can_iterate_lines(self):
+    def test_can_iterate_lines(self, http_client_mock):
         resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
         assert isinstance(resource.lines.data, list)
         assert isinstance(resource.lines.data[0], stripe.InvoiceLineItem)
