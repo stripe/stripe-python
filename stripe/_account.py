@@ -1037,6 +1037,7 @@ class Account(
             str,
             "Account.CreateExternalAccountParamsCard",
             "Account.CreateExternalAccountParamsBankAccount",
+            "Account.CreateExternalAccountParamsCardToken",
         ]
         """
         Please refer to full [documentation](https://stripe.com/docs/api) instead.
@@ -1092,6 +1093,11 @@ class Account(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
 
+    class CreateExternalAccountParamsCardToken(TypedDict):
+        object: Literal["card"]
+        currency: NotRequired["str"]
+        token: str
+
     class CreateLoginLinkParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -1142,7 +1148,7 @@ class Account(
         Specifies which fields in the response should be expanded.
         """
         external_account: NotRequired[
-            "str|Account.CreateParamsBankAccount|Account.CreateParamsCard"
+            "str|Account.CreateParamsBankAccount|Account.CreateParamsCard|Account.CreateParamsCardToken"
         ]
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
@@ -1736,6 +1742,11 @@ class Account(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         default_for_currency: NotRequired["bool"]
+
+    class CreateParamsCardToken(TypedDict):
+        object: Literal["card"]
+        currency: NotRequired["str"]
+        token: str
 
     class CreateParamsCompany(TypedDict):
         address: NotRequired["Account.CreateParamsCompanyAddress"]
