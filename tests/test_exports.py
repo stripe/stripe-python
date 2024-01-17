@@ -3,11 +3,12 @@
 from typing import Any
 import stripe
 import subprocess
+import sys
 
 
 def assert_output(code: str, expected: str) -> None:
     process = subprocess.Popen(
-        ["python", "-c", f"import stripe; print({code})"],
+        [sys.executable, "-c", f"import stripe; print({code})"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
