@@ -1124,6 +1124,10 @@ class Card(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        pin: NotRequired["Card.CreateParamsPin"]
+        """
+        The desired PIN for this card.
+        """
         replacement_for: NotRequired["str"]
         """
         The card this is meant to be a replacement for (if any).
@@ -1149,6 +1153,12 @@ class Card(
         type: Literal["physical", "virtual"]
         """
         The type of card to issue. Possible values are `physical` or `virtual`.
+        """
+
+    class CreateParamsPin(TypedDict):
+        encrypted_number: NotRequired["str"]
+        """
+        The card's desired new PIN, encrypted under Stripe's public key.
         """
 
     class CreateParamsShipping(TypedDict):
