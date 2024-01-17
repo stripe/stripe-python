@@ -323,6 +323,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class CustomerBalance(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Eps(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -946,6 +968,12 @@ class PaymentMethodConfiguration(
         """
         Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
         """
+        customer_balance: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsCustomerBalance"
+        ]
+        """
+        Uses a customer's [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
+        """
         eps: NotRequired["PaymentMethodConfiguration.CreateParamsEps"]
         """
         EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
@@ -1242,6 +1270,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsCashappDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsCustomerBalance(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsCustomerBalanceDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsCustomerBalanceDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -1614,6 +1656,12 @@ class PaymentMethodConfiguration(
         """
         Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
         """
+        customer_balance: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsCustomerBalance"
+        ]
+        """
+        Uses a customer's [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
+        """
         eps: NotRequired["PaymentMethodConfiguration.ModifyParamsEps"]
         """
         EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
@@ -1906,6 +1954,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsCashappDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsCustomerBalance(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsCustomerBalanceDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsCustomerBalanceDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -2218,6 +2280,7 @@ class PaymentMethodConfiguration(
     card: Optional[Card]
     cartes_bancaires: Optional[CartesBancaires]
     cashapp: Optional[Cashapp]
+    customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
     giropay: Optional[Giropay]
@@ -2367,6 +2430,7 @@ class PaymentMethodConfiguration(
         "card": Card,
         "cartes_bancaires": CartesBancaires,
         "cashapp": Cashapp,
+        "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,
         "giropay": Giropay,
