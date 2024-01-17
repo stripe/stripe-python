@@ -83,6 +83,18 @@ class Mandate(APIResource["Mandate"]):
             """
             The unique reference identifying the mandate on the Bacs network.
             """
+            revocation_reason: Optional[
+                Literal[
+                    "account_closed",
+                    "bank_account_restricted",
+                    "bank_ownership_changed",
+                    "could_not_process",
+                    "debit_not_authorized",
+                ]
+            ]
+            """
+            When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
+            """
             url: str
             """
             The URL that will contain the mandate that the customer has signed.
