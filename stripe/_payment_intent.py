@@ -2352,7 +2352,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
         ]
         """
         The customer's bank.
@@ -4241,7 +4241,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
         ]
         """
         The customer's bank.
@@ -6132,7 +6132,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
         ]
         """
         The customer's bank.
