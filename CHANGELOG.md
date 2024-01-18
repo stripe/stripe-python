@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.14.0b1 - 2024-01-18
+* [#1197](https://github.com/stripe/stripe-python/pull/1197) Update generated code for beta
+  Release specs are identical.
+* [#1192](https://github.com/stripe/stripe-python/pull/1192) Update generated code for beta
+  * Add support for new value `nn` on enum `ConfirmationToken.PaymentMethodPreview.Ideal.bank`
+  * Add support for new value `NNBANL2G` on enum `ConfirmationToken.PaymentMethodPreview.Ideal.bic`
+  * Change `Invoice.AutomaticTax.liability`, `Invoice.issuer`, and `Subscription.AutomaticTax.liability` to be required
+
 ## 7.13.0 - 2024-01-18
 * [#1193](https://github.com/stripe/stripe-python/pull/1193) Update generated code
   * Add support for providing details about `BankAccount`, `Card`, and `CardToken` on `Account.CreateExternalAccountParams.external_account` and `Account.CreateParams.external_account`
