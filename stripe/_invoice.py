@@ -6651,7 +6651,7 @@ class Invoice(
     """
     The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     """
-    issuer: Optional[Issuer]
+    issuer: Issuer
     last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.

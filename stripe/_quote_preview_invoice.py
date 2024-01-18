@@ -1221,7 +1221,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     """
     Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
     """
-    issuer: Optional[Issuer]
+    issuer: Issuer
     last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.

@@ -1188,6 +1188,10 @@ class Card(
         """
         The personalization design object belonging to this card.
         """
+        pin: NotRequired["Card.CreateParamsPin"]
+        """
+        The desired PIN for this card.
+        """
         replacement_for: NotRequired["str"]
         """
         The card this is meant to be a replacement for (if any).
@@ -1213,6 +1217,12 @@ class Card(
         type: Literal["physical", "virtual"]
         """
         The type of card to issue. Possible values are `physical` or `virtual`.
+        """
+
+    class CreateParamsPin(TypedDict):
+        encrypted_number: NotRequired["str"]
+        """
+        The card's desired new PIN, encrypted under Stripe's public key.
         """
 
     class CreateParamsShipping(TypedDict):
