@@ -38,11 +38,11 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             Whether the pricing table is enabled.
             """
 
-        buy_button: Optional[BuyButton]
+        buy_button: BuyButton
         """
         This hash contains whether the buy button is enabled.
         """
-        pricing_table: Optional[PricingTable]
+        pricing_table: PricingTable
         """
         This hash contains whether the pricing table is enabled.
         """
