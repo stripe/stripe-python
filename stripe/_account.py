@@ -1033,7 +1033,12 @@ class Account(
         """
         Specifies which fields in the response should be expanded.
         """
-        external_account: str
+        external_account: Union[
+            str,
+            "Account.CreateExternalAccountParamsCard",
+            "Account.CreateExternalAccountParamsBankAccount",
+            "Account.CreateExternalAccountParamsCardToken",
+        ]
         """
         Please refer to full [documentation](https://stripe.com/docs/api) instead.
         """
@@ -1041,6 +1046,57 @@ class Account(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+
+    class CreateExternalAccountParamsBankAccount(TypedDict):
+        object: Literal["bank_account"]
+        account_holder_name: NotRequired["str"]
+        """
+        The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
+        """
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
+        """
+        account_number: str
+        """
+        The account number for the bank account, in string form. Must be a checking account.
+        """
+        country: str
+        """
+        The country in which the bank account is located.
+        """
+        currency: NotRequired["str"]
+        """
+        The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
+        """
+        routing_number: NotRequired["str"]
+        """
+        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        """
+
+    class CreateExternalAccountParamsCard(TypedDict):
+        object: Literal["card"]
+        address_city: NotRequired["str"]
+        address_country: NotRequired["str"]
+        address_line1: NotRequired["str"]
+        address_line2: NotRequired["str"]
+        address_state: NotRequired["str"]
+        address_zip: NotRequired["str"]
+        currency: NotRequired["str"]
+        cvc: NotRequired["str"]
+        exp_month: int
+        exp_year: int
+        name: NotRequired["str"]
+        number: str
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+
+    class CreateExternalAccountParamsCardToken(TypedDict):
+        object: Literal["card"]
+        currency: NotRequired["str"]
+        token: str
 
     class CreateLoginLinkParams(RequestOptions):
         expand: NotRequired["List[str]"]
@@ -1091,7 +1147,9 @@ class Account(
         """
         Specifies which fields in the response should be expanded.
         """
-        external_account: NotRequired["str"]
+        external_account: NotRequired[
+            "str|Account.CreateParamsBankAccount|Account.CreateParamsCard|Account.CreateParamsCardToken"
+        ]
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
@@ -1116,6 +1174,33 @@ class Account(
         type: NotRequired["Literal['custom', 'express', 'standard']"]
         """
         The type of Stripe account to create. May be one of `custom`, `express` or `standard`.
+        """
+
+    class CreateParamsBankAccount(TypedDict):
+        object: Literal["bank_account"]
+        account_holder_name: NotRequired["str"]
+        """
+        The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
+        """
+        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        """
+        The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
+        """
+        account_number: str
+        """
+        The account number for the bank account, in string form. Must be a checking account.
+        """
+        country: str
+        """
+        The country in which the bank account is located.
+        """
+        currency: NotRequired["str"]
+        """
+        The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
+        """
+        routing_number: NotRequired["str"]
+        """
+        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
         """
 
     class CreateParamsBusinessProfile(TypedDict):
@@ -1638,6 +1723,31 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCard(TypedDict):
+        object: Literal["card"]
+        address_city: NotRequired["str"]
+        address_country: NotRequired["str"]
+        address_line1: NotRequired["str"]
+        address_line2: NotRequired["str"]
+        address_state: NotRequired["str"]
+        address_zip: NotRequired["str"]
+        currency: NotRequired["str"]
+        cvc: NotRequired["str"]
+        exp_month: int
+        exp_year: int
+        name: NotRequired["str"]
+        number: str
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        default_for_currency: NotRequired["bool"]
+
+    class CreateParamsCardToken(TypedDict):
+        object: Literal["card"]
+        currency: NotRequired["str"]
+        token: str
+
     class CreateParamsCompany(TypedDict):
         address: NotRequired["Account.CreateParamsCompanyAddress"]
         """
@@ -1701,7 +1811,7 @@ class Account(
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired["str"]
         """

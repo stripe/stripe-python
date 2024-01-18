@@ -97,9 +97,23 @@ class Invoice(
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
 
     class AutomaticTax(StripeObject):
+        class Liability(StripeObject):
+            account: Optional[ExpandableField["Account"]]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced.
+            """
+
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+        """
+        liability: Optional[Liability]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
@@ -107,6 +121,7 @@ class Invoice(
         """
         The status of the most recent automated tax calculation for this invoice.
         """
+        _inner_class_types = {"liability": Liability}
 
     class CustomField(StripeObject):
         name: str
@@ -276,6 +291,16 @@ class Invoice(
         invoice: ExpandableField["Invoice"]
         """
         The invoice that was cloned.
+        """
+
+    class Issuer(StripeObject):
+        account: Optional[ExpandableField["Account"]]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced.
         """
 
     class LastFinalizationError(StripeObject):
@@ -1025,6 +1050,10 @@ class Invoice(
         """
         Revise an existing invoice. The new invoice will be created in `status=draft`. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
         """
+        issuer: NotRequired["Invoice.CreateParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1079,6 +1108,20 @@ class Invoice(
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
         """
+        liability: NotRequired["Invoice.CreateParamsAutomaticTaxLiability"]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
 
     class CreateParamsCustomField(TypedDict):
         name: str
@@ -1108,6 +1151,16 @@ class Invoice(
         invoice: str
         """
         The `id` of the invoice that will be cloned.
+        """
+
+    class CreateParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsPaymentSettings(TypedDict):
@@ -1669,6 +1722,10 @@ class Invoice(
         """
         Footer to be displayed on the invoice.
         """
+        issuer: NotRequired["Invoice.ModifyParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1719,6 +1776,20 @@ class Invoice(
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
         """
+        liability: NotRequired["Invoice.ModifyParamsAutomaticTaxLiability"]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class ModifyParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
 
     class ModifyParamsCustomField(TypedDict):
         name: str
@@ -1738,6 +1809,16 @@ class Invoice(
         discount: NotRequired["str"]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+
+    class ModifyParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class ModifyParamsPaymentSettings(TypedDict):
@@ -2238,9 +2319,17 @@ class Invoice(
         """
         List of invoice items to add or update in the upcoming invoice preview.
         """
+        issuer: NotRequired["Invoice.UpcomingLinesParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         limit: NotRequired["int"]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        on_behalf_of: NotRequired["Literal['']|str"]
+        """
+        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
         schedule: NotRequired["str"]
         """
@@ -2313,6 +2402,22 @@ class Invoice(
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+        """
+        liability: NotRequired[
+            "Invoice.UpcomingLinesParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class UpcomingLinesParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpcomingLinesParamsCustomerDetails(TypedDict):
@@ -2620,6 +2725,16 @@ class Invoice(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class UpcomingLinesParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
     class UpcomingLinesParamsSubscriptionItem(TypedDict):
         billing_thresholds: NotRequired[
             "Literal['']|Invoice.UpcomingLinesParamsSubscriptionItemBillingThresholds"
@@ -2745,6 +2860,14 @@ class Invoice(
         """
         List of invoice items to add or update in the upcoming invoice preview.
         """
+        issuer: NotRequired["Invoice.UpcomingParamsIssuer"]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+        on_behalf_of: NotRequired["Literal['']|str"]
+        """
+        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+        """
         schedule: NotRequired["str"]
         """
         The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
@@ -2812,6 +2935,20 @@ class Invoice(
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+        """
+        liability: NotRequired["Invoice.UpcomingParamsAutomaticTaxLiability"]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class UpcomingParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpcomingParamsCustomerDetails(TypedDict):
@@ -3117,6 +3254,16 @@ class Invoice(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class UpcomingParamsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
     class UpcomingParamsSubscriptionItem(TypedDict):
         billing_thresholds: NotRequired[
             "Literal['']|Invoice.UpcomingParamsSubscriptionItemBillingThresholds"
@@ -3398,6 +3545,7 @@ class Invoice(
     """
     The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     """
+    issuer: Issuer
     last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.
@@ -4174,6 +4322,7 @@ class Invoice(
         "customer_shipping": CustomerShipping,
         "customer_tax_ids": CustomerTaxId,
         "from_invoice": FromInvoice,
+        "issuer": Issuer,
         "last_finalization_error": LastFinalizationError,
         "payment_settings": PaymentSettings,
         "rendering": Rendering,
