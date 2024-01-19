@@ -50,6 +50,9 @@ if TYPE_CHECKING:
 
 HttpVerb = Literal["get", "post", "delete"]
 
+# Lazily initialized
+_default_proxy: Optional[str] = None
+
 
 class APIRequestor(object):
     _instance: ClassVar["APIRequestor|None"] = None
@@ -69,6 +72,8 @@ class APIRequestor(object):
     def _get_http_client(self) -> HTTPClient:
         client = self._client
         if client is None:
+            global _default_proxy
+
             if not stripe.default_http_client:
                 # If the stripe.default_http_client has not been set by the user
                 # yet, we'll set it here. This way, we aren't creating a new
@@ -77,8 +82,8 @@ class APIRequestor(object):
                     verify_ssl_certs=stripe.verify_ssl_certs,
                     proxy=stripe.proxy,
                 )
-                stripe._default_proxy = stripe.proxy
-            elif stripe.proxy != stripe._default_proxy:
+                _default_proxy = stripe.proxy
+            elif stripe.proxy != _default_proxy:
                 import warnings
 
                 warnings.warn(

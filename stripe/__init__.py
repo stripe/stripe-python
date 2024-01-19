@@ -42,10 +42,6 @@ ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
 
-# Lazily initialized stripe.default_http_client
-default_http_client = None
-_default_proxy = None
-
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
 
