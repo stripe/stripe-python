@@ -41,7 +41,7 @@ from stripe._requestor_options import (
 from stripe._http_client import HTTPClient, new_default_http_client
 from stripe._app_info import AppInfo
 
-from stripe._base_address import BaseAddress, BaseAddresses
+from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
 from stripe import _util
 
@@ -108,33 +108,17 @@ class APIRequestor(object):
     def api_key(self):
         return self._options.api_key
 
-    @api_key.setter
-    def api_key(self, value):
-        self._options.api_key = value
-
     @property
     def stripe_account(self):
         return self._options.stripe_account
-
-    @stripe_account.setter
-    def stripe_account(self, value: Optional[str]):
-        self._options.stripe_account = value
 
     @property
     def stripe_version(self):
         return self._options.stripe_version
 
-    @stripe_version.setter
-    def stripe_version(self, value: Optional[str]):
-        self._options.stripe_version = value
-
     @property
     def base_addresses(self):
         return self._options.base_addresses
-
-    @base_addresses.setter
-    def base_addresses(self, value: BaseAddresses):
-        self._options.base_addresses = value
 
     @classmethod
     def _global_instance(cls):

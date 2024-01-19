@@ -161,7 +161,7 @@ class StripeObject(Dict[str, Any]):
 
         def __setattr__(self, k, v):
             if k in {"api_key", "stripe_account", "stripe_version"}:
-                self._requestor.__setattr__(k, v)
+                self._requestor = self._requestor._replace_options({k: v})
                 return None
 
             if k[0] == "_" or k in self.__dict__:
