@@ -164,10 +164,7 @@ class StripeObject(Dict[str, Any]):
                 self._requestor.__setattr__(k, v)
                 return None
 
-            if (
-                k[0] == "_"
-                or k in self.__dict__
-            ):
+            if k[0] == "_" or k in self.__dict__:
                 return super(StripeObject, self).__setattr__(k, v)
 
             self[k] = v
