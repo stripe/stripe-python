@@ -12,6 +12,7 @@ import os
 
 # Configuration variables
 from stripe._api_version import _ApiVersion
+from stripe._api_requestor import _APIRequestor
 
 # We must import the app_info module early to populate it into
 # `sys.modules`; otherwise doing `import stripe.app_info` will end up
@@ -118,9 +119,6 @@ from stripe._updateable_api_resource import (
 from stripe._verify_mixin import (
     VerifyMixin as VerifyMixin,
 )
-from stripe._api_requestor import (
-    APIRequestor as APIRequestor,
-)
 from stripe._requestor_options import (
     RequestorOptions as RequestorOptions,
 )
@@ -167,7 +165,6 @@ from stripe._util import convert_to_stripe_object as convert_to_stripe_object
 
 # Backwards compatibility re-exports
 if not TYPE_CHECKING:
-    from stripe import _api_requestor as api_requestor
     from stripe import _stripe_response as stripe_response
     from stripe import _stripe_object as stripe_object
     from stripe import _error_object as error_object

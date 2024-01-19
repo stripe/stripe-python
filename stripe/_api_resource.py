@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._request_options import extract_options_from_dict
 from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
-from stripe._api_requestor import APIRequestor
+from stripe._api_requestor import _APIRequestor
 from stripe import _util
 from urllib.parse import quote_plus
 from typing import (
@@ -128,7 +128,7 @@ class APIResource(StripeObject, Generic[T]):
         api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
-        return APIRequestor._global_instance().request(
+        return _APIRequestor._global_instance().request(
             method_,
             url_,
             params=request_params,
@@ -150,7 +150,7 @@ class APIResource(StripeObject, Generic[T]):
         api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
-        return APIRequestor._global_instance().request_stream(
+        return _APIRequestor._global_instance().request_stream(
             method_,
             url_,
             params=request_params,

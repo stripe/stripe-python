@@ -33,7 +33,7 @@ import stripe  # noqa: IMP101
 if TYPE_CHECKING:
     from stripe._stripe_response import StripeResponse
     from stripe._stripe_object import StripeObject
-    from stripe._api_requestor import APIRequestor
+    from stripe._api_requestor import _APIRequestor
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -240,11 +240,13 @@ def convert_to_stripe_object(
     *,
     api_mode: ApiMode = "V1",
 ) -> Union["StripeObject", List["StripeObject"]]:
+    from stripe._api_requestor import _APIRequestor
+
     return _convert_to_stripe_object(
         resp=resp,
         params=params,
         klass_=klass_,
-        requestor=stripe.APIRequestor._global_with_options(
+        requestor=_APIRequestor._global_with_options(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
@@ -259,7 +261,7 @@ def _convert_to_stripe_object(
     resp: Union["StripeResponse", Dict[str, Any]],
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
-    requestor: "APIRequestor",
+    requestor: "_APIRequestor",
     api_mode: ApiMode,
 ) -> "StripeObject":
     ...
@@ -271,7 +273,7 @@ def _convert_to_stripe_object(
     resp: List[Resp],
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
-    requestor: "APIRequestor",
+    requestor: "_APIRequestor",
     api_mode: ApiMode,
 ) -> List["StripeObject"]:
     ...
@@ -282,7 +284,7 @@ def _convert_to_stripe_object(
     resp: Resp,
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
-    requestor: "APIRequestor",
+    requestor: "_APIRequestor",
     api_mode: ApiMode,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a

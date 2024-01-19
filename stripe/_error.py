@@ -79,7 +79,7 @@ class StripeError(Exception):
 
         return ErrorObject._construct_from(
             values=self.json_body["error"],
-            requestor=stripe.APIRequestor._global_instance(),
+            requestor=stripe._APIRequestor._global_instance(),
             api_mode="V1",
         )
 

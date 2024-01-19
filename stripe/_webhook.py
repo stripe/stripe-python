@@ -9,6 +9,7 @@ import stripe  # noqa: IMP101
 from stripe._event import Event
 from stripe import _util
 from stripe._error import SignatureVerificationError
+from stripe._api_requestor import _APIRequestor
 
 
 class Webhook(object):
@@ -26,7 +27,7 @@ class Webhook(object):
         data = json.loads(payload, object_pairs_hook=OrderedDict)
         event = Event._construct_from(
             values=data,
-            requestor=stripe.APIRequestor._global_with_options(
+            requestor=_APIRequestor._global_with_options(
                 api_key=api_key or stripe.api_key
             ),
             api_mode="V1",

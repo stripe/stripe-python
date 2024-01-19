@@ -8,7 +8,7 @@ import pytest
 
 import stripe
 from stripe import util
-from stripe._api_requestor import APIRequestor, _api_encode
+from stripe._api_requestor import _APIRequestor, _api_encode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeStreamResponse
 from stripe._requestor_options import (
@@ -103,7 +103,7 @@ class TestAPIRequestor(object):
 
     @pytest.fixture
     def requestor(self, http_client_mock):
-        requestor = APIRequestor(
+        requestor = _APIRequestor(
             client=http_client_mock.get_mock_http_client(),
             options=_GlobalRequestorOptions(),
         )
@@ -111,7 +111,7 @@ class TestAPIRequestor(object):
 
     @pytest.fixture
     def requestor_streaming(self, http_client_mock_streaming):
-        requestor_streaming = APIRequestor(
+        requestor_streaming = _APIRequestor(
             client=http_client_mock_streaming.get_mock_http_client(),
             options=_GlobalRequestorOptions(),
         )
@@ -130,7 +130,7 @@ class TestAPIRequestor(object):
         ]
 
         stk = []
-        fn = getattr(APIRequestor, "encode_%s" % (key,))
+        fn = getattr(_APIRequestor, "encode_%s" % (key,))
         fn(stk, stk_key, value)
 
         if isinstance(value, dict):
@@ -142,7 +142,7 @@ class TestAPIRequestor(object):
     def _test_encode_naive_datetime(self):
         stk = []
 
-        APIRequestor.encode_datetime(
+        _APIRequestor.encode_datetime(
             stk, "test", datetime.datetime(2013, 1, 1)
         )
 
@@ -466,20 +466,20 @@ class TestAPIRequestor(object):
     def test_sets_default_http_client(self, mocker):
         assert not stripe.default_http_client
 
-        APIRequestor(
+        _APIRequestor(
             client=mocker.Mock(stripe.http_client.HTTPClient)
         )._get_http_client()
 
         # default_http_client is not populated if a client is provided
         assert not stripe.default_http_client
 
-        APIRequestor()._get_http_client()
+        _APIRequestor()._get_http_client()
 
         # default_http_client is set when no client is specified
         assert stripe.default_http_client
 
         new_default_client = stripe.default_http_client
-        APIRequestor()
+        _APIRequestor()
 
         # the newly created client is reused
         assert stripe.default_http_client == new_default_client

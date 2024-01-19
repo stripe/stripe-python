@@ -10,7 +10,7 @@ from stripe import (
 )
 
 from stripe._error import AuthenticationError
-from stripe._api_requestor import APIRequestor
+from stripe._api_requestor import _APIRequestor
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
 from stripe._http_client import HTTPClient, new_default_http_client
@@ -145,7 +145,7 @@ class StripeClient(object):
                 proxy=proxy, verify_ssl_certs=verify_ssl_certs
             )
 
-        self._requestor = APIRequestor(
+        self._requestor = _APIRequestor(
             options=requestor_options,
             client=http_client,
         )
