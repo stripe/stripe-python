@@ -11,8 +11,8 @@ from typing import (
 )
 
 from stripe._api_requestor import (
-    _APIRequestor,
-)  # pyright: ignore[reportPrivateUsage]
+    _APIRequestor,  # pyright: ignore[reportPrivateUsage]
+)
 from stripe._stripe_object import StripeObject
 from stripe import _util
 import warnings
