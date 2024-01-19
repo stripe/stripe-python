@@ -14,6 +14,17 @@ def raw_request(method_, url_, **params):
     api_mode = params.pop("api_mode", None)
     base_address = params.pop("base", "api")
 
+    stripe_context = params.pop("stripe_context", None)
+
+    # stripe-context goes *here* and not in api_requestor. Properties
+    # go on api_requestor when you want them to persist onto requests
+    # made when you call instance methods on APIResources that come from
+    # the first request. No need for that here, as we aren't deserializing APIResources
+    if stripe_context is not None:
+        options["headers"] = options.get("headers", {})
+        assert isinstance(options["headers"], dict)
+        options["headers"].update({"Stripe-Context": stripe_context})
+
     requestor = _APIRequestor._global_instance()
 
     rbody, rcode, rheaders = requestor.request_raw(

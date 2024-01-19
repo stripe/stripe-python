@@ -556,6 +556,17 @@ class _APIRequestor(object):
         # of merge conflicts.
         request_options = merge_options(self._options, options)
 
+        # Special stripe_version handling for preview requests:
+        if (
+            options
+            and "stripe_version" in options
+            and (options["stripe_version"] is not None)
+        ):
+            # If user specified an API version, honor it
+            request_options["stripe_version"] = options["stripe_version"]
+        elif api_mode == "preview":
+            request_options["stripe_version"] = stripe.preview_api_version
+
         if request_options.get("api_key") is None:
             raise error.AuthenticationError(
                 "No API key provided. (HINT: set your API key using "

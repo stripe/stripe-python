@@ -72,6 +72,7 @@ class StripeRequestCall(object):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
+        stripe_context=None,
         content_type=None,
         idempotency_key=None,
         user_agent=None,
@@ -102,6 +103,8 @@ class StripeRequestCall(object):
             self.assert_header("Stripe-Version", stripe_version)
         if stripe_account is not None:
             self.assert_header("Stripe-Account", stripe_account)
+        if stripe_context is not None:
+            self.assert_header("Stripe-Context", stripe_context)
         if content_type is not None:
             self.assert_header("Content-Type", content_type)
         if idempotency_key is not None:
@@ -328,6 +331,7 @@ class HTTPClientMock(object):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
+        stripe_context=None,
         content_type=None,
         idempotency_key=None,
         user_agent=None,
@@ -358,6 +362,7 @@ class HTTPClientMock(object):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
+            stripe_context=stripe_context,
             content_type=content_type,
             idempotency_key=idempotency_key,
             user_agent=user_agent,
