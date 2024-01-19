@@ -176,7 +176,7 @@ class APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
+        resp = requestor._interpret_response(rbody, rcode, rheaders)
 
         return _convert_to_stripe_object(
             resp=resp,
@@ -212,13 +212,10 @@ class APIRequestor(object):
             cast(IOBase, stream),
             rcode,
             rheaders,
-            api_mode,
         )
         return resp
 
-    def handle_error_response(
-        self, rbody, rcode, resp, rheaders, api_mode
-    ) -> NoReturn:
+    def handle_error_response(self, rbody, rcode, resp, rheaders) -> NoReturn:
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
@@ -241,15 +238,15 @@ class APIRequestor(object):
             )
 
         if err is None:
-            err = self.specific_v1_api_error(
+            err = self.specific_api_error(
                 rbody, rcode, resp, rheaders, error_data
             )
 
         raise err
 
-    def specific_v1_api_error(self, rbody, rcode, resp, rheaders, error_data):
+    def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
         log_info(
-            "Stripe v1 API error received",
+            "Stripe API error received",
             error_code=error_data.get("code"),
             error_type=error_data.get("type"),
             error_message=error_data.get("message"),
@@ -327,7 +324,7 @@ class APIRequestor(object):
 
         return None
 
-    def request_headers(self, method, api_mode, options: RequestOptions):
+    def request_headers(self, method, options: RequestOptions):
         user_agent = "Stripe/v1 PythonBindings/%s" % (VERSION,)
         if stripe.app_info:
             user_agent += " " + self._format_app_info(stripe.app_info)
@@ -419,7 +416,7 @@ class APIRequestor(object):
         ):
             supplied_headers = dict(request_options["headers"])
 
-        headers = self.request_headers(method, api_mode, request_options)
+        headers = self.request_headers(method, request_options)
 
         if method == "get" or method == "delete":
             if params:
@@ -506,7 +503,6 @@ class APIRequestor(object):
         rbody: object,
         rcode: int,
         rheaders: Mapping[str, str],
-        api_mode: Optional[ApiMode],
     ) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
@@ -527,9 +523,7 @@ class APIRequestor(object):
                 rheaders,
             )
         if self._should_handle_code_as_error(rcode):
-            self.handle_error_response(
-                rbody, rcode, resp.data, rheaders, api_mode
-            )
+            self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
     def _interpret_streaming_response(
@@ -537,7 +531,6 @@ class APIRequestor(object):
         stream: IOBase,
         rcode: int,
         rheaders: Mapping[str, str],
-        api_mode: Optional[ApiMode],
     ) -> StripeStreamResponse:
         # Streaming response are handled with minimal processing for the success
         # case (ie. we don't want to read the content). When an error is
@@ -554,7 +547,7 @@ class APIRequestor(object):
                     "can be consumed when streaming a response."
                 )
 
-            self._interpret_response(json_content, rcode, rheaders, api_mode)
+            self._interpret_response(json_content, rcode, rheaders)
             # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
                 "_interpret_response should have raised an error"
