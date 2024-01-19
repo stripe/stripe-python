@@ -50,16 +50,17 @@ value:
 
 ```python
 import stripe
-stripe.api_key = "sk_test_..."
+
+client = stripe.StripeClient("sk_test_...")
 
 # list customers
-customers = stripe.Customer.list()
+customers = client.customers.list()
 
 # print the first customer's email
 print(customers.data[0].email)
 
 # retrieve specific Customer
-customer = stripe.Customer.retrieve("cus_123456789")
+customer = client.customers.retrieve("cus_123456789")
 
 # print that customer's email
 print(customer.email)
@@ -75,40 +76,45 @@ these errors.
 
 ### Per-request Configuration
 
-Configure individual requests with keyword arguments. For example, you can make
+Configure individual requests with the `options` argument. For example, you can make
 requests with a specific [Stripe Version](https://stripe.com/docs/api#versioning)
 or as a [connected account](https://stripe.com/docs/connect/authentication#authentication-via-the-stripe-account-header):
 
 ```python
 import stripe
 
+client = stripe.StripeClient("sk_test_...")
+
 # list customers
-stripe.Customer.list(
-    api_key="sk_test_...",
-    stripe_account="acct_...",
-    stripe_version="2019-02-19"
+client.customers.list(
+    options={
+        "api_key": "sk_test_...",
+        "stripe_account": "acct_...",
+        "stripe_version": "2019-02-19",
+    }
 )
 
 # retrieve single customer
-stripe.Customer.retrieve(
+client.customers.retrieve(
     "cus_123456789",
-    api_key="sk_test_...",
-    stripe_account="acct_...",
-    stripe_version="2019-02-19"
+    options={
+        "api_key": "sk_test_...",
+        "stripe_account": "acct_...",
+        "stripe_version": "2019-02-19",
+    }
 )
 ```
 
-### Configuring a Client
+### Configuring an HTTP Client
 
-The library can be configured to use `urlfetch`, `requests`, `pycurl`, or
-`urllib2` with `stripe.default_http_client`:
+You can configure your `StripeClient` to use `urlfetch`, `requests`, `pycurl`, or
+`urllib2` with the `http_client` option:
 
 ```python
-client = stripe.http_client.UrlFetchClient()
-client = stripe.http_client.RequestsClient()
-client = stripe.http_client.PycurlClient()
-client = stripe.http_client.Urllib2Client()
-stripe.default_http_client = client
+client = stripe.StripeClient("sk_test_...", http_client=stripe.UrlFetchClient())
+client = stripe.StripeClient("sk_test_...", http_client=stripe.RequestsClient())
+client = stripe.StripeClient("sk_test_...", http_client=stripe.PycurlClient())
+client = stripe.StripeClient("sk_test_...", http_client=stripe.Urllib2Client())
 ```
 
 Without a configured client, by default the library will attempt to load
@@ -117,10 +123,10 @@ as a last resort). We usually recommend that people use `requests`.
 
 ### Configuring a Proxy
 
-A proxy can be configured with `stripe.proxy`:
+A proxy can be configured with the `proxy` client option:
 
 ```python
-stripe.proxy = "https://user:pass@example.com:1234"
+client = stripe.StripeClient("sk_test_...", proxy="https://user:pass@example.com:1234")
 ```
 
 ### Configuring Automatic Retries
@@ -129,7 +135,7 @@ You can enable automatic retries on requests that fail due to a transient
 problem by configuring the maximum number of retries:
 
 ```python
-stripe.max_network_retries = 2
+client = stripe.StripeClient("sk_test_...", max_network_retries=2)
 ```
 
 Various errors can trigger a retry, like a connection error or a timeout, and
@@ -172,7 +178,7 @@ There are a few options for enabling it:
 You can access the HTTP response code and headers using the `last_response` property of the returned resource.
 
 ```python
-customer = stripe.Customer.retrieve(
+customer = client.customers.retrieve(
     "cus_123456789"
 )
 
@@ -233,7 +239,7 @@ in your `requirements.txt` to constrain `pip` to a certain minor range of `strip
 
 The types describe the [Stripe API version](https://stripe.com/docs/api/versioning)
 that was the latest at the time of release. This is the version that your library
-sends by default. If you are overriding `stripe.api_version`, or using a
+sends by default. If you are overriding `stripe.api_version` / `stripe_version` on the `StripeClient`, or using a
 [webhook endpoint](https://stripe.com/docs/webhooks#api-versions) tied to an older version,
 be aware that the data you see at runtime may not match the types.
 
