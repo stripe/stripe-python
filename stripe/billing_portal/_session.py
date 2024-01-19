@@ -443,16 +443,7 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Session":
+    def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
         """
         Creates a session of the customer portal.
         """
@@ -461,10 +452,6 @@ class Session(CreateableAPIResource["Session"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )

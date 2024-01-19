@@ -7675,12 +7675,7 @@ class PaymentIntent(
     def _cls_apply_customer_balance(
         cls,
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ApplyCustomerBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -7692,9 +7687,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -7703,12 +7695,7 @@ class PaymentIntent(
     @staticmethod
     def apply_customer_balance(
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ApplyCustomerBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -7717,11 +7704,7 @@ class PaymentIntent(
 
     @overload
     def apply_customer_balance(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ApplyCustomerBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -7730,11 +7713,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_apply_customer_balance")
     def apply_customer_balance(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ApplyCustomerBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -7746,21 +7725,13 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_cancel(
-        cls,
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, intent: str, **params: Unpack["PaymentIntent.CancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://stripe.com/docs/payments/intents), processing.
@@ -7776,9 +7747,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/cancel".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -7786,13 +7754,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["PaymentIntent.CancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://stripe.com/docs/payments/intents), processing.
@@ -7805,11 +7767,7 @@ class PaymentIntent(
 
     @overload
     def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.CancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://stripe.com/docs/payments/intents), processing.
@@ -7822,11 +7780,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.CancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://stripe.com/docs/payments/intents), processing.
@@ -7842,21 +7796,13 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/cancel".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_capture(
-        cls,
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, intent: str, **params: Unpack["PaymentIntent.CaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -7872,9 +7818,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/capture".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -7882,13 +7825,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def capture(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["PaymentIntent.CaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -7901,11 +7838,7 @@ class PaymentIntent(
 
     @overload
     def capture(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.CaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -7918,11 +7851,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_capture")
     def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.CaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -7938,21 +7867,13 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/capture".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_confirm(
-        cls,
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, intent: str, **params: Unpack["PaymentIntent.ConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -7986,9 +7907,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/confirm".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -7996,13 +7914,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["PaymentIntent.ConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -8033,11 +7945,7 @@ class PaymentIntent(
 
     @overload
     def confirm(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.ConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -8068,11 +7976,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_confirm")
     def confirm(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.ConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -8106,21 +8010,13 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/confirm".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentIntent.CreateParams"]
     ) -> "PaymentIntent":
         """
         Creates a PaymentIntent object.
@@ -8139,10 +8035,6 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -8151,12 +8043,7 @@ class PaymentIntent(
     def _cls_increment_authorization(
         cls,
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.IncrementAuthorizationParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -8191,9 +8078,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/increment_authorization".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -8202,12 +8086,7 @@ class PaymentIntent(
     @staticmethod
     def increment_authorization(
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.IncrementAuthorizationParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -8239,11 +8118,7 @@ class PaymentIntent(
 
     @overload
     def increment_authorization(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.IncrementAuthorizationParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -8275,11 +8150,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_increment_authorization")
     def increment_authorization(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.IncrementAuthorizationParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -8314,20 +8185,13 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/increment_authorization".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentIntent.ListParams"]
     ) -> ListObject["PaymentIntent"]:
         """
         Returns a list of PaymentIntents.
@@ -8335,9 +8199,6 @@ class PaymentIntent(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -8387,12 +8248,7 @@ class PaymentIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -8404,9 +8260,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -8415,12 +8268,7 @@ class PaymentIntent(
     @staticmethod
     def verify_microdeposits(
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -8429,11 +8277,7 @@ class PaymentIntent(
 
     @overload
     def verify_microdeposits(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -8442,11 +8286,7 @@ class PaymentIntent(
 
     @class_method_variant("_cls_verify_microdeposits")
     def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -8458,7 +8298,6 @@ class PaymentIntent(
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

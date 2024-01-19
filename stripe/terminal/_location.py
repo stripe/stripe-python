@@ -207,16 +207,7 @@ class Location(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Location.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Location":
+    def create(cls, **params: Unpack["Location.CreateParams"]) -> "Location":
         """
         Creates a new Location object.
         For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
@@ -226,10 +217,6 @@ class Location(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -279,13 +266,7 @@ class Location(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Location.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Location.ListParams"]
     ) -> ListObject["Location"]:
         """
         Returns a list of Location objects.
@@ -293,9 +274,6 @@ class Location(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

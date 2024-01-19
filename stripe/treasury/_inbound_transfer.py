@@ -340,12 +340,7 @@ class InboundTransfer(
     def _cls_cancel(
         cls,
         inbound_transfer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -357,9 +352,6 @@ class InboundTransfer(
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
                     inbound_transfer=_util.sanitize_id(inbound_transfer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -367,13 +359,7 @@ class InboundTransfer(
     @overload
     @staticmethod
     def cancel(
-        inbound_transfer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        inbound_transfer: str, **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -382,11 +368,7 @@ class InboundTransfer(
 
     @overload
     def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -395,11 +377,7 @@ class InboundTransfer(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -411,21 +389,13 @@ class InboundTransfer(
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
                     inbound_transfer=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["InboundTransfer.CreateParams"]
     ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
@@ -435,23 +405,13 @@ class InboundTransfer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "InboundTransfer.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["InboundTransfer.ListParams"]
     ) -> ListObject["InboundTransfer"]:
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
@@ -459,9 +419,6 @@ class InboundTransfer(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -489,14 +446,7 @@ class InboundTransfer(
 
         @classmethod
         def _cls_fail(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, id: str, **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -508,9 +458,6 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -518,13 +465,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def fail(
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            id: str, **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -533,11 +474,7 @@ class InboundTransfer(
 
         @overload
         def fail(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -546,11 +483,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_fail")
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -562,7 +495,6 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -571,12 +503,7 @@ class InboundTransfer(
         def _cls_return_inbound_transfer(
             cls,
             id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.ReturnInboundTransferParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -588,9 +515,6 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -599,12 +523,7 @@ class InboundTransfer(
         @staticmethod
         def return_inbound_transfer(
             id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.ReturnInboundTransferParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -614,10 +533,7 @@ class InboundTransfer(
         @overload
         def return_inbound_transfer(
             self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.ReturnInboundTransferParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -627,10 +543,7 @@ class InboundTransfer(
         @class_method_variant("_cls_return_inbound_transfer")
         def return_inbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.ReturnInboundTransferParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -642,21 +555,13 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def _cls_succeed(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.SucceedParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, id: str, **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -668,9 +573,6 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -678,13 +580,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def succeed(
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.SucceedParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            id: str, **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -693,11 +589,7 @@ class InboundTransfer(
 
         @overload
         def succeed(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.SucceedParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -706,11 +598,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_succeed")
         def succeed(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "InboundTransfer.SucceedParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -722,7 +610,6 @@ class InboundTransfer(
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

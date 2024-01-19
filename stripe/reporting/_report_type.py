@@ -74,13 +74,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReportType.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ReportType.ListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.
@@ -88,9 +82,6 @@ class ReportType(ListableAPIResource["ReportType"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

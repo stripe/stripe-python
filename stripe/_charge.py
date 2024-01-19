@@ -2212,14 +2212,7 @@ class Charge(
 
     @classmethod
     def _cls_capture(
-        cls,
-        charge: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Charge.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, charge: str, **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2235,9 +2228,6 @@ class Charge(
                 "/v1/charges/{charge}/capture".format(
                     charge=_util.sanitize_id(charge)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2245,13 +2235,7 @@ class Charge(
     @overload
     @staticmethod
     def capture(
-        charge: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Charge.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        charge: str, **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2263,13 +2247,7 @@ class Charge(
         ...
 
     @overload
-    def capture(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Charge.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Charge":
+    def capture(self, **params: Unpack["Charge.CaptureParams"]) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
@@ -2281,11 +2259,7 @@ class Charge(
 
     @class_method_variant("_cls_capture")
     def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Charge.CaptureParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2301,22 +2275,12 @@ class Charge(
                 "/v1/charges/{charge}/capture".format(
                     charge=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Charge.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Charge":
+    def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
         """
         Use the [Payment Intents API](https://stripe.com/docs/api/payment_intents) to initiate a new payment instead
         of using this method. Confirmation of the PaymentIntent creates the Charge
@@ -2327,23 +2291,13 @@ class Charge(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Charge.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Charge.ListParams"]
     ) -> ListObject["Charge"]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -2351,9 +2305,6 @@ class Charge(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -2408,17 +2359,25 @@ class Charge(
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None) -> "Charge":
-        params = {"fraud_details": {"user_report": "fraudulent"}}
+        params = {
+            "fraud_details": {"user_report": "fraudulent"},
+            "idempotency_key": idempotency_key,
+        }
         url = self.instance_url()
-        headers = _util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
+        self._refresh_from(
+            values=self.request("post", url, params), api_mode="V1"
+        )
         return self
 
     def mark_as_safe(self, idempotency_key=None) -> "Charge":
-        params = {"fraud_details": {"user_report": "safe"}}
+        params = {
+            "fraud_details": {"user_report": "safe"},
+            "idempotency_key": idempotency_key,
+        }
         url = self.instance_url()
-        headers = _util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
+        self._refresh_from(
+            values=self.request("post", url, params), api_mode="V1"
+        )
         return self
 
     _inner_class_types = {

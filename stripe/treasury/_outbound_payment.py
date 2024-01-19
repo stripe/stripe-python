@@ -516,14 +516,7 @@ class OutboundPayment(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -535,9 +528,6 @@ class OutboundPayment(
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -545,13 +535,7 @@ class OutboundPayment(
     @overload
     @staticmethod
     def cancel(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        id: str, **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -560,11 +544,7 @@ class OutboundPayment(
 
     @overload
     def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -573,11 +553,7 @@ class OutboundPayment(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -589,21 +565,13 @@ class OutboundPayment(
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["OutboundPayment.CreateParams"]
     ) -> "OutboundPayment":
         """
         Creates an OutboundPayment.
@@ -613,23 +581,13 @@ class OutboundPayment(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "OutboundPayment.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["OutboundPayment.ListParams"]
     ) -> ListObject["OutboundPayment"]:
         """
         Returns a list of OutboundPayments sent from the specified FinancialAccount.
@@ -637,9 +595,6 @@ class OutboundPayment(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -667,14 +622,7 @@ class OutboundPayment(
 
         @classmethod
         def _cls_fail(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, id: str, **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -686,9 +634,6 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -696,13 +641,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         def fail(
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            id: str, **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -711,11 +650,7 @@ class OutboundPayment(
 
         @overload
         def fail(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -724,11 +659,7 @@ class OutboundPayment(
 
         @class_method_variant("_cls_fail")
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.FailParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -740,21 +671,13 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def _cls_post(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.PostParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, id: str, **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -766,9 +689,6 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -776,13 +696,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         def post(
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.PostParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            id: str, **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -791,11 +705,7 @@ class OutboundPayment(
 
         @overload
         def post(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.PostParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -804,11 +714,7 @@ class OutboundPayment(
 
         @class_method_variant("_cls_post")
         def post(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.PostParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -820,7 +726,6 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -829,12 +734,7 @@ class OutboundPayment(
         def _cls_return_outbound_payment(
             cls,
             id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.ReturnOutboundPaymentParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -846,9 +746,6 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                         id=_util.sanitize_id(id)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -857,12 +754,7 @@ class OutboundPayment(
         @staticmethod
         def return_outbound_payment(
             id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.ReturnOutboundPaymentParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -872,10 +764,7 @@ class OutboundPayment(
         @overload
         def return_outbound_payment(
             self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.ReturnOutboundPaymentParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -885,10 +774,7 @@ class OutboundPayment(
         @class_method_variant("_cls_return_outbound_payment")
         def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "OutboundPayment.ReturnOutboundPaymentParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -900,7 +786,6 @@ class OutboundPayment(
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                         id=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

@@ -361,13 +361,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReceivedCredit.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ReceivedCredit.ListParams"]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -375,9 +369,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -405,13 +396,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
         @classmethod
         def create(
-            cls,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "ReceivedCredit.CreateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, **params: Unpack["ReceivedCredit.CreateParams"]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
@@ -421,9 +406,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/received_credits",
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )

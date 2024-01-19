@@ -117,14 +117,7 @@ class TestClock(
 
     @classmethod
     def _cls_advance(
-        cls,
-        test_clock: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.AdvanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -136,9 +129,6 @@ class TestClock(
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=_util.sanitize_id(test_clock)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -146,13 +136,7 @@ class TestClock(
     @overload
     @staticmethod
     def advance(
-        test_clock: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.AdvanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -161,11 +145,7 @@ class TestClock(
 
     @overload
     def advance(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.AdvanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -174,11 +154,7 @@ class TestClock(
 
     @class_method_variant("_cls_advance")
     def advance(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.AdvanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -190,22 +166,12 @@ class TestClock(
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "TestClock":
+    def create(cls, **params: Unpack["TestClock.CreateParams"]) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
@@ -214,10 +180,6 @@ class TestClock(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -269,13 +231,7 @@ class TestClock(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TestClock.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["TestClock.ListParams"]
     ) -> ListObject["TestClock"]:
         """
         Returns a list of your test clocks.
@@ -283,9 +239,6 @@ class TestClock(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

@@ -272,14 +272,7 @@ class PromotionCode(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PromotionCode.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
         """
         A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
@@ -289,23 +282,13 @@ class PromotionCode(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PromotionCode.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PromotionCode.ListParams"]
     ) -> ListObject["PromotionCode"]:
         """
         Returns a list of your promotion codes.
@@ -313,9 +296,6 @@ class PromotionCode(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

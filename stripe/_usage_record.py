@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
-from stripe._api_requestor import APIRequestor
 from stripe._api_resource import APIResource
 from typing import ClassVar
 from typing_extensions import Literal
@@ -42,26 +40,17 @@ class UsageRecord(APIResource["UsageRecord"]):
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
+    def create(cls, **params):
         if "subscription_item" not in params:
             raise ValueError("Params must have a subscription_item key")
 
         subscription_item = params.pop("subscription_item")
 
-        requestor = APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
         url = "/v1/subscription_items/%s/usage_records" % subscription_item
-        headers = _util.populate_headers(idempotency_key)
-        response, api_key = requestor.request("post", url, params, headers)
-
-        return _util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return cls._static_request(
+            "post",
+            url,
+            params=params,
+            base_address="api",
+            api_mode="V1",
         )

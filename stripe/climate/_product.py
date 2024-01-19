@@ -98,13 +98,7 @@ class Product(ListableAPIResource["Product"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Product.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Product.ListParams"]
     ) -> ListObject["Product"]:
         """
         Lists all available Climate product objects.
@@ -112,9 +106,6 @@ class Product(ListableAPIResource["Product"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

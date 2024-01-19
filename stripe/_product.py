@@ -540,16 +540,7 @@ class Product(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Product.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Product":
+    def create(cls, **params: Unpack["Product.CreateParams"]) -> "Product":
         """
         Creates a new product object.
         """
@@ -558,10 +549,6 @@ class Product(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -611,13 +598,7 @@ class Product(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Product.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Product.ListParams"]
     ) -> ListObject["Product"]:
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
@@ -625,9 +606,6 @@ class Product(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

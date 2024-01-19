@@ -253,16 +253,7 @@ class Coupon(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Coupon.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Coupon":
+    def create(cls, **params: Unpack["Coupon.CreateParams"]) -> "Coupon":
         """
         You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
 
@@ -273,10 +264,6 @@ class Coupon(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -324,13 +311,7 @@ class Coupon(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Coupon.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Coupon.ListParams"]
     ) -> ListObject["Coupon"]:
         """
         Returns a list of your coupons.
@@ -338,9 +319,6 @@ class Coupon(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
