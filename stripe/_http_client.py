@@ -595,11 +595,6 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
-class _Proxy(TypedDict):
-    http: Optional[ParseResult]
-    https: Optional[ParseResult]
-
-
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
         http: Optional[ParseResult]

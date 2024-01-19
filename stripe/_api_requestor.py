@@ -59,7 +59,7 @@ class APIRequestor(object):
         options: RequestorOptions = RequestorOptions(),
         client: Optional[HTTPClient] = None,
     ):
-        self.options = options
+        self._options = options
         self._client = client
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
@@ -93,7 +93,7 @@ class APIRequestor(object):
         return client
 
     def _replace_options(self, options: RequestOptions) -> "APIRequestor":
-        new_options = self.options.to_dict()
+        new_options = self._options.to_dict()
         for key in ["api_key", "stripe_account", "stripe_version"]:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
@@ -103,19 +103,19 @@ class APIRequestor(object):
 
     @property
     def api_key(self):
-        return self.options.api_key
+        return self._options.api_key
 
     @property
     def stripe_account(self):
-        return self.options.stripe_account
+        return self._options.stripe_account
 
     @property
     def stripe_version(self):
-        return self.options.stripe_version
+        return self._options.stripe_version
 
     @property
     def base_addresses(self):
-        return self.options.base_addresses
+        return self._options.base_addresses
 
     @classmethod
     def _global_instance(cls):
@@ -173,7 +173,7 @@ class APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = requestor.interpret_response(rbody, rcode, rheaders, api_mode)
+        resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
         return _convert_to_stripe_object(
             resp=resp,
@@ -203,7 +203,7 @@ class APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = self.interpret_streaming_response(
+        resp = self._interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
             # returns a more specific type.
             cast(IOBase, stream),
@@ -384,7 +384,7 @@ class APIRequestor(object):
         """
         Mechanism for issuing an API call
         """
-        request_options = merge_options(self.options, options)
+        request_options = merge_options(self._options, options)
 
         if request_options.get("api_key") is None:
             raise error.AuthenticationError(
@@ -396,7 +396,7 @@ class APIRequestor(object):
             )
 
         abs_url = "%s%s" % (
-            self.options.base_addresses.get(base_address),
+            self._options.base_addresses.get(base_address),
             url,
         )
 
@@ -498,7 +498,7 @@ class APIRequestor(object):
     def _should_handle_code_as_error(self, rcode):
         return not 200 <= rcode < 300
 
-    def interpret_response(
+    def _interpret_response(
         self,
         rbody: object,
         rcode: int,
@@ -529,7 +529,7 @@ class APIRequestor(object):
             )
         return resp
 
-    def interpret_streaming_response(
+    def _interpret_streaming_response(
         self,
         stream: IOBase,
         rcode: int,
@@ -551,10 +551,10 @@ class APIRequestor(object):
                     "can be consumed when streaming a response."
                 )
 
-            self.interpret_response(json_content, rcode, rheaders, api_mode)
-            # interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            self._interpret_response(json_content, rcode, rheaders, api_mode)
+            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
-                "interpret_response should have raised an error"
+                "_interpret_response should have raised an error"
             )
         else:
             return StripeStreamResponse(stream, rcode, rheaders)
