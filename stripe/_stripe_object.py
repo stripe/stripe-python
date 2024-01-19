@@ -128,10 +128,6 @@ class StripeObject(Dict[str, Any]):
             self["id"] = id
 
     @property
-    def requestor(self):
-        return self._requestor
-
-    @property
     def api_key(self):
         return self._requestor.api_key
 

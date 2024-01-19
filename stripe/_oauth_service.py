@@ -4,12 +4,19 @@ from stripe._encode import _api_encode
 from stripe._oauth import OAuth
 from urllib.parse import urlencode
 from stripe._request_options import RequestOptions
+from stripe._client_options import _ClientOptions
 
-from typing import cast
+from typing import cast, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class OAuthService(StripeService):
+    _options: Optional[_ClientOptions]
+
+    def __init__(self, client, options=None):
+        super(OAuthService, self).__init__(client)
+        self._options = options
+
     class OAuthAuthorizeUrlOptions(TypedDict):
         express: NotRequired[bool]
         """

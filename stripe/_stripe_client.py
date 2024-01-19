@@ -151,7 +151,6 @@ class StripeClient(object):
         )
 
         self._options = _ClientOptions(
-            requestor_options=requestor_options,
             client_id=client_id,
             proxy=proxy,
             verify_ssl_certs=verify_ssl_certs,

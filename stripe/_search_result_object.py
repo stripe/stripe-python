@@ -113,7 +113,9 @@ class SearchResultObject(StripeObject, Generic[T]):
     def is_empty(self) -> bool:
         return not self.data
 
-    def next_search_result_page(self, **params: Unpack[RequestOptions]) -> Self:
+    def next_search_result_page(
+        self, **params: Unpack[RequestOptions]
+    ) -> Self:
         if not self.has_more:
             options, _ = extract_options_from_dict(params)
             return self._empty_search_result(

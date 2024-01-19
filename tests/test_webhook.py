@@ -184,7 +184,7 @@ class TestStripeClientConstructEvent(object):
         event = client.construct_event(
             DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
         )
-        assert event.requestor == client._requestor
+        assert event._requestor == client._requestor
 
         assert isinstance(event.data.object, stripe.terminal.Reader)
         event.data.object.delete()

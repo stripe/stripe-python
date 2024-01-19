@@ -404,12 +404,12 @@ class TestStripeObject(object):
             {}, key="origkey"
         )
 
-        orig_requestor = obj.requestor
+        orig_requestor = obj._requestor
         assert obj.api_key == "origkey"
 
         obj.refresh_from({}, "newkey")
 
-        new_requestor = obj.requestor
+        new_requestor = obj._requestor
         assert orig_requestor is not new_requestor
         assert obj.api_key == "newkey"
         assert orig_requestor.api_key == "origkey"
