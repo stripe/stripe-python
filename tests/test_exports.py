@@ -403,3 +403,25 @@ def test_can_import_namespaced_resource() -> None:
 
     assert_output("stripe.tax is not None", "True")
     assert_output("stripe.tax.Calculation is not None", "True")
+
+
+def test_can_import_top_level_service() -> None:
+    from stripe import AccountService as AccountServiceFromStripe
+
+    assert stripe.AccountService == AccountServiceFromStripe
+
+    assert_output("stripe.AccountService is not None", "True")
+
+
+def test_can_import_namespaced_service() -> None:
+    from stripe import tax as TaxPackage
+    from stripe.tax import (
+        CalculationService as CalculationServiceFromStripe,
+    )
+
+    assert stripe.tax is TaxPackage
+    assert stripe.tax.CalculationService is CalculationServiceFromStripe
+    assert stripe.tax.CalculationService is TaxPackage.CalculationService
+
+    assert_output("stripe.tax is not None", "True")
+    assert_output("stripe.tax.CalculationService is not None", "True")
