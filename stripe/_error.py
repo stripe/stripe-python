@@ -83,8 +83,10 @@ class StripeError(Exception):
         ):
             return None
 
-        return ErrorObject.construct_from(
-            self.json_body["error"], stripe.api_key
+        return ErrorObject._construct_from(
+            values=self.json_body["error"],
+            requestor=stripe.APIRequestor._global_instance(),
+            api_mode="V1",
         )
 
     def _construct_error_object(self):

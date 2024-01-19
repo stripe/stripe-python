@@ -21,8 +21,10 @@ class OAuthError(StripeError):
         if self.json_body is None:
             return None
 
-        return stripe.error_object.OAuthErrorObject.construct_from(  # pyright: ignore
-            self.json_body, stripe.api_key
+        return stripe.error_object.OAuthErrorObject._construct_from(  # pyright: ignore
+            values=self.json_body,
+            requestor=stripe.APIRequestor._global_instance(),
+            api_mode="V1",
         )
 
 

@@ -3,6 +3,23 @@ import datetime
 import time
 from collections import OrderedDict
 from typing import Generator, Tuple, Any
+from urllib.parse import urlsplit, urlunsplit
+
+
+def _encode_datetime(dttime: datetime.datetime):
+    if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
+        utc_timestamp = calendar.timegm(dttime.utctimetuple())
+    else:
+        utc_timestamp = time.mktime(dttime.timetuple())
+
+    return int(utc_timestamp)
+
+
+def _encode_nested_dict(key, data, fmt="%s[%s]"):
+    d = OrderedDict()
+    for subkey, subvalue in data.items():
+        d[fmt % (key, subkey)] = subvalue
+    return d
 
 
 def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
@@ -29,17 +46,10 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
             yield (key, value)
 
 
-def _encode_datetime(dttime: datetime.datetime):
-    if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
-        utc_timestamp = calendar.timegm(dttime.utctimetuple())
-    else:
-        utc_timestamp = time.mktime(dttime.timetuple())
+def _build_api_url(url, query):
+    scheme, netloc, path, base_query, fragment = urlsplit(url)
 
-    return int(utc_timestamp)
+    if base_query:
+        query = "%s&%s" % (base_query, query)
 
-
-def _encode_nested_dict(key, data, fmt="%s[%s]"):
-    d = OrderedDict()
-    for subkey, subvalue in data.items():
-        d[fmt % (key, subkey)] = subvalue
-    return d
+    return urlunsplit((scheme, netloc, path, query, fragment))

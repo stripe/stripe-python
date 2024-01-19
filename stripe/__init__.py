@@ -2,6 +2,7 @@ from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import sys as _sys
 import os
+import warnings
 
 # Stripe Python bindings
 # API docs at http://stripe.com/docs/api
@@ -20,11 +21,17 @@ import stripe.app_info
 from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
+# Constants
+DEFAULT_API_BASE: str = "https://api.stripe.com"
+DEFAULT_CONNECT_API_BASE: str = "https://connect.stripe.com"
+DEFAULT_UPLOAD_API_BASE: str = "https://files.stripe.com"
+
+
 api_key: Optional[str] = None
 client_id: Optional[str] = None
-api_base: str = "https://api.stripe.com"
-connect_api_base: str = "https://connect.stripe.com"
-upload_api_base: str = "https://files.stripe.com"
+api_base: str = DEFAULT_API_BASE
+connect_api_base: str = DEFAULT_CONNECT_API_BASE
+upload_api_base: str = DEFAULT_UPLOAD_API_BASE
 api_version: str = _ApiVersion.CURRENT
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
@@ -35,6 +42,44 @@ max_network_retries: int = 0
 ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
+
+# Lazily initialized stripe.default_http_client
+default_http_client = None
+_default_proxy = None
+
+
+def ensure_default_http_client():
+    if default_http_client:
+        _warn_if_mismatched_proxy()
+        return
+    _init_default_http_client()
+
+
+def _init_default_http_client():
+    global _default_proxy
+    global default_http_client
+
+    # If the stripe.default_http_client has not been set by the user
+    # yet, we'll set it here. This way, we aren't creating a new
+    # HttpClient for every request.
+    default_http_client = new_default_http_client(
+        verify_ssl_certs=verify_ssl_certs, proxy=proxy
+    )
+    _default_proxy = proxy
+
+
+def _warn_if_mismatched_proxy():
+    global _default_proxy
+    from stripe import proxy
+
+    if proxy != _default_proxy:
+        warnings.warn(
+            "stripe.proxy was updated after sending a "
+            "request - this is a no-op. To use a different proxy, "
+            "set stripe.default_http_client to a new client "
+            "configured with the proxy."
+        )
+
 
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
@@ -47,6 +92,9 @@ from stripe._webhook import (
     Webhook as Webhook,
     WebhookSignature as WebhookSignature,
 )
+
+# StripeClient
+from stripe._stripe_client import StripeClient as StripeClient  # noqa
 
 
 # Sets some basic information about the running application that's sent along
@@ -112,6 +160,15 @@ from stripe._verify_mixin import (
 from stripe._api_requestor import (
     APIRequestor as APIRequestor,
 )
+from stripe._requestor_options import (
+    RequestorOptions as RequestorOptions,
+)
+from stripe._api_mode import (
+    ApiMode as ApiMode,
+)
+from stripe._base_address import (
+    BaseAddress as BaseAddress,
+)
 
 # Response types
 from stripe._stripe_response import StripeResponse as StripeResponse
@@ -161,8 +218,6 @@ if not TYPE_CHECKING:
     from stripe import _multipart_data_generator as multipart_data_generator
     from stripe import _request_metrics as request_metrics
     from stripe._file import File as FileUpload
-
-    import warnings
 
     # Python 3.7+ supports module level __getattr__ that allows us to lazy load deprecated modules
     # this matters because if we pre-load all modules from api_resources while suppressing warning

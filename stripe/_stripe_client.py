@@ -14,7 +14,6 @@ from stripe._api_requestor import APIRequestor
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
 from stripe._http_client import HTTPClient, new_default_http_client
-from stripe._util import _convert_to_stripe_object
 from stripe._api_version import _ApiVersion
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
@@ -99,7 +98,6 @@ class StripeClient(object):
         api_key: str,
         *,
         stripe_account: Optional[str] = None,
-        stripe_context: Optional[str] = None,
         stripe_version: Optional[str] = None,
         base_addresses: BaseAddresses = {},
         client_id: Optional[str] = None,
@@ -137,7 +135,6 @@ class StripeClient(object):
         requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
-            stripe_context=stripe_context,
             stripe_version=stripe_version or _ApiVersion.CURRENT,
             base_addresses=base_addresses,
             max_network_retries=max_network_retries,
