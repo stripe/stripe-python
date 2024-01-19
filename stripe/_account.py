@@ -47,9 +47,8 @@ class Account(
     enabled to make live charges or receive payouts.
 
     For Custom accounts, the properties below are always returned. For other accounts, some properties are returned until that
-    account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links)
-    for a Standard or Express account, some parameters are no longer returned. These are marked as **Custom Only** or **Custom and Express**
-    below. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
+    account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions),
+    some properties are only returned for Custom accounts. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
     """
 
     OBJECT_NAME: ClassVar[Literal["account"]] = "account"
@@ -1117,7 +1116,7 @@ class Account(
             "Literal['company', 'government_entity', 'individual', 'non_profit']"
         ]
         """
-        The business type.
+        The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         capabilities: NotRequired["Account.CreateParamsCapabilities"]
         """
@@ -1125,7 +1124,7 @@ class Account(
         """
         company: NotRequired["Account.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         country: NotRequired["str"]
         """
@@ -1154,10 +1153,12 @@ class Account(
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
+
+        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1169,7 +1170,7 @@ class Account(
         """
         tos_acceptance: NotRequired["Account.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
         """
         type: NotRequired["Literal['custom', 'express', 'standard']"]
         """
@@ -3506,7 +3507,7 @@ class Account(
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The business type.
+    The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property is only returned for Custom accounts.
     """
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
@@ -3537,7 +3538,7 @@ class Account(
     """
     external_accounts: Optional[ListObject[Union["BankAccount", "Card"]]]
     """
-    External accounts (bank accounts and debit cards) currently attached to this account
+    External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
     """
     future_requirements: Optional[FutureRequirements]
     id: str
