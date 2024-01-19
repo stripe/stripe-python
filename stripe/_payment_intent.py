@@ -2634,7 +2634,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -4523,7 +4523,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -6414,7 +6414,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
