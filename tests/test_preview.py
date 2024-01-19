@@ -174,7 +174,7 @@ class TestPreview(object):
             stripe_version=stripe_version_override,
             stripe_context=stripe_context,
             usage=["raw_request"],
-            post_data='{}',
+            post_data="{}",
             is_json=True,
         )
 
