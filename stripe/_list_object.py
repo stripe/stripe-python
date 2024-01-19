@@ -18,7 +18,6 @@ from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions, extract_options_from_dict
 
 from urllib.parse import quote_plus
-import warnings
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -29,16 +28,6 @@ class ListObject(StripeObject, Generic[T]):
     has_more: bool
     url: str
 
-    def _list(self, **params: Mapping[str, Any]) -> Self:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", category=DeprecationWarning)
-            return self.list(  # pyright: ignore[reportDeprecated]
-                **params,
-            )
-
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python. Please call the `list` method on the corresponding resource directly, instead of using `list` from the list object."
-    )
     def list(self, **params: Mapping[str, Any]) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
@@ -56,9 +45,6 @@ class ListObject(StripeObject, Generic[T]):
             ),
         )
 
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python. Please call the `create` method on the corresponding resource directly, instead of using `create` from the list object."
-    )
     def create(self, **params: Mapping[str, Any]) -> T:
         url = self.get("url")
         if not isinstance(url, str):
@@ -76,9 +62,6 @@ class ListObject(StripeObject, Generic[T]):
             ),
         )
 
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `retrieve` from the list object."
-    )
     def retrieve(self, id: str, **params: Mapping[str, Any]):
         url = self.get("url")
         if not isinstance(url, str):
@@ -177,7 +160,7 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
-        return self._list(
+        return self.list(
             **params_with_filters,
         )
 
@@ -198,7 +181,7 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 
-        result = self._list(
+        result = self.list(
             **params_with_filters,
         )
         return result
