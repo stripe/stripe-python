@@ -135,13 +135,25 @@ class StripeObject(Dict[str, Any]):
     def api_key(self):
         return self._requestor.api_key
 
+    @api_key.setter
+    def api_key(self, value: Optional[str]):
+        self._requestor.api_key = value
+
     @property
     def stripe_account(self):
         return self._requestor.stripe_account
 
+    @stripe_account.setter
+    def stripe_account(self, value: Optional[str]):
+        self._requestor.stripe_account = value
+
     @property
     def stripe_version(self):
         return self._requestor.stripe_version
+
+    @stripe_version.setter
+    def stripe_version(self, value: Optional[str]):
+        self._requestor.stripe_version = value
 
     @property
     def last_response(self) -> Optional[StripeResponse]:
@@ -160,7 +172,11 @@ class StripeObject(Dict[str, Any]):
     if not TYPE_CHECKING:
 
         def __setattr__(self, k, v):
-            if k[0] == "_" or k in self.__dict__:
+            if (
+                k[0] == "_"
+                or k in self.__dict__
+                or k in {"api_key", "stripe_account", "stripe_version"}
+            ):
                 return super(StripeObject, self).__setattr__(k, v)
 
             self[k] = v
