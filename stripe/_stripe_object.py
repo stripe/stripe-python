@@ -383,6 +383,27 @@ class StripeObject(Dict[str, Any]):
     def api_base(cls) -> Optional[str]:
         return None
 
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python."
+    )
+    def request(
+        self,
+        method: Literal["get", "post", "delete"],
+        url: str,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ) -> "StripeObject":
+        return StripeObject._request(
+            self,
+            method,
+            url,
+            params=params,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
+
     # The `method_` and `url_` arguments are suffixed with an underscore to
     # avoid conflicting with actual request parameters in `params`.
     def _request(
