@@ -144,13 +144,6 @@ class APIRequestor(object):
         return APIRequestor._global_instance()._replace_options(params)
 
     @classmethod
-    @_util.deprecated(
-        "This method is internal to stripe-python and the public interface will be removed in a future stripe-python version"
-    )
-    def format_app_info(cls, info):
-        return cls._format_app_info(info)
-
-    @classmethod
     def _format_app_info(cls, info):
         str = info["name"]
         if info["version"]:

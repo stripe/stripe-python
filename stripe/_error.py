@@ -71,10 +71,7 @@ class StripeError(Exception):
             self.request_id,
         )
 
-    @_util.deprecated(
-        "For internal stripe-python use only. The public interface will be removed in a future version."
-    )
-    def construct_error_object(self) -> Optional[ErrorObject]:
+    def _construct_error_object(self) -> Optional[ErrorObject]:
         if (
             self.json_body is None
             or not isinstance(self.json_body, dict)
@@ -88,11 +85,6 @@ class StripeError(Exception):
             requestor=stripe.APIRequestor._global_instance(),
             api_mode="V1",
         )
-
-    def _construct_error_object(self):
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            return self.construct_error_object()
 
 
 class APIError(StripeError):
