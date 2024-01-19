@@ -425,6 +425,8 @@ class TestStripeObject(object):
         obj.api_key = "key2"
         obj.request("get", "/foo")
 
+        assert "api_key" not in obj.items()
+
         http_client_mock.assert_requested(
             api_key="key2",
             stripe_account=None,
