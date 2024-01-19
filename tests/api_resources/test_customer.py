@@ -10,7 +10,6 @@ TEST_TRANSACTION_ID = "cbtxn_123"
 
 class TestCustomer(object):
     def test_is_listable(self, http_client_mock):
-        client = stripe.StripeClient("sk_test_...", http_client=stripe.http_client.UrlFetchClient())
         http_client_mock.assert_requested("get", path="/v1/customers")
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.Customer)
