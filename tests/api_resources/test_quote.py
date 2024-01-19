@@ -142,7 +142,7 @@ class TestQuote(object):
 
     def test_can_pdf(self, setup_upload_api_base, http_client_mock_streaming):
         resource = stripe.Quote.retrieve(TEST_RESOURCE_ID)
-        stream, _ = resource.pdf()
+        stream = resource.pdf()
         http_client_mock_streaming.assert_requested(
             "get",
             api_base=stripe.upload_api_base,

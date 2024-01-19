@@ -138,7 +138,7 @@ class TestStripeObject(object):
         assert obj.api_key == "mykey"
         assert obj.foo == "bar"
         assert obj["trans"] == "me"
-        assert obj.stripe_version is None
+        assert obj.stripe_version is stripe.api_version
         assert obj.stripe_account is None
         assert obj.last_response is None
 
@@ -398,3 +398,18 @@ class TestStripeObject(object):
             api_key="key",
             stripe_account=None,
         )
+
+    def test_refresh_from_creates_new_requestor(self):
+        obj = stripe.stripe_object.StripeObject.construct_from(
+            {}, key="origkey"
+        )
+
+        orig_requestor = obj.requestor
+        assert obj.api_key == "origkey"
+
+        obj.refresh_from({}, "newkey")
+
+        new_requestor = obj.requestor
+        assert orig_requestor is not new_requestor
+        assert obj.api_key == "newkey"
+        assert orig_requestor.api_key == "origkey"

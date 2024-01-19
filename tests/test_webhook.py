@@ -7,7 +7,8 @@ import stripe
 
 DUMMY_WEBHOOK_PAYLOAD = """{
   "id": "evt_test_webhook",
-  "object": "event"
+  "object": "event",
+  "data": { "object": { "id": "rdr_123", "object": "terminal.reader" } }
 }"""
 
 DUMMY_WEBHOOK_SECRET = "whsec_test_secret"
@@ -128,4 +129,70 @@ class TestWebhookSignature(object):
         header = generate_header(timestamp=12345)
         assert stripe.WebhookSignature.verify_header(
             DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+        )
+
+
+class TestStripeClientConstructEvent(object):
+    def test_construct_event(self, stripe_mock_stripe_client):
+        header = generate_header()
+        event = stripe_mock_stripe_client.construct_event(
+            DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert isinstance(event, stripe.Event)
+
+    def test_raise_on_json_error(self, stripe_mock_stripe_client):
+        payload = "this is not valid JSON"
+        header = generate_header(payload=payload)
+        with pytest.raises(ValueError):
+            stripe_mock_stripe_client.construct_event(
+                payload, header, DUMMY_WEBHOOK_SECRET
+            )
+
+    def test_raise_on_invalid_header(self, stripe_mock_stripe_client):
+        header = "bad_header"
+        with pytest.raises(stripe.error.SignatureVerificationError):
+            stripe_mock_stripe_client.construct_event(
+                DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+
+    def test_construct_event_from_bytearray(self, stripe_mock_stripe_client):
+        header = generate_header()
+        payload = bytearray(DUMMY_WEBHOOK_PAYLOAD, "utf-8")
+        event = stripe_mock_stripe_client.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert isinstance(event, stripe.Event)
+
+    def test_construct_event_from_bytes(self, stripe_mock_stripe_client):
+        header = generate_header()
+        payload = bytes(DUMMY_WEBHOOK_PAYLOAD, "utf-8")
+        event = stripe_mock_stripe_client.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert isinstance(event, stripe.Event)
+
+    def test_construct_event_inherits_requestor(self, http_client_mock):
+        http_client_mock.stub_request("delete", "/v1/terminal/readers/rdr_123")
+
+        client = stripe.StripeClient(
+            "sk_test_777",
+            stripe_account="acct_777",
+            stripe_version="2222-22-22",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+        header = generate_header()
+        event = client.construct_event(
+            DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert event.requestor == client._requestor
+
+        assert isinstance(event.data.object, stripe.terminal.Reader)
+        event.data.object.delete()
+
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/terminal/readers/rdr_123",
+            api_key="sk_test_777",
+            stripe_account="acct_777",
+            stripe_version="2222-22-22",
         )
