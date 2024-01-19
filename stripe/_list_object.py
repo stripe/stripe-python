@@ -170,7 +170,7 @@ class ListObject(StripeObject, Generic[T]):
     def is_empty(self) -> bool:
         return not self.data
 
-    def next_page(self, **params: Mapping[str, Any]) -> Self:
+    def next_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
             request_options, _ = extract_options_from_dict(params)
             return self._empty_list(
@@ -183,7 +183,7 @@ class ListObject(StripeObject, Generic[T]):
                 "Unexpected: element in .data of list object had no id"
             )
 
-        params_with_filters = dict(self._retrieve_params).copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
@@ -191,7 +191,7 @@ class ListObject(StripeObject, Generic[T]):
             **params_with_filters,
         )
 
-    def previous_page(self, **params: Mapping[str, Any]) -> Self:
+    def previous_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
             request_options, _ = extract_options_from_dict(params)
             return self._empty_list(
@@ -204,7 +204,7 @@ class ListObject(StripeObject, Generic[T]):
                 "Unexpected: element in .data of list object had no id"
             )
 
-        params_with_filters = dict(self._retrieve_params).copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 

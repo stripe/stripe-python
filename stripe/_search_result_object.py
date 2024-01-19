@@ -113,7 +113,7 @@ class SearchResultObject(StripeObject, Generic[T]):
     def is_empty(self) -> bool:
         return not self.data
 
-    def next_search_result_page(self, **params: Mapping[str, Any]) -> Self:
+    def next_search_result_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
             options, _ = extract_options_from_dict(params)
             return self._empty_search_result(
@@ -122,7 +122,7 @@ class SearchResultObject(StripeObject, Generic[T]):
                 stripe_account=options.get("stripe_account"),
             )
 
-        params_with_filters = dict(self._retrieve_params).copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
