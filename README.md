@@ -49,9 +49,9 @@ available in your [Stripe Dashboard][api-keys]. Set `stripe.api_key` to its
 value:
 
 ```python
-import stripe
+from stripe import StripeClient
 
-client = stripe.StripeClient("sk_test_...")
+client = StripeClient("sk_test_...")
 
 # list customers
 customers = client.customers.list()
@@ -81,9 +81,9 @@ requests with a specific [Stripe Version](https://stripe.com/docs/api#versioning
 or as a [connected account](https://stripe.com/docs/connect/authentication#authentication-via-the-stripe-account-header):
 
 ```python
-import stripe
+from stripe import StripeClient
 
-client = stripe.StripeClient("sk_test_...")
+client = StripeClient("sk_test_...")
 
 # list customers
 client.customers.list(
@@ -111,10 +111,10 @@ You can configure your `StripeClient` to use `urlfetch`, `requests`, `pycurl`, o
 `urllib2` with the `http_client` option:
 
 ```python
-client = stripe.StripeClient("sk_test_...", http_client=stripe.UrlFetchClient())
-client = stripe.StripeClient("sk_test_...", http_client=stripe.RequestsClient())
-client = stripe.StripeClient("sk_test_...", http_client=stripe.PycurlClient())
-client = stripe.StripeClient("sk_test_...", http_client=stripe.Urllib2Client())
+client = StripeClient("sk_test_...", http_client=stripe.UrlFetchClient())
+client = StripeClient("sk_test_...", http_client=stripe.RequestsClient())
+client = StripeClient("sk_test_...", http_client=stripe.PycurlClient())
+client = StripeClient("sk_test_...", http_client=stripe.Urllib2Client())
 ```
 
 Without a configured client, by default the library will attempt to load
@@ -126,7 +126,7 @@ as a last resort). We usually recommend that people use `requests`.
 A proxy can be configured with the `proxy` client option:
 
 ```python
-client = stripe.StripeClient("sk_test_...", proxy="https://user:pass@example.com:1234")
+client = StripeClient("sk_test_...", proxy="https://user:pass@example.com:1234")
 ```
 
 ### Configuring Automatic Retries
@@ -135,7 +135,7 @@ You can enable automatic retries on requests that fail due to a transient
 problem by configuring the maximum number of retries:
 
 ```python
-client = stripe.StripeClient("sk_test_...", max_network_retries=2)
+client = StripeClient("sk_test_...", max_network_retries=2)
 ```
 
 Various errors can trigger a retry, like a connection error or a timeout, and
