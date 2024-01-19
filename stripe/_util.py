@@ -211,6 +211,7 @@ def convert_to_stripe_object(
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
     *,
+    requestor: Optional["APIRequestor"] = None,
     api_mode: ApiMode = "V1",
 ) -> "StripeObject":
     ...
@@ -225,6 +226,7 @@ def convert_to_stripe_object(
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
     *,
+    requestor: Optional["APIRequestor"] = None,
     api_mode: ApiMode = "V1",
 ) -> List["StripeObject"]:
     ...
@@ -238,16 +240,20 @@ def convert_to_stripe_object(
     params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
     *,
+    requestor: Optional["APIRequestor"] = None,
     api_mode: ApiMode = "V1",
 ) -> Union["StripeObject", List["StripeObject"]]:
+    requestor_: APIRequestor = requestor or stripe.APIRequestor._global_instance()
     return _convert_to_stripe_object(
         resp=resp,
         params=params,
         klass_=klass_,
-        requestor=stripe.APIRequestor._global_with_options(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+        requestor=requestor_.replace_options(
+            {
+                "api_key": api_key,
+                "stripe_version": stripe_version,
+                "stripe_account": stripe_account,
+            }
         ),
         api_mode=api_mode,
     )

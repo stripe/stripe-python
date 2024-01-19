@@ -151,7 +151,7 @@ class StripeObject(Dict[str, Any]):
 
         def __setattr__(self, k, v):
             if k in {"api_key", "stripe_account", "stripe_version"}:
-                self._requestor = self._requestor._replace_options({k: v})
+                self._requestor = self._requestor.replace_options({k: v})
                 return None
 
             if k[0] == "_" or k in self.__dict__:
@@ -299,7 +299,7 @@ class StripeObject(Dict[str, Any]):
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._requestor._replace_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=self._requestor.replace_options(
                 {
                     "api_key": api_key,
                     "stripe_version": stripe_version,

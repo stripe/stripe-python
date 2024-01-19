@@ -96,7 +96,7 @@ class APIRequestor(object):
             return stripe.default_http_client
         return client
 
-    def _replace_options(
+    def replace_options(
         self, options: Optional[RequestOptions]
     ) -> "APIRequestor":
         options = options or {}
@@ -140,7 +140,7 @@ class APIRequestor(object):
     def _global_with_options(
         **params: Unpack[RequestOptions],
     ) -> "APIRequestor":
-        return APIRequestor._global_instance()._replace_options(params)
+        return APIRequestor._global_instance().replace_options(params)
 
     @classmethod
     def _format_app_info(cls, info):
@@ -162,7 +162,7 @@ class APIRequestor(object):
         api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
     ) -> "StripeObject":
-        requestor = self._replace_options(options)
+        requestor = self.replace_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,
@@ -173,7 +173,7 @@ class APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = requestor._interpret_response(rbody, rcode, rheaders)
+        resp = requestor.interpret_response(rbody, rcode, rheaders)
 
         return _convert_to_stripe_object(
             resp=resp,
@@ -203,7 +203,7 @@ class APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = self._interpret_streaming_response(
+        resp = self.interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
             # returns a more specific type.
             cast(IOBase, stream),
@@ -495,7 +495,7 @@ class APIRequestor(object):
     def _should_handle_code_as_error(self, rcode):
         return not 200 <= rcode < 300
 
-    def _interpret_response(
+    def interpret_response(
         self,
         rbody: object,
         rcode: int,
@@ -523,7 +523,7 @@ class APIRequestor(object):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
-    def _interpret_streaming_response(
+    def interpret_streaming_response(
         self,
         stream: IOBase,
         rcode: int,
@@ -544,10 +544,10 @@ class APIRequestor(object):
                     "can be consumed when streaming a response."
                 )
 
-            self._interpret_response(json_content, rcode, rheaders)
-            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            self.interpret_response(json_content, rcode, rheaders)
+            # interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
-                "_interpret_response should have raised an error"
+                "interpret_response should have raised an error"
             )
         else:
             return StripeStreamResponse(stream, rcode, rheaders)
