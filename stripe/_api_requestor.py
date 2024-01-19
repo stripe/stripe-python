@@ -92,7 +92,10 @@ class APIRequestor(object):
             return stripe.default_http_client
         return client
 
-    def _replace_options(self, options: RequestOptions) -> "APIRequestor":
+    def _replace_options(
+        self, options: Optional[RequestOptions]
+    ) -> "APIRequestor":
+        options = options or {}
         new_options = self._options.to_dict()
         for key in ["api_key", "stripe_account", "stripe_version"]:
             if key in options and options[key] is not None:
@@ -162,7 +165,7 @@ class APIRequestor(object):
         api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
     ) -> "StripeObject":
-        requestor = self._replace_options(options or {})
+        requestor = self._replace_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,

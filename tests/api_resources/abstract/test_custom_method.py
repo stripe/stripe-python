@@ -20,10 +20,8 @@ class TestCustomMethod(object):
 
         def do_stuff(self, idempotency_key=None, **params):
             url = self.instance_url() + "/do_the_thing"
-            self.refresh_from(
-                self.request(
-                    "post", url, {**params, "idempotency_key": idempotency_key}
-                )
+            self._request_and_refresh(
+                "post", url, {**params, "idempotency_key": idempotency_key}
             )
             return self
 
