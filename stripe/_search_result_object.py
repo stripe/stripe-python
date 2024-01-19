@@ -12,6 +12,8 @@ from typing import (
 
 from stripe._api_requestor import APIRequestor
 from stripe._stripe_object import StripeObject
+from stripe import _util
+import warnings
 from stripe._request_options import RequestOptions, extract_options_from_dict
 
 T = TypeVar("T", bound=StripeObject)
@@ -24,6 +26,16 @@ class SearchResultObject(StripeObject, Generic[T]):
     next_page: str
 
     def _search(self, **params: Mapping[str, Any]) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            return self.search(  # pyright: ignore[reportDeprecated]
+                **params,
+            )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
+    )
+    def search(self, **params: Mapping[str, Any]) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(

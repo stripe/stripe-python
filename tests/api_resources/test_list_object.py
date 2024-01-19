@@ -90,7 +90,7 @@ class TestListObject(object):
         assert lo.is_empty is True
 
     def test_empty_list(self):
-        lo = stripe.ListObject.empty_list()
+        lo = stripe.ListObject._empty_list()
         assert lo.is_empty
 
     def test_iter(self):
@@ -176,7 +176,7 @@ class TestListObject(object):
         )
 
         next_lo = lo.next_page()
-        assert next_lo == stripe.ListObject.empty_list()
+        assert next_lo == stripe.ListObject._empty_list()
 
     def test_prev_page(self, http_client_mock):
         lo = stripe.ListObject.construct_from(

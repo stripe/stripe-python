@@ -4,9 +4,6 @@ from typing import Dict, Optional, Union, cast
 import stripe  # noqa: IMP101
 from stripe._error_object import ErrorObject
 
-from stripe import _util
-import warnings
-
 
 class StripeError(Exception):
     _message: Optional[str]

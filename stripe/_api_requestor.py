@@ -43,7 +43,6 @@ from stripe._app_info import AppInfo
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
-from stripe import _util
 
 if TYPE_CHECKING:
     from stripe._stripe_object import StripeObject

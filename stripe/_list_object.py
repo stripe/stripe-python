@@ -12,9 +12,13 @@ from typing import (
     cast,
     Mapping,
 )
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions, extract_options_from_dict
+
+from urllib.parse import quote_plus
+import warnings
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -26,6 +30,16 @@ class ListObject(StripeObject, Generic[T]):
     url: str
 
     def _list(self, **params: Mapping[str, Any]) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=DeprecationWarning)
+            return self.list(  # pyright: ignore[reportDeprecated]
+                **params,
+            )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `list` method on the corresponding resource directly, instead of using `list` from the list object."
+    )
+    def list(self, **params: Mapping[str, Any]) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
@@ -33,6 +47,48 @@ class ListObject(StripeObject, Generic[T]):
             )
         return cast(
             Self,
+            self._request(
+                "get",
+                url,
+                params=params,
+                base_address="api",
+                api_mode="V1",
+            ),
+        )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `create` method on the corresponding resource directly, instead of using `create` from the list object."
+    )
+    def create(self, **params: Mapping[str, Any]) -> T:
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .create on a list object for the collection of an object without a string "url" property'
+            )
+        return cast(
+            T,
+            self._request(
+                "post",
+                url,
+                params=params,
+                base_address="api",
+                api_mode="V1",
+            ),
+        )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `retrieve` from the list object."
+    )
+    def retrieve(self, id: str, **params: Mapping[str, Any]):
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .retrieve on a list object for the collection of an object without a string "url" property'
+            )
+
+        url = "%s/%s" % (self.get("url"), quote_plus(id))
+        return cast(
+            T,
             self._request(
                 "get",
                 url,
