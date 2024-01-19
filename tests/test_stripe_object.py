@@ -392,7 +392,7 @@ class TestStripeObject(object):
             path="/foo",
         )
 
-        obj.request("get", "/foo")
+        obj._request("get", "/foo", base_address="api", api_mode="V1")
 
         http_client_mock.assert_requested(
             api_key="key",
@@ -423,7 +423,7 @@ class TestStripeObject(object):
         )
 
         obj.api_key = "key2"
-        obj.request("get", "/foo")
+        obj._request("get", "/foo", base_address="api", api_mode="V1")
 
         assert "api_key" not in obj.items()
 
