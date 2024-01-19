@@ -2,7 +2,6 @@ from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import sys as _sys
 import os
-import warnings
 
 # Stripe Python bindings
 # API docs at http://stripe.com/docs/api
@@ -46,40 +45,6 @@ ca_bundle_path: str = os.path.join(
 # Lazily initialized stripe.default_http_client
 default_http_client = None
 _default_proxy = None
-
-
-def ensure_default_http_client():
-    if default_http_client:
-        _warn_if_mismatched_proxy()
-        return
-    _init_default_http_client()
-
-
-def _init_default_http_client():
-    global _default_proxy
-    global default_http_client
-
-    # If the stripe.default_http_client has not been set by the user
-    # yet, we'll set it here. This way, we aren't creating a new
-    # HttpClient for every request.
-    default_http_client = new_default_http_client(
-        verify_ssl_certs=verify_ssl_certs, proxy=proxy
-    )
-    _default_proxy = proxy
-
-
-def _warn_if_mismatched_proxy():
-    global _default_proxy
-    from stripe import proxy
-
-    if proxy != _default_proxy:
-        warnings.warn(
-            "stripe.proxy was updated after sending a "
-            "request - this is a no-op. To use a different proxy, "
-            "set stripe.default_http_client to a new client "
-            "configured with the proxy."
-        )
-
 
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
@@ -218,6 +183,8 @@ if not TYPE_CHECKING:
     from stripe import _multipart_data_generator as multipart_data_generator
     from stripe import _request_metrics as request_metrics
     from stripe._file import File as FileUpload
+
+    import warnings
 
     # Python 3.7+ supports module level __getattr__ that allows us to lazy load deprecated modules
     # this matters because if we pre-load all modules from api_resources while suppressing warning

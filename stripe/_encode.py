@@ -3,7 +3,6 @@ import datetime
 import time
 from collections import OrderedDict
 from typing import Generator, Tuple, Any
-from urllib.parse import urlsplit, urlunsplit
 
 
 def _encode_datetime(dttime: datetime.datetime):
@@ -44,12 +43,3 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
             yield (key, _encode_datetime(value))
         else:
             yield (key, value)
-
-
-def _build_api_url(url, query):
-    scheme, netloc, path, base_query, fragment = urlsplit(url)
-
-    if base_query:
-        query = "%s&%s" % (base_query, query)
-
-    return urlunsplit((scheme, netloc, path, query, fragment))

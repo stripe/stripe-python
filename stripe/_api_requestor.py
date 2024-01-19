@@ -10,9 +10,11 @@ from typing import (
     Tuple,
     Union,
     cast,
+    ClassVar,
 )
 from typing_extensions import TYPE_CHECKING, Literal, NoReturn, Unpack
 import uuid
+from urllib.parse import urlsplit, urlunsplit
 
 # breaking circular dependency
 import stripe  # noqa: IMP101
@@ -29,7 +31,6 @@ from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
 from stripe._encode import (
     _api_encode,
-    _build_api_url,
 )
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 from stripe._request_options import RequestOptions, merge_options
@@ -37,7 +38,7 @@ from stripe._requestor_options import (
     RequestorOptions,
     _GlobalRequestorOptions,
 )
-from stripe._http_client import HTTPClient
+from stripe._http_client import HTTPClient, new_default_http_client
 from stripe._app_info import AppInfo
 
 from stripe._base_address import BaseAddress
@@ -51,7 +52,7 @@ HttpVerb = Literal["get", "post", "delete"]
 
 
 class APIRequestor(object):
-    _instance = None
+    _instance: ClassVar["APIRequestor|None"] = None
 
     def __init__(
         self,
@@ -68,7 +69,25 @@ class APIRequestor(object):
     def _get_http_client(self) -> HTTPClient:
         client = self._client
         if client is None:
-            stripe.ensure_default_http_client()
+            if not stripe.default_http_client:
+                # If the stripe.default_http_client has not been set by the user
+                # yet, we'll set it here. This way, we aren't creating a new
+                # HttpClient for every request.
+                stripe.default_http_client = new_default_http_client(
+                    verify_ssl_certs=stripe.verify_ssl_certs,
+                    proxy=stripe.proxy,
+                )
+                stripe._default_proxy = stripe.proxy
+            elif stripe.proxy != stripe._default_proxy:
+                import warnings
+
+                warnings.warn(
+                    "stripe.proxy was updated after sending a "
+                    "request - this is a no-op. To use a different proxy, "
+                    "set stripe.default_http_client to a new client "
+                    "configured with the proxy."
+                )
+
             assert stripe.default_http_client is not None
             return stripe.default_http_client
         return client
@@ -401,7 +420,13 @@ class APIRequestor(object):
 
         if method == "get" or method == "delete":
             if params:
-                abs_url = _build_api_url(abs_url, encoded_params)
+                query = encoded_params
+                scheme, netloc, path, base_query, fragment = urlsplit(abs_url)
+
+                if base_query:
+                    query = "%s&%s" % (base_query, query)
+
+                abs_url = urlunsplit((scheme, netloc, path, query, fragment))
             post_data = None
         elif method == "post":
             if api_mode == "V1FILES":
