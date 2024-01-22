@@ -413,3 +413,21 @@ class TestStripeObject(object):
         assert orig_requestor is not new_requestor
         assert obj.api_key == "newkey"
         assert orig_requestor.api_key == "origkey"
+
+    def test_can_update_api_key(self, http_client_mock):
+        obj = stripe.stripe_object.StripeObject("id", "key")
+
+        http_client_mock.stub_request(
+            "get",
+            path="/foo",
+        )
+
+        obj.api_key = "key2"
+        obj.request("get", "/foo")
+
+        assert "api_key" not in obj.items()
+
+        http_client_mock.assert_requested(
+            api_key="key2",
+            stripe_account=None,
+        )

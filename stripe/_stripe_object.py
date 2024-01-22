@@ -160,6 +160,10 @@ class StripeObject(Dict[str, Any]):
     if not TYPE_CHECKING:
 
         def __setattr__(self, k, v):
+            if k in {"api_key", "stripe_account", "stripe_version"}:
+                self._requestor = self._requestor._replace_options({k: v})
+                return None
+
             if k[0] == "_" or k in self.__dict__:
                 return super(StripeObject, self).__setattr__(k, v)
 
