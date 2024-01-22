@@ -2608,6 +2608,10 @@ class Invoice(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpcomingLinesParamsInvoiceItem(TypedDict):
         amount: NotRequired["int"]
@@ -2689,6 +2693,10 @@ class Invoice(
         discount: NotRequired["str"]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpcomingLinesParamsInvoiceItemPeriod(TypedDict):
@@ -3139,6 +3147,10 @@ class Invoice(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpcomingParamsInvoiceItem(TypedDict):
         amount: NotRequired["int"]
@@ -3218,6 +3230,10 @@ class Invoice(
         discount: NotRequired["str"]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpcomingParamsInvoiceItemPeriod(TypedDict):
