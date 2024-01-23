@@ -54,6 +54,20 @@ class Account(
     OBJECT_NAME: ClassVar[Literal["account"]] = "account"
 
     class BusinessProfile(StripeObject):
+        class AnnualRevenue(StripeObject):
+            amount: Optional[int]
+            """
+            A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            """
+            currency: Optional[str]
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            fiscal_year_end: Optional[str]
+            """
+            The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
+            """
+
         class MonthlyEstimatedRevenue(StripeObject):
             amount: int
             """
@@ -90,6 +104,14 @@ class Account(
             State, county, province, or region.
             """
 
+        annual_revenue: Optional[AnnualRevenue]
+        """
+        The applicant's gross annual revenue for its preceding fiscal year.
+        """
+        estimated_worker_count: Optional[int]
+        """
+        An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+        """
         mcc: Optional[str]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
@@ -124,6 +146,7 @@ class Account(
         The business's publicly available website.
         """
         _inner_class_types = {
+            "annual_revenue": AnnualRevenue,
             "monthly_estimated_revenue": MonthlyEstimatedRevenue,
             "support_address": SupportAddress,
         }
@@ -1206,6 +1229,16 @@ class Account(
         """
 
     class CreateParamsBusinessProfile(TypedDict):
+        annual_revenue: NotRequired[
+            "Account.CreateParamsBusinessProfileAnnualRevenue"
+        ]
+        """
+        The applicant's gross annual revenue for its preceding fiscal year.
+        """
+        estimated_worker_count: NotRequired["int"]
+        """
+        An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+        """
         mcc: NotRequired["str"]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
@@ -1245,6 +1278,20 @@ class Account(
         url: NotRequired["str"]
         """
         The business's publicly available website.
+        """
+
+    class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
+        amount: int
+        """
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        fiscal_year_end: str
+        """
+        The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
         """
 
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
