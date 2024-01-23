@@ -18,6 +18,7 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe._account import Account
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
     from stripe._invoice import Invoice
@@ -81,9 +82,23 @@ class Session(
         _inner_class_types = {"recovery": Recovery}
 
     class AutomaticTax(StripeObject):
+        class Liability(StripeObject):
+            account: Optional[ExpandableField["Account"]]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced.
+            """
+
         enabled: bool
         """
         Indicates whether automatic tax is enabled for the session
+        """
+        liability: Optional[Liability]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
@@ -91,6 +106,7 @@ class Session(
         """
         The status of the most recent automated tax calculation for this session.
         """
+        _inner_class_types = {"liability": Liability}
 
     class Consent(StripeObject):
         promotions: Optional[Literal["opt_in", "opt_out"]]
@@ -423,6 +439,16 @@ class Session(
                 The value of the custom field.
                 """
 
+            class Issuer(StripeObject):
+                account: Optional[ExpandableField["Account"]]
+                """
+                The connected account being referenced when `type` is `account`.
+                """
+                type: Literal["account", "self"]
+                """
+                Type of the account referenced.
+                """
+
             class RenderingOptions(StripeObject):
                 amount_tax_display: Optional[str]
                 """
@@ -445,6 +471,10 @@ class Session(
             """
             Footer displayed on the invoice.
             """
+            issuer: Optional[Issuer]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
             metadata: Optional[Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -455,6 +485,7 @@ class Session(
             """
             _inner_class_types = {
                 "custom_fields": CustomField,
+                "issuer": Issuer,
                 "rendering_options": RenderingOptions,
             }
 
@@ -1677,6 +1708,20 @@ class Session(
         """
         Set to true to enable automatic taxes.
         """
+        liability: NotRequired["Session.CreateParamsAutomaticTaxLiability"]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
 
     class CreateParamsConsentCollection(TypedDict):
         payment_method_reuse_agreement: NotRequired[
@@ -1885,6 +1930,12 @@ class Session(
         """
         Default footer to be displayed on invoices for this customer.
         """
+        issuer: NotRequired[
+            "Session.CreateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1904,6 +1955,16 @@ class Session(
         value: str
         """
         The value of the custom field. This may be up to 30 characters.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
@@ -3185,6 +3246,12 @@ class Session(
         Use this field to optionally store an explanation of the subscription
         for rendering in the [customer portal](https://stripe.com/docs/customer-management).
         """
+        invoice_settings: NotRequired[
+            "Session.CreateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         metadata: NotRequired["Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3219,6 +3286,24 @@ class Session(
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "Session.CreateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsSubscriptionDataTransferData(TypedDict):
