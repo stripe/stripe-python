@@ -55,7 +55,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         """
         future_requirements: NotRequired["Literal['include', 'omit']"]
         """
-        Options for collecting future_requirements in Connect Onboarding
+        Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
         """
 
     created: int
