@@ -1,20 +1,21 @@
 # pyright: strict, reportUnnecessaryTypeIgnoreComment=false
 # reportUnnecessaryTypeIgnoreComment is set to false because some type ignores are required in some
 # python versions but not the others
-from typing_extensions import Self
+from typing_extensions import Self, Unpack
 
 from typing import (
     Any,
     Iterator,
     List,
     Generic,
-    Optional,
     TypeVar,
     cast,
     Mapping,
 )
 from stripe import _util
+from stripe._api_requestor import APIRequestor
 from stripe._stripe_object import StripeObject
+from stripe._request_options import RequestOptions, extract_options_from_dict
 
 from urllib.parse import quote_plus
 import warnings
@@ -28,32 +29,17 @@ class ListObject(StripeObject, Generic[T]):
     has_more: bool
     url: str
 
-    def _list(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def _list(self, **params: Mapping[str, Any]) -> Self:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=DeprecationWarning)
             return self.list(  # pyright: ignore[reportDeprecated]
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 **params,
             )
 
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `list` method on the corresponding resource directly, instead of using `list` from the list object."
     )
-    def list(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def list(self, **params: Mapping[str, Any]) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
@@ -64,24 +50,16 @@ class ListObject(StripeObject, Generic[T]):
             self._request(
                 "get",
                 url,
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
+                base_address="api",
+                api_mode="V1",
             ),
         )
 
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `create` method on the corresponding resource directly, instead of using `create` from the list object."
     )
-    def create(
-        self,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> T:
+    def create(self, **params: Mapping[str, Any]) -> T:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
@@ -92,25 +70,16 @@ class ListObject(StripeObject, Generic[T]):
             self._request(
                 "post",
                 url,
-                api_key=api_key,
-                idempotency_key=idempotency_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
+                base_address="api",
+                api_mode="V1",
             ),
         )
 
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `retrieve` from the list object."
     )
-    def retrieve(
-        self,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ):
+    def retrieve(self, id: str, **params: Mapping[str, Any]):
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
@@ -123,10 +92,9 @@ class ListObject(StripeObject, Generic[T]):
             self._request(
                 "get",
                 url,
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
+                base_address="api",
+                api_mode="V1",
             ),
         )
 
@@ -180,47 +148,33 @@ class ListObject(StripeObject, Generic[T]):
     )
     def empty_list(
         cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
+        **params: Unpack[RequestOptions],
     ) -> Self:
-        return cls._empty_list(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-        )
+        return cls._empty_list(**params)
 
     @classmethod
     def _empty_list(
         cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
+        **params: Unpack[RequestOptions],
     ) -> Self:
-        return cls.construct_from(
-            {"data": []},
-            key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+        return cls._construct_from(
+            values={"data": []},
             last_response=None,
+            requestor=APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                **params,
+            ),
+            api_mode="V1",
         )
 
     @property
     def is_empty(self) -> bool:
         return not self.data
 
-    def next_page(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def next_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
+            request_options, _ = extract_options_from_dict(params)
             return self._empty_list(
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
+                **request_options,
             )
 
         last_id = getattr(self.data[-1], "id")
@@ -229,29 +183,19 @@ class ListObject(StripeObject, Generic[T]):
                 "Unexpected: element in .data of list object had no id"
             )
 
-        params_with_filters = self._retrieve_params.copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
         return self._list(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             **params_with_filters,
         )
 
-    def previous_page(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def previous_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
+            request_options, _ = extract_options_from_dict(params)
             return self._empty_list(
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
+                **request_options,
             )
 
         first_id = getattr(self.data[0], "id")
@@ -260,14 +204,11 @@ class ListObject(StripeObject, Generic[T]):
                 "Unexpected: element in .data of list object had no id"
             )
 
-        params_with_filters = self._retrieve_params.copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 
         result = self._list(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             **params_with_filters,
         )
         return result

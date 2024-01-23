@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import stripe
-from stripe import _util
-from stripe._api_requestor import APIRequestor
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
+from typing import Any, ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -19,7 +17,7 @@ if TYPE_CHECKING:
     from stripe._file_link import FileLink
 
 
-class File(ListableAPIResource["File"]):
+class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
     """
     This object represents files hosted on Stripe's servers. You can upload
     files with the [create file](https://stripe.com/docs/api#create_file) request
@@ -31,6 +29,49 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["file"]] = "file"
+
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        file: Any
+        """
+        A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
+        """
+        file_link_data: NotRequired["File.CreateParamsFileLinkData"]
+        """
+        Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
+        """
+        purpose: Literal[
+            "account_requirement",
+            "additional_verification",
+            "business_icon",
+            "business_logo",
+            "customer_signature",
+            "dispute_evidence",
+            "identity_document",
+            "pci_document",
+            "tax_document_user_upload",
+            "terminal_reader_splashscreen",
+        ]
+        """
+        The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
+        """
+
+    class CreateParamsFileLinkData(TypedDict):
+        create: bool
+        """
+        Set this to `true` to create a file link for the newly created file. Creating a link is only possible when the file's `purpose` is one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `pci_document`, `tax_document_user_upload`, or `terminal_reader_splashscreen`.
+        """
+        expires_at: NotRequired["int"]
+        """
+        The link isn't available after this future timestamp.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
     class ListParams(RequestOptions):
         created: NotRequired["File.ListParamsCreated|int"]
@@ -143,24 +184,31 @@ class File(ListableAPIResource["File"]):
     """
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "File.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["File"]:
+    def create(cls, **params: Unpack["File.CreateParams"]) -> "File":
+        """
+        To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
+
+        All of Stripe's officially supported Client libraries support sending multipart/form-data.
+        """
+        return cast(
+            "File",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params,
+                base_address="files",
+                api_mode="V1FILES",
+            ),
+        )
+
+    @classmethod
+    def list(cls, **params: Unpack["File.ListParams"]) -> ListObject["File"]:
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -182,35 +230,6 @@ class File(ListableAPIResource["File"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
-
-    @classmethod
-    def create(
-        # 'api_version' is deprecated, please use 'stripe_version'
-        cls,
-        api_key=None,
-        api_version=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ) -> "File":
-        version = api_version or stripe_version
-        requestor = APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=version,
-            account=stripe_account,
-        )
-        url = cls.class_url()
-        supplied_headers = {"Content-Type": "multipart/form-data"}
-        response, api_key = requestor.request(
-            "post", url, params=params, headers=supplied_headers
-        )
-        return cast(
-            "File",
-            _util.convert_to_stripe_object(
-                response, api_key, version, stripe_account
-            ),
-        )
 
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-python may be used with

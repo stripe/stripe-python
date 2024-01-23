@@ -382,16 +382,7 @@ class Plan(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Plan.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Plan":
+    def create(cls, **params: Unpack["Plan.CreateParams"]) -> "Plan":
         """
         You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
@@ -400,10 +391,6 @@ class Plan(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -450,24 +437,13 @@ class Plan(
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Plan.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Plan"]:
+    def list(cls, **params: Unpack["Plan.ListParams"]) -> ListObject["Plan"]:
         """
         Returns a list of your plans.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

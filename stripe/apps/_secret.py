@@ -181,16 +181,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     scope: Scope
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Secret.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Secret":
+    def create(cls, **params: Unpack["Secret.CreateParams"]) -> "Secret":
         """
         Create or replace a secret in the secret store.
         """
@@ -199,23 +190,13 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def delete_where(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Secret.DeleteWhereParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Secret.DeleteWhereParams"]
     ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
@@ -225,23 +206,12 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             cls._static_request(
                 "post",
                 "/v1/apps/secrets/delete",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
-    def find(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Secret.FindParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Secret":
+    def find(cls, **params: Unpack["Secret.FindParams"]) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
         """
@@ -250,22 +220,13 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             cls._static_request(
                 "get",
                 "/v1/apps/secrets/find",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Secret.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Secret.ListParams"]
     ) -> ListObject["Secret"]:
         """
         List all secrets stored on the given scope.
@@ -273,9 +234,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

@@ -3707,16 +3707,7 @@ class Invoice(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Invoice":
+    def create(cls, **params: Unpack["Invoice.CreateParams"]) -> "Invoice":
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
         """
@@ -3725,10 +3716,6 @@ class Invoice(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -3778,14 +3765,7 @@ class Invoice(
 
     @classmethod
     def _cls_finalize_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.FinalizeInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, invoice: str, **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3797,9 +3777,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/finalize".format(
                     invoice=_util.sanitize_id(invoice)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3807,13 +3784,7 @@ class Invoice(
     @overload
     @staticmethod
     def finalize_invoice(
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.FinalizeInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        invoice: str, **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3822,11 +3793,7 @@ class Invoice(
 
     @overload
     def finalize_invoice(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.FinalizeInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3835,11 +3802,7 @@ class Invoice(
 
     @class_method_variant("_cls_finalize_invoice")
     def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.FinalizeInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3851,20 +3814,13 @@ class Invoice(
                 "/v1/invoices/{invoice}/finalize".format(
                     invoice=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Invoice.ListParams"]
     ) -> ListObject["Invoice"]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -3872,9 +3828,6 @@ class Invoice(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -3888,14 +3841,7 @@ class Invoice(
 
     @classmethod
     def _cls_mark_uncollectible(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.MarkUncollectibleParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, invoice: str, **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3907,9 +3853,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
                     invoice=_util.sanitize_id(invoice)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3917,13 +3860,7 @@ class Invoice(
     @overload
     @staticmethod
     def mark_uncollectible(
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.MarkUncollectibleParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        invoice: str, **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3932,11 +3869,7 @@ class Invoice(
 
     @overload
     def mark_uncollectible(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.MarkUncollectibleParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3945,11 +3878,7 @@ class Invoice(
 
     @class_method_variant("_cls_mark_uncollectible")
     def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.MarkUncollectibleParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3961,7 +3890,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
                     invoice=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -3986,14 +3914,7 @@ class Invoice(
 
     @classmethod
     def _cls_pay(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.PayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, invoice: str, **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -4005,37 +3926,20 @@ class Invoice(
                 "/v1/invoices/{invoice}/pay".format(
                     invoice=_util.sanitize_id(invoice)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def pay(
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.PayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Invoice":
+    def pay(invoice: str, **params: Unpack["Invoice.PayParams"]) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
         ...
 
     @overload
-    def pay(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.PayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Invoice":
+    def pay(self, **params: Unpack["Invoice.PayParams"]) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
@@ -4043,11 +3947,7 @@ class Invoice(
 
     @class_method_variant("_cls_pay")
     def pay(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.PayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -4059,7 +3959,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/pay".format(
                     invoice=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -4077,14 +3976,7 @@ class Invoice(
 
     @classmethod
     def _cls_send_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.SendInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, invoice: str, **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4098,9 +3990,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/send".format(
                     invoice=_util.sanitize_id(invoice)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -4108,13 +3997,7 @@ class Invoice(
     @overload
     @staticmethod
     def send_invoice(
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.SendInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        invoice: str, **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4125,11 +4008,7 @@ class Invoice(
 
     @overload
     def send_invoice(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.SendInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4140,11 +4019,7 @@ class Invoice(
 
     @class_method_variant("_cls_send_invoice")
     def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.SendInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4158,21 +4033,12 @@ class Invoice(
                 "/v1/invoices/{invoice}/send".format(
                     invoice=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def upcoming(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.UpcomingParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Invoice":
+    def upcoming(cls, **params: Unpack["Invoice.UpcomingParams"]) -> "Invoice":
         """
         At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
 
@@ -4185,22 +4051,13 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/upcoming",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def upcoming_lines(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.UpcomingLinesParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
         When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -4210,23 +4067,13 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/upcoming/lines",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_void_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.VoidInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, invoice: str, **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4238,9 +4085,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/void".format(
                     invoice=_util.sanitize_id(invoice)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -4248,13 +4092,7 @@ class Invoice(
     @overload
     @staticmethod
     def void_invoice(
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.VoidInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        invoice: str, **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4263,11 +4101,7 @@ class Invoice(
 
     @overload
     def void_invoice(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.VoidInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4276,11 +4110,7 @@ class Invoice(
 
     @class_method_variant("_cls_void_invoice")
     def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.VoidInvoiceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4292,7 +4122,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/void".format(
                     invoice=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

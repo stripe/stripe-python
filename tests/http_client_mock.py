@@ -25,12 +25,18 @@ def extract_api_base(abs_url):
 
 class StripeRequestCall(object):
     def __init__(
-        self, method=None, abs_url=None, headers=None, post_data=None
+        self,
+        method=None,
+        abs_url=None,
+        headers=None,
+        post_data=None,
+        max_network_retries=None,
     ):
         self.method = method
         self.abs_url = abs_url
         self.headers = headers
         self.post_data = post_data
+        self.max_network_retries = max_network_retries
 
     @classmethod
     def from_mock_call(cls, mock_call):
@@ -39,6 +45,7 @@ class StripeRequestCall(object):
             abs_url=mock_call[0][1],
             headers=mock_call[0][2],
             post_data=mock_call[0][3],
+            max_network_retries=mock_call[1]["max_network_retries"],
         )
 
     def __repr__(self):
@@ -64,13 +71,13 @@ class StripeRequestCall(object):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        stripe_context=None,
         content_type=None,
         idempotency_key=None,
         user_agent=None,
         extra_headers=None,
         post_data=None,
         is_json=False,
+        max_network_retries=None,
     ):
         # METHOD
         if method is not None:
@@ -93,8 +100,6 @@ class StripeRequestCall(object):
             self.assert_header("Stripe-Version", stripe_version)
         if stripe_account is not None:
             self.assert_header("Stripe-Account", stripe_account)
-        if stripe_context is not None:
-            self.assert_header("Stripe-Context", stripe_context)
         if content_type is not None:
             self.assert_header("Content-Type", content_type)
         if idempotency_key is not None:
@@ -108,7 +113,19 @@ class StripeRequestCall(object):
         if post_data is not None:
             self.assert_post_data(post_data, is_json=is_json)
 
+        # OPTIONS
+        if max_network_retries is not None:
+            self.assert_max_network_retries(max_network_retries)
+
         return True
+
+    def assert_max_network_retries(self, expected):
+        actual = self.max_network_retries
+        if actual != expected:
+            raise AssertionError(
+                "Expected max_network_retries to be %s, got %s"
+                % (expected, actual)
+            )
 
     def assert_method(self, expected):
         if self.method != expected:
@@ -282,13 +299,13 @@ class HTTPClientMock(object):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        stripe_context=None,
         content_type=None,
         idempotency_key=None,
         user_agent=None,
         extra_headers=None,
         post_data=None,
         is_json=False,
+        max_network_retries=None,
     ) -> None:
         if abs_url and (api_base or path or query_string):
             raise ValueError(
@@ -311,13 +328,13 @@ class HTTPClientMock(object):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            stripe_context=stripe_context,
             content_type=content_type,
             idempotency_key=idempotency_key,
             user_agent=user_agent,
             extra_headers=extra_headers,
             post_data=post_data,
             is_json=is_json,
+            max_network_retries=max_network_retries,
         )
 
     def assert_no_request(self):

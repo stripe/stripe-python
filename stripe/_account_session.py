@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -266,14 +266,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "AccountSession.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["AccountSession.CreateParams"]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
@@ -283,10 +276,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )

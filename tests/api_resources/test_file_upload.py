@@ -49,9 +49,13 @@ class TestFileUpload(object):
         assert isinstance(resource, stripe.FileUpload)
 
     def test_deserializes_from_file(self):
-        obj = stripe.util.convert_to_stripe_object({"object": "file"})
+        obj = stripe.util.convert_to_stripe_object(
+            {"object": "file"}, api_mode="V1"
+        )
         assert isinstance(obj, stripe.FileUpload)
 
     def test_deserializes_from_file_upload(self):
-        obj = stripe.util.convert_to_stripe_object({"object": "file_upload"})
+        obj = stripe.util.convert_to_stripe_object(
+            {"object": "file_upload"}, api_mode="V1"
+        )
         assert isinstance(obj, stripe.FileUpload)

@@ -339,7 +339,7 @@ class TestAutoPaging:
         )
         assert seen == ["ch_001"]
 
-    def test_iter_forwards_api_key(self, http_client_mock):
+    def test_iter_forwards_api_key_resource(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             path="/v1/charges",
@@ -370,6 +370,44 @@ class TestAutoPaging:
             api_key="sk_test_iter_forwards_options",
         )
         assert seen == ["ch_001", "ch_002"]
+
+    def test_iter_forwards_api_key_client(self, http_client_mock):
+        client = stripe.StripeClient(
+            http_client=http_client_mock.get_mock_http_client(),
+            api_key="sk_test_xyz",
+        )
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/charges",
+            rbody='{"object": "list", "data": [{"id": "x"}], "url": "/v1/charges", "has_more": true}',
+        )
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/charges",
+            query_string="starting_after=x",
+            rbody='{"object": "list", "data": [{"id": "y"}, {"id": "z"}], "url": "/v1/charges", "has_more": false}',
+        )
+
+        lo = client.charges.list(
+            options={"api_key": "sk_test_iter_forwards_options"}
+        )
+
+        seen = [item["id"] for item in lo.auto_paging_iter()]
+
+        assert seen == ["x", "y", "z"]
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges",
+            api_key="sk_test_iter_forwards_options",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges",
+            query_string="starting_after=x",
+            api_key="sk_test_iter_forwards_options",
+        )
 
     def test_forwards_api_key_to_nested_resources(self, http_client_mock):
         http_client_mock.stub_request(

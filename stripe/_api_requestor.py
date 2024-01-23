@@ -8,75 +8,140 @@ from typing import (
     Mapping,
     Optional,
     Tuple,
+    Union,
     cast,
+    ClassVar,
 )
-from typing_extensions import NoReturn
+from typing_extensions import TYPE_CHECKING, Literal, NoReturn, Unpack
 import uuid
-import warnings
+from urllib.parse import urlsplit, urlunsplit
 
 # breaking circular dependency
 import stripe  # noqa: IMP101
-from stripe import _http_client, _util, _version
-from stripe import oauth_error  # noqa: SPY101
-from stripe._encode import _api_encode
+from stripe._util import (
+    log_debug,
+    log_info,
+    dashboard_link,
+    _convert_to_stripe_object,
+)
+from stripe._version import VERSION
+import stripe._error as error
+import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
-from urllib.parse import urlencode, urlsplit, urlunsplit
+from urllib.parse import urlencode
+from stripe._encode import (
+    _api_encode,
+)
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._request_options import RequestOptions, merge_options
+from stripe._requestor_options import (
+    RequestorOptions,
+    _GlobalRequestorOptions,
+)
+from stripe._http_client import HTTPClient, new_default_http_client
+from stripe._app_info import AppInfo
 
+from stripe._base_address import BaseAddress
+from stripe._api_mode import ApiMode
+from stripe import _util
 
-def _build_api_url(url, query):
-    scheme, netloc, path, base_query, fragment = urlsplit(url)
+if TYPE_CHECKING:
+    from stripe._stripe_object import StripeObject
 
-    if base_query:
-        query = "%s&%s" % (base_query, query)
+HttpVerb = Literal["get", "post", "delete"]
 
-    return urlunsplit((scheme, netloc, path, query, fragment))
+# Lazily initialized
+_default_proxy: Optional[str] = None
 
 
 class APIRequestor(object):
-    api_key: Optional[str]
-    api_base: str
-    api_version: str
-    stripe_account: Optional[str]
+    _instance: ClassVar["APIRequestor|None"] = None
 
     def __init__(
         self,
-        key=None,
-        client=None,
-        api_base=None,
-        api_version=None,
-        account=None,
+        options: RequestorOptions = RequestorOptions(),
+        client: Optional[HTTPClient] = None,
     ):
-        self.api_base = api_base or stripe.api_base
-        self.api_key = key
-        self.api_version = api_version or stripe.api_version
-        self.stripe_account = account
+        self._options = options
+        self._client = client
 
-        self._default_proxy = None
+    # In the case of client=None, we should use the current value of stripe.default_http_client
+    # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
+    # an APIRequestor, we shouldn't set it as stripe._client and should access it only through this
+    # getter.
+    def _get_http_client(self) -> HTTPClient:
+        client = self._client
+        if client is None:
+            global _default_proxy
 
-        from stripe import verify_ssl_certs as verify
-        from stripe import proxy
+            if not stripe.default_http_client:
+                # If the stripe.default_http_client has not been set by the user
+                # yet, we'll set it here. This way, we aren't creating a new
+                # HttpClient for every request.
+                stripe.default_http_client = new_default_http_client(
+                    verify_ssl_certs=stripe.verify_ssl_certs,
+                    proxy=stripe.proxy,
+                )
+                _default_proxy = stripe.proxy
+            elif stripe.proxy != _default_proxy:
+                import warnings
 
-        if client:
-            self._client = client
-        elif stripe.default_http_client:
-            self._client = stripe.default_http_client
-            if proxy != self._default_proxy:
                 warnings.warn(
                     "stripe.proxy was updated after sending a "
                     "request - this is a no-op. To use a different proxy, "
                     "set stripe.default_http_client to a new client "
                     "configured with the proxy."
                 )
-        else:
-            # If the stripe.default_http_client has not been set by the user
-            # yet, we'll set it here. This way, we aren't creating a new
-            # HttpClient for every request.
-            stripe.default_http_client = _http_client.new_default_http_client(
-                verify_ssl_certs=verify, proxy=proxy
-            )
-            self._client = stripe.default_http_client
-            self._default_proxy = proxy
+
+            assert stripe.default_http_client is not None
+            return stripe.default_http_client
+        return client
+
+    def _replace_options(
+        self, options: Optional[RequestOptions]
+    ) -> "APIRequestor":
+        options = options or {}
+        new_options = self._options.to_dict()
+        for key in ["api_key", "stripe_account", "stripe_version"]:
+            if key in options and options[key] is not None:
+                new_options[key] = options[key]
+        return APIRequestor(
+            options=RequestorOptions(**new_options), client=self._client
+        )
+
+    @property
+    def api_key(self):
+        return self._options.api_key
+
+    @property
+    def stripe_account(self):
+        return self._options.stripe_account
+
+    @property
+    def stripe_version(self):
+        return self._options.stripe_version
+
+    @property
+    def base_addresses(self):
+        return self._options.base_addresses
+
+    @classmethod
+    def _global_instance(cls):
+        """
+        Returns the singleton instance of APIRequestor, to be used when
+        calling a static method such as stripe.Customer.create(...)
+        """
+
+        # Lazily initialize.
+        if cls._instance is None:
+            cls._instance = cls(options=_GlobalRequestorOptions(), client=None)
+        return cls._instance
+
+    @staticmethod
+    def _global_with_options(
+        **params: Unpack[RequestOptions],
+    ) -> "APIRequestor":
+        return APIRequestor._global_instance()._replace_options(params)
 
     @classmethod
     @_util.deprecated(
@@ -99,52 +164,67 @@ class APIRequestor(object):
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        headers: Optional[Mapping[str, str]] = None,
+        options: Optional[RequestOptions] = None,
         *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[StripeResponse, str]:
-        rbody, rcode, rheaders, my_api_key = self.request_raw(
+    ) -> "StripeObject":
+        requestor = self._replace_options(options)
+        rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,
             params,
-            headers,
             is_streaming=False,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
             _usage=_usage,
         )
-        resp = self.interpret_response(rbody, rcode, rheaders)
-        return resp, my_api_key
+        resp = requestor._interpret_response(rbody, rcode, rheaders)
+
+        return _convert_to_stripe_object(
+            resp=resp,
+            params=params,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
 
     def request_stream(
         self,
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        headers: Optional[Mapping[str, str]] = None,
+        options: Optional[RequestOptions] = None,
         *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[StripeStreamResponse, str]:
-        stream, rcode, rheaders, my_api_key = self.request_raw(
+    ) -> StripeStreamResponse:
+        stream, rcode, rheaders = self.request_raw(
             method.lower(),
             url,
             params,
-            headers,
             is_streaming=True,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
             _usage=_usage,
         )
-        resp = self.interpret_streaming_response(
+        resp = self._interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
             # returns a more specific type.
             cast(IOBase, stream),
             rcode,
             rheaders,
         )
-        return resp, my_api_key
+        return resp
 
     def handle_error_response(self, rbody, rcode, resp, rheaders) -> NoReturn:
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
-            raise stripe.APIError(
+            raise error.APIError(
                 "Invalid response object from API: %r (HTTP response code "
                 "was %d)" % (rbody, rcode),
                 rbody,
@@ -170,7 +250,7 @@ class APIRequestor(object):
         raise err
 
     def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
-        _util.log_info(
+        log_info(
             "Stripe API error received",
             error_code=error_data.get("code"),
             error_type=error_data.get("type"),
@@ -182,16 +262,16 @@ class APIRequestor(object):
         if rcode == 429 or (
             rcode == 400 and error_data.get("code") == "rate_limit"
         ):
-            return stripe.RateLimitError(
+            return error.RateLimitError(
                 error_data.get("message"), rbody, rcode, resp, rheaders
             )
         elif rcode in [400, 404]:
             if error_data.get("type") == "idempotency_error":
-                return stripe.IdempotencyError(
+                return error.IdempotencyError(
                     error_data.get("message"), rbody, rcode, resp, rheaders
                 )
             else:
-                return stripe.InvalidRequestError(
+                return error.InvalidRequestError(
                     error_data.get("message"),
                     error_data.get("param"),
                     error_data.get("code"),
@@ -201,11 +281,11 @@ class APIRequestor(object):
                     rheaders,
                 )
         elif rcode == 401:
-            return stripe.AuthenticationError(
+            return error.AuthenticationError(
                 error_data.get("message"), rbody, rcode, resp, rheaders
             )
         elif rcode == 402:
-            return stripe.CardError(
+            return error.CardError(
                 error_data.get("message"),
                 error_data.get("param"),
                 error_data.get("code"),
@@ -215,18 +295,18 @@ class APIRequestor(object):
                 rheaders,
             )
         elif rcode == 403:
-            return stripe.PermissionError(
+            return error.PermissionError(
                 error_data.get("message"), rbody, rcode, resp, rheaders
             )
         else:
-            return stripe.APIError(
+            return error.APIError(
                 error_data.get("message"), rbody, rcode, resp, rheaders
             )
 
     def specific_oauth_error(self, rbody, rcode, resp, rheaders, error_code):
         description = resp.get("error_description", error_code)
 
-        _util.log_info(
+        log_info(
             "Stripe OAuth error received",
             error_code=error_code,
             error_description=description,
@@ -249,16 +329,16 @@ class APIRequestor(object):
 
         return None
 
-    def request_headers(self, api_key, method):
-        user_agent = "Stripe/v1 PythonBindings/%s" % (_version.VERSION,)
+    def request_headers(self, method, options: RequestOptions):
+        user_agent = "Stripe/v1 PythonBindings/%s" % (VERSION,)
         if stripe.app_info:
             user_agent += " " + self._format_app_info(stripe.app_info)
 
-        ua = {
-            "bindings_version": _version.VERSION,
+        ua: Dict[str, Union[str, AppInfo]] = {
+            "bindings_version": VERSION,
             "lang": "python",
             "publisher": "stripe",
-            "httplib": self._client.name,
+            "httplib": self._get_http_client().name,
         }
         for attr, func in [
             ["lang_version", platform.python_version],
@@ -273,20 +353,24 @@ class APIRequestor(object):
         if stripe.app_info:
             ua["application"] = stripe.app_info
 
-        headers = {
+        headers: Dict[str, Optional[str]] = {
             "X-Stripe-Client-User-Agent": json.dumps(ua),
             "User-Agent": user_agent,
-            "Authorization": "Bearer %s" % (api_key,),
+            "Authorization": "Bearer %s" % (options.get("api_key"),),
         }
 
-        if self.stripe_account:
-            headers["Stripe-Account"] = self.stripe_account
+        if options.get("stripe_account"):
+            headers["Stripe-Account"] = options.get("stripe_account")
+
+        if options.get("idempotency_key"):
+            headers["Idempotency-Key"] = options.get("idempotency_key")
 
         if method == "post":
-            headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
+            headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-        headers["Stripe-Version"] = self.api_version
+        if options.get("stripe_version"):
+            headers["Stripe-Version"] = options.get("stripe_version")
 
         return headers
 
@@ -295,28 +379,20 @@ class APIRequestor(object):
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        supplied_headers: Optional[Mapping[str, str]] = None,
+        options: Optional[RequestOptions] = None,
         is_streaming: bool = False,
         *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[object, int, Mapping[str, str], str]:
+    ) -> Tuple[object, int, Mapping[str, str]]:
         """
         Mechanism for issuing an API call
         """
+        request_options = merge_options(self._options, options)
 
-        supplied_headers_dict: Optional[Dict[str, str]] = (
-            dict(supplied_headers) if supplied_headers is not None else None
-        )
-
-        if self.api_key:
-            my_api_key = self.api_key
-        else:
-            from stripe import api_key
-
-            my_api_key = api_key
-
-        if my_api_key is None:
-            raise stripe.AuthenticationError(
+        if request_options.get("api_key") is None:
+            raise error.AuthenticationError(
                 "No API key provided. (HINT: set your API key using "
                 '"stripe.api_key = <API-KEY>"). You can generate API keys '
                 "from the Stripe web interface.  See https://stripe.com/api "
@@ -324,7 +400,10 @@ class APIRequestor(object):
                 "questions."
             )
 
-        abs_url = "%s%s" % (self.api_base, url)
+        abs_url = "%s%s" % (
+            self._options.base_addresses.get(base_address),
+            url,
+        )
 
         encoded_params = urlencode(list(_api_encode(params or {})))
 
@@ -333,41 +412,53 @@ class APIRequestor(object):
         # makes these parameter strings easier to read.
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
+        encoded_body = encoded_params
+
+        supplied_headers = None
+        if (
+            "headers" in request_options
+            and request_options["headers"] is not None
+        ):
+            supplied_headers = dict(request_options["headers"])
+
+        headers = self.request_headers(method, request_options)
+
         if method == "get" or method == "delete":
             if params:
-                abs_url = _build_api_url(abs_url, encoded_params)
+                query = encoded_params
+                scheme, netloc, path, base_query, fragment = urlsplit(abs_url)
+
+                if base_query:
+                    query = "%s&%s" % (base_query, query)
+
+                abs_url = urlunsplit((scheme, netloc, path, query, fragment))
             post_data = None
         elif method == "post":
-            if (
-                supplied_headers_dict is not None
-                and supplied_headers_dict.get("Content-Type")
-                == "multipart/form-data"
-            ):
+            if api_mode == "V1FILES":
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
-                supplied_headers_dict[
+                headers[
                     "Content-Type"
                 ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
             else:
-                post_data = encoded_params
+                post_data = encoded_body
         else:
-            raise stripe.APIConnectionError(
+            raise error.APIConnectionError(
                 "Unrecognized HTTP method %r.  This may indicate a bug in the "
                 "Stripe bindings.  Please contact support@stripe.com for "
                 "assistance." % (method,)
             )
 
-        headers = self.request_headers(my_api_key, method)
-        if supplied_headers_dict is not None:
-            for key, value in supplied_headers_dict.items():
+        if supplied_headers is not None:
+            for key, value in supplied_headers.items():
                 headers[key] = value
 
-        _util.log_info("Request to Stripe api", method=method, path=abs_url)
-        _util.log_debug(
+        log_info("Request to Stripe api", method=method, url=abs_url)
+        log_debug(
             "Post details",
             post_data=encoded_params,
-            api_version=self.api_version,
+            api_version=request_options.get("stripe_version"),
         )
 
         if is_streaming:
@@ -375,33 +466,48 @@ class APIRequestor(object):
                 rcontent,
                 rcode,
                 rheaders,
-            ) = self._client.request_stream_with_retries(
-                method, abs_url, headers, post_data, _usage=_usage
+            ) = self._get_http_client().request_stream_with_retries(
+                method,
+                abs_url,
+                headers,
+                post_data,
+                max_network_retries=request_options.get("max_network_retries"),
+                _usage=_usage,
             )
         else:
-            rcontent, rcode, rheaders = self._client.request_with_retries(
-                method, abs_url, headers, post_data, _usage=_usage
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = self._get_http_client().request_with_retries(
+                method,
+                abs_url,
+                headers,
+                post_data,
+                max_network_retries=request_options.get("max_network_retries"),
+                _usage=_usage,
             )
 
-        _util.log_info(
-            "Stripe API response", path=abs_url, response_code=rcode
-        )
-        _util.log_debug("API response body", body=rcontent)
+        log_info("Stripe API response", path=abs_url, response_code=rcode)
+        log_debug("API response body", body=rcontent)
 
         if "Request-Id" in rheaders:
             request_id = rheaders["Request-Id"]
-            _util.log_debug(
+            log_debug(
                 "Dashboard link for request",
-                link=_util.dashboard_link(request_id),
+                link=dashboard_link(request_id),
             )
 
-        return rcontent, rcode, rheaders, my_api_key
+        return rcontent, rcode, rheaders
 
     def _should_handle_code_as_error(self, rcode):
         return not 200 <= rcode < 300
 
-    def interpret_response(
-        self, rbody: object, rcode: int, rheaders: Mapping[str, str]
+    def _interpret_response(
+        self,
+        rbody: object,
+        rcode: int,
+        rheaders: Mapping[str, str],
     ) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
@@ -414,7 +520,7 @@ class APIRequestor(object):
                 rheaders,
             )
         except Exception:
-            raise stripe.APIError(
+            raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
                 cast(bytes, rbody),
@@ -425,8 +531,11 @@ class APIRequestor(object):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
-    def interpret_streaming_response(
-        self, stream: IOBase, rcode: int, rheaders: Mapping[str, str]
+    def _interpret_streaming_response(
+        self,
+        stream: IOBase,
+        rcode: int,
+        rheaders: Mapping[str, str],
     ) -> StripeStreamResponse:
         # Streaming response are handled with minimal processing for the success
         # case (ie. we don't want to read the content). When an error is
@@ -443,10 +552,10 @@ class APIRequestor(object):
                     "can be consumed when streaming a response."
                 )
 
-            self.interpret_response(json_content, rcode, rheaders)
-            # interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            self._interpret_response(json_content, rcode, rheaders)
+            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
-                "interpret_response should have raised an error"
+                "_interpret_response should have raised an error"
             )
         else:
             return StripeStreamResponse(stream, rcode, rheaders)

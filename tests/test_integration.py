@@ -93,6 +93,7 @@ class TestIntegration(object):
         stripe.api_base = "http://localhost:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
+        stripe._default_proxy = None
         stripe.enable_telemetry = False
         stripe.max_network_retries = 3
         stripe.proxy = None
@@ -160,6 +161,38 @@ class TestIntegration(object):
             )
         )
         stripe.Balance.retrieve()
+        assert MockServerRequestHandler.num_requests == 1
+
+    def test_hits_proxy_through_stripe_client_proxy(self):
+        class MockServerRequestHandler(TestHandler):
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        client = stripe.StripeClient(
+            "sk_test_123",
+            proxy="http://localhost:%s" % self.mock_server_port,
+            base_addresses={"api": "http://localhost:12111"},
+        )
+        client.balance.retrieve()
+
+        assert MockServerRequestHandler.num_requests == 1
+
+    def test_hits_proxy_through_stripe_client_http_client(self):
+        class MockServerRequestHandler(TestHandler):
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        client = stripe.StripeClient(
+            "sk_test_123",
+            http_client=stripe.http_client.new_default_http_client(
+                proxy="http://localhost:%s" % self.mock_server_port
+            ),
+            base_addresses={"api": "http://localhost:12111"},
+        )
+        client.balance.retrieve()
+
         assert MockServerRequestHandler.num_requests == 1
 
     def test_passes_client_telemetry_when_enabled(self):

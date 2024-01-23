@@ -24,7 +24,13 @@ class Webhook(object):
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = Event.construct_from(data, api_key or stripe.api_key)
+        event = Event._construct_from(
+            values=data,
+            requestor=stripe.APIRequestor._global_with_options(
+                api_key=api_key or stripe.api_key
+            ),
+            api_mode="V1",
+        )
 
         return event
 

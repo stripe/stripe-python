@@ -1068,16 +1068,7 @@ class Token(CreateableAPIResource["Token"]):
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Token.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Token":
+    def create(cls, **params: Unpack["Token.CreateParams"]) -> "Token":
         """
         Creates a single-use token that represents a bank account's details.
         You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
@@ -1087,10 +1078,6 @@ class Token(CreateableAPIResource["Token"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )

@@ -19,11 +19,16 @@ from typing import (
 
 # Used to break circular imports
 import stripe  # noqa: IMP101
-from stripe._encode import _encode_datetime  # pyright: ignore
 from stripe import _util
 
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
-import warnings
+from stripe._encode import _encode_datetime  # pyright: ignore
+from stripe._request_options import extract_options_from_dict
+from stripe._api_mode import ApiMode
+from stripe._base_address import BaseAddress
+
+if TYPE_CHECKING:
+    from stripe import APIRequestor
 
 
 @overload
@@ -85,12 +90,8 @@ class StripeObject(Dict[str, Any]):
     class ReprJSONEncoder(_ReprJSONEncoder):
         pass
 
-    _retrieve_params: Dict[str, Any]
-    _previous: Optional[Dict[str, Any]]
-
-    api_key: Optional[str]
-    stripe_version: Optional[str]
-    stripe_account: Optional[str]
+    _retrieve_params: Mapping[str, Any]
+    _previous: Optional[Mapping[str, Any]]
 
     def __init__(
         self,
@@ -99,6 +100,8 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
+        *,
+        _requestor: Optional["APIRequestor"] = None,
         # TODO: is a more specific type possible here?
         **params: Any
     ):
@@ -111,12 +114,30 @@ class StripeObject(Dict[str, Any]):
         self._retrieve_params = params
         self._previous = None
 
-        object.__setattr__(self, "api_key", api_key)
-        object.__setattr__(self, "stripe_version", stripe_version)
-        object.__setattr__(self, "stripe_account", stripe_account)
+        self._requestor = (
+            stripe.APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+            )
+            if _requestor is None
+            else _requestor
+        )
 
         if id:
             self["id"] = id
+
+    @property
+    def api_key(self):
+        return self._requestor.api_key
+
+    @property
+    def stripe_account(self):
+        return self._requestor.stripe_account
+
+    @property
+    def stripe_version(self):
+        return self._requestor.stripe_version
 
     @property
     def last_response(self) -> Optional[StripeResponse]:
@@ -135,6 +156,10 @@ class StripeObject(Dict[str, Any]):
     if not TYPE_CHECKING:
 
         def __setattr__(self, k, v):
+            if k in {"api_key", "stripe_account", "stripe_version"}:
+                self._requestor = self._requestor._replace_options({k: v})
+                return None
+
             if k[0] == "_" or k in self.__dict__:
                 return super(StripeObject, self).__setattr__(k, v)
 
@@ -229,20 +254,39 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
+        *,
+        api_mode: ApiMode = "V1",
+    ) -> Self:
+        return cls._construct_from(
+            values=values,
+            requestor=stripe.APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                api_key=key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+            ),
+            api_mode=api_mode,
+            last_response=last_response,
+        )
+
+    @classmethod
+    def _construct_from(
+        cls,
+        *,
+        values: Dict[str, Any],
+        last_response: Optional[StripeResponse] = None,
+        requestor: "APIRequestor",
+        api_mode: ApiMode,
     ) -> Self:
         instance = cls(
             values.get("id"),
-            api_key=key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             last_response=last_response,
+            _requestor=requestor,
         )
-        instance.refresh_from(
-            values,
-            api_key=key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+        instance._refresh_from(
+            values=values,
             last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
         )
         return instance
 
@@ -254,14 +298,33 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
+        *,
+        api_mode: ApiMode = "V1",
     ) -> None:
-        self.api_key = api_key or getattr(values, "api_key", None)
-        self.stripe_version = stripe_version or getattr(
-            values, "stripe_version", None
+        self._refresh_from(
+            values=values,
+            partial=partial,
+            last_response=last_response,
+            requestor=self._requestor._replace_options(  # pyright: ignore[reportPrivateUsage]
+                {
+                    "api_key": api_key,
+                    "stripe_version": stripe_version,
+                    "stripe_account": stripe_account,
+                }
+            ),
+            api_mode=api_mode,
         )
-        self.stripe_account = stripe_account or getattr(
-            values, "stripe_account", None
-        )
+
+    def _refresh_from(
+        self,
+        *,
+        values: Dict[str, Any],
+        partial: Optional[bool] = False,
+        last_response: Optional[StripeResponse] = None,
+        requestor: Optional["APIRequestor"] = None,
+        api_mode: ApiMode,
+    ) -> None:
+        self._requestor = requestor or self._requestor
         self._last_response = last_response or getattr(
             values, "_last_response", None
         )
@@ -288,13 +351,12 @@ class StripeObject(Dict[str, Any]):
                     if v is None
                     else cast(
                         StripeObject,
-                        _util.convert_to_stripe_object(
-                            v,
-                            api_key,
-                            stripe_version,
-                            stripe_account,
-                            None,
-                            inner_class,
+                        _util._convert_to_stripe_object(  # pyright: ignore[reportPrivateUsage]
+                            resp=v,
+                            params=None,
+                            klass_=inner_class,
+                            requestor=self._requestor,
+                            api_mode=api_mode,
                         ),
                     )
                     for k, v in v.items()
@@ -302,13 +364,12 @@ class StripeObject(Dict[str, Any]):
             else:
                 obj = cast(
                     Union[StripeObject, List[StripeObject]],
-                    _util.convert_to_stripe_object(
-                        v,
-                        api_key,
-                        stripe_version,
-                        stripe_account,
-                        None,
-                        inner_class,
+                    _util._convert_to_stripe_object(  # pyright: ignore[reportPrivateUsage]
+                        resp=v,
+                        params=None,
+                        klass_=inner_class,
+                        requestor=self._requestor,
+                        api_mode=api_mode,
                     ),
                 )
             super(StripeObject, self).__setitem__(k, obj)
@@ -327,10 +388,17 @@ class StripeObject(Dict[str, Any]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
     ) -> "StripeObject":
         return StripeObject._request(
-            self, method, url, headers=headers, params=params
+            self,
+            method,
+            url,
+            params=params,
+            base_address=base_address,
+            api_mode=api_mode,
         )
 
     # The `method_` and `url_` arguments are suffixed with an underscore to
@@ -339,77 +407,48 @@ class StripeObject(Dict[str, Any]):
         self,
         method_: Literal["get", "post", "delete"],
         url_: str,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
         _usage: Optional[List[str]] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
     ) -> "StripeObject":
-        params = None if params is None else dict(params)
-        api_key = _util.read_special_variable(params, "api_key", api_key)
-        idempotency_key = _util.read_special_variable(
-            params, "idempotency_key", idempotency_key
-        )
-        stripe_version = _util.read_special_variable(
-            params, "stripe_version", stripe_version
-        )
-        stripe_account = _util.read_special_variable(
-            params, "stripe_account", stripe_account
-        )
-        headers = _util.read_special_variable(params, "headers", headers)
+        if params is None:
+            params = self._retrieve_params
 
-        stripe_account = stripe_account or self.stripe_account
-        stripe_version = stripe_version or self.stripe_version
-        api_key = api_key or self.api_key
-        params = params or self._retrieve_params
-        api_base = None
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            api_base = self.api_base()  # pyright: ignore[reportDeprecated]
+        request_options, request_params = extract_options_from_dict(params)
 
-        requestor = stripe.APIRequestor(
-            key=api_key,
-            api_base=api_base,
-            api_version=stripe_version,
-            account=stripe_account,
+        return self._requestor.request(
+            method_,
+            url_,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+            _usage=_usage,
         )
 
-        if idempotency_key is not None:
-            headers = {} if headers is None else headers.copy()
-            headers.update(_util.populate_headers(idempotency_key))
-
-        response, api_key = requestor.request(
-            method_, url_, params, headers, _usage=_usage
-        )
-
-        return _util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account, params
-        )
-
-    def request_stream(
+    def _request_stream(
         self,
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        headers: Optional[Mapping[str, str]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
     ) -> StripeStreamResponse:
         if params is None:
             params = self._retrieve_params
-        api_base = None
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            api_base = self.api_base()  # pyright: ignore[reportDeprecated]
-        requestor = stripe.APIRequestor(
-            key=self.api_key,
-            api_base=api_base,
-            api_version=self.stripe_version,
-            account=self.stripe_account,
-        )
-        response, _ = requestor.request_stream(method, url, params, headers)
 
-        return response
+        request_options, request_params = extract_options_from_dict(params)
+        return self._requestor.request_stream(
+            method,
+            url,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
 
     def __repr__(self) -> str:
         ident_parts = [type(self).__name__]
@@ -473,7 +512,9 @@ class StripeObject(Dict[str, Any]):
     def stripe_id(self) -> Optional[str]:
         return getattr(self, "id")
 
-    def serialize(self, previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    def serialize(
+        self, previous: Optional[Mapping[str, Any]]
+    ) -> Dict[str, Any]:
         params: Dict[str, Any] = {}
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}

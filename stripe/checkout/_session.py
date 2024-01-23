@@ -3618,16 +3618,7 @@ class Session(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Session":
+    def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
         """
         Creates a Session object.
         """
@@ -3636,24 +3627,13 @@ class Session(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def _cls_expire(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.ExpireParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3667,9 +3647,6 @@ class Session(
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=_util.sanitize_id(session)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3677,13 +3654,7 @@ class Session(
     @overload
     @staticmethod
     def expire(
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.ExpireParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3693,13 +3664,7 @@ class Session(
         ...
 
     @overload
-    def expire(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Session.ExpireParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Session":
+    def expire(self, **params: Unpack["Session.ExpireParams"]) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
 
@@ -3709,11 +3674,7 @@ class Session(
 
     @class_method_variant("_cls_expire")
     def expire(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Session.ExpireParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3727,20 +3688,13 @@ class Session(
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Session.ListParams"]
     ) -> ListObject["Session"]:
         """
         Returns a list of Checkout Sessions.
@@ -3748,9 +3702,6 @@ class Session(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -3764,14 +3715,7 @@ class Session(
 
     @classmethod
     def _cls_list_line_items(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, session: str, **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3783,9 +3727,6 @@ class Session(
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=_util.sanitize_id(session)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3793,13 +3734,7 @@ class Session(
     @overload
     @staticmethod
     def list_line_items(
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Session.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        session: str, **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3808,11 +3743,7 @@ class Session(
 
     @overload
     def list_line_items(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Session.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3821,11 +3752,7 @@ class Session(
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Session.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3837,7 +3764,6 @@ class Session(
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
