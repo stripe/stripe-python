@@ -1495,7 +1495,7 @@ class Session(
         """
         custom_fields: NotRequired["List[Session.CreateParamsCustomField]"]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["Session.CreateParamsCustomText"]
         """
@@ -3491,7 +3491,7 @@ class Session(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
     """
     custom_text: CustomText
     customer: Optional[ExpandableField["Customer"]]

@@ -670,7 +670,7 @@ class PaymentLink(
         """
         custom_fields: NotRequired["List[PaymentLink.CreateParamsCustomField]"]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["PaymentLink.CreateParamsCustomText"]
         """
@@ -1482,7 +1482,7 @@ class PaymentLink(
             "Literal['']|List[PaymentLink.ModifyParamsCustomField]"
         ]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["PaymentLink.ModifyParamsCustomText"]
         """
@@ -2154,7 +2154,7 @@ class PaymentLink(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
     """
     custom_text: CustomText
     customer_creation: Literal["always", "if_required"]
