@@ -1271,9 +1271,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
 
-            self._refresh_from(
-                values=self.request("delete", url, params), api_mode="V1"
-            )
+            self._request_and_refresh("delete", url, params)
             return cast("Source", self)
 
         else:

@@ -383,6 +383,9 @@ class StripeObject(Dict[str, Any]):
     def api_base(cls) -> Optional[str]:
         return None
 
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python."
+    )
     def request(
         self,
         method: Literal["get", "post", "delete"],

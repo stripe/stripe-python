@@ -2364,9 +2364,7 @@ class Charge(
             "idempotency_key": idempotency_key,
         }
         url = self.instance_url()
-        self._refresh_from(
-            values=self.request("post", url, params), api_mode="V1"
-        )
+        self._request_and_refresh("post", url, params)
         return self
 
     def mark_as_safe(self, idempotency_key=None) -> "Charge":
@@ -2375,9 +2373,7 @@ class Charge(
             "idempotency_key": idempotency_key,
         }
         url = self.instance_url()
-        self._refresh_from(
-            values=self.request("post", url, params), api_mode="V1"
-        )
+        self._request_and_refresh("post", url, params)
         return self
 
     _inner_class_types = {
