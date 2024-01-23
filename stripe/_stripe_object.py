@@ -84,12 +84,6 @@ class StripeObject(Dict[str, Any]):
                 return _encode_datetime(o)
             return super(StripeObject._ReprJSONEncoder, self).default(o)
 
-    @_util.deprecated(
-        "For internal stripe-python use only. The public interface will be removed in a future version"
-    )
-    class ReprJSONEncoder(_ReprJSONEncoder):
-        pass
-
     _retrieve_params: Mapping[str, Any]
     _previous: Optional[Mapping[str, Any]]
 
@@ -375,13 +369,6 @@ class StripeObject(Dict[str, Any]):
             super(StripeObject, self).__setitem__(k, obj)
 
         self._previous = values
-
-    @classmethod
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python."
-    )
-    def api_base(cls) -> Optional[str]:
-        return None
 
     @_util.deprecated(
         "This will be removed in a future version of stripe-python."

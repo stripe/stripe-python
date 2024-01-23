@@ -97,18 +97,6 @@ class SearchResultObject(StripeObject, Generic[T]):
             api_mode="V1",
         )
 
-    @classmethod
-    @_util.deprecated(
-        "For internal stripe-python use only. This will be removed in a future version."
-    )
-    def empty_search_result(
-        cls,
-        **params: Unpack[RequestOptions],
-    ) -> Self:
-        return cls._empty_search_result(
-            **params,
-        )
-
     @property
     def is_empty(self) -> bool:
         return not self.data

@@ -143,16 +143,6 @@ class ListObject(StripeObject, Generic[T]):
                 break
 
     @classmethod
-    @_util.deprecated(
-        "This method is for internal stripe-python use only. The public interface will be removed in a future version."
-    )
-    def empty_list(
-        cls,
-        **params: Unpack[RequestOptions],
-    ) -> Self:
-        return cls._empty_list(**params)
-
-    @classmethod
     def _empty_list(
         cls,
         **params: Unpack[RequestOptions],

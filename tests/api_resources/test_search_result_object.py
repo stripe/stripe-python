@@ -47,7 +47,7 @@ class TestSearchResultObject(object):
         assert sro.is_empty is True
 
     def test_empty_search_result(self):
-        sro = stripe.SearchResultObject.empty_search_result()
+        sro = stripe.SearchResultObject._empty_search_result()
         assert sro.is_empty
 
     def test_iter(self):
@@ -149,7 +149,7 @@ class TestSearchResultObject(object):
         )
 
         next_sro = sro.next_search_result_page()
-        assert next_sro == stripe.SearchResultObject.empty_search_result()
+        assert next_sro == stripe.SearchResultObject._empty_search_result()
 
     def test_serialize_empty_search_result(self):
         empty = stripe.SearchResultObject.construct_from(

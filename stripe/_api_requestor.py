@@ -43,7 +43,6 @@ from stripe._app_info import AppInfo
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
-from stripe import _util
 
 if TYPE_CHECKING:
     from stripe._stripe_object import StripeObject
@@ -142,13 +141,6 @@ class APIRequestor(object):
         **params: Unpack[RequestOptions],
     ) -> "APIRequestor":
         return APIRequestor._global_instance()._replace_options(params)
-
-    @classmethod
-    @_util.deprecated(
-        "This method is internal to stripe-python and the public interface will be removed in a future stripe-python version"
-    )
-    def format_app_info(cls, info):
-        return cls._format_app_info(info)
 
     @classmethod
     def _format_app_info(cls, info):

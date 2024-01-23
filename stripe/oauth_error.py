@@ -17,7 +17,7 @@ class OAuthError(StripeError):
             description, http_body, http_status, json_body, headers, code
         )
 
-    def construct_error_object(self):
+    def _construct_error_object(self):
         if self.json_body is None:
             return None
 
