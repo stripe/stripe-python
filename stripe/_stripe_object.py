@@ -28,7 +28,7 @@ from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
 
 if TYPE_CHECKING:
-    from stripe import APIRequestor
+    from stripe import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
 
 @overload
@@ -95,7 +95,7 @@ class StripeObject(Dict[str, Any]):
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
         *,
-        _requestor: Optional["APIRequestor"] = None,
+        _requestor: Optional["_APIRequestor"] = None,
         # TODO: is a more specific type possible here?
         **params: Any
     ):
@@ -109,7 +109,7 @@ class StripeObject(Dict[str, Any]):
         self._previous = None
 
         self._requestor = (
-            stripe.APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            stripe._APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -253,7 +253,7 @@ class StripeObject(Dict[str, Any]):
     ) -> Self:
         return cls._construct_from(
             values=values,
-            requestor=stripe.APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=stripe._APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                 api_key=key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -268,7 +268,7 @@ class StripeObject(Dict[str, Any]):
         *,
         values: Dict[str, Any],
         last_response: Optional[StripeResponse] = None,
-        requestor: "APIRequestor",
+        requestor: "_APIRequestor",
         api_mode: ApiMode,
     ) -> Self:
         instance = cls(
@@ -315,7 +315,7 @@ class StripeObject(Dict[str, Any]):
         values: Dict[str, Any],
         partial: Optional[bool] = False,
         last_response: Optional[StripeResponse] = None,
-        requestor: Optional["APIRequestor"] = None,
+        requestor: Optional["_APIRequestor"] = None,
         api_mode: ApiMode,
     ) -> None:
         self._requestor = requestor or self._requestor

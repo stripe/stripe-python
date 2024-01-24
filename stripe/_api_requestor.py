@@ -53,8 +53,8 @@ HttpVerb = Literal["get", "post", "delete"]
 _default_proxy: Optional[str] = None
 
 
-class APIRequestor(object):
-    _instance: ClassVar["APIRequestor|None"] = None
+class _APIRequestor(object):
+    _instance: ClassVar["_APIRequestor|None"] = None
 
     def __init__(
         self,
@@ -66,7 +66,7 @@ class APIRequestor(object):
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
     # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
-    # an APIRequestor, we shouldn't set it as stripe._client and should access it only through this
+    # an _APIRequestor, we shouldn't set it as stripe._client and should access it only through this
     # getter.
     def _get_http_client(self) -> HTTPClient:
         client = self._client
@@ -98,13 +98,13 @@ class APIRequestor(object):
 
     def _replace_options(
         self, options: Optional[RequestOptions]
-    ) -> "APIRequestor":
+    ) -> "_APIRequestor":
         options = options or {}
         new_options = self._options.to_dict()
         for key in ["api_key", "stripe_account", "stripe_version"]:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
-        return APIRequestor(
+        return _APIRequestor(
             options=RequestorOptions(**new_options), client=self._client
         )
 
@@ -127,7 +127,7 @@ class APIRequestor(object):
     @classmethod
     def _global_instance(cls):
         """
-        Returns the singleton instance of APIRequestor, to be used when
+        Returns the singleton instance of _APIRequestor, to be used when
         calling a static method such as stripe.Customer.create(...)
         """
 
@@ -139,8 +139,8 @@ class APIRequestor(object):
     @staticmethod
     def _global_with_options(
         **params: Unpack[RequestOptions],
-    ) -> "APIRequestor":
-        return APIRequestor._global_instance()._replace_options(params)
+    ) -> "_APIRequestor":
+        return _APIRequestor._global_instance()._replace_options(params)
 
     @classmethod
     def _format_app_info(cls, info):

@@ -10,7 +10,9 @@ from typing import (
     Iterator,
 )
 
-from stripe._api_requestor import APIRequestor
+from stripe._api_requestor import (
+    _APIRequestor,  # pyright: ignore[reportPrivateUsage]
+)
 from stripe._stripe_object import StripeObject
 from stripe import _util
 import warnings
@@ -91,7 +93,7 @@ class SearchResultObject(StripeObject, Generic[T]):
         return cls._construct_from(
             values={"data": [], "has_more": False, "next_page": None},
             last_response=None,
-            requestor=APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                 **params,
             ),
             api_mode="V1",

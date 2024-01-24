@@ -23,7 +23,7 @@ class OAuthError(StripeError):
 
         return stripe.error_object.OAuthErrorObject._construct_from(  # pyright: ignore
             values=self.json_body,
-            requestor=stripe.APIRequestor._global_instance(),
+            requestor=stripe._APIRequestor._global_instance(),
             api_mode="V1",
         )
 

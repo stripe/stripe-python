@@ -1,7 +1,7 @@
 # Used for global variables
 from stripe import connect_api_base
 from stripe._error import AuthenticationError
-from stripe._api_requestor import APIRequestor
+from stripe._api_requestor import _APIRequestor
 from stripe._encode import _api_encode
 from urllib.parse import urlencode
 from stripe._request_options import RequestOptions
@@ -324,7 +324,7 @@ class OAuth(object):
         api_key: Optional[str] = None, **params: Unpack[OAuthTokenParams]
     ) -> OAuthToken:
         options: RequestOptions = {"api_key": api_key}
-        requestor = APIRequestor._global_instance()
+        requestor = _APIRequestor._global_instance()
         return cast(
             "OAuth.OAuthToken",
             requestor.request(
@@ -342,7 +342,7 @@ class OAuth(object):
         api_key: Optional[str] = None, **params: Unpack[OAuthDeauthorizeParams]
     ) -> OAuthDeauthorization:
         options: RequestOptions = {"api_key": api_key}
-        requestor = APIRequestor._global_instance()
+        requestor = _APIRequestor._global_instance()
         OAuth._set_client_id(params)
         return cast(
             "OAuth.OAuthDeauthorization",
