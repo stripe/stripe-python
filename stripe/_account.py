@@ -3799,8 +3799,8 @@ class Account(
     # capabilities property which is a hash and not the sub-list of capabilities.
 
     @classmethod
-    def retrieve(cls, id=None, api_key=None, **params) -> "Account":
-        instance = cls(id, api_key, **params)
+    def retrieve(cls, id=None, **params) -> "Account":
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
