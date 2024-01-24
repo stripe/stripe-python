@@ -30,6 +30,7 @@ from stripe._base_address import BaseAddress
 if TYPE_CHECKING:
     from stripe import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
+
 @overload
 def _compute_diff(
     current: Dict[str, Any], previous: Optional[Dict[str, Any]]

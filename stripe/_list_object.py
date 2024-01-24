@@ -12,7 +12,9 @@ from typing import (
     cast,
     Mapping,
 )
-from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+from stripe._api_requestor import (
+    _APIRequestor,
+)  # pyright: ignore[reportPrivateUsage]
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions, extract_options_from_dict
 
