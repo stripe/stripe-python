@@ -896,7 +896,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -1159,7 +1159,7 @@ class PaymentIntentService(StripeService):
             "Literal['if_available', 'never']"
         ]
         """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
         request_multicapture: NotRequired["Literal['if_available', 'never']"]
         """
@@ -2807,7 +2807,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -3070,7 +3070,7 @@ class PaymentIntentService(StripeService):
             "Literal['if_available', 'never']"
         ]
         """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
         request_multicapture: NotRequired["Literal['if_available', 'never']"]
         """
@@ -4748,7 +4748,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsRevolutPay"
         ]
         """
-        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+        If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSepaDebit"
@@ -5011,7 +5011,7 @@ class PaymentIntentService(StripeService):
             "Literal['if_available', 'never']"
         ]
         """
-        Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+        Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
         request_multicapture: NotRequired["Literal['if_available', 'never']"]
         """

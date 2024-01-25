@@ -58,7 +58,7 @@ class PaymentLinkService(StripeService):
             "List[PaymentLinkService.CreateParamsCustomField]"
         ]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["PaymentLinkService.CreateParamsCustomText"]
         """
@@ -199,6 +199,22 @@ class PaymentLinkService(StripeService):
         enabled: bool
         """
         If `true`, tax will be calculated automatically using the customer's location.
+        """
+        liability: NotRequired[
+            "PaymentLinkService.CreateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsConsentCollection(TypedDict):
@@ -390,6 +406,12 @@ class PaymentLinkService(StripeService):
         """
         Default footer to be displayed on invoices for this customer.
         """
+        issuer: NotRequired[
+            "PaymentLinkService.CreateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -409,6 +431,16 @@ class PaymentLinkService(StripeService):
         value: str
         """
         The value of the custom field. This may be up to 30 characters.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
@@ -767,6 +799,12 @@ class PaymentLinkService(StripeService):
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
+        invoice_settings: NotRequired[
+            "PaymentLinkService.CreateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         metadata: NotRequired["Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -780,6 +818,24 @@ class PaymentLinkService(StripeService):
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "PaymentLinkService.CreateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsSubscriptionDataTrialSettings(TypedDict):
@@ -870,7 +926,7 @@ class PaymentLinkService(StripeService):
             "Literal['']|List[PaymentLinkService.UpdateParamsCustomField]"
         ]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["PaymentLinkService.UpdateParamsCustomText"]
         """
@@ -979,6 +1035,22 @@ class PaymentLinkService(StripeService):
         enabled: bool
         """
         If `true`, tax will be calculated automatically using the customer's location.
+        """
+        liability: NotRequired[
+            "PaymentLinkService.UpdateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class UpdateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsCustomField(TypedDict):
@@ -1144,6 +1216,12 @@ class PaymentLinkService(StripeService):
         """
         Default footer to be displayed on invoices for this customer.
         """
+        issuer: NotRequired[
+            "PaymentLinkService.UpdateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1163,6 +1241,16 @@ class PaymentLinkService(StripeService):
         value: str
         """
         The value of the custom field. This may be up to 30 characters.
+        """
+
+    class UpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
@@ -1485,6 +1573,12 @@ class PaymentLinkService(StripeService):
         """
 
     class UpdateParamsSubscriptionData(TypedDict):
+        invoice_settings: NotRequired[
+            "PaymentLinkService.UpdateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -1494,6 +1588,24 @@ class PaymentLinkService(StripeService):
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "PaymentLinkService.UpdateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsSubscriptionDataTrialSettings(TypedDict):

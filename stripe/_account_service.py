@@ -38,7 +38,7 @@ class AccountService(StripeService):
             "Literal['company', 'government_entity', 'individual', 'non_profit']"
         ]
         """
-        The business type.
+        The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         capabilities: NotRequired["AccountService.CreateParamsCapabilities"]
         """
@@ -46,7 +46,7 @@ class AccountService(StripeService):
         """
         company: NotRequired["AccountService.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         country: NotRequired["str"]
         """
@@ -75,10 +75,12 @@ class AccountService(StripeService):
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
+
+        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -90,7 +92,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
         """
         type: NotRequired["Literal['custom', 'express', 'standard']"]
         """
@@ -125,6 +127,16 @@ class AccountService(StripeService):
         """
 
     class CreateParamsBusinessProfile(TypedDict):
+        annual_revenue: NotRequired[
+            "AccountService.CreateParamsBusinessProfileAnnualRevenue"
+        ]
+        """
+        The applicant's gross annual revenue for its preceding fiscal year.
+        """
+        estimated_worker_count: NotRequired["int"]
+        """
+        An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+        """
         mcc: NotRequired["str"]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
@@ -164,6 +176,20 @@ class AccountService(StripeService):
         url: NotRequired["str"]
         """
         The business's publicly available website.
+        """
+
+    class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
+        amount: int
+        """
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        fiscal_year_end: str
+        """
+        The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
         """
 
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
@@ -737,7 +763,7 @@ class AccountService(StripeService):
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         """
         structure: NotRequired[
-            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
+            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
         The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -1506,7 +1532,7 @@ class AccountService(StripeService):
             "Literal['company', 'government_entity', 'individual', 'non_profit']"
         ]
         """
-        The business type.
+        The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         capabilities: NotRequired["AccountService.UpdateParamsCapabilities"]
         """
@@ -1514,7 +1540,7 @@ class AccountService(StripeService):
         """
         company: NotRequired["AccountService.UpdateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         default_currency: NotRequired["str"]
         """
@@ -1539,10 +1565,12 @@ class AccountService(StripeService):
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
+
+        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1554,7 +1582,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.UpdateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
         """
 
     class UpdateParamsBankAccount(TypedDict):
@@ -1585,6 +1613,16 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsBusinessProfile(TypedDict):
+        annual_revenue: NotRequired[
+            "AccountService.UpdateParamsBusinessProfileAnnualRevenue"
+        ]
+        """
+        The applicant's gross annual revenue for its preceding fiscal year.
+        """
+        estimated_worker_count: NotRequired["int"]
+        """
+        An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+        """
         mcc: NotRequired["str"]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
@@ -1624,6 +1662,20 @@ class AccountService(StripeService):
         url: NotRequired["str"]
         """
         The business's publicly available website.
+        """
+
+    class UpdateParamsBusinessProfileAnnualRevenue(TypedDict):
+        amount: int
+        """
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        fiscal_year_end: str
+        """
+        The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
         """
 
     class UpdateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
@@ -2197,7 +2249,7 @@ class AccountService(StripeService):
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         """
         structure: NotRequired[
-            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
+            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
         The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -2950,9 +3002,8 @@ class AccountService(StripeService):
         left unchanged.
 
         For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-        account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links)
-        for a Standard or Express account, some parameters can no longer be changed. These are marked as Custom Only or Custom and Express
-        below.
+        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
+        some properties can only be changed or updated for Custom accounts.
 
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.

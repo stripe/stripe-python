@@ -11,7 +11,7 @@ class CustomerSessionService(StripeService):
     class CreateParams(TypedDict):
         components: "CustomerSessionService.CreateParamsComponents"
         """
-        Configuration for each component. 1 component must be enabled.
+        Configuration for each component. Exactly 1 component must be enabled.
         """
         customer: str
         """

@@ -345,6 +345,10 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class ListParamsInvoiceItem(TypedDict):
         amount: NotRequired["int"]
@@ -428,6 +432,10 @@ class InvoiceUpcomingLinesService(StripeService):
         discount: NotRequired["str"]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ListParamsInvoiceItemPeriod(TypedDict):
@@ -561,7 +569,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     def list(

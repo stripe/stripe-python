@@ -2282,9 +2282,9 @@ class Charge(
     @classmethod
     def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
         """
-        Use the [Payment Intents API](https://stripe.com/docs/api/payment_intents) to initiate a new payment instead
-        of using this method. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment, so this method is limited to legacy integrations.
+        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
+        object used to request payment.
         """
         return cast(
             "Charge",

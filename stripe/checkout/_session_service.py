@@ -58,7 +58,7 @@ class SessionService(StripeService):
             "List[SessionService.CreateParamsCustomField]"
         ]
         """
-        Collect additional information from your customer using custom fields. Up to 2 fields are supported.
+        Collect additional information from your customer using custom fields. Up to 3 fields are supported.
         """
         custom_text: NotRequired["SessionService.CreateParamsCustomText"]
         """
@@ -283,6 +283,22 @@ class SessionService(StripeService):
         """
         Set to true to enable automatic taxes.
         """
+        liability: NotRequired[
+            "SessionService.CreateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
 
     class CreateParamsConsentCollection(TypedDict):
         payment_method_reuse_agreement: NotRequired[
@@ -493,6 +509,12 @@ class SessionService(StripeService):
         """
         Default footer to be displayed on invoices for this customer.
         """
+        issuer: NotRequired[
+            "SessionService.CreateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
         metadata: NotRequired["Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -512,6 +534,16 @@ class SessionService(StripeService):
         value: str
         """
         The value of the custom field. This may be up to 30 characters.
+        """
+
+    class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
@@ -629,7 +661,7 @@ class SessionService(StripeService):
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class CreateParamsPaymentIntentData(TypedDict):
@@ -1825,6 +1857,12 @@ class SessionService(StripeService):
         Use this field to optionally store an explanation of the subscription
         for rendering in the [customer portal](https://stripe.com/docs/customer-management).
         """
+        invoice_settings: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         metadata: NotRequired["Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1859,6 +1897,24 @@ class SessionService(StripeService):
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str"]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class CreateParamsSubscriptionDataTransferData(TypedDict):

@@ -313,7 +313,9 @@ class InvoiceService(StripeService):
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
@@ -1090,6 +1092,10 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpcomingParamsInvoiceItem(TypedDict):
         amount: NotRequired["int"]
@@ -1171,6 +1177,10 @@ class InvoiceService(StripeService):
         discount: NotRequired["str"]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpcomingParamsInvoiceItemPeriod(TypedDict):
@@ -1304,7 +1314,7 @@ class InvoiceService(StripeService):
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class UpdateParams(TypedDict):
@@ -1574,7 +1584,9 @@ class InvoiceService(StripeService):
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
-        request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """

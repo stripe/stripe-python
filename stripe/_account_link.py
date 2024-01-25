@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from typing import ClassVar, List, cast
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class AccountLink(CreateableAPIResource["AccountLink"]):
@@ -23,7 +23,13 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         """
         collect: NotRequired["Literal['currently_due', 'eventually_due']"]
         """
-        Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+        The collect parameter is deprecated. Use `collection_options` instead.
+        """
+        collection_options: NotRequired[
+            "AccountLink.CreateParamsCollectionOptions"
+        ]
+        """
+        Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.
         """
         expand: NotRequired["List[str]"]
         """
@@ -40,6 +46,16 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         type: Literal["account_onboarding", "account_update"]
         """
         The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
+        """
+
+    class CreateParamsCollectionOptions(TypedDict):
+        fields: Literal["currently_due", "eventually_due"]
+        """
+        Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify `collection_options`, the default value is `currently_due`.
+        """
+        future_requirements: NotRequired["Literal['include', 'omit']"]
+        """
+        Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
         """
 
     created: int

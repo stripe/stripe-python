@@ -615,6 +615,10 @@ class PaymentMethodService(StripeService):
     class UpdateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
+        Bank account holder type.
+        """
+        account_type: NotRequired["Literal['checking', 'savings']"]
+        """
         Bank account type.
         """
 

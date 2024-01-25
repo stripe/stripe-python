@@ -218,7 +218,7 @@ class Account(ListableAPIResource["Account"]):
         """
         features: List[Literal["transactions"]]
         """
-        The list of account features to which you would like to subscribe.`.
+        The list of account features to which you would like to subscribe.
         """
 
     class UnsubscribeParams(RequestOptions):
