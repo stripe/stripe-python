@@ -73,7 +73,7 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
         return self._build_instance_url(self.fee, self.id)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ApplicationFeeRefund":
+    def retrieve(cls, id, **params) -> "ApplicationFeeRefund":
         raise NotImplementedError(
             "Can't retrieve a refund without an application fee ID. "
             "Use application_fee.refunds.retrieve('refund_id') instead."

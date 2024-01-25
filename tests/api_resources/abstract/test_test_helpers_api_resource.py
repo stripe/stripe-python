@@ -1,5 +1,4 @@
 import stripe
-from stripe import util
 from stripe._test_helpers import APIResourceTestHelpers
 
 
@@ -16,9 +15,8 @@ class TestTestHelperAPIResource(object):
 
             def do_stuff(self, idempotency_key=None, **params):
                 url = self.instance_url() + "/do_the_thing"
-                headers = util.populate_headers(idempotency_key)
-                self.resource.refresh_from(
-                    self.resource.request("post", url, params, headers)
+                self.resource._request_and_refresh(
+                    "post", url, {**params, "idempotency_key": idempotency_key}
                 )
                 return self.resource
 

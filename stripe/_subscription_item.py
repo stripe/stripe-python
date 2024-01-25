@@ -154,6 +154,10 @@ class SubscriptionItem(
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class CreateParamsDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -216,7 +220,7 @@ class SubscriptionItem(
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class CreateParamsTrial(TypedDict):
@@ -392,6 +396,10 @@ class SubscriptionItem(
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class ModifyParamsDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -454,7 +462,7 @@ class SubscriptionItem(
         """
         interval_count: NotRequired["int"]
         """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class RetrieveParams(RequestOptions):
@@ -530,14 +538,7 @@ class SubscriptionItem(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SubscriptionItem.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["SubscriptionItem.CreateParams"]
     ) -> "SubscriptionItem":
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -547,10 +548,6 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -602,13 +599,7 @@ class SubscriptionItem(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SubscriptionItem.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["SubscriptionItem.ListParams"]
     ) -> ListObject["SubscriptionItem"]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -616,9 +607,6 @@ class SubscriptionItem(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -658,12 +646,7 @@ class SubscriptionItem(
     def create_usage_record(
         cls,
         subscription_item: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SubscriptionItem.CreateUsageRecordParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
     ) -> "UsageRecord":
         """
         Creates a usage record for a specified subscription item and date, and fills it with a quantity.
@@ -681,9 +664,6 @@ class SubscriptionItem(
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
                     subscription_item=_util.sanitize_id(subscription_item)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -692,12 +672,7 @@ class SubscriptionItem(
     def list_usage_record_summaries(
         cls,
         subscription_item: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SubscriptionItem.ListUsageRecordSummariesParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
     ) -> ListObject["UsageRecordSummary"]:
         """
         For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
@@ -711,9 +686,6 @@ class SubscriptionItem(
                 "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
                     subscription_item=_util.sanitize_id(subscription_item)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )

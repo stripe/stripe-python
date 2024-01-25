@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 from typing import List
 
 import stripe
-from urllib.parse import urlsplit, urlencode
+from urllib.parse import urlsplit, urlencode, parse_qsl
 import json
 from unittest.mock import Mock
 
@@ -11,9 +11,7 @@ def parse_and_sort(query_string, strict_parsing=False):
     """
     Helper function to parse a query string and return a sorted list of tuples.
     """
-    return sorted(
-        stripe.util.parse_qsl(query_string, strict_parsing=strict_parsing)
-    )
+    return sorted(parse_qsl(query_string, strict_parsing=strict_parsing))
 
 
 def extract_api_base(abs_url):
@@ -31,12 +29,14 @@ class StripeRequestCall(object):
         headers=None,
         post_data=None,
         usage=None,
+        max_network_retries=None,
     ):
         self.method = method
         self.abs_url = abs_url
         self.headers = headers
         self.post_data = post_data
         self.usage = usage
+        self.max_network_retries = max_network_retries
 
     @classmethod
     def from_mock_call(cls, mock_call):
@@ -46,6 +46,7 @@ class StripeRequestCall(object):
             headers=mock_call[0][2],
             post_data=mock_call[0][3],
             usage=mock_call[1]["_usage"],
+            max_network_retries=mock_call[1]["max_network_retries"],
         )
 
     def __repr__(self):
@@ -79,6 +80,7 @@ class StripeRequestCall(object):
         post_data=None,
         is_json=False,
         usage=None,
+        max_network_retries=None,
     ):
         # METHOD
         if method is not None:
@@ -118,7 +120,19 @@ class StripeRequestCall(object):
         if post_data is not None:
             self.assert_post_data(post_data, is_json=is_json)
 
+        # OPTIONS
+        if max_network_retries is not None:
+            self.assert_max_network_retries(max_network_retries)
+
         return True
+
+    def assert_max_network_retries(self, expected):
+        actual = self.max_network_retries
+        if actual != expected:
+            raise AssertionError(
+                "Expected max_network_retries to be %s, got %s"
+                % (expected, actual)
+            )
 
     def assert_method(self, expected):
         if self.method != expected:
@@ -325,6 +339,7 @@ class HTTPClientMock(object):
         post_data=None,
         is_json=False,
         usage=None,
+        max_network_retries=None,
     ) -> None:
         if abs_url and (api_base or path or query_string):
             raise ValueError(
@@ -355,6 +370,7 @@ class HTTPClientMock(object):
             post_data=post_data,
             is_json=is_json,
             usage=usage,
+            max_network_retries=max_network_retries,
         )
 
     def assert_no_request(self):

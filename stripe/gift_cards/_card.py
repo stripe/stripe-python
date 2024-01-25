@@ -212,16 +212,7 @@ class Card(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Card.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Card":
+    def create(cls, **params: Unpack["Card.CreateParams"]) -> "Card":
         """
         Creates a new gift card object.
         """
@@ -230,33 +221,18 @@ class Card(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Card.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Card"]:
+    def list(cls, **params: Unpack["Card.ListParams"]) -> ListObject["Card"]:
         """
         List gift cards for an account
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -291,15 +267,7 @@ class Card(
         return instance
 
     @classmethod
-    def validate(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Card.ValidateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Card":
+    def validate(cls, **params: Unpack["Card.ValidateParams"]) -> "Card":
         """
         Validates a gift card code, returning the matching gift card object if it exists.
         """
@@ -308,9 +276,6 @@ class Card(
             cls._static_request(
                 "post",
                 "/v1/gift_cards/cards/validate",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )

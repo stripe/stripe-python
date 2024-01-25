@@ -11,20 +11,10 @@ T = TypeVar("T", bound="StripeObject")
 
 class SearchableAPIResource(APIResource[T]):
     @classmethod
-    def _search(
-        cls,
-        search_url,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
+    def _search(cls, search_url, **params):
         ret = cls._static_request(
             "get",
             search_url,
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(ret, SearchResultObject):

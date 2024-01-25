@@ -183,14 +183,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def _cls_approve(
-        cls,
-        review: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Review.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, review: str, **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -202,9 +195,6 @@ class Review(ListableAPIResource["Review"]):
                 "/v1/reviews/{review}/approve".format(
                     review=_util.sanitize_id(review)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -212,13 +202,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     def approve(
-        review: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Review.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        review: str, **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -226,13 +210,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @overload
-    def approve(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Review.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Review":
+    def approve(self, **params: Unpack["Review.ApproveParams"]) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
@@ -240,11 +218,7 @@ class Review(ListableAPIResource["Review"]):
 
     @class_method_variant("_cls_approve")
     def approve(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Review.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -256,20 +230,13 @@ class Review(ListableAPIResource["Review"]):
                 "/v1/reviews/{review}/approve".format(
                     review=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Review.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Review.ListParams"]
     ) -> ListObject["Review"]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -277,9 +244,6 @@ class Review(ListableAPIResource["Review"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

@@ -129,14 +129,7 @@ class ValueListItem(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ValueListItem.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ValueListItem.CreateParams"]
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
@@ -146,10 +139,6 @@ class ValueListItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -201,13 +190,7 @@ class ValueListItem(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ValueListItem.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ValueListItem.ListParams"]
     ) -> ListObject["ValueListItem"]:
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -215,9 +198,6 @@ class ValueListItem(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

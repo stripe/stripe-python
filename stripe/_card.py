@@ -250,14 +250,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         )
 
     @classmethod
-    def retrieve(
-        cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
+    def retrieve(cls, id, **params):
         raise NotImplementedError(
             "Can't retrieve a card without a customer or account ID. "
             "Use stripe.Customer.retrieve_source('customer_id', 'card_id') "

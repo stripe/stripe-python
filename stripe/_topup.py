@@ -233,14 +233,7 @@ class Topup(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        topup: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Topup.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, topup: str, **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -252,37 +245,20 @@ class Topup(
                 "/v1/topups/{topup}/cancel".format(
                     topup=_util.sanitize_id(topup)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        topup: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Topup.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Topup":
+    def cancel(topup: str, **params: Unpack["Topup.CancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Topup.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Topup":
+    def cancel(self, **params: Unpack["Topup.CancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -290,11 +266,7 @@ class Topup(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Topup.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -306,22 +278,12 @@ class Topup(
                 "/v1/topups/{topup}/cancel".format(
                     topup=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Topup.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Topup":
+    def create(cls, **params: Unpack["Topup.CreateParams"]) -> "Topup":
         """
         Top up the balance of an account
         """
@@ -330,33 +292,18 @@ class Topup(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Topup.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Topup"]:
+    def list(cls, **params: Unpack["Topup.ListParams"]) -> ListObject["Topup"]:
         """
         Returns a list of top-ups.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

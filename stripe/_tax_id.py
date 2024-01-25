@@ -154,7 +154,7 @@ class TaxId(APIResource["TaxId"]):
         return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, **params):
         raise NotImplementedError(
             "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
         )

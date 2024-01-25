@@ -188,16 +188,7 @@ class ValueList(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ValueList.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "ValueList":
+    def create(cls, **params: Unpack["ValueList.CreateParams"]) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
@@ -206,10 +197,6 @@ class ValueList(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -261,13 +248,7 @@ class ValueList(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ValueList.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ValueList.ListParams"]
     ) -> ListObject["ValueList"]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -275,9 +256,6 @@ class ValueList(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

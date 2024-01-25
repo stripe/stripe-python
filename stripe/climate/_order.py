@@ -265,14 +265,7 @@ class Order(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        order: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, order: str, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
@@ -287,24 +280,13 @@ class Order(
                 "/v1/climate/orders/{order}/cancel".format(
                     order=_util.sanitize_id(order)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        order: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def cancel(order: str, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -314,13 +296,7 @@ class Order(
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def cancel(self, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -331,11 +307,7 @@ class Order(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
@@ -350,22 +322,12 @@ class Order(
                 "/v1/climate/orders/{order}/cancel".format(
                     order=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def create(cls, **params: Unpack["Order.CreateParams"]) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
         after creation and payment will be deducted your Stripe balance.
@@ -375,24 +337,12 @@ class Order(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Order"]:
+    def list(cls, **params: Unpack["Order.ListParams"]) -> ListObject["Order"]:
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
@@ -400,9 +350,6 @@ class Order(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

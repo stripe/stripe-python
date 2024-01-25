@@ -111,13 +111,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "InvoicePayment.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["InvoicePayment.ListParams"]
     ) -> ListObject["InvoicePayment"]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
@@ -125,9 +119,6 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

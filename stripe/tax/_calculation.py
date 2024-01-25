@@ -694,14 +694,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Calculation.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
         """
         Calculates tax based on input and returns a Tax Calculation object.
@@ -711,10 +704,6 @@ class Calculation(CreateableAPIResource["Calculation"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -723,12 +712,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def _cls_list_line_items(
         cls,
         calculation: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Calculation.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -740,9 +724,6 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 "/v1/tax/calculations/{calculation}/line_items".format(
                     calculation=_util.sanitize_id(calculation)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -750,13 +731,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @overload
     @staticmethod
     def list_line_items(
-        calculation: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Calculation.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -765,11 +740,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     @overload
     def list_line_items(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Calculation.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -778,11 +749,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Calculation.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -794,7 +761,6 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 "/v1/tax/calculations/{calculation}/line_items".format(
                     calculation=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

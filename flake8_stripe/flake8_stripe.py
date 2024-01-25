@@ -24,7 +24,9 @@ class TypingImportsChecker:
     allowed_typing_extensions_imports = [
         "Literal",
         "NoReturn",
+        "NotRequired",
         "Protocol",
+        "Self",
         "TYPE_CHECKING",
         "Type",
         "TypedDict",
@@ -167,6 +169,52 @@ class StripeImportsChecker:
                     and not parts[-1].startswith("_")
                 ):
                     msg = "IMP100 Import from private implementation modules that start with _."
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )
+
+
+class BanPublicMethodsChecker:
+    name = __name__
+    version = "0.1.0"
+
+    def __init__(self, tree: ast.AST, filename: str):
+        self.tree = tree
+        self.filename = filename
+
+    def run(self) -> Iterator[Tuple[int, int, str, type]]:
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.Call):
+                name = None
+                if isinstance(node.func, ast.Attribute):
+                    name = node.func.attr
+                elif isinstance(node.func, ast.Name):
+                    name = node.func.id
+
+                if not name:
+                    continue
+
+                if name == "convert_to_stripe_object":
+                    msg = "BAN100 Do not use public `convert_to_stripe_object` internally. Instead, call `_convert_to_stripe_object` directly."
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )
+                if name == "construct_from":
+                    msg = "BAN100 Do not use public `construct_from` internally. Instead, call `_construct_from` directly."
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )
+                if name == "refresh_from":
+                    msg = "BAN100 Do not use public `refresh_from` internally. Instead, call `_refresh_from` directly."
                     yield (
                         node.lineno,
                         node.col_offset,
