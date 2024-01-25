@@ -210,16 +210,7 @@ class ReportRun(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReportRun.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "ReportRun":
+    def create(cls, **params: Unpack["ReportRun.CreateParams"]) -> "ReportRun":
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
@@ -228,23 +219,13 @@ class ReportRun(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReportRun.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ReportRun.ListParams"]
     ) -> ListObject["ReportRun"]:
         """
         Returns a list of Report Runs, with the most recent appearing first.
@@ -252,9 +233,6 @@ class ReportRun(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

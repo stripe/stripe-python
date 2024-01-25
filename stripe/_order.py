@@ -3169,14 +3169,7 @@ class Order(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3186,37 +3179,20 @@ class Order(
             cls._static_request(
                 "post",
                 "/v1/orders/{id}/cancel".format(id=_util.sanitize_id(id)),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def cancel(id: str, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
         """
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def cancel(self, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
         """
@@ -3224,11 +3200,7 @@ class Order(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3240,22 +3212,12 @@ class Order(
                 "/v1/orders/{id}/cancel".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def create(cls, **params: Unpack["Order.CreateParams"]) -> "Order":
         """
         Creates a new open order object.
         """
@@ -3264,33 +3226,18 @@ class Order(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Order"]:
+    def list(cls, **params: Unpack["Order.ListParams"]) -> ListObject["Order"]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -3304,14 +3251,7 @@ class Order(
 
     @classmethod
     def _cls_list_line_items(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3321,9 +3261,6 @@ class Order(
             cls._static_request(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=_util.sanitize_id(id)),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3331,13 +3268,7 @@ class Order(
     @overload
     @staticmethod
     def list_line_items(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        id: str, **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3346,11 +3277,7 @@ class Order(
 
     @overload
     def list_line_items(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3359,11 +3286,7 @@ class Order(
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3375,7 +3298,6 @@ class Order(
                 "/v1/orders/{id}/line_items".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -3395,14 +3317,7 @@ class Order(
 
     @classmethod
     def _cls_reopen(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ReopenParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3412,37 +3327,20 @@ class Order(
             cls._static_request(
                 "post",
                 "/v1/orders/{id}/reopen".format(id=_util.sanitize_id(id)),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def reopen(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.ReopenParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def reopen(id: str, **params: Unpack["Order.ReopenParams"]) -> "Order":
         """
         Reopens a submitted order.
         """
         ...
 
     @overload
-    def reopen(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.ReopenParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def reopen(self, **params: Unpack["Order.ReopenParams"]) -> "Order":
         """
         Reopens a submitted order.
         """
@@ -3450,11 +3348,7 @@ class Order(
 
     @class_method_variant("_cls_reopen")
     def reopen(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.ReopenParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3466,7 +3360,6 @@ class Order(
                 "/v1/orders/{id}/reopen".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -3484,14 +3377,7 @@ class Order(
 
     @classmethod
     def _cls_submit(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.SubmitParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3501,37 +3387,20 @@ class Order(
             cls._static_request(
                 "post",
                 "/v1/orders/{id}/submit".format(id=_util.sanitize_id(id)),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def submit(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Order.SubmitParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def submit(id: str, **params: Unpack["Order.SubmitParams"]) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
         """
         ...
 
     @overload
-    def submit(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.SubmitParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Order":
+    def submit(self, **params: Unpack["Order.SubmitParams"]) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
         """
@@ -3539,11 +3408,7 @@ class Order(
 
     @class_method_variant("_cls_submit")
     def submit(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Order.SubmitParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3555,7 +3420,6 @@ class Order(
                 "/v1/orders/{id}/submit".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

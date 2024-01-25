@@ -245,16 +245,7 @@ class TaxRate(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TaxRate.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "TaxRate":
+    def create(cls, **params: Unpack["TaxRate.CreateParams"]) -> "TaxRate":
         """
         Creates a new tax rate.
         """
@@ -263,23 +254,13 @@ class TaxRate(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TaxRate.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["TaxRate.ListParams"]
     ) -> ListObject["TaxRate"]:
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
@@ -287,9 +268,6 @@ class TaxRate(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

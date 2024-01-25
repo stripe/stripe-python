@@ -664,7 +664,7 @@ class Person(UpdateableAPIResource["Person"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, **params):
         raise NotImplementedError(
             "Can't retrieve a person without an account ID. "
             "Use stripe.Account.retrieve_person('account_id', 'person_id') "

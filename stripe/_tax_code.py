@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List
 from typing_extensions import Literal, NotRequired, Unpack
 
 
@@ -57,13 +57,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "TaxCode.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["TaxCode.ListParams"]
     ) -> ListObject["TaxCode"]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
@@ -71,9 +65,6 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

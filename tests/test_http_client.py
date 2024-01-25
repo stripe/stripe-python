@@ -1,5 +1,6 @@
 from typing import Any
 from typing_extensions import Type
+from unittest.mock import call
 import pytest
 import json
 from mock import AsyncMock
@@ -167,63 +168,116 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         four_xx = list(range(400, 431))
 
         client = _http_client.new_default_http_client()
-        client._max_network_retries = lambda: 1
         codes = one_xx + two_xx + three_xx + four_xx
         codes.remove(409)
 
         # These status codes should not be retried by default.
         for code in codes:
-            assert client._should_retry((None, code, None), None, 0) is False
+            assert (
+                client._should_retry(
+                    (None, code, None), None, 0, max_network_retries=1
+                )
+                is False
+            )
 
         # These status codes should be retried by default.
-        assert client._should_retry((None, 409, None), None, 0) is True
-        assert client._should_retry((None, 500, None), None, 0) is True
-        assert client._should_retry((None, 503, None), None, 0) is True
+        assert (
+            client._should_retry(
+                (None, 409, None), None, 0, max_network_retries=1
+            )
+            is True
+        )
+        assert (
+            client._should_retry(
+                (None, 500, None), None, 0, max_network_retries=1
+            )
+            is True
+        )
+        assert (
+            client._should_retry(
+                (None, 503, None), None, 0, max_network_retries=1
+            )
+            is True
+        )
 
     def test_should_retry_on_error(self, mocker):
         client = _http_client.new_default_http_client()
-        client._max_network_retries = lambda: 1
         api_connection_error = mocker.Mock()
 
         api_connection_error.should_retry = True
-        assert client._should_retry(None, api_connection_error, 0) is True
+        assert (
+            client._should_retry(
+                None, api_connection_error, 0, max_network_retries=1
+            )
+            is True
+        )
 
         api_connection_error.should_retry = False
-        assert client._should_retry(None, api_connection_error, 0) is False
+        assert (
+            client._should_retry(
+                None, api_connection_error, 0, max_network_retries=1
+            )
+            is False
+        )
 
     def test_should_retry_on_stripe_should_retry_true(self, mocker):
         client = _http_client.new_default_http_client()
-        client._max_network_retries = lambda: 1
         headers = {"stripe-should-retry": "true"}
 
         # Ordinarily, we would not retry a 400, but with the header as true, we would.
-        assert client._should_retry((None, 400, {}), None, 0) is False
-        assert client._should_retry((None, 400, headers), None, 0) is True
+        assert (
+            client._should_retry(
+                (None, 400, {}), None, 0, max_network_retries=1
+            )
+            is False
+        )
+        assert (
+            client._should_retry(
+                (None, 400, headers), None, 0, max_network_retries=1
+            )
+            is True
+        )
 
     def test_should_retry_on_stripe_should_retry_false(self, mocker):
         client = _http_client.new_default_http_client()
-        client._max_network_retries = lambda: 1
         headers = {"stripe-should-retry": "false"}
 
         # Ordinarily, we would retry a 500, but with the header as false, we would not.
-        assert client._should_retry((None, 500, {}), None, 0) is True
-        assert client._should_retry((None, 500, headers), None, 0) is False
+        assert (
+            client._should_retry(
+                (None, 500, {}), None, 0, max_network_retries=1
+            )
+            is True
+        )
+        assert (
+            client._should_retry(
+                (None, 500, headers), None, 0, max_network_retries=1
+            )
+            is False
+        )
 
     def test_should_retry_on_num_retries(self, mocker):
         client = _http_client.new_default_http_client()
         max_test_retries = 10
-        client._max_network_retries = lambda: max_test_retries
         api_connection_error = mocker.Mock()
         api_connection_error.should_retry = True
 
         assert (
             client._should_retry(
-                None, api_connection_error, max_test_retries + 1
+                None,
+                api_connection_error,
+                max_test_retries + 1,
+                max_network_retries=max_test_retries,
             )
             is False
         )
         assert (
-            client._should_retry((None, 409, None), None, max_test_retries + 1)
+            client._should_retry(
+                (None, 409, None),
+                None,
+                max_test_retries + 1,
+                max_network_retries=max_test_retries,
+            )
             is False
         )
 
@@ -432,7 +486,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             times=None,
         ):
             times = times or 1
-            args = (method, url)
+            pargs = (method, url)
             kwargs = {
                 "headers": headers,
                 "data": post_data,
@@ -444,7 +498,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             if is_streaming:
                 kwargs["stream"] = True
 
-            calls = [(args, kwargs) for _ in range(times)]
+            calls = [call(*pargs, **kwargs) for _ in range(times)]
             session.request.assert_has_calls(calls)
 
         return check_call
@@ -562,17 +616,18 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         # Override sleep time to speed up tests
         client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
         # Override configured max retries
-        client._max_network_retries = lambda: self.max_retries()
         return client
 
     def make_request(self, *args, **kwargs):
         client = self.make_client()
-        return client.request_with_retries("GET", self.valid_url, {}, None)
+        return client.request_with_retries(
+            "GET", self.valid_url, {}, None, self.max_retries()
+        )
 
     def make_request_stream(self, *args, **kwargs):
         client = self.make_client()
         return client.request_stream_with_retries(
-            "GET", self.valid_url, {}, None
+            "GET", self.valid_url, {}, None, self.max_retries()
         )
 
     def test_retry_error_until_response(
@@ -1267,19 +1322,18 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         # Override sleep time to speed up tests
         client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
         # Override configured max retries
-        client._max_network_retries = lambda: self.max_retries()
         return client
 
     async def make_request(self, *args, **kwargs):
         client = self.make_client()
         return await client.request_with_retries_async(
-            "GET", self.valid_url, {}, None
+            "GET", self.valid_url, {}, None, self.max_retries()
         )
 
     async def make_request_stream(self, *args, **kwargs):
         client = self.make_client()
         return await client.request_stream_with_retries_async(
-            "GET", self.valid_url, {}, None
+            "GET", self.valid_url, {}, None, self.max_retries()
         )
 
     @pytest.mark.asyncio

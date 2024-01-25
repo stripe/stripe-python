@@ -137,14 +137,7 @@ class CreditReversal(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "CreditReversal.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["CreditReversal.CreateParams"]
     ) -> "CreditReversal":
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
@@ -154,23 +147,13 @@ class CreditReversal(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "CreditReversal.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["CreditReversal.ListParams"]
     ) -> ListObject["CreditReversal"]:
         """
         Returns a list of CreditReversals.
@@ -178,9 +161,6 @@ class CreditReversal(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

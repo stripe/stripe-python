@@ -69,7 +69,7 @@ class TestFile(object):
     ):
         test_file = tempfile.TemporaryFile()
         stripe.File.create(
-            purpose="dispute_evidence", file=test_file, api_version="foo"
+            purpose="dispute_evidence", file=test_file, stripe_version="foo"
         )
         http_client_mock.assert_requested(
             "post",
@@ -79,9 +79,13 @@ class TestFile(object):
         )
 
     def test_deserializes_from_file(self):
-        obj = stripe.util.convert_to_stripe_object({"object": "file"})
+        obj = stripe.util.convert_to_stripe_object(
+            {"object": "file"}, api_mode="V1"
+        )
         assert isinstance(obj, stripe.File)
 
     def test_deserializes_from_file_upload(self):
-        obj = stripe.util.convert_to_stripe_object({"object": "file_upload"})
+        obj = stripe.util.convert_to_stripe_object(
+            {"object": "file_upload"}, api_mode="V1"
+        )
         assert isinstance(obj, stripe.File)

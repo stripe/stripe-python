@@ -363,14 +363,7 @@ class PersonalizationDesign(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PersonalizationDesign.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PersonalizationDesign.CreateParams"]
     ) -> "PersonalizationDesign":
         """
         Creates a personalization design object.
@@ -380,23 +373,13 @@ class PersonalizationDesign(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PersonalizationDesign.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PersonalizationDesign.ListParams"]
     ) -> ListObject["PersonalizationDesign"]:
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -404,9 +387,6 @@ class PersonalizationDesign(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -449,12 +429,7 @@ class PersonalizationDesign(
         def _cls_activate(
             cls,
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.ActivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -468,9 +443,6 @@ class PersonalizationDesign(
                             personalization_design
                         )
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -479,12 +451,7 @@ class PersonalizationDesign(
         @staticmethod
         def activate(
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.ActivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -493,11 +460,7 @@ class PersonalizationDesign(
 
         @overload
         def activate(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.ActivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -506,11 +469,7 @@ class PersonalizationDesign(
 
         @class_method_variant("_cls_activate")
         def activate(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.ActivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -524,7 +483,6 @@ class PersonalizationDesign(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -533,12 +491,7 @@ class PersonalizationDesign(
         def _cls_deactivate(
             cls,
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.DeactivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -552,9 +505,6 @@ class PersonalizationDesign(
                             personalization_design
                         )
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -563,12 +513,7 @@ class PersonalizationDesign(
         @staticmethod
         def deactivate(
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.DeactivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -577,11 +522,7 @@ class PersonalizationDesign(
 
         @overload
         def deactivate(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.DeactivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -590,11 +531,7 @@ class PersonalizationDesign(
 
         @class_method_variant("_cls_deactivate")
         def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.DeactivateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -608,7 +545,6 @@ class PersonalizationDesign(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -617,12 +553,7 @@ class PersonalizationDesign(
         def _cls_reject(
             cls,
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.RejectParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -636,9 +567,6 @@ class PersonalizationDesign(
                             personalization_design
                         )
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -647,12 +575,7 @@ class PersonalizationDesign(
         @staticmethod
         def reject(
             personalization_design: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.RejectParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -661,11 +584,7 @@ class PersonalizationDesign(
 
         @overload
         def reject(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.RejectParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -674,11 +593,7 @@ class PersonalizationDesign(
 
         @class_method_variant("_cls_reject")
         def reject(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "PersonalizationDesign.RejectParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -692,7 +607,6 @@ class PersonalizationDesign(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

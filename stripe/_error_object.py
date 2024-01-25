@@ -2,6 +2,7 @@ from typing import Optional
 from typing_extensions import TYPE_CHECKING
 from stripe._util import merge_dicts
 from stripe._stripe_object import StripeObject
+from stripe._api_mode import ApiMode
 
 if TYPE_CHECKING:
     from stripe._payment_intent import PaymentIntent
@@ -31,7 +32,32 @@ class ErrorObject(StripeObject):
         stripe_version=None,
         stripe_account=None,
         last_response=None,
+        *,
+        api_mode: ApiMode = "V1",
     ):
+        return self._refresh_from(
+            values=values,
+            partial=partial,
+            last_response=last_response,
+            requestor=self._requestor._replace_options(
+                {
+                    "api_key": api_key,
+                    "stripe_version": stripe_version,
+                    "stripe_account": stripe_account,
+                }
+            ),
+            api_mode=api_mode,
+        )
+
+    def _refresh_from(
+        self,
+        *,
+        values,
+        partial=False,
+        last_response=None,
+        requestor,
+        api_mode: ApiMode
+    ) -> None:
         # Unlike most other API resources, the API will omit attributes in
         # error objects when they have a null value. We manually set default
         # values here to facilitate generic error handling.
@@ -51,13 +77,12 @@ class ErrorObject(StripeObject):
             },
             values,
         )
-        return super(ErrorObject, self).refresh_from(
-            values,
-            api_key,
-            partial,
-            stripe_version,
-            stripe_account,
-            last_response,
+        return super(ErrorObject, self)._refresh_from(
+            values=values,
+            partial=partial,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
         )
 
 
@@ -70,18 +95,42 @@ class OAuthErrorObject(StripeObject):
         stripe_version=None,
         stripe_account=None,
         last_response=None,
+        *,
+        api_mode: ApiMode = "V1",
     ):
+        return self._refresh_from(
+            values=values,
+            partial=partial,
+            last_response=last_response,
+            requestor=self._requestor._replace_options(
+                {
+                    "api_key": api_key,
+                    "stripe_version": stripe_version,
+                    "stripe_account": stripe_account,
+                }
+            ),
+            api_mode=api_mode,
+        )
+
+    def _refresh_from(
+        self,
+        *,
+        values,
+        partial=False,
+        last_response=None,
+        requestor,
+        api_mode: ApiMode,
+    ) -> None:
         # Unlike most other API resources, the API will omit attributes in
         # error objects when they have a null value. We manually set default
         # values here to facilitate generic error handling.
         values = merge_dicts(
             {"error": None, "error_description": None}, values
         )
-        return super(OAuthErrorObject, self).refresh_from(
-            values,
-            api_key,
-            partial,
-            stripe_version,
-            stripe_account,
-            last_response,
+        return super(OAuthErrorObject, self)._refresh_from(
+            values=values,
+            partial=partial,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
         )

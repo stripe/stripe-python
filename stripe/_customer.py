@@ -1382,16 +1382,7 @@ class Customer(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Customer":
+    def create(cls, **params: Unpack["Customer.CreateParams"]) -> "Customer":
         """
         Creates a new customer object.
         """
@@ -1400,10 +1391,6 @@ class Customer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -1412,12 +1399,7 @@ class Customer(
     def _cls_create_funding_instructions(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateFundingInstructionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1431,9 +1413,6 @@ class Customer(
                 "/v1/customers/{customer}/funding_instructions".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1442,12 +1421,7 @@ class Customer(
     @staticmethod
     def create_funding_instructions(
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateFundingInstructionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1458,11 +1432,7 @@ class Customer(
 
     @overload
     def create_funding_instructions(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateFundingInstructionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1473,11 +1443,7 @@ class Customer(
 
     @class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateFundingInstructionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1491,7 +1457,6 @@ class Customer(
                 "/v1/customers/{customer}/funding_instructions".format(
                     customer=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1541,14 +1506,7 @@ class Customer(
 
     @classmethod
     def _cls_delete_discount(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteDiscountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1560,9 +1518,6 @@ class Customer(
                 "/v1/customers/{customer}/discount".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1570,13 +1525,7 @@ class Customer(
     @overload
     @staticmethod
     def delete_discount(
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteDiscountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1585,11 +1534,7 @@ class Customer(
 
     @overload
     def delete_discount(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteDiscountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1598,11 +1543,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_discount")
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteDiscountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1614,20 +1555,13 @@ class Customer(
                 "/v1/customers/{customer}/discount".format(
                     customer=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Customer.ListParams"]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1635,9 +1569,6 @@ class Customer(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -1653,12 +1584,7 @@ class Customer(
     def _cls_list_payment_methods(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListPaymentMethodsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1670,9 +1596,6 @@ class Customer(
                 "/v1/customers/{customer}/payment_methods".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1680,13 +1603,7 @@ class Customer(
     @overload
     @staticmethod
     def list_payment_methods(
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListPaymentMethodsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1695,11 +1612,7 @@ class Customer(
 
     @overload
     def list_payment_methods(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListPaymentMethodsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1708,11 +1621,7 @@ class Customer(
 
     @class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListPaymentMethodsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1724,7 +1633,6 @@ class Customer(
                 "/v1/customers/{customer}/payment_methods".format(
                     customer=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1760,12 +1668,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrievePaymentMethodParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1778,9 +1681,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     payment_method=_util.sanitize_id(payment_method),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1790,12 +1690,7 @@ class Customer(
     def retrieve_payment_method(
         customer: str,
         payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrievePaymentMethodParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1806,10 +1701,7 @@ class Customer(
     def retrieve_payment_method(
         self,
         payment_method: str,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrievePaymentMethodParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1820,10 +1712,7 @@ class Customer(
     def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrievePaymentMethodParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1836,7 +1725,6 @@ class Customer(
                     customer=_util.sanitize_id(self.get("id")),
                     payment_method=_util.sanitize_id(payment_method),
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1863,12 +1751,7 @@ class Customer(
     def create_balance_transaction(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateBalanceTransactionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.CreateBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
@@ -1880,9 +1763,6 @@ class Customer(
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1892,12 +1772,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrieveBalanceTransactionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -1910,9 +1785,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     transaction=_util.sanitize_id(transaction),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1922,12 +1794,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ModifyBalanceTransactionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -1940,9 +1807,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     transaction=_util.sanitize_id(transaction),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1951,12 +1815,7 @@ class Customer(
     def list_balance_transactions(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListBalanceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ListBalanceTransactionsParams"]
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -1968,9 +1827,6 @@ class Customer(
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1980,12 +1836,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrieveCashBalanceTransactionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -1998,9 +1849,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     transaction=_util.sanitize_id(transaction),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2009,12 +1857,7 @@ class Customer(
     def list_cash_balance_transactions(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListCashBalanceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -2026,23 +1869,13 @@ class Customer(
                 "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def create_source(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateSourceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2058,9 +1891,6 @@ class Customer(
                 "/v1/customers/{customer}/sources".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2070,12 +1900,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrieveSourceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrieveSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2088,9 +1913,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2100,12 +1922,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ModifySourceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ModifySourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2118,9 +1935,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2130,12 +1944,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteSourceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.DeleteSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2148,23 +1957,13 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def list_sources(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListSourcesParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2176,23 +1975,13 @@ class Customer(
                 "/v1/customers/{customer}/sources".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def create_tax_id(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.CreateTaxIdParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2204,9 +1993,6 @@ class Customer(
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2216,12 +2002,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrieveTaxIdParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrieveTaxIdParams"]
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2234,9 +2015,6 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2246,12 +2024,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.DeleteTaxIdParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.DeleteTaxIdParams"]
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2264,23 +2037,13 @@ class Customer(
                     customer=_util.sanitize_id(customer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def list_tax_ids(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ListTaxIdsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2292,9 +2055,6 @@ class Customer(
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2303,12 +2063,7 @@ class Customer(
     def modify_cash_balance(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.ModifyCashBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2320,9 +2075,6 @@ class Customer(
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2331,12 +2083,7 @@ class Customer(
     def retrieve_cash_balance(
         cls,
         customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Customer.RetrieveCashBalanceParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Customer.RetrieveCashBalanceParams"]
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2348,9 +2095,6 @@ class Customer(
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=_util.sanitize_id(customer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -2362,12 +2106,7 @@ class Customer(
         def _cls_fund_cash_balance(
             cls,
             customer: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Customer.FundCashBalanceParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2379,9 +2118,6 @@ class Customer(
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
                         customer=_util.sanitize_id(customer)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -2389,13 +2125,7 @@ class Customer(
         @overload
         @staticmethod
         def fund_cash_balance(
-            customer: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Customer.FundCashBalanceParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2404,11 +2134,7 @@ class Customer(
 
         @overload
         def fund_cash_balance(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Customer.FundCashBalanceParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2417,11 +2143,7 @@ class Customer(
 
         @class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Customer.FundCashBalanceParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2433,7 +2155,6 @@ class Customer(
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
                         customer=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

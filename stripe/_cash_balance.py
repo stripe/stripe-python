@@ -49,7 +49,7 @@ class CashBalance(StripeObject):
         return "%s/%s/cash_balance" % (base, cust_extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, **params):
         raise NotImplementedError(
             "Can't retrieve a Customer Cash Balance without a Customer ID. "
             "Use Customer.retrieve_cash_balance('cus_123')"

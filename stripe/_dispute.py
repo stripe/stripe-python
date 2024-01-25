@@ -442,14 +442,7 @@ class Dispute(
 
     @classmethod
     def _cls_close(
-        cls,
-        dispute: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Dispute.CloseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -463,9 +456,6 @@ class Dispute(
                 "/v1/disputes/{dispute}/close".format(
                     dispute=_util.sanitize_id(dispute)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -473,13 +463,7 @@ class Dispute(
     @overload
     @staticmethod
     def close(
-        dispute: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Dispute.CloseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        dispute: str, **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -489,13 +473,7 @@ class Dispute(
         ...
 
     @overload
-    def close(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Dispute.CloseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Dispute":
+    def close(self, **params: Unpack["Dispute.CloseParams"]) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
 
@@ -505,11 +483,7 @@ class Dispute(
 
     @class_method_variant("_cls_close")
     def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Dispute.CloseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -523,20 +497,13 @@ class Dispute(
                 "/v1/disputes/{dispute}/close".format(
                     dispute=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Dispute.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.
@@ -544,9 +511,6 @@ class Dispute(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

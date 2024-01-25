@@ -11,19 +11,14 @@ T = TypeVar("T", bound=StripeObject)
 
 class ListableAPIResource(APIResource[T]):
     @classmethod
-    def auto_paging_iter(cls, *args, **params):
-        return cls.list(*args, **params).auto_paging_iter()
+    def auto_paging_iter(cls, **params):
+        return cls.list(**params).auto_paging_iter()
 
     @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject[T]:
+    def list(cls, **params) -> ListObject[T]:
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
 

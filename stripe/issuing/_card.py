@@ -1694,16 +1694,7 @@ class Card(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Card.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Card":
+    def create(cls, **params: Unpack["Card.CreateParams"]) -> "Card":
         """
         Creates an Issuing Card object.
         """
@@ -1712,33 +1703,18 @@ class Card(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Card.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Card"]:
+    def list(cls, **params: Unpack["Card.ListParams"]) -> ListObject["Card"]:
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -1777,14 +1753,7 @@ class Card(
 
         @classmethod
         def _cls_deliver_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.DeliverCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, card: str, **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1796,9 +1765,6 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
                         card=_util.sanitize_id(card)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1806,13 +1772,7 @@ class Card(
         @overload
         @staticmethod
         def deliver_card(
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.DeliverCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            card: str, **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1821,11 +1781,7 @@ class Card(
 
         @overload
         def deliver_card(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.DeliverCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1834,11 +1790,7 @@ class Card(
 
         @class_method_variant("_cls_deliver_card")
         def deliver_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.DeliverCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1850,21 +1802,13 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
                         card=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def _cls_fail_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.FailCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, card: str, **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1876,9 +1820,6 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                         card=_util.sanitize_id(card)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1886,13 +1827,7 @@ class Card(
         @overload
         @staticmethod
         def fail_card(
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.FailCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            card: str, **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1900,13 +1835,7 @@ class Card(
             ...
 
         @overload
-        def fail_card(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.FailCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
-        ) -> "Card":
+        def fail_card(self, **params: Unpack["Card.FailCardParams"]) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
             """
@@ -1914,11 +1843,7 @@ class Card(
 
         @class_method_variant("_cls_fail_card")
         def fail_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.FailCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1930,21 +1855,13 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                         card=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def _cls_return_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.ReturnCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, card: str, **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1956,9 +1873,6 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
                         card=_util.sanitize_id(card)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1966,13 +1880,7 @@ class Card(
         @overload
         @staticmethod
         def return_card(
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.ReturnCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            card: str, **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1981,11 +1889,7 @@ class Card(
 
         @overload
         def return_card(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.ReturnCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1994,11 +1898,7 @@ class Card(
 
         @class_method_variant("_cls_return_card")
         def return_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.ReturnCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -2010,21 +1910,13 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
                         card=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def _cls_ship_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.ShipCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, card: str, **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -2036,9 +1928,6 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                         card=_util.sanitize_id(card)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -2046,13 +1935,7 @@ class Card(
         @overload
         @staticmethod
         def ship_card(
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Card.ShipCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            card: str, **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -2060,13 +1943,7 @@ class Card(
             ...
 
         @overload
-        def ship_card(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.ShipCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
-        ) -> "Card":
+        def ship_card(self, **params: Unpack["Card.ShipCardParams"]) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
             """
@@ -2074,11 +1951,7 @@ class Card(
 
         @class_method_variant("_cls_ship_card")
         def ship_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Card.ShipCardParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -2090,7 +1963,6 @@ class Card(
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                         card=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

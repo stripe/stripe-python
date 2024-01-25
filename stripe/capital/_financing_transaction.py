@@ -159,13 +159,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "FinancingTransaction.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["FinancingTransaction.ListParams"]
     ) -> ListObject["FinancingTransaction"]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,
@@ -174,9 +168,6 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

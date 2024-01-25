@@ -144,6 +144,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     The ID of the merchant associated with this financing object.
     """
+    charged_off_at: Optional[int]
+    """
+    The time at which this financing offer was charged off, if applicable. Given in seconds since unix epoch.
+    """
     created: int
     """
     Time at which the offer was created. Given in seconds since unix epoch.
@@ -212,13 +216,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "FinancingOffer.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["FinancingOffer.ListParams"]
     ) -> ListObject["FinancingOffer"]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -226,9 +224,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -244,12 +239,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "FinancingOffer.MarkDeliveredParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -262,9 +252,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
                     financing_offer=_util.sanitize_id(financing_offer)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -273,12 +260,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     def mark_delivered(
         financing_offer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "FinancingOffer.MarkDeliveredParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -288,11 +270,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @overload
     def mark_delivered(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "FinancingOffer.MarkDeliveredParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -302,11 +280,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @class_method_variant("_cls_mark_delivered")
     def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "FinancingOffer.MarkDeliveredParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -319,7 +293,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
                     financing_offer=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

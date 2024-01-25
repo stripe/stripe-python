@@ -275,17 +275,10 @@ class Payout(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, payout: str, **params: Unpack["Payout.CancelParams"]
     ) -> "Payout":
         """
-        You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
         return cast(
             "Payout",
@@ -294,9 +287,6 @@ class Payout(
                 "/v1/payouts/{payout}/cancel".format(
                     payout=_util.sanitize_id(payout)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -304,42 +294,26 @@ class Payout(
     @overload
     @staticmethod
     def cancel(
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        payout: str, **params: Unpack["Payout.CancelParams"]
     ) -> "Payout":
         """
-        You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Payout.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Payout":
+    def cancel(self, **params: Unpack["Payout.CancelParams"]) -> "Payout":
         """
-        You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
         ...
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Payout.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Payout.CancelParams"]
     ) -> "Payout":
         """
-        You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
         return cast(
             "Payout",
@@ -348,22 +322,12 @@ class Payout(
                 "/v1/payouts/{payout}/cancel".format(
                     payout=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Payout":
+    def create(cls, **params: Unpack["Payout.CreateParams"]) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
 
@@ -376,23 +340,13 @@ class Payout(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Payout.ListParams"]
     ) -> ListObject["Payout"]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -400,9 +354,6 @@ class Payout(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -440,17 +391,10 @@ class Payout(
 
     @classmethod
     def _cls_reverse(
-        cls,
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.ReverseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, payout: str, **params: Unpack["Payout.ReverseParams"]
     ) -> "Payout":
         """
-        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
@@ -461,9 +405,6 @@ class Payout(
                 "/v1/payouts/{payout}/reverse".format(
                     payout=_util.sanitize_id(payout)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -471,31 +412,19 @@ class Payout(
     @overload
     @staticmethod
     def reverse(
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Payout.ReverseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        payout: str, **params: Unpack["Payout.ReverseParams"]
     ) -> "Payout":
         """
-        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
         ...
 
     @overload
-    def reverse(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Payout.ReverseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Payout":
+    def reverse(self, **params: Unpack["Payout.ReverseParams"]) -> "Payout":
         """
-        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
@@ -503,14 +432,10 @@ class Payout(
 
     @class_method_variant("_cls_reverse")
     def reverse(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Payout.ReverseParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Payout.ReverseParams"]
     ) -> "Payout":
         """
-        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
@@ -521,7 +446,6 @@ class Payout(
                 "/v1/payouts/{payout}/reverse".format(
                     payout=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )

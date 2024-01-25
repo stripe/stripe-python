@@ -88,7 +88,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParams(RequestOptions):
         components: "CustomerSession.CreateParamsComponents"
         """
-        Configuration for each component. 1 component must be enabled.
+        Configuration for each component. Exactly 1 component must be enabled.
         """
         customer: str
         """
@@ -194,14 +194,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "CustomerSession.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["CustomerSession.CreateParams"]
     ) -> "CustomerSession":
         """
         Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
@@ -211,10 +204,6 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
