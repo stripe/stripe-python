@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
-from stripe._api_requestor import APIRequestor
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._util import class_method_variant
@@ -90,27 +88,18 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        if stripe_version is None:
+    def create(cls, **params):
+        if params.get("stripe_version") is None:
             raise ValueError(
                 "stripe_version must be specified to create an ephemeral "
                 "key"
             )
 
-        requestor = APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-
         url = cls.class_url()
-        headers = _util.populate_headers(idempotency_key)
-        response, api_key = requestor.request("post", url, params, headers)
-        return _util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return cls._static_request(
+            "post",
+            url,
+            params=params,
+            base_address="api",
+            api_mode="V1",
         )

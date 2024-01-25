@@ -1691,12 +1691,7 @@ class PaymentMethod(
     def _cls_attach(
         cls,
         payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.AttachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1720,9 +1715,6 @@ class PaymentMethod(
                 "/v1/payment_methods/{payment_method}/attach".format(
                     payment_method=_util.sanitize_id(payment_method)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1730,13 +1722,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def attach(
-        payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.AttachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        payment_method: str, **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1757,11 +1743,7 @@ class PaymentMethod(
 
     @overload
     def attach(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.AttachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1782,11 +1764,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_attach")
     def attach(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.AttachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1810,21 +1788,13 @@ class PaymentMethod(
                 "/v1/payment_methods/{payment_method}/attach".format(
                     payment_method=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentMethod.CreateParams"]
     ) -> "PaymentMethod":
         """
         Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
@@ -1836,10 +1806,6 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -1848,12 +1814,7 @@ class PaymentMethod(
     def _cls_detach(
         cls,
         payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.DetachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -1865,9 +1826,6 @@ class PaymentMethod(
                 "/v1/payment_methods/{payment_method}/detach".format(
                     payment_method=_util.sanitize_id(payment_method)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1875,13 +1833,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def detach(
-        payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.DetachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        payment_method: str, **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -1890,11 +1842,7 @@ class PaymentMethod(
 
     @overload
     def detach(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.DetachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -1903,11 +1851,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_detach")
     def detach(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.DetachParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -1919,20 +1863,13 @@ class PaymentMethod(
                 "/v1/payment_methods/{payment_method}/detach".format(
                     payment_method=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethod.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentMethod.ListParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
@@ -1940,9 +1877,6 @@ class PaymentMethod(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

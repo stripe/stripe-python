@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import stripe
 from stripe import _util
-from stripe._api_requestor import APIRequestor
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -11,7 +9,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant
-from typing import ClassVar, Dict, List, Optional, cast, overload
+from typing import Any, ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -971,6 +969,12 @@ class Quote(
         ID of an existing, connected Stripe account.
         """
 
+    class PdfParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -1102,14 +1106,7 @@ class Quote(
 
     @classmethod
     def _cls_accept(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.AcceptParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, quote: str, **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1121,37 +1118,20 @@ class Quote(
                 "/v1/quotes/{quote}/accept".format(
                     quote=_util.sanitize_id(quote)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def accept(
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.AcceptParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Quote":
+    def accept(quote: str, **params: Unpack["Quote.AcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
         ...
 
     @overload
-    def accept(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.AcceptParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Quote":
+    def accept(self, **params: Unpack["Quote.AcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
@@ -1159,11 +1139,7 @@ class Quote(
 
     @class_method_variant("_cls_accept")
     def accept(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.AcceptParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1175,21 +1151,13 @@ class Quote(
                 "/v1/quotes/{quote}/accept".format(
                     quote=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_cancel(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, quote: str, **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1201,37 +1169,20 @@ class Quote(
                 "/v1/quotes/{quote}/cancel".format(
                     quote=_util.sanitize_id(quote)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Quote":
+    def cancel(quote: str, **params: Unpack["Quote.CancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Quote":
+    def cancel(self, **params: Unpack["Quote.CancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
@@ -1239,11 +1190,7 @@ class Quote(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1255,22 +1202,12 @@ class Quote(
                 "/v1/quotes/{quote}/cancel".format(
                     quote=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Quote":
+    def create(cls, **params: Unpack["Quote.CreateParams"]) -> "Quote":
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
@@ -1279,24 +1216,13 @@ class Quote(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def _cls_finalize_quote(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.FinalizeQuoteParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1308,9 +1234,6 @@ class Quote(
                 "/v1/quotes/{quote}/finalize".format(
                     quote=_util.sanitize_id(quote)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1318,13 +1241,7 @@ class Quote(
     @overload
     @staticmethod
     def finalize_quote(
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.FinalizeQuoteParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1333,11 +1250,7 @@ class Quote(
 
     @overload
     def finalize_quote(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.FinalizeQuoteParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1346,11 +1259,7 @@ class Quote(
 
     @class_method_variant("_cls_finalize_quote")
     def finalize_quote(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.FinalizeQuoteParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1362,30 +1271,18 @@ class Quote(
                 "/v1/quotes/{quote}/finalize".format(
                     quote=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Quote"]:
+    def list(cls, **params: Unpack["Quote.ListParams"]) -> ListObject["Quote"]:
         """
         Returns a list of your quotes.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -1401,12 +1298,7 @@ class Quote(
     def _cls_list_computed_upfront_line_items(
         cls,
         quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListComputedUpfrontLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1418,9 +1310,6 @@ class Quote(
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
                     quote=_util.sanitize_id(quote)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1429,12 +1318,7 @@ class Quote(
     @staticmethod
     def list_computed_upfront_line_items(
         quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListComputedUpfrontLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1443,11 +1327,7 @@ class Quote(
 
     @overload
     def list_computed_upfront_line_items(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListComputedUpfrontLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1456,11 +1336,7 @@ class Quote(
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListComputedUpfrontLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1472,21 +1348,13 @@ class Quote(
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
                     quote=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_list_line_items(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, quote: str, **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1498,9 +1366,6 @@ class Quote(
                 "/v1/quotes/{quote}/line_items".format(
                     quote=_util.sanitize_id(quote)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1508,13 +1373,7 @@ class Quote(
     @overload
     @staticmethod
     def list_line_items(
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        quote: str, **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1523,11 +1382,7 @@ class Quote(
 
     @overload
     def list_line_items(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1536,11 +1391,7 @@ class Quote(
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Quote.ListLineItemsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1552,7 +1403,6 @@ class Quote(
                 "/v1/quotes/{quote}/line_items".format(
                     quote=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1571,6 +1421,56 @@ class Quote(
         )
 
     @classmethod
+    def _cls_pdf(cls, quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
+        """
+        Download the PDF for a finalized quote
+        """
+        return cast(
+            Any,
+            cls._static_request_stream(
+                "get",
+                "/v1/quotes/{quote}/pdf".format(
+                    quote=_util.sanitize_id(quote)
+                ),
+                params=params,
+                base_address="files",
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def pdf(quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
+        """
+        Download the PDF for a finalized quote
+        """
+        ...
+
+    @overload
+    def pdf(self, **params: Unpack["Quote.PdfParams"]) -> Any:
+        """
+        Download the PDF for a finalized quote
+        """
+        ...
+
+    @class_method_variant("_cls_pdf")
+    def pdf(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.PdfParams"]
+    ) -> Any:
+        """
+        Download the PDF for a finalized quote
+        """
+        return cast(
+            Any,
+            self._request_stream(
+                "get",
+                "/v1/quotes/{quote}/pdf".format(
+                    quote=_util.sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
@@ -1580,73 +1480,6 @@ class Quote(
         instance = cls(id, **params)
         instance.refresh()
         return instance
-
-    @classmethod
-    def _cls_pdf(
-        cls,
-        sid,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        url = "%s/%s/%s" % (
-            cls.class_url(),
-            quote_plus(sid),
-            "pdf",
-        )
-        requestor = APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=stripe_version,
-            account=stripe_account,
-        )
-        headers = _util.populate_headers(idempotency_key)
-        response, _ = requestor.request_stream("get", url, params, headers)
-        return response
-
-    @overload
-    @staticmethod
-    def pdf(
-        sid,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        ...
-
-    @overload
-    def pdf(
-        self,
-        api_key=None,
-        api_version=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        ...
-
-    @_util.class_method_variant("_cls_pdf")
-    def pdf(  # pyright: ignore
-        self,
-        api_key=None,
-        api_version=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        version = api_version or stripe_version
-        requestor = APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=version,
-            account=stripe_account,
-        )
-        url = self.instance_url() + "/pdf"
-        return requestor.request_stream("get", url, params=params)
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,

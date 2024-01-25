@@ -535,14 +535,7 @@ class Reader(
 
     @classmethod
     def _cls_cancel_action(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.CancelActionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, reader: str, **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -554,9 +547,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/cancel_action".format(
                     reader=_util.sanitize_id(reader)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -564,13 +554,7 @@ class Reader(
     @overload
     @staticmethod
     def cancel_action(
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.CancelActionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        reader: str, **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -579,11 +563,7 @@ class Reader(
 
     @overload
     def cancel_action(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.CancelActionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -592,11 +572,7 @@ class Reader(
 
     @class_method_variant("_cls_cancel_action")
     def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.CancelActionParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -608,22 +584,12 @@ class Reader(
                 "/v1/terminal/readers/{reader}/cancel_action".format(
                     reader=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Reader":
+    def create(cls, **params: Unpack["Reader.CreateParams"]) -> "Reader":
         """
         Creates a new Reader object.
         """
@@ -632,10 +598,6 @@ class Reader(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -683,13 +645,7 @@ class Reader(
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Reader.ListParams"]
     ) -> ListObject["Reader"]:
         """
         Returns a list of Reader objects.
@@ -697,9 +653,6 @@ class Reader(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -726,14 +679,7 @@ class Reader(
 
     @classmethod
     def _cls_process_payment_intent(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessPaymentIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, reader: str, **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -745,9 +691,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
                     reader=_util.sanitize_id(reader)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -755,13 +698,7 @@ class Reader(
     @overload
     @staticmethod
     def process_payment_intent(
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessPaymentIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        reader: str, **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -770,11 +707,7 @@ class Reader(
 
     @overload
     def process_payment_intent(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessPaymentIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -783,11 +716,7 @@ class Reader(
 
     @class_method_variant("_cls_process_payment_intent")
     def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessPaymentIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -799,21 +728,13 @@ class Reader(
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
                     reader=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_process_setup_intent(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessSetupIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, reader: str, **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -825,9 +746,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
                     reader=_util.sanitize_id(reader)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -835,13 +753,7 @@ class Reader(
     @overload
     @staticmethod
     def process_setup_intent(
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessSetupIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        reader: str, **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -850,11 +762,7 @@ class Reader(
 
     @overload
     def process_setup_intent(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessSetupIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -863,11 +771,7 @@ class Reader(
 
     @class_method_variant("_cls_process_setup_intent")
     def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.ProcessSetupIntentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -879,21 +783,13 @@ class Reader(
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
                     reader=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_refund_payment(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.RefundPaymentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, reader: str, **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -905,9 +801,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/refund_payment".format(
                     reader=_util.sanitize_id(reader)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -915,13 +808,7 @@ class Reader(
     @overload
     @staticmethod
     def refund_payment(
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.RefundPaymentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        reader: str, **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -930,11 +817,7 @@ class Reader(
 
     @overload
     def refund_payment(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.RefundPaymentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -943,11 +826,7 @@ class Reader(
 
     @class_method_variant("_cls_refund_payment")
     def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.RefundPaymentParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -959,7 +838,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/refund_payment".format(
                     reader=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -977,14 +855,7 @@ class Reader(
 
     @classmethod
     def _cls_set_reader_display(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.SetReaderDisplayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, reader: str, **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -996,9 +867,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
                     reader=_util.sanitize_id(reader)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1006,13 +874,7 @@ class Reader(
     @overload
     @staticmethod
     def set_reader_display(
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Reader.SetReaderDisplayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        reader: str, **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1021,11 +883,7 @@ class Reader(
 
     @overload
     def set_reader_display(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.SetReaderDisplayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1034,11 +892,7 @@ class Reader(
 
     @class_method_variant("_cls_set_reader_display")
     def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Reader.SetReaderDisplayParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1050,7 +904,6 @@ class Reader(
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
                     reader=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1062,12 +915,7 @@ class Reader(
         def _cls_present_payment_method(
             cls,
             reader: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Reader.PresentPaymentMethodParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1079,9 +927,6 @@ class Reader(
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                         reader=_util.sanitize_id(reader)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1089,13 +934,7 @@ class Reader(
         @overload
         @staticmethod
         def present_payment_method(
-            reader: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Reader.PresentPaymentMethodParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            reader: str, **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1104,11 +943,7 @@ class Reader(
 
         @overload
         def present_payment_method(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Reader.PresentPaymentMethodParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1117,11 +952,7 @@ class Reader(
 
         @class_method_variant("_cls_present_payment_method")
         def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Reader.PresentPaymentMethodParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1133,7 +964,6 @@ class Reader(
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                         reader=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

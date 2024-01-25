@@ -469,14 +469,7 @@ class Refund(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        refund: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Refund.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, refund: str, **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -490,9 +483,6 @@ class Refund(
                 "/v1/refunds/{refund}/cancel".format(
                     refund=_util.sanitize_id(refund)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -500,13 +490,7 @@ class Refund(
     @overload
     @staticmethod
     def cancel(
-        refund: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Refund.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        refund: str, **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -516,13 +500,7 @@ class Refund(
         ...
 
     @overload
-    def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Refund.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Refund":
+    def cancel(self, **params: Unpack["Refund.CancelParams"]) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
 
@@ -532,11 +510,7 @@ class Refund(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Refund.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -550,22 +524,12 @@ class Refund(
                 "/v1/refunds/{refund}/cancel".format(
                     refund=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Refund.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Refund":
+    def create(cls, **params: Unpack["Refund.CreateParams"]) -> "Refund":
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
 
@@ -584,23 +548,13 @@ class Refund(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Refund.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -608,9 +562,6 @@ class Refund(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -653,14 +604,7 @@ class Refund(
 
         @classmethod
         def _cls_expire(
-            cls,
-            refund: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Refund.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, refund: str, **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -672,9 +616,6 @@ class Refund(
                     "/v1/test_helpers/refunds/{refund}/expire".format(
                         refund=_util.sanitize_id(refund)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -682,13 +623,7 @@ class Refund(
         @overload
         @staticmethod
         def expire(
-            refund: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Refund.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            refund: str, **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -696,13 +631,7 @@ class Refund(
             ...
 
         @overload
-        def expire(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Refund.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
-        ) -> "Refund":
+        def expire(self, **params: Unpack["Refund.ExpireParams"]) -> "Refund":
             """
             Expire a refund with a status of requires_action.
             """
@@ -710,11 +639,7 @@ class Refund(
 
         @class_method_variant("_cls_expire")
         def expire(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Refund.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -726,7 +651,6 @@ class Refund(
                     "/v1/test_helpers/refunds/{refund}/expire".format(
                         refund=_util.sanitize_id(self.resource.get("id"))
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

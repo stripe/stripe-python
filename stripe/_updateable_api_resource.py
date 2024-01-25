@@ -19,10 +19,10 @@ class UpdateableAPIResource(APIResource[T]):
     def save(self, idempotency_key=None):
         updated_params = self.serialize(None)
         if updated_params:
+            updated_params["idempotency_key"] = idempotency_key
             self._request_and_refresh(
                 "post",
                 self.instance_url(),
-                idempotency_key=idempotency_key,
                 params=updated_params,
                 _usage=["save"],
             )

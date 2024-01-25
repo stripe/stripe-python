@@ -76,32 +76,6 @@ class TestAPIResource(object):
         with pytest.raises(KeyError):
             res["bobble"]
 
-    def test_request_with_special_fields_prefers_explicit(
-        self, http_client_mock
-    ):
-        path = "/v1/myresources/foo"
-        query_string = "bobble=scrobble"
-        http_client_mock.stub_request(
-            "get",
-            path,
-            query_string,
-            '{"id": "foo2", "bobble": "scrobble"}',
-        )
-
-        self.MyResource._static_request(
-            "get",
-            path,
-            idempotency_key="explicit",
-            params={"idempotency_key": "params", "bobble": "scrobble"},
-        )
-
-        http_client_mock.assert_requested(
-            "get",
-            path=path,
-            query_string=query_string,
-            idempotency_key="explicit",
-        )
-
     def test_convert_to_stripe_object(self):
         sample = {
             "foo": "bar",

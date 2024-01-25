@@ -97,13 +97,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ScheduledQueryRun.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ScheduledQueryRun.ListParams"]
     ) -> ListObject["ScheduledQueryRun"]:
         """
         Returns a list of scheduled query runs.
@@ -111,9 +105,6 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

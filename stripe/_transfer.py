@@ -275,16 +275,7 @@ class Transfer(
     """
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Transfer":
+    def create(cls, **params: Unpack["Transfer.CreateParams"]) -> "Transfer":
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
@@ -293,23 +284,13 @@ class Transfer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Transfer.ListParams"]
     ) -> ListObject["Transfer"]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
@@ -317,9 +298,6 @@ class Transfer(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -359,14 +337,7 @@ class Transfer(
 
     @classmethod
     def create_reversal(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.CreateReversalParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Transfer.CreateReversalParams"]
     ) -> "Reversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -382,9 +353,6 @@ class Transfer(
                 "/v1/transfers/{id}/reversals".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -394,12 +362,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.RetrieveReversalParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Transfer.RetrieveReversalParams"]
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -412,9 +375,6 @@ class Transfer(
                     transfer=_util.sanitize_id(transfer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -424,12 +384,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.ModifyReversalParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Transfer.ModifyReversalParams"]
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -444,23 +399,13 @@ class Transfer(
                     transfer=_util.sanitize_id(transfer),
                     id=_util.sanitize_id(id),
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def list_reversals(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transfer.ListReversalsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
     ) -> ListObject["Reversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
@@ -472,9 +417,6 @@ class Transfer(
                 "/v1/transfers/{id}/reversals".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )

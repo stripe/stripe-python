@@ -814,12 +814,7 @@ class Authorization(
     def _cls_approve(
         cls,
         authorization: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -832,9 +827,6 @@ class Authorization(
                 "/v1/issuing/authorizations/{authorization}/approve".format(
                     authorization=_util.sanitize_id(authorization)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -842,13 +834,7 @@ class Authorization(
     @overload
     @staticmethod
     def approve(
-        authorization: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        authorization: str, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -858,11 +844,7 @@ class Authorization(
 
     @overload
     def approve(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -872,11 +854,7 @@ class Authorization(
 
     @class_method_variant("_cls_approve")
     def approve(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.ApproveParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -889,7 +867,6 @@ class Authorization(
                 "/v1/issuing/authorizations/{authorization}/approve".format(
                     authorization=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -898,12 +875,7 @@ class Authorization(
     def _cls_decline(
         cls,
         authorization: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.DeclineParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -916,9 +888,6 @@ class Authorization(
                 "/v1/issuing/authorizations/{authorization}/decline".format(
                     authorization=_util.sanitize_id(authorization)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -926,13 +895,7 @@ class Authorization(
     @overload
     @staticmethod
     def decline(
-        authorization: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.DeclineParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        authorization: str, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -942,11 +905,7 @@ class Authorization(
 
     @overload
     def decline(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.DeclineParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -956,11 +915,7 @@ class Authorization(
 
     @class_method_variant("_cls_decline")
     def decline(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.DeclineParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -973,20 +928,13 @@ class Authorization(
                 "/v1/issuing/authorizations/{authorization}/decline".format(
                     authorization=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Authorization.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Authorization.ListParams"]
     ) -> ListObject["Authorization"]:
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -994,9 +942,6 @@ class Authorization(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -1039,12 +984,7 @@ class Authorization(
         def _cls_capture(
             cls,
             authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.CaptureParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1056,9 +996,6 @@ class Authorization(
                     "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
                         authorization=_util.sanitize_id(authorization)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1066,13 +1003,7 @@ class Authorization(
         @overload
         @staticmethod
         def capture(
-            authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.CaptureParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            authorization: str, **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1081,11 +1012,7 @@ class Authorization(
 
         @overload
         def capture(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.CaptureParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1094,11 +1021,7 @@ class Authorization(
 
         @class_method_variant("_cls_capture")
         def capture(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.CaptureParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1112,20 +1035,13 @@ class Authorization(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
 
         @classmethod
         def create(
-            cls,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.CreateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, **params: Unpack["Authorization.CreateParams"]
         ) -> "Authorization":
             """
             Create a test-mode authorization.
@@ -1135,9 +1051,6 @@ class Authorization(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations",
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1146,12 +1059,7 @@ class Authorization(
         def _cls_expire(
             cls,
             authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1163,9 +1071,6 @@ class Authorization(
                     "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
                         authorization=_util.sanitize_id(authorization)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1173,13 +1078,7 @@ class Authorization(
         @overload
         @staticmethod
         def expire(
-            authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            authorization: str, **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1188,11 +1087,7 @@ class Authorization(
 
         @overload
         def expire(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1201,11 +1096,7 @@ class Authorization(
 
         @class_method_variant("_cls_expire")
         def expire(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ExpireParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1219,7 +1110,6 @@ class Authorization(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -1228,12 +1118,7 @@ class Authorization(
         def _cls_increment(
             cls,
             authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.IncrementParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -1245,9 +1130,6 @@ class Authorization(
                     "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
                         authorization=_util.sanitize_id(authorization)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1256,12 +1138,7 @@ class Authorization(
         @staticmethod
         def increment(
             authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.IncrementParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -1270,11 +1147,7 @@ class Authorization(
 
         @overload
         def increment(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.IncrementParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -1283,11 +1156,7 @@ class Authorization(
 
         @class_method_variant("_cls_increment")
         def increment(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.IncrementParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -1301,7 +1170,6 @@ class Authorization(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )
@@ -1310,12 +1178,7 @@ class Authorization(
         def _cls_reverse(
             cls,
             authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ReverseParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -1327,9 +1190,6 @@ class Authorization(
                     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
                         authorization=_util.sanitize_id(authorization)
                     ),
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )
@@ -1337,13 +1197,7 @@ class Authorization(
         @overload
         @staticmethod
         def reverse(
-            authorization: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ReverseParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            authorization: str, **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -1352,11 +1206,7 @@ class Authorization(
 
         @overload
         def reverse(
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ReverseParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -1365,11 +1215,7 @@ class Authorization(
 
         @class_method_variant("_cls_reverse")
         def reverse(  # pyright: ignore[reportGeneralTypeIssues]
-            self,
-            idempotency_key: Optional[str] = None,
-            **params: Unpack[
-                "Authorization.ReverseParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -1383,7 +1229,6 @@ class Authorization(
                             self.resource.get("id")
                         )
                     ),
-                    idempotency_key=idempotency_key,
                     params=params,
                 ),
             )

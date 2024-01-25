@@ -307,24 +307,13 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Token.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Token"]:
+    def list(cls, **params: Unpack["Token.ListParams"]) -> ListObject["Token"]:
         """
         Lists all Issuing Token objects for a given card.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

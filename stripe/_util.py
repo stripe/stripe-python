@@ -7,6 +7,8 @@ import os
 import re
 import warnings
 
+from stripe._api_mode import ApiMode
+
 from urllib.parse import parse_qsl, quote_plus  # noqa: F401
 
 from typing_extensions import Type, TYPE_CHECKING
@@ -20,8 +22,10 @@ from typing import (
     cast,
     Any,
     Optional,
+    Mapping,
 )
 import typing_extensions
+
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -29,6 +33,7 @@ import stripe  # noqa: IMP101
 if TYPE_CHECKING:
     from stripe._stripe_response import StripeResponse
     from stripe._stripe_object import StripeObject
+    from stripe._api_requestor import _APIRequestor
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -203,8 +208,10 @@ def convert_to_stripe_object(
     api_key: Optional[str] = None,
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
-    params: Optional[Dict[str, Any]] = None,
+    params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
+    *,
+    api_mode: ApiMode = "V1",
 ) -> "StripeObject":
     ...
 
@@ -215,8 +222,10 @@ def convert_to_stripe_object(
     api_key: Optional[str] = None,
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
-    params: Optional[Dict[str, Any]] = None,
+    params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
+    *,
+    api_mode: ApiMode = "V1",
 ) -> List["StripeObject"]:
     ...
 
@@ -226,8 +235,57 @@ def convert_to_stripe_object(
     api_key: Optional[str] = None,
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
-    params: Optional[Dict[str, Any]] = None,
+    params: Optional[Mapping[str, Any]] = None,
     klass_: Optional[Type["StripeObject"]] = None,
+    *,
+    api_mode: ApiMode = "V1",
+) -> Union["StripeObject", List["StripeObject"]]:
+    from stripe._api_requestor import _APIRequestor
+
+    return _convert_to_stripe_object(
+        resp=resp,
+        params=params,
+        klass_=klass_,
+        requestor=_APIRequestor._global_with_options(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        ),
+        api_mode=api_mode,
+    )
+
+
+@overload
+def _convert_to_stripe_object(
+    *,
+    resp: Union["StripeResponse", Dict[str, Any]],
+    params: Optional[Mapping[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
+    requestor: "_APIRequestor",
+    api_mode: ApiMode,
+) -> "StripeObject":
+    ...
+
+
+@overload
+def _convert_to_stripe_object(
+    *,
+    resp: List[Resp],
+    params: Optional[Mapping[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
+    requestor: "_APIRequestor",
+    api_mode: ApiMode,
+) -> List["StripeObject"]:
+    ...
+
+
+def _convert_to_stripe_object(
+    *,
+    resp: Resp,
+    params: Optional[Mapping[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
+    requestor: "_APIRequestor",
+    api_mode: ApiMode,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -244,11 +302,10 @@ def convert_to_stripe_object(
 
     if isinstance(resp, list):
         return [
-            convert_to_stripe_object(
-                cast("Union[StripeResponse, Dict[str, Any]]", i),
-                api_key,
-                stripe_version,
-                stripe_account,
+            _convert_to_stripe_object(
+                resp=cast("Union[StripeResponse, Dict[str, Any]]", i),
+                requestor=requestor,
+                api_mode=api_mode,
                 klass_=klass_,
             )
             for i in resp
@@ -263,12 +320,11 @@ def convert_to_stripe_object(
         else:
             klass = StripeObject
 
-        obj = klass.construct_from(
-            resp,
-            api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+        obj = klass._construct_from(
+            values=resp,
             last_response=stripe_response,
+            requestor=requestor,
+            api_mode=api_mode,
         )
 
         # We only need to update _retrieve_params when special params were
@@ -330,22 +386,6 @@ def populate_headers(
 
 
 T = TypeVar("T")
-
-
-def read_special_variable(
-    params: Optional[Dict[str, Any]], key_name: str, default_value: T
-) -> Optional[T]:
-    value = default_value
-    params_value = None
-
-    if params is not None and key_name in params:
-        params_value = params[key_name]
-        del params[key_name]
-
-    if value is None:
-        value = params_value
-
-    return value
 
 
 def merge_dicts(x, y):

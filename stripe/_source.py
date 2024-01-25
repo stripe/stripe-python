@@ -1112,16 +1112,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     wechat: Optional[Wechat]
 
     @classmethod
-    def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Source.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Source":
+    def create(cls, **params: Unpack["Source.CreateParams"]) -> "Source":
         """
         Creates a new source object.
         """
@@ -1130,10 +1121,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
@@ -1142,12 +1129,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def _cls_list_source_transactions(
         cls,
         source: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Source.ListSourceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1159,9 +1141,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 "/v1/sources/{source}/source_transactions".format(
                     source=_util.sanitize_id(source)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1169,13 +1148,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def list_source_transactions(
-        source: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Source.ListSourceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        source: str, **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1184,11 +1157,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @overload
     def list_source_transactions(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Source.ListSourceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1197,11 +1166,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @class_method_variant("_cls_list_source_transactions")
     def list_source_transactions(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Source.ListSourceTransactionsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1213,7 +1178,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 "/v1/sources/{source}/source_transactions".format(
                     source=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -1246,14 +1210,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def _cls_verify(
-        cls,
-        source: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Source.VerifyParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, source: str, **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -1265,9 +1222,6 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 "/v1/sources/{source}/verify".format(
                     source=_util.sanitize_id(source)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -1275,13 +1229,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def verify(
-        source: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Source.VerifyParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        source: str, **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -1289,13 +1237,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @overload
-    def verify(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Source.VerifyParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "Source":
+    def verify(self, **params: Unpack["Source.VerifyParams"]) -> "Source":
         """
         Verify a given source.
         """
@@ -1303,11 +1245,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @class_method_variant("_cls_verify")
     def verify(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Source.VerifyParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -1319,12 +1257,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 "/v1/sources/{source}/verify".format(
                     source=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
-    def detach(self, idempotency_key=None, **params) -> "Source":
+    def detach(self, **params) -> "Source":
         token = self.id
 
         if hasattr(self, "customer") and self.customer:
@@ -1333,9 +1270,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
-            headers = _util.populate_headers(idempotency_key)
 
-            self.refresh_from(self.request("delete", url, params, headers))
+            self._request_and_refresh("delete", url, params)
             return cast("Source", self)
 
         else:

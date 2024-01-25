@@ -1,19 +1,22 @@
 # pyright: strict
-from typing_extensions import Self
+from typing_extensions import Self, Unpack
 from typing import (
     Generic,
     List,
     TypeVar,
     cast,
-    Optional,
     Any,
     Mapping,
     Iterator,
 )
 
+from stripe._api_requestor import (
+    _APIRequestor,  # pyright: ignore[reportPrivateUsage]
+)
 from stripe._stripe_object import StripeObject
 from stripe import _util
 import warnings
+from stripe._request_options import RequestOptions, extract_options_from_dict
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -24,32 +27,17 @@ class SearchResultObject(StripeObject, Generic[T]):
     has_more: bool
     next_page: str
 
-    def _search(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def _search(self, **params: Mapping[str, Any]) -> Self:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
             return self.search(  # pyright: ignore[reportDeprecated]
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 **params,
             )
 
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
     )
-    def search(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
-    ) -> Self:
+    def search(self, **params: Mapping[str, Any]) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
@@ -60,10 +48,9 @@ class SearchResultObject(StripeObject, Generic[T]):
             self._request(
                 "get",
                 url,
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
+                base_address="api",
+                api_mode="V1",
             ),
         )
 
@@ -101,32 +88,15 @@ class SearchResultObject(StripeObject, Generic[T]):
     @classmethod
     def _empty_search_result(
         cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
+        **params: Unpack[RequestOptions],
     ) -> Self:
-        return cls.construct_from(
-            {"data": [], "has_more": False, "next_page": None},
-            key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+        return cls._construct_from(
+            values={"data": [], "has_more": False, "next_page": None},
             last_response=None,
-        )
-
-    @classmethod
-    @_util.deprecated(
-        "For internal stripe-python use only. This will be removed in a future version."
-    )
-    def empty_search_result(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-    ) -> Self:
-        return cls._empty_search_result(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
+            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                **params,
+            ),
+            api_mode="V1",
         )
 
     @property
@@ -134,26 +104,20 @@ class SearchResultObject(StripeObject, Generic[T]):
         return not self.data
 
     def next_search_result_page(
-        self,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Mapping[str, Any]
+        self, **params: Unpack[RequestOptions]
     ) -> Self:
         if not self.has_more:
+            options, _ = extract_options_from_dict(params)
             return self._empty_search_result(
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
+                api_key=options.get("api_key"),
+                stripe_version=options.get("stripe_version"),
+                stripe_account=options.get("stripe_account"),
             )
 
-        params_with_filters = self._retrieve_params.copy()
+        params_with_filters = dict(self._retrieve_params)
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
         return self._search(
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             **params_with_filters,
         )

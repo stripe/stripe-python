@@ -3469,14 +3469,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, intent: str, **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -3490,9 +3483,6 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3500,13 +3490,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -3517,11 +3501,7 @@ class SetupIntent(
 
     @overload
     def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -3532,11 +3512,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -3550,21 +3526,13 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_confirm(
-        cls,
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -3589,9 +3557,6 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/confirm".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3599,13 +3564,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -3627,11 +3586,7 @@ class SetupIntent(
 
     @overload
     def confirm(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -3653,11 +3608,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_confirm")
     def confirm(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -3682,21 +3633,13 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/confirm".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["SetupIntent.CreateParams"]
     ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
@@ -3709,23 +3652,13 @@ class SetupIntent(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["SetupIntent.ListParams"]
     ) -> ListObject["SetupIntent"]:
         """
         Returns a list of SetupIntents.
@@ -3733,9 +3666,6 @@ class SetupIntent(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -3779,12 +3709,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -3796,9 +3721,6 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=_util.sanitize_id(intent)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -3806,13 +3728,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        intent: str, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -3821,11 +3737,7 @@ class SetupIntent(
 
     @overload
     def verify_microdeposits(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -3834,11 +3746,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_verify_microdeposits")
     def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "SetupIntent.VerifyMicrodepositsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -3850,7 +3758,6 @@ class SetupIntent(
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
