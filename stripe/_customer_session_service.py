@@ -61,19 +61,21 @@ class CustomerSessionService(StripeService):
         """
 
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
-        payment_method_remove: NotRequired["Literal['auto', 'never']"]
+        payment_method_remove: NotRequired["Literal['disabled', 'enabled']"]
         """
         Controls whether the Payment Element allows the removal of a saved payment method.
         """
-        payment_method_save: NotRequired["Literal['auto', 'never']"]
+        payment_method_save: NotRequired["Literal['disabled', 'enabled']"]
         """
         Controls whether the Payment Element offers to save a new payment method.
         """
-        payment_method_set_as_default: NotRequired["Literal['auto', 'never']"]
+        payment_method_set_as_default: NotRequired[
+            "Literal['disabled', 'enabled']"
+        ]
         """
         Controls whether the Payment Element offers to set a payment method as the default.
         """
-        payment_method_update: NotRequired["Literal['auto', 'never']"]
+        payment_method_update: NotRequired["Literal['disabled', 'enabled']"]
         """
         Controls whether the Payment Element allows the updating of a saved payment method.
         """
