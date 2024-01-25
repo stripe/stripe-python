@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 from typing import List
 
 import stripe
-from urllib.parse import urlsplit, urlencode
+from urllib.parse import urlsplit, urlencode, parse_qsl
 import json
 from unittest.mock import Mock
 
@@ -11,9 +11,7 @@ def parse_and_sort(query_string, strict_parsing=False):
     """
     Helper function to parse a query string and return a sorted list of tuples.
     """
-    return sorted(
-        stripe.util.parse_qsl(query_string, strict_parsing=strict_parsing)
-    )
+    return sorted(parse_qsl(query_string, strict_parsing=strict_parsing))
 
 
 def extract_api_base(abs_url):
