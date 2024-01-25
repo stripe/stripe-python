@@ -90,7 +90,7 @@ class Reversal(UpdateableAPIResource["Reversal"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, **params):
         raise NotImplementedError(
             "Can't retrieve a reversal without a transfer ID. "
             "Use stripe.Transfer.retrieve_reversal('transfer_id', 'reversal_id') "

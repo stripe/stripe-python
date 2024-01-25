@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from stripe._coupon import Coupon
     from stripe._discount import Discount as DiscountResource
     from stripe._price import Price
+    from stripe._promotion_code import PromotionCode
     from stripe._tax_rate import TaxRate
 
 
@@ -43,6 +44,10 @@ class QuoteLine(StripeObject):
             """
             The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
             """
+            promotion_code: Optional[ExpandableField["PromotionCode"]]
+            """
+            ID of the promotion code to create a new discount for.
+            """
             _inner_class_types = {"discount_end": DiscountEnd}
 
         class AddItem(StripeObject):
@@ -68,6 +73,10 @@ class QuoteLine(StripeObject):
                 discount_end: Optional[DiscountEnd]
                 """
                 Details to determine how long the discount should be applied for.
+                """
+                promotion_code: Optional[ExpandableField["PromotionCode"]]
+                """
+                ID of the promotion code to create a new discount for.
                 """
                 _inner_class_types = {"discount_end": DiscountEnd}
 
@@ -130,6 +139,10 @@ class QuoteLine(StripeObject):
             """
             Details to determine how long the discount should be applied for.
             """
+            promotion_code: Optional[ExpandableField["PromotionCode"]]
+            """
+            ID of the promotion code to create a new discount for.
+            """
             _inner_class_types = {"discount_end": DiscountEnd}
 
         class RemoveItem(StripeObject):
@@ -161,6 +174,10 @@ class QuoteLine(StripeObject):
             """
             Details to determine how long the discount should be applied for.
             """
+            promotion_code: Optional[ExpandableField["PromotionCode"]]
+            """
+            ID of the promotion code to create a new discount for.
+            """
             _inner_class_types = {"discount_end": DiscountEnd}
 
         class SetItem(StripeObject):
@@ -186,6 +203,10 @@ class QuoteLine(StripeObject):
                 discount_end: Optional[DiscountEnd]
                 """
                 Details to determine how long the discount should be applied for.
+                """
+                promotion_code: Optional[ExpandableField["PromotionCode"]]
+                """
+                ID of the promotion code to create a new discount for.
                 """
                 _inner_class_types = {"discount_end": DiscountEnd}
 

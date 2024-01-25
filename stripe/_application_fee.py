@@ -196,13 +196,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ApplicationFee.ListParams"]
     ) -> ListObject["ApplicationFee"]:
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
@@ -210,9 +204,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -226,14 +217,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def _cls_refund(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.RefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -253,9 +237,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{id}/refunds".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -263,13 +244,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @overload
     @staticmethod
     def refund(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.RefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        id: str, **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -286,11 +261,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @overload
     def refund(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.RefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -307,11 +278,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @class_method_variant("_cls_refund")
     def refund(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.RefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -331,7 +298,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{id}/refunds".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
@@ -349,14 +315,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def create_refund(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.CreateRefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["ApplicationFee.CreateRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -376,9 +335,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{id}/refunds".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -388,12 +344,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.RetrieveRefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -405,9 +356,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{fee}/refunds/{id}".format(
                     fee=_util.sanitize_id(fee), id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -417,12 +365,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.ModifyRefundParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["ApplicationFee.ModifyRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -436,23 +379,13 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{fee}/refunds/{id}".format(
                     fee=_util.sanitize_id(fee), id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
 
     @classmethod
     def list_refunds(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ApplicationFee.ListRefundsParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["ApplicationFee.ListRefundsParams"]
     ) -> ListObject["ApplicationFeeRefund"]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -464,9 +397,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 "/v1/application_fees/{id}/refunds".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )

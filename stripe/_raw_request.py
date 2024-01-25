@@ -1,83 +1,80 @@
-from stripe._api_requestor import APIRequestor
-from stripe._util import (
-    read_special_variable,
-    convert_to_stripe_object,
-    populate_headers,
-)
-from stripe._api_version import _ApiVersion
+from stripe._api_requestor import _APIRequestor
+from stripe._util import _convert_to_stripe_object
+
+from typing import Any, Dict, Optional, Union
+
+from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
+from stripe._request_options import extract_options_from_dict
 
 
-def _raw_request_args(method_, url_, **params):
-    params = None if params is None else params.copy()  # type: ignore
-    api_key = read_special_variable(params, "api_key", None)
-    idempotency_key = read_special_variable(params, "idempotency_key", None)
-    stripe_version = read_special_variable(params, "stripe_version", None)
-    stripe_account = read_special_variable(params, "stripe_account", None)
-    api_mode = read_special_variable(params, "api_mode", None)
-    stripe_context = read_special_variable(params, "stripe_context", None)
-    headers = read_special_variable(params, "headers", None)
+def raw_request(method_, url_, **params):
+    params = params.copy()
+    options, params = extract_options_from_dict(params)
+    api_mode = params.pop("api_mode", None)
+    base_address = params.pop("base", "api")
 
-    if api_mode == "preview":
-        stripe_version = stripe_version or _ApiVersion.PREVIEW
-
-    requestor = APIRequestor(
-        key=api_key,
-        api_version=stripe_version,
-        account=stripe_account,
-    )
-
-    if idempotency_key is not None:
-        headers = {} if headers is None else headers.copy()
-        headers.update(populate_headers(idempotency_key))
+    stripe_context = params.pop("stripe_context", None)
 
     # stripe-context goes *here* and not in api_requestor. Properties
     # go on api_requestor when you want them to persist onto requests
     # made when you call instance methods on APIResources that come from
     # the first request. No need for that here, as we aren't deserializing APIResources
     if stripe_context is not None:
-        headers = {} if headers is None else headers.copy()
-        headers.update({"Stripe-Context": stripe_context})
+        options["headers"] = options.get("headers", {})
+        assert isinstance(options["headers"], dict)
+        options["headers"].update({"Stripe-Context": stripe_context})
 
-    usage = ["raw_request"]
+    requestor = _APIRequestor._global_instance()
 
-    return requestor, method_, url_, params, headers, api_mode, usage
-
-
-def raw_request(method_, url_, **params):
-    (
-        requestor,
+    rbody, rcode, rheaders = requestor.request_raw(
         method_,
         url_,
-        params,
-        headers,
-        api_mode,
-        usage,
-    ) = _raw_request_args(method_, url_, **params)
-    response, _ = requestor.request(
-        method_, url_, params, headers, api_mode, _usage=usage
+        params=params,
+        options=options,
+        base_address=base_address,
+        api_mode=api_mode,
+        _usage=["raw_request"],
     )
-    return response
+
+    return requestor._interpret_response(rbody, rcode, rheaders)
 
 
 async def raw_request_async(method_, url_, **params):
-    (
-        requestor,
+    params = params.copy()
+    options, params = extract_options_from_dict(params)
+    api_mode = params.pop("api_mode", None)
+    base_address = params.pop("base", "api")
+
+    requestor = _APIRequestor._global_instance()
+
+    rbody, rcode, rheaders = await requestor.request_raw_async(
         method_,
         url_,
-        params,
-        headers,
-        api_mode,
-        usage,
-    ) = _raw_request_args(method_, url_, **params)
-    response, _ = await requestor.request_async(
-        method_, url_, params, headers, api_mode, _usage=usage
+        params=params,
+        options=options,
+        base_address=base_address,
+        api_mode=api_mode,
+        _usage=["raw_request"],
     )
-    return response
+
+    return requestor._interpret_response(rbody, rcode, rheaders)
 
 
 def deserialize(
-    resp, api_key=None, stripe_version=None, stripe_account=None, params=None
-):
-    return convert_to_stripe_object(
-        resp, api_key, stripe_version, stripe_account, params
+    resp: Union[StripeResponse, Dict[str, Any]],
+    api_key: Optional[str] = None,
+    stripe_version: Optional[str] = None,
+    stripe_account: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> StripeObject:
+    return _convert_to_stripe_object(
+        resp=resp,
+        params=params,
+        requestor=_APIRequestor._global_with_options(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        ),
+        api_mode="V1",
     )

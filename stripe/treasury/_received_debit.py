@@ -357,13 +357,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReceivedDebit.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["ReceivedDebit.ListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -371,9 +365,6 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -401,13 +392,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
         @classmethod
         def create(
-            cls,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "ReceivedDebit.CreateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            cls, **params: Unpack["ReceivedDebit.CreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
@@ -417,9 +402,6 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/received_debits",
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
                     params=params,
                 ),
             )

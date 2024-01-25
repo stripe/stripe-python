@@ -2333,14 +2333,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodConfiguration.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentMethodConfiguration.CreateParams"]
     ) -> "PaymentMethodConfiguration":
         """
         Creates a payment method configuration
@@ -2350,23 +2343,13 @@ class PaymentMethodConfiguration(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodConfiguration.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
         """
         List payment method configurations
@@ -2374,9 +2357,6 @@ class PaymentMethodConfiguration(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

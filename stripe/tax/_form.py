@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import stripe
 from stripe import _util
-from stripe._api_requestor import APIRequestor
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, List, Optional, overload
+from stripe._util import class_method_variant
+from typing import Any, ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -16,7 +15,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -123,6 +121,12 @@ class Form(ListableAPIResource["Form"]):
         Specifies the payee type. Always `account`.
         """
 
+    class PdfParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -163,24 +167,13 @@ class Form(ListableAPIResource["Form"]):
     us_1099_nec: Optional[Us1099Nec]
 
     @classmethod
-    def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Form.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> ListObject["Form"]:
+    def list(cls, **params: Unpack["Form.ListParams"]) -> ListObject["Form"]:
         """
         Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
         """
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):
@@ -193,6 +186,54 @@ class Form(ListableAPIResource["Form"]):
         return result
 
     @classmethod
+    def _cls_pdf(cls, id: str, **params: Unpack["Form.PdfParams"]) -> Any:
+        """
+        Download the PDF for a tax form.
+        """
+        return cast(
+            Any,
+            cls._static_request_stream(
+                "get",
+                "/v1/tax/forms/{id}/pdf".format(id=_util.sanitize_id(id)),
+                params=params,
+                base_address="files",
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def pdf(id: str, **params: Unpack["Form.PdfParams"]) -> Any:
+        """
+        Download the PDF for a tax form.
+        """
+        ...
+
+    @overload
+    def pdf(self, **params: Unpack["Form.PdfParams"]) -> Any:
+        """
+        Download the PDF for a tax form.
+        """
+        ...
+
+    @class_method_variant("_cls_pdf")
+    def pdf(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Form.PdfParams"]
+    ) -> Any:
+        """
+        Download the PDF for a tax form.
+        """
+        return cast(
+            Any,
+            self._request_stream(
+                "get",
+                "/v1/tax/forms/{id}/pdf".format(
+                    id=_util.sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Form.RetrieveParams"]
     ) -> "Form":
@@ -202,73 +243,6 @@ class Form(ListableAPIResource["Form"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
-
-    @classmethod
-    def _cls_pdf(
-        cls,
-        sid,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        url = "%s/%s/%s" % (
-            cls.class_url(),
-            quote_plus(sid),
-            "pdf",
-        )
-        requestor = APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=stripe_version,
-            account=stripe_account,
-        )
-        headers = _util.populate_headers(idempotency_key)
-        response, _ = requestor.request_stream("get", url, params, headers)
-        return response
-
-    @overload
-    @staticmethod
-    def pdf(
-        sid: str,
-        api_key: Optional[str] = None,
-        idempotency_key=None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        ...
-
-    @overload
-    def pdf(
-        self,
-        api_key: Optional[str] = None,
-        api_version: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        ...
-
-    @_util.class_method_variant("_cls_pdf")
-    def pdf(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        api_key: Optional[str] = None,
-        api_version: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        version = api_version or stripe_version
-        requestor = APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=version,
-            account=stripe_account,
-        )
-        url = self.instance_url() + "/pdf"
-        return requestor.request_stream("get", url, params=params)
 
     _inner_class_types = {
         "filing_statuses": FilingStatus,

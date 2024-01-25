@@ -87,13 +87,7 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PhysicalBundle.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["PhysicalBundle.ListParams"]
     ) -> ListObject["PhysicalBundle"]:
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -101,9 +95,6 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

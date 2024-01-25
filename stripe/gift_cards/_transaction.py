@@ -234,14 +234,7 @@ class Transaction(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -253,9 +246,6 @@ class Transaction(
                 "/v1/gift_cards/transactions/{id}/cancel".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -263,13 +253,7 @@ class Transaction(
     @overload
     @staticmethod
     def cancel(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        id: str, **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -278,11 +262,7 @@ class Transaction(
 
     @overload
     def cancel(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -291,11 +271,7 @@ class Transaction(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.CancelParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -307,21 +283,13 @@ class Transaction(
                 "/v1/gift_cards/transactions/{id}/cancel".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def _cls_confirm(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, id: str, **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -333,9 +301,6 @@ class Transaction(
                 "/v1/gift_cards/transactions/{id}/confirm".format(
                     id=_util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             ),
         )
@@ -343,13 +308,7 @@ class Transaction(
     @overload
     @staticmethod
     def confirm(
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        id: str, **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -358,11 +317,7 @@ class Transaction(
 
     @overload
     def confirm(
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -371,11 +326,7 @@ class Transaction(
 
     @class_method_variant("_cls_confirm")
     def confirm(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.ConfirmParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -387,21 +338,13 @@ class Transaction(
                 "/v1/gift_cards/transactions/{id}/confirm".format(
                     id=_util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             ),
         )
 
     @classmethod
     def create(
-        cls,
-        api_key: Optional[str] = None,
-        idempotency_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Transaction.CreateParams"]
     ) -> "Transaction":
         """
         Create a gift card transaction
@@ -411,23 +354,13 @@ class Transaction(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
                 params,
             ),
         )
 
     @classmethod
     def list(
-        cls,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Transaction.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        cls, **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
         """
         List gift card transactions for a gift card
@@ -435,9 +368,6 @@ class Transaction(
         result = cls._static_request(
             "get",
             cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
             params=params,
         )
         if not isinstance(result, ListObject):

@@ -161,8 +161,17 @@ class HTTPClientBase(object):
 
         self._thread_local = threading.local()
 
-    def _should_retry(self, response, api_connection_error, num_retries):
-        if num_retries >= self._max_network_retries():
+    def _should_retry(
+        self,
+        response,
+        api_connection_error,
+        num_retries,
+        max_network_retries,
+    ):
+        max_network_retries = (
+            max_network_retries if max_network_retries is not None else 0
+        )
+        if num_retries >= max_network_retries:
             return False
 
         if response is None:
@@ -197,12 +206,6 @@ class HTTPClientBase(object):
             return True
 
         return False
-
-    def _max_network_retries(self):
-        from stripe import max_network_retries
-
-        # Configured retries, isolated here for tests
-        return max_network_retries
 
     def _retry_after_header(self, response=None):
         if response is None:
@@ -269,11 +272,18 @@ class HTTPClient(HTTPClientBase):
         url,
         headers,
         post_data=None,
+        max_network_retries=None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=False, _usage=_usage
+            method,
+            url,
+            headers,
+            post_data,
+            is_streaming=False,
+            max_network_retries=max_network_retries,
+            _usage=_usage,
         )
 
     def request_stream_with_retries(
@@ -282,15 +292,30 @@ class HTTPClient(HTTPClientBase):
         url,
         headers,
         post_data=None,
+        max_network_retries=None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=True, _usage=_usage
+            method,
+            url,
+            headers,
+            post_data,
+            is_streaming=True,
+            max_network_retries=max_network_retries,
+            _usage=_usage,
         )
 
     def _request_with_retries_internal(
-        self, method, url, headers, post_data, is_streaming, *, _usage=None
+        self,
+        method,
+        url,
+        headers,
+        post_data,
+        is_streaming,
+        max_network_retries,
+        *,
+        _usage=None,
     ):
         self._add_telemetry_header(headers)
 
@@ -311,7 +336,9 @@ class HTTPClient(HTTPClientBase):
                 connection_error = e
                 response = None
 
-            if self._should_retry(response, connection_error, num_retries):
+            if self._should_retry(
+                response, connection_error, num_retries, max_network_retries
+            ):
                 if connection_error:
                     _util.log_info(
                         "Encountered a retryable error %s"
@@ -361,11 +388,18 @@ class HTTPClientAsync(HTTPClientBase):
         url,
         headers,
         post_data=None,
+        max_network_retries=None,
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
-            method, url, headers, post_data, is_streaming=False, _usage=_usage
+            method,
+            url,
+            headers,
+            post_data,
+            is_streaming=False,
+            max_network_retries=max_network_retries,
+            _usage=_usage,
         )
 
     async def request_stream_with_retries_async(
@@ -374,11 +408,18 @@ class HTTPClientAsync(HTTPClientBase):
         url,
         headers,
         post_data=None,
+        max_network_retries=None,
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
-            method, url, headers, post_data, is_streaming=True, _usage=_usage
+            method,
+            url,
+            headers,
+            post_data,
+            is_streaming=True,
+            max_network_retries=max_network_retries,
+            _usage=_usage,
         )
 
     @classmethod
@@ -388,7 +429,15 @@ class HTTPClientAsync(HTTPClientBase):
         )
 
     async def _request_with_retries_internal_async(
-        self, method, url, headers, post_data, is_streaming, *, _usage=None
+        self,
+        method,
+        url,
+        headers,
+        post_data,
+        is_streaming,
+        max_network_retries,
+        *,
+        _usage=None
     ):
         self._add_telemetry_header(headers)
 
@@ -411,7 +460,9 @@ class HTTPClientAsync(HTTPClientBase):
                 connection_error = e
                 response = None
 
-            if self._should_retry(response, connection_error, num_retries):
+            if self._should_retry(
+                response, connection_error, num_retries, max_network_retries
+            ):
                 if connection_error:
                     _util.log_info(
                         "Encountered a retryable error %s"
