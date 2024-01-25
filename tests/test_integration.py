@@ -308,7 +308,7 @@ class TestIntegration(object):
         assert "A ReadTimeout was raised" in str(exception.user_message)
 
     @pytest.mark.asyncio
-    async def test_async_raw_request_retries(self):
+    async def test_async_httpx_raw_request_retries(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 if n == 0:
@@ -332,3 +332,30 @@ class TestIntegration(object):
         req = reqs[0]
 
         assert req.path == "/v1/customers"
+
+    @pytest.mark.asyncio
+    async def test_async_httpx_raw_request_unretryable(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (
+                    401,
+                    {"Request-Id": "req_1"},
+                    b'{"error": {"message": "Unauthorized"}}',
+                )
+
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        exception = None
+        try:
+            await stripe.raw_request_async(
+                "post", "/v1/customers", description="My test customer"
+            )
+        except stripe.AuthenticationError as e:
+            exception = e
+
+        MockServerRequestHandler.get_requests(1)
+        assert exception is not None
+        assert "Unauthorized" in str(exception.user_message)
