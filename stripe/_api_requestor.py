@@ -626,7 +626,7 @@ class _APIRequestor(object):
                 method,
                 abs_url,
                 headers,
-                post_data=post_data,
+                post_data,
                 max_network_retries=max_network_retries,
                 _usage=_usage,
             )
@@ -639,7 +639,7 @@ class _APIRequestor(object):
                 method,
                 abs_url,
                 headers,
-                post_data=post_data,
+                post_data,
                 max_network_retries=max_network_retries,
                 _usage=_usage,
             )
