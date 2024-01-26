@@ -986,8 +986,16 @@ class HTTPXClient(HTTPClientAsync):
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
-        assert httpx is not None
-        assert anyio is not None
+        if httpx is None:
+            raise ImportError(
+                "Unexpected: tried to initialize HTTPXClient but the httpx module is not present."
+            )
+
+        if anyio is None:
+            raise ImportError(
+                "Unexpected: tried to initialize HTTPXClient but the anyio module is not present."
+            )
+
         self.httpx = httpx
         self.anyio = anyio
 
