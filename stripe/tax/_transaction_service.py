@@ -41,7 +41,7 @@ class TransactionService(StripeService):
         """
         flat_amount: NotRequired["int"]
         """
-        A flat amount to reverse across the entire transaction, in negative integer cents. This value represents the total amount to refund from the transaction, including taxes.
+        A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
         """
         line_items: NotRequired[
             "List[TransactionService.CreateReversalParamsLineItem]"
@@ -75,11 +75,11 @@ class TransactionService(StripeService):
     class CreateReversalParamsLineItem(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         metadata: NotRequired["Dict[str, str]"]
         """
@@ -101,11 +101,11 @@ class TransactionService(StripeService):
     class CreateReversalParamsShippingCost(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
 
     class RetrieveParams(TypedDict):
