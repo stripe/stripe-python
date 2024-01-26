@@ -5,7 +5,6 @@ import time
 import random
 import threading
 import json
-import asyncio
 
 # Used for global variables
 import stripe  # noqa: IMP101
