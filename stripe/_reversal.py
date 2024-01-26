@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._transfer import Transfer
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -77,8 +77,8 @@ class Reversal(UpdateableAPIResource["Reversal"]):
         if isinstance(transfer, Transfer):
             transfer = transfer.id
         base = Transfer.class_url()
-        cust_extn = quote_plus(transfer)
-        extn = quote_plus(token)
+        cust_extn = _util.sanitize_id(transfer)
+        extn = _util.sanitize_id(token)
         return "%s/%s/reversals/%s" % (base, cust_extn, extn)
 
     @classmethod

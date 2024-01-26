@@ -9,7 +9,6 @@ from stripe._request_options import RequestOptions
 from stripe._util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class TestClock(
@@ -180,7 +179,7 @@ class TestClock(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -191,10 +190,14 @@ class TestClock(
         """
         Deletes a test clock.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
         return cast(
             "TestClock",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload

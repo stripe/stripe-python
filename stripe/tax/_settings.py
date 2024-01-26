@@ -166,7 +166,11 @@ class Settings(
         """
         return cast(
             "Settings",
-            cls._static_request("post", cls.class_url(), params=params),
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
         )
 
     @classmethod

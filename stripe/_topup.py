@@ -16,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -292,7 +291,7 @@ class Topup(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -322,10 +321,14 @@ class Topup(
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
         return cast(
             "Topup",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

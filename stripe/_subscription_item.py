@@ -18,7 +18,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._plan import Plan
@@ -410,7 +409,7 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -421,10 +420,14 @@ class SubscriptionItem(
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
         return cast(
             "SubscriptionItem",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -487,10 +490,14 @@ class SubscriptionItem(
         """
         Updates the plan or quantity of an item on a current subscription.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
         return cast(
             "SubscriptionItem",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

@@ -17,7 +17,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._source_transaction import SourceTransaction
@@ -1121,7 +1120,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -1191,10 +1190,14 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
         return cast(
             "Source",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -1265,10 +1268,10 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         token = self.id
 
         if hasattr(self, "customer") and self.customer:
-            extn = quote_plus(token)
+            extn = _util.sanitize_id(token)
             customer = self.customer
             base = Customer.class_url()
-            owner_extn = quote_plus(customer)
+            owner_extn = _util.sanitize_id(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
 
             self._request_and_refresh("delete", url, params)

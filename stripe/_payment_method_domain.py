@@ -10,7 +10,6 @@ from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class PaymentMethodDomain(
@@ -212,7 +211,7 @@ class PaymentMethodDomain(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -244,10 +243,14 @@ class PaymentMethodDomain(
         """
         Updates an existing payment method domain.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
         return cast(
             "PaymentMethodDomain",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

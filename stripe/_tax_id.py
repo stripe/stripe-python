@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe import _util
 from stripe._api_resource import APIResource
 from stripe._customer import Customer
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Optional
 from typing_extensions import Literal
-from urllib.parse import quote_plus
 
 
 class TaxId(APIResource["TaxId"]):
@@ -149,8 +149,8 @@ class TaxId(APIResource["TaxId"]):
         assert customer is not None
         if isinstance(customer, Customer):
             customer = customer.id
-        cust_extn = quote_plus(customer)
-        extn = quote_plus(token)
+        cust_extn = _util.sanitize_id(customer)
+        extn = _util.sanitize_id(token)
         return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)
 
     @classmethod

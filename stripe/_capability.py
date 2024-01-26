@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe import _util
 from stripe._account import Account
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
-from urllib.parse import quote_plus
 
 
 class Capability(UpdateableAPIResource["Capability"]):
@@ -351,8 +351,8 @@ class Capability(UpdateableAPIResource["Capability"]):
         base = Account.class_url()
         if isinstance(account, Account):
             account = account.id
-        acct_extn = quote_plus(account)
-        extn = quote_plus(token)
+        acct_extn = _util.sanitize_id(account)
+        extn = _util.sanitize_id(token)
         return "%s/%s/capabilities/%s" % (base, acct_extn, extn)
 
     @classmethod

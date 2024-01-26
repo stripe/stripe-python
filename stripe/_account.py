@@ -21,7 +21,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
@@ -3644,7 +3643,7 @@ class Account(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -3659,10 +3658,14 @@ class Account(
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
         return cast(
             "Account",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -3863,7 +3866,7 @@ class Account(
         if not sid:
             return "/v1/account"
         base = cls.class_url()
-        extn = quote_plus(sid)
+        extn = _util.sanitize_id(sid)
         return "%s/%s" % (base, extn)
 
     def instance_url(self):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe import _util
 from stripe._customer import Customer
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal
-from urllib.parse import quote_plus
 
 
 class CashBalance(StripeObject):
@@ -45,7 +45,7 @@ class CashBalance(StripeObject):
     def instance_url(self):
         customer = self.customer
         base = Customer.class_url()
-        cust_extn = quote_plus(customer)
+        cust_extn = _util.sanitize_id(customer)
         return "%s/%s/cash_balance" % (base, cust_extn)
 
     @classmethod
