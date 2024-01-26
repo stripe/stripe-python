@@ -1015,7 +1015,6 @@ class HTTPXClient(HTTPClientAsync):
             response = await self._client.request(
                 method, url, headers=headers, data=post_data or {}, **kwargs
             )
-            response.raise_for_status()
         except Exception as e:
             self._handle_request_error(e)
 
