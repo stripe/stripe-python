@@ -624,7 +624,7 @@ class _APIRequestor(object):
                 rheaders,
             ) = await self._get_http_client_async().request_stream_with_retries_async(
                 method,
-                url,
+                abs_url,
                 headers,
                 post_data=post_data,
                 max_network_retries=max_network_retries,
@@ -637,7 +637,7 @@ class _APIRequestor(object):
                 rheaders,
             ) = await self._get_http_client_async().request_with_retries_async(
                 method,
-                url,
+                abs_url,
                 headers,
                 post_data=post_data,
                 max_network_retries=max_network_retries,
