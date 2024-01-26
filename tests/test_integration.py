@@ -366,7 +366,7 @@ class TestIntegration(object):
 
         assert req.path == "/v1/customers"
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_async_httpx_raw_request_unretryable(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
