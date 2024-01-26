@@ -58,7 +58,7 @@ class CalculationLineItem(StripeObject):
 
         amount: int
         """
-        The amount of tax, in integer cents.
+        The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         jurisdiction: Jurisdiction
         sourcing: Literal["destination", "origin"]
@@ -91,7 +91,7 @@ class CalculationLineItem(StripeObject):
         """
         taxable_amount: int
         """
-        The amount on which tax is calculated, in integer cents.
+        The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         _inner_class_types = {
             "jurisdiction": Jurisdiction,
@@ -100,11 +100,11 @@ class CalculationLineItem(StripeObject):
 
     amount: int
     """
-    The line item amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+    The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
     """
     amount_tax: int
     """
-    The amount of tax calculated for this line item, in integer cents.
+    The amount of tax calculated for this line item, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     id: str
     """

@@ -189,7 +189,7 @@ class CalculationService(StripeService):
     class CreateParamsLineItem(TypedDict):
         amount: int
         """
-        A positive integer in cents representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         product: NotRequired["str"]
         """
@@ -247,7 +247,7 @@ class CalculationService(StripeService):
     class CreateParamsShippingCost(TypedDict):
         amount: NotRequired["int"]
         """
-        A positive integer in cents representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         shipping_rate: NotRequired["str"]
         """
