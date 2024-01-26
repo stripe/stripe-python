@@ -489,13 +489,6 @@ class _APIRequestor(object):
             for key, value in supplied_headers.items():
                 headers[key] = value
 
-        log_info("Request to Stripe api", method=method, url=abs_url)
-        log_debug(
-            "Post details",
-            post_data=encoded_params,
-            api_version=request_options.get("stripe_version"),
-        )
-
         max_network_retries = request_options.get("max_network_retries")
 
         return (
@@ -554,9 +547,9 @@ class _APIRequestor(object):
                 rheaders,
             ) = self._get_http_client().request_stream_with_retries(
                 method,
-                url,
+                abs_url,
                 headers,
-                post_data=post_data,
+                post_data,
                 max_network_retries=max_network_retries,
                 _usage=_usage,
             )
@@ -567,9 +560,9 @@ class _APIRequestor(object):
                 rheaders,
             ) = self._get_http_client().request_with_retries(
                 method,
-                url,
+                abs_url,
                 headers,
-                post_data=post_data,
+                post_data,
                 max_network_retries=max_network_retries,
                 _usage=_usage,
             )
