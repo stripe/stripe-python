@@ -5,7 +5,6 @@ import time
 import random
 import threading
 import json
-import asyncio
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -51,9 +50,11 @@ except ImportError:
 
 try:
     import httpx
+    import anyio
     from httpx import Timeout as HTTPXTimeout
 except ImportError:
     httpx = None
+    anyio = None
 
 try:
     import requests
@@ -985,8 +986,18 @@ class HTTPXClient(HTTPClientAsync):
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
-        assert httpx is not None
+        if httpx is None:
+            raise ImportError(
+                "Unexpected: tried to initialize HTTPXClient but the httpx module is not present."
+            )
+
+        if anyio is None:
+            raise ImportError(
+                "Unexpected: tried to initialize HTTPXClient but the anyio module is not present."
+            )
+
         self.httpx = httpx
+        self.anyio = anyio
 
         kwargs = {}
         if self._verify_ssl_certs:
@@ -998,7 +1009,7 @@ class HTTPXClient(HTTPClientAsync):
         self._timeout = timeout
 
     def sleep_async(self, secs):
-        return asyncio.sleep(secs)
+        return self.anyio.sleep(secs)
 
     async def request_async(
         self, method, url, headers, post_data=None, timeout=80.0

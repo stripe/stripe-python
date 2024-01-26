@@ -1205,7 +1205,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
             method, url, headers, post_data
         )
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_request(self, request_mock, mock_response, check_call):
 
         mock_response('{"foo": "baz"}', 200)
@@ -1227,7 +1227,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
 
             check_call(request_mock, method, abs_url, data, headers)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_request_stream(
         self, mocker, request_mock, mock_response, check_call
     ):
@@ -1239,7 +1239,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
         with pytest.raises(stripe.APIConnectionError):
             await self.make_request_async("get", self.valid_url, {}, None)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_timeout(self, request_mock, mock_response, check_call):
         headers = {"my-header": "header val"}
         data = {}
@@ -1250,7 +1250,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
 
         check_call(None, "POST", self.valid_url, data, headers, timeout=5)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_request_stream_forwards_stream_param(
         self, mocker, request_mock, mock_response, check_call
     ):
@@ -1336,7 +1336,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
             "GET", self.valid_url, {}, None, self.max_retries()
         )
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_retry_error_until_response(
         self, mock_retry, mock_response, check_call_numbers, mocker
     ):
@@ -1345,7 +1345,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         assert code == 202
         check_call_numbers(2)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_retry_error_until_exceeded(
         self, mock_retry, mock_response, check_call_numbers
     ):
@@ -1355,7 +1355,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
 
         check_call_numbers(self.max_retries())
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_no_retry_error(
         self, mock_retry, mock_response, check_call_numbers
     ):
@@ -1364,7 +1364,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
             await self.make_request()
         check_call_numbers(1)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_retry_codes(
         self, mock_retry, mock_response, check_call_numbers
     ):
@@ -1375,7 +1375,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         assert code == 202
         check_call_numbers(2)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_retry_codes_until_exceeded(
         self, mock_retry, mock_response, check_call_numbers
     ):

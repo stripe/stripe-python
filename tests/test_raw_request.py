@@ -148,7 +148,7 @@ class TestRawRequest(object):
             is_json=True,
         )
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_form_request_get_async(self, http_client_mock_async):
         http_client_mock_async.stub_request(
             "get",

@@ -291,7 +291,7 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_async_raw_request_success(self):
         class MockServerRequestHandler(MyTestHandler):
             default_body = '{"id": "cus_123", "object": "customer"}'.encode(
@@ -315,7 +315,7 @@ class TestIntegration(object):
         assert req.command == "POST"
         assert isinstance(cus, stripe.Customer)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_async_raw_request_timeout(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
@@ -340,7 +340,7 @@ class TestIntegration(object):
 
         assert "A ReadTimeout was raised" in str(exception.user_message)
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_async_httpx_raw_request_retries(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
@@ -366,7 +366,7 @@ class TestIntegration(object):
 
         assert req.path == "/v1/customers"
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_async_httpx_raw_request_unretryable(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):

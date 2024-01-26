@@ -75,7 +75,7 @@ class TestPreview(object):
 
         assert resp.body == expected_body
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_get_async(self, http_client_mock_async):
         expected_body = '{"id": "acc_123"}'
         http_client_mock_async.stub_request(
@@ -98,7 +98,7 @@ class TestPreview(object):
 
         assert resp.body == expected_body
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_post_async(self, http_client_mock_async):
         expected_body = '{"id": "acc_123"}'
         http_client_mock_async.stub_request(
@@ -124,7 +124,7 @@ class TestPreview(object):
 
         assert resp.body == expected_body
 
-    @pytest.mark.asyncio
+    @pytest.mark.anyio
     async def test_delete_async(self, http_client_mock_async):
         expected_body = '{"id": "acc_123"}'
         http_client_mock_async.stub_request(

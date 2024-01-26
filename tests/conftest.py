@@ -11,7 +11,7 @@ from tests.stripe_mock import StripeMock
 from tests.http_client_mock import HTTPClientMock
 
 
-pytest_plugins = ("pytest_asyncio",)
+pytest_plugins = ("anyio",)
 
 
 MOCK_MINIMUM_VERSION = "0.109.0"
