@@ -193,7 +193,11 @@ class AccountNotice(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "AccountNotice",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

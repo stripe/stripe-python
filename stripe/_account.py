@@ -3736,7 +3736,7 @@ class Account(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -3754,7 +3754,11 @@ class Account(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Account",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload

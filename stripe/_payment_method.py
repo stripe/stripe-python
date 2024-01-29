@@ -1819,7 +1819,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -1911,7 +1911,11 @@ class PaymentMethod(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethod",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

@@ -449,7 +449,7 @@ class WebhookEndpoint(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -463,7 +463,11 @@ class WebhookEndpoint(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "WebhookEndpoint",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -529,7 +533,11 @@ class WebhookEndpoint(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "WebhookEndpoint",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

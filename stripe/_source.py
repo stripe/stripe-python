@@ -1134,7 +1134,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -1207,7 +1207,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Source",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

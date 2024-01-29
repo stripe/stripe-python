@@ -180,7 +180,7 @@ class TestClock(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -194,7 +194,11 @@ class TestClock(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "TestClock",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload

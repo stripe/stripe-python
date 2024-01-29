@@ -963,7 +963,11 @@ class Authorization(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Authorization",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

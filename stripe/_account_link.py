@@ -92,6 +92,6 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )

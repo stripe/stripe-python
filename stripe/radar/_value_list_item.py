@@ -139,7 +139,7 @@ class ValueListItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -153,7 +153,11 @@ class ValueListItem(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ValueListItem",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload

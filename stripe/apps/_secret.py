@@ -190,7 +190,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 

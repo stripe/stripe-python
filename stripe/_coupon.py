@@ -266,7 +266,7 @@ class Coupon(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -280,7 +280,11 @@ class Coupon(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Coupon",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -342,7 +346,11 @@ class Coupon(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Coupon",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
