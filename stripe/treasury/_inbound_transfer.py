@@ -405,7 +405,7 @@ class InboundTransfer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 

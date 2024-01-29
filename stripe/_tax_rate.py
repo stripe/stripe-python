@@ -260,7 +260,7 @@ class TaxRate(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -295,7 +295,11 @@ class TaxRate(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "TaxRate",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

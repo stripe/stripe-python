@@ -943,7 +943,7 @@ class Configuration(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -957,7 +957,11 @@ class Configuration(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Configuration",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -1023,7 +1027,11 @@ class Configuration(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Configuration",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

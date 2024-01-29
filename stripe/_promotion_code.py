@@ -282,7 +282,7 @@ class PromotionCode(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -317,7 +317,11 @@ class PromotionCode(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PromotionCode",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

@@ -410,7 +410,7 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -424,7 +424,11 @@ class SubscriptionItem(
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "SubscriptionItem",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -490,7 +494,11 @@ class SubscriptionItem(
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SubscriptionItem",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
