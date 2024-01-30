@@ -178,7 +178,7 @@ class PaymentMethod(
             """
             preferred: Optional[str]
             """
-            The preferred network for the card.
+            The preferred network for the card. Will contain invalid_preference if requested network is not valid for the card.
             """
 
         class ThreeDSecureUsage(StripeObject):
