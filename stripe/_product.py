@@ -33,6 +33,9 @@ from urllib.parse import quote_plus
 if TYPE_CHECKING:
     from stripe._price import Price
     from stripe._tax_code import TaxCode
+    from stripe.entitlements._feature import (
+        Feature as EntitlementsFeatureResource,
+    )
 
 
 class Product(
@@ -56,6 +59,10 @@ class Product(
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
 
     class Feature(StripeObject):
+        feature: Optional[ExpandableField["EntitlementsFeatureResource"]]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: Optional[str]
         """
         The feature's name. Up to 80 characters long.
@@ -124,7 +131,7 @@ class Product(
         """
         features: NotRequired["List[Product.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -291,6 +298,10 @@ class Product(
         """
 
     class CreateParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -419,7 +430,7 @@ class Product(
         """
         features: NotRequired["Literal['']|List[Product.ModifyParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -464,6 +475,10 @@ class Product(
         """
 
     class ModifyParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -529,7 +544,7 @@ class Product(
     """
     features: List[Feature]
     """
-    A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
     """
     id: str
     """
