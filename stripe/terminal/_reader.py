@@ -524,7 +524,7 @@ class Reader(
     """
     Serial number of the reader.
     """
-    status: Optional[str]
+    status: Optional[Literal["offline", "online"]]
     """
     The networking status of the reader.
     """
