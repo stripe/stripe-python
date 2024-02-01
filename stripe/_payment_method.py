@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
@@ -1713,7 +1711,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=_util.sanitize_id(payment_method)
+                    payment_method=sanitize_id(payment_method)
                 ),
                 params=params,
             ),
@@ -1786,7 +1784,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=_util.sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1824,7 +1822,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=_util.sanitize_id(payment_method)
+                    payment_method=sanitize_id(payment_method)
                 ),
                 params=params,
             ),
@@ -1861,7 +1859,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=_util.sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1895,7 +1893,7 @@ class PaymentMethod(
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentMethod",
             cls._static_request(

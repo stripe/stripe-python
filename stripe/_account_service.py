@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._account import Account
 from stripe._account_capability_service import AccountCapabilityService
 from stripe._account_external_account_service import (
@@ -11,6 +10,7 @@ from stripe._account_person_service import AccountPersonService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -3010,9 +3010,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "delete",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3033,9 +3031,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "get",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3064,9 +3060,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "post",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3155,7 +3149,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

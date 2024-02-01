@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._bank_account import BankAccount
 from stripe._card import Card
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -217,8 +217,8 @@ class AccountExternalAccountService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -242,8 +242,8 @@ class AccountExternalAccountService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -269,8 +269,8 @@ class AccountExternalAccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -293,7 +293,7 @@ class AccountExternalAccountService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -316,7 +316,7 @@ class AccountExternalAccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

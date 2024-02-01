@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._login_link import LoginLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,7 +31,7 @@ class AccountLoginLinkService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/login_links".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._customer_balance_transaction import CustomerBalanceTransaction
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -84,7 +84,7 @@ class CustomerBalanceTransactionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -107,7 +107,7 @@ class CustomerBalanceTransactionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -131,8 +131,8 @@ class CustomerBalanceTransactionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=_util.sanitize_id(customer),
-                    transaction=_util.sanitize_id(transaction),
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -156,8 +156,8 @@ class CustomerBalanceTransactionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=_util.sanitize_id(customer),
-                    transaction=_util.sanitize_id(transaction),
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
                 ),
                 api_mode="V1",
                 base_address="api",

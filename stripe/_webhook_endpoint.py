@@ -6,10 +6,9 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class WebhookEndpoint(
@@ -430,7 +429,7 @@ class WebhookEndpoint(
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "WebhookEndpoint",
             cls._static_request(
@@ -500,7 +499,7 @@ class WebhookEndpoint(
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "WebhookEndpoint",
             cls._static_request(

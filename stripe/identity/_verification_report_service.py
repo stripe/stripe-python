@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.identity._verification_report import VerificationReport
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -95,7 +95,7 @@ class VerificationReportService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/identity/verification_reports/{report}".format(
-                    report=_util.sanitize_id(report),
+                    report=sanitize_id(report),
                 ),
                 api_mode="V1",
                 base_address="api",

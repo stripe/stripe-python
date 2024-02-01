@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.treasury._financial_account import FinancialAccount
 from stripe.treasury._financial_account_features_service import (
     FinancialAccountFeaturesService,
@@ -462,7 +462,7 @@ class FinancialAccountService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=_util.sanitize_id(financial_account),
+                    financial_account=sanitize_id(financial_account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -485,7 +485,7 @@ class FinancialAccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=_util.sanitize_id(financial_account),
+                    financial_account=sanitize_id(financial_account),
                 ),
                 api_mode="V1",
                 base_address="api",

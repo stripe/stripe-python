@@ -9,6 +9,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
@@ -17,7 +18,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._product import Product
@@ -759,7 +759,7 @@ class Price(
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Price",
             cls._static_request(

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payment_method_domain import PaymentMethodDomain
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -126,9 +126,7 @@ class PaymentMethodDomainService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=_util.sanitize_id(
-                        payment_method_domain
-                    ),
+                    payment_method_domain=sanitize_id(payment_method_domain),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -151,9 +149,7 @@ class PaymentMethodDomainService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=_util.sanitize_id(
-                        payment_method_domain
-                    ),
+                    payment_method_domain=sanitize_id(payment_method_domain),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -181,9 +177,7 @@ class PaymentMethodDomainService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=_util.sanitize_id(
-                        payment_method_domain
-                    ),
+                    payment_method_domain=sanitize_id(payment_method_domain),
                 ),
                 api_mode="V1",
                 base_address="api",

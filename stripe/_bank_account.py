@@ -8,11 +8,10 @@ from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from stripe._verify_mixin import VerifyMixin
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._card import Card
@@ -370,7 +369,7 @@ class BankAccount(
         """
         Delete a specified external account for a given account.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
@@ -414,7 +413,7 @@ class BankAccount(
 
     def instance_url(self):
         token = self.id
-        extn = quote_plus(token)
+        extn = sanitize_id(token)
         if hasattr(self, "customer"):
             customer = self.customer
 
@@ -422,7 +421,7 @@ class BankAccount(
             assert customer is not None
             if isinstance(customer, Customer):
                 customer = customer.id
-            owner_extn = quote_plus(customer)
+            owner_extn = sanitize_id(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
@@ -432,7 +431,7 @@ class BankAccount(
             assert account is not None
             if isinstance(account, Account):
                 account = account.id
-            owner_extn = quote_plus(account)
+            owner_extn = sanitize_id(account)
             class_base = "external_accounts"
 
         else:

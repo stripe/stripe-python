@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.issuing._card import Card
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -47,7 +47,7 @@ class CardService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=_util.sanitize_id(card),
+                    card=sanitize_id(card),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -70,7 +70,7 @@ class CardService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=_util.sanitize_id(card),
+                    card=sanitize_id(card),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -93,7 +93,7 @@ class CardService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=_util.sanitize_id(card),
+                    card=sanitize_id(card),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -116,7 +116,7 @@ class CardService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=_util.sanitize_id(card),
+                    card=sanitize_id(card),
                 ),
                 api_mode="V1",
                 base_address="api",

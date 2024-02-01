@@ -5,10 +5,9 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class ApplePayDomain(
@@ -98,7 +97,7 @@ class ApplePayDomain(
         """
         Delete an apple pay domain.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "ApplePayDomain",
             cls._static_request(

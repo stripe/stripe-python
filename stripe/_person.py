@@ -4,9 +4,9 @@ import stripe
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._file import File
@@ -651,8 +651,8 @@ class Person(UpdateableAPIResource["Person"]):
         account = self.account
         base = stripe.Account.class_url()
         assert account is not None
-        acct_extn = quote_plus(account)
-        extn = quote_plus(token)
+        acct_extn = sanitize_id(account)
+        extn = sanitize_id(token)
         return "%s/%s/persons/%s" % (base, acct_extn, extn)
 
     @classmethod

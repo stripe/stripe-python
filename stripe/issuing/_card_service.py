@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.issuing._card import Card
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -370,9 +370,7 @@ class CardService(StripeService):
             Card,
             self._requestor.request(
                 "get",
-                "/v1/issuing/cards/{card}".format(
-                    card=_util.sanitize_id(card)
-                ),
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -393,9 +391,7 @@ class CardService(StripeService):
             Card,
             self._requestor.request(
                 "post",
-                "/v1/issuing/cards/{card}".format(
-                    card=_util.sanitize_id(card)
-                ),
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -896,7 +894,7 @@ class Dispute(
         """
         Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Dispute",
             cls._static_request(
@@ -929,7 +927,7 @@ class Dispute(
             cls._static_request(
                 "post",
                 "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=_util.sanitize_id(dispute)
+                    dispute=sanitize_id(dispute)
                 ),
                 params=params,
             ),
@@ -964,7 +962,7 @@ class Dispute(
             self._request(
                 "post",
                 "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=_util.sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
