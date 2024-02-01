@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_schedule import SubscriptionSchedule
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -2176,7 +2176,7 @@ class SubscriptionScheduleService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/subscription_schedules/{schedule}".format(
-                    schedule=_util.sanitize_id(schedule),
+                    schedule=sanitize_id(schedule),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2199,7 +2199,7 @@ class SubscriptionScheduleService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscription_schedules/{schedule}".format(
-                    schedule=_util.sanitize_id(schedule),
+                    schedule=sanitize_id(schedule),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2222,7 +2222,7 @@ class SubscriptionScheduleService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=_util.sanitize_id(schedule),
+                    schedule=sanitize_id(schedule),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2245,7 +2245,7 @@ class SubscriptionScheduleService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=_util.sanitize_id(schedule),
+                    schedule=sanitize_id(schedule),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2268,7 +2268,7 @@ class SubscriptionScheduleService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=_util.sanitize_id(schedule),
+                    schedule=sanitize_id(schedule),
                 ),
                 api_mode="V1",
                 base_address="api",

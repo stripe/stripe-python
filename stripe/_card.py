@@ -7,10 +7,9 @@ from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
@@ -168,7 +167,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
         Delete a specified external account for a given account.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
@@ -212,7 +211,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     def instance_url(self):
         token = self.id
-        extn = quote_plus(token)
+        extn = sanitize_id(token)
         if hasattr(self, "customer"):
             customer = self.customer
 
@@ -220,7 +219,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             assert customer is not None
             if isinstance(customer, Customer):
                 customer = customer.id
-            owner_extn = quote_plus(customer)
+            owner_extn = sanitize_id(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
@@ -230,7 +229,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             assert account is not None
             if isinstance(account, Account):
                 account = account.id
-            owner_extn = quote_plus(account)
+            owner_extn = sanitize_id(account)
             class_base = "external_accounts"
 
         else:

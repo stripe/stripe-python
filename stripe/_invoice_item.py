@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +17,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
@@ -550,7 +549,7 @@ class InvoiceItem(
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "InvoiceItem",
             cls._static_request(
@@ -620,7 +619,7 @@ class InvoiceItem(
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "InvoiceItem",
             cls._static_request(

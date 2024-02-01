@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._invoice_item import InvoiceItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -390,7 +390,7 @@ class InvoiceItemService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=_util.sanitize_id(invoiceitem),
+                    invoiceitem=sanitize_id(invoiceitem),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -413,7 +413,7 @@ class InvoiceItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=_util.sanitize_id(invoiceitem),
+                    invoiceitem=sanitize_id(invoiceitem),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -436,7 +436,7 @@ class InvoiceItemService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=_util.sanitize_id(invoiceitem),
+                    invoiceitem=sanitize_id(invoiceitem),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._charge import Charge
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -1701,9 +1701,7 @@ class ChargeService(StripeService):
             Charge,
             self._requestor.request(
                 "get",
-                "/v1/charges/{charge}".format(
-                    charge=_util.sanitize_id(charge)
-                ),
+                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -1724,9 +1722,7 @@ class ChargeService(StripeService):
             Charge,
             self._requestor.request(
                 "post",
-                "/v1/charges/{charge}".format(
-                    charge=_util.sanitize_id(charge)
-                ),
+                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -1775,7 +1771,7 @@ class ChargeService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/charges/{charge}/capture".format(
-                    charge=_util.sanitize_id(charge),
+                    charge=sanitize_id(charge),
                 ),
                 api_mode="V1",
                 base_address="api",

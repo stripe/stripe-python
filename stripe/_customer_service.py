@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._customer import Customer
 from stripe._customer_balance_transaction_service import (
     CustomerBalanceTransactionService,
@@ -28,6 +27,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -662,7 +662,7 @@ class CustomerService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/customers/{customer}".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -685,7 +685,7 @@ class CustomerService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/customers/{customer}".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -710,7 +710,7 @@ class CustomerService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/customers/{customer}".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -733,7 +733,7 @@ class CustomerService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",

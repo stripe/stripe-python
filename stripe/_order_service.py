@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._order import Order
 from stripe._order_line_item_service import OrderLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -2268,7 +2268,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "get",
-                "/v1/orders/{id}".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -2289,7 +2289,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "post",
-                "/v1/orders/{id}".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -2310,7 +2310,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "post",
-                "/v1/orders/{id}/cancel".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -2331,7 +2331,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "post",
-                "/v1/orders/{id}/reopen".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -2352,7 +2352,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "post",
-                "/v1/orders/{id}/submit".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

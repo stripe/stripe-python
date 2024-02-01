@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +17,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._file import File
@@ -954,7 +953,7 @@ class Configuration(
         """
         Deletes a Configuration object.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Configuration",
             cls._static_request(
@@ -1024,7 +1023,7 @@ class Configuration(
         """
         Updates a new Configuration object.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Configuration",
             cls._static_request(

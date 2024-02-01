@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -12,7 +11,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     ClassVar,
     Dict,
@@ -30,7 +29,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -8982,7 +8980,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9043,7 +9041,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9090,7 +9088,7 @@ class Invoice(
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Invoice",
             cls._static_request(
@@ -9142,7 +9140,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9179,7 +9177,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9218,7 +9216,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9255,7 +9253,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9273,7 +9271,7 @@ class Invoice(
         sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
         auto_advance=false.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Invoice",
             cls._static_request(
@@ -9295,7 +9293,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9328,7 +9326,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9359,7 +9357,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9402,7 +9400,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9454,7 +9452,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
@@ -9491,7 +9489,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=_util.sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -9530,8 +9528,8 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
-                    invoice=_util.sanitize_id(invoice),
-                    invoice_payment=_util.sanitize_id(invoice_payment),
+                    invoice=sanitize_id(invoice),
+                    invoice_payment=sanitize_id(invoice_payment),
                 ),
                 params=params,
             ),
@@ -9549,7 +9547,7 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/{invoice}/payments".format(
-                    invoice=_util.sanitize_id(invoice)
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),

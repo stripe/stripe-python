@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._refund import Refund
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,7 +29,7 @@ class RefundService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=_util.sanitize_id(refund),
+                    refund=sanitize_id(refund),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -7,6 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
@@ -15,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._application import Application
@@ -687,7 +687,7 @@ class Configuration(
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Configuration",
             cls._static_request(

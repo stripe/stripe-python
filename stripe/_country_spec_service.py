@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._country_spec import CountrySpec
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,7 +68,7 @@ class CountrySpecService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/country_specs/{country}".format(
-                    country=_util.sanitize_id(country),
+                    country=sanitize_id(country),
                 ),
                 api_mode="V1",
                 base_address="api",

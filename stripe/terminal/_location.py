@@ -7,10 +7,9 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-from urllib.parse import quote_plus
 
 
 class Location(
@@ -228,7 +227,7 @@ class Location(
         """
         Deletes a Location object.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Location",
             cls._static_request(
@@ -296,7 +295,7 @@ class Location(
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Location",
             cls._static_request(

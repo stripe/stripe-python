@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -3178,7 +3176,7 @@ class Order(
             "Order",
             cls._static_request(
                 "post",
-                "/v1/orders/{id}/cancel".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3210,7 +3208,7 @@ class Order(
             self._request(
                 "post",
                 "/v1/orders/{id}/cancel".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3260,7 +3258,7 @@ class Order(
             ListObject["LineItem"],
             cls._static_request(
                 "get",
-                "/v1/orders/{id}/line_items".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3296,7 +3294,7 @@ class Order(
             self._request(
                 "get",
                 "/v1/orders/{id}/line_items".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3309,7 +3307,7 @@ class Order(
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Order",
             cls._static_request(
@@ -3330,7 +3328,7 @@ class Order(
             "Order",
             cls._static_request(
                 "post",
-                "/v1/orders/{id}/reopen".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3362,7 +3360,7 @@ class Order(
             self._request(
                 "post",
                 "/v1/orders/{id}/reopen".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3390,7 +3388,7 @@ class Order(
             "Order",
             cls._static_request(
                 "post",
-                "/v1/orders/{id}/submit".format(id=_util.sanitize_id(id)),
+                "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3422,7 +3420,7 @@ class Order(
             self._request(
                 "post",
                 "/v1/orders/{id}/submit".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

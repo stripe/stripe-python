@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.radar._value_list_item import ValueListItem
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -92,7 +92,7 @@ class ValueListItemService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/radar/value_list_items/{item}".format(
-                    item=_util.sanitize_id(item),
+                    item=sanitize_id(item),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -115,7 +115,7 @@ class ValueListItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/radar/value_list_items/{item}".format(
-                    item=_util.sanitize_id(item),
+                    item=sanitize_id(item),
                 ),
                 api_mode="V1",
                 base_address="api",

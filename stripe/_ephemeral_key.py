@@ -2,10 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
@@ -49,7 +48,7 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         """
         Invalidates a short-lived API key for a given resource.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "EphemeralKey",
             cls._static_request(

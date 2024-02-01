@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._invoice import Invoice
 from stripe._invoice_line_item_service import InvoiceLineItemService
 from stripe._invoice_payment_service import InvoicePaymentService
@@ -9,6 +8,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -5546,9 +5546,7 @@ class InvoiceService(StripeService):
             Invoice,
             self._requestor.request(
                 "delete",
-                "/v1/invoices/{invoice}".format(
-                    invoice=_util.sanitize_id(invoice),
-                ),
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -5569,9 +5567,7 @@ class InvoiceService(StripeService):
             Invoice,
             self._requestor.request(
                 "get",
-                "/v1/invoices/{invoice}".format(
-                    invoice=_util.sanitize_id(invoice),
-                ),
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -5597,9 +5593,7 @@ class InvoiceService(StripeService):
             Invoice,
             self._requestor.request(
                 "post",
-                "/v1/invoices/{invoice}".format(
-                    invoice=_util.sanitize_id(invoice),
-                ),
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -5716,7 +5710,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5739,7 +5733,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5762,7 +5756,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5785,7 +5779,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5810,7 +5804,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5833,7 +5827,7 @@ class InvoiceService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -3,9 +3,9 @@
 from stripe._expandable_field import ExpandableField
 from stripe._transfer import Transfer
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -77,8 +77,8 @@ class Reversal(UpdateableAPIResource["Reversal"]):
         if isinstance(transfer, Transfer):
             transfer = transfer.id
         base = Transfer.class_url()
-        cust_extn = quote_plus(transfer)
-        extn = quote_plus(token)
+        cust_extn = sanitize_id(transfer)
+        extn = sanitize_id(token)
         return "%s/%s/reversals/%s" % (base, cust_extn, extn)
 
     @classmethod

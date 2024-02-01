@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -12,7 +11,7 @@ from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -21,7 +20,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
@@ -3777,7 +3775,7 @@ class Account(
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Account",
             cls._static_request(
@@ -3862,7 +3860,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -3899,7 +3897,7 @@ class Account(
             self._request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3919,7 +3917,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -3960,7 +3958,7 @@ class Account(
             self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3985,7 +3983,7 @@ class Account(
         if not sid:
             return "/v1/account"
         base = cls.class_url()
-        extn = quote_plus(sid)
+        extn = sanitize_id(sid)
         return "%s/%s" % (base, extn)
 
     def instance_url(self):
@@ -4020,8 +4018,8 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=_util.sanitize_id(account),
-                    capability=_util.sanitize_id(capability),
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
                 ),
                 params=params,
             ),
@@ -4042,8 +4040,8 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=_util.sanitize_id(account),
-                    capability=_util.sanitize_id(capability),
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
                 ),
                 params=params,
             ),
@@ -4061,7 +4059,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4081,7 +4079,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4102,8 +4100,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4126,8 +4123,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4148,8 +4144,7 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4169,7 +4164,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4189,7 +4184,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/login_links".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4207,7 +4202,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4228,8 +4223,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4250,8 +4244,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4272,8 +4265,7 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4291,7 +4283,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),

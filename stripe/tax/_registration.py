@@ -6,9 +6,9 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-from urllib.parse import quote_plus
 
 
 class Registration(
@@ -1680,7 +1680,7 @@ class Registration(
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Registration",
             cls._static_request(

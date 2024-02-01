@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._account_notice import AccountNotice
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,7 +104,7 @@ class AccountNoticeService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/account_notices/{account_notice}".format(
-                    account_notice=_util.sanitize_id(account_notice),
+                    account_notice=sanitize_id(account_notice),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -127,7 +127,7 @@ class AccountNoticeService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/account_notices/{account_notice}".format(
-                    account_notice=_util.sanitize_id(account_notice),
+                    account_notice=sanitize_id(account_notice),
                 ),
                 api_mode="V1",
                 base_address="api",

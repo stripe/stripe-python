@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._discount import Discount
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._subscription import Subscription
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -1766,7 +1766,7 @@ class SubscriptionService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     ),
                 ),
@@ -1791,7 +1791,7 @@ class SubscriptionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     ),
                 ),
@@ -1836,7 +1836,7 @@ class SubscriptionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     ),
                 ),
@@ -1861,7 +1861,7 @@ class SubscriptionService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     ),
                 ),
@@ -1955,7 +1955,7 @@ class SubscriptionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=_util.sanitize_id(subscription),
+                    subscription=sanitize_id(subscription),
                 ),
                 api_mode="V1",
                 base_address="api",

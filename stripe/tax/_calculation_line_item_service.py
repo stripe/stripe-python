@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.tax._calculation_line_item import CalculationLineItem
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -42,7 +42,7 @@ class CalculationLineItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=_util.sanitize_id(calculation),
+                    calculation=sanitize_id(calculation),
                 ),
                 api_mode="V1",
                 base_address="api",
