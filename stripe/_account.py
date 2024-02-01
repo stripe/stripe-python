@@ -290,6 +290,10 @@ class Account(
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
         """
+        swish_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Swish capability of the account, or whether the account can directly process Swish payments.
+        """
         tax_reporting_us_1099_k: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -1561,6 +1565,12 @@ class Account(
         """
         The sofort_payments capability.
         """
+        swish_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSwishPayments"
+        ]
+        """
+        The swish_payments capability.
+        """
         tax_reporting_us_1099_k: NotRequired[
             "Account.CreateParamsCapabilitiesTaxReportingUs1099K"
         ]
@@ -1781,6 +1791,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSwishPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
