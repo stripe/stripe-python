@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
@@ -195,7 +195,7 @@ class FileLink(
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "FileLink",
             cls._static_request(

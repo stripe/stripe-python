@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
 
@@ -243,7 +242,7 @@ class PaymentMethodDomain(
         """
         Updates an existing payment method domain.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentMethodDomain",
             cls._static_request(
@@ -283,9 +282,7 @@ class PaymentMethodDomain(
             cls._static_request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=_util.sanitize_id(
-                        payment_method_domain
-                    )
+                    payment_method_domain=sanitize_id(payment_method_domain)
                 ),
                 params=params,
             ),
@@ -338,7 +335,7 @@ class PaymentMethodDomain(
             self._request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=_util.sanitize_id(self.get("id"))
+                    payment_method_domain=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

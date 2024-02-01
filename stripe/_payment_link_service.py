@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payment_link import PaymentLink
 from stripe._payment_link_line_item_service import PaymentLinkLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -1674,7 +1674,7 @@ class PaymentLinkService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/payment_links/{payment_link}".format(
-                    payment_link=_util.sanitize_id(payment_link),
+                    payment_link=sanitize_id(payment_link),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -1697,7 +1697,7 @@ class PaymentLinkService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_links/{payment_link}".format(
-                    payment_link=_util.sanitize_id(payment_link),
+                    payment_link=sanitize_id(payment_link),
                 ),
                 api_mode="V1",
                 base_address="api",

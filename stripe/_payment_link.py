@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -2475,7 +2474,7 @@ class PaymentLink(
             cls._static_request(
                 "get",
                 "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=_util.sanitize_id(payment_link)
+                    payment_link=sanitize_id(payment_link)
                 ),
                 params=params,
             ),
@@ -2512,7 +2511,7 @@ class PaymentLink(
             self._request(
                 "get",
                 "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=_util.sanitize_id(self.get("id"))
+                    payment_link=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -2525,7 +2524,7 @@ class PaymentLink(
         """
         Updates a payment link.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentLink",
             cls._static_request(

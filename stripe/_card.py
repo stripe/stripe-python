@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._account import Account
 from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
@@ -8,7 +7,7 @@ from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
@@ -168,7 +167,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
         Delete a specified external account for a given account.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
@@ -212,7 +211,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     def instance_url(self):
         token = self.id
-        extn = _util.sanitize_id(token)
+        extn = sanitize_id(token)
         if hasattr(self, "customer"):
             customer = self.customer
 
@@ -220,7 +219,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             assert customer is not None
             if isinstance(customer, Customer):
                 customer = customer.id
-            owner_extn = _util.sanitize_id(customer)
+            owner_extn = sanitize_id(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
@@ -230,7 +229,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             assert account is not None
             if isinstance(account, Account):
                 account = account.id
-            owner_extn = _util.sanitize_id(account)
+            owner_extn = sanitize_id(account)
             class_base = "external_accounts"
 
         else:

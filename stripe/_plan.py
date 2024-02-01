@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -9,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -402,7 +401,7 @@ class Plan(
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Plan",
             cls._static_request(
@@ -464,7 +463,7 @@ class Plan(
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Plan",
             cls._static_request(

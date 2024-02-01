@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._reversal import Reversal
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -79,9 +79,7 @@ class TransferReversalService(StripeService):
             ListObject[Reversal],
             self._requestor.request(
                 "get",
-                "/v1/transfers/{id}/reversals".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -106,9 +104,7 @@ class TransferReversalService(StripeService):
             Reversal,
             self._requestor.request(
                 "post",
-                "/v1/transfers/{id}/reversals".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -131,8 +127,8 @@ class TransferReversalService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=_util.sanitize_id(transfer),
-                    id=_util.sanitize_id(id),
+                    transfer=sanitize_id(transfer),
+                    id=sanitize_id(id),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -158,8 +154,8 @@ class TransferReversalService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=_util.sanitize_id(transfer),
-                    id=_util.sanitize_id(id),
+                    transfer=sanitize_id(transfer),
+                    id=sanitize_id(id),
                 ),
                 api_mode="V1",
                 base_address="api",

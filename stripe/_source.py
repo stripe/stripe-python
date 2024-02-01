@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._customer import Customer
 from stripe._error import InvalidRequestError
@@ -8,7 +7,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -1138,7 +1137,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             cls._static_request(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
-                    source=_util.sanitize_id(source)
+                    source=sanitize_id(source)
                 ),
                 params=params,
             ),
@@ -1175,7 +1174,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             self._request(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
-                    source=_util.sanitize_id(self.get("id"))
+                    source=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1190,7 +1189,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Source",
             cls._static_request(
@@ -1223,7 +1222,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             cls._static_request(
                 "post",
                 "/v1/sources/{source}/verify".format(
-                    source=_util.sanitize_id(source)
+                    source=sanitize_id(source)
                 ),
                 params=params,
             ),
@@ -1258,7 +1257,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             self._request(
                 "post",
                 "/v1/sources/{source}/verify".format(
-                    source=_util.sanitize_id(self.get("id"))
+                    source=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1268,10 +1267,10 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         token = self.id
 
         if hasattr(self, "customer") and self.customer:
-            extn = _util.sanitize_id(token)
+            extn = sanitize_id(token)
             customer = self.customer
             base = Customer.class_url()
-            owner_extn = _util.sanitize_id(customer)
+            owner_extn = sanitize_id(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
 
             self._request_and_refresh("delete", url, params)

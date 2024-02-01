@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -9,7 +8,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -1566,7 +1565,7 @@ class Card(
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Card",
             cls._static_request(
@@ -1602,7 +1601,7 @@ class Card(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=_util.sanitize_id(card)
+                        card=sanitize_id(card)
                     ),
                     params=params,
                 ),
@@ -1639,7 +1638,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=_util.sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1657,7 +1656,7 @@ class Card(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=_util.sanitize_id(card)
+                        card=sanitize_id(card)
                     ),
                     params=params,
                 ),
@@ -1692,7 +1691,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=_util.sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1710,7 +1709,7 @@ class Card(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=_util.sanitize_id(card)
+                        card=sanitize_id(card)
                     ),
                     params=params,
                 ),
@@ -1747,7 +1746,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=_util.sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1765,7 +1764,7 @@ class Card(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=_util.sanitize_id(card)
+                        card=sanitize_id(card)
                     ),
                     params=params,
                 ),
@@ -1800,7 +1799,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=_util.sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),

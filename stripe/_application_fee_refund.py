@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._application_fee import ApplicationFee
 from stripe._expandable_field import ExpandableField
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING
 
@@ -57,8 +57,8 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     @classmethod
     def _build_instance_url(cls, fee, sid):
         base = ApplicationFee.class_url()
-        cust_extn = _util.sanitize_id(fee)
-        extn = _util.sanitize_id(sid)
+        cust_extn = sanitize_id(fee)
+        extn = sanitize_id(sid)
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
 
     @classmethod

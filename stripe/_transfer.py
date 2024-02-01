@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,6 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
@@ -317,7 +317,7 @@ class Transfer(
 
         This request accepts only metadata as an argument.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Transfer",
             cls._static_request(
@@ -353,9 +353,7 @@ class Transfer(
             "Reversal",
             cls._static_request(
                 "post",
-                "/v1/transfers/{id}/reversals".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -375,8 +373,7 @@ class Transfer(
             cls._static_request(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=_util.sanitize_id(transfer),
-                    id=_util.sanitize_id(id),
+                    transfer=sanitize_id(transfer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -399,8 +396,7 @@ class Transfer(
             cls._static_request(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=_util.sanitize_id(transfer),
-                    id=_util.sanitize_id(id),
+                    transfer=sanitize_id(transfer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -417,9 +413,7 @@ class Transfer(
             ListObject["Reversal"],
             cls._static_request(
                 "get",
-                "/v1/transfers/{id}/reversals".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

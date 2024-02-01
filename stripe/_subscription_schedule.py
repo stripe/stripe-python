@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -1481,7 +1480,7 @@ class SubscriptionSchedule(
             cls._static_request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=_util.sanitize_id(schedule)
+                    schedule=sanitize_id(schedule)
                 ),
                 params=params,
             ),
@@ -1518,7 +1517,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=_util.sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1568,7 +1567,7 @@ class SubscriptionSchedule(
         """
         Updates an existing subscription schedule.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "SubscriptionSchedule",
             cls._static_request(
@@ -1592,7 +1591,7 @@ class SubscriptionSchedule(
             cls._static_request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=_util.sanitize_id(schedule)
+                    schedule=sanitize_id(schedule)
                 ),
                 params=params,
             ),
@@ -1629,7 +1628,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=_util.sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

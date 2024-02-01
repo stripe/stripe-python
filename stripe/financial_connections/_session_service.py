@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.financial_connections._session import Session
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -81,7 +81,7 @@ class SessionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/financial_connections/sessions/{session}".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",

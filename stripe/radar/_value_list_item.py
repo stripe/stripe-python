@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
@@ -150,7 +149,7 @@ class ValueListItem(
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "ValueListItem",
             cls._static_request(

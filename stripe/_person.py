@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 import stripe
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
@@ -651,8 +651,8 @@ class Person(UpdateableAPIResource["Person"]):
         account = self.account
         base = stripe.Account.class_url()
         assert account is not None
-        acct_extn = _util.sanitize_id(account)
-        extn = _util.sanitize_id(token)
+        acct_extn = sanitize_id(account)
+        extn = sanitize_id(token)
         return "%s/%s/persons/%s" % (base, acct_extn, extn)
 
     @classmethod

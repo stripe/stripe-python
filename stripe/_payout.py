@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -284,7 +283,7 @@ class Payout(
             cls._static_request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=_util.sanitize_id(payout)
+                    payout=sanitize_id(payout)
                 ),
                 params=params,
             ),
@@ -319,7 +318,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=_util.sanitize_id(self.get("id"))
+                    payout=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -371,7 +370,7 @@ class Payout(
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Payout",
             cls._static_request(
@@ -406,7 +405,7 @@ class Payout(
             cls._static_request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=_util.sanitize_id(payout)
+                    payout=sanitize_id(payout)
                 ),
                 params=params,
             ),
@@ -447,7 +446,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=_util.sanitize_id(self.get("id"))
+                    payout=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

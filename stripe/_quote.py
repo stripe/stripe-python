@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -1114,9 +1113,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/accept".format(
-                    quote=_util.sanitize_id(quote)
-                ),
+                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
                 params=params,
             ),
         )
@@ -1148,7 +1145,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1165,9 +1162,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(
-                    quote=_util.sanitize_id(quote)
-                ),
+                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
                 params=params,
             ),
         )
@@ -1199,7 +1194,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1230,9 +1225,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(
-                    quote=_util.sanitize_id(quote)
-                ),
+                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
                 params=params,
             ),
         )
@@ -1268,7 +1261,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1307,7 +1300,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=_util.sanitize_id(quote)
+                    quote=sanitize_id(quote)
                 ),
                 params=params,
             ),
@@ -1345,7 +1338,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1363,7 +1356,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=_util.sanitize_id(quote)
+                    quote=sanitize_id(quote)
                 ),
                 params=params,
             ),
@@ -1400,7 +1393,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1413,7 +1406,7 @@ class Quote(
         """
         A quote models prices and services for a customer.
         """
-        url = "%s/%s" % (cls.class_url(), _util.sanitize_id(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Quote",
             cls._static_request(
@@ -1432,9 +1425,7 @@ class Quote(
             Any,
             cls._static_request_stream(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(
-                    quote=_util.sanitize_id(quote)
-                ),
+                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
                 params=params,
                 base_address="files",
             ),
@@ -1467,7 +1458,7 @@ class Quote(
             self._request_stream(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(
-                    quote=_util.sanitize_id(self.get("id"))
+                    quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

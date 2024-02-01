@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._usage_record import UsageRecord
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -47,7 +47,7 @@ class SubscriptionItemUsageRecordService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
-                    subscription_item=_util.sanitize_id(subscription_item),
+                    subscription_item=sanitize_id(subscription_item),
                 ),
                 api_mode="V1",
                 base_address="api",

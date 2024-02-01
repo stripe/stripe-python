@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.climate._supplier import Supplier
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -68,7 +68,7 @@ class SupplierService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/climate/suppliers/{supplier}".format(
-                    supplier=_util.sanitize_id(supplier),
+                    supplier=sanitize_id(supplier),
                 ),
                 api_mode="V1",
                 base_address="api",

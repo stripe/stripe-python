@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.treasury._debit_reversal import DebitReversal
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -118,7 +118,7 @@ class DebitReversalService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
-                    debit_reversal=_util.sanitize_id(debit_reversal),
+                    debit_reversal=sanitize_id(debit_reversal),
                 ),
                 api_mode="V1",
                 base_address="api",
