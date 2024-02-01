@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.1.0 - 2024-02-01
+* [#1213](https://github.com/stripe/stripe-python/pull/1213) Update generated code
+  * Add support for `swish` payment method throughout the API
+  * Add support for `relationship` on parameter classes `Account.CreateParamsIndividual` and `Token.CreateParamsAccountIndividual`
+  * Add support for `jurisdiction_level` on resource `TaxRate`
+  * Change type from `str` to `Literal["offline", "online"]` of `status` on field `terminal.Reader`
+
 ## 8.1.0b1 - 2024-01-25
 * [#1198](https://github.com/stripe/stripe-python/pull/1198) Update generated code for beta
   * Add support for `create_preview` method on resource `Invoice`
