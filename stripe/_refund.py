@@ -168,6 +168,16 @@ class Refund(
         class Sofort(StripeObject):
             pass
 
+        class Swish(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class ThBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -217,6 +227,7 @@ class Refund(
         pix: Optional[Pix]
         revolut: Optional[Revolut]
         sofort: Optional[Sofort]
+        swish: Optional[Swish]
         th_bank_transfer: Optional[ThBankTransfer]
         type: str
         """
@@ -249,6 +260,7 @@ class Refund(
             "pix": Pix,
             "revolut": Revolut,
             "sofort": Sofort,
+            "swish": Swish,
             "th_bank_transfer": ThBankTransfer,
             "us_bank_transfer": UsBankTransfer,
             "wechat_pay": WechatPay,
