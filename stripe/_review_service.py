@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._review import Review
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -92,9 +92,7 @@ class ReviewService(StripeService):
             Review,
             self._requestor.request(
                 "get",
-                "/v1/reviews/{review}".format(
-                    review=_util.sanitize_id(review)
-                ),
+                "/v1/reviews/{review}".format(review=sanitize_id(review)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -116,7 +114,7 @@ class ReviewService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=_util.sanitize_id(review),
+                    review=sanitize_id(review),
                 ),
                 api_mode="V1",
                 base_address="api",

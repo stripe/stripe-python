@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
 from typing import Dict, List, cast
@@ -2083,7 +2083,7 @@ class SessionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/checkout/sessions/{session}".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2108,7 +2108,7 @@ class SessionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -193,7 +192,7 @@ class Review(ListableAPIResource["Review"]):
             cls._static_request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=_util.sanitize_id(review)
+                    review=sanitize_id(review)
                 ),
                 params=params,
             ),
@@ -228,7 +227,7 @@ class Review(ListableAPIResource["Review"]):
             self._request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=_util.sanitize_id(self.get("id"))
+                    review=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

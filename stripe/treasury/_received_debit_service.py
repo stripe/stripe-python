@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.treasury._received_debit import ReceivedDebit
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -75,9 +75,7 @@ class ReceivedDebitService(StripeService):
             ReceivedDebit,
             self._requestor.request(
                 "get",
-                "/v1/treasury/received_debits/{id}".format(
-                    id=_util.sanitize_id(id),
-                ),
+                "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

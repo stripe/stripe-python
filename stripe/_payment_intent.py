@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -10,7 +9,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     Any,
     ClassVar,
@@ -29,7 +28,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -7685,7 +7683,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7723,7 +7721,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7745,7 +7743,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7794,7 +7792,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7816,7 +7814,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7865,7 +7863,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7905,7 +7903,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8008,7 +8006,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -8035,7 +8033,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -8076,7 +8074,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8183,7 +8181,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -8223,10 +8221,14 @@ class PaymentIntent(
         update and confirm at the same time, we recommend updating properties through
         the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentIntent",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -8258,7 +8260,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8296,7 +8298,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

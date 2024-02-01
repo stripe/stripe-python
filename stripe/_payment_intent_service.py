@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payment_intent import PaymentIntent
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -5850,7 +5850,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/payment_intents/{intent}".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5879,7 +5879,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5925,7 +5925,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5952,7 +5952,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -5979,7 +5979,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -6024,7 +6024,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -6070,7 +6070,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -6093,7 +6093,7 @@ class PaymentIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",

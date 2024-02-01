@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -10,7 +9,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -20,7 +19,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
@@ -545,7 +543,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=_util.sanitize_id(reader)
+                    reader=sanitize_id(reader)
                 ),
                 params=params,
             ),
@@ -582,7 +580,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=_util.sanitize_id(self.get("id"))
+                    reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -598,7 +596,7 @@ class Reader(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -609,10 +607,14 @@ class Reader(
         """
         Deletes a Reader object.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Reader",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -671,10 +673,14 @@ class Reader(
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Reader",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -689,7 +695,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=_util.sanitize_id(reader)
+                    reader=sanitize_id(reader)
                 ),
                 params=params,
             ),
@@ -726,7 +732,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=_util.sanitize_id(self.get("id"))
+                    reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -744,7 +750,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=_util.sanitize_id(reader)
+                    reader=sanitize_id(reader)
                 ),
                 params=params,
             ),
@@ -781,7 +787,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=_util.sanitize_id(self.get("id"))
+                    reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -799,7 +805,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=_util.sanitize_id(reader)
+                    reader=sanitize_id(reader)
                 ),
                 params=params,
             ),
@@ -836,7 +842,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=_util.sanitize_id(self.get("id"))
+                    reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -865,7 +871,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=_util.sanitize_id(reader)
+                    reader=sanitize_id(reader)
                 ),
                 params=params,
             ),
@@ -902,7 +908,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=_util.sanitize_id(self.get("id"))
+                    reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -925,7 +931,7 @@ class Reader(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=_util.sanitize_id(reader)
+                        reader=sanitize_id(reader)
                     ),
                     params=params,
                 ),
@@ -962,7 +968,7 @@ class Reader(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=_util.sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.issuing._authorization import Authorization
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -379,7 +379,7 @@ class AuthorizationService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                    authorization=_util.sanitize_id(authorization),
+                    authorization=sanitize_id(authorization),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -402,7 +402,7 @@ class AuthorizationService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                    authorization=_util.sanitize_id(authorization),
+                    authorization=sanitize_id(authorization),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -425,7 +425,7 @@ class AuthorizationService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                    authorization=_util.sanitize_id(authorization),
+                    authorization=sanitize_id(authorization),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -448,7 +448,7 @@ class AuthorizationService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                    authorization=_util.sanitize_id(authorization),
+                    authorization=sanitize_id(authorization),
                 ),
                 api_mode="V1",
                 base_address="api",

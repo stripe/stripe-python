@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -54,7 +54,7 @@ class CustomerPaymentMethodService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -78,8 +78,8 @@ class CustomerPaymentMethodService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=_util.sanitize_id(customer),
-                    payment_method=_util.sanitize_id(payment_method),
+                    customer=sanitize_id(customer),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 api_mode="V1",
                 base_address="api",

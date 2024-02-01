@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._tax_rate import TaxRate
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -206,7 +206,7 @@ class TaxRateService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=_util.sanitize_id(tax_rate),
+                    tax_rate=sanitize_id(tax_rate),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -229,7 +229,7 @@ class TaxRateService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=_util.sanitize_id(tax_rate),
+                    tax_rate=sanitize_id(tax_rate),
                 ),
                 api_mode="V1",
                 base_address="api",

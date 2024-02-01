@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._quote import Quote
 from stripe._quote_computed_upfront_line_items_service import (
@@ -9,6 +8,7 @@ from stripe._quote_computed_upfront_line_items_service import (
 from stripe._quote_line_item_service import QuoteLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Any, Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -618,7 +618,7 @@ class QuoteService(StripeService):
             Quote,
             self._requestor.request(
                 "get",
-                "/v1/quotes/{quote}".format(quote=_util.sanitize_id(quote)),
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -639,7 +639,7 @@ class QuoteService(StripeService):
             Quote,
             self._requestor.request(
                 "post",
-                "/v1/quotes/{quote}".format(quote=_util.sanitize_id(quote)),
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -660,9 +660,7 @@ class QuoteService(StripeService):
             Quote,
             self._requestor.request(
                 "post",
-                "/v1/quotes/{quote}/accept".format(
-                    quote=_util.sanitize_id(quote),
-                ),
+                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -683,9 +681,7 @@ class QuoteService(StripeService):
             Quote,
             self._requestor.request(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(
-                    quote=_util.sanitize_id(quote),
-                ),
+                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -706,9 +702,7 @@ class QuoteService(StripeService):
             Quote,
             self._requestor.request(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(
-                    quote=_util.sanitize_id(quote),
-                ),
+                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -729,9 +723,7 @@ class QuoteService(StripeService):
             Any,
             self._requestor.request_stream(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(
-                    quote=_util.sanitize_id(quote)
-                ),
+                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
                 api_mode="V1",
                 base_address="files",
                 params=params,
