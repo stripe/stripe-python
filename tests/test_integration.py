@@ -20,7 +20,7 @@ else:
     from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-class TestHandler(BaseHTTPRequestHandler):
+class MyTestHandler(BaseHTTPRequestHandler):
     num_requests = 0
 
     requests = defaultdict(Queue)
@@ -118,7 +118,7 @@ class TestIntegration(object):
         self.mock_server_thread.start()
 
     def test_hits_api_base(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -129,7 +129,7 @@ class TestIntegration(object):
         assert reqs[0].path == "/v1/balance"
 
     def test_hits_proxy_through_default_http_client(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -150,7 +150,7 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 2
 
     def test_hits_proxy_through_custom_client(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -164,7 +164,7 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 1
 
     def test_hits_proxy_through_stripe_client_proxy(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -179,7 +179,7 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 1
 
     def test_hits_proxy_through_stripe_client_http_client(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -196,7 +196,7 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 1
 
     def test_passes_client_telemetry_when_enabled(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             def do_request(self, req_num):
                 if req_num == 0:
                     time.sleep(31 / 1000)  # 31 ms
@@ -248,7 +248,7 @@ class TestIntegration(object):
         assert "usage" not in metrics
 
     def test_uses_thread_local_client_telemetry(self):
-        class MockServerRequestHandler(TestHandler):
+        class MockServerRequestHandler(MyTestHandler):
             local_num_requests = 0
             seen_metrics = set()
             stats_lock = Lock()
