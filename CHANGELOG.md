@@ -1,3 +1,10 @@
+## 8.1.0 - 2024-02-01
+* [#1213](https://github.com/stripe/stripe-python/pull/1213) Update generated code
+  * Add support for `swish` payment method throughout the API
+  * Add support for `relationship` on parameter classes `Account.CreateParamsIndividual` and `Token.CreateParamsAccountIndividual`
+  * Add support for `jurisdiction_level` on resource `TaxRate`
+  * Change type from `str` to `Literal["offline", "online"]` of `status` on field `terminal.Reader`
+
 ## 8.0.0 - 2024-01-25
 * [#1206](https://github.com/stripe/stripe-python/pull/1206) stripe-python v8 release
   This release introduces `StripeClient` and a service-based call pattern. This new interface allows you to easily call Stripe APIs and has several benefits over the existing resource-based pattern:
