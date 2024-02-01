@@ -203,6 +203,12 @@ class TaxRate(
     """
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
+    jurisdiction_level: Optional[
+        Literal["city", "country", "county", "district", "multiple", "state"]
+    ]
+    """
+    The level of the jurisdiction that imposes this tax rate. Will be `null` for manually defined tax rates.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

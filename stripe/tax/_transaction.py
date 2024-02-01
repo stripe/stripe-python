@@ -213,7 +213,7 @@ class Transaction(APIResource["Transaction"]):
 
             amount: int
             """
-            The amount of tax, in integer cents.
+            The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin"]
@@ -246,7 +246,7 @@ class Transaction(APIResource["Transaction"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in integer cents.
+            The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -255,11 +255,11 @@ class Transaction(APIResource["Transaction"]):
 
         amount: int
         """
-        The shipping amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in integer cents.
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         shipping_rate: Optional[str]
         """
@@ -304,7 +304,7 @@ class Transaction(APIResource["Transaction"]):
         """
         flat_amount: NotRequired["int"]
         """
-        A flat amount to reverse across the entire transaction, in negative integer cents. This value represents the total amount to refund from the transaction, including taxes.
+        A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
         """
         line_items: NotRequired[
             "List[Transaction.CreateReversalParamsLineItem]"
@@ -338,11 +338,11 @@ class Transaction(APIResource["Transaction"]):
     class CreateReversalParamsLineItem(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         metadata: NotRequired["Dict[str, str]"]
         """
@@ -364,11 +364,11 @@ class Transaction(APIResource["Transaction"]):
     class CreateReversalParamsShippingCost(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
 
     class ListLineItemsParams(RequestOptions):

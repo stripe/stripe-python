@@ -286,6 +286,10 @@ class Account(
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
         """
+        swish_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Swish capability of the account, or whether the account can directly process Swish payments.
+        """
         tax_reporting_us_1099_k: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -1174,9 +1178,7 @@ class Account(
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
-
-        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
@@ -1515,6 +1517,12 @@ class Account(
         """
         The sofort_payments capability.
         """
+        swish_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSwishPayments"
+        ]
+        """
+        The swish_payments capability.
+        """
         tax_reporting_us_1099_k: NotRequired[
             "Account.CreateParamsCapabilitiesTaxReportingUs1099K"
         ]
@@ -1729,6 +1737,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSwishPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2166,6 +2180,10 @@ class Account(
         """
         The individual's registered address.
         """
+        relationship: NotRequired["Account.CreateParamsIndividualRelationship"]
+        """
+        Describes the person's relationship to the account.
+        """
         ssn_last_4: NotRequired["str"]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
@@ -2299,6 +2317,28 @@ class Account(
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsIndividualRelationship(TypedDict):
+        director: NotRequired["bool"]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
+        executive: NotRequired["bool"]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
+        owner: NotRequired["bool"]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
+        percent_ownership: NotRequired["Literal['']|float"]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
+        title: NotRequired["str"]
+        """
+        The person's title (e.g., CEO, Support Engineer).
         """
 
     class CreateParamsIndividualVerification(TypedDict):

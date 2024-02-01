@@ -292,6 +292,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -321,6 +327,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -583,6 +590,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -1255,6 +1265,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1284,6 +1300,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1544,6 +1561,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -2201,6 +2221,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2230,6 +2256,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2490,6 +2517,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class UpdateParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
