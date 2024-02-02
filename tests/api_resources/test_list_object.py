@@ -424,3 +424,78 @@ class TestAutoPaging:
             api_key="sk_test_iter_forwards_options",
         )
         assert lo.data[0].api_key == "sk_test_iter_forwards_options"
+
+
+class TestAutoPagingAsync:
+    @staticmethod
+    def pageable_model_response(ids, has_more):
+        return {
+            "object": "list",
+            "url": "/v1/pageablemodels",
+            "data": [{"id": id, "object": "pageablemodel"} for id in ids],
+            "has_more": has_more,
+        }
+
+    @pytest.mark.anyio
+    async def test_iter_one_page(self, http_client_mock_async):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_123", "pm_124"], False), "mykey"
+        )
+
+        http_client_mock_async.assert_no_request()
+
+        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+
+        assert seen == ["pm_123", "pm_124"]
+
+    @pytest.mark.anyio
+    async def test_iter_two_pages(self, http_client_mock_async):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_123", "pm_124"], True), "mykey"
+        )
+        lo._retrieve_params = {"foo": "bar"}
+
+        http_client_mock_async.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_124&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_125", "pm_126"], False)
+            ),
+        )
+
+        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+
+        http_client_mock_async.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_124&foo=bar",
+        )
+
+        assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
+
+    @pytest.mark.anyio
+    async def test_iter_reverse(self, http_client_mock_async):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
+
+        http_client_mock_async.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_123", "pm_124"], False)
+            ),
+        )
+
+        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+
+        http_client_mock_async.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]

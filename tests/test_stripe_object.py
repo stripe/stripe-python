@@ -412,6 +412,18 @@ class TestStripeObject(object):
             stripe_account=None,
         )
 
+    @pytest.mark.anyio
+    async def test_request_async_succeeds(self, http_client_mock_async):
+        http_client_mock_async.stub_request("get", "/foo")
+        obj = stripe.stripe_object.StripeObject("id", "key")
+        await obj._request_async(
+            "get", "/foo", base_address="api", api_mode="V1"
+        )
+        http_client_mock_async.assert_requested(
+            api_key="key",
+            stripe_account=None,
+        )
+
     def test_refresh_from_creates_new_requestor(self):
         obj = stripe.stripe_object.StripeObject.construct_from(
             {}, key="origkey"
