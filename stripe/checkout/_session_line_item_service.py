@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._line_item import LineItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,7 +42,7 @@ class SessionLineItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/checkout/sessions/{session}/line_items".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",

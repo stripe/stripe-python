@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.reporting._report_run import ReportRun
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -159,7 +159,7 @@ class ReportRunService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/reporting/report_runs/{report_run}".format(
-                    report_run=_util.sanitize_id(report_run),
+                    report_run=sanitize_id(report_run),
                 ),
                 api_mode="V1",
                 base_address="api",

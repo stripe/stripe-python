@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -828,8 +828,8 @@ class AccountPersonService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -853,8 +853,8 @@ class AccountPersonService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -878,8 +878,8 @@ class AccountPersonService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -902,7 +902,7 @@ class AccountPersonService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -925,7 +925,7 @@ class AccountPersonService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

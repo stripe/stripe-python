@@ -10,7 +10,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     ClassVar,
     Dict,
@@ -28,11 +28,13 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._price import Price
     from stripe._tax_code import TaxCode
+    from stripe.entitlements._feature import (
+        Feature as EntitlementsFeatureResource,
+    )
 
 
 class Product(
@@ -56,6 +58,10 @@ class Product(
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
 
     class Feature(StripeObject):
+        feature: Optional[ExpandableField["EntitlementsFeatureResource"]]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: Optional[str]
         """
         The feature's name. Up to 80 characters long.
@@ -124,7 +130,7 @@ class Product(
         """
         features: NotRequired["List[Product.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -291,6 +297,10 @@ class Product(
         """
 
     class CreateParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -419,7 +429,7 @@ class Product(
         """
         features: NotRequired["Literal['']|List[Product.ModifyParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -464,6 +474,10 @@ class Product(
         """
 
     class ModifyParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -529,7 +543,7 @@ class Product(
     """
     features: List[Feature]
     """
-    A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
     """
     id: str
     """
@@ -606,7 +620,7 @@ class Product(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -617,10 +631,14 @@ class Product(
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Product",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -681,10 +699,14 @@ class Product(
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Product",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

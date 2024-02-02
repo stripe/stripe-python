@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
@@ -256,7 +255,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             cls._static_request(
                 "get",
                 "/v1/quote_phases/{quote_phase}/line_items".format(
-                    quote_phase=_util.sanitize_id(quote_phase)
+                    quote_phase=sanitize_id(quote_phase)
                 ),
                 params=params,
             ),
@@ -293,7 +292,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             self._request(
                 "get",
                 "/v1/quote_phases/{quote_phase}/line_items".format(
-                    quote_phase=_util.sanitize_id(self.get("id"))
+                    quote_phase=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

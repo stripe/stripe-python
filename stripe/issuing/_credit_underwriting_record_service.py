@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.issuing._credit_underwriting_record import CreditUnderwritingRecord
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -920,7 +920,7 @@ class CreditUnderwritingRecordService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}".format(
-                    credit_underwriting_record=_util.sanitize_id(
+                    credit_underwriting_record=sanitize_id(
                         credit_underwriting_record
                     ),
                 ),
@@ -945,7 +945,7 @@ class CreditUnderwritingRecordService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=_util.sanitize_id(
+                    credit_underwriting_record=sanitize_id(
                         credit_underwriting_record
                     ),
                 ),
@@ -970,7 +970,7 @@ class CreditUnderwritingRecordService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=_util.sanitize_id(
+                    credit_underwriting_record=sanitize_id(
                         credit_underwriting_record
                     ),
                 ),

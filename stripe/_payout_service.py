@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payout import Payout
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -201,9 +201,7 @@ class PayoutService(StripeService):
             Payout,
             self._requestor.request(
                 "get",
-                "/v1/payouts/{payout}".format(
-                    payout=_util.sanitize_id(payout)
-                ),
+                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -224,9 +222,7 @@ class PayoutService(StripeService):
             Payout,
             self._requestor.request(
                 "post",
-                "/v1/payouts/{payout}".format(
-                    payout=_util.sanitize_id(payout)
-                ),
+                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -248,7 +244,7 @@ class PayoutService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=_util.sanitize_id(payout),
+                    payout=sanitize_id(payout),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -273,7 +269,7 @@ class PayoutService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=_util.sanitize_id(payout),
+                    payout=sanitize_id(payout),
                 ),
                 api_mode="V1",
                 base_address="api",

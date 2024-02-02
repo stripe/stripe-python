@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -194,7 +193,7 @@ class Form(ListableAPIResource["Form"]):
             Any,
             cls._static_request_stream(
                 "get",
-                "/v1/tax/forms/{id}/pdf".format(id=_util.sanitize_id(id)),
+                "/v1/tax/forms/{id}/pdf".format(id=sanitize_id(id)),
                 params=params,
                 base_address="files",
             ),
@@ -227,7 +226,7 @@ class Form(ListableAPIResource["Form"]):
             self._request_stream(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

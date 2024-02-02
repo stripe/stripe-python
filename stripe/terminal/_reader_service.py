@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.terminal._reader import Reader
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -356,7 +356,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/terminal/readers/{reader}".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -379,7 +379,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/terminal/readers/{reader}".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -402,7 +402,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -465,7 +465,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -488,7 +488,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -511,7 +511,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -534,7 +534,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -557,7 +557,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -580,7 +580,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -603,7 +603,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -626,7 +626,7 @@ class ReaderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=_util.sanitize_id(reader),
+                    reader=sanitize_id(reader),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
 from typing import Dict, List, cast
@@ -172,7 +172,7 @@ class SessionService(StripeService):
         Payment-method-specific configuration.
         """
         payment_method_types: NotRequired[
-            "List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
@@ -230,8 +230,7 @@ class SessionService(StripeService):
         """
         Describes the type of transaction being performed by Checkout in order to customize
         relevant text on the page, such as the submit button. `submit_type` can only be
-        specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-        in `subscription` or `setup` mode. Possible values are `auto`, `pay`, `book`, `donate`. If blank or `auto`, `pay` is used.
+        specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired[
             "SessionService.CreateParamsSubscriptionData"
@@ -961,6 +960,12 @@ class SessionService(StripeService):
         """
         contains details about the Sofort payment method options.
         """
+        swish: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSwish"
+        ]
+        """
+        contains details about the Swish payment method options.
+        """
         us_bank_account: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsUsBankAccount"
         ]
@@ -1403,6 +1408,12 @@ class SessionService(StripeService):
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsSwish(TypedDict):
+        reference: NotRequired["Literal['']|str"]
+        """
+        The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
@@ -2093,7 +2104,7 @@ class SessionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/checkout/sessions/{session}".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2118,7 +2129,7 @@ class SessionService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
-                    session=_util.sanitize_id(session),
+                    session=sanitize_id(session),
                 ),
                 api_mode="V1",
                 base_address="api",

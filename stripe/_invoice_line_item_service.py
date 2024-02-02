@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._invoice_line_item import InvoiceLineItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,7 +42,7 @@ class InvoiceLineItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/invoices/{invoice}/lines".format(
-                    invoice=_util.sanitize_id(invoice),
+                    invoice=sanitize_id(invoice),
                 ),
                 api_mode="V1",
                 base_address="api",

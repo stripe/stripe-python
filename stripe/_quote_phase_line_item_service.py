@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._line_item import LineItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,7 +42,7 @@ class QuotePhaseLineItemService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/quote_phases/{quote_phase}/line_items".format(
-                    quote_phase=_util.sanitize_id(quote_phase),
+                    quote_phase=sanitize_id(quote_phase),
                 ),
                 api_mode="V1",
                 base_address="api",

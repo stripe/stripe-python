@@ -4,9 +4,13 @@ from stripe._api_resource import APIResource
 from stripe._customer import Customer
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
+from stripe._util import sanitize_id
 from typing import ClassVar, Optional
-from typing_extensions import Literal
-from urllib.parse import quote_plus
+from typing_extensions import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._account import Account
+    from stripe._application import Application
 
 
 class TaxId(APIResource["TaxId"]):
@@ -18,6 +22,24 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_id"]] = "tax_id"
+
+    class Owner(StripeObject):
+        account: Optional[ExpandableField["Account"]]
+        """
+        The account being referenced when `type` is `account`.
+        """
+        application: Optional[ExpandableField["Application"]]
+        """
+        The Connect Application being referenced when `type` is `application`.
+        """
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        The customer being referenced when `type` is `customer`.
+        """
+        type: Literal["account", "application", "customer", "self"]
+        """
+        Type of owner referenced.
+        """
 
     class Verification(StripeObject):
         status: Literal["pending", "unavailable", "unverified", "verified"]
@@ -56,6 +78,10 @@ class TaxId(APIResource["TaxId"]):
     object: Literal["tax_id"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    owner: Optional[Owner]
+    """
+    The account or customer the tax ID belongs to.
     """
     type: Literal[
         "ad_nrt",
@@ -149,8 +175,8 @@ class TaxId(APIResource["TaxId"]):
         assert customer is not None
         if isinstance(customer, Customer):
             customer = customer.id
-        cust_extn = quote_plus(customer)
-        extn = quote_plus(token)
+        cust_extn = sanitize_id(customer)
+        extn = sanitize_id(token)
         return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)
 
     @classmethod
@@ -159,4 +185,4 @@ class TaxId(APIResource["TaxId"]):
             "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
         )
 
-    _inner_class_types = {"verification": Verification}
+    _inner_class_types = {"owner": Owner, "verification": Verification}

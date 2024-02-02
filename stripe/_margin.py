@@ -5,9 +5,9 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
-from urllib.parse import quote_plus
 
 
 class Margin(
@@ -137,7 +137,7 @@ class Margin(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -169,10 +169,14 @@ class Margin(
         """
         Update the specified margin object. Certain fields of the margin object are not editable.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Margin",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

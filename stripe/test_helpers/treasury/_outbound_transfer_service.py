@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.treasury._outbound_transfer import OutboundTransfer
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -55,7 +55,7 @@ class OutboundTransferService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=_util.sanitize_id(outbound_transfer),
+                    outbound_transfer=sanitize_id(outbound_transfer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -78,7 +78,7 @@ class OutboundTransferService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=_util.sanitize_id(outbound_transfer),
+                    outbound_transfer=sanitize_id(outbound_transfer),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -101,7 +101,7 @@ class OutboundTransferService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=_util.sanitize_id(outbound_transfer),
+                    outbound_transfer=sanitize_id(outbound_transfer),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._product import Product
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -32,7 +32,7 @@ class ProductService(StripeService):
         """
         features: NotRequired["List[ProductService.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -201,6 +201,10 @@ class ProductService(StripeService):
         """
 
     class CreateParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -357,7 +361,7 @@ class ProductService(StripeService):
             "Literal['']|List[ProductService.UpdateParamsFeature]"
         ]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -402,6 +406,10 @@ class ProductService(StripeService):
         """
 
     class UpdateParamsFeature(TypedDict):
+        feature: NotRequired["str"]
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
+        """
         name: str
         """
         The feature's name. Up to 80 characters long.
@@ -438,7 +446,7 @@ class ProductService(StripeService):
             Product,
             self._requestor.request(
                 "delete",
-                "/v1/products/{id}".format(id=_util.sanitize_id(id)),
+                "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -459,7 +467,7 @@ class ProductService(StripeService):
             Product,
             self._requestor.request(
                 "get",
-                "/v1/products/{id}".format(id=_util.sanitize_id(id)),
+                "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -480,7 +488,7 @@ class ProductService(StripeService):
             Product,
             self._requestor.request(
                 "post",
-                "/v1/products/{id}".format(id=_util.sanitize_id(id)),
+                "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

@@ -223,6 +223,7 @@ from stripe import (
     capital as capital,
     checkout as checkout,
     climate as climate,
+    entitlements as entitlements,
     financial_connections as financial_connections,
     gift_cards as gift_cards,
     identity as identity,
@@ -337,6 +338,18 @@ from stripe._customer_cash_balance_transaction import (
 from stripe._customer_cash_balance_transaction_service import (
     CustomerCashBalanceTransactionService as CustomerCashBalanceTransactionService,
 )
+from stripe._customer_entitlement import (
+    CustomerEntitlement as CustomerEntitlement,
+)
+from stripe._customer_entitlement_service import (
+    CustomerEntitlementService as CustomerEntitlementService,
+)
+from stripe._customer_entitlement_summary import (
+    CustomerEntitlementSummary as CustomerEntitlementSummary,
+)
+from stripe._customer_entitlement_summary_service import (
+    CustomerEntitlementSummaryService as CustomerEntitlementSummaryService,
+)
 from stripe._customer_funding_instructions_service import (
     CustomerFundingInstructionsService as CustomerFundingInstructionsService,
 )
@@ -357,6 +370,9 @@ from stripe._customer_tax_id_service import (
 from stripe._discount import Discount as Discount
 from stripe._dispute import Dispute as Dispute
 from stripe._dispute_service import DisputeService as DisputeService
+from stripe._entitlements_service import (
+    EntitlementsService as EntitlementsService,
+)
 from stripe._ephemeral_key import EphemeralKey as EphemeralKey
 from stripe._ephemeral_key_service import (
     EphemeralKeyService as EphemeralKeyService,
