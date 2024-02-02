@@ -291,3 +291,38 @@ class TestIntegration(object):
 
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
+
+    def test_measures_stripe_client_telemetry(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, req_num):
+                return [
+                    200,
+                    {
+                        "Content-Type": "application/json; charset=utf-8",
+                        "Request-Id": "req_%s" % (req_num + 1),
+                    },
+                    None,
+                ]
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.enable_telemetry = True
+
+        client = stripe.StripeClient(
+            "sk_test_123",
+            base_addresses={
+                "api": "http://localhost:%s" % self.mock_server_port
+            },
+        )
+        client.customers.create()
+        client.customers.create()
+
+        reqs = MockServerRequestHandler.get_requests(2)
+
+        telemetry_raw = reqs[1].headers.get("x-stripe-client-telemetry")
+
+        assert telemetry_raw is not None
+        telemetry = json.loads(telemetry_raw)
+        assert "last_request_metrics" in telemetry
+
+        usage = telemetry["last_request_metrics"]["usage"]
+        assert usage == ["stripe_client"]
