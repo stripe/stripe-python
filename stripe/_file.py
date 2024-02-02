@@ -195,7 +195,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
                 base_address="files",
                 api_mode="V1FILES",
             ),

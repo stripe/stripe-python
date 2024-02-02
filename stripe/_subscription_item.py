@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -10,7 +9,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -19,7 +18,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
@@ -548,7 +546,7 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -559,10 +557,14 @@ class SubscriptionItem(
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "SubscriptionItem",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -625,10 +627,14 @@ class SubscriptionItem(
         """
         Updates the plan or quantity of an item on a current subscription.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "SubscriptionItem",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -662,7 +668,7 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
-                    subscription_item=_util.sanitize_id(subscription_item)
+                    subscription_item=sanitize_id(subscription_item)
                 ),
                 params=params,
             ),
@@ -684,7 +690,7 @@ class SubscriptionItem(
             cls._static_request(
                 "get",
                 "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                    subscription_item=_util.sanitize_id(subscription_item)
+                    subscription_item=sanitize_id(subscription_item)
                 ),
                 params=params,
             ),

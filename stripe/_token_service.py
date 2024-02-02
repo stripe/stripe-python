@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._token import Token
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -364,6 +364,12 @@ class TokenService(StripeService):
         """
         The individual's registered address.
         """
+        relationship: NotRequired[
+            "TokenService.CreateParamsAccountIndividualRelationship"
+        ]
+        """
+        Describes the person's relationship to the account.
+        """
         ssn_last_4: NotRequired["str"]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
@@ -499,6 +505,28 @@ class TokenService(StripeService):
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsAccountIndividualRelationship(TypedDict):
+        director: NotRequired["bool"]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
+        executive: NotRequired["bool"]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
+        owner: NotRequired["bool"]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
+        percent_ownership: NotRequired["Literal['']|float"]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
+        title: NotRequired["str"]
+        """
+        The person's title (e.g., CEO, Support Engineer).
         """
 
     class CreateParamsAccountIndividualVerification(TypedDict):
@@ -1014,7 +1042,7 @@ class TokenService(StripeService):
             Token,
             self._requestor.request(
                 "get",
-                "/v1/tokens/{token}".format(token=_util.sanitize_id(token)),
+                "/v1/tokens/{token}".format(token=sanitize_id(token)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

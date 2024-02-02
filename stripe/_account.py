@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -12,7 +11,7 @@ from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -21,7 +20,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
@@ -29,6 +27,7 @@ if TYPE_CHECKING:
     from stripe._card import Card
     from stripe._file import File
     from stripe._login_link import LoginLink
+    from stripe._tax_id import TaxId
 
 
 @nested_resource_class_methods("capability")
@@ -291,6 +290,10 @@ class Account(
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
+        """
+        swish_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Swish capability of the account, or whether the account can directly process Swish payments.
         """
         tax_reporting_us_1099_k: Optional[
             Literal["active", "inactive", "pending"]
@@ -962,6 +965,12 @@ class Account(
             The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
             """
 
+        class Invoices(StripeObject):
+            default_account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
+            """
+            The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
+            """
+
         class Payments(StripeObject):
             statement_descriptor: Optional[str]
             """
@@ -1049,6 +1058,7 @@ class Account(
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
+        invoices: Optional[Invoices]
         payments: Payments
         payouts: Optional[Payouts]
         sepa_debit_payments: Optional[SepaDebitPayments]
@@ -1060,6 +1070,7 @@ class Account(
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
+            "invoices": Invoices,
             "payments": Payments,
             "payouts": Payouts,
             "sepa_debit_payments": SepaDebitPayments,
@@ -1218,9 +1229,7 @@ class Account(
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
-
-        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
@@ -1565,6 +1574,12 @@ class Account(
         """
         The sofort_payments capability.
         """
+        swish_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSwishPayments"
+        ]
+        """
+        The swish_payments capability.
+        """
         tax_reporting_us_1099_k: NotRequired[
             "Account.CreateParamsCapabilitiesTaxReportingUs1099K"
         ]
@@ -1785,6 +1800,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSwishPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2252,6 +2273,10 @@ class Account(
         """
         The individual's registered address.
         """
+        relationship: NotRequired["Account.CreateParamsIndividualRelationship"]
+        """
+        Describes the person's relationship to the account.
+        """
         ssn_last_4: NotRequired["str"]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
@@ -2385,6 +2410,28 @@ class Account(
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsIndividualRelationship(TypedDict):
+        director: NotRequired["bool"]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
+        executive: NotRequired["bool"]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
+        owner: NotRequired["bool"]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
+        percent_ownership: NotRequired["Literal['']|float"]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
+        title: NotRequired["str"]
+        """
+        The person's title (e.g., CEO, Support Engineer).
         """
 
     class CreateParamsIndividualVerification(TypedDict):
@@ -3738,7 +3785,7 @@ class Account(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -3753,10 +3800,14 @@ class Account(
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Account",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -3834,7 +3885,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -3871,7 +3922,7 @@ class Account(
             self._request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3891,7 +3942,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -3932,7 +3983,7 @@ class Account(
             self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3957,7 +4008,7 @@ class Account(
         if not sid:
             return "/v1/account"
         base = cls.class_url()
-        extn = quote_plus(sid)
+        extn = sanitize_id(sid)
         return "%s/%s" % (base, extn)
 
     def instance_url(self):
@@ -3992,8 +4043,8 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=_util.sanitize_id(account),
-                    capability=_util.sanitize_id(capability),
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
                 ),
                 params=params,
             ),
@@ -4014,8 +4065,8 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=_util.sanitize_id(account),
-                    capability=_util.sanitize_id(capability),
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
                 ),
                 params=params,
             ),
@@ -4033,7 +4084,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4053,7 +4104,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4074,8 +4125,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4098,8 +4148,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4120,8 +4169,7 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=_util.sanitize_id(account),
-                    id=_util.sanitize_id(id),
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -4141,7 +4189,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4161,7 +4209,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/login_links".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4179,7 +4227,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -4200,8 +4248,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4222,8 +4269,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4244,8 +4290,7 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=_util.sanitize_id(account),
-                    person=_util.sanitize_id(person),
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -4263,7 +4308,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),

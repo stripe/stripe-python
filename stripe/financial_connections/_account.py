@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -393,7 +392,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -430,7 +429,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -469,7 +468,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -506,7 +505,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -524,7 +523,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -561,7 +560,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -590,7 +589,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -627,7 +626,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -645,7 +644,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),
@@ -682,7 +681,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=_util.sanitize_id(self.get("id"))
+                    account=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -702,7 +701,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=_util.sanitize_id(account)
+                    account=sanitize_id(account)
                 ),
                 params=params,
             ),

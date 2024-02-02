@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._account import Account
 from stripe._account_capability_service import AccountCapabilityService
 from stripe._account_external_account_service import (
@@ -11,6 +10,7 @@ from stripe._account_person_service import AccountPersonService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -78,9 +78,7 @@ class AccountService(StripeService):
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
-
-        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
@@ -425,6 +423,12 @@ class AccountService(StripeService):
         """
         The sofort_payments capability.
         """
+        swish_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesSwishPayments"
+        ]
+        """
+        The swish_payments capability.
+        """
         tax_reporting_us_1099_k: NotRequired[
             "AccountService.CreateParamsCapabilitiesTaxReportingUs1099K"
         ]
@@ -649,6 +653,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSwishPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1130,6 +1140,12 @@ class AccountService(StripeService):
         """
         The individual's registered address.
         """
+        relationship: NotRequired[
+            "AccountService.CreateParamsIndividualRelationship"
+        ]
+        """
+        Describes the person's relationship to the account.
+        """
         ssn_last_4: NotRequired["str"]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
@@ -1265,6 +1281,28 @@ class AccountService(StripeService):
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsIndividualRelationship(TypedDict):
+        director: NotRequired["bool"]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
+        executive: NotRequired["bool"]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
+        owner: NotRequired["bool"]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
+        percent_ownership: NotRequired["Literal['']|float"]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
+        title: NotRequired["str"]
+        """
+        The person's title (e.g., CEO, Support Engineer).
         """
 
     class CreateParamsIndividualVerification(TypedDict):
@@ -1624,9 +1662,7 @@ class AccountService(StripeService):
         """
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs.
-
-        Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
@@ -1967,6 +2003,12 @@ class AccountService(StripeService):
         """
         The sofort_payments capability.
         """
+        swish_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesSwishPayments"
+        ]
+        """
+        The swish_payments capability.
+        """
         tax_reporting_us_1099_k: NotRequired[
             "AccountService.UpdateParamsCapabilitiesTaxReportingUs1099K"
         ]
@@ -2191,6 +2233,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesSwishPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2638,6 +2686,12 @@ class AccountService(StripeService):
         """
         The individual's registered address.
         """
+        relationship: NotRequired[
+            "AccountService.UpdateParamsIndividualRelationship"
+        ]
+        """
+        Describes the person's relationship to the account.
+        """
         ssn_last_4: NotRequired["str"]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
@@ -2775,6 +2829,28 @@ class AccountService(StripeService):
         State, county, province, or region.
         """
 
+    class UpdateParamsIndividualRelationship(TypedDict):
+        director: NotRequired["bool"]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
+        executive: NotRequired["bool"]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
+        owner: NotRequired["bool"]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
+        percent_ownership: NotRequired["Literal['']|float"]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
+        title: NotRequired["str"]
+        """
+        The person's title (e.g., CEO, Support Engineer).
+        """
+
     class UpdateParamsIndividualVerification(TypedDict):
         additional_document: NotRequired[
             "AccountService.UpdateParamsIndividualVerificationAdditionalDocument"
@@ -2831,6 +2907,10 @@ class AccountService(StripeService):
         ]
         """
         Settings specific to card charging on the account.
+        """
+        invoices: NotRequired["AccountService.UpdateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
         """
         payments: NotRequired["AccountService.UpdateParamsSettingsPayments"]
         """
@@ -2923,6 +3003,12 @@ class AccountService(StripeService):
         cvc_failure: NotRequired["bool"]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class UpdateParamsSettingsInvoices(TypedDict):
+        default_account_tax_ids: NotRequired["Literal['']|List[str]"]
+        """
+        The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         """
 
     class UpdateParamsSettingsPayments(TypedDict):
@@ -3040,9 +3126,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "delete",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3063,9 +3147,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "get",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3094,9 +3176,7 @@ class AccountService(StripeService):
             Account,
             self._requestor.request(
                 "post",
-                "/v1/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
-                ),
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -3185,7 +3265,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

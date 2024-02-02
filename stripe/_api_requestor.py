@@ -394,18 +394,17 @@ class _APIRequestor(object):
 
         return headers
 
-    def request_raw(
+    def _args_for_request_with_retries(
         self,
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
         options: Optional[RequestOptions] = None,
-        is_streaming: bool = False,
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[object, int, Mapping[str, str]]:
+    ):
         """
         Mechanism for issuing an API call
         """
@@ -490,11 +489,55 @@ class _APIRequestor(object):
             for key, value in supplied_headers.items():
                 headers[key] = value
 
+        max_network_retries = request_options.get("max_network_retries")
+
+        return (
+            # Actual args
+            method,
+            abs_url,
+            headers,
+            post_data,
+            max_network_retries,
+            _usage,
+            # For logging
+            encoded_params,
+            request_options.get("stripe_version"),
+        )
+
+    def request_raw(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        is_streaming: bool = False,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[object, int, Mapping[str, str]]:
+        (
+            method,
+            abs_url,
+            headers,
+            post_data,
+            max_network_retries,
+            _usage,
+            encoded_params,
+            api_version,
+        ) = self._args_for_request_with_retries(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            _usage=_usage,
+        )
+
         log_info("Request to Stripe api", method=method, url=abs_url)
         log_debug(
-            "Post details",
-            post_data=encoded_params,
-            api_version=request_options.get("stripe_version"),
+            "Post details", post_data=encoded_params, api_version=api_version
         )
 
         if is_streaming:
@@ -507,7 +550,7 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
+                max_network_retries=max_network_retries,
                 _usage=_usage,
             )
         else:
@@ -520,7 +563,7 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
+                max_network_retries=max_network_retries,
                 _usage=_usage,
             )
 

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -238,7 +237,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
             amount: int
             """
-            The amount of tax, in integer cents.
+            The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin"]
@@ -271,7 +270,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in integer cents.
+            The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -280,11 +279,11 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
         amount: int
         """
-        The shipping amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in integer cents.
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         shipping_rate: Optional[str]
         """
@@ -340,7 +339,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
         amount: int
         """
-        The amount of tax, in integer cents.
+        The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         inclusive: bool
         """
@@ -369,7 +368,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         taxable_amount: int
         """
-        The amount on which tax is calculated, in integer cents.
+        The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
@@ -543,7 +542,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     class CreateParamsLineItem(TypedDict):
         amount: int
         """
-        A positive integer in cents representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         product: NotRequired["str"]
         """
@@ -601,7 +600,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     class CreateParamsShippingCost(TypedDict):
         amount: NotRequired["int"]
         """
-        A positive integer in cents representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         shipping_rate: NotRequired["str"]
         """
@@ -704,7 +703,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -722,7 +721,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             cls._static_request(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=_util.sanitize_id(calculation)
+                    calculation=sanitize_id(calculation)
                 ),
                 params=params,
             ),
@@ -759,7 +758,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             self._request(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=_util.sanitize_id(self.get("id"))
+                    calculation=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

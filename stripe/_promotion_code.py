@@ -7,6 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
@@ -15,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._coupon import Coupon
@@ -282,7 +282,7 @@ class PromotionCode(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -314,10 +314,14 @@ class PromotionCode(
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PromotionCode",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

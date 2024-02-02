@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -11,6 +10,7 @@ from stripe._subscription_item_usage_record_service import (
 from stripe._subscription_item_usage_record_summary_service import (
     SubscriptionItemUsageRecordSummaryService,
 )
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -418,9 +418,7 @@ class SubscriptionItemService(StripeService):
             SubscriptionItem,
             self._requestor.request(
                 "delete",
-                "/v1/subscription_items/{item}".format(
-                    item=_util.sanitize_id(item),
-                ),
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -441,9 +439,7 @@ class SubscriptionItemService(StripeService):
             SubscriptionItem,
             self._requestor.request(
                 "get",
-                "/v1/subscription_items/{item}".format(
-                    item=_util.sanitize_id(item),
-                ),
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -464,9 +460,7 @@ class SubscriptionItemService(StripeService):
             SubscriptionItem,
             self._requestor.request(
                 "post",
-                "/v1/subscription_items/{item}".format(
-                    item=_util.sanitize_id(item),
-                ),
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._margin import Margin
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -132,7 +132,7 @@ class MarginService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/billing/margins/{margin}".format(
-                    margin=_util.sanitize_id(margin),
+                    margin=sanitize_id(margin),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -155,7 +155,7 @@ class MarginService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/billing/margins/{margin}".format(
-                    margin=_util.sanitize_id(margin),
+                    margin=sanitize_id(margin),
                 ),
                 api_mode="V1",
                 base_address="api",

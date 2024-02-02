@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._ephemeral_key import EphemeralKey
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,7 +50,7 @@ class EphemeralKeyService(StripeService):
             EphemeralKey,
             self._requestor.request(
                 "delete",
-                "/v1/ephemeral_keys/{key}".format(key=_util.sanitize_id(key)),
+                "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

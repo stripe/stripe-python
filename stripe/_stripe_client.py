@@ -46,6 +46,7 @@ from stripe._customer_service import CustomerService
 from stripe._test_helpers_service import TestHelpersService
 from stripe._customer_session_service import CustomerSessionService
 from stripe._dispute_service import DisputeService
+from stripe._entitlements_service import EntitlementsService
 from stripe._ephemeral_key_service import EphemeralKeyService
 from stripe._event_service import EventService
 from stripe._exchange_rate_service import ExchangeRateService
@@ -188,6 +189,7 @@ class StripeClient(object):
         self.test_helpers = TestHelpersService(self._requestor)
         self.customer_sessions = CustomerSessionService(self._requestor)
         self.disputes = DisputeService(self._requestor)
+        self.entitlements = EntitlementsService(self._requestor)
         self.ephemeral_keys = EphemeralKeyService(self._requestor)
         self.events = EventService(self._requestor)
         self.exchange_rates = ExchangeRateService(self._requestor)

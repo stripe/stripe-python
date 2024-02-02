@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.capital._financing_transaction import FinancingTransaction
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -85,9 +85,7 @@ class FinancingTransactionService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/capital/financing_transactions/{financing_transaction}".format(
-                    financing_transaction=_util.sanitize_id(
-                        financing_transaction
-                    ),
+                    financing_transaction=sanitize_id(financing_transaction),
                 ),
                 api_mode="V1",
                 base_address="api",

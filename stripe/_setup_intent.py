@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -890,6 +888,10 @@ class SetupIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -919,6 +921,7 @@ class SetupIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1177,6 +1180,9 @@ class SetupIntent(
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -1850,6 +1856,10 @@ class SetupIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["SetupIntent.CreateParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1879,6 +1889,7 @@ class SetupIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2137,6 +2148,9 @@ class SetupIntent(
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -2779,6 +2793,10 @@ class SetupIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2808,6 +2826,7 @@ class SetupIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -3066,6 +3085,9 @@ class SetupIntent(
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class ModifyParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -3586,7 +3608,7 @@ class SetupIntent(
             cls._static_request(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -3629,7 +3651,7 @@ class SetupIntent(
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3660,7 +3682,7 @@ class SetupIntent(
             cls._static_request(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -3736,7 +3758,7 @@ class SetupIntent(
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -3757,7 +3779,7 @@ class SetupIntent(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -3789,10 +3811,14 @@ class SetupIntent(
         """
         Updates a SetupIntent object.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "SetupIntent",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -3824,7 +3850,7 @@ class SetupIntent(
             cls._static_request(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -3861,7 +3887,7 @@ class SetupIntent(
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

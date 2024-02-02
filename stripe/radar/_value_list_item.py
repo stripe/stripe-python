@@ -5,10 +5,9 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-from urllib.parse import quote_plus
 
 
 class ValueListItem(
@@ -139,7 +138,7 @@ class ValueListItem(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -150,10 +149,14 @@ class ValueListItem(
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "ValueListItem",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload

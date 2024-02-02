@@ -191,7 +191,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 """
                 preferred: Optional[str]
                 """
-                The preferred network for the card.
+                The preferred network for the card. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
                 """
 
             class ThreeDSecureUsage(StripeObject):
@@ -900,6 +900,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             Two-letter ISO code representing the country the bank account is located in.
             """
 
+        class Swish(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             class Networks(StripeObject):
                 preferred: Optional[str]
@@ -1032,6 +1035,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        swish: Optional[Swish]
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1064,6 +1068,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1107,6 +1112,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "swish": Swish,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,

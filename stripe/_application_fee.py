@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -234,9 +233,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             cls._static_request(
                 "post",
-                "/v1/application_fees/{id}/refunds".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -296,7 +293,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             self._request(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(
-                    id=_util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -332,9 +329,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             cls._static_request(
                 "post",
-                "/v1/application_fees/{id}/refunds".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -354,7 +349,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             cls._static_request(
                 "get",
                 "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=_util.sanitize_id(fee), id=_util.sanitize_id(id)
+                    fee=sanitize_id(fee), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -377,7 +372,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             cls._static_request(
                 "post",
                 "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=_util.sanitize_id(fee), id=_util.sanitize_id(id)
+                    fee=sanitize_id(fee), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -394,9 +389,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             ListObject["ApplicationFeeRefund"],
             cls._static_request(
                 "get",
-                "/v1/application_fees/{id}/refunds".format(
-                    id=_util.sanitize_id(id)
-                ),
+                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

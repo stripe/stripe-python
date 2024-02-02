@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -16,7 +15,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -812,7 +810,7 @@ class Dispute(
             cls._static_request(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=_util.sanitize_id(dispute)
+                    dispute=sanitize_id(dispute)
                 ),
                 params=params,
             ),
@@ -853,7 +851,7 @@ class Dispute(
             self._request(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=_util.sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -889,10 +887,14 @@ class Dispute(
 
         Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Dispute",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

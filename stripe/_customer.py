@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -13,7 +12,7 @@ from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     ClassVar,
     Dict,
@@ -32,7 +31,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -43,6 +41,8 @@ if TYPE_CHECKING:
     from stripe._customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
+    from stripe._customer_entitlement import CustomerEntitlement
+    from stripe._customer_entitlement_summary import CustomerEntitlementSummary
     from stripe._discount import Discount
     from stripe._funding_instructions import FundingInstructions
     from stripe._payment_method import PaymentMethod
@@ -54,6 +54,7 @@ if TYPE_CHECKING:
 
 @nested_resource_class_methods("balance_transaction")
 @nested_resource_class_methods("cash_balance_transaction")
+@nested_resource_class_methods("entitlement")
 @nested_resource_class_methods("source")
 @nested_resource_class_methods("tax_id")
 class Customer(
@@ -746,6 +747,24 @@ class Customer(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
+    class ListEntitlementsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
     class ListParams(RequestOptions):
         created: NotRequired["Customer.ListParamsCreated|int"]
         email: NotRequired["str"]
@@ -809,7 +828,7 @@ class Customer(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -1218,6 +1237,12 @@ class Customer(
         Specifies which fields in the response should be expanded.
         """
 
+    class RetrieveEntitlementSummaryParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -1391,7 +1416,7 @@ class Customer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -1411,7 +1436,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1455,7 +1480,7 @@ class Customer(
             self._request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=_util.sanitize_id(self.get("id"))
+                    customer=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1468,10 +1493,14 @@ class Customer(
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
             "Customer",
-            cls._static_request("delete", url, params=params),
+            cls._static_request(
+                "delete",
+                url,
+                params=params,
+            ),
         )
 
     @overload
@@ -1516,7 +1545,7 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1553,7 +1582,7 @@ class Customer(
             self._request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=_util.sanitize_id(self.get("id"))
+                    customer=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1594,7 +1623,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1631,7 +1660,7 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=_util.sanitize_id(self.get("id"))
+                    customer=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1646,10 +1675,14 @@ class Customer(
 
         This request accepts mostly the same arguments as the customer creation call.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Customer",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -1678,8 +1711,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=_util.sanitize_id(customer),
-                    payment_method=_util.sanitize_id(payment_method),
+                    customer=sanitize_id(customer),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 params=params,
             ),
@@ -1722,8 +1755,8 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=_util.sanitize_id(self.get("id")),
-                    payment_method=_util.sanitize_id(payment_method),
+                    customer=sanitize_id(self.get("id")),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 params=params,
             ),
@@ -1761,7 +1794,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1782,8 +1815,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=_util.sanitize_id(customer),
-                    transaction=_util.sanitize_id(transaction),
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
                 ),
                 params=params,
             ),
@@ -1804,8 +1837,8 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=_util.sanitize_id(customer),
-                    transaction=_util.sanitize_id(transaction),
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
                 ),
                 params=params,
             ),
@@ -1825,7 +1858,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1846,8 +1879,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=_util.sanitize_id(customer),
-                    transaction=_util.sanitize_id(transaction),
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
                 ),
                 params=params,
             ),
@@ -1867,7 +1900,25 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_entitlements(
+        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
+    ) -> ListObject["CustomerEntitlement"]:
+        """
+        Retrieve a list of entitlements for a customer
+        """
+        return cast(
+            ListObject["CustomerEntitlement"],
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/entitlements".format(
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1889,7 +1940,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/sources".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1910,8 +1961,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=_util.sanitize_id(customer),
-                    id=_util.sanitize_id(id),
+                    customer=sanitize_id(customer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1932,8 +1982,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=_util.sanitize_id(customer),
-                    id=_util.sanitize_id(id),
+                    customer=sanitize_id(customer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1954,8 +2003,7 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=_util.sanitize_id(customer),
-                    id=_util.sanitize_id(id),
+                    customer=sanitize_id(customer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1973,7 +2021,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/sources".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -1991,7 +2039,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/tax_ids".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -2012,8 +2060,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=_util.sanitize_id(customer),
-                    id=_util.sanitize_id(id),
+                    customer=sanitize_id(customer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2034,8 +2081,7 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=_util.sanitize_id(customer),
-                    id=_util.sanitize_id(id),
+                    customer=sanitize_id(customer), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2053,7 +2099,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/tax_ids".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -2073,7 +2119,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -2093,7 +2139,27 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
-                    customer=_util.sanitize_id(customer)
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def retrieve_entitlement_summary(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.RetrieveEntitlementSummaryParams"]
+    ) -> "CustomerEntitlementSummary":
+        """
+        Retrieve the entitlement summary for a customer
+        """
+        return cast(
+            "CustomerEntitlementSummary",
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/entitlement_summary".format(
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
@@ -2116,7 +2182,7 @@ class Customer(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=_util.sanitize_id(customer)
+                        customer=sanitize_id(customer)
                     ),
                     params=params,
                 ),
@@ -2153,7 +2219,7 @@ class Customer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=_util.sanitize_id(self.resource.get("id"))
+                        customer=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
