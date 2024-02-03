@@ -3215,6 +3215,59 @@ class Order(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, id: str, **params: Unpack["Order.CancelParams"]
+    ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
+        return cast(
+            "Order",
+            await cls._static_request_async(
+                "post",
+                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        id: str, **params: Unpack["Order.CancelParams"]
+    ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["Order.CancelParams"]
+    ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.CancelParams"]
+    ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
+        return cast(
+            "Order",
+            await self._request_async(
+                "post",
+                "/v1/orders/{id}/cancel".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["Order.CreateParams"]) -> "Order":
         """
         Creates a new open order object.
@@ -3229,11 +3282,48 @@ class Order(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Order.CreateParams"]
+    ) -> "Order":
+        """
+        Creates a new open order object.
+        """
+        return cast(
+            "Order",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Order.ListParams"]) -> ListObject["Order"]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Order.ListParams"]
+    ) -> ListObject["Order"]:
+        """
+        Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -3301,6 +3391,59 @@ class Order(
         )
 
     @classmethod
+    async def _cls_list_line_items_async(
+        cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        id: str, **params: Unpack["Order.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["Order.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await self._request_async(
+                "get",
+                "/v1/orders/{id}/line_items".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["Order.ModifyParams"]
     ) -> "Order":
@@ -3311,6 +3454,23 @@ class Order(
         return cast(
             "Order",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Order.ModifyParams"]
+    ) -> "Order":
+        """
+        Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Order",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -3367,6 +3527,59 @@ class Order(
         )
 
     @classmethod
+    async def _cls_reopen_async(
+        cls, id: str, **params: Unpack["Order.ReopenParams"]
+    ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
+        return cast(
+            "Order",
+            await cls._static_request_async(
+                "post",
+                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reopen_async(
+        id: str, **params: Unpack["Order.ReopenParams"]
+    ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
+        ...
+
+    @overload
+    async def reopen_async(
+        self, **params: Unpack["Order.ReopenParams"]
+    ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
+        ...
+
+    @class_method_variant("_cls_reopen_async")
+    async def reopen_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.ReopenParams"]
+    ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
+        return cast(
+            "Order",
+            await self._request_async(
+                "post",
+                "/v1/orders/{id}/reopen".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Order.RetrieveParams"]
     ) -> "Order":
@@ -3375,6 +3588,17 @@ class Order(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Order.RetrieveParams"]
+    ) -> "Order":
+        """
+        Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -3418,6 +3642,59 @@ class Order(
         return cast(
             "Order",
             self._request(
+                "post",
+                "/v1/orders/{id}/submit".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_submit_async(
+        cls, id: str, **params: Unpack["Order.SubmitParams"]
+    ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
+        return cast(
+            "Order",
+            await cls._static_request_async(
+                "post",
+                "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def submit_async(
+        id: str, **params: Unpack["Order.SubmitParams"]
+    ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
+        ...
+
+    @overload
+    async def submit_async(
+        self, **params: Unpack["Order.SubmitParams"]
+    ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
+        ...
+
+    @class_method_variant("_cls_submit_async")
+    async def submit_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Order.SubmitParams"]
+    ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
+        return cast(
+            "Order",
+            await self._request_async(
                 "post",
                 "/v1/orders/{id}/submit".format(
                     id=sanitize_id(self.get("id"))

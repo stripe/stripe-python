@@ -1228,6 +1228,17 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         instance.refresh()
         return instance
 
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ConfirmationToken.RetrieveParams"]
+    ) -> "ConfirmationToken":
+        """
+        Retrieves an existing ConfirmationToken object
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
     _inner_class_types = {
         "mandate_data": MandateData,
         "payment_method_preview": PaymentMethodPreview,

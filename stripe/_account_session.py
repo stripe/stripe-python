@@ -311,4 +311,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             ),
         )
 
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["AccountSession.CreateParams"]
+    ) -> "AccountSession":
+        """
+        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        """
+        return cast(
+            "AccountSession",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {"components": Components}

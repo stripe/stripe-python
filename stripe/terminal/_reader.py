@@ -847,6 +847,61 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_cancel_action_async(
+        cls, reader: str, **params: Unpack["Reader.CancelActionParams"]
+    ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_action_async(
+        reader: str, **params: Unpack["Reader.CancelActionParams"]
+    ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
+        ...
+
+    @overload
+    async def cancel_action_async(
+        self, **params: Unpack["Reader.CancelActionParams"]
+    ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_action_async")
+    async def cancel_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CancelActionParams"]
+    ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_collect_inputs(
         cls, reader: str, **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
@@ -893,6 +948,61 @@ class Reader(
         return cast(
             "Reader",
             self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_collect_inputs_async(
+        cls, reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def collect_inputs_async(
+        reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @overload
+    async def collect_inputs_async(
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_inputs_async")
+    async def collect_inputs_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
                     reader=sanitize_id(self.get("id"))
@@ -957,6 +1067,61 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_collect_payment_method_async(
+        cls, reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def collect_payment_method_async(
+        reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @overload
+    async def collect_payment_method_async(
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_payment_method_async")
+    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_confirm_payment_intent(
         cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
@@ -1012,6 +1177,61 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_confirm_payment_intent_async(
+        cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_payment_intent_async(
+        reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @overload
+    async def confirm_payment_intent_async(
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_payment_intent_async")
+    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["Reader.CreateParams"]) -> "Reader":
         """
         Creates a new Reader object.
@@ -1019,6 +1239,22 @@ class Reader(
         return cast(
             "Reader",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["Reader.CreateParams"]
+    ) -> "Reader":
+        """
+        Creates a new Reader object.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -1071,6 +1307,55 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Reader.DeleteParams"]
+    ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Reader.DeleteParams"]
+    ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Reader.DeleteParams"]
+    ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.DeleteParams"]
+    ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Reader.ListParams"]
     ) -> ListObject["Reader"]:
@@ -1078,6 +1363,27 @@ class Reader(
         Returns a list of Reader objects.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Reader.ListParams"]
+    ) -> ListObject["Reader"]:
+        """
+        Returns a list of Reader objects.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1102,6 +1408,23 @@ class Reader(
         return cast(
             "Reader",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Reader.ModifyParams"]
+    ) -> "Reader":
+        """
+        Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Reader",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -1155,6 +1478,61 @@ class Reader(
         return cast(
             "Reader",
             self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_process_payment_intent_async(
+        cls, reader: str, **params: Unpack["Reader.ProcessPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def process_payment_intent_async(
+        reader: str, **params: Unpack["Reader.ProcessPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
+        ...
+
+    @overload
+    async def process_payment_intent_async(
+        self, **params: Unpack["Reader.ProcessPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_process_payment_intent_async")
+    async def process_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
                     reader=sanitize_id(self.get("id"))
@@ -1219,6 +1597,61 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_process_setup_intent_async(
+        cls, reader: str, **params: Unpack["Reader.ProcessSetupIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def process_setup_intent_async(
+        reader: str, **params: Unpack["Reader.ProcessSetupIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
+        ...
+
+    @overload
+    async def process_setup_intent_async(
+        self, **params: Unpack["Reader.ProcessSetupIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_process_setup_intent_async")
+    async def process_setup_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ProcessSetupIntentParams"]
+    ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_refund_payment(
         cls, reader: str, **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
@@ -1274,6 +1707,61 @@ class Reader(
         )
 
     @classmethod
+    async def _cls_refund_payment_async(
+        cls, reader: str, **params: Unpack["Reader.RefundPaymentParams"]
+    ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def refund_payment_async(
+        reader: str, **params: Unpack["Reader.RefundPaymentParams"]
+    ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
+        ...
+
+    @overload
+    async def refund_payment_async(
+        self, **params: Unpack["Reader.RefundPaymentParams"]
+    ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
+        ...
+
+    @class_method_variant("_cls_refund_payment_async")
+    async def refund_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.RefundPaymentParams"]
+    ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Reader.RetrieveParams"]
     ) -> "Reader":
@@ -1282,6 +1770,17 @@ class Reader(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Reader.RetrieveParams"]
+    ) -> "Reader":
+        """
+        Retrieves a Reader object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -1331,6 +1830,61 @@ class Reader(
         return cast(
             "Reader",
             self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/set_reader_display".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_set_reader_display_async(
+        cls, reader: str, **params: Unpack["Reader.SetReaderDisplayParams"]
+    ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/set_reader_display".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def set_reader_display_async(
+        reader: str, **params: Unpack["Reader.SetReaderDisplayParams"]
+    ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
+        ...
+
+    @overload
+    async def set_reader_display_async(
+        self, **params: Unpack["Reader.SetReaderDisplayParams"]
+    ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
+        ...
+
+    @class_method_variant("_cls_set_reader_display_async")
+    async def set_reader_display_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.SetReaderDisplayParams"]
+    ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
                     reader=sanitize_id(self.get("id"))
@@ -1391,6 +1945,63 @@ class Reader(
             return cast(
                 "Reader",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_present_payment_method_async(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.PresentPaymentMethodParams"]
+        ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
+            return cast(
+                "Reader",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def present_payment_method_async(
+            reader: str, **params: Unpack["Reader.PresentPaymentMethodParams"]
+        ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
+            ...
+
+        @overload
+        async def present_payment_method_async(
+            self, **params: Unpack["Reader.PresentPaymentMethodParams"]
+        ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
+            ...
+
+        @class_method_variant("_cls_present_payment_method_async")
+        async def present_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.PresentPaymentMethodParams"]
+        ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
+            return cast(
+                "Reader",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                         reader=sanitize_id(self.resource.get("id"))

@@ -1343,6 +1343,66 @@ class CreditUnderwritingRecord(
         )
 
     @classmethod
+    async def _cls_correct_async(
+        cls,
+        credit_underwriting_record: str,
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def correct_async(
+        credit_underwriting_record: str,
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
+        ...
+
+    @overload
+    async def correct_async(
+        self, **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
+        ...
+
+    @class_method_variant("_cls_correct_async")
+    async def correct_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await self._request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
+                    credit_underwriting_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_from_application(
         cls,
         **params: Unpack[
@@ -1355,6 +1415,25 @@ class CreditUnderwritingRecord(
         return cast(
             "CreditUnderwritingRecord",
             cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_application",
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_from_application_async(
+        cls,
+        **params: Unpack[
+            "CreditUnderwritingRecord.CreateFromApplicationParams"
+        ]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Creates a CreditUnderwritingRecord object with information about a credit application submission.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await cls._static_request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_application",
                 params=params,
@@ -1381,6 +1460,25 @@ class CreditUnderwritingRecord(
         )
 
     @classmethod
+    async def create_from_proactive_review_async(
+        cls,
+        **params: Unpack[
+            "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
+        ]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["CreditUnderwritingRecord.ListParams"]
     ) -> ListObject["CreditUnderwritingRecord"]:
@@ -1388,6 +1486,27 @@ class CreditUnderwritingRecord(
         Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["CreditUnderwritingRecord.ListParams"]
+    ) -> ListObject["CreditUnderwritingRecord"]:
+        """
+        Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1462,6 +1581,66 @@ class CreditUnderwritingRecord(
         )
 
     @classmethod
+    async def _cls_report_decision_async(
+        cls,
+        credit_underwriting_record: str,
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_decision_async(
+        credit_underwriting_record: str,
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
+        ...
+
+    @overload
+    async def report_decision_async(
+        self, **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
+        ...
+
+    @class_method_variant("_cls_report_decision_async")
+    async def report_decision_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await self._request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls,
         id: str,
@@ -1472,6 +1651,19 @@ class CreditUnderwritingRecord(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls,
+        id: str,
+        **params: Unpack["CreditUnderwritingRecord.RetrieveParams"]
+    ) -> "CreditUnderwritingRecord":
+        """
+        Retrieves a CreditUnderwritingRecord object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

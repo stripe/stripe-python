@@ -708,6 +708,22 @@ class Calculation(CreateableAPIResource["Calculation"]):
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Calculation.CreateParams"]
+    ) -> "Calculation":
+        """
+        Calculates tax based on input and returns a Tax Calculation object.
+        """
+        return cast(
+            "Calculation",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_list_line_items(
         cls,
         calculation: str,
@@ -756,6 +772,63 @@ class Calculation(CreateableAPIResource["Calculation"]):
         return cast(
             ListObject["CalculationLineItem"],
             self._request(
+                "get",
+                "/v1/tax/calculations/{calculation}/line_items".format(
+                    calculation=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_line_items_async(
+        cls,
+        calculation: str,
+        **params: Unpack["Calculation.ListLineItemsParams"]
+    ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
+        return cast(
+            ListObject["CalculationLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/tax/calculations/{calculation}/line_items".format(
+                    calculation=sanitize_id(calculation)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
+    ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["Calculation.ListLineItemsParams"]
+    ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Calculation.ListLineItemsParams"]
+    ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
+        return cast(
+            ListObject["CalculationLineItem"],
+            await self._request_async(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
                     calculation=sanitize_id(self.get("id"))

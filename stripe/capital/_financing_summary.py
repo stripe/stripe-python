@@ -110,6 +110,17 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         return instance
 
     @classmethod
+    async def retrieve_async(
+        cls, **params: Unpack["FinancingSummary.RetrieveParams"]
+    ) -> "FinancingSummary":
+        """
+        Retrieve the financing state for the account that was authenticated in the request.
+        """
+        instance = cls(None, **params)
+        await instance.refresh_async()
+        return instance
+
+    @classmethod
     def class_url(cls):
         return "/v1/capital/financing_summary"
 

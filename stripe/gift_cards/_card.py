@@ -226,11 +226,48 @@ class Card(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Card.CreateParams"]
+    ) -> "Card":
+        """
+        Creates a new gift card object.
+        """
+        return cast(
+            "Card",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Card.ListParams"]) -> ListObject["Card"]:
         """
         List gift cards for an account
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Card.ListParams"]
+    ) -> ListObject["Card"]:
+        """
+        List gift cards for an account
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -260,6 +297,23 @@ class Card(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Card.ModifyParams"]
+    ) -> "Card":
+        """
+        Update a gift card
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Card",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Card.RetrieveParams"]
     ) -> "Card":
@@ -271,6 +325,17 @@ class Card(
         return instance
 
     @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Card.RetrieveParams"]
+    ) -> "Card":
+        """
+        Retrieve a gift card by id
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
+    @classmethod
     def validate(cls, **params: Unpack["Card.ValidateParams"]) -> "Card":
         """
         Validates a gift card code, returning the matching gift card object if it exists.
@@ -278,6 +343,22 @@ class Card(
         return cast(
             "Card",
             cls._static_request(
+                "post",
+                "/v1/gift_cards/cards/validate",
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def validate_async(
+        cls, **params: Unpack["Card.ValidateParams"]
+    ) -> "Card":
+        """
+        Validates a gift card code, returning the matching gift card object if it exists.
+        """
+        return cast(
+            "Card",
+            await cls._static_request_async(
                 "post",
                 "/v1/gift_cards/cards/validate",
                 params=params,

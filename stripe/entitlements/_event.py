@@ -183,6 +183,22 @@ class Event(CreateableAPIResource["Event"]):
             ),
         )
 
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["Event.CreateParams"]
+    ) -> "Event":
+        """
+        Create an entitlement event manually, outside of the entitlement events automatically created by Stripe lifecycle events.
+        """
+        return cast(
+            "Event",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "grant": Grant,
         "quantity": Quantity,

@@ -424,6 +424,27 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["ReceivedCredit.ListParams"]
+    ) -> ListObject["ReceivedCredit"]:
+        """
+        Returns a list of ReceivedCredits.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
     ) -> "ReceivedCredit":
@@ -432,6 +453,17 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
+    ) -> "ReceivedCredit":
+        """
+        Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["ReceivedCredit"]):
@@ -447,6 +479,22 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             return cast(
                 "ReceivedCredit",
                 cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/received_credits",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def create_async(
+            cls, **params: Unpack["ReceivedCredit.CreateParams"]
+        ) -> "ReceivedCredit":
+            """
+            Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
+            """
+            return cast(
+                "ReceivedCredit",
+                await cls._static_request_async(
                     "post",
                     "/v1/test_helpers/treasury/received_credits",
                     params=params,

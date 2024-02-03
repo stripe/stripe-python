@@ -12,6 +12,7 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
+    AsyncIterator,
     ClassVar,
     Dict,
     Iterator,
@@ -2447,6 +2448,82 @@ class Subscription(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls,
+        subscription_exposed_id: str,
+        **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        """
+        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
+
+        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
+
+        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        subscription_exposed_id: str,
+        **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        """
+        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
+
+        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
+
+        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        """
+        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
+
+        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
+
+        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        """
+        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
+
+        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
+
+        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["Subscription.CreateParams"]
     ) -> "Subscription":
@@ -2462,6 +2539,28 @@ class Subscription(
         return cast(
             "Subscription",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["Subscription.CreateParams"]
+    ) -> "Subscription":
+        """
+        Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
+
+        When you create a subscription with collection_method=charge_automatically, the first invoice is finalized as part of the request.
+        The payment_behavior parameter determines the exact behavior of the initial payment.
+
+        To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
+        Schedules provide the flexibility to model more complex billing configurations that change over time.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -2529,6 +2628,66 @@ class Subscription(
         )
 
     @classmethod
+    async def _cls_delete_discount_async(
+        cls,
+        subscription_exposed_id: str,
+        **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a subscription.
+        """
+        return cast(
+            "Discount",
+            await cls._static_request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_discount_async(
+        subscription_exposed_id: str,
+        **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a subscription.
+        """
+        ...
+
+    @overload
+    async def delete_discount_async(
+        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a subscription.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_discount_async")
+    async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a subscription.
+        """
+        return cast(
+            "Discount",
+            await self._request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
+                    subscription_exposed_id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Subscription.ListParams"]
     ) -> ListObject["Subscription"]:
@@ -2536,6 +2695,27 @@ class Subscription(
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Subscription.ListParams"]
+    ) -> ListObject["Subscription"]:
+        """
+        By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -2580,6 +2760,43 @@ class Subscription(
         return cast(
             "Subscription",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Subscription.ModifyParams"]
+    ) -> "Subscription":
+        """
+        Updates an existing subscription to match the specified parameters.
+        When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
+        To preview how the proration is calculated, use the [upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) endpoint.
+
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+
+        Switching prices does not normally change the billing date or generate an immediate charge unless:
+
+
+        The billing interval is changed (for example, from monthly to yearly).
+        The subscription moves from free to paid, or paid to free.
+        A trial starts or ends.
+
+
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date.
+
+        If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
+
+        If you don't want to prorate, set the proration_behavior option to none. With this option, the customer is billed 100 on May 1 and 200 on June 1. Similarly, if you set proration_behavior to none when switching between different billing intervals (for example, from monthly to yearly), we don't generate any credits for the old subscription's unused time. We still reset the billing date and bill immediately for the new subscription.
+
+        Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://stripe.com/docs/rate-limits) instead.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -2642,6 +2859,61 @@ class Subscription(
         )
 
     @classmethod
+    async def _cls_resume_async(
+        cls, subscription: str, **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        """
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/resume".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def resume_async(
+        subscription: str, **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        """
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        """
+        ...
+
+    @overload
+    async def resume_async(
+        self, **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        """
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        """
+        ...
+
+    @class_method_variant("_cls_resume_async")
+    async def resume_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        """
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/resume".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Subscription.RetrieveParams"]
     ) -> "Subscription":
@@ -2650,6 +2922,17 @@ class Subscription(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Subscription.RetrieveParams"]
+    ) -> "Subscription":
+        """
+        Retrieves the subscription with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -2667,10 +2950,32 @@ class Subscription(
         )
 
     @classmethod
+    async def search_async(
+        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+    ) -> SearchResultObject["Subscription"]:
+        """
+        Search for subscriptions you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return await cls._search_async(
+            search_url="/v1/subscriptions/search", *args, **kwargs
+        )
+
+    @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
     ) -> Iterator["Subscription"]:
-        return cls.search(*args, **kwargs).auto_paging_iter()
+        return (cls.search(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    async def search_auto_paging_iter_async(
+        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+    ) -> AsyncIterator["Subscription"]:
+        return (
+            await cls.search_async(*args, **kwargs)
+        ).auto_paging_iter_async()
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
