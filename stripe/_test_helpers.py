@@ -31,7 +31,7 @@ class APIResourceTestHelpers(Protocol[T]):
 
     @classmethod
     async def _static_request_async(cls, *args, **kwargs):
-        return cls._resource_cls._static_request_async(*args, **kwargs)
+        return await cls._resource_cls._static_request_async(*args, **kwargs)
 
     @classmethod
     def _static_request_stream(cls, *args, **kwargs):
