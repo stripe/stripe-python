@@ -138,7 +138,7 @@ class RefundService(StripeService):
         """
         return cast(
             ListObject[Refund],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/refunds",
                 api_mode="V1",
@@ -168,7 +168,7 @@ class RefundService(StripeService):
         """
         return cast(
             Refund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/refunds",
                 api_mode="V1",
@@ -189,7 +189,7 @@ class RefundService(StripeService):
         """
         return cast(
             Refund,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
                 api_mode="V1",
@@ -212,7 +212,7 @@ class RefundService(StripeService):
         """
         return cast(
             Refund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
                 api_mode="V1",
@@ -235,7 +235,7 @@ class RefundService(StripeService):
         """
         return cast(
             Refund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/refunds/{refund}/cancel".format(
                     refund=sanitize_id(refund),

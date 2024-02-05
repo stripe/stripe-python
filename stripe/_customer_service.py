@@ -659,7 +659,7 @@ class CustomerService(StripeService):
         """
         return cast(
             Customer,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/customers/{customer}".format(
                     customer=sanitize_id(customer),
@@ -682,7 +682,7 @@ class CustomerService(StripeService):
         """
         return cast(
             Customer,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}".format(
                     customer=sanitize_id(customer),
@@ -707,7 +707,7 @@ class CustomerService(StripeService):
         """
         return cast(
             Customer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}".format(
                     customer=sanitize_id(customer),
@@ -730,7 +730,7 @@ class CustomerService(StripeService):
         """
         return cast(
             Discount,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
                     customer=sanitize_id(customer),
@@ -752,7 +752,7 @@ class CustomerService(StripeService):
         """
         return cast(
             ListObject[Customer],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers",
                 api_mode="V1",
@@ -772,7 +772,7 @@ class CustomerService(StripeService):
         """
         return cast(
             Customer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers",
                 api_mode="V1",
@@ -795,7 +795,7 @@ class CustomerService(StripeService):
         """
         return cast(
             SearchResultObject[Customer],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/search",
                 api_mode="V1",

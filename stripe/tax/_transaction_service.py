@@ -125,7 +125,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
@@ -147,7 +147,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/transactions/create_from_calculation",
                 api_mode="V1",
@@ -167,7 +167,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/transactions/create_reversal",
                 api_mode="V1",

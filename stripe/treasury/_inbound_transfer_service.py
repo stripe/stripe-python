@@ -94,7 +94,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             ListObject[InboundTransfer],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/inbound_transfers",
                 api_mode="V1",
@@ -114,7 +114,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/inbound_transfers",
                 api_mode="V1",
@@ -135,7 +135,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/inbound_transfers/{id}".format(
                     id=sanitize_id(id),
@@ -158,7 +158,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
                     inbound_transfer=sanitize_id(inbound_transfer),

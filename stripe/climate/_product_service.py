@@ -44,7 +44,7 @@ class ProductService(StripeService):
         """
         return cast(
             ListObject[Product],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/products",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class ProductService(StripeService):
         """
         return cast(
             Product,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/products/{product}".format(
                     product=sanitize_id(product),

@@ -148,7 +148,7 @@ class TopupService(StripeService):
         """
         return cast(
             ListObject[Topup],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/topups",
                 api_mode="V1",
@@ -166,7 +166,7 @@ class TopupService(StripeService):
         """
         return cast(
             Topup,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/topups",
                 api_mode="V1",
@@ -187,7 +187,7 @@ class TopupService(StripeService):
         """
         return cast(
             Topup,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
                 api_mode="V1",
@@ -208,7 +208,7 @@ class TopupService(StripeService):
         """
         return cast(
             Topup,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
                 api_mode="V1",
@@ -229,7 +229,7 @@ class TopupService(StripeService):
         """
         return cast(
             Topup,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
                 api_mode="V1",

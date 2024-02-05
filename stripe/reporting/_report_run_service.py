@@ -115,7 +115,7 @@ class ReportRunService(StripeService):
         """
         return cast(
             ListObject[ReportRun],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reporting/report_runs",
                 api_mode="V1",
@@ -135,7 +135,7 @@ class ReportRunService(StripeService):
         """
         return cast(
             ReportRun,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/reporting/report_runs",
                 api_mode="V1",
@@ -156,7 +156,7 @@ class ReportRunService(StripeService):
         """
         return cast(
             ReportRun,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reporting/report_runs/{report_run}".format(
                     report_run=sanitize_id(report_run),

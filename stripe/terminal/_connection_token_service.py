@@ -28,7 +28,7 @@ class ConnectionTokenService(StripeService):
         """
         return cast(
             ConnectionToken,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/terminal/connection_tokens",
                 api_mode="V1",

@@ -2828,7 +2828,7 @@ class QuoteService(StripeService):
         """
         return cast(
             ListObject[Quote],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/quotes",
                 api_mode="V1",
@@ -2848,7 +2848,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/quotes",
                 api_mode="V1",
@@ -2869,7 +2869,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2890,7 +2890,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2911,7 +2911,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2932,7 +2932,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2953,7 +2953,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -3043,7 +3043,7 @@ class QuoteService(StripeService):
         """
         return cast(
             Any,
-            self._requestor.request_stream(
+            self._request_stream(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
                 api_mode="V1",

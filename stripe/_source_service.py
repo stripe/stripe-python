@@ -545,7 +545,7 @@ class SourceService(StripeService):
         """
         return cast(
             Union[Account, BankAccount, Card, Source],
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer),
@@ -569,7 +569,7 @@ class SourceService(StripeService):
         """
         return cast(
             Source,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
                 api_mode="V1",
@@ -592,7 +592,7 @@ class SourceService(StripeService):
         """
         return cast(
             Source,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
                 api_mode="V1",
@@ -612,7 +612,7 @@ class SourceService(StripeService):
         """
         return cast(
             Source,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/sources",
                 api_mode="V1",
@@ -633,7 +633,7 @@ class SourceService(StripeService):
         """
         return cast(
             Source,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/sources/{source}/verify".format(
                     source=sanitize_id(source),

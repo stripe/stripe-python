@@ -39,7 +39,7 @@ class TransactionLineItemService(StripeService):
         """
         return cast(
             ListObject[TransactionLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
                     transaction=sanitize_id(transaction),

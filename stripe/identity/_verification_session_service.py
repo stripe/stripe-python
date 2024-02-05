@@ -179,7 +179,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             ListObject[VerificationSession],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/identity/verification_sessions",
                 api_mode="V1",
@@ -205,7 +205,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             VerificationSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/identity/verification_sessions",
                 api_mode="V1",
@@ -229,7 +229,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             VerificationSession,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
@@ -255,7 +255,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             VerificationSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
@@ -280,7 +280,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             VerificationSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}/cancel".format(
                     session=sanitize_id(session),
@@ -321,7 +321,7 @@ class VerificationSessionService(StripeService):
         """
         return cast(
             VerificationSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}/redact".format(
                     session=sanitize_id(session),

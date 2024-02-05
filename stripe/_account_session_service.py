@@ -169,7 +169,7 @@ class AccountSessionService(StripeService):
         """
         return cast(
             AccountSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/account_sessions",
                 api_mode="V1",

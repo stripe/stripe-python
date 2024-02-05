@@ -376,7 +376,7 @@ class WebhookEndpointService(StripeService):
         """
         return cast(
             WebhookEndpoint,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
@@ -399,7 +399,7 @@ class WebhookEndpointService(StripeService):
         """
         return cast(
             WebhookEndpoint,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
@@ -422,7 +422,7 @@ class WebhookEndpointService(StripeService):
         """
         return cast(
             WebhookEndpoint,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
@@ -444,7 +444,7 @@ class WebhookEndpointService(StripeService):
         """
         return cast(
             ListObject[WebhookEndpoint],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/webhook_endpoints",
                 api_mode="V1",
@@ -464,7 +464,7 @@ class WebhookEndpointService(StripeService):
         """
         return cast(
             WebhookEndpoint,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/webhook_endpoints",
                 api_mode="V1",

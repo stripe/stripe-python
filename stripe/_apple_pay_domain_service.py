@@ -56,7 +56,7 @@ class ApplePayDomainService(StripeService):
         """
         return cast(
             ApplePayDomain,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
@@ -79,7 +79,7 @@ class ApplePayDomainService(StripeService):
         """
         return cast(
             ApplePayDomain,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
@@ -101,7 +101,7 @@ class ApplePayDomainService(StripeService):
         """
         return cast(
             ListObject[ApplePayDomain],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/apple_pay/domains",
                 api_mode="V1",
@@ -121,7 +121,7 @@ class ApplePayDomainService(StripeService):
         """
         return cast(
             ApplePayDomain,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/apple_pay/domains",
                 api_mode="V1",

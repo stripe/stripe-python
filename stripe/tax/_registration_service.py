@@ -950,7 +950,7 @@ class RegistrationService(StripeService):
         """
         return cast(
             ListObject[Registration],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/registrations",
                 api_mode="V1",
@@ -970,7 +970,7 @@ class RegistrationService(StripeService):
         """
         return cast(
             Registration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/registrations",
                 api_mode="V1",
@@ -991,7 +991,7 @@ class RegistrationService(StripeService):
         """
         return cast(
             Registration,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -1014,7 +1014,7 @@ class RegistrationService(StripeService):
         """
         return cast(
             Registration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

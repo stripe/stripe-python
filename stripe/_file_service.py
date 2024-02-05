@@ -112,7 +112,7 @@ class FileService(StripeService):
         """
         return cast(
             ListObject[File],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/files",
                 api_mode="V1",
@@ -132,7 +132,7 @@ class FileService(StripeService):
         """
         return cast(
             File,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/files",
                 api_mode="V1FILES",
@@ -153,7 +153,7 @@ class FileService(StripeService):
         """
         return cast(
             File,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/files/{file}".format(file=sanitize_id(file)),
                 api_mode="V1",

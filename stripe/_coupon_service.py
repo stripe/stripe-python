@@ -166,7 +166,7 @@ class CouponService(StripeService):
         """
         return cast(
             Coupon,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
                 api_mode="V1",
@@ -187,7 +187,7 @@ class CouponService(StripeService):
         """
         return cast(
             Coupon,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
                 api_mode="V1",
@@ -208,7 +208,7 @@ class CouponService(StripeService):
         """
         return cast(
             Coupon,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
                 api_mode="V1",
@@ -228,7 +228,7 @@ class CouponService(StripeService):
         """
         return cast(
             ListObject[Coupon],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/coupons",
                 api_mode="V1",
@@ -250,7 +250,7 @@ class CouponService(StripeService):
         """
         return cast(
             Coupon,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/coupons",
                 api_mode="V1",
