@@ -54,3 +54,16 @@ class CustomerEntitlementSummary(APIResource["CustomerEntitlementSummary"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls,
+        id: str,
+        **params: Unpack["CustomerEntitlementSummary.RetrieveParams"]
+    ) -> "CustomerEntitlementSummary":
+        """
+        Retrieve the entitlement summary for a customer
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance

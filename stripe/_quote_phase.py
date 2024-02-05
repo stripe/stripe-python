@@ -242,6 +242,27 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["QuotePhase.ListParams"]
+    ) -> ListObject["QuotePhase"]:
+        """
+        Returns a list of quote phases.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_list_line_items(
         cls,
         quote_phase: str,
@@ -299,6 +320,63 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         )
 
     @classmethod
+    async def _cls_list_line_items_async(
+        cls,
+        quote_phase: str,
+        **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quote_phases/{quote_phase}/line_items".format(
+                    quote_phase=sanitize_id(quote_phase)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        quote_phase: str, **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await self._request_async(
+                "get",
+                "/v1/quote_phases/{quote_phase}/line_items".format(
+                    quote_phase=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["QuotePhase.RetrieveParams"]
     ) -> "QuotePhase":
@@ -307,6 +385,17 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["QuotePhase.RetrieveParams"]
+    ) -> "QuotePhase":
+        """
+        Retrieves the quote phase with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

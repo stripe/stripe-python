@@ -174,6 +174,22 @@ class Settings(
         )
 
     @classmethod
+    async def modify_async(
+        cls, **params: Unpack["Settings.ModifyParams"]
+    ) -> "Settings":
+        """
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        """
+        return cast(
+            "Settings",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, **params: Unpack["Settings.RetrieveParams"]
     ) -> "Settings":
@@ -182,6 +198,17 @@ class Settings(
         """
         instance = cls(None, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, **params: Unpack["Settings.RetrieveParams"]
+    ) -> "Settings":
+        """
+        Retrieves Tax Settings for a merchant.
+        """
+        instance = cls(None, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod

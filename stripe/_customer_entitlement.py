@@ -91,4 +91,25 @@ class CustomerEntitlement(ListableAPIResource["CustomerEntitlement"]):
 
         return result
 
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["CustomerEntitlement.ListParams"]
+    ) -> ListObject["CustomerEntitlement"]:
+        """
+        Retrieve a list of entitlements for a customer
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
     _inner_class_types = {"quantity": Quantity}

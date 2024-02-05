@@ -176,6 +176,27 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
 
         return result
 
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["CreditNoteLineItem.ListParams"]
+    ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "tax_amounts": TaxAmount,

@@ -142,6 +142,22 @@ class Margin(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Margin.CreateParams"]
+    ) -> "Margin":
+        """
+        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+        """
+        return cast(
+            "Margin",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Margin.ListParams"]
     ) -> ListObject["Margin"]:
@@ -149,6 +165,27 @@ class Margin(
         Retrieve a list of your margins.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Margin.ListParams"]
+    ) -> ListObject["Margin"]:
+        """
+        Retrieve a list of your margins.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -180,6 +217,23 @@ class Margin(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Margin.ModifyParams"]
+    ) -> "Margin":
+        """
+        Update the specified margin object. Certain fields of the margin object are not editable.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Margin",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Margin.RetrieveParams"]
     ) -> "Margin":
@@ -188,6 +242,17 @@ class Margin(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Margin.RetrieveParams"]
+    ) -> "Margin":
+        """
+        Retrieve a margin object with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod

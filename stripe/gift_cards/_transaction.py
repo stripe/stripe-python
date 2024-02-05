@@ -286,6 +286,61 @@ class Transaction(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, id: str, **params: Unpack["Transaction.CancelParams"]
+    ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
+                "post",
+                "/v1/gift_cards/transactions/{id}/cancel".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        id: str, **params: Unpack["Transaction.CancelParams"]
+    ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["Transaction.CancelParams"]
+    ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.CancelParams"]
+    ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
+                "/v1/gift_cards/transactions/{id}/cancel".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_confirm(
         cls, id: str, **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
@@ -341,6 +396,61 @@ class Transaction(
         )
 
     @classmethod
+    async def _cls_confirm_async(
+        cls, id: str, **params: Unpack["Transaction.ConfirmParams"]
+    ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
+                "post",
+                "/v1/gift_cards/transactions/{id}/confirm".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_async(
+        id: str, **params: Unpack["Transaction.ConfirmParams"]
+    ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
+        ...
+
+    @overload
+    async def confirm_async(
+        self, **params: Unpack["Transaction.ConfirmParams"]
+    ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_async")
+    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.ConfirmParams"]
+    ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
+                "/v1/gift_cards/transactions/{id}/confirm".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["Transaction.CreateParams"]
     ) -> "Transaction":
@@ -357,6 +467,22 @@ class Transaction(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Transaction.CreateParams"]
+    ) -> "Transaction":
+        """
+        Create a gift card transaction
+        """
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
@@ -364,6 +490,27 @@ class Transaction(
         List gift card transactions for a gift card
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Transaction.ListParams"]
+    ) -> ListObject["Transaction"]:
+        """
+        List gift card transactions for a gift card
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -395,6 +542,23 @@ class Transaction(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
+    ) -> "Transaction":
+        """
+        Update a gift card transaction
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
@@ -403,6 +567,17 @@ class Transaction(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+    ) -> "Transaction":
+        """
+        Retrieves the gift card transaction.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"created_by": CreatedBy}

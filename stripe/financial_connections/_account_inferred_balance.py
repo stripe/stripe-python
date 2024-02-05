@@ -75,3 +75,24 @@ class AccountInferredBalance(ListableAPIResource["AccountInferredBalance"]):
             )
 
         return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["AccountInferredBalance.ListParams"]
+    ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result

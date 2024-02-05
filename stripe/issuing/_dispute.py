@@ -867,6 +867,22 @@ class Dispute(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Dispute.CreateParams"]
+    ) -> "Dispute":
+        """
+        Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
+        """
+        return cast(
+            "Dispute",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
@@ -874,6 +890,27 @@ class Dispute(
         Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Dispute.ListParams"]
+    ) -> ListObject["Dispute"]:
+        """
+        Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -905,6 +942,23 @@ class Dispute(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+    ) -> "Dispute":
+        """
+        Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Dispute",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
@@ -913,6 +967,17 @@ class Dispute(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+    ) -> "Dispute":
+        """
+        Retrieves an Issuing Dispute object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -960,6 +1025,61 @@ class Dispute(
         return cast(
             "Dispute",
             self._request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_submit_async(
+        cls, dispute: str, **params: Unpack["Dispute.SubmitParams"]
+    ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        return cast(
+            "Dispute",
+            await cls._static_request_async(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=sanitize_id(dispute)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def submit_async(
+        dispute: str, **params: Unpack["Dispute.SubmitParams"]
+    ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        ...
+
+    @overload
+    async def submit_async(
+        self, **params: Unpack["Dispute.SubmitParams"]
+    ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        ...
+
+    @class_method_variant("_cls_submit_async")
+    async def submit_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Dispute.SubmitParams"]
+    ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        return cast(
+            "Dispute",
+            await self._request_async(
                 "post",
                 "/v1/issuing/disputes/{dispute}/submit".format(
                     dispute=sanitize_id(self.get("id"))

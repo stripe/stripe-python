@@ -1111,6 +1111,23 @@ class Token(CreateableAPIResource["Token"]):
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Token.CreateParams"]
+    ) -> "Token":
+        """
+        Creates a single-use token that represents a bank account's details.
+        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+        """
+        return cast(
+            "Token",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Token.RetrieveParams"]
     ) -> "Token":
@@ -1119,4 +1136,15 @@ class Token(CreateableAPIResource["Token"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Token.RetrieveParams"]
+    ) -> "Token":
+        """
+        Retrieves the token with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance

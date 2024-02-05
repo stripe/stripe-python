@@ -1692,6 +1692,22 @@ class Cardholder(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Cardholder.CreateParams"]
+    ) -> "Cardholder":
+        """
+        Creates a new Issuing Cardholder object that can be issued cards.
+        """
+        return cast(
+            "Cardholder",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Cardholder.ListParams"]
     ) -> ListObject["Cardholder"]:
@@ -1699,6 +1715,27 @@ class Cardholder(
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Cardholder.ListParams"]
+    ) -> ListObject["Cardholder"]:
+        """
+        Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1730,6 +1767,23 @@ class Cardholder(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Cardholder.ModifyParams"]
+    ) -> "Cardholder":
+        """
+        Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Cardholder",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Cardholder.RetrieveParams"]
     ) -> "Cardholder":
@@ -1738,6 +1792,17 @@ class Cardholder(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Cardholder.RetrieveParams"]
+    ) -> "Cardholder":
+        """
+        Retrieves an Issuing Cardholder object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

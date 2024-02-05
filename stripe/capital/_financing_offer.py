@@ -235,6 +235,27 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["FinancingOffer.ListParams"]
+    ) -> ListObject["FinancingOffer"]:
+        """
+        Retrieves the financing offers available for Connected accounts that belong to your platform.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
@@ -297,6 +318,68 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         )
 
     @classmethod
+    async def _cls_mark_delivered_async(
+        cls,
+        financing_offer: str,
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
+        return cast(
+            "FinancingOffer",
+            await cls._static_request_async(
+                "post",
+                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
+                    financing_offer=sanitize_id(financing_offer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def mark_delivered_async(
+        financing_offer: str,
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
+        ...
+
+    @overload
+    async def mark_delivered_async(
+        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_delivered_async")
+    async def mark_delivered_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
+        return cast(
+            "FinancingOffer",
+            await self._request_async(
+                "post",
+                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
+                    financing_offer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
     ) -> "FinancingOffer":
@@ -305,6 +388,17 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
+    ) -> "FinancingOffer":
+        """
+        Get the details of the financing offer
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

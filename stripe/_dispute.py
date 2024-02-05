@@ -858,6 +858,69 @@ class Dispute(
         )
 
     @classmethod
+    async def _cls_close_async(
+        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
+    ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
+        return cast(
+            "Dispute",
+            await cls._static_request_async(
+                "post",
+                "/v1/disputes/{dispute}/close".format(
+                    dispute=sanitize_id(dispute)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def close_async(
+        dispute: str, **params: Unpack["Dispute.CloseParams"]
+    ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
+        ...
+
+    @overload
+    async def close_async(
+        self, **params: Unpack["Dispute.CloseParams"]
+    ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
+        ...
+
+    @class_method_variant("_cls_close_async")
+    async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Dispute.CloseParams"]
+    ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
+        return cast(
+            "Dispute",
+            await self._request_async(
+                "post",
+                "/v1/disputes/{dispute}/close".format(
+                    dispute=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
@@ -865,6 +928,27 @@ class Dispute(
         Returns a list of your disputes.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Dispute.ListParams"]
+    ) -> ListObject["Dispute"]:
+        """
+        Returns a list of your disputes.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -898,6 +982,25 @@ class Dispute(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+    ) -> "Dispute":
+        """
+        When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
+
+        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Dispute",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
@@ -906,6 +1009,17 @@ class Dispute(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+    ) -> "Dispute":
+        """
+        Retrieves the dispute with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

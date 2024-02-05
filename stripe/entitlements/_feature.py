@@ -117,6 +117,22 @@ class Feature(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Feature.CreateParams"]
+    ) -> "Feature":
+        """
+        Creates a feature
+        """
+        return cast(
+            "Feature",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Feature.ListParams"]
     ) -> ListObject["Feature"]:
@@ -124,6 +140,27 @@ class Feature(
         Retrieve a list of features
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Feature.ListParams"]
+    ) -> ListObject["Feature"]:
+        """
+        Retrieve a list of features
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
