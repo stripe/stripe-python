@@ -75,7 +75,7 @@ class EventService(StripeService):
         """
         return cast(
             ListObject[Event],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/events",
                 api_mode="V1",
@@ -96,7 +96,7 @@ class EventService(StripeService):
         """
         return cast(
             Event,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/events/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

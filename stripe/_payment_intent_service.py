@@ -8735,7 +8735,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             ListObject[PaymentIntent],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_intents",
                 api_mode="V1",
@@ -8764,7 +8764,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents",
                 api_mode="V1",
@@ -8789,7 +8789,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
@@ -8818,7 +8818,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
@@ -8843,7 +8843,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             SearchResultObject[PaymentIntent],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_intents/search",
                 api_mode="V1",
@@ -8864,7 +8864,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
                     intent=sanitize_id(intent),
@@ -8891,7 +8891,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
@@ -8918,7 +8918,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
                     intent=sanitize_id(intent),
@@ -8963,7 +8963,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
@@ -9009,7 +9009,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
                     intent=sanitize_id(intent),
@@ -9032,7 +9032,7 @@ class PaymentIntentService(StripeService):
         """
         return cast(
             PaymentIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),

@@ -39,7 +39,7 @@ class PaymentLinkLineItemService(StripeService):
         """
         return cast(
             ListObject[LineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_links/{payment_link}/line_items".format(
                     payment_link=sanitize_id(payment_link),

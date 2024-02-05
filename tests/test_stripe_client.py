@@ -372,3 +372,34 @@ class TestStripeClient(object):
             api_key="sk_test_123",
             max_network_retries=0,
         )
+
+    def test_stripe_client_sends_usage(
+        self, stripe_mock_stripe_client, http_client_mock
+    ):
+        path = "/v1/customers/cus_xxxxxxxxxxxxx"
+        http_client_mock.stub_request(
+            "get",
+            path=path,
+            rbody='{"id": "cus_xxxxxxxxxxxxx","object": "customer"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        customer = stripe_mock_stripe_client.customers.retrieve(
+            "cus_xxxxxxxxxxxxx"
+        )
+
+        http_client_mock.assert_requested(
+            "get", path=path, usage=["stripe_client"]
+        )
+
+        http_client_mock.stub_request(
+            "delete",
+            path=path,
+            rbody='{"id": "cus_xxxxxxxxxxxxx","object": "customer", "deleted": true}',
+            rcode=200,
+            rheaders={},
+        )
+
+        customer.delete()
+        http_client_mock.assert_requested("delete", path=path, usage=None)

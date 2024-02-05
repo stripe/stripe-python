@@ -2148,7 +2148,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             ListObject[SubscriptionSchedule],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscription_schedules",
                 api_mode="V1",
@@ -2168,7 +2168,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             SubscriptionSchedule,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_schedules",
                 api_mode="V1",
@@ -2189,7 +2189,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             SubscriptionSchedule,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscription_schedules/{schedule}".format(
                     schedule=sanitize_id(schedule),
@@ -2212,7 +2212,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             SubscriptionSchedule,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}".format(
                     schedule=sanitize_id(schedule),
@@ -2258,7 +2258,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             SubscriptionSchedule,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
                     schedule=sanitize_id(schedule),
@@ -2281,7 +2281,7 @@ class SubscriptionScheduleService(StripeService):
         """
         return cast(
             SubscriptionSchedule,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
                     schedule=sanitize_id(schedule),

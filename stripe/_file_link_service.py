@@ -103,7 +103,7 @@ class FileLinkService(StripeService):
         """
         return cast(
             ListObject[FileLink],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/file_links",
                 api_mode="V1",
@@ -123,7 +123,7 @@ class FileLinkService(StripeService):
         """
         return cast(
             FileLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/file_links",
                 api_mode="V1",
@@ -144,7 +144,7 @@ class FileLinkService(StripeService):
         """
         return cast(
             FileLink,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
                 api_mode="V1",
@@ -165,7 +165,7 @@ class FileLinkService(StripeService):
         """
         return cast(
             FileLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
                 api_mode="V1",

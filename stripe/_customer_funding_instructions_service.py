@@ -72,7 +72,7 @@ class CustomerFundingInstructionsService(StripeService):
         """
         return cast(
             FundingInstructions,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
                     customer=sanitize_id(customer),

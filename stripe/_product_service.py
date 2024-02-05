@@ -444,7 +444,7 @@ class ProductService(StripeService):
         """
         return cast(
             Product,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -465,7 +465,7 @@ class ProductService(StripeService):
         """
         return cast(
             Product,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -486,7 +486,7 @@ class ProductService(StripeService):
         """
         return cast(
             Product,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -506,7 +506,7 @@ class ProductService(StripeService):
         """
         return cast(
             ListObject[Product],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/products",
                 api_mode="V1",
@@ -526,7 +526,7 @@ class ProductService(StripeService):
         """
         return cast(
             Product,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/products",
                 api_mode="V1",
@@ -549,7 +549,7 @@ class ProductService(StripeService):
         """
         return cast(
             SearchResultObject[Product],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/products/search",
                 api_mode="V1",

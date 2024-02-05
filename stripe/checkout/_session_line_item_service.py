@@ -39,7 +39,7 @@ class SessionLineItemService(StripeService):
         """
         return cast(
             ListObject[LineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=sanitize_id(session),

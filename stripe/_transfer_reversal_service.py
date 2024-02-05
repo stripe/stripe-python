@@ -77,7 +77,7 @@ class TransferReversalService(StripeService):
         """
         return cast(
             ListObject[Reversal],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -102,7 +102,7 @@ class TransferReversalService(StripeService):
         """
         return cast(
             Reversal,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -124,7 +124,7 @@ class TransferReversalService(StripeService):
         """
         return cast(
             Reversal,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer),
@@ -151,7 +151,7 @@ class TransferReversalService(StripeService):
         """
         return cast(
             Reversal,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer),

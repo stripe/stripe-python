@@ -387,7 +387,7 @@ class InvoiceItemService(StripeService):
         """
         return cast(
             InvoiceItem,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
@@ -410,7 +410,7 @@ class InvoiceItemService(StripeService):
         """
         return cast(
             InvoiceItem,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
@@ -433,7 +433,7 @@ class InvoiceItemService(StripeService):
         """
         return cast(
             InvoiceItem,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
@@ -455,7 +455,7 @@ class InvoiceItemService(StripeService):
         """
         return cast(
             ListObject[InvoiceItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoiceitems",
                 api_mode="V1",
@@ -475,7 +475,7 @@ class InvoiceItemService(StripeService):
         """
         return cast(
             InvoiceItem,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoiceitems",
                 api_mode="V1",

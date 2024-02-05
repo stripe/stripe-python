@@ -52,7 +52,7 @@ class ReceivedDebitService(StripeService):
         """
         return cast(
             ListObject[ReceivedDebit],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/received_debits",
                 api_mode="V1",
@@ -73,7 +73,7 @@ class ReceivedDebitService(StripeService):
         """
         return cast(
             ReceivedDebit,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

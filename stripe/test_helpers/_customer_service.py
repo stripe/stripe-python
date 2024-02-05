@@ -40,7 +40,7 @@ class CustomerService(StripeService):
         """
         return cast(
             CustomerCashBalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
                     customer=sanitize_id(customer),

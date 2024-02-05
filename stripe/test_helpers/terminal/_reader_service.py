@@ -58,7 +58,7 @@ class ReaderService(StripeService):
         """
         return cast(
             Reader,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                     reader=sanitize_id(reader),

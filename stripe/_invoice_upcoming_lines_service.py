@@ -2025,7 +2025,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         return cast(
             ListObject[InvoiceLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices/upcoming/lines",
                 api_mode="V1",

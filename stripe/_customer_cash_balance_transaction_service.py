@@ -47,7 +47,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         return cast(
             ListObject[CustomerCashBalanceTransaction],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer),
@@ -71,7 +71,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         return cast(
             CustomerCashBalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),

@@ -272,7 +272,7 @@ class CalculationService(StripeService):
         """
         return cast(
             Calculation,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/calculations",
                 api_mode="V1",

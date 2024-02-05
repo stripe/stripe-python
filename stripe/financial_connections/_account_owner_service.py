@@ -43,7 +43,7 @@ class AccountOwnerService(StripeService):
         """
         return cast(
             ListObject[AccountOwner],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
                     account=sanitize_id(account),

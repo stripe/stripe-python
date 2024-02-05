@@ -88,7 +88,7 @@ class TransactionService(StripeService):
         """
         return cast(
             ListObject[Transaction],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/transactions",
                 api_mode="V1",
@@ -109,7 +109,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
@@ -132,7 +132,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),

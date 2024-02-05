@@ -429,7 +429,7 @@ class CardService(StripeService):
         """
         return cast(
             ListObject[Card],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/cards",
                 api_mode="V1",
@@ -447,7 +447,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/cards",
                 api_mode="V1",
@@ -468,7 +468,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",
@@ -489,7 +489,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",
