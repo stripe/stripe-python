@@ -52,7 +52,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
@@ -75,7 +75,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
@@ -98,7 +98,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
                     outbound_transfer=sanitize_id(outbound_transfer),

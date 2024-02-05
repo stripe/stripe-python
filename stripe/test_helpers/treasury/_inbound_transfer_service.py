@@ -52,7 +52,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                     id=sanitize_id(id),
@@ -75,7 +75,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
                     id=sanitize_id(id),
@@ -98,7 +98,7 @@ class InboundTransferService(StripeService):
         """
         return cast(
             InboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                     id=sanitize_id(id),

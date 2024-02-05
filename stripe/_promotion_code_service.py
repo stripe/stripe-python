@@ -182,7 +182,7 @@ class PromotionCodeService(StripeService):
         """
         return cast(
             ListObject[PromotionCode],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/promotion_codes",
                 api_mode="V1",
@@ -202,7 +202,7 @@ class PromotionCodeService(StripeService):
         """
         return cast(
             PromotionCode,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/promotion_codes",
                 api_mode="V1",
@@ -223,7 +223,7 @@ class PromotionCodeService(StripeService):
         """
         return cast(
             PromotionCode,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/promotion_codes/{promotion_code}".format(
                     promotion_code=sanitize_id(promotion_code),
@@ -246,7 +246,7 @@ class PromotionCodeService(StripeService):
         """
         return cast(
             PromotionCode,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/promotion_codes/{promotion_code}".format(
                     promotion_code=sanitize_id(promotion_code),

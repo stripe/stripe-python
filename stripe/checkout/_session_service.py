@@ -2050,7 +2050,7 @@ class SessionService(StripeService):
         """
         return cast(
             ListObject[Session],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/checkout/sessions",
                 api_mode="V1",
@@ -2070,7 +2070,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/checkout/sessions",
                 api_mode="V1",
@@ -2091,7 +2091,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
@@ -2116,7 +2116,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=sanitize_id(session),

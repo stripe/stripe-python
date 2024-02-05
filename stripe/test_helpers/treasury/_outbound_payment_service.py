@@ -52,7 +52,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                     id=sanitize_id(id),
@@ -75,7 +75,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
                     id=sanitize_id(id),
@@ -98,7 +98,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                     id=sanitize_id(id),

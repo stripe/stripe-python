@@ -1630,7 +1630,7 @@ class PaymentLinkService(StripeService):
         """
         return cast(
             ListObject[PaymentLink],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_links",
                 api_mode="V1",
@@ -1650,7 +1650,7 @@ class PaymentLinkService(StripeService):
         """
         return cast(
             PaymentLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_links",
                 api_mode="V1",
@@ -1671,7 +1671,7 @@ class PaymentLinkService(StripeService):
         """
         return cast(
             PaymentLink,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),
@@ -1694,7 +1694,7 @@ class PaymentLinkService(StripeService):
         """
         return cast(
             PaymentLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),

@@ -2887,7 +2887,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             ListObject[SetupIntent],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/setup_intents",
                 api_mode="V1",
@@ -2910,7 +2910,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/setup_intents",
                 api_mode="V1",
@@ -2935,7 +2935,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
@@ -2958,7 +2958,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
@@ -2983,7 +2983,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
@@ -3019,7 +3019,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
@@ -3042,7 +3042,7 @@ class SetupIntentService(StripeService):
         """
         return cast(
             SetupIntent,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),

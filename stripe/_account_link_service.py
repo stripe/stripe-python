@@ -60,7 +60,7 @@ class AccountLinkService(StripeService):
         """
         return cast(
             AccountLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/account_links",
                 api_mode="V1",

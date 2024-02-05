@@ -32,7 +32,7 @@ class ReportTypeService(StripeService):
         """
         return cast(
             ListObject[ReportType],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reporting/report_types",
                 api_mode="V1",
@@ -53,7 +53,7 @@ class ReportTypeService(StripeService):
         """
         return cast(
             ReportType,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reporting/report_types/{report_type}".format(
                     report_type=sanitize_id(report_type),

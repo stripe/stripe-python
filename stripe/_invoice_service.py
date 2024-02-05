@@ -1903,7 +1903,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
@@ -1924,7 +1924,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
@@ -1950,7 +1950,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
@@ -1970,7 +1970,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             ListObject[Invoice],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices",
                 api_mode="V1",
@@ -1990,7 +1990,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices",
                 api_mode="V1",
@@ -2013,7 +2013,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             SearchResultObject[Invoice],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices/search",
                 api_mode="V1",
@@ -2037,7 +2037,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices/upcoming",
                 api_mode="V1",
@@ -2058,7 +2058,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
                     invoice=sanitize_id(invoice),
@@ -2081,7 +2081,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
                     invoice=sanitize_id(invoice),
@@ -2104,7 +2104,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
                     invoice=sanitize_id(invoice),
@@ -2129,7 +2129,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
                     invoice=sanitize_id(invoice),
@@ -2152,7 +2152,7 @@ class InvoiceService(StripeService):
         """
         return cast(
             Invoice,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
                     invoice=sanitize_id(invoice),

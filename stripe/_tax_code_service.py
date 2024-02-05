@@ -44,7 +44,7 @@ class TaxCodeService(StripeService):
         """
         return cast(
             ListObject[TaxCode],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax_codes",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class TaxCodeService(StripeService):
         """
         return cast(
             TaxCode,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax_codes/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

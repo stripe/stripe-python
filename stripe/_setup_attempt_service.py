@@ -66,7 +66,7 @@ class SetupAttemptService(StripeService):
         """
         return cast(
             ListObject[SetupAttempt],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/setup_attempts",
                 api_mode="V1",

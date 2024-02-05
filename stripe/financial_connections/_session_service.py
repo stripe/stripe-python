@@ -78,7 +78,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/financial_connections/sessions/{session}".format(
                     session=sanitize_id(session),
@@ -100,7 +100,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/financial_connections/sessions",
                 api_mode="V1",

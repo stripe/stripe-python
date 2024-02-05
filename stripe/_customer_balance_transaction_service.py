@@ -81,7 +81,7 @@ class CustomerBalanceTransactionService(StripeService):
         """
         return cast(
             ListObject[CustomerBalanceTransaction],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=sanitize_id(customer),
@@ -104,7 +104,7 @@ class CustomerBalanceTransactionService(StripeService):
         """
         return cast(
             CustomerBalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=sanitize_id(customer),
@@ -128,7 +128,7 @@ class CustomerBalanceTransactionService(StripeService):
         """
         return cast(
             CustomerBalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),
@@ -153,7 +153,7 @@ class CustomerBalanceTransactionService(StripeService):
         """
         return cast(
             CustomerBalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),

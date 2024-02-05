@@ -355,7 +355,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations",
                 api_mode="V1",
@@ -376,7 +376,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
                     authorization=sanitize_id(authorization),
@@ -399,7 +399,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
                     authorization=sanitize_id(authorization),
@@ -422,7 +422,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
                     authorization=sanitize_id(authorization),
@@ -445,7 +445,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
                     authorization=sanitize_id(authorization),

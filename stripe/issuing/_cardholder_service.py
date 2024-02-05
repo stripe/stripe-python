@@ -514,7 +514,7 @@ class CardholderService(StripeService):
         """
         return cast(
             ListObject[Cardholder],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/cardholders",
                 api_mode="V1",
@@ -534,7 +534,7 @@ class CardholderService(StripeService):
         """
         return cast(
             Cardholder,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/cardholders",
                 api_mode="V1",
@@ -555,7 +555,7 @@ class CardholderService(StripeService):
         """
         return cast(
             Cardholder,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),
@@ -578,7 +578,7 @@ class CardholderService(StripeService):
         """
         return cast(
             Cardholder,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),

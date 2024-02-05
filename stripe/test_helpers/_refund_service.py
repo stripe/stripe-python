@@ -26,7 +26,7 @@ class RefundService(StripeService):
         """
         return cast(
             Refund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(
                     refund=sanitize_id(refund),

@@ -84,7 +84,7 @@ class TokenService(StripeService):
         """
         return cast(
             ListObject[Token],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/tokens",
                 api_mode="V1",
@@ -105,7 +105,7 @@ class TokenService(StripeService):
         """
         return cast(
             Token,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/tokens/{token}".format(token=sanitize_id(token)),
                 api_mode="V1",
@@ -126,7 +126,7 @@ class TokenService(StripeService):
         """
         return cast(
             Token,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/tokens/{token}".format(token=sanitize_id(token)),
                 api_mode="V1",

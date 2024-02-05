@@ -439,7 +439,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             ListObject[Configuration],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/billing_portal/configurations",
                 api_mode="V1",
@@ -459,7 +459,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/billing_portal/configurations",
                 api_mode="V1",
@@ -480,7 +480,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -503,7 +503,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),

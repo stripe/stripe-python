@@ -184,7 +184,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             ListObject[Union[Account, BankAccount, Card, Source]],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer),
@@ -211,7 +211,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             Union[Account, BankAccount, Card, Source],
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer),
@@ -235,7 +235,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             Union[Account, BankAccount, Card, Source],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer),
@@ -260,7 +260,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             Union[Account, BankAccount, Card, Source],
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer),
@@ -285,7 +285,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             Union[Account, BankAccount, Card, Source],
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer),
@@ -310,7 +310,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         return cast(
             BankAccount,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/sources/{id}/verify".format(
                     customer=sanitize_id(customer),

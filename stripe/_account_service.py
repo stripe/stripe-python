@@ -3042,7 +3042,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
@@ -3063,7 +3063,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
@@ -3092,7 +3092,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
@@ -3112,7 +3112,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/account",
                 api_mode="V1",
@@ -3132,7 +3132,7 @@ class AccountService(StripeService):
         """
         return cast(
             ListObject[Account],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts",
                 api_mode="V1",
@@ -3157,7 +3157,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts",
                 api_mode="V1",
@@ -3180,7 +3180,7 @@ class AccountService(StripeService):
         """
         return cast(
             Account,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
                     account=sanitize_id(account),
