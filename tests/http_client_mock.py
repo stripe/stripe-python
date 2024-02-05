@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 from typing import List
 
 import stripe
-from urllib.parse import urlsplit, urlencode
+from urllib.parse import urlsplit, urlencode, parse_qsl
 import json
 from unittest.mock import Mock
 
@@ -11,9 +11,7 @@ def parse_and_sort(query_string, strict_parsing=False):
     """
     Helper function to parse a query string and return a sorted list of tuples.
     """
-    return sorted(
-        stripe.util.parse_qsl(query_string, strict_parsing=strict_parsing)
-    )
+    return sorted(parse_qsl(query_string, strict_parsing=strict_parsing))
 
 
 def extract_api_base(abs_url):
@@ -30,12 +28,14 @@ class StripeRequestCall(object):
         abs_url=None,
         headers=None,
         post_data=None,
+        usage=None,
         max_network_retries=None,
     ):
         self.method = method
         self.abs_url = abs_url
         self.headers = headers
         self.post_data = post_data
+        self.usage = usage
         self.max_network_retries = max_network_retries
 
     @classmethod
@@ -45,6 +45,7 @@ class StripeRequestCall(object):
             abs_url=mock_call[0][1],
             headers=mock_call[0][2],
             post_data=mock_call[0][3],
+            usage=mock_call[1]["_usage"],
             max_network_retries=mock_call[1]["max_network_retries"],
         )
 
@@ -77,6 +78,7 @@ class StripeRequestCall(object):
         extra_headers=None,
         post_data=None,
         is_json=False,
+        usage=None,
         max_network_retries=None,
     ):
         # METHOD
@@ -108,6 +110,8 @@ class StripeRequestCall(object):
             self.assert_header("User-Agent", user_agent)
         if extra_headers is not None:
             self.assert_extra_headers(extra_headers)
+        if usage is not None:
+            self.assert_usage(usage)
 
         # BODY
         if post_data is not None:
@@ -186,6 +190,12 @@ class StripeRequestCall(object):
                     % (header, value, actual_value)
                 )
 
+    def assert_usage(self, expected):
+        if self.usage != expected:
+            raise AssertionError(
+                "Expected usage to be %s, got %s" % (expected, self.usage)
+            )
+
     def assert_post_data(self, expected, is_json=False):
         actual_data = self.post_data
         expected_data = expected
@@ -202,17 +212,27 @@ class StripeRequestCall(object):
 
 
 class HTTPClientMock(object):
-    def __init__(self, mocker, is_streaming=False):
-        self.mock_client = mocker.Mock(
-            wraps=stripe.http_client.new_default_http_client()
-        )
+    def __init__(self, mocker, is_streaming=False, is_async=False):
+        if is_async:
+            self.mock_client = mocker.Mock(
+                wraps=stripe.http_client.new_default_http_client_async()
+            )
+        else:
+            self.mock_client = mocker.Mock(
+                wraps=stripe.http_client.new_default_http_client()
+            )
+
+        self.is_async = is_async
         self.mock_client._verify_ssl_certs = True
         self.mock_client.name = "mockclient"
-        self.func = (
-            self.mock_client.request_with_retries
-            if not is_streaming
-            else self.mock_client.request_stream_with_retries
-        )
+        if is_async and is_streaming:
+            self.func = self.mock_client.request_stream_with_retries_async
+        elif is_async and not is_streaming:
+            self.func = self.mock_client.request_with_retries_async
+        elif is_streaming:
+            self.func = self.mock_client.request_stream_with_retries
+        else:
+            self.func = self.mock_client.request_with_retries
         self.registered_responses = {}
 
     def get_mock_http_client(self) -> Mock:
@@ -247,12 +267,21 @@ class HTTPClientMock(object):
                 (called_method, called_path, called_query)
             ]
 
+        async def awaitable(x):
+            return x
+
         self.registered_responses[
             (method, path, urlencode(parse_and_sort(query_string)))
         ] = (
-            rbody,
-            rcode,
-            rheaders,
+            awaitable(
+                (
+                    rbody,
+                    rcode,
+                    rheaders,
+                )
+            )
+            if self.is_async
+            else (rbody, rcode, rheaders)
         )
 
         self.func.side_effect = custom_side_effect
@@ -305,6 +334,7 @@ class HTTPClientMock(object):
         extra_headers=None,
         post_data=None,
         is_json=False,
+        usage=None,
         max_network_retries=None,
     ) -> None:
         if abs_url and (api_base or path or query_string):
@@ -334,6 +364,7 @@ class HTTPClientMock(object):
             extra_headers=extra_headers,
             post_data=post_data,
             is_json=is_json,
+            usage=usage,
             max_network_retries=max_network_retries,
         )
 
