@@ -205,6 +205,37 @@ class _APIRequestor(object):
             api_mode=api_mode,
         )
 
+    async def request_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        _usage: Optional[List[str]] = None,
+    ) -> "StripeObject":
+        requestor = self._replace_options(options)
+        rbody, rcode, rheaders = await requestor.request_raw_async(
+            method.lower(),
+            url,
+            params,
+            is_streaming=False,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
+            _usage=_usage,
+        )
+        resp = requestor._interpret_response(rbody, rcode, rheaders)
+
+        return _convert_to_stripe_object(
+            resp=resp,
+            params=params,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+
     def request_stream(
         self,
         method: str,
@@ -217,6 +248,36 @@ class _APIRequestor(object):
         _usage: Optional[List[str]] = None,
     ) -> StripeStreamResponse:
         stream, rcode, rheaders = self.request_raw(
+            method.lower(),
+            url,
+            params,
+            is_streaming=True,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
+            _usage=_usage,
+        )
+        resp = self._interpret_streaming_response(
+            # TODO: should be able to remove this cast once self._client.request_stream_with_retries
+            # returns a more specific type.
+            cast(IOBase, stream),
+            rcode,
+            rheaders,
+        )
+        return resp
+
+    async def request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        _usage: Optional[List[str]] = None,
+    ) -> StripeStreamResponse:
+        stream, rcode, rheaders = await self.request_raw_async(
             method.lower(),
             url,
             params,

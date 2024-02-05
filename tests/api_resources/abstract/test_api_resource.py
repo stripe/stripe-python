@@ -18,6 +18,17 @@ class TestAPIResource(object):
                 params=params,
             )
 
+        @classmethod
+        async def my_method_async(cls, **params):
+            return cls.construct_from(
+                await cls._static_request_async(
+                    "post",
+                    cls.class_url(),
+                    params=params,
+                ),
+                stripe.api_key,
+            )
+
     def test_retrieve_and_refresh(self, http_client_mock):
         path = "/v1/myresources/foo%2A"
         query_string = "myparam=5"
@@ -314,4 +325,28 @@ class TestAPIResource(object):
             api_key="newkey",
             stripe_version="2023-01-01",
             stripe_account="acct_bar",
+        )
+
+    @pytest.mark.anyio
+    async def test_async_methods_succeed(self, http_client_mock_async):
+        http_client_mock_async.stub_request(
+            "post",
+            "/v1/myresources",
+            rbody='{"id": "foo", "object": "myresource"}',
+        )
+        resource = await self.MyDeletableResource.my_method_async()
+        http_client_mock_async.assert_requested(
+            "post",
+            path="/v1/myresources",
+        )
+
+        http_client_mock_async.stub_request(
+            "get",
+            "/v1/myresources/foo",
+            rbody='{"id": "foo", "object": "myresource"}',
+        )
+        await resource.refresh_async()
+        http_client_mock_async.assert_requested(
+            "get",
+            path="/v1/myresources/foo",
         )

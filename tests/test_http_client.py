@@ -1234,6 +1234,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
         # TODO
         pass
 
+    @pytest.mark.anyio
     async def test_exception(self, request_mock, mock_error):
         mock_error(request_mock)
         with pytest.raises(stripe.APIConnectionError):
