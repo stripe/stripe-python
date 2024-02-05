@@ -1,5 +1,5 @@
 # pyright: strict
-from typing_extensions import Self, Unpack
+from typing_extensions import Optional, Self, Unpack
 from typing import (
     Generic,
     List,
@@ -35,20 +35,23 @@ class SearchResultObject(StripeObject, Generic[T]):
                 **params,
             )
 
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
-    )
-    def search(self, **params: Mapping[str, Any]) -> Self:
+    def _get_url_for_search(self) -> str:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
             )
+        return url
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
+    )
+    def search(self, **params: Mapping[str, Any]) -> Self:
         return cast(
             Self,
             self._request(
                 "get",
-                url,
+                self._get_url_for_search(),
                 params=params,
                 base_address="api",
                 api_mode="V1",
@@ -56,16 +59,11 @@ class SearchResultObject(StripeObject, Generic[T]):
         )
 
     async def _search_async(self, **params: Mapping[str, Any]) -> Self:
-        url = self.get("url")
-        if not isinstance(url, str):
-            raise ValueError(
-                'Cannot call .list on a list object without a string "url" property'
-            )
         return cast(
             Self,
             await self._request_async(
                 "get",
-                url,
+                self._get_url_for_search(),
                 params=params,
                 base_address="api",
                 api_mode="V1",
@@ -132,9 +130,15 @@ class SearchResultObject(StripeObject, Generic[T]):
     def is_empty(self) -> bool:
         return not self.data
 
-    def next_search_result_page(
-        self, **params: Unpack[RequestOptions]
-    ) -> Self:
+    def _get_filters_for_next_page(
+        self, params: RequestOptions
+    ) -> Mapping[str, Any]:
+        params_with_filters = dict(self._retrieve_params)
+        params_with_filters.update({"page": self.next_page})
+        params_with_filters.update(params)
+        return params_with_filters
+
+    def _maybe_empty_result(self, params: RequestOptions) -> Optional[Self]:
         if not self.has_more:
             options, _ = extract_options_from_dict(params)
             return self._empty_search_result(
@@ -142,30 +146,28 @@ class SearchResultObject(StripeObject, Generic[T]):
                 stripe_version=options.get("stripe_version"),
                 stripe_account=options.get("stripe_account"),
             )
+        return None
 
-        params_with_filters = dict(self._retrieve_params)
-        params_with_filters.update({"page": self.next_page})
-        params_with_filters.update(params)
-
-        return self._search(
-            **params_with_filters,
+    def next_search_result_page(
+        self, **params: Unpack[RequestOptions]
+    ) -> Self:
+        empty = self._maybe_empty_result(params)
+        return (
+            empty
+            if empty is not None
+            else self._search(
+                **self._get_filters_for_next_page(params),
+            )
         )
 
     async def next_search_result_page_async(
         self, **params: Unpack[RequestOptions]
     ) -> Self:
-        if not self.has_more:
-            options, _ = extract_options_from_dict(params)
-            return self._empty_search_result(
-                api_key=options.get("api_key"),
-                stripe_version=options.get("stripe_version"),
-                stripe_account=options.get("stripe_account"),
+        empty = self._maybe_empty_result(params)
+        return (
+            empty
+            if empty is not None
+            else await self._search_async(
+                **self._get_filters_for_next_page(params),
             )
-
-        params_with_filters = dict(self._retrieve_params)
-        params_with_filters.update({"page": self.next_page})
-        params_with_filters.update(params)
-
-        return await self._search_async(
-            **params_with_filters,
         )
