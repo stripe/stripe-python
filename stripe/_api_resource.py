@@ -208,7 +208,7 @@ class APIResource(StripeObject, Generic[T]):
         cls,
         method,
         url,
-        params=None,
+        params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
