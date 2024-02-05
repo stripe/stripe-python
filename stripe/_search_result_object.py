@@ -71,23 +71,6 @@ class SearchResultObject(StripeObject, Generic[T]):
             ),
         )
 
-    async def _search_async(self, **params: Mapping[str, Any]) -> Self:
-        url = self.get("url")
-        if not isinstance(url, str):
-            raise ValueError(
-                'Cannot call .list on a list object without a string "url" property'
-            )
-        return cast(
-            Self,
-            await self._request_async(
-                "get",
-                url,
-                params=params,
-                base_address="api",
-                api_mode="V1",
-            ),
-        )
-
     def __getitem__(self, k: str) -> T:
         if isinstance(k, str):  # pyright: ignore
             return super(SearchResultObject, self).__getitem__(k)
@@ -188,23 +171,4 @@ class SearchResultObject(StripeObject, Generic[T]):
             else await self._search_async(
                 **self._get_filters_for_next_page(params),
             )
-        )
-
-    async def next_search_result_page_async(
-        self, **params: Unpack[RequestOptions]
-    ) -> Self:
-        if not self.has_more:
-            options, _ = extract_options_from_dict(params)
-            return self._empty_search_result(
-                api_key=options.get("api_key"),
-                stripe_version=options.get("stripe_version"),
-                stripe_account=options.get("stripe_account"),
-            )
-
-        params_with_filters = dict(self._retrieve_params)
-        params_with_filters.update({"page": self.next_page})
-        params_with_filters.update(params)
-
-        return await self._search_async(
-            **params_with_filters,
         )
