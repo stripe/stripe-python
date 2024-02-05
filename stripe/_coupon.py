@@ -268,6 +268,24 @@ class Coupon(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Coupon.CreateParams"]
+    ) -> "Coupon":
+        """
+        You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
+
+        A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
+        """
+        return cast(
+            "Coupon",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
     ) -> "Coupon":
@@ -313,6 +331,55 @@ class Coupon(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Coupon",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Coupon.ListParams"]
     ) -> ListObject["Coupon"]:
@@ -320,6 +387,27 @@ class Coupon(
         Returns a list of your coupons.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Coupon.ListParams"]
+    ) -> ListObject["Coupon"]:
+        """
+        Returns a list of your coupons.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -351,6 +439,23 @@ class Coupon(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Coupon.ModifyParams"]
+    ) -> "Coupon":
+        """
+        Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Coupon",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Coupon.RetrieveParams"]
     ) -> "Coupon":
@@ -359,6 +464,17 @@ class Coupon(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Coupon.RetrieveParams"]
+    ) -> "Coupon":
+        """
+        Retrieves the coupon with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

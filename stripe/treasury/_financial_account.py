@@ -780,6 +780,22 @@ class FinancialAccount(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["FinancialAccount.CreateParams"]
+    ) -> "FinancialAccount":
+        """
+        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        """
+        return cast(
+            "FinancialAccount",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["FinancialAccount.ListParams"]
     ) -> ListObject["FinancialAccount"]:
@@ -787,6 +803,27 @@ class FinancialAccount(
         Returns a list of FinancialAccounts.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["FinancialAccount.ListParams"]
+    ) -> ListObject["FinancialAccount"]:
+        """
+        Returns a list of FinancialAccounts.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -818,6 +855,23 @@ class FinancialAccount(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
+    ) -> "FinancialAccount":
+        """
+        Updates the details of a FinancialAccount.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "FinancialAccount",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
     ) -> "FinancialAccount":
@@ -826,6 +880,17 @@ class FinancialAccount(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
+    ) -> "FinancialAccount":
+        """
+        Retrieves the details of a FinancialAccount.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -887,6 +952,64 @@ class FinancialAccount(
         )
 
     @classmethod
+    async def _cls_retrieve_features_async(
+        cls,
+        financial_account: str,
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
+        return cast(
+            "FinancialAccountFeatures",
+            await cls._static_request_async(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(financial_account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def retrieve_features_async(
+        financial_account: str,
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
+        ...
+
+    @overload
+    async def retrieve_features_async(
+        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
+        ...
+
+    @class_method_variant("_cls_retrieve_features_async")
+    async def retrieve_features_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
+        return cast(
+            "FinancialAccountFeatures",
+            await self._request_async(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_update_features(
         cls,
         financial_account: str,
@@ -936,6 +1059,64 @@ class FinancialAccount(
         return cast(
             "FinancialAccountFeatures",
             self._request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_update_features_async(
+        cls,
+        financial_account: str,
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
+        return cast(
+            "FinancialAccountFeatures",
+            await cls._static_request_async(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(financial_account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def update_features_async(
+        financial_account: str,
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
+        ...
+
+    @overload
+    async def update_features_async(
+        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
+        ...
+
+    @class_method_variant("_cls_update_features_async")
+    async def update_features_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
+        return cast(
+            "FinancialAccountFeatures",
+            await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(self.get("id"))

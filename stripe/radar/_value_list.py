@@ -201,6 +201,22 @@ class ValueList(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["ValueList.CreateParams"]
+    ) -> "ValueList":
+        """
+        Creates a new ValueList object, which can then be referenced in rules.
+        """
+        return cast(
+            "ValueList",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
     ) -> "ValueList":
@@ -250,6 +266,55 @@ class ValueList(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "ValueList",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["ValueList.ListParams"]
     ) -> ListObject["ValueList"]:
@@ -257,6 +322,27 @@ class ValueList(
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["ValueList.ListParams"]
+    ) -> ListObject["ValueList"]:
+        """
+        Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -288,6 +374,23 @@ class ValueList(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["ValueList.ModifyParams"]
+    ) -> "ValueList":
+        """
+        Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "ValueList",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
     ) -> "ValueList":
@@ -296,4 +399,15 @@ class ValueList(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
+    ) -> "ValueList":
+        """
+        Retrieves a ValueList object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance

@@ -14,6 +14,7 @@ from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
+    AsyncIterator,
     ClassVar,
     Dict,
     Iterator,
@@ -1394,6 +1395,22 @@ class Customer(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Customer.CreateParams"]
+    ) -> "Customer":
+        """
+        Creates a new customer object.
+        """
+        return cast(
+            "Customer",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_create_funding_instructions(
         cls,
         customer: str,
@@ -1460,6 +1477,72 @@ class Customer(
         )
 
     @classmethod
+    async def _cls_create_funding_instructions_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
+        return cast(
+            "FundingInstructions",
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/funding_instructions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def create_funding_instructions_async(
+        customer: str,
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
+        ...
+
+    @overload
+    async def create_funding_instructions_async(
+        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
+        ...
+
+    @class_method_variant("_cls_create_funding_instructions_async")
+    async def create_funding_instructions_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
+        return cast(
+            "FundingInstructions",
+            await self._request_async(
+                "post",
+                "/v1/customers/{customer}/funding_instructions".format(
+                    customer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
@@ -1501,6 +1584,55 @@ class Customer(
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
         return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Customer",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
+        return await self._request_and_refresh_async(
             "delete",
             self.instance_url(),
             params=params,
@@ -1562,6 +1694,61 @@ class Customer(
         )
 
     @classmethod
+    async def _cls_delete_discount_async(
+        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
+        return cast(
+            "Discount",
+            await cls._static_request_async(
+                "delete",
+                "/v1/customers/{customer}/discount".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_discount_async(
+        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
+        ...
+
+    @overload
+    async def delete_discount_async(
+        self, **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_discount_async")
+    async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
+        return cast(
+            "Discount",
+            await self._request_async(
+                "delete",
+                "/v1/customers/{customer}/discount".format(
+                    customer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Customer.ListParams"]
     ) -> ListObject["Customer"]:
@@ -1569,6 +1756,27 @@ class Customer(
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Customer.ListParams"]
+    ) -> ListObject["Customer"]:
+        """
+        Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1640,6 +1848,63 @@ class Customer(
         )
 
     @classmethod
+    async def _cls_list_payment_methods_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
+        return cast(
+            ListObject["PaymentMethod"],
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/payment_methods".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_payment_methods_async(
+        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
+        ...
+
+    @overload
+    async def list_payment_methods_async(
+        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
+        ...
+
+    @class_method_variant("_cls_list_payment_methods_async")
+    async def list_payment_methods_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
+        return cast(
+            ListObject["PaymentMethod"],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/payment_methods".format(
+                    customer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["Customer.ModifyParams"]
     ) -> "Customer":
@@ -1659,6 +1924,25 @@ class Customer(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Customer.ModifyParams"]
+    ) -> "Customer":
+        """
+        Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
+
+        This request accepts mostly the same arguments as the customer creation call.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Customer",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Customer.RetrieveParams"]
     ) -> "Customer":
@@ -1667,6 +1951,17 @@ class Customer(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
+    ) -> "Customer":
+        """
+        Retrieves a Customer object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -1736,6 +2031,72 @@ class Customer(
         )
 
     @classmethod
+    async def _cls_retrieve_payment_method_async(
+        cls,
+        customer: str,
+        payment_method: str,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
+        return cast(
+            "PaymentMethod",
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
+                    customer=sanitize_id(customer),
+                    payment_method=sanitize_id(payment_method),
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def retrieve_payment_method_async(
+        customer: str,
+        payment_method: str,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
+        ...
+
+    @overload
+    async def retrieve_payment_method_async(
+        self,
+        payment_method: str,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
+        ...
+
+    @class_method_variant("_cls_retrieve_payment_method_async")
+    async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        payment_method: str,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
+        return cast(
+            "PaymentMethod",
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
+                    customer=sanitize_id(self.get("id")),
+                    payment_method=sanitize_id(payment_method),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def search(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
@@ -1748,10 +2109,32 @@ class Customer(
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
+    async def search_async(
+        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+    ) -> SearchResultObject["Customer"]:
+        """
+        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return await cls._search_async(
+            search_url="/v1/customers/search", *args, **kwargs
+        )
+
+    @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> Iterator["Customer"]:
-        return cls.search(*args, **kwargs).auto_paging_iter()
+        return (cls.search(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    async def search_auto_paging_iter_async(
+        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+    ) -> AsyncIterator["Customer"]:
+        return (
+            await cls.search_async(*args, **kwargs)
+        ).auto_paging_iter_async()
 
     @classmethod
     def create_balance_transaction(
@@ -1774,6 +2157,26 @@ class Customer(
         )
 
     @classmethod
+    async def create_balance_transaction_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.CreateBalanceTransactionParams"]
+    ) -> "CustomerBalanceTransaction":
+        """
+        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            "CustomerBalanceTransaction",
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_balance_transaction(
         cls,
         customer: str,
@@ -1786,6 +2189,28 @@ class Customer(
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_balance_transaction_async(
+        cls,
+        customer: str,
+        transaction: str,
+        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
+    ) -> "CustomerBalanceTransaction":
+        """
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            "CustomerBalanceTransaction",
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),
@@ -1818,6 +2243,28 @@ class Customer(
         )
 
     @classmethod
+    async def modify_balance_transaction_async(
+        cls,
+        customer: str,
+        transaction: str,
+        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
+    ) -> "CustomerBalanceTransaction":
+        """
+        Most credit balance transaction fields are immutable, but you may update its description and metadata.
+        """
+        return cast(
+            "CustomerBalanceTransaction",
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_balance_transactions(
         cls,
         customer: str,
@@ -1829,6 +2276,26 @@ class Customer(
         return cast(
             ListObject["CustomerBalanceTransaction"],
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_balance_transactions_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListBalanceTransactionsParams"]
+    ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject["CustomerBalanceTransaction"],
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=sanitize_id(customer)
@@ -1860,6 +2327,28 @@ class Customer(
         )
 
     @classmethod
+    async def retrieve_cash_balance_transaction_async(
+        cls,
+        customer: str,
+        transaction: str,
+        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
+    ) -> "CustomerCashBalanceTransaction":
+        """
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
+        return cast(
+            "CustomerCashBalanceTransaction",
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_cash_balance_transactions(
         cls,
         customer: str,
@@ -1871,6 +2360,26 @@ class Customer(
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/cash_balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_cash_balance_transactions_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
+        """
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
+        return cast(
+            ListObject["CustomerCashBalanceTransaction"],
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer)
@@ -1902,6 +2411,28 @@ class Customer(
         )
 
     @classmethod
+    async def create_source_async(
+        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        When you create a new credit card, you must specify a customer or recipient on which to create it.
+
+        If the card's owner has no default card, then the new card will become the default.
+        However, if the owner already has a default, then it will not change.
+        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        """
+        return cast(
+            Union["Account", "BankAccount", "Card", "Source"],
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/sources".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_source(
         cls,
         customer: str,
@@ -1914,6 +2445,27 @@ class Customer(
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_source_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["Customer.RetrieveSourceParams"]
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Retrieve a specified source for a given customer.
+        """
+        return cast(
+            Union["Account", "BankAccount", "Card", "Source"],
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer), id=sanitize_id(id)
@@ -1944,6 +2496,27 @@ class Customer(
         )
 
     @classmethod
+    async def modify_source_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["Customer.ModifySourceParams"]
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Update a specified source for a given customer.
+        """
+        return cast(
+            Union["Account", "BankAccount", "Card", "Source"],
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def delete_source(
         cls,
         customer: str,
@@ -1956,6 +2529,27 @@ class Customer(
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
+                "delete",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def delete_source_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["Customer.DeleteSourceParams"]
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Delete a specified source for a given customer.
+        """
+        return cast(
+            Union["Account", "BankAccount", "Card", "Source"],
+            await cls._static_request_async(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer), id=sanitize_id(id)
@@ -1983,6 +2577,24 @@ class Customer(
         )
 
     @classmethod
+    async def list_sources_async(
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
+        """
+        List sources for a specified customer.
+        """
+        return cast(
+            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/sources".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_tax_id(
         cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
     ) -> "TaxId":
@@ -1992,6 +2604,24 @@ class Customer(
         return cast(
             "TaxId",
             cls._static_request(
+                "post",
+                "/v1/customers/{customer}/tax_ids".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_tax_id_async(
+        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
+    ) -> "TaxId":
+        """
+        Creates a new tax_id object for a customer.
+        """
+        return cast(
+            "TaxId",
+            await cls._static_request_async(
                 "post",
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer)
@@ -2022,6 +2652,27 @@ class Customer(
         )
 
     @classmethod
+    async def retrieve_tax_id_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["Customer.RetrieveTaxIdParams"]
+    ) -> "TaxId":
+        """
+        Retrieves the tax_id object with the given identifier.
+        """
+        return cast(
+            "TaxId",
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/tax_ids/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def delete_tax_id(
         cls,
         customer: str,
@@ -2043,6 +2694,27 @@ class Customer(
         )
 
     @classmethod
+    async def delete_tax_id_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["Customer.DeleteTaxIdParams"]
+    ) -> "TaxId":
+        """
+        Deletes an existing tax_id object.
+        """
+        return cast(
+            "TaxId",
+            await cls._static_request_async(
+                "delete",
+                "/v1/customers/{customer}/tax_ids/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_tax_ids(
         cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
@@ -2052,6 +2724,24 @@ class Customer(
         return cast(
             ListObject["TaxId"],
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/tax_ids".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_tax_ids_async(
+        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
+    ) -> ListObject["TaxId"]:
+        """
+        Returns a list of tax IDs for a customer.
+        """
+        return cast(
+            ListObject["TaxId"],
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer)
@@ -2081,6 +2771,26 @@ class Customer(
         )
 
     @classmethod
+    async def modify_cash_balance_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
+    ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
+        return cast(
+            "CashBalance",
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_cash_balance(
         cls,
         customer: str,
@@ -2092,6 +2802,26 @@ class Customer(
         return cast(
             "CashBalance",
             cls._static_request(
+                "get",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_cash_balance_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.RetrieveCashBalanceParams"]
+    ) -> "CashBalance":
+        """
+        Retrieves a customer's cash balance.
+        """
+        return cast(
+            "CashBalance",
+            await cls._static_request_async(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer)
@@ -2152,6 +2882,63 @@ class Customer(
             return cast(
                 "CustomerCashBalanceTransaction",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                        customer=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_fund_cash_balance_async(
+            cls,
+            customer: str,
+            **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
+            return cast(
+                "CustomerCashBalanceTransaction",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                        customer=sanitize_id(customer)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def fund_cash_balance_async(
+            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
+            ...
+
+        @overload
+        async def fund_cash_balance_async(
+            self, **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
+            ...
+
+        @class_method_variant("_cls_fund_cash_balance_async")
+        async def fund_cash_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
+            return cast(
+                "CustomerCashBalanceTransaction",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
                         customer=sanitize_id(self.resource.get("id"))

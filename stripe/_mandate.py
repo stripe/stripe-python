@@ -220,6 +220,17 @@ class Mandate(APIResource["Mandate"]):
         instance.refresh()
         return instance
 
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+    ) -> "Mandate":
+        """
+        Retrieves a Mandate object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
     _inner_class_types = {
         "customer_acceptance": CustomerAcceptance,
         "multi_use": MultiUse,

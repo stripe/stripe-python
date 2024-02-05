@@ -234,6 +234,61 @@ class Review(ListableAPIResource["Review"]):
         )
 
     @classmethod
+    async def _cls_approve_async(
+        cls, review: str, **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        return cast(
+            "Review",
+            await cls._static_request_async(
+                "post",
+                "/v1/reviews/{review}/approve".format(
+                    review=sanitize_id(review)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def approve_async(
+        review: str, **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        ...
+
+    @overload
+    async def approve_async(
+        self, **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        ...
+
+    @class_method_variant("_cls_approve_async")
+    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        return cast(
+            "Review",
+            await self._request_async(
+                "post",
+                "/v1/reviews/{review}/approve".format(
+                    review=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Review.ListParams"]
     ) -> ListObject["Review"]:
@@ -241,6 +296,27 @@ class Review(ListableAPIResource["Review"]):
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Review.ListParams"]
+    ) -> ListObject["Review"]:
+        """
+        Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -263,6 +339,17 @@ class Review(ListableAPIResource["Review"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Review.RetrieveParams"]
+    ) -> "Review":
+        """
+        Retrieves a Review object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

@@ -947,6 +947,22 @@ class Configuration(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Configuration.CreateParams"]
+    ) -> "Configuration":
+        """
+        Creates a new Configuration object.
+        """
+        return cast(
+            "Configuration",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
@@ -996,6 +1012,55 @@ class Configuration(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
+    ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Configuration",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Configuration.DeleteParams"]
+    ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Configuration.DeleteParams"]
+    ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Configuration.DeleteParams"]
+    ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Configuration.ListParams"]
     ) -> ListObject["Configuration"]:
@@ -1003,6 +1068,27 @@ class Configuration(
         Returns a list of Configuration objects.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Configuration.ListParams"]
+    ) -> ListObject["Configuration"]:
+        """
+        Returns a list of Configuration objects.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1034,6 +1120,23 @@ class Configuration(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Configuration.ModifyParams"]
+    ) -> "Configuration":
+        """
+        Updates a new Configuration object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Configuration",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
     ) -> "Configuration":
@@ -1042,6 +1145,17 @@ class Configuration(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
+    ) -> "Configuration":
+        """
+        Retrieves a Configuration object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

@@ -569,6 +569,61 @@ class OutboundPayment(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, id: str, **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
+        return cast(
+            "OutboundPayment",
+            await cls._static_request_async(
+                "post",
+                "/v1/treasury/outbound_payments/{id}/cancel".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        id: str, **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
+        return cast(
+            "OutboundPayment",
+            await self._request_async(
+                "post",
+                "/v1/treasury/outbound_payments/{id}/cancel".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["OutboundPayment.CreateParams"]
     ) -> "OutboundPayment":
@@ -578,6 +633,22 @@ class OutboundPayment(
         return cast(
             "OutboundPayment",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["OutboundPayment.CreateParams"]
+    ) -> "OutboundPayment":
+        """
+        Creates an OutboundPayment.
+        """
+        return cast(
+            "OutboundPayment",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -606,6 +677,27 @@ class OutboundPayment(
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["OutboundPayment.ListParams"]
+    ) -> ListObject["OutboundPayment"]:
+        """
+        Returns a list of OutboundPayments sent from the specified FinancialAccount.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["OutboundPayment.RetrieveParams"]
     ) -> "OutboundPayment":
@@ -614,6 +706,17 @@ class OutboundPayment(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["OutboundPayment.RetrieveParams"]
+    ) -> "OutboundPayment":
+        """
+        Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["OutboundPayment"]):
@@ -666,6 +769,61 @@ class OutboundPayment(
             return cast(
                 "OutboundPayment",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_fail_async(
+            cls, id: str, **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def fail_async(
+            id: str, **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @overload
+        async def fail_async(
+            self, **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @class_method_variant("_cls_fail_async")
+        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                         id=sanitize_id(self.resource.get("id"))
@@ -730,6 +888,61 @@ class OutboundPayment(
             )
 
         @classmethod
+        async def _cls_post_async(
+            cls, id: str, **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def post_async(
+            id: str, **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @overload
+        async def post_async(
+            self, **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @class_method_variant("_cls_post_async")
+        async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_return_outbound_payment(
             cls,
             id: str,
@@ -781,6 +994,66 @@ class OutboundPayment(
             return cast(
                 "OutboundPayment",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_return_outbound_payment_async(
+            cls,
+            id: str,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def return_outbound_payment_async(
+            id: str,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @overload
+        async def return_outbound_payment_async(
+            self,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
+            ...
+
+        @class_method_variant("_cls_return_outbound_payment_async")
+        async def return_outbound_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
+            return cast(
+                "OutboundPayment",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                         id=sanitize_id(self.resource.get("id"))
