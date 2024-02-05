@@ -70,7 +70,7 @@ class ApplicationFeeRefundService(StripeService):
         """
         return cast(
             ApplicationFeeRefund,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/application_fees/{fee}/refunds/{id}".format(
                     fee=sanitize_id(fee),
@@ -97,7 +97,7 @@ class ApplicationFeeRefundService(StripeService):
         """
         return cast(
             ApplicationFeeRefund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/application_fees/{fee}/refunds/{id}".format(
                     fee=sanitize_id(fee),
@@ -121,7 +121,7 @@ class ApplicationFeeRefundService(StripeService):
         """
         return cast(
             ListObject[ApplicationFeeRefund],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -150,7 +150,7 @@ class ApplicationFeeRefundService(StripeService):
         """
         return cast(
             ApplicationFeeRefund,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 api_mode="V1",

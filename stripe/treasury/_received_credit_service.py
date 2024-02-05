@@ -66,7 +66,7 @@ class ReceivedCreditService(StripeService):
         """
         return cast(
             ListObject[ReceivedCredit],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/received_credits",
                 api_mode="V1",
@@ -87,7 +87,7 @@ class ReceivedCreditService(StripeService):
         """
         return cast(
             ReceivedCredit,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/received_credits/{id}".format(
                     id=sanitize_id(id)

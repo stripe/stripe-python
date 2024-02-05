@@ -82,7 +82,7 @@ class PaymentMethodDomainService(StripeService):
         """
         return cast(
             ListObject[PaymentMethodDomain],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_method_domains",
                 api_mode="V1",
@@ -102,7 +102,7 @@ class PaymentMethodDomainService(StripeService):
         """
         return cast(
             PaymentMethodDomain,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_method_domains",
                 api_mode="V1",
@@ -123,7 +123,7 @@ class PaymentMethodDomainService(StripeService):
         """
         return cast(
             PaymentMethodDomain,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
@@ -146,7 +146,7 @@ class PaymentMethodDomainService(StripeService):
         """
         return cast(
             PaymentMethodDomain,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
@@ -174,7 +174,7 @@ class PaymentMethodDomainService(StripeService):
         """
         return cast(
             PaymentMethodDomain,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
                     payment_method_domain=sanitize_id(payment_method_domain),

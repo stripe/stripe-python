@@ -39,7 +39,7 @@ class QuoteLineItemService(StripeService):
         """
         return cast(
             ListObject[LineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
                     quote=sanitize_id(quote),

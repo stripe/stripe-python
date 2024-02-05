@@ -39,7 +39,7 @@ class CalculationLineItemService(StripeService):
         """
         return cast(
             ListObject[CalculationLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
                     calculation=sanitize_id(calculation),

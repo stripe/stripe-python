@@ -46,7 +46,7 @@ class CustomerCashBalanceService(StripeService):
         """
         return cast(
             CashBalance,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),
@@ -69,7 +69,7 @@ class CustomerCashBalanceService(StripeService):
         """
         return cast(
             CashBalance,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),

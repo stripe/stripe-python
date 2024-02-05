@@ -109,7 +109,7 @@ class OrderService(StripeService):
         """
         return cast(
             ListObject[Order],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/orders",
                 api_mode="V1",
@@ -128,7 +128,7 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/climate/orders",
                 api_mode="V1",
@@ -149,7 +149,7 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
                 api_mode="V1",
@@ -170,7 +170,7 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
                 api_mode="V1",
@@ -194,7 +194,7 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
                     order=sanitize_id(order),

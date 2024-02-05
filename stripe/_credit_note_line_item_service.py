@@ -39,7 +39,7 @@ class CreditNoteLineItemService(StripeService):
         """
         return cast(
             ListObject[CreditNoteLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/credit_notes/{credit_note}/lines".format(
                     credit_note=sanitize_id(credit_note),

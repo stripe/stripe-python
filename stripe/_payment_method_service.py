@@ -639,7 +639,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             ListObject[PaymentMethod],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_methods",
                 api_mode="V1",
@@ -661,7 +661,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_methods",
                 api_mode="V1",
@@ -682,7 +682,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
@@ -705,7 +705,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
@@ -740,7 +740,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
                     payment_method=sanitize_id(payment_method),
@@ -763,7 +763,7 @@ class PaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
                     payment_method=sanitize_id(payment_method),

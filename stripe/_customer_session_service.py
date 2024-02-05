@@ -58,7 +58,7 @@ class CustomerSessionService(StripeService):
         """
         return cast(
             CustomerSession,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customer_sessions",
                 api_mode="V1",

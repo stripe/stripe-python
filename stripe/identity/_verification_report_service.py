@@ -71,7 +71,7 @@ class VerificationReportService(StripeService):
         """
         return cast(
             ListObject[VerificationReport],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/identity/verification_reports",
                 api_mode="V1",
@@ -92,7 +92,7 @@ class VerificationReportService(StripeService):
         """
         return cast(
             VerificationReport,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/identity/verification_reports/{report}".format(
                     report=sanitize_id(report),

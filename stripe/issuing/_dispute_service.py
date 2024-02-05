@@ -588,7 +588,7 @@ class DisputeService(StripeService):
         """
         return cast(
             ListObject[Dispute],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/disputes",
                 api_mode="V1",
@@ -608,7 +608,7 @@ class DisputeService(StripeService):
         """
         return cast(
             Dispute,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/disputes",
                 api_mode="V1",
@@ -629,7 +629,7 @@ class DisputeService(StripeService):
         """
         return cast(
             Dispute,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
@@ -652,7 +652,7 @@ class DisputeService(StripeService):
         """
         return cast(
             Dispute,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
@@ -675,7 +675,7 @@ class DisputeService(StripeService):
         """
         return cast(
             Dispute,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/disputes/{dispute}/submit".format(
                     dispute=sanitize_id(dispute),

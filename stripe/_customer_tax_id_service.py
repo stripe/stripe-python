@@ -130,7 +130,7 @@ class CustomerTaxIdService(StripeService):
         """
         return cast(
             TaxId,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
                     customer=sanitize_id(customer),
@@ -155,7 +155,7 @@ class CustomerTaxIdService(StripeService):
         """
         return cast(
             TaxId,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
                     customer=sanitize_id(customer),
@@ -179,7 +179,7 @@ class CustomerTaxIdService(StripeService):
         """
         return cast(
             ListObject[TaxId],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),
@@ -202,7 +202,7 @@ class CustomerTaxIdService(StripeService):
         """
         return cast(
             TaxId,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),

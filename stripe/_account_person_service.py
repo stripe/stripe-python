@@ -825,7 +825,7 @@ class AccountPersonService(StripeService):
         """
         return cast(
             Person,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account),
@@ -850,7 +850,7 @@ class AccountPersonService(StripeService):
         """
         return cast(
             Person,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account),
@@ -875,7 +875,7 @@ class AccountPersonService(StripeService):
         """
         return cast(
             Person,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account),
@@ -899,7 +899,7 @@ class AccountPersonService(StripeService):
         """
         return cast(
             ListObject[Person],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account),
@@ -922,7 +922,7 @@ class AccountPersonService(StripeService):
         """
         return cast(
             Person,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account),

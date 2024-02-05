@@ -41,7 +41,7 @@ class SubscriptionItemUsageRecordSummaryService(StripeService):
         """
         return cast(
             ListObject[UsageRecordSummary],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
                     subscription_item=sanitize_id(subscription_item),

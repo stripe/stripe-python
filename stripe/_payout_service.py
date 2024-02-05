@@ -154,7 +154,7 @@ class PayoutService(StripeService):
         """
         return cast(
             ListObject[Payout],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payouts",
                 api_mode="V1",
@@ -178,7 +178,7 @@ class PayoutService(StripeService):
         """
         return cast(
             Payout,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payouts",
                 api_mode="V1",
@@ -199,7 +199,7 @@ class PayoutService(StripeService):
         """
         return cast(
             Payout,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
                 api_mode="V1",
@@ -220,7 +220,7 @@ class PayoutService(StripeService):
         """
         return cast(
             Payout,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
                 api_mode="V1",
@@ -241,7 +241,7 @@ class PayoutService(StripeService):
         """
         return cast(
             Payout,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
                     payout=sanitize_id(payout),
@@ -266,7 +266,7 @@ class PayoutService(StripeService):
         """
         return cast(
             Payout,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
                     payout=sanitize_id(payout),

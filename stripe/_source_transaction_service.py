@@ -39,7 +39,7 @@ class SourceTransactionService(StripeService):
         """
         return cast(
             ListObject[SourceTransaction],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
                     source=sanitize_id(source),

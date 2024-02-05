@@ -656,7 +656,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/terminal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -679,7 +679,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/terminal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -702,7 +702,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/terminal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -724,7 +724,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             ListObject[Configuration],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/terminal/configurations",
                 api_mode="V1",
@@ -744,7 +744,7 @@ class ConfigurationService(StripeService):
         """
         return cast(
             Configuration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/terminal/configurations",
                 api_mode="V1",

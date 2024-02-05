@@ -44,7 +44,7 @@ class CountrySpecService(StripeService):
         """
         return cast(
             ListObject[CountrySpec],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/country_specs",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class CountrySpecService(StripeService):
         """
         return cast(
             CountrySpec,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/country_specs/{country}".format(
                     country=sanitize_id(country),

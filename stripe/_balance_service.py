@@ -25,7 +25,7 @@ class BalanceService(StripeService):
         """
         return cast(
             Balance,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/balance",
                 api_mode="V1",

@@ -74,7 +74,7 @@ class DebitReversalService(StripeService):
         """
         return cast(
             ListObject[DebitReversal],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/debit_reversals",
                 api_mode="V1",
@@ -94,7 +94,7 @@ class DebitReversalService(StripeService):
         """
         return cast(
             DebitReversal,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/debit_reversals",
                 api_mode="V1",
@@ -115,7 +115,7 @@ class DebitReversalService(StripeService):
         """
         return cast(
             DebitReversal,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
                     debit_reversal=sanitize_id(debit_reversal),

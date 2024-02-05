@@ -1040,7 +1040,7 @@ class TokenService(StripeService):
         """
         return cast(
             Token,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tokens/{token}".format(token=sanitize_id(token)),
                 api_mode="V1",
@@ -1061,7 +1061,7 @@ class TokenService(StripeService):
         """
         return cast(
             Token,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tokens",
                 api_mode="V1",
