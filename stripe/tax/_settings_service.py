@@ -82,7 +82,7 @@ class SettingsService(StripeService):
         """
         return cast(
             Settings,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax/settings",
                 api_mode="V1",
@@ -102,7 +102,7 @@ class SettingsService(StripeService):
         """
         return cast(
             Settings,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax/settings",
                 api_mode="V1",

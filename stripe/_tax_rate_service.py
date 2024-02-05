@@ -162,7 +162,7 @@ class TaxRateService(StripeService):
         """
         return cast(
             ListObject[TaxRate],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax_rates",
                 api_mode="V1",
@@ -182,7 +182,7 @@ class TaxRateService(StripeService):
         """
         return cast(
             TaxRate,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax_rates",
                 api_mode="V1",
@@ -203,7 +203,7 @@ class TaxRateService(StripeService):
         """
         return cast(
             TaxRate,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),
@@ -226,7 +226,7 @@ class TaxRateService(StripeService):
         """
         return cast(
             TaxRate,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),

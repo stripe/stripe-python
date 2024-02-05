@@ -117,7 +117,7 @@ class ValueListService(StripeService):
         """
         return cast(
             ValueList,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
@@ -140,7 +140,7 @@ class ValueListService(StripeService):
         """
         return cast(
             ValueList,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
@@ -163,7 +163,7 @@ class ValueListService(StripeService):
         """
         return cast(
             ValueList,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
@@ -185,7 +185,7 @@ class ValueListService(StripeService):
         """
         return cast(
             ListObject[ValueList],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/radar/value_lists",
                 api_mode="V1",
@@ -205,7 +205,7 @@ class ValueListService(StripeService):
         """
         return cast(
             ValueList,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/radar/value_lists",
                 api_mode="V1",

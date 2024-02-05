@@ -129,7 +129,7 @@ class SecretService(StripeService):
         """
         return cast(
             ListObject[Secret],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/apps/secrets",
                 api_mode="V1",
@@ -149,7 +149,7 @@ class SecretService(StripeService):
         """
         return cast(
             Secret,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/apps/secrets",
                 api_mode="V1",
@@ -167,7 +167,7 @@ class SecretService(StripeService):
         """
         return cast(
             Secret,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/apps/secrets/find",
                 api_mode="V1",
@@ -187,7 +187,7 @@ class SecretService(StripeService):
         """
         return cast(
             Secret,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/apps/secrets/delete",
                 api_mode="V1",

@@ -44,7 +44,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
                     card=sanitize_id(card),
@@ -67,7 +67,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                     card=sanitize_id(card),
@@ -90,7 +90,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
                     card=sanitize_id(card),
@@ -113,7 +113,7 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                     card=sanitize_id(card),

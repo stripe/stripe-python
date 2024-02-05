@@ -69,7 +69,7 @@ class ReviewService(StripeService):
         """
         return cast(
             ListObject[Review],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reviews",
                 api_mode="V1",
@@ -90,7 +90,7 @@ class ReviewService(StripeService):
         """
         return cast(
             Review,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/reviews/{review}".format(review=sanitize_id(review)),
                 api_mode="V1",
@@ -111,7 +111,7 @@ class ReviewService(StripeService):
         """
         return cast(
             Review,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
                     review=sanitize_id(review),

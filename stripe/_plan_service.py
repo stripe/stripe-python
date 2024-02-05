@@ -241,7 +241,7 @@ class PlanService(StripeService):
         """
         return cast(
             Plan,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
                 api_mode="V1",
@@ -262,7 +262,7 @@ class PlanService(StripeService):
         """
         return cast(
             Plan,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
                 api_mode="V1",
@@ -283,7 +283,7 @@ class PlanService(StripeService):
         """
         return cast(
             Plan,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
                 api_mode="V1",
@@ -303,7 +303,7 @@ class PlanService(StripeService):
         """
         return cast(
             ListObject[Plan],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/plans",
                 api_mode="V1",
@@ -321,7 +321,7 @@ class PlanService(StripeService):
         """
         return cast(
             Plan,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/plans",
                 api_mode="V1",

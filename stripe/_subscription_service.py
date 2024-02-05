@@ -1405,7 +1405,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Subscription,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
                     subscription_exposed_id=sanitize_id(
@@ -1430,7 +1430,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Subscription,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
                     subscription_exposed_id=sanitize_id(
@@ -1475,7 +1475,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Subscription,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
                     subscription_exposed_id=sanitize_id(
@@ -1500,7 +1500,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Discount,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
                     subscription_exposed_id=sanitize_id(
@@ -1524,7 +1524,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             ListObject[Subscription],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscriptions",
                 api_mode="V1",
@@ -1550,7 +1550,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Subscription,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscriptions",
                 api_mode="V1",
@@ -1573,7 +1573,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             SearchResultObject[Subscription],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscriptions/search",
                 api_mode="V1",
@@ -1594,7 +1594,7 @@ class SubscriptionService(StripeService):
         """
         return cast(
             Subscription,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
                     subscription=sanitize_id(subscription),

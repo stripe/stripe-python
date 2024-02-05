@@ -148,7 +148,6 @@ class StripeClient(object):
         self._requestor = _APIRequestor(
             options=requestor_options,
             client=http_client,
-            usage=["stripe_client"],
         )
 
         self._options = _ClientOptions(

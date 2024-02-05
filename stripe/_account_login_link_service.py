@@ -28,7 +28,7 @@ class AccountLoginLinkService(StripeService):
         """
         return cast(
             LoginLink,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/login_links".format(
                     account=sanitize_id(account),

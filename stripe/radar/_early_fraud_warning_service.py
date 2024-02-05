@@ -74,7 +74,7 @@ class EarlyFraudWarningService(StripeService):
         """
         return cast(
             ListObject[EarlyFraudWarning],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/radar/early_fraud_warnings",
                 api_mode="V1",
@@ -97,7 +97,7 @@ class EarlyFraudWarningService(StripeService):
         """
         return cast(
             EarlyFraudWarning,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
                     early_fraud_warning=sanitize_id(early_fraud_warning),

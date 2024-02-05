@@ -485,7 +485,7 @@ class PriceService(StripeService):
         """
         return cast(
             ListObject[Price],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/prices",
                 api_mode="V1",
@@ -503,7 +503,7 @@ class PriceService(StripeService):
         """
         return cast(
             Price,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/prices",
                 api_mode="V1",
@@ -524,7 +524,7 @@ class PriceService(StripeService):
         """
         return cast(
             Price,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
                 api_mode="V1",
@@ -545,7 +545,7 @@ class PriceService(StripeService):
         """
         return cast(
             Price,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
                 api_mode="V1",
@@ -566,7 +566,7 @@ class PriceService(StripeService):
         """
         return cast(
             SearchResultObject[Price],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/prices/search",
                 api_mode="V1",

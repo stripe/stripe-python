@@ -317,7 +317,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             ListObject[CreditNote],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/credit_notes",
                 api_mode="V1",
@@ -350,7 +350,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             CreditNote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/credit_notes",
                 api_mode="V1",
@@ -371,7 +371,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             CreditNote,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -392,7 +392,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             CreditNote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -412,7 +412,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             CreditNote,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/credit_notes/preview",
                 api_mode="V1",
@@ -433,7 +433,7 @@ class CreditNoteService(StripeService):
         """
         return cast(
             CreditNote,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),
                 api_mode="V1",

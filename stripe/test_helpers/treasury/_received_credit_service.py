@@ -76,7 +76,7 @@ class ReceivedCreditService(StripeService):
         """
         return cast(
             ReceivedCredit,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/received_credits",
                 api_mode="V1",

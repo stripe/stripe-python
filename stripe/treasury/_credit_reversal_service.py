@@ -70,7 +70,7 @@ class CreditReversalService(StripeService):
         """
         return cast(
             ListObject[CreditReversal],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/credit_reversals",
                 api_mode="V1",
@@ -90,7 +90,7 @@ class CreditReversalService(StripeService):
         """
         return cast(
             CreditReversal,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/credit_reversals",
                 api_mode="V1",
@@ -111,7 +111,7 @@ class CreditReversalService(StripeService):
         """
         return cast(
             CreditReversal,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/credit_reversals/{credit_reversal}".format(
                     credit_reversal=sanitize_id(credit_reversal),

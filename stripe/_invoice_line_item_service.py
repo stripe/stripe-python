@@ -39,7 +39,7 @@ class InvoiceLineItemService(StripeService):
         """
         return cast(
             ListObject[InvoiceLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/invoices/{invoice}/lines".format(
                     invoice=sanitize_id(invoice),

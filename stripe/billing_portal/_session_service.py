@@ -193,7 +193,7 @@ class SessionService(StripeService):
         """
         return cast(
             Session,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/billing_portal/sessions",
                 api_mode="V1",

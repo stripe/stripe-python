@@ -114,7 +114,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             ListObject[OutboundTransfer],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/outbound_transfers",
                 api_mode="V1",
@@ -134,7 +134,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/outbound_transfers",
                 api_mode="V1",
@@ -155,7 +155,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
@@ -178,7 +178,7 @@ class OutboundTransferService(StripeService):
         """
         return cast(
             OutboundTransfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
                     outbound_transfer=sanitize_id(outbound_transfer),

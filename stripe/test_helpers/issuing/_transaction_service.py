@@ -402,7 +402,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
                     transaction=sanitize_id(transaction),
@@ -424,7 +424,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/create_force_capture",
                 api_mode="V1",
@@ -444,7 +444,7 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
                 api_mode="V1",

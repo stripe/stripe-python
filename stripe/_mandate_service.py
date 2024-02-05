@@ -26,7 +26,7 @@ class MandateService(StripeService):
         """
         return cast(
             Mandate,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
                 api_mode="V1",

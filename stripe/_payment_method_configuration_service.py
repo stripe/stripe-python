@@ -1432,7 +1432,7 @@ class PaymentMethodConfigurationService(StripeService):
         """
         return cast(
             ListObject[PaymentMethodConfiguration],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_method_configurations",
                 api_mode="V1",
@@ -1452,7 +1452,7 @@ class PaymentMethodConfigurationService(StripeService):
         """
         return cast(
             PaymentMethodConfiguration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_method_configurations",
                 api_mode="V1",
@@ -1473,7 +1473,7 @@ class PaymentMethodConfigurationService(StripeService):
         """
         return cast(
             PaymentMethodConfiguration,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -1496,7 +1496,7 @@ class PaymentMethodConfigurationService(StripeService):
         """
         return cast(
             PaymentMethodConfiguration,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),

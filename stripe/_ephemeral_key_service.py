@@ -48,7 +48,7 @@ class EphemeralKeyService(StripeService):
         """
         return cast(
             EphemeralKey,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
                 api_mode="V1",
@@ -68,7 +68,7 @@ class EphemeralKeyService(StripeService):
         """
         return cast(
             EphemeralKey,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/ephemeral_keys",
                 api_mode="V1",

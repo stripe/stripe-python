@@ -240,7 +240,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             ListObject[OutboundPayment],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/outbound_payments",
                 api_mode="V1",
@@ -260,7 +260,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/outbound_payments",
                 api_mode="V1",
@@ -281,7 +281,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/outbound_payments/{id}".format(
                     id=sanitize_id(id),
@@ -304,7 +304,7 @@ class OutboundPaymentService(StripeService):
         """
         return cast(
             OutboundPayment,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=sanitize_id(id),

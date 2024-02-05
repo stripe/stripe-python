@@ -44,7 +44,7 @@ class ScheduledQueryRunService(StripeService):
         """
         return cast(
             ListObject[ScheduledQueryRun],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/sigma/scheduled_query_runs",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class ScheduledQueryRunService(StripeService):
         """
         return cast(
             ScheduledQueryRun,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
                     scheduled_query_run=sanitize_id(scheduled_query_run),

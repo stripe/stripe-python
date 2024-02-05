@@ -76,7 +76,7 @@ class ReceivedDebitService(StripeService):
         """
         return cast(
             ReceivedDebit,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",
                 api_mode="V1",

@@ -60,11 +60,9 @@ class _APIRequestor(object):
         self,
         options: RequestorOptions = RequestorOptions(),
         client: Optional[HTTPClient] = None,
-        usage: Optional[List[str]] = None,
     ):
         self._options = options
         self._client = client
-        self._usage = usage or []
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
     # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
@@ -173,7 +171,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=self._usage + (_usage or []),
+            _usage=_usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
