@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -9,10 +8,9 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Type, Unpack, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -170,6 +168,16 @@ class Refund(
         class Sofort(StripeObject):
             pass
 
+        class Swish(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class ThBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -219,6 +227,7 @@ class Refund(
         pix: Optional[Pix]
         revolut: Optional[Revolut]
         sofort: Optional[Sofort]
+        swish: Optional[Swish]
         th_bank_transfer: Optional[ThBankTransfer]
         type: str
         """
@@ -251,6 +260,7 @@ class Refund(
             "pix": Pix,
             "revolut": Revolut,
             "sofort": Sofort,
+            "swish": Swish,
             "th_bank_transfer": ThBankTransfer,
             "us_bank_transfer": UsBankTransfer,
             "wechat_pay": WechatPay,
@@ -481,7 +491,7 @@ class Refund(
             cls._static_request(
                 "post",
                 "/v1/refunds/{refund}/cancel".format(
-                    refund=_util.sanitize_id(refund)
+                    refund=sanitize_id(refund)
                 ),
                 params=params,
             ),
@@ -522,7 +532,7 @@ class Refund(
             self._request(
                 "post",
                 "/v1/refunds/{refund}/cancel".format(
-                    refund=_util.sanitize_id(self.get("id"))
+                    refund=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -548,7 +558,7 @@ class Refund(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -582,10 +592,14 @@ class Refund(
 
         This request only accepts metadata as an argument.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Refund",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -614,7 +628,7 @@ class Refund(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=_util.sanitize_id(refund)
+                        refund=sanitize_id(refund)
                     ),
                     params=params,
                 ),
@@ -649,7 +663,7 @@ class Refund(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=_util.sanitize_id(self.resource.get("id"))
+                        refund=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),

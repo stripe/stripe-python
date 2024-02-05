@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -8,7 +7,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -18,7 +17,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -825,7 +823,7 @@ class Authorization(
             cls._static_request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=_util.sanitize_id(authorization)
+                    authorization=sanitize_id(authorization)
                 ),
                 params=params,
             ),
@@ -865,7 +863,7 @@ class Authorization(
             self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=_util.sanitize_id(self.get("id"))
+                    authorization=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -886,7 +884,7 @@ class Authorization(
             cls._static_request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=_util.sanitize_id(authorization)
+                    authorization=sanitize_id(authorization)
                 ),
                 params=params,
             ),
@@ -926,7 +924,7 @@ class Authorization(
             self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=_util.sanitize_id(self.get("id"))
+                    authorization=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -960,10 +958,14 @@ class Authorization(
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Authorization",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -994,7 +996,7 @@ class Authorization(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=_util.sanitize_id(authorization)
+                        authorization=sanitize_id(authorization)
                     ),
                     params=params,
                 ),
@@ -1031,9 +1033,7 @@ class Authorization(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=_util.sanitize_id(
-                            self.resource.get("id")
-                        )
+                        authorization=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1069,7 +1069,7 @@ class Authorization(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=_util.sanitize_id(authorization)
+                        authorization=sanitize_id(authorization)
                     ),
                     params=params,
                 ),
@@ -1106,9 +1106,7 @@ class Authorization(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=_util.sanitize_id(
-                            self.resource.get("id")
-                        )
+                        authorization=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1128,7 +1126,7 @@ class Authorization(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=_util.sanitize_id(authorization)
+                        authorization=sanitize_id(authorization)
                     ),
                     params=params,
                 ),
@@ -1166,9 +1164,7 @@ class Authorization(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=_util.sanitize_id(
-                            self.resource.get("id")
-                        )
+                        authorization=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),
@@ -1188,7 +1184,7 @@ class Authorization(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=_util.sanitize_id(authorization)
+                        authorization=sanitize_id(authorization)
                     ),
                     params=params,
                 ),
@@ -1225,9 +1221,7 @@ class Authorization(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=_util.sanitize_id(
-                            self.resource.get("id")
-                        )
+                        authorization=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
                 ),

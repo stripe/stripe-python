@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -292,6 +292,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -321,6 +327,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -583,6 +590,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -1255,6 +1265,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1284,6 +1300,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1544,6 +1561,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -2201,6 +2221,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataSwish"
+        ]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2230,6 +2256,7 @@ class SetupIntentService(StripeService):
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2490,6 +2517,9 @@ class SetupIntentService(StripeService):
         """
         Two-letter ISO code representing the country the bank account is located in.
         """
+
+    class UpdateParamsPaymentMethodDataSwish(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
@@ -2908,7 +2938,7 @@ class SetupIntentService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/setup_intents/{intent}".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent)
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2931,7 +2961,7 @@ class SetupIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/setup_intents/{intent}".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent)
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2956,7 +2986,7 @@ class SetupIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -2992,7 +3022,7 @@ class SetupIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -3015,7 +3045,7 @@ class SetupIntentService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(intent),
+                    intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
                 base_address="api",

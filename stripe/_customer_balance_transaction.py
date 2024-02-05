@@ -3,9 +3,9 @@
 from stripe._api_resource import APIResource
 from stripe._customer import Customer
 from stripe._expandable_field import ExpandableField
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, TYPE_CHECKING
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._credit_note import CreditNote
@@ -95,8 +95,8 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
         if isinstance(customer, Customer):
             customer = customer.id
         base = Customer.class_url()
-        cust_extn = quote_plus(customer)
-        extn = quote_plus(token)
+        cust_extn = sanitize_id(customer)
+        extn = sanitize_id(token)
         return "%s/%s/balance_transactions/%s" % (base, cust_extn, extn)
 
     @classmethod

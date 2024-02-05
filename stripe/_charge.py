@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -10,7 +9,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     ClassVar,
     Dict,
@@ -28,7 +27,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -1477,6 +1475,20 @@ class Charge(
         class StripeAccount(StripeObject):
             pass
 
+        class Swish(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
+            """
+            payment_reference: Optional[str]
+            """
+            Payer bank reference number for the payment
+            """
+            verified_phone_last4: Optional[str]
+            """
+            The last four digits of the Swish account phone number
+            """
+
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
             """
@@ -1555,6 +1567,7 @@ class Charge(
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
+        swish: Optional[Swish]
         type: str
         """
         The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
@@ -1602,6 +1615,7 @@ class Charge(
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "stripe_account": StripeAccount,
+            "swish": Swish,
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
@@ -2226,7 +2240,7 @@ class Charge(
             cls._static_request(
                 "post",
                 "/v1/charges/{charge}/capture".format(
-                    charge=_util.sanitize_id(charge)
+                    charge=sanitize_id(charge)
                 ),
                 params=params,
             ),
@@ -2273,7 +2287,7 @@ class Charge(
             self._request(
                 "post",
                 "/v1/charges/{charge}/capture".format(
-                    charge=_util.sanitize_id(self.get("id"))
+                    charge=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -2291,7 +2305,7 @@ class Charge(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -2323,10 +2337,14 @@ class Charge(
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Charge",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod

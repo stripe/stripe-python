@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.radar._early_fraud_warning import EarlyFraudWarning
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -100,7 +100,7 @@ class EarlyFraudWarningService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
-                    early_fraud_warning=_util.sanitize_id(early_fraud_warning),
+                    early_fraud_warning=sanitize_id(early_fraud_warning),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._funding_instructions import FundingInstructions
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -75,7 +75,7 @@ class CustomerFundingInstructionsService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=_util.sanitize_id(customer),
+                    customer=sanitize_id(customer),
                 ),
                 api_mode="V1",
                 base_address="api",

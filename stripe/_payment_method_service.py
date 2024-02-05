@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -177,8 +177,12 @@ class PaymentMethodService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["PaymentMethodService.CreateParamsSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -455,6 +459,9 @@ class PaymentMethodService(StripeService):
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class CreateParamsSwish(TypedDict):
+        pass
+
     class CreateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -511,7 +518,7 @@ class PaymentMethodService(StripeService):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -678,7 +685,7 @@ class PaymentMethodService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/payment_methods/{payment_method}".format(
-                    payment_method=_util.sanitize_id(payment_method),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -701,7 +708,7 @@ class PaymentMethodService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_methods/{payment_method}".format(
-                    payment_method=_util.sanitize_id(payment_method),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -736,7 +743,7 @@ class PaymentMethodService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=_util.sanitize_id(payment_method),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -759,7 +766,7 @@ class PaymentMethodService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=_util.sanitize_id(payment_method),
+                    payment_method=sanitize_id(payment_method),
                 ),
                 api_mode="V1",
                 base_address="api",

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.financial_connections._account import Account
 from stripe.financial_connections._account_owner_service import (
     AccountOwnerService,
@@ -129,7 +129,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/financial_connections/accounts/{account}".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -152,7 +152,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -175,7 +175,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -198,7 +198,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -221,7 +221,7 @@ class AccountService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=_util.sanitize_id(account),
+                    account=sanitize_id(account),
                 ),
                 api_mode="V1",
                 base_address="api",

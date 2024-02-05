@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._api_resource import APIResource
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -214,7 +213,7 @@ class Transaction(APIResource["Transaction"]):
 
             amount: int
             """
-            The amount of tax, in integer cents.
+            The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin"]
@@ -247,7 +246,7 @@ class Transaction(APIResource["Transaction"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in integer cents.
+            The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -256,11 +255,11 @@ class Transaction(APIResource["Transaction"]):
 
         amount: int
         """
-        The shipping amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in integer cents.
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         shipping_rate: Optional[str]
         """
@@ -305,7 +304,7 @@ class Transaction(APIResource["Transaction"]):
         """
         flat_amount: NotRequired["int"]
         """
-        A flat amount to reverse across the entire transaction, in negative integer cents. This value represents the total amount to refund from the transaction, including taxes.
+        A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
         """
         line_items: NotRequired[
             "List[Transaction.CreateReversalParamsLineItem]"
@@ -339,11 +338,11 @@ class Transaction(APIResource["Transaction"]):
     class CreateReversalParamsLineItem(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         metadata: NotRequired["Dict[str, str]"]
         """
@@ -365,11 +364,11 @@ class Transaction(APIResource["Transaction"]):
     class CreateReversalParamsShippingCost(TypedDict):
         amount: int
         """
-        The amount to reverse, in negative integer cents.
+        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
         amount_tax: int
         """
-        The amount of tax to reverse, in negative integer cents.
+        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
 
     class ListLineItemsParams(RequestOptions):
@@ -496,7 +495,7 @@ class Transaction(APIResource["Transaction"]):
             cls._static_request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=_util.sanitize_id(transaction)
+                    transaction=sanitize_id(transaction)
                 ),
                 params=params,
             ),
@@ -533,7 +532,7 @@ class Transaction(APIResource["Transaction"]):
             self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=_util.sanitize_id(self.get("id"))
+                    transaction=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

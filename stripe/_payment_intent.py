@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -10,7 +9,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     Any,
     ClassVar,
@@ -29,7 +28,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -772,6 +770,32 @@ class PaymentIntent(
             The URL you must redirect your customer to in order to authenticate the payment.
             """
 
+        class SwishHandleRedirectOrDisplayQrCode(StripeObject):
+            class QrCode(StripeObject):
+                data: Optional[str]
+                """
+                The raw data string used to generate QR code, it should be used together with QR code library.
+                """
+                image_url_png: Optional[str]
+                """
+                The image_url_png string used to render QR code
+                """
+                image_url_svg: Optional[str]
+                """
+                The image_url_svg string used to render QR code
+                """
+
+            hosted_instructions_url: Optional[str]
+            """
+            The URL to the hosted Swish instructions page, which allows customers to view the QR code.
+            """
+            mobile_auth_url: Optional[str]
+            """
+            The url for mobile redirect based auth
+            """
+            qr_code: Optional[QrCode]
+            _inner_class_types = {"qr_code": QrCode}
+
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
@@ -859,6 +883,9 @@ class PaymentIntent(
         pix_display_qr_code: Optional[PixDisplayQrCode]
         promptpay_display_qr_code: Optional[PromptpayDisplayQrCode]
         redirect_to_url: Optional[RedirectToUrl]
+        swish_handle_redirect_or_display_qr_code: Optional[
+            SwishHandleRedirectOrDisplayQrCode
+        ]
         type: str
         """
         Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
@@ -885,6 +912,7 @@ class PaymentIntent(
             "pix_display_qr_code": PixDisplayQrCode,
             "promptpay_display_qr_code": PromptpayDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
+            "swish_handle_redirect_or_display_qr_code": SwishHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
             "wechat_pay_display_qr_code": WechatPayDisplayQrCode,
             "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
@@ -1531,6 +1559,20 @@ class PaymentIntent(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
             """
 
+        class Swish(StripeObject):
+            reference: Optional[str]
+            """
+            The order ID displayed in the Swish app after the payment is authorized.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 permissions: Optional[
@@ -1649,6 +1691,7 @@ class PaymentIntent(
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        swish: Optional[Swish]
         us_bank_account: Optional[UsBankAccount]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -1684,6 +1727,7 @@ class PaymentIntent(
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "swish": Swish,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -2143,6 +2187,10 @@ class PaymentIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2172,6 +2220,7 @@ class PaymentIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2433,6 +2482,9 @@ class PaymentIntent(
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -2647,6 +2699,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        swish: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSwish"
+        ]
+        """
+        If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
@@ -3493,6 +3551,22 @@ class PaymentIntent(
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
+        reference: NotRequired["Literal['']|str"]
+        """
+        The order ID displayed in the Swish app after the payment is authorized.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -4032,6 +4106,10 @@ class PaymentIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -4061,6 +4139,7 @@ class PaymentIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -4322,6 +4401,9 @@ class PaymentIntent(
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -4536,6 +4618,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        swish: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSwish"
+        ]
+        """
+        If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
@@ -5382,6 +5470,22 @@ class PaymentIntent(
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsSwish(TypedDict):
+        reference: NotRequired["Literal['']|str"]
+        """
+        The order ID displayed in the Swish app after the payment is authorized.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -5923,6 +6027,10 @@ class PaymentIntent(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -5952,6 +6060,7 @@ class PaymentIntent(
             "revolut_pay",
             "sepa_debit",
             "sofort",
+            "swish",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -6213,6 +6322,9 @@ class PaymentIntent(
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class ModifyParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -6427,6 +6539,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        swish: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSwish"
+        ]
+        """
+        If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
@@ -7273,6 +7391,22 @@ class PaymentIntent(
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsSwish(TypedDict):
+        reference: NotRequired["Literal['']|str"]
+        """
+        The order ID displayed in the Swish app after the payment is authorized.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -7685,7 +7819,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7723,7 +7857,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7745,7 +7879,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7794,7 +7928,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7816,7 +7950,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -7865,7 +7999,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -7905,7 +8039,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8008,7 +8142,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -8035,7 +8169,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -8076,7 +8210,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8183,7 +8317,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -8223,10 +8357,14 @@ class PaymentIntent(
         update and confirm at the same time, we recommend updating properties through
         the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentIntent",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -8258,7 +8396,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(intent)
+                    intent=sanitize_id(intent)
                 ),
                 params=params,
             ),
@@ -8296,7 +8434,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=_util.sanitize_id(self.get("id"))
+                    intent=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

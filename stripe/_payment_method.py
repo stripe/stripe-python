@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
@@ -178,7 +176,7 @@ class PaymentMethod(
             """
             preferred: Optional[str]
             """
-            The preferred network for the card.
+            The preferred network for the card. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
             """
 
         class ThreeDSecureUsage(StripeObject):
@@ -884,6 +882,9 @@ class PaymentMethod(
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class Swish(StripeObject):
+        pass
+
     class UsBankAccount(StripeObject):
         class Networks(StripeObject):
             preferred: Optional[str]
@@ -1143,8 +1144,12 @@ class PaymentMethod(
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        swish: NotRequired["PaymentMethod.CreateParamsSwish"]
+        """
+        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+        """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1419,6 +1424,9 @@ class PaymentMethod(
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class CreateParamsSwish(TypedDict):
+        pass
+
     class CreateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -1475,7 +1483,7 @@ class PaymentMethod(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -1644,6 +1652,7 @@ class PaymentMethod(
     revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
+    swish: Optional[Swish]
     type: Literal[
         "acss_debit",
         "affirm",
@@ -1676,6 +1685,7 @@ class PaymentMethod(
         "revolut_pay",
         "sepa_debit",
         "sofort",
+        "swish",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -1713,7 +1723,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=_util.sanitize_id(payment_method)
+                    payment_method=sanitize_id(payment_method)
                 ),
                 params=params,
             ),
@@ -1786,7 +1796,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=_util.sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1806,7 +1816,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -1824,7 +1834,7 @@ class PaymentMethod(
             cls._static_request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=_util.sanitize_id(payment_method)
+                    payment_method=sanitize_id(payment_method)
                 ),
                 params=params,
             ),
@@ -1861,7 +1871,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=_util.sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -1895,10 +1905,14 @@ class PaymentMethod(
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "PaymentMethod",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -1946,6 +1960,7 @@ class PaymentMethod(
         "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
+        "swish": Swish,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,

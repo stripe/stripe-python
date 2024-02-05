@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.terminal._configuration import Configuration
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -659,7 +659,7 @@ class ConfigurationService(StripeService):
             self._requestor.request(
                 "delete",
                 "/v1/terminal/configurations/{configuration}".format(
-                    configuration=_util.sanitize_id(configuration),
+                    configuration=sanitize_id(configuration),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -682,7 +682,7 @@ class ConfigurationService(StripeService):
             self._requestor.request(
                 "get",
                 "/v1/terminal/configurations/{configuration}".format(
-                    configuration=_util.sanitize_id(configuration),
+                    configuration=sanitize_id(configuration),
                 ),
                 api_mode="V1",
                 base_address="api",
@@ -705,7 +705,7 @@ class ConfigurationService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/terminal/configurations/{configuration}".format(
-                    configuration=_util.sanitize_id(configuration),
+                    configuration=sanitize_id(configuration),
                 ),
                 api_mode="V1",
                 base_address="api",

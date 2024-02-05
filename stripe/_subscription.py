@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -11,7 +10,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import (
     ClassVar,
     Dict,
@@ -29,7 +28,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -1984,7 +1982,7 @@ class Subscription(
             cls._static_request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     )
                 ),
@@ -2036,7 +2034,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=_util.sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -2060,7 +2058,7 @@ class Subscription(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -2078,7 +2076,7 @@ class Subscription(
             cls._static_request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=_util.sanitize_id(
+                    subscription_exposed_id=sanitize_id(
                         subscription_exposed_id
                     )
                 ),
@@ -2118,7 +2116,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=_util.sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -2172,10 +2170,14 @@ class Subscription(
 
         Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://stripe.com/docs/rate-limits) instead.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Subscription",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -2190,7 +2192,7 @@ class Subscription(
             cls._static_request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=_util.sanitize_id(subscription)
+                    subscription=sanitize_id(subscription)
                 ),
                 params=params,
             ),
@@ -2227,7 +2229,7 @@ class Subscription(
             self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=_util.sanitize_id(self.get("id"))
+                    subscription=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),

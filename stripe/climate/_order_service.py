@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.climate._order import Order
 from typing import Dict, List, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -151,9 +151,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "get",
-                "/v1/climate/orders/{order}".format(
-                    order=_util.sanitize_id(order),
-                ),
+                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -174,9 +172,7 @@ class OrderService(StripeService):
             Order,
             self._requestor.request(
                 "post",
-                "/v1/climate/orders/{order}".format(
-                    order=_util.sanitize_id(order),
-                ),
+                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -201,7 +197,7 @@ class OrderService(StripeService):
             self._requestor.request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
-                    order=_util.sanitize_id(order),
+                    order=sanitize_id(order),
                 ),
                 api_mode="V1",
                 base_address="api",

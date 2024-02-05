@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe._util import class_method_variant
+from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -17,7 +16,6 @@ from typing_extensions import (
     Unpack,
     TYPE_CHECKING,
 )
-from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe.climate._product import Product
@@ -278,7 +276,7 @@ class Order(
             cls._static_request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
-                    order=_util.sanitize_id(order)
+                    order=sanitize_id(order)
                 ),
                 params=params,
             ),
@@ -320,7 +318,7 @@ class Order(
             self._request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
-                    order=_util.sanitize_id(self.get("id"))
+                    order=sanitize_id(self.get("id"))
                 ),
                 params=params,
             ),
@@ -337,7 +335,7 @@ class Order(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                params,
+                params=params,
             ),
         )
 
@@ -368,10 +366,14 @@ class Order(
         """
         Updates the specified order by setting the values of the parameters passed.
         """
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
             "Order",
-            cls._static_request("post", url, params=params),
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
         )
 
     @classmethod
