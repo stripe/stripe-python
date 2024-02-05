@@ -1,5 +1,5 @@
 # pyright: strict
-from typing_extensions import Optional, Self, Unpack
+from typing_extensions import Self, Unpack
 from typing import (
     Generic,
     List,
@@ -9,6 +9,7 @@ from typing import (
     Mapping,
     Iterator,
     AsyncIterator,
+    Optional,
 )
 
 from stripe._api_requestor import (
