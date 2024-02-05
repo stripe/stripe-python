@@ -4,6 +4,8 @@ import json
 import warnings
 import time
 
+import httpx
+
 import stripe
 import pytest
 from queue import Queue
@@ -325,7 +327,11 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
         stripe.default_http_client_async = stripe.HTTPXClient()
-        stripe.default_http_client_async._timeout = 0.01
+        # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
+        # so we set only the read timeout specifically.
+        stripe.default_http_client_async._timeout = httpx.Timeout(
+            None, read=0.01
+        )
         stripe.max_network_retries = 0
 
         exception = None
