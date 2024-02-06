@@ -372,7 +372,7 @@ class ChargeService(StripeService):
         """
         return cast(
             ListObject[Charge],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/charges",
                 api_mode="V1",
@@ -394,7 +394,7 @@ class ChargeService(StripeService):
         """
         return cast(
             Charge,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/charges",
                 api_mode="V1",
@@ -415,7 +415,7 @@ class ChargeService(StripeService):
         """
         return cast(
             Charge,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
                 api_mode="V1",
@@ -436,7 +436,7 @@ class ChargeService(StripeService):
         """
         return cast(
             Charge,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
                 api_mode="V1",
@@ -459,7 +459,7 @@ class ChargeService(StripeService):
         """
         return cast(
             SearchResultObject[Charge],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/charges/search",
                 api_mode="V1",
@@ -484,7 +484,7 @@ class ChargeService(StripeService):
         """
         return cast(
             Charge,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/charges/{charge}/capture".format(
                     charge=sanitize_id(charge),

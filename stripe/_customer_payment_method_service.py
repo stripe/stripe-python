@@ -51,7 +51,7 @@ class CustomerPaymentMethodService(StripeService):
         """
         return cast(
             ListObject[PaymentMethod],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
                     customer=sanitize_id(customer),
@@ -75,7 +75,7 @@ class CustomerPaymentMethodService(StripeService):
         """
         return cast(
             PaymentMethod,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
                     customer=sanitize_id(customer),

@@ -128,7 +128,7 @@ class TransferService(StripeService):
         """
         return cast(
             ListObject[Transfer],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/transfers",
                 api_mode="V1",
@@ -148,7 +148,7 @@ class TransferService(StripeService):
         """
         return cast(
             Transfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/transfers",
                 api_mode="V1",
@@ -169,7 +169,7 @@ class TransferService(StripeService):
         """
         return cast(
             Transfer,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/transfers/{transfer}".format(
                     transfer=sanitize_id(transfer),
@@ -194,7 +194,7 @@ class TransferService(StripeService):
         """
         return cast(
             Transfer,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/transfers/{transfer}".format(
                     transfer=sanitize_id(transfer),

@@ -44,7 +44,7 @@ class SubscriptionItemUsageRecordService(StripeService):
         """
         return cast(
             UsageRecord,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
                     subscription_item=sanitize_id(subscription_item),

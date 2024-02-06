@@ -174,7 +174,7 @@ class FinancialAccountFeaturesService(StripeService):
         """
         return cast(
             FinancialAccountFeatures,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),
@@ -197,7 +197,7 @@ class FinancialAccountFeaturesService(StripeService):
         """
         return cast(
             FinancialAccountFeatures,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),

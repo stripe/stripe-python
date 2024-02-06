@@ -418,7 +418,7 @@ class FinancialAccountService(StripeService):
         """
         return cast(
             ListObject[FinancialAccount],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/financial_accounts",
                 api_mode="V1",
@@ -438,7 +438,7 @@ class FinancialAccountService(StripeService):
         """
         return cast(
             FinancialAccount,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/financial_accounts",
                 api_mode="V1",
@@ -459,7 +459,7 @@ class FinancialAccountService(StripeService):
         """
         return cast(
             FinancialAccount,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),
@@ -482,7 +482,7 @@ class FinancialAccountService(StripeService):
         """
         return cast(
             FinancialAccount,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),

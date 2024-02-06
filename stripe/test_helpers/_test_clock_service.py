@@ -72,7 +72,7 @@ class TestClockService(StripeService):
         """
         return cast(
             TestClock,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
@@ -95,7 +95,7 @@ class TestClockService(StripeService):
         """
         return cast(
             TestClock,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
@@ -117,7 +117,7 @@ class TestClockService(StripeService):
         """
         return cast(
             ListObject[TestClock],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/test_helpers/test_clocks",
                 api_mode="V1",
@@ -137,7 +137,7 @@ class TestClockService(StripeService):
         """
         return cast(
             TestClock,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/test_clocks",
                 api_mode="V1",
@@ -158,7 +158,7 @@ class TestClockService(StripeService):
         """
         return cast(
             TestClock,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=sanitize_id(test_clock),

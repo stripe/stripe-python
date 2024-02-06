@@ -112,7 +112,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             ListObject[Authorization],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/authorizations",
                 api_mode="V1",
@@ -133,7 +133,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
@@ -156,7 +156,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
@@ -180,7 +180,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/approve".format(
                     authorization=sanitize_id(authorization),
@@ -204,7 +204,7 @@ class AuthorizationService(StripeService):
         """
         return cast(
             Authorization,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/decline".format(
                     authorization=sanitize_id(authorization),

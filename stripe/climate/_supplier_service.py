@@ -44,7 +44,7 @@ class SupplierService(StripeService):
         """
         return cast(
             ListObject[Supplier],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/suppliers",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class SupplierService(StripeService):
         """
         return cast(
             Supplier,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/climate/suppliers/{supplier}".format(
                     supplier=sanitize_id(supplier),

@@ -144,7 +144,7 @@ class LocationService(StripeService):
         """
         return cast(
             Location,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
@@ -167,7 +167,7 @@ class LocationService(StripeService):
         """
         return cast(
             Location,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
@@ -190,7 +190,7 @@ class LocationService(StripeService):
         """
         return cast(
             Location,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
@@ -212,7 +212,7 @@ class LocationService(StripeService):
         """
         return cast(
             ListObject[Location],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/terminal/locations",
                 api_mode="V1",
@@ -233,7 +233,7 @@ class LocationService(StripeService):
         """
         return cast(
             Location,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/terminal/locations",
                 api_mode="V1",

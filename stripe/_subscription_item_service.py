@@ -298,7 +298,7 @@ class SubscriptionItemService(StripeService):
         """
         return cast(
             SubscriptionItem,
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
@@ -319,7 +319,7 @@ class SubscriptionItemService(StripeService):
         """
         return cast(
             SubscriptionItem,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
@@ -340,7 +340,7 @@ class SubscriptionItemService(StripeService):
         """
         return cast(
             SubscriptionItem,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
@@ -360,7 +360,7 @@ class SubscriptionItemService(StripeService):
         """
         return cast(
             ListObject[SubscriptionItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/subscription_items",
                 api_mode="V1",
@@ -380,7 +380,7 @@ class SubscriptionItemService(StripeService):
         """
         return cast(
             SubscriptionItem,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/subscription_items",
                 api_mode="V1",

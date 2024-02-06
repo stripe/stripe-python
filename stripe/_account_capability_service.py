@@ -45,7 +45,7 @@ class AccountCapabilityService(StripeService):
         """
         return cast(
             ListObject[Capability],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
                     account=sanitize_id(account),
@@ -69,7 +69,7 @@ class AccountCapabilityService(StripeService):
         """
         return cast(
             Capability,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
                     account=sanitize_id(account),
@@ -94,7 +94,7 @@ class AccountCapabilityService(StripeService):
         """
         return cast(
             Capability,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
                     account=sanitize_id(account),

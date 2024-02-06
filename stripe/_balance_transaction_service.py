@@ -81,7 +81,7 @@ class BalanceTransactionService(StripeService):
         """
         return cast(
             ListObject[BalanceTransaction],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/balance_transactions",
                 api_mode="V1",
@@ -104,7 +104,7 @@ class BalanceTransactionService(StripeService):
         """
         return cast(
             BalanceTransaction,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/balance_transactions/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

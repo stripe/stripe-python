@@ -214,7 +214,7 @@ class AccountExternalAccountService(StripeService):
         """
         return cast(
             Union[BankAccount, Card],
-            self._requestor.request(
+            self._request(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account),
@@ -239,7 +239,7 @@ class AccountExternalAccountService(StripeService):
         """
         return cast(
             Union[BankAccount, Card],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account),
@@ -266,7 +266,7 @@ class AccountExternalAccountService(StripeService):
         """
         return cast(
             Union[BankAccount, Card],
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account),
@@ -290,7 +290,7 @@ class AccountExternalAccountService(StripeService):
         """
         return cast(
             ListObject[Union[BankAccount, Card]],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/accounts/{account}/external_accounts".format(
                     account=sanitize_id(account),
@@ -313,7 +313,7 @@ class AccountExternalAccountService(StripeService):
         """
         return cast(
             Union[BankAccount, Card],
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
                     account=sanitize_id(account),

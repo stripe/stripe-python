@@ -44,7 +44,7 @@ class ExchangeRateService(StripeService):
         """
         return cast(
             ListObject[ExchangeRate],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/exchange_rates",
                 api_mode="V1",
@@ -65,7 +65,7 @@ class ExchangeRateService(StripeService):
         """
         return cast(
             ExchangeRate,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/exchange_rates/{rate_id}".format(
                     rate_id=sanitize_id(rate_id),

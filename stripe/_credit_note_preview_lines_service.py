@@ -151,7 +151,7 @@ class CreditNotePreviewLinesService(StripeService):
         """
         return cast(
             ListObject[CreditNoteLineItem],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/credit_notes/preview/lines",
                 api_mode="V1",

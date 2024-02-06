@@ -222,7 +222,7 @@ class ShippingRateService(StripeService):
         """
         return cast(
             ListObject[ShippingRate],
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/shipping_rates",
                 api_mode="V1",
@@ -242,7 +242,7 @@ class ShippingRateService(StripeService):
         """
         return cast(
             ShippingRate,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/shipping_rates",
                 api_mode="V1",
@@ -263,7 +263,7 @@ class ShippingRateService(StripeService):
         """
         return cast(
             ShippingRate,
-            self._requestor.request(
+            self._request(
                 "get",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
@@ -286,7 +286,7 @@ class ShippingRateService(StripeService):
         """
         return cast(
             ShippingRate,
-            self._requestor.request(
+            self._request(
                 "post",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
