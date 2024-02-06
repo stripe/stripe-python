@@ -152,22 +152,6 @@ class CreditReversal(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["CreditReversal.CreateParams"]
-    ) -> "CreditReversal":
-        """
-        Reverses a ReceivedCredit and creates a CreditReversal object.
-        """
-        return cast(
-            "CreditReversal",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["CreditReversal.ListParams"]
     ) -> ListObject["CreditReversal"]:
@@ -175,27 +159,6 @@ class CreditReversal(
         Returns a list of CreditReversals.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["CreditReversal.ListParams"]
-    ) -> ListObject["CreditReversal"]:
-        """
-        Returns a list of CreditReversals.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -218,17 +181,6 @@ class CreditReversal(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["CreditReversal.RetrieveParams"]
-    ) -> "CreditReversal":
-        """
-        Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"status_transitions": StatusTransitions}

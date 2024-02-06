@@ -456,20 +456,4 @@ class Session(CreateableAPIResource["Session"]):
             ),
         )
 
-    @classmethod
-    async def create_async(
-        cls, **params: Unpack["Session.CreateParams"]
-    ) -> "Session":
-        """
-        Creates a session of the customer portal.
-        """
-        return cast(
-            "Session",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
     _inner_class_types = {"flow": Flow}

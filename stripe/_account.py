@@ -3696,27 +3696,6 @@ class Account(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Account.CreateParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
-        To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
-
-        If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
-        creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
-        You can prefill any information on the account.
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
@@ -3780,71 +3759,6 @@ class Account(
         )
 
     @classmethod
-    async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Account.DeleteParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-
-        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "delete",
-                url,
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def delete_async(
-        sid: str, **params: Unpack["Account.DeleteParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-
-        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-        """
-        ...
-
-    @overload
-    async def delete_async(
-        self, **params: Unpack["Account.DeleteParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-
-        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-        """
-        ...
-
-    @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DeleteParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-
-        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-        """
-        return await self._request_and_refresh_async(
-            "delete",
-            self.instance_url(),
-            params=params,
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
@@ -3852,27 +3766,6 @@ class Account(
         Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Account.ListParams"]
-    ) -> ListObject["Account"]:
-        """
-        Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -3933,61 +3826,6 @@ class Account(
         return cast(
             ListObject["Person"],
             self._request(
-                "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_persons_async(
-        cls, account: str, **params: Unpack["Account.PersonsParams"]
-    ) -> ListObject["Person"]:
-        """
-        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-        """
-        return cast(
-            ListObject["Person"],
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def persons_async(
-        account: str, **params: Unpack["Account.PersonsParams"]
-    ) -> ListObject["Person"]:
-        """
-        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-        """
-        ...
-
-    @overload
-    async def persons_async(
-        self, **params: Unpack["Account.PersonsParams"]
-    ) -> ListObject["Person"]:
-        """
-        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-        """
-        ...
-
-    @class_method_variant("_cls_persons_async")
-    async def persons_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.PersonsParams"]
-    ) -> ListObject["Person"]:
-        """
-        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-        """
-        return cast(
-            ListObject["Person"],
-            await self._request_async(
                 "get",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(self.get("id"))
@@ -4058,69 +3896,6 @@ class Account(
         )
 
     @classmethod
-    async def _cls_reject_async(
-        cls, account: str, **params: Unpack["Account.RejectParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
-
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def reject_async(
-        account: str, **params: Unpack["Account.RejectParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
-
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
-        """
-        ...
-
-    @overload
-    async def reject_async(
-        self, **params: Unpack["Account.RejectParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
-
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
-        """
-        ...
-
-    @class_method_variant("_cls_reject_async")
-    async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RejectParams"]
-    ) -> "Account":
-        """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
-
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
-        """
-        return cast(
-            "Account",
-            await self._request_async(
-                "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(cls, id=None, **params) -> "Account":
         instance = cls(id, **params)
         instance.refresh()
@@ -4179,28 +3954,6 @@ class Account(
         )
 
     @classmethod
-    async def retrieve_capability_async(
-        cls,
-        account: str,
-        capability: str,
-        **params: Unpack["Account.RetrieveCapabilityParams"]
-    ) -> "Capability":
-        """
-        Retrieves information about the specified Account Capability.
-        """
-        return cast(
-            "Capability",
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def modify_capability(
         cls,
         account: str,
@@ -4223,28 +3976,6 @@ class Account(
         )
 
     @classmethod
-    async def modify_capability_async(
-        cls,
-        account: str,
-        capability: str,
-        **params: Unpack["Account.ModifyCapabilityParams"]
-    ) -> "Capability":
-        """
-        Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
-        """
-        return cast(
-            "Capability",
-            await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_capabilities(
         cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
@@ -4254,24 +3985,6 @@ class Account(
         return cast(
             ListObject["Capability"],
             cls._static_request(
-                "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_capabilities_async(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
-    ) -> ListObject["Capability"]:
-        """
-        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-        """
-        return cast(
-            ListObject["Capability"],
-            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
                     account=sanitize_id(account)
@@ -4301,26 +4014,6 @@ class Account(
         )
 
     @classmethod
-    async def create_external_account_async(
-        cls,
-        account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"]
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Create an external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve_external_account(
         cls,
         account: str,
@@ -4333,27 +4026,6 @@ class Account(
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
-                "get",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def retrieve_external_account_async(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.RetrieveExternalAccountParams"]
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Retrieve a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account), id=sanitize_id(id)
@@ -4386,29 +4058,6 @@ class Account(
         )
 
     @classmethod
-    async def modify_external_account_async(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.ModifyExternalAccountParams"]
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
-
-        You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def delete_external_account(
         cls,
         account: str,
@@ -4421,27 +4070,6 @@ class Account(
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
-                "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_external_account_async(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"]
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Delete a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account), id=sanitize_id(id)
@@ -4471,26 +4099,6 @@ class Account(
         )
 
     @classmethod
-    async def list_external_accounts_async(
-        cls,
-        account: str,
-        **params: Unpack["Account.ListExternalAccountsParams"]
-    ) -> ListObject[Union["BankAccount", "Card"]]:
-        """
-        List external accounts for an account.
-        """
-        return cast(
-            ListObject[Union["BankAccount", "Card"]],
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create_login_link(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
@@ -4511,26 +4119,6 @@ class Account(
         )
 
     @classmethod
-    async def create_login_link_async(
-        cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
-    ) -> "LoginLink":
-        """
-        Creates a single-use login link for an Express account to access their Stripe dashboard.
-
-        You may only create login links for [Express accounts](https://stripe.com/docs/connect/express-accounts) connected to your platform.
-        """
-        return cast(
-            "LoginLink",
-            await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/login_links".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create_person(
         cls, account: str, **params: Unpack["Account.CreatePersonParams"]
     ) -> "Person":
@@ -4540,24 +4128,6 @@ class Account(
         return cast(
             "Person",
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def create_person_async(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
-    ) -> "Person":
-        """
-        Creates a new person.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
                 "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)
@@ -4588,27 +4158,6 @@ class Account(
         )
 
     @classmethod
-    async def retrieve_person_async(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.RetrievePersonParams"]
-    ) -> "Person":
-        """
-        Retrieves an existing person.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def modify_person(
         cls,
         account: str,
@@ -4621,27 +4170,6 @@ class Account(
         return cast(
             "Person",
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def modify_person_async(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.ModifyPersonParams"]
-    ) -> "Person":
-        """
-        Updates an existing person.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account), person=sanitize_id(person)
@@ -4672,27 +4200,6 @@ class Account(
         )
 
     @classmethod
-    async def delete_person_async(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.DeletePersonParams"]
-    ) -> "Person":
-        """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
-                "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_persons(
         cls, account: str, **params: Unpack["Account.ListPersonsParams"]
     ) -> ListObject["Person"]:
@@ -4702,24 +4209,6 @@ class Account(
         return cast(
             ListObject["Person"],
             cls._static_request(
-                "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_persons_async(
-        cls, account: str, **params: Unpack["Account.ListPersonsParams"]
-    ) -> ListObject["Person"]:
-        """
-        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-        """
-        return cast(
-            ListObject["Person"],
-            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)

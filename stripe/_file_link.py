@@ -168,22 +168,6 @@ class FileLink(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["FileLink.CreateParams"]
-    ) -> "FileLink":
-        """
-        Creates a new file link object.
-        """
-        return cast(
-            "FileLink",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["FileLink.ListParams"]
     ) -> ListObject["FileLink"]:
@@ -191,27 +175,6 @@ class FileLink(
         Returns a list of file links.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["FileLink.ListParams"]
-    ) -> ListObject["FileLink"]:
-        """
-        Returns a list of file links.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -243,23 +206,6 @@ class FileLink(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["FileLink.ModifyParams"]
-    ) -> "FileLink":
-        """
-        Updates an existing file link object. Expired links can no longer be updated.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "FileLink",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["FileLink.RetrieveParams"]
     ) -> "FileLink":
@@ -268,15 +214,4 @@ class FileLink(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["FileLink.RetrieveParams"]
-    ) -> "FileLink":
-        """
-        Retrieves the file link with the given ID.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance

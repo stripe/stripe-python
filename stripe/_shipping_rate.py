@@ -351,22 +351,6 @@ class ShippingRate(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["ShippingRate.CreateParams"]
-    ) -> "ShippingRate":
-        """
-        Creates a new shipping rate object.
-        """
-        return cast(
-            "ShippingRate",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["ShippingRate.ListParams"]
     ) -> ListObject["ShippingRate"]:
@@ -374,27 +358,6 @@ class ShippingRate(
         Returns a list of your shipping rates.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["ShippingRate.ListParams"]
-    ) -> ListObject["ShippingRate"]:
-        """
-        Returns a list of your shipping rates.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -426,23 +389,6 @@ class ShippingRate(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["ShippingRate.ModifyParams"]
-    ) -> "ShippingRate":
-        """
-        Updates an existing shipping rate object.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "ShippingRate",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["ShippingRate.RetrieveParams"]
     ) -> "ShippingRate":
@@ -451,17 +397,6 @@ class ShippingRate(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["ShippingRate.RetrieveParams"]
-    ) -> "ShippingRate":
-        """
-        Returns the shipping rate object with the given ID.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

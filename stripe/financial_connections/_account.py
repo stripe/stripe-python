@@ -387,61 +387,6 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
-    async def _cls_disconnect_async(
-        cls, account: str, **params: Unpack["Account.DisconnectParams"]
-    ) -> "Account":
-        """
-        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def disconnect_async(
-        account: str, **params: Unpack["Account.DisconnectParams"]
-    ) -> "Account":
-        """
-        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
-        """
-        ...
-
-    @overload
-    async def disconnect_async(
-        self, **params: Unpack["Account.DisconnectParams"]
-    ) -> "Account":
-        """
-        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
-        """
-        ...
-
-    @class_method_variant("_cls_disconnect_async")
-    async def disconnect_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DisconnectParams"]
-    ) -> "Account":
-        """
-        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
-        """
-        return cast(
-            "Account",
-            await self._request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
@@ -449,27 +394,6 @@ class Account(ListableAPIResource["Account"]):
         Returns a list of Financial Connections Account objects.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Account.ListParams"]
-    ) -> ListObject["Account"]:
-        """
-        Returns a list of Financial Connections Account objects.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -539,61 +463,6 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
-    async def _cls_list_owners_async(
-        cls, account: str, **params: Unpack["Account.ListOwnersParams"]
-    ) -> ListObject["AccountOwner"]:
-        """
-        Lists all owners for a given Account
-        """
-        return cast(
-            ListObject["AccountOwner"],
-            await cls._static_request_async(
-                "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def list_owners_async(
-        account: str, **params: Unpack["Account.ListOwnersParams"]
-    ) -> ListObject["AccountOwner"]:
-        """
-        Lists all owners for a given Account
-        """
-        ...
-
-    @overload
-    async def list_owners_async(
-        self, **params: Unpack["Account.ListOwnersParams"]
-    ) -> ListObject["AccountOwner"]:
-        """
-        Lists all owners for a given Account
-        """
-        ...
-
-    @class_method_variant("_cls_list_owners_async")
-    async def list_owners_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.ListOwnersParams"]
-    ) -> ListObject["AccountOwner"]:
-        """
-        Lists all owners for a given Account
-        """
-        return cast(
-            ListObject["AccountOwner"],
-            await self._request_async(
-                "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def _cls_refresh_account(
         cls, account: str, **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
@@ -649,61 +518,6 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
-    async def _cls_refresh_account_async(
-        cls, account: str, **params: Unpack["Account.RefreshAccountParams"]
-    ) -> "Account":
-        """
-        Refreshes the data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def refresh_account_async(
-        account: str, **params: Unpack["Account.RefreshAccountParams"]
-    ) -> "Account":
-        """
-        Refreshes the data associated with a Financial Connections Account.
-        """
-        ...
-
-    @overload
-    async def refresh_account_async(
-        self, **params: Unpack["Account.RefreshAccountParams"]
-    ) -> "Account":
-        """
-        Refreshes the data associated with a Financial Connections Account.
-        """
-        ...
-
-    @class_method_variant("_cls_refresh_account_async")
-    async def refresh_account_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RefreshAccountParams"]
-    ) -> "Account":
-        """
-        Refreshes the data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await self._request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Account.RetrieveParams"]
     ) -> "Account":
@@ -712,17 +526,6 @@ class Account(ListableAPIResource["Account"]):
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Account.RetrieveParams"]
-    ) -> "Account":
-        """
-        Retrieves the details of an Financial Connections Account.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -781,61 +584,6 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
-    async def _cls_subscribe_async(
-        cls, account: str, **params: Unpack["Account.SubscribeParams"]
-    ) -> "Account":
-        """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def subscribe_async(
-        account: str, **params: Unpack["Account.SubscribeParams"]
-    ) -> "Account":
-        """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
-        """
-        ...
-
-    @overload
-    async def subscribe_async(
-        self, **params: Unpack["Account.SubscribeParams"]
-    ) -> "Account":
-        """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
-        """
-        ...
-
-    @class_method_variant("_cls_subscribe_async")
-    async def subscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.SubscribeParams"]
-    ) -> "Account":
-        """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await self._request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def _cls_unsubscribe(
         cls, account: str, **params: Unpack["Account.UnsubscribeParams"]
     ) -> "Account":
@@ -882,61 +630,6 @@ class Account(ListableAPIResource["Account"]):
         return cast(
             "Account",
             self._request(
-                "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_unsubscribe_async(
-        cls, account: str, **params: Unpack["Account.UnsubscribeParams"]
-    ) -> "Account":
-        """
-        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await cls._static_request_async(
-                "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def unsubscribe_async(
-        account: str, **params: Unpack["Account.UnsubscribeParams"]
-    ) -> "Account":
-        """
-        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
-        """
-        ...
-
-    @overload
-    async def unsubscribe_async(
-        self, **params: Unpack["Account.UnsubscribeParams"]
-    ) -> "Account":
-        """
-        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
-        """
-        ...
-
-    @class_method_variant("_cls_unsubscribe_async")
-    async def unsubscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.UnsubscribeParams"]
-    ) -> "Account":
-        """
-        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
-        """
-        return cast(
-            "Account",
-            await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
                     account=sanitize_id(self.get("id"))

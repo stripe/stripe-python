@@ -800,27 +800,6 @@ class Transaction(
         return result
 
     @classmethod
-    async def list_async(
-        cls, **params: Unpack["Transaction.ListParams"]
-    ) -> ListObject["Transaction"]:
-        """
-        Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
     def modify(
         cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
@@ -838,23 +817,6 @@ class Transaction(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
-    ) -> "Transaction":
-        """
-        Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Transaction",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
@@ -863,17 +825,6 @@ class Transaction(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
-    ) -> "Transaction":
-        """
-        Retrieves an Issuing Transaction object.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["Transaction"]):
@@ -896,22 +847,6 @@ class Transaction(
             )
 
         @classmethod
-        async def create_force_capture_async(
-            cls, **params: Unpack["Transaction.CreateForceCaptureParams"]
-        ) -> "Transaction":
-            """
-            Allows the user to capture an arbitrary amount, also known as a forced capture.
-            """
-            return cast(
-                "Transaction",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/transactions/create_force_capture",
-                    params=params,
-                ),
-            )
-
-        @classmethod
         def create_unlinked_refund(
             cls, **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
         ) -> "Transaction":
@@ -921,22 +856,6 @@ class Transaction(
             return cast(
                 "Transaction",
                 cls._static_request(
-                    "post",
-                    "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
-                    params=params,
-                ),
-            )
-
-        @classmethod
-        async def create_unlinked_refund_async(
-            cls, **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
-        ) -> "Transaction":
-            """
-            Allows the user to refund an arbitrary amount, also known as a unlinked refund.
-            """
-            return cast(
-                "Transaction",
-                await cls._static_request_async(
                     "post",
                     "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
                     params=params,
@@ -990,61 +909,6 @@ class Transaction(
             return cast(
                 "Transaction",
                 self.resource._request(
-                    "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(self.resource.get("id"))
-                    ),
-                    params=params,
-                ),
-            )
-
-        @classmethod
-        async def _cls_refund_async(
-            cls, transaction: str, **params: Unpack["Transaction.RefundParams"]
-        ) -> "Transaction":
-            """
-            Refund a test-mode Transaction.
-            """
-            return cast(
-                "Transaction",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(transaction)
-                    ),
-                    params=params,
-                ),
-            )
-
-        @overload
-        @staticmethod
-        async def refund_async(
-            transaction: str, **params: Unpack["Transaction.RefundParams"]
-        ) -> "Transaction":
-            """
-            Refund a test-mode Transaction.
-            """
-            ...
-
-        @overload
-        async def refund_async(
-            self, **params: Unpack["Transaction.RefundParams"]
-        ) -> "Transaction":
-            """
-            Refund a test-mode Transaction.
-            """
-            ...
-
-        @class_method_variant("_cls_refund_async")
-        async def refund_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Transaction.RefundParams"]
-        ) -> "Transaction":
-            """
-            Refund a test-mode Transaction.
-            """
-            return cast(
-                "Transaction",
-                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
                         transaction=sanitize_id(self.resource.get("id"))

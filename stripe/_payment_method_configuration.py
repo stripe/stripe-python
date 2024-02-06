@@ -2348,22 +2348,6 @@ class PaymentMethodConfiguration(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["PaymentMethodConfiguration.CreateParams"]
-    ) -> "PaymentMethodConfiguration":
-        """
-        Creates a payment method configuration
-        """
-        return cast(
-            "PaymentMethodConfiguration",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
@@ -2371,27 +2355,6 @@ class PaymentMethodConfiguration(
         List payment method configurations
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
-    ) -> ListObject["PaymentMethodConfiguration"]:
-        """
-        List payment method configurations
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -2425,25 +2388,6 @@ class PaymentMethodConfiguration(
         )
 
     @classmethod
-    async def modify_async(
-        cls,
-        id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
-    ) -> "PaymentMethodConfiguration":
-        """
-        Update payment method configuration
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "PaymentMethodConfiguration",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls,
         id: str,
@@ -2454,19 +2398,6 @@ class PaymentMethodConfiguration(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls,
-        id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
-    ) -> "PaymentMethodConfiguration":
-        """
-        Retrieve payment method configuration
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

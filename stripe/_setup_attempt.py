@@ -787,27 +787,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         return result
 
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["SetupAttempt.ListParams"]
-    ) -> ListObject["SetupAttempt"]:
-        """
-        Returns a list of SetupAttempts that associate with a provided SetupIntent.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
     _inner_class_types = {
         "payment_method_details": PaymentMethodDetails,
         "setup_error": SetupError,

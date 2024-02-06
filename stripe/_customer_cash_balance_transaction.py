@@ -244,27 +244,6 @@ class CustomerCashBalanceTransaction(
         return result
 
     @classmethod
-    async def list_async(
-        cls, **params: Unpack["CustomerCashBalanceTransaction.ListParams"]
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
-        """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
     def retrieve(
         cls,
         id: str,
@@ -275,19 +254,6 @@ class CustomerCashBalanceTransaction(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls,
-        id: str,
-        **params: Unpack["CustomerCashBalanceTransaction.RetrieveParams"]
-    ) -> "CustomerCashBalanceTransaction":
-        """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

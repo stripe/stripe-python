@@ -94,27 +94,6 @@ class ReportType(ListableAPIResource["ReportType"]):
         return result
 
     @classmethod
-    async def list_async(
-        cls, **params: Unpack["ReportType.ListParams"]
-    ) -> ListObject["ReportType"]:
-        """
-        Returns a full list of Report Types.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
     ) -> "ReportType":
@@ -123,15 +102,4 @@ class ReportType(ListableAPIResource["ReportType"]):
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
-    ) -> "ReportType":
-        """
-        Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance

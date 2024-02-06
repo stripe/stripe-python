@@ -224,22 +224,6 @@ class ReportRun(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["ReportRun.CreateParams"]
-    ) -> "ReportRun":
-        """
-        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
-        """
-        return cast(
-            "ReportRun",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["ReportRun.ListParams"]
     ) -> ListObject["ReportRun"]:
@@ -247,27 +231,6 @@ class ReportRun(
         Returns a list of Report Runs, with the most recent appearing first.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["ReportRun.ListParams"]
-    ) -> ListObject["ReportRun"]:
-        """
-        Returns a list of Report Runs, with the most recent appearing first.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -290,17 +253,6 @@ class ReportRun(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["ReportRun.RetrieveParams"]
-    ) -> "ReportRun":
-        """
-        Retrieves the details of an existing Report Run.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"parameters": Parameters}

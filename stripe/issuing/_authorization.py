@@ -870,67 +870,6 @@ class Authorization(
         )
 
     @classmethod
-    async def _cls_approve_async(
-        cls,
-        authorization: str,
-        **params: Unpack["Authorization.ApproveParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        return cast(
-            "Authorization",
-            await cls._static_request_async(
-                "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(authorization)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def approve_async(
-        authorization: str, **params: Unpack["Authorization.ApproveParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        ...
-
-    @overload
-    async def approve_async(
-        self, **params: Unpack["Authorization.ApproveParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        ...
-
-    @class_method_variant("_cls_approve_async")
-    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Authorization.ApproveParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        return cast(
-            "Authorization",
-            await self._request_async(
-                "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def _cls_decline(
         cls,
         authorization: str,
@@ -992,67 +931,6 @@ class Authorization(
         )
 
     @classmethod
-    async def _cls_decline_async(
-        cls,
-        authorization: str,
-        **params: Unpack["Authorization.DeclineParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        return cast(
-            "Authorization",
-            await cls._static_request_async(
-                "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(authorization)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def decline_async(
-        authorization: str, **params: Unpack["Authorization.DeclineParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        ...
-
-    @overload
-    async def decline_async(
-        self, **params: Unpack["Authorization.DeclineParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        ...
-
-    @class_method_variant("_cls_decline_async")
-    async def decline_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Authorization.DeclineParams"]
-    ) -> "Authorization":
-        """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-        """
-        return cast(
-            "Authorization",
-            await self._request_async(
-                "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Authorization.ListParams"]
     ) -> ListObject["Authorization"]:
@@ -1060,27 +938,6 @@ class Authorization(
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Authorization.ListParams"]
-    ) -> ListObject["Authorization"]:
-        """
-        Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1112,23 +969,6 @@ class Authorization(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Authorization.ModifyParams"]
-    ) -> "Authorization":
-        """
-        Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Authorization",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Authorization.RetrieveParams"]
     ) -> "Authorization":
@@ -1137,17 +977,6 @@ class Authorization(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Authorization.RetrieveParams"]
-    ) -> "Authorization":
-        """
-        Retrieves an Issuing Authorization object.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["Authorization"]):
@@ -1211,63 +1040,6 @@ class Authorization(
             )
 
         @classmethod
-        async def _cls_capture_async(
-            cls,
-            authorization: str,
-            **params: Unpack["Authorization.CaptureParams"]
-        ) -> "Authorization":
-            """
-            Capture a test-mode authorization.
-            """
-            return cast(
-                "Authorization",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(authorization)
-                    ),
-                    params=params,
-                ),
-            )
-
-        @overload
-        @staticmethod
-        async def capture_async(
-            authorization: str, **params: Unpack["Authorization.CaptureParams"]
-        ) -> "Authorization":
-            """
-            Capture a test-mode authorization.
-            """
-            ...
-
-        @overload
-        async def capture_async(
-            self, **params: Unpack["Authorization.CaptureParams"]
-        ) -> "Authorization":
-            """
-            Capture a test-mode authorization.
-            """
-            ...
-
-        @class_method_variant("_cls_capture_async")
-        async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Authorization.CaptureParams"]
-        ) -> "Authorization":
-            """
-            Capture a test-mode authorization.
-            """
-            return cast(
-                "Authorization",
-                await self.resource._request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(self.resource.get("id"))
-                    ),
-                    params=params,
-                ),
-            )
-
-        @classmethod
         def create(
             cls, **params: Unpack["Authorization.CreateParams"]
         ) -> "Authorization":
@@ -1277,22 +1049,6 @@ class Authorization(
             return cast(
                 "Authorization",
                 cls._static_request(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations",
-                    params=params,
-                ),
-            )
-
-        @classmethod
-        async def create_async(
-            cls, **params: Unpack["Authorization.CreateParams"]
-        ) -> "Authorization":
-            """
-            Create a test-mode authorization.
-            """
-            return cast(
-                "Authorization",
-                await cls._static_request_async(
                     "post",
                     "/v1/test_helpers/issuing/authorizations",
                     params=params,
@@ -1348,63 +1104,6 @@ class Authorization(
             return cast(
                 "Authorization",
                 self.resource._request(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(self.resource.get("id"))
-                    ),
-                    params=params,
-                ),
-            )
-
-        @classmethod
-        async def _cls_expire_async(
-            cls,
-            authorization: str,
-            **params: Unpack["Authorization.ExpireParams"]
-        ) -> "Authorization":
-            """
-            Expire a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(authorization)
-                    ),
-                    params=params,
-                ),
-            )
-
-        @overload
-        @staticmethod
-        async def expire_async(
-            authorization: str, **params: Unpack["Authorization.ExpireParams"]
-        ) -> "Authorization":
-            """
-            Expire a test-mode Authorization.
-            """
-            ...
-
-        @overload
-        async def expire_async(
-            self, **params: Unpack["Authorization.ExpireParams"]
-        ) -> "Authorization":
-            """
-            Expire a test-mode Authorization.
-            """
-            ...
-
-        @class_method_variant("_cls_expire_async")
-        async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Authorization.ExpireParams"]
-        ) -> "Authorization":
-            """
-            Expire a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
                         authorization=sanitize_id(self.resource.get("id"))
@@ -1472,64 +1171,6 @@ class Authorization(
             )
 
         @classmethod
-        async def _cls_increment_async(
-            cls,
-            authorization: str,
-            **params: Unpack["Authorization.IncrementParams"]
-        ) -> "Authorization":
-            """
-            Increment a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(authorization)
-                    ),
-                    params=params,
-                ),
-            )
-
-        @overload
-        @staticmethod
-        async def increment_async(
-            authorization: str,
-            **params: Unpack["Authorization.IncrementParams"]
-        ) -> "Authorization":
-            """
-            Increment a test-mode Authorization.
-            """
-            ...
-
-        @overload
-        async def increment_async(
-            self, **params: Unpack["Authorization.IncrementParams"]
-        ) -> "Authorization":
-            """
-            Increment a test-mode Authorization.
-            """
-            ...
-
-        @class_method_variant("_cls_increment_async")
-        async def increment_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Authorization.IncrementParams"]
-        ) -> "Authorization":
-            """
-            Increment a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await self.resource._request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(self.resource.get("id"))
-                    ),
-                    params=params,
-                ),
-            )
-
-        @classmethod
         def _cls_reverse(
             cls,
             authorization: str,
@@ -1578,63 +1219,6 @@ class Authorization(
             return cast(
                 "Authorization",
                 self.resource._request(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(self.resource.get("id"))
-                    ),
-                    params=params,
-                ),
-            )
-
-        @classmethod
-        async def _cls_reverse_async(
-            cls,
-            authorization: str,
-            **params: Unpack["Authorization.ReverseParams"]
-        ) -> "Authorization":
-            """
-            Reverse a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await cls._static_request_async(
-                    "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(authorization)
-                    ),
-                    params=params,
-                ),
-            )
-
-        @overload
-        @staticmethod
-        async def reverse_async(
-            authorization: str, **params: Unpack["Authorization.ReverseParams"]
-        ) -> "Authorization":
-            """
-            Reverse a test-mode Authorization.
-            """
-            ...
-
-        @overload
-        async def reverse_async(
-            self, **params: Unpack["Authorization.ReverseParams"]
-        ) -> "Authorization":
-            """
-            Reverse a test-mode Authorization.
-            """
-            ...
-
-        @class_method_variant("_cls_reverse_async")
-        async def reverse_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Authorization.ReverseParams"]
-        ) -> "Authorization":
-            """
-            Reverse a test-mode Authorization.
-            """
-            return cast(
-                "Authorization",
-                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
                         authorization=sanitize_id(self.resource.get("id"))

@@ -325,73 +325,6 @@ class Order(
         )
 
     @classmethod
-    async def _cls_cancel_async(
-        cls, order: str, **params: Unpack["Order.CancelParams"]
-    ) -> "Order":
-        """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
-        reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
-        might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
-        provides 90 days advance notice and refunds the amount_total.
-        """
-        return cast(
-            "Order",
-            await cls._static_request_async(
-                "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(order)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def cancel_async(
-        order: str, **params: Unpack["Order.CancelParams"]
-    ) -> "Order":
-        """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
-        reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
-        might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
-        provides 90 days advance notice and refunds the amount_total.
-        """
-        ...
-
-    @overload
-    async def cancel_async(
-        self, **params: Unpack["Order.CancelParams"]
-    ) -> "Order":
-        """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
-        reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
-        might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
-        provides 90 days advance notice and refunds the amount_total.
-        """
-        ...
-
-    @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Order.CancelParams"]
-    ) -> "Order":
-        """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
-        reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
-        might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
-        provides 90 days advance notice and refunds the amount_total.
-        """
-        return cast(
-            "Order",
-            await self._request_async(
-                "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create(cls, **params: Unpack["Order.CreateParams"]) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
@@ -407,51 +340,12 @@ class Order(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Order.CreateParams"]
-    ) -> "Order":
-        """
-        Creates a Climate order object for a given Climate product. The order will be processed immediately
-        after creation and payment will be deducted your Stripe balance.
-        """
-        return cast(
-            "Order",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(cls, **params: Unpack["Order.ListParams"]) -> ListObject["Order"]:
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Order.ListParams"]
-    ) -> ListObject["Order"]:
-        """
-        Lists all Climate order objects. The orders are returned sorted by creation date, with the
-        most recently created orders appearing first.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -483,23 +377,6 @@ class Order(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Order.ModifyParams"]
-    ) -> "Order":
-        """
-        Updates the specified order by setting the values of the parameters passed.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Order",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Order.RetrieveParams"]
     ) -> "Order":
@@ -508,17 +385,6 @@ class Order(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Order.RetrieveParams"]
-    ) -> "Order":
-        """
-        Retrieves the details of a Climate order object with the given ID.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

@@ -288,22 +288,6 @@ class Transfer(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Transfer.CreateParams"]
-    ) -> "Transfer":
-        """
-        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
-        """
-        return cast(
-            "Transfer",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Transfer.ListParams"]
     ) -> ListObject["Transfer"]:
@@ -311,27 +295,6 @@ class Transfer(
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Transfer.ListParams"]
-    ) -> ListObject["Transfer"]:
-        """
-        Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -365,25 +328,6 @@ class Transfer(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Transfer.ModifyParams"]
-    ) -> "Transfer":
-        """
-        Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-
-        This request accepts only metadata as an argument.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Transfer",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Transfer.RetrieveParams"]
     ) -> "Transfer":
@@ -392,17 +336,6 @@ class Transfer(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Transfer.RetrieveParams"]
-    ) -> "Transfer":
-        """
-        Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -426,26 +359,6 @@ class Transfer(
         )
 
     @classmethod
-    async def create_reversal_async(
-        cls, id: str, **params: Unpack["Transfer.CreateReversalParams"]
-    ) -> "Reversal":
-        """
-        When you create a new reversal, you must specify a transfer to create it on.
-
-        When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.
-
-        Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
-        """
-        return cast(
-            "Reversal",
-            await cls._static_request_async(
-                "post",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve_reversal(
         cls,
         transfer: str,
@@ -458,27 +371,6 @@ class Transfer(
         return cast(
             "Reversal",
             cls._static_request(
-                "get",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def retrieve_reversal_async(
-        cls,
-        transfer: str,
-        id: str,
-        **params: Unpack["Transfer.RetrieveReversalParams"]
-    ) -> "Reversal":
-        """
-        By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
-        """
-        return cast(
-            "Reversal",
-            await cls._static_request_async(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer), id=sanitize_id(id)
@@ -511,29 +403,6 @@ class Transfer(
         )
 
     @classmethod
-    async def modify_reversal_async(
-        cls,
-        transfer: str,
-        id: str,
-        **params: Unpack["Transfer.ModifyReversalParams"]
-    ) -> "Reversal":
-        """
-        Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-
-        This request only accepts metadata and description as arguments.
-        """
-        return cast(
-            "Reversal",
-            await cls._static_request_async(
-                "post",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_reversals(
         cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
     ) -> ListObject["Reversal"]:
@@ -543,22 +412,6 @@ class Transfer(
         return cast(
             ListObject["Reversal"],
             cls._static_request(
-                "get",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_reversals_async(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
-    ) -> ListObject["Reversal"]:
-        """
-        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
-        """
-        return cast(
-            ListObject["Reversal"],
-            await cls._static_request_async(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 params=params,

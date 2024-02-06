@@ -1651,22 +1651,6 @@ class Registration(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Registration.CreateParams"]
-    ) -> "Registration":
-        """
-        Creates a new Tax Registration object.
-        """
-        return cast(
-            "Registration",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Registration.ListParams"]
     ) -> ListObject["Registration"]:
@@ -1674,27 +1658,6 @@ class Registration(
         Returns a list of Tax Registration objects.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Registration.ListParams"]
-    ) -> ListObject["Registration"]:
-        """
-        Returns a list of Tax Registration objects.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1728,25 +1691,6 @@ class Registration(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Registration.ModifyParams"]
-    ) -> "Registration":
-        """
-        Updates an existing Tax Registration object.
-
-        A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Registration",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Registration.RetrieveParams"]
     ) -> "Registration":
@@ -1755,17 +1699,6 @@ class Registration(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Registration.RetrieveParams"]
-    ) -> "Registration":
-        """
-        Returns a Tax Registration object.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"country_options": CountryOptions}

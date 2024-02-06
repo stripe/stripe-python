@@ -195,22 +195,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Secret.CreateParams"]
-    ) -> "Secret":
-        """
-        Create or replace a secret in the secret store.
-        """
-        return cast(
-            "Secret",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def delete_where(
         cls, **params: Unpack["Secret.DeleteWhereParams"]
     ) -> "Secret":
@@ -220,22 +204,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         return cast(
             "Secret",
             cls._static_request(
-                "post",
-                "/v1/apps/secrets/delete",
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_where_async(
-        cls, **params: Unpack["Secret.DeleteWhereParams"]
-    ) -> "Secret":
-        """
-        Deletes a secret from the secret store by name and scope.
-        """
-        return cast(
-            "Secret",
-            await cls._static_request_async(
                 "post",
                 "/v1/apps/secrets/delete",
                 params=params,
@@ -257,22 +225,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         )
 
     @classmethod
-    async def find_async(
-        cls, **params: Unpack["Secret.FindParams"]
-    ) -> "Secret":
-        """
-        Finds a secret in the secret store by name and scope.
-        """
-        return cast(
-            "Secret",
-            await cls._static_request_async(
-                "get",
-                "/v1/apps/secrets/find",
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Secret.ListParams"]
     ) -> ListObject["Secret"]:
@@ -280,27 +232,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         List all secrets stored on the given scope.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Secret.ListParams"]
-    ) -> ListObject["Secret"]:
-        """
-        List all secrets stored on the given scope.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,

@@ -11,7 +11,6 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
-    AsyncIterator,
     ClassVar,
     Dict,
     Iterator,
@@ -2295,77 +2294,6 @@ class Charge(
         )
 
     @classmethod
-    async def _cls_capture_async(
-        cls, charge: str, **params: Unpack["Charge.CaptureParams"]
-    ) -> "Charge":
-        """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
-        """
-        return cast(
-            "Charge",
-            await cls._static_request_async(
-                "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(charge)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def capture_async(
-        charge: str, **params: Unpack["Charge.CaptureParams"]
-    ) -> "Charge":
-        """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
-        """
-        ...
-
-    @overload
-    async def capture_async(
-        self, **params: Unpack["Charge.CaptureParams"]
-    ) -> "Charge":
-        """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
-        """
-        ...
-
-    @class_method_variant("_cls_capture_async")
-    async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Charge.CaptureParams"]
-    ) -> "Charge":
-        """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
-        """
-        return cast(
-            "Charge",
-            await self._request_async(
-                "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
         """
         This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
@@ -2382,24 +2310,6 @@ class Charge(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Charge.CreateParams"]
-    ) -> "Charge":
-        """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
-        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment.
-        """
-        return cast(
-            "Charge",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["Charge.ListParams"]
     ) -> ListObject["Charge"]:
@@ -2407,27 +2317,6 @@ class Charge(
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Charge.ListParams"]
-    ) -> ListObject["Charge"]:
-        """
-        Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -2459,23 +2348,6 @@ class Charge(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Charge.ModifyParams"]
-    ) -> "Charge":
-        """
-        Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Charge",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Charge.RetrieveParams"]
     ) -> "Charge":
@@ -2484,17 +2356,6 @@ class Charge(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Charge.RetrieveParams"]
-    ) -> "Charge":
-        """
-        Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -2510,32 +2371,10 @@ class Charge(
         return cls._search(search_url="/v1/charges/search", *args, **kwargs)
 
     @classmethod
-    async def search_async(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
-    ) -> SearchResultObject["Charge"]:
-        """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
-        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
-        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-        to an hour behind during outages. Search functionality is not available to merchants in India.
-        """
-        return await cls._search_async(
-            search_url="/v1/charges/search", *args, **kwargs
-        )
-
-    @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> Iterator["Charge"]:
-        return (cls.search(*args, **kwargs)).auto_paging_iter()
-
-    @classmethod
-    async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
-    ) -> AsyncIterator["Charge"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None) -> "Charge":
         params = {

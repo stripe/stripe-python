@@ -279,59 +279,6 @@ class Topup(
         )
 
     @classmethod
-    async def _cls_cancel_async(
-        cls, topup: str, **params: Unpack["Topup.CancelParams"]
-    ) -> "Topup":
-        """
-        Cancels a top-up. Only pending top-ups can be canceled.
-        """
-        return cast(
-            "Topup",
-            await cls._static_request_async(
-                "post",
-                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def cancel_async(
-        topup: str, **params: Unpack["Topup.CancelParams"]
-    ) -> "Topup":
-        """
-        Cancels a top-up. Only pending top-ups can be canceled.
-        """
-        ...
-
-    @overload
-    async def cancel_async(
-        self, **params: Unpack["Topup.CancelParams"]
-    ) -> "Topup":
-        """
-        Cancels a top-up. Only pending top-ups can be canceled.
-        """
-        ...
-
-    @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Topup.CancelParams"]
-    ) -> "Topup":
-        """
-        Cancels a top-up. Only pending top-ups can be canceled.
-        """
-        return cast(
-            "Topup",
-            await self._request_async(
-                "post",
-                "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create(cls, **params: Unpack["Topup.CreateParams"]) -> "Topup":
         """
         Top up the balance of an account
@@ -346,48 +293,11 @@ class Topup(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["Topup.CreateParams"]
-    ) -> "Topup":
-        """
-        Top up the balance of an account
-        """
-        return cast(
-            "Topup",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(cls, **params: Unpack["Topup.ListParams"]) -> ListObject["Topup"]:
         """
         Returns a list of top-ups.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["Topup.ListParams"]
-    ) -> ListObject["Topup"]:
-        """
-        Returns a list of top-ups.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -419,23 +329,6 @@ class Topup(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["Topup.ModifyParams"]
-    ) -> "Topup":
-        """
-        Updates the metadata of a top-up. Other top-up details are not editable by design.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "Topup",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Topup.RetrieveParams"]
     ) -> "Topup":
@@ -444,15 +337,4 @@ class Topup(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["Topup.RetrieveParams"]
-    ) -> "Topup":
-        """
-        Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance

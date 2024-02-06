@@ -215,22 +215,6 @@ class PaymentMethodDomain(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["PaymentMethodDomain.CreateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Creates a payment method domain.
-        """
-        return cast(
-            "PaymentMethodDomain",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["PaymentMethodDomain.ListParams"]
     ) -> ListObject["PaymentMethodDomain"]:
@@ -238,27 +222,6 @@ class PaymentMethodDomain(
         Lists the details of existing payment method domains.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["PaymentMethodDomain.ListParams"]
-    ) -> ListObject["PaymentMethodDomain"]:
-        """
-        Lists the details of existing payment method domains.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -290,23 +253,6 @@ class PaymentMethodDomain(
         )
 
     @classmethod
-    async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.ModifyParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Updates an existing payment method domain.
-        """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
-        return cast(
-            "PaymentMethodDomain",
-            await cls._static_request_async(
-                "post",
-                url,
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PaymentMethodDomain.RetrieveParams"]
     ) -> "PaymentMethodDomain":
@@ -315,17 +261,6 @@ class PaymentMethodDomain(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.RetrieveParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Retrieves the details of an existing payment method domain.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -398,84 +333,6 @@ class PaymentMethodDomain(
         return cast(
             "PaymentMethodDomain",
             self._request(
-                "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_validate_async(
-        cls,
-        payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
-
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-        """
-        return cast(
-            "PaymentMethodDomain",
-            await cls._static_request_async(
-                "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(payment_method_domain)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def validate_async(
-        payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
-
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-        """
-        ...
-
-    @overload
-    async def validate_async(
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
-
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-        """
-        ...
-
-    @class_method_variant("_cls_validate_async")
-    async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
-
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-        """
-        return cast(
-            "PaymentMethodDomain",
-            await self._request_async(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
                     payment_method_domain=sanitize_id(self.get("id"))

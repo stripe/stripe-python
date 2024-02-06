@@ -166,22 +166,6 @@ class DebitReversal(
         )
 
     @classmethod
-    async def create_async(
-        cls, **params: Unpack["DebitReversal.CreateParams"]
-    ) -> "DebitReversal":
-        """
-        Reverses a ReceivedDebit and creates a DebitReversal object.
-        """
-        return cast(
-            "DebitReversal",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["DebitReversal.ListParams"]
     ) -> ListObject["DebitReversal"]:
@@ -189,27 +173,6 @@ class DebitReversal(
         Returns a list of DebitReversals.
         """
         result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["DebitReversal.ListParams"]
-    ) -> ListObject["DebitReversal"]:
-        """
-        Returns a list of DebitReversals.
-        """
-        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -232,17 +195,6 @@ class DebitReversal(
         """
         instance = cls(id, **params)
         instance.refresh()
-        return instance
-
-    @classmethod
-    async def retrieve_async(
-        cls, id: str, **params: Unpack["DebitReversal.RetrieveParams"]
-    ) -> "DebitReversal":
-        """
-        Retrieves a DebitReversal object.
-        """
-        instance = cls(id, **params)
-        await instance.refresh_async()
         return instance
 
     _inner_class_types = {
