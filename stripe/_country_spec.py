@@ -121,6 +121,27 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["CountrySpec.ListParams"]
+    ) -> ListObject["CountrySpec"]:
+        """
+        Lists all Country Spec objects available in the API.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
     ) -> "CountrySpec":
@@ -129,6 +150,17 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
+    ) -> "CountrySpec":
+        """
+        Returns a Country Spec for a given Country code.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"verification_fields": VerificationFields}

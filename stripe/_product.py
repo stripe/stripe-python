@@ -12,6 +12,7 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
+    AsyncIterator,
     ClassVar,
     Dict,
     Iterator,
@@ -553,6 +554,22 @@ class Product(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Product.CreateParams"]
+    ) -> "Product":
+        """
+        Creates a new product object.
+        """
+        return cast(
+            "Product",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Product.DeleteParams"]
     ) -> "Product":
@@ -600,6 +617,55 @@ class Product(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Product",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Product.ListParams"]
     ) -> ListObject["Product"]:
@@ -607,6 +673,27 @@ class Product(
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Product.ListParams"]
+    ) -> ListObject["Product"]:
+        """
+        Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -638,6 +725,23 @@ class Product(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Product.ModifyParams"]
+    ) -> "Product":
+        """
+        Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Product",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Product.RetrieveParams"]
     ) -> "Product":
@@ -646,6 +750,17 @@ class Product(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Product.RetrieveParams"]
+    ) -> "Product":
+        """
+        Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -661,10 +776,32 @@ class Product(
         return cls._search(search_url="/v1/products/search", *args, **kwargs)
 
     @classmethod
+    async def search_async(
+        cls, *args, **kwargs: Unpack["Product.SearchParams"]
+    ) -> SearchResultObject["Product"]:
+        """
+        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return await cls._search_async(
+            search_url="/v1/products/search", *args, **kwargs
+        )
+
+    @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> Iterator["Product"]:
-        return cls.search(*args, **kwargs).auto_paging_iter()
+        return (cls.search(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    async def search_auto_paging_iter_async(
+        cls, *args, **kwargs: Unpack["Product.SearchParams"]
+    ) -> AsyncIterator["Product"]:
+        return (
+            await cls.search_async(*args, **kwargs)
+        ).auto_paging_iter_async()
 
     _inner_class_types = {
         "features": Feature,

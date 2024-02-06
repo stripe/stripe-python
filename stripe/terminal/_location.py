@@ -221,6 +221,23 @@ class Location(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Location.CreateParams"]
+    ) -> "Location":
+        """
+        Creates a new Location object.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        """
+        return cast(
+            "Location",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Location.DeleteParams"]
     ) -> "Location":
@@ -268,6 +285,55 @@ class Location(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
+        """
+        Deletes a Location object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Location",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
+        """
+        Deletes a Location object.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
+        """
+        Deletes a Location object.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
+        """
+        Deletes a Location object.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Location.ListParams"]
     ) -> ListObject["Location"]:
@@ -275,6 +341,27 @@ class Location(
         Returns a list of Location objects.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Location.ListParams"]
+    ) -> ListObject["Location"]:
+        """
+        Returns a list of Location objects.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -306,6 +393,23 @@ class Location(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Location.ModifyParams"]
+    ) -> "Location":
+        """
+        Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Location",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Location.RetrieveParams"]
     ) -> "Location":
@@ -314,6 +418,17 @@ class Location(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Location.RetrieveParams"]
+    ) -> "Location":
+        """
+        Retrieves a Location object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"address": Address}

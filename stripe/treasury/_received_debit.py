@@ -330,6 +330,27 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["ReceivedDebit.ListParams"]
+    ) -> ListObject["ReceivedDebit"]:
+        """
+        Returns a list of ReceivedDebits.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
     ) -> "ReceivedDebit":
@@ -338,6 +359,17 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
+    ) -> "ReceivedDebit":
+        """
+        Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["ReceivedDebit"]):
@@ -353,6 +385,22 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             return cast(
                 "ReceivedDebit",
                 cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/received_debits",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def create_async(
+            cls, **params: Unpack["ReceivedDebit.CreateParams"]
+        ) -> "ReceivedDebit":
+            """
+            Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
+            """
+            return cast(
+                "ReceivedDebit",
+                await cls._static_request_async(
                     "post",
                     "/v1/test_helpers/treasury/received_debits",
                     params=params,

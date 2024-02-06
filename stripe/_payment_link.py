@@ -2441,6 +2441,22 @@ class PaymentLink(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["PaymentLink.CreateParams"]
+    ) -> "PaymentLink":
+        """
+        Creates a payment link.
+        """
+        return cast(
+            "PaymentLink",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["PaymentLink.ListParams"]
     ) -> ListObject["PaymentLink"]:
@@ -2448,6 +2464,27 @@ class PaymentLink(
         Returns a list of your payment links.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PaymentLink.ListParams"]
+    ) -> ListObject["PaymentLink"]:
+        """
+        Returns a list of your payment links.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -2519,6 +2556,63 @@ class PaymentLink(
         )
 
     @classmethod
+    async def _cls_list_line_items_async(
+        cls,
+        payment_link: str,
+        **params: Unpack["PaymentLink.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/payment_links/{payment_link}/line_items".format(
+                    payment_link=sanitize_id(payment_link)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        payment_link: str, **params: Unpack["PaymentLink.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await self._request_async(
+                "get",
+                "/v1/payment_links/{payment_link}/line_items".format(
+                    payment_link=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
     ) -> "PaymentLink":
@@ -2536,6 +2630,23 @@ class PaymentLink(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
+    ) -> "PaymentLink":
+        """
+        Updates a payment link.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PaymentLink",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PaymentLink.RetrieveParams"]
     ) -> "PaymentLink":
@@ -2544,6 +2655,17 @@ class PaymentLink(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["PaymentLink.RetrieveParams"]
+    ) -> "PaymentLink":
+        """
+        Retrieve a payment link.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

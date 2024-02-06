@@ -466,6 +466,22 @@ class InvoiceItem(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["InvoiceItem.CreateParams"]
+    ) -> "InvoiceItem":
+        """
+        Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
+        """
+        return cast(
+            "InvoiceItem",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
     ) -> "InvoiceItem":
@@ -515,6 +531,55 @@ class InvoiceItem(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "InvoiceItem",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["InvoiceItem.ListParams"]
     ) -> ListObject["InvoiceItem"]:
@@ -522,6 +587,27 @@ class InvoiceItem(
         Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["InvoiceItem.ListParams"]
+    ) -> ListObject["InvoiceItem"]:
+        """
+        Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -553,6 +639,23 @@ class InvoiceItem(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["InvoiceItem.ModifyParams"]
+    ) -> "InvoiceItem":
+        """
+        Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "InvoiceItem",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
     ) -> "InvoiceItem":
@@ -561,6 +664,17 @@ class InvoiceItem(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
+    ) -> "InvoiceItem":
+        """
+        Retrieves the invoice item with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"period": Period}

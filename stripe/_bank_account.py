@@ -411,6 +411,55 @@ class BankAccount(
             params=params,
         )
 
+    @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
     def instance_url(self):
         token = self.id
         extn = sanitize_id(token)

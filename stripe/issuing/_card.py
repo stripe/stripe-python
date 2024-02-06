@@ -1542,11 +1542,48 @@ class Card(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Card.CreateParams"]
+    ) -> "Card":
+        """
+        Creates an Issuing Card object.
+        """
+        return cast(
+            "Card",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Card.ListParams"]) -> ListObject["Card"]:
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Card.ListParams"]
+    ) -> ListObject["Card"]:
+        """
+        Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -1576,6 +1613,23 @@ class Card(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Card.ModifyParams"]
+    ) -> "Card":
+        """
+        Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Card",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Card.RetrieveParams"]
     ) -> "Card":
@@ -1584,6 +1638,17 @@ class Card(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Card.RetrieveParams"]
+    ) -> "Card":
+        """
+        Retrieves an Issuing Card object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["Card"]):
@@ -1645,6 +1710,61 @@ class Card(
             )
 
         @classmethod
+        async def _cls_deliver_card_async(
+            cls, card: str, **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
+            return cast(
+                "Card",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def deliver_card_async(
+            card: str, **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
+            ...
+
+        @overload
+        async def deliver_card_async(
+            self, **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
+            ...
+
+        @class_method_variant("_cls_deliver_card_async")
+        async def deliver_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
+            return cast(
+                "Card",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_fail_card(
             cls, card: str, **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
@@ -1689,6 +1809,61 @@ class Card(
             return cast(
                 "Card",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_fail_card_async(
+            cls, card: str, **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
+            return cast(
+                "Card",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def fail_card_async(
+            card: str, **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
+            ...
+
+        @overload
+        async def fail_card_async(
+            self, **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
+            ...
+
+        @class_method_variant("_cls_fail_card_async")
+        async def fail_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
+            return cast(
+                "Card",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                         card=sanitize_id(self.resource.get("id"))
@@ -1753,6 +1928,61 @@ class Card(
             )
 
         @classmethod
+        async def _cls_return_card_async(
+            cls, card: str, **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
+            return cast(
+                "Card",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def return_card_async(
+            card: str, **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
+            ...
+
+        @overload
+        async def return_card_async(
+            self, **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
+            ...
+
+        @class_method_variant("_cls_return_card_async")
+        async def return_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
+            return cast(
+                "Card",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_ship_card(
             cls, card: str, **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
@@ -1797,6 +2027,61 @@ class Card(
             return cast(
                 "Card",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_ship_card_async(
+            cls, card: str, **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
+            return cast(
+                "Card",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def ship_card_async(
+            card: str, **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
+            ...
+
+        @overload
+        async def ship_card_async(
+            self, **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
+            ...
+
+        @class_method_variant("_cls_ship_card_async")
+        async def ship_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
+            return cast(
+                "Card",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                         card=sanitize_id(self.resource.get("id"))

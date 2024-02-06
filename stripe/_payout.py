@@ -325,6 +325,61 @@ class Payout(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, payout: str, **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        """
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        """
+        return cast(
+            "Payout",
+            await cls._static_request_async(
+                "post",
+                "/v1/payouts/{payout}/cancel".format(
+                    payout=sanitize_id(payout)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        payout: str, **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        """
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        """
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        """
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        """
+        return cast(
+            "Payout",
+            await self._request_async(
+                "post",
+                "/v1/payouts/{payout}/cancel".format(
+                    payout=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["Payout.CreateParams"]) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
@@ -343,6 +398,26 @@ class Payout(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Payout.CreateParams"]
+    ) -> "Payout":
+        """
+        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
+
+        If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
+
+        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://stripe.com/docs/api#balance_object) details available and pending amounts by source type.
+        """
+        return cast(
+            "Payout",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Payout.ListParams"]
     ) -> ListObject["Payout"]:
@@ -350,6 +425,27 @@ class Payout(
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Payout.ListParams"]
+    ) -> ListObject["Payout"]:
+        """
+        Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -381,6 +477,23 @@ class Payout(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Payout.ModifyParams"]
+    ) -> "Payout":
+        """
+        Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Payout",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Payout.RetrieveParams"]
     ) -> "Payout":
@@ -389,6 +502,17 @@ class Payout(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Payout.RetrieveParams"]
+    ) -> "Payout":
+        """
+        Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -444,6 +568,69 @@ class Payout(
         return cast(
             "Payout",
             self._request(
+                "post",
+                "/v1/payouts/{payout}/reverse".format(
+                    payout=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_reverse_async(
+        cls, payout: str, **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        """
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+
+        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+        """
+        return cast(
+            "Payout",
+            await cls._static_request_async(
+                "post",
+                "/v1/payouts/{payout}/reverse".format(
+                    payout=sanitize_id(payout)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reverse_async(
+        payout: str, **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        """
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+
+        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+        """
+        ...
+
+    @overload
+    async def reverse_async(
+        self, **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        """
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+
+        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+        """
+        ...
+
+    @class_method_variant("_cls_reverse_async")
+    async def reverse_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        """
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+
+        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+        """
+        return cast(
+            "Payout",
+            await self._request_async(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
                     payout=sanitize_id(self.get("id"))
