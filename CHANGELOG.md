@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.2.0b1 - 2024-02-05
+* [#1218](https://github.com/stripe/stripe-python/pull/1218) Update generated code for beta
+  * Add support for new resources `Entitlements.Event` and `Entitlements.Feature`
+  * Add support for `create` method on resource `Event`
+  * Add support for `create` and `list` methods on resource `Feature`
+* [#1171](https://github.com/stripe/stripe-python/pull/1171) Beta: codegenned async methods on resources
+* [#1219](https://github.com/stripe/stripe-python/pull/1219) Beta: more async infrastructure
+* [#1210](https://github.com/stripe/stripe-python/pull/1210) Beta: better support for trio in HTTPClientAsync
+    * Fixes support for `trio` on HttpClientAsync.
+* [#1209](https://github.com/stripe/stripe-python/pull/1209) Beta: Fix HTTPXClient retries
+
 ## 8.1.0 - 2024-02-01
 * [#1213](https://github.com/stripe/stripe-python/pull/1213) Update generated code
   * Add support for `swish` payment method throughout the API
