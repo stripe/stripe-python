@@ -360,7 +360,7 @@ def convert_to_dict(obj):
     # comprehension returns a regular dict and recursively applies the
     # conversion to each value.
     elif isinstance(obj, dict):
-        return {k: convert_to_dict(v) for k, v in obj.items()}
+        return {k: convert_to_dict(v) for k, v in dict(obj).items()}
     else:
         return obj
 

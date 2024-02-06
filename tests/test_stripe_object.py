@@ -425,7 +425,7 @@ class TestStripeObject(object):
         obj.api_key = "key2"
         obj._request("get", "/foo", base_address="api", api_mode="V1")
 
-        assert "api_key" not in obj.items()
+        assert "api_key" not in dict(obj).items()
 
         http_client_mock.assert_requested(
             api_key="key2",

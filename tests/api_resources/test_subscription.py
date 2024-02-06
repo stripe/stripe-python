@@ -73,3 +73,10 @@ class TestSubscription(object):
         http_client_mock.assert_requested(
             "delete", path="/v1/subscriptions/%s/discount" % TEST_RESOURCE_ID
         )
+
+    def test_can_access_subscription_items(self, http_client_mock):
+        sub = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
+        assert isinstance(sub.items, stripe.ListObject)
+        http_client_mock.assert_requested(
+            "get", path="/v1/subscriptions/%s" % TEST_RESOURCE_ID
+        )

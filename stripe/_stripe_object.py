@@ -30,6 +30,8 @@ from stripe._base_address import BaseAddress
 if TYPE_CHECKING:
     from stripe import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
+reserved_names = set(["items"])
+
 
 @overload
 def _compute_diff(
@@ -176,6 +178,12 @@ class StripeObject(Dict[str, Any]):
                 return super(StripeObject, self).__delattr__(k)
             else:
                 del self[k]
+
+        def __getattribute__(self, __name: str) -> Any:
+            if __name in reserved_names:
+                return self[__name]
+            else:
+                return super().__getattribute__(__name)
 
     def __setitem__(self, k: str, v: Any) -> None:
         if v == "":
@@ -336,7 +344,7 @@ class StripeObject(Dict[str, Any]):
 
         self._transient_values = self._transient_values - set(values)
 
-        for k, v in values.items():
+        for k, v in dict(values).items():
             inner_class = self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
@@ -353,7 +361,7 @@ class StripeObject(Dict[str, Any]):
                             api_mode=api_mode,
                         ),
                     )
-                    for k, v in v.items()
+                    for k, v in dict(v).items()
                 }
             else:
                 obj = cast(
@@ -509,7 +517,7 @@ class StripeObject(Dict[str, Any]):
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}
 
-        for k, v in self.items():
+        for k, v in dict(self).items():
             if k == "id" or k.startswith("_"):
                 continue
             elif isinstance(v, stripe.APIResource):
@@ -540,7 +548,7 @@ class StripeObject(Dict[str, Any]):
 
         copied._retrieve_params = self._retrieve_params
 
-        for k, v in self.items():
+        for k, v in dict(self).items():
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, v)
@@ -556,7 +564,7 @@ class StripeObject(Dict[str, Any]):
         copied = self.__copy__()
         memo[id(self)] = copied
 
-        for k, v in self.items():
+        for k, v in dict(self).items():
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))

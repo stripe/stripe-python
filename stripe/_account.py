@@ -3919,7 +3919,7 @@ class Account(
         params = super(Account, self).serialize(previous)
         previous = previous or self._previous or {}
 
-        for k, v in iter(self.items()):
+        for k, v in iter(dict(self).items()):
             if k == "individual" and isinstance(v, Person) and k not in params:
                 params[k] = v.serialize(previous.get(k, None))
 
