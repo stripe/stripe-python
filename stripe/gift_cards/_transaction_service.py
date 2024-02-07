@@ -132,7 +132,27 @@ class TransactionService(StripeService):
         """
         return cast(
             ListObject[Transaction],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/gift_cards/transactions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "TransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Transaction]:
+        """
+        List gift card transactions for a gift card
+        """
+        return cast(
+            ListObject[Transaction],
+            await self._request_async(
                 "get",
                 "/v1/gift_cards/transactions",
                 api_mode="V1",
@@ -152,7 +172,27 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "TransactionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Create a gift card transaction
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions",
                 api_mode="V1",
@@ -173,7 +213,28 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "TransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Retrieves the gift card transaction.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "get",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -194,7 +255,28 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "TransactionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Update a gift card transaction
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -215,7 +297,30 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "TransactionService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Cancel a gift card transaction
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions/{id}/cancel".format(
                     id=sanitize_id(id),
@@ -238,7 +343,30 @@ class TransactionService(StripeService):
         """
         return cast(
             Transaction,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/confirm".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def confirm_async(
+        self,
+        id: str,
+        params: "TransactionService.ConfirmParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Confirm a gift card transaction
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions/{id}/confirm".format(
                     id=sanitize_id(id),

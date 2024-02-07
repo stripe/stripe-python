@@ -39,7 +39,28 @@ class OrderLineItemService(StripeService):
         """
         return cast(
             ListObject[LineItem],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        id: str,
+        params: "OrderLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[LineItem]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[LineItem],
+            await self._request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
                 api_mode="V1",

@@ -57,6 +57,29 @@ class AccountCapabilityService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        account: str,
+        params: "AccountCapabilityService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Capability]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject[Capability],
+            await self._request_async(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         account: str,
@@ -82,6 +105,31 @@ class AccountCapabilityService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        account: str,
+        capability: str,
+        params: "AccountCapabilityService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Capability:
+        """
+        Retrieves information about the specified Account Capability.
+        """
+        return cast(
+            Capability,
+            await self._request_async(
+                "get",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         account: str,
@@ -95,6 +143,31 @@ class AccountCapabilityService(StripeService):
         return cast(
             Capability,
             self._request(
+                "post",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        account: str,
+        capability: str,
+        params: "AccountCapabilityService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Capability:
+        """
+        Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
+        """
+        return cast(
+            Capability,
+            await self._request_async(
                 "post",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
                     account=sanitize_id(account),

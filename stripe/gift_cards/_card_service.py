@@ -114,7 +114,27 @@ class CardService(StripeService):
         """
         return cast(
             ListObject[Card],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/gift_cards/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "CardService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Card]:
+        """
+        List gift cards for an account
+        """
+        return cast(
+            ListObject[Card],
+            await self._request_async(
                 "get",
                 "/v1/gift_cards/cards",
                 api_mode="V1",
@@ -132,7 +152,25 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "CardService.CreateParams", options: RequestOptions = {}
+    ) -> Card:
+        """
+        Creates a new gift card object.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/cards",
                 api_mode="V1",
@@ -153,7 +191,28 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/gift_cards/cards/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "CardService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Retrieve a gift card by id
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "get",
                 "/v1/gift_cards/cards/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -174,7 +233,28 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/cards/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "CardService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Update a gift card
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/cards/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -194,7 +274,27 @@ class CardService(StripeService):
         """
         return cast(
             Card,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/gift_cards/cards/validate",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def validate_async(
+        self,
+        params: "CardService.ValidateParams",
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Validates a gift card code, returning the matching gift card object if it exists.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/gift_cards/cards/validate",
                 api_mode="V1",

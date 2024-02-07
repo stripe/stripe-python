@@ -668,6 +668,29 @@ class ConfigurationService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        configuration: str,
+        params: "ConfigurationService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Deletes a Configuration object.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
+                "delete",
+                "/v1/terminal/configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         configuration: str,
@@ -680,6 +703,29 @@ class ConfigurationService(StripeService):
         return cast(
             Configuration,
             self._request(
+                "get",
+                "/v1/terminal/configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        configuration: str,
+        params: "ConfigurationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Retrieves a Configuration object.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
                 "get",
                 "/v1/terminal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
@@ -714,6 +760,29 @@ class ConfigurationService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        configuration: str,
+        params: "ConfigurationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Updates a new Configuration object.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
+                "post",
+                "/v1/terminal/configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "ConfigurationService.ListParams" = {},
@@ -734,6 +803,26 @@ class ConfigurationService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ConfigurationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Configuration]:
+        """
+        Returns a list of Configuration objects.
+        """
+        return cast(
+            ListObject[Configuration],
+            await self._request_async(
+                "get",
+                "/v1/terminal/configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ConfigurationService.CreateParams" = {},
@@ -745,6 +834,26 @@ class ConfigurationService(StripeService):
         return cast(
             Configuration,
             self._request(
+                "post",
+                "/v1/terminal/configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ConfigurationService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Creates a new Configuration object.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
                 "post",
                 "/v1/terminal/configurations",
                 api_mode="V1",

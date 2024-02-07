@@ -148,6 +148,26 @@ class OutboundTransferService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "OutboundTransferService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[OutboundTransfer]:
+        """
+        Returns a list of OutboundTransfers sent from the specified FinancialAccount.
+        """
+        return cast(
+            ListObject[OutboundTransfer],
+            await self._request_async(
+                "get",
+                "/v1/treasury/outbound_transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "OutboundTransferService.CreateParams",
@@ -159,6 +179,26 @@ class OutboundTransferService(StripeService):
         return cast(
             OutboundTransfer,
             self._request(
+                "post",
+                "/v1/treasury/outbound_transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "OutboundTransferService.CreateParams",
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Creates an OutboundTransfer.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers",
                 api_mode="V1",
@@ -191,6 +231,29 @@ class OutboundTransferService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
+                "get",
+                "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         outbound_transfer: str,
@@ -203,6 +266,29 @@ class OutboundTransferService(StripeService):
         return cast(
             OutboundTransfer,
             self._request(
+                "post",
+                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
                     outbound_transfer=sanitize_id(outbound_transfer),

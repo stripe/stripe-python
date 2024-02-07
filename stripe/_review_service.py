@@ -79,6 +79,26 @@ class ReviewService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReviewService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Review]:
+        """
+        Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[Review],
+            await self._request_async(
+                "get",
+                "/v1/reviews",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         review: str,
@@ -100,6 +120,27 @@ class ReviewService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        review: str,
+        params: "ReviewService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Review:
+        """
+        Retrieves a Review object.
+        """
+        return cast(
+            Review,
+            await self._request_async(
+                "get",
+                "/v1/reviews/{review}".format(review=sanitize_id(review)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def approve(
         self,
         review: str,
@@ -112,6 +153,29 @@ class ReviewService(StripeService):
         return cast(
             Review,
             self._request(
+                "post",
+                "/v1/reviews/{review}/approve".format(
+                    review=sanitize_id(review),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def approve_async(
+        self,
+        review: str,
+        params: "ReviewService.ApproveParams" = {},
+        options: RequestOptions = {},
+    ) -> Review:
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        return cast(
+            Review,
+            await self._request_async(
                 "post",
                 "/v1/reviews/{review}/approve".format(
                     review=sanitize_id(review),

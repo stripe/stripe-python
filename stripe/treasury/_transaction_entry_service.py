@@ -106,6 +106,26 @@ class TransactionEntryService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TransactionEntryService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[TransactionEntry]:
+        """
+        Retrieves a list of TransactionEntry objects.
+        """
+        return cast(
+            ListObject[TransactionEntry],
+            await self._request_async(
+                "get",
+                "/v1/treasury/transaction_entries",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -118,6 +138,29 @@ class TransactionEntryService(StripeService):
         return cast(
             TransactionEntry,
             self._request(
+                "get",
+                "/v1/treasury/transaction_entries/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "TransactionEntryService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> TransactionEntry:
+        """
+        Retrieves a TransactionEntry object.
+        """
+        return cast(
+            TransactionEntry,
+            await self._request_async(
                 "get",
                 "/v1/treasury/transaction_entries/{id}".format(
                     id=sanitize_id(id),

@@ -1442,6 +1442,26 @@ class PaymentMethodConfigurationService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PaymentMethodConfigurationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PaymentMethodConfiguration]:
+        """
+        List payment method configurations
+        """
+        return cast(
+            ListObject[PaymentMethodConfiguration],
+            await self._request_async(
+                "get",
+                "/v1/payment_method_configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "PaymentMethodConfigurationService.CreateParams" = {},
@@ -1453,6 +1473,26 @@ class PaymentMethodConfigurationService(StripeService):
         return cast(
             PaymentMethodConfiguration,
             self._request(
+                "post",
+                "/v1/payment_method_configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PaymentMethodConfigurationService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Creates a payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_configurations",
                 api_mode="V1",
@@ -1485,6 +1525,29 @@ class PaymentMethodConfigurationService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        configuration: str,
+        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Retrieve payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
+                "get",
+                "/v1/payment_method_configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         configuration: str,
@@ -1497,6 +1560,29 @@ class PaymentMethodConfigurationService(StripeService):
         return cast(
             PaymentMethodConfiguration,
             self._request(
+                "post",
+                "/v1/payment_method_configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        configuration: str,
+        params: "PaymentMethodConfigurationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Update payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),

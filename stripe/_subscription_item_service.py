@@ -426,6 +426,27 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
+                "delete",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         item: str,
@@ -438,6 +459,27 @@ class SubscriptionItemService(StripeService):
         return cast(
             SubscriptionItem,
             self._request(
+                "get",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Retrieves the subscription item with the given ID.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
                 "get",
                 "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
@@ -468,6 +510,27 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Updates the plan or quantity of an item on a current subscription.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
+                "post",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "SubscriptionItemService.ListParams",
@@ -488,6 +551,26 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SubscriptionItemService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[SubscriptionItem]:
+        """
+        Returns a list of your subscription items for a given subscription.
+        """
+        return cast(
+            ListObject[SubscriptionItem],
+            await self._request_async(
+                "get",
+                "/v1/subscription_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SubscriptionItemService.CreateParams",
@@ -499,6 +582,26 @@ class SubscriptionItemService(StripeService):
         return cast(
             SubscriptionItem,
             self._request(
+                "post",
+                "/v1/subscription_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SubscriptionItemService.CreateParams",
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Adds a new item to an existing subscription. No existing items will be changed or replaced.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
                 "post",
                 "/v1/subscription_items",
                 api_mode="V1",

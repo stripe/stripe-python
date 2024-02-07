@@ -39,7 +39,28 @@ class QuoteLineService(StripeService):
         """
         return cast(
             ListObject[QuoteLine],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        quote: str,
+        params: "QuoteLineService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[QuoteLine]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject[QuoteLine],
+            await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
                 api_mode="V1",

@@ -138,6 +138,26 @@ class TransferService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TransferService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Transfer]:
+        """
+        Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
+        """
+        return cast(
+            ListObject[Transfer],
+            await self._request_async(
+                "get",
+                "/v1/transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "TransferService.CreateParams",
@@ -149,6 +169,26 @@ class TransferService(StripeService):
         return cast(
             Transfer,
             self._request(
+                "post",
+                "/v1/transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "TransferService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Transfer:
+        """
+        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+        """
+        return cast(
+            Transfer,
+            await self._request_async(
                 "post",
                 "/v1/transfers",
                 api_mode="V1",
@@ -181,6 +221,29 @@ class TransferService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        transfer: str,
+        params: "TransferService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Transfer:
+        """
+        Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
+        """
+        return cast(
+            Transfer,
+            await self._request_async(
+                "get",
+                "/v1/transfers/{transfer}".format(
+                    transfer=sanitize_id(transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         transfer: str,
@@ -195,6 +258,31 @@ class TransferService(StripeService):
         return cast(
             Transfer,
             self._request(
+                "post",
+                "/v1/transfers/{transfer}".format(
+                    transfer=sanitize_id(transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        transfer: str,
+        params: "TransferService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Transfer:
+        """
+        Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+        This request accepts only metadata as an argument.
+        """
+        return cast(
+            Transfer,
+            await self._request_async(
                 "post",
                 "/v1/transfers/{transfer}".format(
                     transfer=sanitize_id(transfer),

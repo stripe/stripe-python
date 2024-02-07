@@ -62,6 +62,26 @@ class ReceivedDebitService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReceivedDebitService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[ReceivedDebit]:
+        """
+        Returns a list of ReceivedDebits.
+        """
+        return cast(
+            ListObject[ReceivedDebit],
+            await self._request_async(
+                "get",
+                "/v1/treasury/received_debits",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -74,6 +94,27 @@ class ReceivedDebitService(StripeService):
         return cast(
             ReceivedDebit,
             self._request(
+                "get",
+                "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "ReceivedDebitService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ReceivedDebit:
+        """
+        Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
+        """
+        return cast(
+            ReceivedDebit,
+            await self._request_async(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

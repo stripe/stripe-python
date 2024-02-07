@@ -105,3 +105,23 @@ class CustomerSessionService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "CustomerSessionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> CustomerSession:
+        """
+        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        """
+        return cast(
+            CustomerSession,
+            await self._request_async(
+                "post",
+                "/v1/customer_sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

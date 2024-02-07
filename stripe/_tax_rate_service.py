@@ -172,6 +172,26 @@ class TaxRateService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TaxRateService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[TaxRate]:
+        """
+        Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
+        """
+        return cast(
+            ListObject[TaxRate],
+            await self._request_async(
+                "get",
+                "/v1/tax_rates",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "TaxRateService.CreateParams",
@@ -183,6 +203,26 @@ class TaxRateService(StripeService):
         return cast(
             TaxRate,
             self._request(
+                "post",
+                "/v1/tax_rates",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "TaxRateService.CreateParams",
+        options: RequestOptions = {},
+    ) -> TaxRate:
+        """
+        Creates a new tax rate.
+        """
+        return cast(
+            TaxRate,
+            await self._request_async(
                 "post",
                 "/v1/tax_rates",
                 api_mode="V1",
@@ -215,6 +255,29 @@ class TaxRateService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        tax_rate: str,
+        params: "TaxRateService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> TaxRate:
+        """
+        Retrieves a tax rate with the given ID
+        """
+        return cast(
+            TaxRate,
+            await self._request_async(
+                "get",
+                "/v1/tax_rates/{tax_rate}".format(
+                    tax_rate=sanitize_id(tax_rate),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         tax_rate: str,
@@ -227,6 +290,29 @@ class TaxRateService(StripeService):
         return cast(
             TaxRate,
             self._request(
+                "post",
+                "/v1/tax_rates/{tax_rate}".format(
+                    tax_rate=sanitize_id(tax_rate),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        tax_rate: str,
+        params: "TaxRateService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> TaxRate:
+        """
+        Updates an existing tax rate.
+        """
+        return cast(
+            TaxRate,
+            await self._request_async(
                 "post",
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),

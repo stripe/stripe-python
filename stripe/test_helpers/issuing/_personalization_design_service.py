@@ -56,7 +56,30 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
+                    personalization_design=sanitize_id(personalization_design),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def activate_async(
+        self,
+        personalization_design: str,
+        params: "PersonalizationDesignService.ActivateParams" = {},
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Updates the status of the specified testmode personalization design object to active.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                     personalization_design=sanitize_id(personalization_design),
@@ -79,7 +102,30 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
+                    personalization_design=sanitize_id(personalization_design),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def deactivate_async(
+        self,
+        personalization_design: str,
+        params: "PersonalizationDesignService.DeactivateParams" = {},
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Updates the status of the specified testmode personalization design object to inactive.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
                     personalization_design=sanitize_id(personalization_design),
@@ -102,7 +148,30 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
+                    personalization_design=sanitize_id(personalization_design),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reject_async(
+        self,
+        personalization_design: str,
+        params: "PersonalizationDesignService.RejectParams",
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Updates the status of the specified testmode personalization design object to rejected.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                     personalization_design=sanitize_id(personalization_design),

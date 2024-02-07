@@ -42,6 +42,26 @@ class ReportTypeService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReportTypeService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ReportType]:
+        """
+        Returns a full list of Report Types.
+        """
+        return cast(
+            ListObject[ReportType],
+            await self._request_async(
+                "get",
+                "/v1/reporting/report_types",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         report_type: str,
@@ -54,6 +74,29 @@ class ReportTypeService(StripeService):
         return cast(
             ReportType,
             self._request(
+                "get",
+                "/v1/reporting/report_types/{report_type}".format(
+                    report_type=sanitize_id(report_type),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        report_type: str,
+        params: "ReportTypeService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ReportType:
+        """
+        Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+        """
+        return cast(
+            ReportType,
+            await self._request_async(
                 "get",
                 "/v1/reporting/report_types/{report_type}".format(
                     report_type=sanitize_id(report_type),

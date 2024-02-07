@@ -54,6 +54,26 @@ class TaxCodeService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TaxCodeService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[TaxCode]:
+        """
+        A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
+        """
+        return cast(
+            ListObject[TaxCode],
+            await self._request_async(
+                "get",
+                "/v1/tax_codes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -66,6 +86,27 @@ class TaxCodeService(StripeService):
         return cast(
             TaxCode,
             self._request(
+                "get",
+                "/v1/tax_codes/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "TaxCodeService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> TaxCode:
+        """
+        Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
+        """
+        return cast(
+            TaxCode,
+            await self._request_async(
                 "get",
                 "/v1/tax_codes/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

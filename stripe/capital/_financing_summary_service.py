@@ -24,7 +24,27 @@ class FinancingSummaryService(StripeService):
         """
         return cast(
             FinancingSummary,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/capital/financing_summary",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        params: "FinancingSummaryService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancingSummary:
+        """
+        Retrieve the financing state for the account that was authenticated in the request.
+        """
+        return cast(
+            FinancingSummary,
+            await self._request_async(
                 "get",
                 "/v1/capital/financing_summary",
                 api_mode="V1",

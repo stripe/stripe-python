@@ -123,6 +123,26 @@ class AccountService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "AccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Account]:
+        """
+        Returns a list of Financial Connections Account objects.
+        """
+        return cast(
+            ListObject[Account],
+            await self._request_async(
+                "get",
+                "/v1/financial_connections/accounts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         account: str,
@@ -135,6 +155,29 @@ class AccountService(StripeService):
         return cast(
             Account,
             self._request(
+                "get",
+                "/v1/financial_connections/accounts/{account}".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        account: str,
+        params: "AccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Retrieves the details of an Financial Connections Account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts/{account}".format(
                     account=sanitize_id(account),
@@ -169,6 +212,29 @@ class AccountService(StripeService):
             ),
         )
 
+    async def disconnect_async(
+        self,
+        account: str,
+        params: "AccountService.DisconnectParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v1/financial_connections/accounts/{account}/disconnect".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def refresh(
         self,
         account: str,
@@ -181,6 +247,29 @@ class AccountService(StripeService):
         return cast(
             Account,
             self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/refresh".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def refresh_async(
+        self,
+        account: str,
+        params: "AccountService.RefreshParams",
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
                     account=sanitize_id(account),
@@ -215,6 +304,29 @@ class AccountService(StripeService):
             ),
         )
 
+    async def subscribe_async(
+        self,
+        account: str,
+        params: "AccountService.SubscribeParams",
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v1/financial_connections/accounts/{account}/subscribe".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def unsubscribe(
         self,
         account: str,
@@ -227,6 +339,29 @@ class AccountService(StripeService):
         return cast(
             Account,
             self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unsubscribe_async(
+        self,
+        account: str,
+        params: "AccountService.UnsubscribeParams",
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
                     account=sanitize_id(account),

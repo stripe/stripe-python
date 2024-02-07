@@ -202,7 +202,27 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             ListObject[PersonalizationDesign],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/issuing/personalization_designs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "PersonalizationDesignService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PersonalizationDesign]:
+        """
+        Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[PersonalizationDesign],
+            await self._request_async(
                 "get",
                 "/v1/issuing/personalization_designs",
                 api_mode="V1",
@@ -222,7 +242,27 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/personalization_designs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PersonalizationDesignService.CreateParams",
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Creates a personalization design object.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "post",
                 "/v1/issuing/personalization_designs",
                 api_mode="V1",
@@ -243,7 +283,30 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/issuing/personalization_designs/{personalization_design}".format(
+                    personalization_design=sanitize_id(personalization_design),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        personalization_design: str,
+        params: "PersonalizationDesignService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Retrieves a personalization design object.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "get",
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),
@@ -266,7 +329,30 @@ class PersonalizationDesignService(StripeService):
         """
         return cast(
             PersonalizationDesign,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/personalization_designs/{personalization_design}".format(
+                    personalization_design=sanitize_id(personalization_design),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        personalization_design: str,
+        params: "PersonalizationDesignService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> PersonalizationDesign:
+        """
+        Updates a card personalization object.
+        """
+        return cast(
+            PersonalizationDesign,
+            await self._request_async(
                 "post",
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),

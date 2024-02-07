@@ -365,6 +365,29 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        reader: str,
+        params: "ReaderService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Deletes a Reader object.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "delete",
+                "/v1/terminal/readers/{reader}".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         reader: str,
@@ -377,6 +400,29 @@ class ReaderService(StripeService):
         return cast(
             Reader,
             self._request(
+                "get",
+                "/v1/terminal/readers/{reader}".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        reader: str,
+        params: "ReaderService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Retrieves a Reader object.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "get",
                 "/v1/terminal/readers/{reader}".format(
                     reader=sanitize_id(reader),
@@ -411,6 +457,29 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        reader: str,
+        params: "ReaderService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "ReaderService.ListParams" = {},
@@ -431,6 +500,26 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReaderService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Reader]:
+        """
+        Returns a list of Reader objects.
+        """
+        return cast(
+            ListObject[Reader],
+            await self._request_async(
+                "get",
+                "/v1/terminal/readers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ReaderService.CreateParams",
@@ -442,6 +531,26 @@ class ReaderService(StripeService):
         return cast(
             Reader,
             self._request(
+                "post",
+                "/v1/terminal/readers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ReaderService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Creates a new Reader object.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers",
                 api_mode="V1",
@@ -474,6 +583,29 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def cancel_action_async(
+        self,
+        reader: str,
+        params: "ReaderService.CancelActionParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Cancels the current reader action.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def collect_inputs(
         self,
         reader: str,
@@ -485,7 +617,30 @@ class ReaderService(StripeService):
         """
         return cast(
             Reader,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def collect_inputs_async(
+        self,
+        reader: str,
+        params: "ReaderService.CollectInputsParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
                     reader=sanitize_id(reader),
@@ -508,7 +663,30 @@ class ReaderService(StripeService):
         """
         return cast(
             Reader,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def collect_payment_method_async(
+        self,
+        reader: str,
+        params: "ReaderService.CollectPaymentMethodParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
                     reader=sanitize_id(reader),
@@ -531,7 +709,30 @@ class ReaderService(StripeService):
         """
         return cast(
             Reader,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def confirm_payment_intent_async(
+        self,
+        reader: str,
+        params: "ReaderService.ConfirmPaymentIntentParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(reader),
@@ -566,6 +767,29 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def process_payment_intent_async(
+        self,
+        reader: str,
+        params: "ReaderService.ProcessPaymentIntentParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a payment flow on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def process_setup_intent(
         self,
         reader: str,
@@ -578,6 +802,29 @@ class ReaderService(StripeService):
         return cast(
             Reader,
             self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def process_setup_intent_async(
+        self,
+        reader: str,
+        params: "ReaderService.ProcessSetupIntentParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a setup intent flow on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
                     reader=sanitize_id(reader),
@@ -612,6 +859,29 @@ class ReaderService(StripeService):
             ),
         )
 
+    async def refund_payment_async(
+        self,
+        reader: str,
+        params: "ReaderService.RefundPaymentParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a refund on a Reader
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def set_reader_display(
         self,
         reader: str,
@@ -624,6 +894,29 @@ class ReaderService(StripeService):
         return cast(
             Reader,
             self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/set_reader_display".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def set_reader_display_async(
+        self,
+        reader: str,
+        params: "ReaderService.SetReaderDisplayParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Sets reader display to show cart details.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
                     reader=sanitize_id(reader),

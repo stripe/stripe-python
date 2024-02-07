@@ -41,7 +41,30 @@ class AccountInferredBalanceService(StripeService):
         """
         return cast(
             ListObject[AccountInferredBalance],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        account: str,
+        params: "AccountInferredBalanceService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[AccountInferredBalance]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        return cast(
+            ListObject[AccountInferredBalance],
+            await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts/{account}/inferred_balances".format(
                     account=sanitize_id(account),

@@ -388,6 +388,29 @@ class WebhookEndpointService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        webhook_endpoint: str,
+        params: "WebhookEndpointService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> WebhookEndpoint:
+        """
+        You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
+        """
+        return cast(
+            WebhookEndpoint,
+            await self._request_async(
+                "delete",
+                "/v1/webhook_endpoints/{webhook_endpoint}".format(
+                    webhook_endpoint=sanitize_id(webhook_endpoint),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         webhook_endpoint: str,
@@ -400,6 +423,29 @@ class WebhookEndpointService(StripeService):
         return cast(
             WebhookEndpoint,
             self._request(
+                "get",
+                "/v1/webhook_endpoints/{webhook_endpoint}".format(
+                    webhook_endpoint=sanitize_id(webhook_endpoint),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        webhook_endpoint: str,
+        params: "WebhookEndpointService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> WebhookEndpoint:
+        """
+        Retrieves the webhook endpoint with the given ID.
+        """
+        return cast(
+            WebhookEndpoint,
+            await self._request_async(
                 "get",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
@@ -434,6 +480,29 @@ class WebhookEndpointService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        webhook_endpoint: str,
+        params: "WebhookEndpointService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> WebhookEndpoint:
+        """
+        Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
+        """
+        return cast(
+            WebhookEndpoint,
+            await self._request_async(
+                "post",
+                "/v1/webhook_endpoints/{webhook_endpoint}".format(
+                    webhook_endpoint=sanitize_id(webhook_endpoint),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "WebhookEndpointService.ListParams" = {},
@@ -454,6 +523,26 @@ class WebhookEndpointService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "WebhookEndpointService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[WebhookEndpoint]:
+        """
+        Returns a list of your webhook endpoints.
+        """
+        return cast(
+            ListObject[WebhookEndpoint],
+            await self._request_async(
+                "get",
+                "/v1/webhook_endpoints",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "WebhookEndpointService.CreateParams",
@@ -465,6 +554,26 @@ class WebhookEndpointService(StripeService):
         return cast(
             WebhookEndpoint,
             self._request(
+                "post",
+                "/v1/webhook_endpoints",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "WebhookEndpointService.CreateParams",
+        options: RequestOptions = {},
+    ) -> WebhookEndpoint:
+        """
+        A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
+        """
+        return cast(
+            WebhookEndpoint,
+            await self._request_async(
                 "post",
                 "/v1/webhook_endpoints",
                 api_mode="V1",

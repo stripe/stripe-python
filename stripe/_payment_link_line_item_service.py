@@ -50,3 +50,26 @@ class PaymentLinkLineItemService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        payment_link: str,
+        params: "PaymentLinkLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[LineItem]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[LineItem],
+            await self._request_async(
+                "get",
+                "/v1/payment_links/{payment_link}/line_items".format(
+                    payment_link=sanitize_id(payment_link),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

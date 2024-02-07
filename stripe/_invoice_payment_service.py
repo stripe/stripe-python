@@ -45,7 +45,30 @@ class InvoicePaymentService(StripeService):
         """
         return cast(
             ListObject[InvoicePayment],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/invoices/{invoice}/payments".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        invoice: str,
+        params: "InvoicePaymentService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[InvoicePayment]:
+        """
+        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
+        """
+        return cast(
+            ListObject[InvoicePayment],
+            await self._request_async(
                 "get",
                 "/v1/invoices/{invoice}/payments".format(
                     invoice=sanitize_id(invoice),
@@ -69,7 +92,32 @@ class InvoicePaymentService(StripeService):
         """
         return cast(
             InvoicePayment,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
+                    invoice=sanitize_id(invoice),
+                    invoice_payment=sanitize_id(invoice_payment),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        invoice: str,
+        invoice_payment: str,
+        params: "InvoicePaymentService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> InvoicePayment:
+        """
+        Retrieves the invoice payment with the given ID.
+        """
+        return cast(
+            InvoicePayment,
+            await self._request_async(
                 "get",
                 "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
                     invoice=sanitize_id(invoice),

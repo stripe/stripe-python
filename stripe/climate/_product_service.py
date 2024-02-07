@@ -54,6 +54,26 @@ class ProductService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ProductService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Product]:
+        """
+        Lists all available Climate product objects.
+        """
+        return cast(
+            ListObject[Product],
+            await self._request_async(
+                "get",
+                "/v1/climate/products",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         product: str,
@@ -66,6 +86,29 @@ class ProductService(StripeService):
         return cast(
             Product,
             self._request(
+                "get",
+                "/v1/climate/products/{product}".format(
+                    product=sanitize_id(product),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        product: str,
+        params: "ProductService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Product:
+        """
+        Retrieves the details of a Climate product with the given ID.
+        """
+        return cast(
+            Product,
+            await self._request_async(
                 "get",
                 "/v1/climate/products/{product}".format(
                     product=sanitize_id(product),

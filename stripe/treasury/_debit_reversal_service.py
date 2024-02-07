@@ -84,6 +84,26 @@ class DebitReversalService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "DebitReversalService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[DebitReversal]:
+        """
+        Returns a list of DebitReversals.
+        """
+        return cast(
+            ListObject[DebitReversal],
+            await self._request_async(
+                "get",
+                "/v1/treasury/debit_reversals",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "DebitReversalService.CreateParams",
@@ -95,6 +115,26 @@ class DebitReversalService(StripeService):
         return cast(
             DebitReversal,
             self._request(
+                "post",
+                "/v1/treasury/debit_reversals",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "DebitReversalService.CreateParams",
+        options: RequestOptions = {},
+    ) -> DebitReversal:
+        """
+        Reverses a ReceivedDebit and creates a DebitReversal object.
+        """
+        return cast(
+            DebitReversal,
+            await self._request_async(
                 "post",
                 "/v1/treasury/debit_reversals",
                 api_mode="V1",
@@ -116,6 +156,29 @@ class DebitReversalService(StripeService):
         return cast(
             DebitReversal,
             self._request(
+                "get",
+                "/v1/treasury/debit_reversals/{debit_reversal}".format(
+                    debit_reversal=sanitize_id(debit_reversal),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        debit_reversal: str,
+        params: "DebitReversalService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> DebitReversal:
+        """
+        Retrieves a DebitReversal object.
+        """
+        return cast(
+            DebitReversal,
+            await self._request_async(
                 "get",
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
                     debit_reversal=sanitize_id(debit_reversal),

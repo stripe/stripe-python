@@ -54,6 +54,26 @@ class ScheduledQueryRunService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ScheduledQueryRunService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ScheduledQueryRun]:
+        """
+        Returns a list of scheduled query runs.
+        """
+        return cast(
+            ListObject[ScheduledQueryRun],
+            await self._request_async(
+                "get",
+                "/v1/sigma/scheduled_query_runs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         scheduled_query_run: str,
@@ -66,6 +86,29 @@ class ScheduledQueryRunService(StripeService):
         return cast(
             ScheduledQueryRun,
             self._request(
+                "get",
+                "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
+                    scheduled_query_run=sanitize_id(scheduled_query_run),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        scheduled_query_run: str,
+        params: "ScheduledQueryRunService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ScheduledQueryRun:
+        """
+        Retrieves the details of an scheduled query run.
+        """
+        return cast(
+            ScheduledQueryRun,
+            await self._request_async(
                 "get",
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
                     scheduled_query_run=sanitize_id(scheduled_query_run),

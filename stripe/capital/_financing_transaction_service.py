@@ -61,7 +61,28 @@ class FinancingTransactionService(StripeService):
         """
         return cast(
             ListObject[FinancingTransaction],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/capital/financing_transactions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "FinancingTransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FinancingTransaction]:
+        """
+        Returns a list of financing transactions. The transactions are returned in sorted order,
+        with the most recent transactions appearing first.
+        """
+        return cast(
+            ListObject[FinancingTransaction],
+            await self._request_async(
                 "get",
                 "/v1/capital/financing_transactions",
                 api_mode="V1",
@@ -82,7 +103,30 @@ class FinancingTransactionService(StripeService):
         """
         return cast(
             FinancingTransaction,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/capital/financing_transactions/{financing_transaction}".format(
+                    financing_transaction=sanitize_id(financing_transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        financing_transaction: str,
+        params: "FinancingTransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancingTransaction:
+        """
+        Retrieves a financing transaction for a financing offer.
+        """
+        return cast(
+            FinancingTransaction,
+            await self._request_async(
                 "get",
                 "/v1/capital/financing_transactions/{financing_transaction}".format(
                     financing_transaction=sanitize_id(financing_transaction),

@@ -50,3 +50,26 @@ class CreditNoteLineItemService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        credit_note: str,
+        params: "CreditNoteLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CreditNoteLineItem]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[CreditNoteLineItem],
+            await self._request_async(
+                "get",
+                "/v1/credit_notes/{credit_note}/lines".format(
+                    credit_note=sanitize_id(credit_note),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

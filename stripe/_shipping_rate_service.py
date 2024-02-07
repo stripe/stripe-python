@@ -232,6 +232,26 @@ class ShippingRateService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ShippingRateService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ShippingRate]:
+        """
+        Returns a list of your shipping rates.
+        """
+        return cast(
+            ListObject[ShippingRate],
+            await self._request_async(
+                "get",
+                "/v1/shipping_rates",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ShippingRateService.CreateParams",
@@ -243,6 +263,26 @@ class ShippingRateService(StripeService):
         return cast(
             ShippingRate,
             self._request(
+                "post",
+                "/v1/shipping_rates",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ShippingRateService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ShippingRate:
+        """
+        Creates a new shipping rate object.
+        """
+        return cast(
+            ShippingRate,
+            await self._request_async(
                 "post",
                 "/v1/shipping_rates",
                 api_mode="V1",
@@ -275,6 +315,29 @@ class ShippingRateService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        shipping_rate_token: str,
+        params: "ShippingRateService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ShippingRate:
+        """
+        Returns the shipping rate object with the given ID.
+        """
+        return cast(
+            ShippingRate,
+            await self._request_async(
+                "get",
+                "/v1/shipping_rates/{shipping_rate_token}".format(
+                    shipping_rate_token=sanitize_id(shipping_rate_token),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         shipping_rate_token: str,
@@ -287,6 +350,29 @@ class ShippingRateService(StripeService):
         return cast(
             ShippingRate,
             self._request(
+                "post",
+                "/v1/shipping_rates/{shipping_rate_token}".format(
+                    shipping_rate_token=sanitize_id(shipping_rate_token),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        shipping_rate_token: str,
+        params: "ShippingRateService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> ShippingRate:
+        """
+        Updates an existing shipping rate object.
+        """
+        return cast(
+            ShippingRate,
+            await self._request_async(
                 "post",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),

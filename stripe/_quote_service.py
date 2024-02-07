@@ -2838,6 +2838,26 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "QuoteService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Quote]:
+        """
+        Returns a list of your quotes.
+        """
+        return cast(
+            ListObject[Quote],
+            await self._request_async(
+                "get",
+                "/v1/quotes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "QuoteService.CreateParams" = {},
@@ -2849,6 +2869,26 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "QuoteService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes",
                 api_mode="V1",
@@ -2879,6 +2919,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        quote: str,
+        params: "QuoteService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Retrieves the quote with the given ID.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         quote: str,
@@ -2891,6 +2952,27 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        quote: str,
+        params: "QuoteService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        A quote models prices and services for a customer.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2921,6 +3003,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def accept_async(
+        self,
+        quote: str,
+        params: "QuoteService.AcceptParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Accepts the specified quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         quote: str,
@@ -2933,6 +3036,27 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        quote: str,
+        params: "QuoteService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Cancels the quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -2963,6 +3087,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def finalize_quote_async(
+        self,
+        quote: str,
+        params: "QuoteService.FinalizeQuoteParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Finalizes the quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def mark_draft(
         self,
         quote: str,
@@ -2974,7 +3119,30 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(quote),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def mark_draft_async(
+        self,
+        quote: str,
+        params: "QuoteService.MarkDraftParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
                     quote=sanitize_id(quote),
@@ -2997,7 +3165,30 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(quote),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def mark_stale_async(
+        self,
+        quote: str,
+        params: "QuoteService.MarkStaleParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
                     quote=sanitize_id(quote),
@@ -3020,7 +3211,30 @@ class QuoteService(StripeService):
         """
         return cast(
             Quote,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(quote),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reestimate_async(
+        self,
+        quote: str,
+        params: "QuoteService.ReestimateParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
                     quote=sanitize_id(quote),
@@ -3053,6 +3267,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def pdf_async(
+        self,
+        quote: str,
+        params: "QuoteService.PdfParams" = {},
+        options: RequestOptions = {},
+    ) -> Any:
+        """
+        Download the PDF for a finalized quote
+        """
+        return cast(
+            Any,
+            await self._request_stream_async(
+                "get",
+                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="files",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list_preview_invoice_lines(
         self,
         quote: str,
@@ -3065,7 +3300,32 @@ class QuoteService(StripeService):
         """
         return cast(
             ListObject[InvoiceLineItem],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(quote),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_preview_invoice_lines_async(
+        self,
+        quote: str,
+        preview_invoice: str,
+        params: "QuoteService.ListPreviewInvoiceLinesParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[InvoiceLineItem]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject[InvoiceLineItem],
+            await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
                     quote=sanitize_id(quote),

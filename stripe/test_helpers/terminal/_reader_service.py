@@ -69,3 +69,26 @@ class ReaderService(StripeService):
                 options=options,
             ),
         )
+
+    async def present_payment_method_async(
+        self,
+        reader: str,
+        params: "ReaderService.PresentPaymentMethodParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                    reader=sanitize_id(reader),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

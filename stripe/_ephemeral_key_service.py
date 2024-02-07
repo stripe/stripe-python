@@ -58,6 +58,27 @@ class EphemeralKeyService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        key: str,
+        params: "EphemeralKeyService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> EphemeralKey:
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
+        return cast(
+            EphemeralKey,
+            await self._request_async(
+                "delete",
+                "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "EphemeralKeyService.CreateParams" = {},
@@ -69,6 +90,26 @@ class EphemeralKeyService(StripeService):
         return cast(
             EphemeralKey,
             self._request(
+                "post",
+                "/v1/ephemeral_keys",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "EphemeralKeyService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> EphemeralKey:
+        """
+        Creates a short-lived API key for a given resource.
+        """
+        return cast(
+            EphemeralKey,
+            await self._request_async(
                 "post",
                 "/v1/ephemeral_keys",
                 api_mode="V1",

@@ -10085,15 +10085,13 @@ class Invoice(
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> Iterator["Invoice"]:
-        return (cls.search(*args, **kwargs)).auto_paging_iter()
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> AsyncIterator["Invoice"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return await cls.search_async(*args, **kwargs).auto_paging_iter_async()
 
     @classmethod
     def retrieve_payment(

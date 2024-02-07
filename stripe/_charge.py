@@ -3875,15 +3875,13 @@ class Charge(
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> Iterator["Charge"]:
-        return (cls.search(*args, **kwargs)).auto_paging_iter()
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> AsyncIterator["Charge"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return await cls.search_async(*args, **kwargs).auto_paging_iter_async()
 
     def mark_as_fraudulent(self, idempotency_key=None) -> "Charge":
         params = {
