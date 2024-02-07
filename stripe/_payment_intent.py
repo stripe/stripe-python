@@ -12324,7 +12324,9 @@ class PaymentIntent(
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
     ) -> AsyncIterator["PaymentIntent"]:
-        return await cls.search_async(*args, **kwargs).auto_paging_iter_async()
+        return (
+            await cls.search_async(*args, **kwargs)
+        ).auto_paging_iter_async()
 
     _inner_class_types = {
         "amount_details": AmountDetails,

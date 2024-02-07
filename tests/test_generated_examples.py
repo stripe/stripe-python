@@ -2,11 +2,11 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 import stripe
-import pytest
 
 from tests.http_client_mock import HTTPClientMock
 import io
 from stripe import StripeClient
+import pytest
 
 
 class TestGeneratedExamples(object):
