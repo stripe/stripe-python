@@ -2,14 +2,12 @@ import datetime
 import json
 import pickle
 from copy import copy, deepcopy
-from typing import Any
-from typing_extensions import Optional
+from typing import Any, Optional
 
 import pytest
 
 import stripe
 from stripe._stripe_object import StripeObject
-from stripe import Customer
 
 
 SAMPLE_INVOICE = json.loads(
