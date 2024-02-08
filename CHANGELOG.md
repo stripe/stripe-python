@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.3.0b1 - 2024-02-08
+* [#1226](https://github.com/stripe/stripe-python/pull/1226) Update generated code for beta
+  * Add support for `payment_method_options` on `ConfirmationToken`
+* [#1228](https://github.com/stripe/stripe-python/pull/1228) Beta: add `_async` methods for StripeClient
+
 ## 8.2.0b1 - 2024-02-05
 * [#1218](https://github.com/stripe/stripe-python/pull/1218) Update generated code for beta
   * Add support for new resources `Entitlements.Event` and `Entitlements.Feature`
