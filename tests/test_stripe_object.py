@@ -3,11 +3,13 @@ import json
 import pickle
 from copy import copy, deepcopy
 from typing import Any
+from typing_extensions import Optional
 
 import pytest
 
 import stripe
 from stripe._stripe_object import StripeObject
+from stripe import Customer
 
 
 SAMPLE_INVOICE = json.loads(
@@ -407,14 +409,36 @@ class TestStripeObject(object):
         )
 
     def test_absent_as_none(self):
-        obj: Any = StripeObject.construct_from({}, None)
-        raised_attribute_error = False
+        class MyResource(StripeObject):
+            foo: int
+            bar: Optional[int]
+            baz: Optional[int]
+
+        resource: Any = MyResource.construct_from(
+            {"foo": 1, "bar": None}, None
+        )
+
+        stripe.absent_as_none = False
+        assert resource.foo == 1
+        assert resource.bar is None
         try:
-            obj.bar
-        except AttributeError as e:
-            raised_attribute_error = True
-            assert "bar" in str(e)
-        assert raised_attribute_error
+            resource.baz
+            assert False, ".baz should raise"
+        except AttributeError:
+            pass
+
+        try:
+            resource.qux
+            assert False, ".qux should raise"
+        except AttributeError:
+            pass
 
         stripe.absent_as_none = True
-        assert obj.bar is None
+        assert resource.foo == 1
+        assert resource.bar is None
+        assert resource.baz is None
+        try:
+            resource.qux
+            assert False, ".qux should raise"
+        except AttributeError:
+            pass

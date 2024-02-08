@@ -170,7 +170,8 @@ class StripeObject(Dict[str, Any]):
                 return self[k]
             except KeyError as err:
                 if stripe.absent_as_none:
-                    return None
+                    if k in self.__annotations__:
+                        return None
                 raise AttributeError(*err.args)
 
         def __delattr__(self, k):
