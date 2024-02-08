@@ -1,3 +1,13 @@
+## 8.2.0 - 2024-02-08
+* [#1225](https://github.com/stripe/stripe-python/pull/1225) Update generated code
+  * Add support for `invoices` on `Account.Settings`
+  * Add support for new value `velobank` on various enums `PaymentMethodDetails.P24.bank`
+  * Add support for `setup_future_usage` on `PaymentMethodOptions.Blik`
+  * Add support for `require_cvc_recollection` on `PaymentMethodOptions.Card`
+  * Add support for `account_tax_ids` on various `InvoiceSettings` request parameters
+* [#1223](https://github.com/stripe/stripe-python/pull/1223) Move StripeClient usage collection onto StripeService
+* [#1220](https://github.com/stripe/stripe-python/pull/1220) Measure StripeClient usage
+
 ## 8.1.0 - 2024-02-01
 * [#1213](https://github.com/stripe/stripe-python/pull/1213) Update generated code
   * Add support for `swish` payment method throughout the API
