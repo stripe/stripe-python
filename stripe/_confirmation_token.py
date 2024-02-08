@@ -52,6 +52,19 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         _inner_class_types = {"customer_acceptance": CustomerAcceptance}
 
+    class PaymentMethodOptions(StripeObject):
+        class Card(StripeObject):
+            cvc_token: Optional[str]
+            """
+            The `cvc_update` Token collected from the Payment Element.
+            """
+
+        card: Optional[Card]
+        """
+        This hash contains the card payment method options.
+        """
+        _inner_class_types = {"card": Card}
+
     class PaymentMethodPreview(StripeObject):
         class AcssDebit(StripeObject):
             bank_name: Optional[str]
@@ -1194,6 +1207,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     ID of an existing PaymentMethod.
     """
+    payment_method_options: Optional[PaymentMethodOptions]
+    """
+    Payment-method-specific configuration for this ConfirmationToken.
+    """
     payment_method_preview: Optional[PaymentMethodPreview]
     """
     Payment details collected by the Payment Element, used to create a PaymentMethod when a PaymentIntent or SetupIntent is confirmed with this ConfirmationToken.
@@ -1241,6 +1258,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     _inner_class_types = {
         "mandate_data": MandateData,
+        "payment_method_options": PaymentMethodOptions,
         "payment_method_preview": PaymentMethodPreview,
         "shipping": Shipping,
     }
