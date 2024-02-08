@@ -169,9 +169,8 @@ class StripeObject(Dict[str, Any]):
                     k = self._field_remappings[k]
                 return self[k]
             except KeyError as err:
-                if stripe.absent_as_none:
-                    if k in self.__annotations__:
-                        return None
+                if stripe.absent_as_none and k in self.__annotations__:
+                    return None
                 raise AttributeError(*err.args)
 
         def __delattr__(self, k):

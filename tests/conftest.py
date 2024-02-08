@@ -73,7 +73,6 @@ def setup_stripe():
     stripe.api_key = MOCK_API_KEY
     stripe.client_id = "ca_123"
     stripe.default_http_client = http_client
-    stripe.absent_as_none = True
     yield
     http_client.close()
     stripe.api_base = orig_attrs["api_base"]
