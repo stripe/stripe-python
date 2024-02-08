@@ -27,6 +27,7 @@ if TYPE_CHECKING:
     from stripe._card import Card
     from stripe._file import File
     from stripe._login_link import LoginLink
+    from stripe._tax_id import TaxId
 
 
 @nested_resource_class_methods("capability")
@@ -934,6 +935,12 @@ class Account(
             The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
             """
 
+        class Invoices(StripeObject):
+            default_account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
+            """
+            The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
+            """
+
         class Payments(StripeObject):
             statement_descriptor: Optional[str]
             """
@@ -1015,6 +1022,7 @@ class Account(
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
+        invoices: Optional[Invoices]
         payments: Payments
         payouts: Optional[Payouts]
         sepa_debit_payments: Optional[SepaDebitPayments]
@@ -1025,6 +1033,7 @@ class Account(
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
+            "invoices": Invoices,
             "payments": Payments,
             "payouts": Payouts,
             "sepa_debit_payments": SepaDebitPayments,
@@ -3885,9 +3894,6 @@ class Account(
                 params=params,
             ),
         )
-
-    # We are not adding a helper for capabilities here as the Account object already has a
-    # capabilities property which is a hash and not the sub-list of capabilities.
 
     @classmethod
     def retrieve(cls, id=None, **params) -> "Account":

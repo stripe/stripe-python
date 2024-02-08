@@ -663,7 +663,7 @@ class PaymentIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
         ]
         """
         The customer's bank.
@@ -1107,6 +1107,16 @@ class PaymentIntentService(StripeService):
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
+        setup_future_usage: NotRequired["Literal['']|Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
 
     class ConfirmParamsPaymentMethodOptionsBoleto(TypedDict):
         expires_after_days: NotRequired["int"]
@@ -1190,6 +1200,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        require_cvc_recollection: NotRequired["bool"]
+        """
+        When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
@@ -2606,7 +2620,7 @@ class PaymentIntentService(StripeService):
 
     class CreateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
         ]
         """
         The customer's bank.
@@ -3050,6 +3064,16 @@ class PaymentIntentService(StripeService):
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
+        setup_future_usage: NotRequired["Literal['']|Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
 
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
         expires_after_days: NotRequired["int"]
@@ -3133,6 +3157,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        require_cvc_recollection: NotRequired["bool"]
+        """
+        When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
@@ -4579,7 +4607,7 @@ class PaymentIntentService(StripeService):
 
     class UpdateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
         ]
         """
         The customer's bank.
@@ -5023,6 +5051,16 @@ class PaymentIntentService(StripeService):
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
+        setup_future_usage: NotRequired["Literal['']|Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
 
     class UpdateParamsPaymentMethodOptionsBoleto(TypedDict):
         expires_after_days: NotRequired["int"]
@@ -5106,6 +5144,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
+        require_cvc_recollection: NotRequired["bool"]
+        """
+        When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
