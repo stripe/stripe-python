@@ -2,10 +2,12 @@ import datetime
 import json
 import pickle
 from copy import copy, deepcopy
+from typing import Any
 
 import pytest
 
 import stripe
+from stripe._stripe_object import StripeObject
 
 
 SAMPLE_INVOICE = json.loads(
@@ -93,15 +95,13 @@ SAMPLE_INVOICE = json.loads(
 
 class TestStripeObject(object):
     def test_initializes_with_parameters(self):
-        obj = stripe.stripe_object.StripeObject(
-            "foo", "bar", myparam=5, yourparam="boo"
-        )
+        obj = StripeObject("foo", "bar", myparam=5, yourparam="boo")
 
         assert obj.id == "foo"
         assert obj.api_key == "bar"
 
     def test_access(self):
-        obj = stripe.stripe_object.StripeObject("myid", "mykey", myparam=5)
+        obj = StripeObject("myid", "mykey", myparam=5)
 
         # Empty
         with pytest.raises(AttributeError):
@@ -131,7 +131,7 @@ class TestStripeObject(object):
             obj.foo = ""
 
     def test_refresh_from(self, mocker):
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        obj = StripeObject.construct_from(
             {"foo": "bar", "trans": "me"}, "mykey"
         )
 
@@ -168,7 +168,7 @@ class TestStripeObject(object):
         assert obj.trans == 4
 
     def test_passing_nested_refresh(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        obj = StripeObject.construct_from(
             {"foos": {"type": "list", "data": [{"id": "nested"}]}},
             "key",
             stripe_account="acct_foo",
@@ -182,23 +182,17 @@ class TestStripeObject(object):
         assert nested.stripe_account == "acct_foo"
 
     def test_refresh_from_nested_object(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            SAMPLE_INVOICE, "key"
-        )
+        obj = StripeObject.construct_from(SAMPLE_INVOICE, "key")
 
         assert len(obj.lines) == 1
         assert isinstance(obj.lines, stripe.ListObject)
         assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
-        assert isinstance(
-            obj.lines.data[0].price, stripe.stripe_object.StripeObject
-        )
+        assert isinstance(obj.lines.data[0].price, StripeObject)
         assert isinstance(obj.lines.data[0].price, stripe.Price)
         assert obj.lines.data[0].price.billing_scheme == "per_unit"
 
     def test_refresh_from_nested_object_can_be_paged(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            SAMPLE_INVOICE, "key"
-        )
+        obj = StripeObject.construct_from(SAMPLE_INVOICE, "key")
 
         assert len(obj.lines) == 1
         assert isinstance(obj.lines, stripe.ListObject)
@@ -207,16 +201,12 @@ class TestStripeObject(object):
         assert seen == ["il_1LSiex2eZvKYlo2CZ5IspTNx"]
 
         assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
-        assert isinstance(
-            obj.lines.data[0].price, stripe.stripe_object.StripeObject
-        )
+        assert isinstance(obj.lines.data[0].price, StripeObject)
         assert isinstance(obj.lines.data[0].price, stripe.Price)
         assert obj.lines.data[0].price.billing_scheme == "per_unit"
 
     def test_to_json(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            SAMPLE_INVOICE, "key"
-        )
+        obj = StripeObject.construct_from(SAMPLE_INVOICE, "key")
 
         self.check_invoice_data(json.loads(str(obj)))
 
@@ -235,7 +225,7 @@ class TestStripeObject(object):
         )
 
     def test_repr(self):
-        obj = stripe.stripe_object.StripeObject("foo", "bar", myparam=5)
+        obj = StripeObject("foo", "bar", myparam=5)
 
         obj["object"] = "\u4e00boo\u1f00"
         obj.date = datetime.datetime.fromtimestamp(1511136000)
@@ -247,7 +237,7 @@ class TestStripeObject(object):
         assert '"date": 1511136000' in res
 
     def test_pickling(self):
-        obj = stripe.stripe_object.StripeObject("foo", "bar", myparam=5)
+        obj = StripeObject("foo", "bar", myparam=5)
 
         obj["object"] = "boo"
         obj.refresh_from(
@@ -272,7 +262,7 @@ class TestStripeObject(object):
         assert newobj.emptystring == ""
 
     def test_deletion(self):
-        obj = stripe.stripe_object.StripeObject("id", "key")
+        obj = StripeObject("id", "key")
 
         obj.coupon = "foo"
         assert obj.coupon == "foo"
@@ -285,7 +275,7 @@ class TestStripeObject(object):
         assert obj.coupon == "foo"
 
     def test_deletion_metadata(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        obj = StripeObject.construct_from(
             {"metadata": {"key": "value"}}, "mykey"
         )
 
@@ -296,10 +286,8 @@ class TestStripeObject(object):
             obj.metadata["key"]
 
     def test_copy(self):
-        nested = stripe.stripe_object.StripeObject.construct_from(
-            {"value": "bar"}, "mykey"
-        )
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        nested = StripeObject.construct_from({"value": "bar"}, "mykey")
+        obj = StripeObject.construct_from(
             {"empty": "", "value": "foo", "nested": nested},
             "mykey",
             stripe_account="myaccount",
@@ -318,10 +306,8 @@ class TestStripeObject(object):
         assert id(nested) == id(copied.nested)
 
     def test_deepcopy(self):
-        nested = stripe.stripe_object.StripeObject.construct_from(
-            {"value": "bar"}, "mykey"
-        )
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        nested = StripeObject.construct_from({"value": "bar"}, "mykey")
+        obj = StripeObject.construct_from(
             {"empty": "", "value": "foo", "nested": nested},
             "mykey",
             stripe_account="myaccount",
@@ -340,13 +326,9 @@ class TestStripeObject(object):
         assert id(nested) != id(copied.nested)
 
     def test_to_dict_recursive(self):
-        foo = stripe.stripe_object.StripeObject.construct_from(
-            {"value": "foo"}, "mykey"
-        )
-        bar = stripe.stripe_object.StripeObject.construct_from(
-            {"value": "bar"}, "mykey"
-        )
-        obj = stripe.stripe_object.StripeObject.construct_from(
+        foo = StripeObject.construct_from({"value": "foo"}, "mykey")
+        bar = StripeObject.construct_from({"value": "bar"}, "mykey")
+        obj = StripeObject.construct_from(
             {"empty": "", "value": "foobar", "nested": [foo, bar]}, "mykey"
         )
 
@@ -356,36 +338,30 @@ class TestStripeObject(object):
             "value": "foobar",
             "nested": [{"value": "foo"}, {"value": "bar"}],
         }
-        assert not isinstance(
-            d["nested"][0], stripe.stripe_object.StripeObject
-        )
-        assert not isinstance(
-            d["nested"][1], stripe.stripe_object.StripeObject
-        )
+        assert not isinstance(d["nested"][0], StripeObject)
+        assert not isinstance(d["nested"][1], StripeObject)
 
     def test_serialize_empty_string_unsets(self):
-        class SerializeToEmptyString(stripe.stripe_object.StripeObject):
+        class SerializeToEmptyString(StripeObject):
             def serialize(self, previous):
                 return ""
 
         nested = SerializeToEmptyString.construct_from(
             {"value": "bar"}, "mykey"
         )
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            {"nested": nested}, "mykey"
-        )
+        obj = StripeObject.construct_from({"nested": nested}, "mykey")
 
         assert obj.serialize(None) == {"nested": ""}
 
     def test_field_name_remapping(self):
-        class Foo(stripe.stripe_object.StripeObject):
+        class Foo(StripeObject):
             _field_remappings = {"getter_name": "data_name"}
 
         obj = Foo.construct_from({"data_name": "foo"}, "mykey")
         assert obj.getter_name == "foo"
 
     def test_sends_request_with_api_key(self, http_client_mock):
-        obj = stripe.stripe_object.StripeObject("id", "key")
+        obj = StripeObject("id", "key")
 
         http_client_mock.stub_request(
             "get",
@@ -400,9 +376,7 @@ class TestStripeObject(object):
         )
 
     def test_refresh_from_creates_new_requestor(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            {}, key="origkey"
-        )
+        obj = StripeObject.construct_from({}, key="origkey")
 
         orig_requestor = obj._requestor
         assert obj.api_key == "origkey"
@@ -415,7 +389,7 @@ class TestStripeObject(object):
         assert orig_requestor.api_key == "origkey"
 
     def test_can_update_api_key(self, http_client_mock):
-        obj = stripe.stripe_object.StripeObject("id", "key")
+        obj = StripeObject("id", "key")
 
         http_client_mock.stub_request(
             "get",
@@ -431,3 +405,16 @@ class TestStripeObject(object):
             api_key="key2",
             stripe_account=None,
         )
+
+    def test_absent_as_none(self):
+        obj: Any = StripeObject.construct_from({}, None)
+        raised_attribute_error = False
+        try:
+            obj.bar
+        except AttributeError as e:
+            raised_attribute_error = True
+            assert "bar" in str(e)
+        assert raised_attribute_error
+
+        stripe.absent_as_none = True
+        assert obj.bar is None

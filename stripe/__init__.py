@@ -42,6 +42,7 @@ max_network_retries: int = 0
 ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
+absent_as_none: bool = False
 
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
