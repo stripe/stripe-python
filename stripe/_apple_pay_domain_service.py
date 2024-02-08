@@ -68,6 +68,29 @@ class ApplePayDomainService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        domain: str,
+        params: "ApplePayDomainService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> ApplePayDomain:
+        """
+        Delete an apple pay domain.
+        """
+        return cast(
+            ApplePayDomain,
+            await self._request_async(
+                "delete",
+                "/v1/apple_pay/domains/{domain}".format(
+                    domain=sanitize_id(domain),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         domain: str,
@@ -80,6 +103,29 @@ class ApplePayDomainService(StripeService):
         return cast(
             ApplePayDomain,
             self._request(
+                "get",
+                "/v1/apple_pay/domains/{domain}".format(
+                    domain=sanitize_id(domain),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        domain: str,
+        params: "ApplePayDomainService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ApplePayDomain:
+        """
+        Retrieve an apple pay domain.
+        """
+        return cast(
+            ApplePayDomain,
+            await self._request_async(
                 "get",
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
@@ -111,6 +157,26 @@ class ApplePayDomainService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ApplePayDomainService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ApplePayDomain]:
+        """
+        List apple pay domains.
+        """
+        return cast(
+            ListObject[ApplePayDomain],
+            await self._request_async(
+                "get",
+                "/v1/apple_pay/domains",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ApplePayDomainService.CreateParams",
@@ -122,6 +188,26 @@ class ApplePayDomainService(StripeService):
         return cast(
             ApplePayDomain,
             self._request(
+                "post",
+                "/v1/apple_pay/domains",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ApplePayDomainService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ApplePayDomain:
+        """
+        Create an apple pay domain.
+        """
+        return cast(
+            ApplePayDomain,
+            await self._request_async(
                 "post",
                 "/v1/apple_pay/domains",
                 api_mode="V1",

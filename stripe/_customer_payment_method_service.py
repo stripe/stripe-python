@@ -63,6 +63,29 @@ class CustomerPaymentMethodService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        customer: str,
+        params: "CustomerPaymentMethodService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PaymentMethod]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
+        return cast(
+            ListObject[PaymentMethod],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/payment_methods".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         customer: str,
@@ -76,6 +99,31 @@ class CustomerPaymentMethodService(StripeService):
         return cast(
             PaymentMethod,
             self._request(
+                "get",
+                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
+                    customer=sanitize_id(customer),
+                    payment_method=sanitize_id(payment_method),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer: str,
+        payment_method: str,
+        params: "CustomerPaymentMethodService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethod:
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
+        return cast(
+            PaymentMethod,
+            await self._request_async(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
                     customer=sanitize_id(customer),

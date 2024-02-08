@@ -50,3 +50,26 @@ class TransactionLineItemService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        transaction: str,
+        params: "TransactionLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[TransactionLineItem]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        return cast(
+            ListObject[TransactionLineItem],
+            await self._request_async(
+                "get",
+                "/v1/tax/transactions/{transaction}/line_items".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

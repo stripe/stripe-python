@@ -54,7 +54,25 @@ class EventService(StripeService):
         """
         return cast(
             Event,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/entitlements/events",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "EventService.CreateParams", options: RequestOptions = {}
+    ) -> Event:
+        """
+        Create an entitlement event manually, outside of the entitlement events automatically created by Stripe lifecycle events.
+        """
+        return cast(
+            Event,
+            await self._request_async(
                 "post",
                 "/v1/entitlements/events",
                 api_mode="V1",

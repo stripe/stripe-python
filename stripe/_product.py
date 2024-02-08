@@ -865,7 +865,7 @@ class Product(
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> Iterator["Product"]:
-        return (cls.search(*args, **kwargs)).auto_paging_iter()
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(

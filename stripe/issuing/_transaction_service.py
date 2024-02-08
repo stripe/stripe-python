@@ -98,6 +98,26 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Transaction]:
+        """
+        Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[Transaction],
+            await self._request_async(
+                "get",
+                "/v1/issuing/transactions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         transaction: str,
@@ -121,6 +141,29 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        transaction: str,
+        params: "TransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Retrieves an Issuing Transaction object.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
+                "get",
+                "/v1/issuing/transactions/{transaction}".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         transaction: str,
@@ -133,6 +176,29 @@ class TransactionService(StripeService):
         return cast(
             Transaction,
             self._request(
+                "post",
+                "/v1/issuing/transactions/{transaction}".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        transaction: str,
+        params: "TransactionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),

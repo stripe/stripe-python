@@ -68,7 +68,25 @@ class FormService(StripeService):
         """
         return cast(
             ListObject[Form],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/tax/forms",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self, params: "FormService.ListParams", options: RequestOptions = {}
+    ) -> ListObject[Form]:
+        """
+        Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
+        """
+        return cast(
+            ListObject[Form],
+            await self._request_async(
                 "get",
                 "/v1/tax/forms",
                 api_mode="V1",
@@ -89,7 +107,28 @@ class FormService(StripeService):
         """
         return cast(
             Form,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/tax/forms/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "FormService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Form:
+        """
+        Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
+        """
+        return cast(
+            Form,
+            await self._request_async(
                 "get",
                 "/v1/tax/forms/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -110,7 +149,28 @@ class FormService(StripeService):
         """
         return cast(
             Any,
-            self._requestor.request_stream(
+            self._request_stream(
+                "get",
+                "/v1/tax/forms/{id}/pdf".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="files",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pdf_async(
+        self,
+        id: str,
+        params: "FormService.PdfParams" = {},
+        options: RequestOptions = {},
+    ) -> Any:
+        """
+        Download the PDF for a tax form.
+        """
+        return cast(
+            Any,
+            await self._request_stream_async(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(id=sanitize_id(id)),
                 api_mode="V1",

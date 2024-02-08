@@ -119,6 +119,27 @@ class OrderService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "OrderService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Order]:
+        """
+        Lists all Climate order objects. The orders are returned sorted by creation date, with the
+        most recently created orders appearing first.
+        """
+        return cast(
+            ListObject[Order],
+            await self._request_async(
+                "get",
+                "/v1/climate/orders",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "OrderService.CreateParams", options: RequestOptions = {}
     ) -> Order:
@@ -129,6 +150,25 @@ class OrderService(StripeService):
         return cast(
             Order,
             self._request(
+                "post",
+                "/v1/climate/orders",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "OrderService.CreateParams", options: RequestOptions = {}
+    ) -> Order:
+        """
+        Creates a Climate order object for a given Climate product. The order will be processed immediately
+        after creation and payment will be deducted your Stripe balance.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/climate/orders",
                 api_mode="V1",
@@ -159,6 +199,27 @@ class OrderService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        order: str,
+        params: "OrderService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Retrieves the details of a Climate order object with the given ID.
+        """
+        return cast(
+            Order,
+            await self._request_async(
+                "get",
+                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         order: str,
@@ -171,6 +232,27 @@ class OrderService(StripeService):
         return cast(
             Order,
             self._request(
+                "post",
+                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        order: str,
+        params: "OrderService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Updates the specified order by setting the values of the parameters passed.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
                 api_mode="V1",
@@ -195,6 +277,32 @@ class OrderService(StripeService):
         return cast(
             Order,
             self._request(
+                "post",
+                "/v1/climate/orders/{order}/cancel".format(
+                    order=sanitize_id(order),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        order: str,
+        params: "OrderService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
+        might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
+        provides 90 days advance notice and refunds the amount_total.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
                     order=sanitize_id(order),

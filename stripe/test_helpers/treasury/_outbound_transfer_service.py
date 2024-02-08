@@ -64,6 +64,29 @@ class OutboundTransferService(StripeService):
             ),
         )
 
+    async def fail_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.FailParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def post(
         self,
         outbound_transfer: str,
@@ -87,6 +110,29 @@ class OutboundTransferService(StripeService):
             ),
         )
 
+    async def post_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.PostParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def return_outbound_transfer(
         self,
         outbound_transfer: str,
@@ -99,6 +145,29 @@ class OutboundTransferService(StripeService):
         return cast(
             OutboundTransfer,
             self._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def return_outbound_transfer_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.ReturnOutboundTransferParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
                     outbound_transfer=sanitize_id(outbound_transfer),

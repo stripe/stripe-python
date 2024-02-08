@@ -164,6 +164,26 @@ class PayoutService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PayoutService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Payout]:
+        """
+        Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
+        """
+        return cast(
+            ListObject[Payout],
+            await self._request_async(
+                "get",
+                "/v1/payouts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "PayoutService.CreateParams",
@@ -179,6 +199,30 @@ class PayoutService(StripeService):
         return cast(
             Payout,
             self._request(
+                "post",
+                "/v1/payouts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PayoutService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Payout:
+        """
+        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
+
+        If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
+
+        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://stripe.com/docs/api#balance_object) details available and pending amounts by source type.
+        """
+        return cast(
+            Payout,
+            await self._request_async(
                 "post",
                 "/v1/payouts",
                 api_mode="V1",
@@ -209,6 +253,27 @@ class PayoutService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        payout: str,
+        params: "PayoutService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Payout:
+        """
+        Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
+        """
+        return cast(
+            Payout,
+            await self._request_async(
+                "get",
+                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         payout: str,
@@ -221,6 +286,27 @@ class PayoutService(StripeService):
         return cast(
             Payout,
             self._request(
+                "post",
+                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        payout: str,
+        params: "PayoutService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Payout:
+        """
+        Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
+        """
+        return cast(
+            Payout,
+            await self._request_async(
                 "post",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
                 api_mode="V1",
@@ -253,6 +339,29 @@ class PayoutService(StripeService):
             ),
         )
 
+    async def cancel_async(
+        self,
+        payout: str,
+        params: "PayoutService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Payout:
+        """
+        You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
+        """
+        return cast(
+            Payout,
+            await self._request_async(
+                "post",
+                "/v1/payouts/{payout}/cancel".format(
+                    payout=sanitize_id(payout),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def reverse(
         self,
         payout: str,
@@ -267,6 +376,31 @@ class PayoutService(StripeService):
         return cast(
             Payout,
             self._request(
+                "post",
+                "/v1/payouts/{payout}/reverse".format(
+                    payout=sanitize_id(payout),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reverse_async(
+        self,
+        payout: str,
+        params: "PayoutService.ReverseParams" = {},
+        options: RequestOptions = {},
+    ) -> Payout:
+        """
+        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+
+        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+        """
+        return cast(
+            Payout,
+            await self._request_async(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
                     payout=sanitize_id(payout),

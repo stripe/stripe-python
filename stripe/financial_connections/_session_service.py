@@ -110,6 +110,29 @@ class SessionService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        session: str,
+        params: "SessionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Retrieves the details of a Financial Connections Session
+        """
+        return cast(
+            Session,
+            await self._request_async(
+                "get",
+                "/v1/financial_connections/sessions/{session}".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SessionService.CreateParams",
@@ -121,6 +144,26 @@ class SessionService(StripeService):
         return cast(
             Session,
             self._request(
+                "post",
+                "/v1/financial_connections/sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SessionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
+        """
+        return cast(
+            Session,
+            await self._request_async(
                 "post",
                 "/v1/financial_connections/sessions",
                 api_mode="V1",

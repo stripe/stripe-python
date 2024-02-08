@@ -94,6 +94,26 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TransactionService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[Transaction]:
+        """
+        Returns a list of Financial Connections Transaction objects.
+        """
+        return cast(
+            ListObject[Transaction],
+            await self._request_async(
+                "get",
+                "/v1/financial_connections/transactions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         transaction: str,
@@ -106,6 +126,29 @@ class TransactionService(StripeService):
         return cast(
             Transaction,
             self._request(
+                "get",
+                "/v1/financial_connections/transactions/{transaction}".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        transaction: str,
+        params: "TransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Retrieves the details of a Financial Connections Transaction
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "get",
                 "/v1/financial_connections/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),

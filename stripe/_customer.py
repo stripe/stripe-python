@@ -2153,7 +2153,7 @@ class Customer(
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> Iterator["Customer"]:
-        return (cls.search(*args, **kwargs)).auto_paging_iter()
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(

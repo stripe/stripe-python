@@ -281,3 +281,23 @@ class CalculationService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "CalculationService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Calculation:
+        """
+        Calculates tax based on input and returns a Tax Calculation object.
+        """
+        return cast(
+            Calculation,
+            await self._request_async(
+                "post",
+                "/v1/tax/calculations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

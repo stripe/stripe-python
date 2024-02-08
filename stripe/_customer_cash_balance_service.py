@@ -58,6 +58,29 @@ class CustomerCashBalanceService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        customer: str,
+        params: "CustomerCashBalanceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CashBalance:
+        """
+        Retrieves a customer's cash balance.
+        """
+        return cast(
+            CashBalance,
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         customer: str,
@@ -70,6 +93,29 @@ class CustomerCashBalanceService(StripeService):
         return cast(
             CashBalance,
             self._request(
+                "post",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        customer: str,
+        params: "CustomerCashBalanceService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> CashBalance:
+        """
+        Changes the settings on a customer's cash balance.
+        """
+        return cast(
+            CashBalance,
+            await self._request_async(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),

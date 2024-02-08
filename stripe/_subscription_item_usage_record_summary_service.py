@@ -52,3 +52,28 @@ class SubscriptionItemUsageRecordSummaryService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        subscription_item: str,
+        params: "SubscriptionItemUsageRecordSummaryService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[UsageRecordSummary]:
+        """
+        For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
+
+        The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn't ended yet. Since new usage records can still be added, the returned summary information for the subscription item's ID should be seen as unstable until the subscription billing period ends.
+        """
+        return cast(
+            ListObject[UsageRecordSummary],
+            await self._request_async(
+                "get",
+                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
+                    subscription_item=sanitize_id(subscription_item),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

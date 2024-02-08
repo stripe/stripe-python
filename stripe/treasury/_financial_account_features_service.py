@@ -186,6 +186,29 @@ class FinancialAccountFeaturesService(StripeService):
             ),
         )
 
+    async def create_async(
+        self,
+        financial_account: str,
+        params: "FinancialAccountFeaturesService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccountFeatures:
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
+        return cast(
+            FinancialAccountFeatures,
+            await self._request_async(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         financial_account: str,
@@ -198,6 +221,29 @@ class FinancialAccountFeaturesService(StripeService):
         return cast(
             FinancialAccountFeatures,
             self._request(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        financial_account: str,
+        params: "FinancialAccountFeaturesService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccountFeatures:
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
+        return cast(
+            FinancialAccountFeatures,
+            await self._request_async(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),

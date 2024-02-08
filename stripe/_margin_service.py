@@ -88,7 +88,27 @@ class MarginService(StripeService):
         """
         return cast(
             ListObject[Margin],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/billing/margins",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "MarginService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Margin]:
+        """
+        Retrieve a list of your margins.
+        """
+        return cast(
+            ListObject[Margin],
+            await self._request_async(
                 "get",
                 "/v1/billing/margins",
                 api_mode="V1",
@@ -108,7 +128,27 @@ class MarginService(StripeService):
         """
         return cast(
             Margin,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/billing/margins",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "MarginService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Margin:
+        """
+        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+        """
+        return cast(
+            Margin,
+            await self._request_async(
                 "post",
                 "/v1/billing/margins",
                 api_mode="V1",
@@ -129,7 +169,30 @@ class MarginService(StripeService):
         """
         return cast(
             Margin,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/billing/margins/{margin}".format(
+                    margin=sanitize_id(margin),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        margin: str,
+        params: "MarginService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Margin:
+        """
+        Retrieve a margin object with the given ID.
+        """
+        return cast(
+            Margin,
+            await self._request_async(
                 "get",
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),
@@ -152,7 +215,30 @@ class MarginService(StripeService):
         """
         return cast(
             Margin,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/billing/margins/{margin}".format(
+                    margin=sanitize_id(margin),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        margin: str,
+        params: "MarginService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Margin:
+        """
+        Update the specified margin object. Certain fields of the margin object are not editable.
+        """
+        return cast(
+            Margin,
+            await self._request_async(
                 "post",
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),

@@ -365,6 +365,26 @@ class AuthorizationService(StripeService):
             ),
         )
 
+    async def create_async(
+        self,
+        params: "AuthorizationService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Create a test-mode authorization.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/authorizations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def capture(
         self,
         authorization: str,
@@ -377,6 +397,29 @@ class AuthorizationService(StripeService):
         return cast(
             Authorization,
             self._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def capture_async(
+        self,
+        authorization: str,
+        params: "AuthorizationService.CaptureParams" = {},
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Capture a test-mode authorization.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
                     authorization=sanitize_id(authorization),
@@ -411,6 +454,29 @@ class AuthorizationService(StripeService):
             ),
         )
 
+    async def expire_async(
+        self,
+        authorization: str,
+        params: "AuthorizationService.ExpireParams" = {},
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Expire a test-mode Authorization.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def increment(
         self,
         authorization: str,
@@ -434,6 +500,29 @@ class AuthorizationService(StripeService):
             ),
         )
 
+    async def increment_async(
+        self,
+        authorization: str,
+        params: "AuthorizationService.IncrementParams",
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Increment a test-mode Authorization.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def reverse(
         self,
         authorization: str,
@@ -446,6 +535,29 @@ class AuthorizationService(StripeService):
         return cast(
             Authorization,
             self._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reverse_async(
+        self,
+        authorization: str,
+        params: "AuthorizationService.ReverseParams" = {},
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Reverse a test-mode Authorization.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
                     authorization=sanitize_id(authorization),

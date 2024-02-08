@@ -39,7 +39,30 @@ class QuotePhaseLineItemService(StripeService):
         """
         return cast(
             ListObject[LineItem],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/quote_phases/{quote_phase}/line_items".format(
+                    quote_phase=sanitize_id(quote_phase),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        quote_phase: str,
+        params: "QuotePhaseLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[LineItem]:
+        """
+        When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[LineItem],
+            await self._request_async(
                 "get",
                 "/v1/quote_phases/{quote_phase}/line_items".format(
                     quote_phase=sanitize_id(quote_phase),

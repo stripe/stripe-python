@@ -414,6 +414,29 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def refund_async(
+        self,
+        transaction: str,
+        params: "TransactionService.RefundParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Refund a test-mode Transaction.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create_force_capture(
         self,
         params: "TransactionService.CreateForceCaptureParams",
@@ -434,6 +457,26 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def create_force_capture_async(
+        self,
+        params: "TransactionService.CreateForceCaptureParams",
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Allows the user to capture an arbitrary amount, also known as a forced capture.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_force_capture",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create_unlinked_refund(
         self,
         params: "TransactionService.CreateUnlinkedRefundParams",
@@ -445,6 +488,26 @@ class TransactionService(StripeService):
         return cast(
             Transaction,
             self._request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_unlinked_refund_async(
+        self,
+        params: "TransactionService.CreateUnlinkedRefundParams",
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Allows the user to refund an arbitrary amount, also known as a unlinked refund.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
                 api_mode="V1",

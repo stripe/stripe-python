@@ -53,7 +53,27 @@ class QuotePhaseService(StripeService):
         """
         return cast(
             ListObject[QuotePhase],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/quote_phases",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "QuotePhaseService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[QuotePhase]:
+        """
+        Returns a list of quote phases.
+        """
+        return cast(
+            ListObject[QuotePhase],
+            await self._request_async(
                 "get",
                 "/v1/quote_phases",
                 api_mode="V1",
@@ -74,7 +94,30 @@ class QuotePhaseService(StripeService):
         """
         return cast(
             QuotePhase,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/quote_phases/{quote_phase}".format(
+                    quote_phase=sanitize_id(quote_phase),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        quote_phase: str,
+        params: "QuotePhaseService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> QuotePhase:
+        """
+        Retrieves the quote phase with the given ID.
+        """
+        return cast(
+            QuotePhase,
+            await self._request_async(
                 "get",
                 "/v1/quote_phases/{quote_phase}".format(
                     quote_phase=sanitize_id(quote_phase),

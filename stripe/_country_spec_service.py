@@ -54,6 +54,26 @@ class CountrySpecService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "CountrySpecService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CountrySpec]:
+        """
+        Lists all Country Spec objects available in the API.
+        """
+        return cast(
+            ListObject[CountrySpec],
+            await self._request_async(
+                "get",
+                "/v1/country_specs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         country: str,
@@ -66,6 +86,29 @@ class CountrySpecService(StripeService):
         return cast(
             CountrySpec,
             self._request(
+                "get",
+                "/v1/country_specs/{country}".format(
+                    country=sanitize_id(country),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        country: str,
+        params: "CountrySpecService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CountrySpec:
+        """
+        Returns a Country Spec for a given Country code.
+        """
+        return cast(
+            CountrySpec,
+            await self._request_async(
                 "get",
                 "/v1/country_specs/{country}".format(
                     country=sanitize_id(country),

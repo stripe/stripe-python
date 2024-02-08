@@ -80,7 +80,27 @@ class AccountNoticeService(StripeService):
         """
         return cast(
             ListObject[AccountNotice],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/account_notices",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "AccountNoticeService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[AccountNotice]:
+        """
+        Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+        """
+        return cast(
+            ListObject[AccountNotice],
+            await self._request_async(
                 "get",
                 "/v1/account_notices",
                 api_mode="V1",
@@ -101,7 +121,30 @@ class AccountNoticeService(StripeService):
         """
         return cast(
             AccountNotice,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/account_notices/{account_notice}".format(
+                    account_notice=sanitize_id(account_notice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        account_notice: str,
+        params: "AccountNoticeService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> AccountNotice:
+        """
+        Retrieves an AccountNotice object.
+        """
+        return cast(
+            AccountNotice,
+            await self._request_async(
                 "get",
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),
@@ -124,7 +167,30 @@ class AccountNoticeService(StripeService):
         """
         return cast(
             AccountNotice,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/account_notices/{account_notice}".format(
+                    account_notice=sanitize_id(account_notice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        account_notice: str,
+        params: "AccountNoticeService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> AccountNotice:
+        """
+        Updates an AccountNotice object.
+        """
+        return cast(
+            AccountNotice,
+            await self._request_async(
                 "post",
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),

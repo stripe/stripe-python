@@ -81,6 +81,26 @@ class VerificationReportService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "VerificationReportService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[VerificationReport]:
+        """
+        List all verification reports.
+        """
+        return cast(
+            ListObject[VerificationReport],
+            await self._request_async(
+                "get",
+                "/v1/identity/verification_reports",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         report: str,
@@ -93,6 +113,29 @@ class VerificationReportService(StripeService):
         return cast(
             VerificationReport,
             self._request(
+                "get",
+                "/v1/identity/verification_reports/{report}".format(
+                    report=sanitize_id(report),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        report: str,
+        params: "VerificationReportService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> VerificationReport:
+        """
+        Retrieves an existing VerificationReport
+        """
+        return cast(
+            VerificationReport,
+            await self._request_async(
                 "get",
                 "/v1/identity/verification_reports/{report}".format(
                     report=sanitize_id(report),

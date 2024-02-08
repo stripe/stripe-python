@@ -227,6 +227,31 @@ class AccountExternalAccountService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        account: str,
+        id: str,
+        params: "AccountExternalAccountService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[BankAccount, Card]:
+        """
+        Delete a specified external account for a given account.
+        """
+        return cast(
+            Union[BankAccount, Card],
+            await self._request_async(
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         account: str,
@@ -240,6 +265,31 @@ class AccountExternalAccountService(StripeService):
         return cast(
             Union[BankAccount, Card],
             self._request(
+                "get",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        account: str,
+        id: str,
+        params: "AccountExternalAccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[BankAccount, Card]:
+        """
+        Retrieve a specified external account for a given account.
+        """
+        return cast(
+            Union[BankAccount, Card],
+            await self._request_async(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account),
@@ -279,6 +329,33 @@ class AccountExternalAccountService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        account: str,
+        id: str,
+        params: "AccountExternalAccountService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[BankAccount, Card]:
+        """
+        Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
+
+        You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.
+        """
+        return cast(
+            Union[BankAccount, Card],
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         account: str,
@@ -302,6 +379,29 @@ class AccountExternalAccountService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        account: str,
+        params: "AccountExternalAccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Union[BankAccount, Card]]:
+        """
+        List external accounts for an account.
+        """
+        return cast(
+            ListObject[Union[BankAccount, Card]],
+            await self._request_async(
+                "get",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         account: str,
@@ -314,6 +414,29 @@ class AccountExternalAccountService(StripeService):
         return cast(
             Union[BankAccount, Card],
             self._request(
+                "post",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        account: str,
+        params: "AccountExternalAccountService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Union[BankAccount, Card]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union[BankAccount, Card],
+            await self._request_async(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
                     account=sanitize_id(account),

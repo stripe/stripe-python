@@ -79,7 +79,27 @@ class FinancingOfferService(StripeService):
         """
         return cast(
             ListObject[FinancingOffer],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/capital/financing_offers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "FinancingOfferService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FinancingOffer]:
+        """
+        Retrieves the financing offers available for Connected accounts that belong to your platform.
+        """
+        return cast(
+            ListObject[FinancingOffer],
+            await self._request_async(
                 "get",
                 "/v1/capital/financing_offers",
                 api_mode="V1",
@@ -100,7 +120,30 @@ class FinancingOfferService(StripeService):
         """
         return cast(
             FinancingOffer,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/capital/financing_offers/{financing_offer}".format(
+                    financing_offer=sanitize_id(financing_offer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        financing_offer: str,
+        params: "FinancingOfferService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancingOffer:
+        """
+        Get the details of the financing offer
+        """
+        return cast(
+            FinancingOffer,
+            await self._request_async(
                 "get",
                 "/v1/capital/financing_offers/{financing_offer}".format(
                     financing_offer=sanitize_id(financing_offer),
@@ -124,7 +167,31 @@ class FinancingOfferService(StripeService):
         """
         return cast(
             FinancingOffer,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
+                    financing_offer=sanitize_id(financing_offer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def mark_delivered_async(
+        self,
+        financing_offer: str,
+        params: "FinancingOfferService.MarkDeliveredParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancingOffer:
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
+        return cast(
+            FinancingOffer,
+            await self._request_async(
                 "post",
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
                     financing_offer=sanitize_id(financing_offer),

@@ -2227,7 +2227,27 @@ class OrderService(StripeService):
         """
         return cast(
             ListObject[Order],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/orders",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "OrderService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Order]:
+        """
+        Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
+        """
+        return cast(
+            ListObject[Order],
+            await self._request_async(
                 "get",
                 "/v1/orders",
                 api_mode="V1",
@@ -2245,7 +2265,25 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/orders",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "OrderService.CreateParams", options: RequestOptions = {}
+    ) -> Order:
+        """
+        Creates a new open order object.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/orders",
                 api_mode="V1",
@@ -2266,7 +2304,28 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/orders/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "OrderService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "get",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -2287,7 +2346,28 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/orders/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "OrderService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -2308,7 +2388,28 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OrderService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -2329,7 +2430,28 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reopen_async(
+        self,
+        id: str,
+        params: "OrderService.ReopenParams" = {},
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Reopens a submitted order.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -2350,7 +2472,28 @@ class OrderService(StripeService):
         """
         return cast(
             Order,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def submit_async(
+        self,
+        id: str,
+        params: "OrderService.SubmitParams",
+        options: RequestOptions = {},
+    ) -> Order:
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
+        return cast(
+            Order,
+            await self._request_async(
                 "post",
                 "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
                 api_mode="V1",

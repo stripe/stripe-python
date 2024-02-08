@@ -65,7 +65,27 @@ class FeatureService(StripeService):
         """
         return cast(
             ListObject[Feature],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/entitlements/features",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "FeatureService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Feature]:
+        """
+        Retrieve a list of features
+        """
+        return cast(
+            ListObject[Feature],
+            await self._request_async(
                 "get",
                 "/v1/entitlements/features",
                 api_mode="V1",
@@ -85,7 +105,27 @@ class FeatureService(StripeService):
         """
         return cast(
             Feature,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/entitlements/features",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "FeatureService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Feature:
+        """
+        Creates a feature
+        """
+        return cast(
+            Feature,
+            await self._request_async(
                 "post",
                 "/v1/entitlements/features",
                 api_mode="V1",

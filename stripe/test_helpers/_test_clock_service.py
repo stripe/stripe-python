@@ -84,6 +84,29 @@ class TestClockService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        test_clock: str,
+        params: "TestClockService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> TestClock:
+        """
+        Deletes a test clock.
+        """
+        return cast(
+            TestClock,
+            await self._request_async(
+                "delete",
+                "/v1/test_helpers/test_clocks/{test_clock}".format(
+                    test_clock=sanitize_id(test_clock),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         test_clock: str,
@@ -96,6 +119,29 @@ class TestClockService(StripeService):
         return cast(
             TestClock,
             self._request(
+                "get",
+                "/v1/test_helpers/test_clocks/{test_clock}".format(
+                    test_clock=sanitize_id(test_clock),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        test_clock: str,
+        params: "TestClockService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> TestClock:
+        """
+        Retrieves a test clock.
+        """
+        return cast(
+            TestClock,
+            await self._request_async(
                 "get",
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
@@ -127,6 +173,26 @@ class TestClockService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TestClockService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[TestClock]:
+        """
+        Returns a list of your test clocks.
+        """
+        return cast(
+            ListObject[TestClock],
+            await self._request_async(
+                "get",
+                "/v1/test_helpers/test_clocks",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "TestClockService.CreateParams",
@@ -138,6 +204,26 @@ class TestClockService(StripeService):
         return cast(
             TestClock,
             self._request(
+                "post",
+                "/v1/test_helpers/test_clocks",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "TestClockService.CreateParams",
+        options: RequestOptions = {},
+    ) -> TestClock:
+        """
+        Creates a new test clock that can be attached to new customers and quotes.
+        """
+        return cast(
+            TestClock,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/test_clocks",
                 api_mode="V1",
@@ -159,6 +245,29 @@ class TestClockService(StripeService):
         return cast(
             TestClock,
             self._request(
+                "post",
+                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                    test_clock=sanitize_id(test_clock),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def advance_async(
+        self,
+        test_clock: str,
+        params: "TestClockService.AdvanceParams",
+        options: RequestOptions = {},
+    ) -> TestClock:
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        return cast(
+            TestClock,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=sanitize_id(test_clock),

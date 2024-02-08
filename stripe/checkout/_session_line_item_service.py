@@ -50,3 +50,26 @@ class SessionLineItemService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        session: str,
+        params: "SessionLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[LineItem]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[LineItem],
+            await self._request_async(
+                "get",
+                "/v1/checkout/sessions/{session}/line_items".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

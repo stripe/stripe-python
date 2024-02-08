@@ -37,3 +37,23 @@ class ConnectionTokenService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "ConnectionTokenService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> ConnectionToken:
+        """
+        To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
+        """
+        return cast(
+            ConnectionToken,
+            await self._request_async(
+                "post",
+                "/v1/terminal/connection_tokens",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

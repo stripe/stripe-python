@@ -2034,3 +2034,23 @@ class InvoiceUpcomingLinesService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        params: "InvoiceUpcomingLinesService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[InvoiceLineItem]:
+        """
+        When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[InvoiceLineItem],
+            await self._request_async(
+                "get",
+                "/v1/invoices/upcoming/lines",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

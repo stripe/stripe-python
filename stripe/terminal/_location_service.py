@@ -156,6 +156,29 @@ class LocationService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        location: str,
+        params: "LocationService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Location:
+        """
+        Deletes a Location object.
+        """
+        return cast(
+            Location,
+            await self._request_async(
+                "delete",
+                "/v1/terminal/locations/{location}".format(
+                    location=sanitize_id(location),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         location: str,
@@ -168,6 +191,29 @@ class LocationService(StripeService):
         return cast(
             Location,
             self._request(
+                "get",
+                "/v1/terminal/locations/{location}".format(
+                    location=sanitize_id(location),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        location: str,
+        params: "LocationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Location:
+        """
+        Retrieves a Location object.
+        """
+        return cast(
+            Location,
+            await self._request_async(
                 "get",
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
@@ -202,6 +248,29 @@ class LocationService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        location: str,
+        params: "LocationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Location:
+        """
+        Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Location,
+            await self._request_async(
+                "post",
+                "/v1/terminal/locations/{location}".format(
+                    location=sanitize_id(location),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "LocationService.ListParams" = {},
@@ -213,6 +282,26 @@ class LocationService(StripeService):
         return cast(
             ListObject[Location],
             self._request(
+                "get",
+                "/v1/terminal/locations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "LocationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Location]:
+        """
+        Returns a list of Location objects.
+        """
+        return cast(
+            ListObject[Location],
+            await self._request_async(
                 "get",
                 "/v1/terminal/locations",
                 api_mode="V1",
@@ -234,6 +323,27 @@ class LocationService(StripeService):
         return cast(
             Location,
             self._request(
+                "post",
+                "/v1/terminal/locations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "LocationService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Location:
+        """
+        Creates a new Location object.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        """
+        return cast(
+            Location,
+            await self._request_async(
                 "post",
                 "/v1/terminal/locations",
                 api_mode="V1",

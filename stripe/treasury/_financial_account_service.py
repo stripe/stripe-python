@@ -428,6 +428,26 @@ class FinancialAccountService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "FinancialAccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FinancialAccount]:
+        """
+        Returns a list of FinancialAccounts.
+        """
+        return cast(
+            ListObject[FinancialAccount],
+            await self._request_async(
+                "get",
+                "/v1/treasury/financial_accounts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "FinancialAccountService.CreateParams",
@@ -439,6 +459,26 @@ class FinancialAccountService(StripeService):
         return cast(
             FinancialAccount,
             self._request(
+                "post",
+                "/v1/treasury/financial_accounts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "FinancialAccountService.CreateParams",
+        options: RequestOptions = {},
+    ) -> FinancialAccount:
+        """
+        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        """
+        return cast(
+            FinancialAccount,
+            await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts",
                 api_mode="V1",
@@ -471,6 +511,29 @@ class FinancialAccountService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        financial_account: str,
+        params: "FinancialAccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccount:
+        """
+        Retrieves the details of a FinancialAccount.
+        """
+        return cast(
+            FinancialAccount,
+            await self._request_async(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         financial_account: str,
@@ -483,6 +546,29 @@ class FinancialAccountService(StripeService):
         return cast(
             FinancialAccount,
             self._request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        financial_account: str,
+        params: "FinancialAccountService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccount:
+        """
+        Updates the details of a FinancialAccount.
+        """
+        return cast(
+            FinancialAccount,
+            await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),

@@ -83,3 +83,28 @@ class CustomerFundingInstructionsService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        customer: str,
+        params: "CustomerFundingInstructionsService.CreateParams",
+        options: RequestOptions = {},
+    ) -> FundingInstructions:
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
+        return cast(
+            FundingInstructions,
+            await self._request_async(
+                "post",
+                "/v1/customers/{customer}/funding_instructions".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

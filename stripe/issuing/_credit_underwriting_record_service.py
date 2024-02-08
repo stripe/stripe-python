@@ -896,7 +896,27 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             ListObject[CreditUnderwritingRecord],
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/issuing/credit_underwriting_records",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "CreditUnderwritingRecordService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CreditUnderwritingRecord]:
+        """
+        Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+        """
+        return cast(
+            ListObject[CreditUnderwritingRecord],
+            await self._request_async(
                 "get",
                 "/v1/issuing/credit_underwriting_records",
                 api_mode="V1",
@@ -917,7 +937,32 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             CreditUnderwritingRecord,
-            self._requestor.request(
+            self._request(
+                "get",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        credit_underwriting_record: str,
+        params: "CreditUnderwritingRecordService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CreditUnderwritingRecord:
+        """
+        Retrieves a CreditUnderwritingRecord object.
+        """
+        return cast(
+            CreditUnderwritingRecord,
+            await self._request_async(
                 "get",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}".format(
                     credit_underwriting_record=sanitize_id(
@@ -942,7 +987,32 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             CreditUnderwritingRecord,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def correct_async(
+        self,
+        credit_underwriting_record: str,
+        params: "CreditUnderwritingRecordService.CorrectParams" = {},
+        options: RequestOptions = {},
+    ) -> CreditUnderwritingRecord:
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
+        return cast(
+            CreditUnderwritingRecord,
+            await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
                     credit_underwriting_record=sanitize_id(
@@ -967,7 +1037,32 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             CreditUnderwritingRecord,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_decision_async(
+        self,
+        credit_underwriting_record: str,
+        params: "CreditUnderwritingRecordService.ReportDecisionParams",
+        options: RequestOptions = {},
+    ) -> CreditUnderwritingRecord:
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
+        return cast(
+            CreditUnderwritingRecord,
+            await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
                     credit_underwriting_record=sanitize_id(
@@ -991,7 +1086,27 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             CreditUnderwritingRecord,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_application",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_from_application_async(
+        self,
+        params: "CreditUnderwritingRecordService.CreateFromApplicationParams",
+        options: RequestOptions = {},
+    ) -> CreditUnderwritingRecord:
+        """
+        Creates a CreditUnderwritingRecord object with information about a credit application submission.
+        """
+        return cast(
+            CreditUnderwritingRecord,
+            await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_application",
                 api_mode="V1",
@@ -1011,7 +1126,27 @@ class CreditUnderwritingRecordService(StripeService):
         """
         return cast(
             CreditUnderwritingRecord,
-            self._requestor.request(
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_from_proactive_review_async(
+        self,
+        params: "CreditUnderwritingRecordService.CreateFromProactiveReviewParams",
+        options: RequestOptions = {},
+    ) -> CreditUnderwritingRecord:
+        """
+        Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
+        """
+        return cast(
+            CreditUnderwritingRecord,
+            await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
                 api_mode="V1",

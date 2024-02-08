@@ -202,3 +202,23 @@ class SessionService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "SessionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Creates a session of the customer portal.
+        """
+        return cast(
+            Session,
+            await self._request_async(
+                "post",
+                "/v1/billing_portal/sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
