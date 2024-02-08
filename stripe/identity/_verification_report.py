@@ -213,7 +213,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         id_number: Optional[str]
         """
-        ID number.
+        ID number. When `id_number_type` is `us_ssn`, only the last 4 digits are present.
         """
         id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
         """
