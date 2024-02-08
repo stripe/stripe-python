@@ -72,3 +72,23 @@ class StripeService(object):
             api_mode=api_mode,
             _usage=["stripe_client"],
         )
+
+    async def _request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+    ) -> StripeStreamResponse:
+        return await self._requestor.request_stream_async(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            _usage=["stripe_client"],
+        )
