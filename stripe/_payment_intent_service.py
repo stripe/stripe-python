@@ -9205,8 +9205,7 @@ class PaymentIntentService(StripeService):
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             PaymentIntent,
@@ -9250,8 +9249,7 @@ class PaymentIntentService(StripeService):
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             PaymentIntent,
