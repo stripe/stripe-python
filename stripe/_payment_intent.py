@@ -787,11 +787,7 @@ class PaymentIntent(
 
             hosted_instructions_url: Optional[str]
             """
-            The URL to the hosted Swish instructions page, which allows customers to view the QR code.
-            """
-            mobile_auth_url: Optional[str]
-            """
-            The url for mobile redirect based auth
+            The URL to the hosted Swish instructions page, which allows customers to view the QR code or redirect to the Swish mobile app.
             """
             qr_code: Optional[QrCode]
             _inner_class_types = {"qr_code": QrCode}
