@@ -234,7 +234,9 @@ class HTTPClientBase(object):
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
 
-    def _add_telemetry_header(self, headers):
+    def _add_telemetry_header(
+        self, headers: Mapping[str, str]
+    ) -> Mapping[str, str]:
         last_request_metrics = getattr(
             self._thread_local, "last_request_metrics", None
         )
@@ -242,7 +244,10 @@ class HTTPClientBase(object):
             telemetry = {
                 "last_request_metrics": last_request_metrics.payload()
             }
-            headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
+            ret = dict(headers)
+            ret["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
+            return ret
+        return headers
 
     def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
@@ -260,12 +265,12 @@ class HTTPClient(HTTPClientBase):
         self,
         method: str,
         url: str,
-        headers: Optional[Mapping[str, str]],
+        headers: Mapping[str, str],
         post_data: Any = None,
         max_network_retries: Optional[int] = None,
         *,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[Any, int, Any]:
+    ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_with_retries_internal(
             method,
             url,
@@ -280,12 +285,12 @@ class HTTPClient(HTTPClientBase):
         self,
         method: str,
         url: str,
-        headers: Optional[Mapping[str, str]],
+        headers: Mapping[str, str],
         post_data=None,
         max_network_retries=None,
         *,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[Any, int, Any]:
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         return self._request_with_retries_internal(
             method,
             url,
@@ -300,14 +305,14 @@ class HTTPClient(HTTPClientBase):
         self,
         method: str,
         url: str,
-        headers: Optional[Mapping[str, str]],
+        headers: Mapping[str, str],
         post_data: Any,
         is_streaming: bool,
         max_network_retries: Optional[int],
         *,
         _usage: Optional[List[str]] = None,
-    ):
-        self._add_telemetry_header(headers)
+    ) -> Tuple[Any, int, Mapping[str, str]]:
+        headers = self._add_telemetry_header(headers)
 
         num_retries = 0
 
@@ -363,7 +368,7 @@ class HTTPClient(HTTPClientBase):
         post_data: Any = None,
         *,
         _usage: Optional[List[str]] = None
-    ):
+    ) -> Tuple[str, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
@@ -376,7 +381,7 @@ class HTTPClient(HTTPClientBase):
         post_data: Any = None,
         *,
         _usage: Optional[List[str]] = None
-    ) -> Any:
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
