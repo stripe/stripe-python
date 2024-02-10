@@ -463,7 +463,7 @@ class RequestsClient(HTTPClient):
         headers: Optional[Mapping[str, str]],
         post_data,
         is_streaming: bool,
-    ) -> Tuple[bytes | Any, int, Mapping[str, str]]:
+    ) -> Tuple[Union[bytes, Any], int, Mapping[str, str]]:
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs["verify"] = stripe.ca_bundle_path
@@ -758,7 +758,7 @@ class PycurlClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming,
-    ) -> Tuple[str | BytesIO, int, Mapping[str, str]]:
+    ) -> Tuple[Union[str, BytesIO], int, Mapping[str, str]]:
         b = _util.io.BytesIO()
         rheaders = _util.io.BytesIO()
 
