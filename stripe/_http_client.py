@@ -146,10 +146,10 @@ class HTTPClientBase(object):
 
     def _should_retry(
         self,
-        response,
-        api_connection_error,
-        num_retries,
-        max_network_retries,
+        response: Optional[Tuple[Any, int, Optional[Mapping[str, str]]]],
+        api_connection_error: Optional[APIConnectionError],
+        num_retries: int,
+        max_network_retries: Optional[int],
     ):
         max_network_retries = (
             max_network_retries if max_network_retries is not None else 0
@@ -162,6 +162,7 @@ class HTTPClientBase(object):
             # exceptions, but defer this decision to underlying subclass
             # implementations. They should evaluate the driver-specific
             # errors worthy of retries, and set flag on the error returned.
+            assert api_connection_error is not None
             return api_connection_error.should_retry
 
         _, status_code, rheaders = response
@@ -190,7 +191,9 @@ class HTTPClientBase(object):
 
         return False
 
-    def _retry_after_header(self, response=None):
+    def _retry_after_header(
+        self, response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None
+    ):
         if response is None:
             return None
         _, _, rheaders = response
@@ -200,7 +203,11 @@ class HTTPClientBase(object):
         except (KeyError, ValueError):
             return None
 
-    def _sleep_time_seconds(self, num_retries, response=None):
+    def _sleep_time_seconds(
+        self,
+        num_retries: int,
+        response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
+    ):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
@@ -221,7 +228,7 @@ class HTTPClientBase(object):
 
         return sleep_seconds
 
-    def _add_jitter_time(self, sleep_seconds):
+    def _add_jitter_time(self, sleep_seconds: float):
         # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
         # Also separated method here to isolate randomness for tests
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
