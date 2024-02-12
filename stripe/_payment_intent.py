@@ -797,7 +797,7 @@ class PaymentIntent(
             """
             mobile_auth_url: Optional[str]
             """
-            The url for mobile redirect based auth
+            The url for mobile redirect based auth (for internal use only and not typically available in standard API requests).
             """
             qr_code: Optional[QrCode]
             _inner_class_types = {"qr_code": QrCode}
