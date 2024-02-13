@@ -19,6 +19,7 @@ from typing import (
     Dict,
     List,
     Mapping,
+    MutableMapping,
     Optional,
     Tuple,
     ClassVar,
@@ -608,14 +609,14 @@ class UrlFetchClient(HTTPClient):
         self.urlfetch = urlfetch
 
     def request(
-        self, method, url, headers, post_data=None
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
     def request_stream(
-        self, method, url, headers, post_data=None
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
@@ -623,17 +624,17 @@ class UrlFetchClient(HTTPClient):
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[True]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[True]
     ) -> Tuple[BytesIO, int, Any]:
         ...
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[False]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[False]
     ) -> Tuple[str, int, Any]:
         ...
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    def _request_internal(self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming):
         try:
             result = self.urlfetch.fetch(
                 url=url,
@@ -726,14 +727,14 @@ class PycurlClient(HTTPClient):
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
     def request(
-        self, method, url, headers, post_data=None
+        self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
     def request_stream(
-        self, method, url, headers, post_data=None
+        self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
@@ -741,13 +742,13 @@ class PycurlClient(HTTPClient):
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[True]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[True]
     ) -> Tuple[BytesIO, int, Any]:
         ...
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[False]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[False]
     ) -> Tuple[str, int, Mapping[str, str]]:
         ...
 
@@ -892,14 +893,14 @@ class Urllib2Client(HTTPClient):
             self._opener = urllibrequest.build_opener(proxy_handler)
 
     def request(
-        self, method, url, headers, post_data=None
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
     def request_stream(
-        self, method, url, headers, post_data=None
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[HTTPResponse, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
@@ -907,21 +908,21 @@ class Urllib2Client(HTTPClient):
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[False]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[False]
     ) -> Tuple[str, int, Any]:
         ...
 
     @overload
     def _request_internal(
-        self, method, url, headers, post_data, is_streaming: Literal[True]
+        self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming: Literal[True]
     ) -> Tuple[HTTPResponse, int, Any]:
         ...
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    def _request_internal(self, method: str, url: str, headers: Mapping[str, str], post_data, is_streaming):
         if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
-        req = urllibrequest.Request(url, post_data, headers)
+        req = urllibrequest.Request(url, post_data, cast(MutableMapping[str, str], headers))
 
         if method not in ("get", "post"):
             req.get_method = lambda: method.upper()
