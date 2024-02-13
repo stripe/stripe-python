@@ -298,8 +298,6 @@ class _APIRequestor(object):
             _usage=_usage,
         )
         resp = await self._interpret_streaming_response_async(
-            # TODO: should be able to remove this cast once self._client.request_stream_with_retries
-            # returns a more specific type.
             stream,
             rcode,
             rheaders,
