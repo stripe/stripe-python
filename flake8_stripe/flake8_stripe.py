@@ -52,7 +52,7 @@ class TypingImportsChecker:
         "Mapping",
         "Tuple",
         "Iterator",
-        "Mapping",
+        "MutableMapping",
         "Set",
         "Callable",
         "Generator",

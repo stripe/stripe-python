@@ -345,24 +345,27 @@ class _APIRequestor(object):
         if stripe.app_info:
             ua["application"] = stripe.app_info
 
-        headers: Dict[str, Optional[str]] = {
+        headers: Dict[str, str] = {
             "X-Stripe-Client-User-Agent": json.dumps(ua),
             "User-Agent": user_agent,
             "Authorization": "Bearer %s" % (options.get("api_key"),),
         }
 
-        if options.get("stripe_account"):
-            headers["Stripe-Account"] = options.get("stripe_account")
+        stripe_account = options.get("stripe_account")
+        if stripe_account:
+            headers["Stripe-Account"] = stripe_account
 
-        if options.get("idempotency_key"):
-            headers["Idempotency-Key"] = options.get("idempotency_key")
+        idempotency_key = options.get("idempotency_key")
+        if idempotency_key:
+            headers["Idempotency-Key"] = idempotency_key
 
         if method == "post":
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
             headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-        if options.get("stripe_version"):
-            headers["Stripe-Version"] = options.get("stripe_version")
+        stripe_version = options.get("stripe_version")
+        if stripe_version:
+            headers["Stripe-Version"] = stripe_version
 
         return headers
 
