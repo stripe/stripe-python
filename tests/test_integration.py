@@ -448,7 +448,7 @@ class TestIntegration(object):
 
         chunks = []
         result = await stripe.Quote.pdf_async("qt_123")
-        async for chunk in result.stream:
+        async for chunk in result.stream():
             chunks.append(str(chunk, "utf-8"))
 
         MockServerRequestHandler.get_requests(1)

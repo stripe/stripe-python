@@ -89,7 +89,7 @@ class StripeService(object):
         base_address: BaseAddress,
         api_mode: ApiMode,
     ) -> StripeStreamResponseAsync:
-        return await self._requestor.request_stream_async(
+        return await self._requestor._request_stream_async(
             method,
             url,
             params,

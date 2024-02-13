@@ -276,7 +276,7 @@ class _APIRequestor(object):
         )
         return resp
 
-    async def request_stream_async(
+    async def _request_stream_async(
         self,
         method: str,
         url: str,

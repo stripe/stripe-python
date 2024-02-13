@@ -234,7 +234,7 @@ class APIResource(StripeObject, Generic[T]):
         api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
-        return await _APIRequestor._global_instance().request_stream_async(
+        return await _APIRequestor._global_instance()._request_stream_async(
             method,
             url,
             params=request_params,
