@@ -1,3 +1,4 @@
+from io import BytesIO
 import sys
 import textwrap
 import email
@@ -5,6 +6,7 @@ import time
 import random
 import threading
 import json
+from http.client import HTTPResponse
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -16,14 +18,17 @@ from typing import (
     Any,
     Dict,
     List,
+    Mapping,
+    MutableMapping,
     Optional,
     Tuple,
     ClassVar,
     Union,
     cast,
-    Mapping,
+    overload,
 )
 from typing_extensions import (
+    Literal,
     NoReturn,
     Self,
     TypedDict,
@@ -58,7 +63,7 @@ except ImportError:
 
 try:
     import requests
-    from requests import Session
+    from requests import Session as RequestsSession
 except ImportError:
     requests = None
 else:
@@ -164,10 +169,10 @@ class HTTPClientBase(object):
 
     def _should_retry(
         self,
-        response,
-        api_connection_error,
-        num_retries,
-        max_network_retries,
+        response: Optional[Tuple[Any, int, Optional[Mapping[str, str]]]],
+        api_connection_error: Optional[APIConnectionError],
+        num_retries: int,
+        max_network_retries: Optional[int],
     ):
         max_network_retries = (
             max_network_retries if max_network_retries is not None else 0
@@ -180,6 +185,7 @@ class HTTPClientBase(object):
             # exceptions, but defer this decision to underlying subclass
             # implementations. They should evaluate the driver-specific
             # errors worthy of retries, and set flag on the error returned.
+            assert api_connection_error is not None
             return api_connection_error.should_retry
 
         _, status_code, rheaders = response
@@ -208,7 +214,9 @@ class HTTPClientBase(object):
 
         return False
 
-    def _retry_after_header(self, response=None):
+    def _retry_after_header(
+        self, response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None
+    ):
         if response is None:
             return None
         _, _, rheaders = response
@@ -218,7 +226,11 @@ class HTTPClientBase(object):
         except (KeyError, ValueError):
             return None
 
-    def _sleep_time_seconds(self, num_retries, response=None):
+    def _sleep_time_seconds(
+        self,
+        num_retries: int,
+        response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
+    ):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
@@ -239,13 +251,15 @@ class HTTPClientBase(object):
 
         return sleep_seconds
 
-    def _add_jitter_time(self, sleep_seconds):
+    def _add_jitter_time(self, sleep_seconds: float):
         # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
         # Also separated method here to isolate randomness for tests
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
 
-    def _add_telemetry_header(self, headers):
+    def _add_telemetry_header(
+        self, headers: Mapping[str, str]
+    ) -> Mapping[str, str]:
         last_request_metrics = getattr(
             self._thread_local, "last_request_metrics", None
         )
@@ -253,7 +267,10 @@ class HTTPClientBase(object):
             telemetry = {
                 "last_request_metrics": last_request_metrics.payload()
             }
-            headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
+            ret = dict(headers)
+            ret["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
+            return ret
+        return headers
 
     def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
@@ -269,14 +286,14 @@ class HTTPClient(HTTPClientBase):
     # TODO: more specific types here would be helpful
     def request_with_retries(
         self,
-        method,
-        url,
-        headers,
-        post_data=None,
-        max_network_retries=None,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data: Any = None,
+        max_network_retries: Optional[int] = None,
         *,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[Any, int, Any]:
+    ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_with_retries_internal(
             method,
             url,
@@ -289,14 +306,14 @@ class HTTPClient(HTTPClientBase):
 
     def request_stream_with_retries(
         self,
-        method,
-        url,
-        headers,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
         post_data=None,
         max_network_retries=None,
         *,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[Any, int, Any]:
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         return self._request_with_retries_internal(
             method,
             url,
@@ -309,16 +326,16 @@ class HTTPClient(HTTPClientBase):
 
     def _request_with_retries_internal(
         self,
-        method,
-        url,
-        headers,
-        post_data,
-        is_streaming,
-        max_network_retries,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data: Any,
+        is_streaming: bool,
+        max_network_retries: Optional[int],
         *,
-        _usage=None,
-    ):
-        self._add_telemetry_header(headers)
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[Any, int, Mapping[str, str]]:
+        headers = self._add_telemetry_header(headers)
 
         num_retries = 0
 
@@ -366,12 +383,28 @@ class HTTPClient(HTTPClientBase):
                     assert connection_error is not None
                     raise connection_error
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data: Any = None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[str, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data: Any = None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
@@ -512,7 +545,7 @@ class RequestsClient(HTTPClient):
     def __init__(
         self,
         timeout: int = 80,
-        session: Optional["Session"] = None,
+        session: Optional["RequestsSession"] = None,
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
         **kwargs
@@ -526,17 +559,58 @@ class RequestsClient(HTTPClient):
         assert requests is not None
         self.requests = requests
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data=None,
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data=None,
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data,
+        is_streaming: Literal[True],
+    ) -> Tuple[Any, int, Mapping[str, str]]:
+        ...
+
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data,
+        is_streaming: Literal[False],
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
+        ...
+
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Optional[Mapping[str, str]],
+        post_data,
+        is_streaming: bool,
+    ) -> Tuple[Union[bytes, Any], int, Mapping[str, str]]:
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs["verify"] = stripe.ca_bundle_path
@@ -556,7 +630,9 @@ class RequestsClient(HTTPClient):
 
         try:
             try:
-                result = self._thread_local.session.request(
+                result = cast(
+                    "RequestsSession", self._thread_local.session
+                ).request(
                     method,
                     url,
                     headers=headers,
@@ -678,17 +754,50 @@ class UrlFetchClient(HTTPClient):
         assert urlfetch is not None
         self.urlfetch = urlfetch
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[True],
+    ) -> Tuple[BytesIO, int, Any]:
+        ...
+
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[False],
+    ) -> Tuple[str, int, Any]:
+        ...
+
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming,
+    ):
         try:
             result = self.urlfetch.fetch(
                 url=url,
@@ -705,6 +814,7 @@ class UrlFetchClient(HTTPClient):
             self._handle_request_error(e, url)
 
         if is_streaming:
+            # This doesn't really stream.
             content = _util.io.BytesIO(str.encode(result.content))
         else:
             content = result.content
@@ -779,17 +889,50 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self, method, url, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[True],
+    ) -> Tuple[BytesIO, int, Any]:
+        ...
+
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[False],
+    ) -> Tuple[str, int, Mapping[str, str]]:
+        ...
+
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming,
+    ) -> Tuple[Union[str, BytesIO], int, Mapping[str, str]]:
         b = _util.io.BytesIO()
         rheaders = _util.io.BytesIO()
 
@@ -922,21 +1065,56 @@ class Urllib2Client(HTTPClient):
             )
             self._opener = urllibrequest.build_opener(proxy_handler)
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[HTTPResponse, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
 
-    def _request_internal(self, method, url, headers, post_data, is_streaming):
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[False],
+    ) -> Tuple[str, int, Any]:
+        ...
+
+    @overload
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[True],
+    ) -> Tuple[HTTPResponse, int, Any]:
+        ...
+
+    def _request_internal(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming,
+    ):
         if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
-        req = urllibrequest.Request(url, post_data, headers)
+        req = urllibrequest.Request(
+            url, post_data, cast(MutableMapping[str, str], headers)
+        )
 
         if method not in ("get", "post"):
             req.get_method = lambda: method.upper()
