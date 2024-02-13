@@ -26,6 +26,7 @@ from typing import (
     Union,
     cast,
     overload,
+    AsyncIterable,
 )
 from typing_extensions import (
     Literal,
@@ -418,11 +419,11 @@ class HTTPClient(HTTPClientBase):
 class HTTPClientAsync(HTTPClientBase):
     async def request_with_retries_async(
         self,
-        method,
-        url,
-        headers,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
         post_data=None,
-        max_network_retries=None,
+        max_network_retries: Optional[int] = None,
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
@@ -438,14 +439,14 @@ class HTTPClientAsync(HTTPClientBase):
 
     async def request_stream_with_retries_async(
         self,
-        method,
-        url,
-        headers,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
         post_data=None,
         max_network_retries=None,
         *,
         _usage: Optional[List[str]] = None
-    ) -> Tuple[Any, int, Any]:
+    ) -> Tuple[AsyncIterable[bytes], int, Any]:
         return await self._request_with_retries_internal_async(
             method,
             url,
@@ -462,17 +463,45 @@ class HTTPClientAsync(HTTPClientBase):
             "HTTPClientAsync subclasses must implement `sleep`"
         )
 
+    @overload
     async def _request_with_retries_internal_async(
         self,
-        method,
-        url,
-        headers,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
         post_data,
-        is_streaming,
-        max_network_retries,
+        is_streaming: Literal[False],
+        max_network_retries: Optional[int],
         *,
-        _usage=None
-    ):
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Mapping[str, str]]:
+        ...
+
+    @overload
+    async def _request_with_retries_internal_async(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: Literal[True],
+        max_network_retries: Optional[int],
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
+        ...
+
+    async def _request_with_retries_internal_async(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data,
+        is_streaming: bool,
+        max_network_retries: Optional[int],
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Mapping[str, str]]:
         self._add_telemetry_header(headers)
 
         num_retries = 0
@@ -523,14 +552,18 @@ class HTTPClientAsync(HTTPClientBase):
                     assert connection_error is not None
                     raise connection_error
 
-    async def request_async(self, method, url, headers, post_data=None):
+    async def request_async(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
         raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `request`"
+            "HTTPClientAsync subclasses must implement `request_async`"
         )
 
-    async def request_stream_async(self, method, url, headers, post_data=None):
+    async def request_stream_async(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
         raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `request_stream`"
+            "HTTPClientAsync subclasses must implement `request_stream_async`"
         )
 
     async def close_async(self):
@@ -1189,7 +1222,9 @@ class HTTPXClient(HTTPClientAsync):
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
 
-    def _get_request_args_kwargs(self, method, url, headers, post_data):
+    def _get_request_args_kwargs(
+        self, method: str, url: str, headers: Mapping[str, str], post_data
+    ):
         kwargs = {}
 
         if self._proxy:
@@ -1203,7 +1238,12 @@ class HTTPXClient(HTTPClientAsync):
         ]
 
     async def request_async(
-        self, method, url, headers, post_data=None, timeout=80.0
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data=None,
+        timeout: float = 80.0,
     ) -> Tuple[bytes, int, Mapping[str, str]]:
         args, kwargs = self._get_request_args_kwargs(
             method, url, headers, post_data
@@ -1229,7 +1269,9 @@ class HTTPXClient(HTTPClientAsync):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry)
 
-    async def request_stream_async(self, method, url, headers, post_data=None):
+    async def request_stream_async(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
         args, kwargs = self._get_request_args_kwargs(
             method, url, headers, post_data
         )
@@ -1266,11 +1308,13 @@ class NoImportFoundAsyncClient(HTTPClientAsync):
         )
 
     async def request_async(
-        self, method, url, headers, post_data=None
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[bytes, int, Mapping[str, str]]:
         self.raise_async_client_import_error()
 
-    async def request_stream_async(self, method, url, headers, post_data=None):
+    async def request_stream_async(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ):
         self.raise_async_client_import_error()
 
     async def close_async(self):
