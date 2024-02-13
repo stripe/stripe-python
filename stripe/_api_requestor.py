@@ -3,6 +3,7 @@ import json
 import platform
 from typing import (
     Any,
+    AsyncIterable,
     Dict,
     List,
     Mapping,
@@ -12,7 +13,12 @@ from typing import (
     cast,
     ClassVar,
 )
-from typing_extensions import TYPE_CHECKING, Literal, NoReturn, Unpack
+from typing_extensions import (
+    TYPE_CHECKING,
+    Literal,
+    NoReturn,
+    Unpack,
+)
 import uuid
 from urllib.parse import urlsplit, urlunsplit
 
@@ -33,7 +39,11 @@ from stripe._encode import (
     _api_encode,
     _json_encode_date_callback,
 )
-from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import (
+    StripeResponse,
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._request_options import RequestOptions, merge_options
 from stripe._requestor_options import (
     RequestorOptions,
@@ -276,7 +286,7 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> StripeStreamResponse:
+    ) -> StripeStreamResponseAsync:
         stream, rcode, rheaders = await self.request_raw_async(
             method.lower(),
             url,
@@ -287,10 +297,10 @@ class _APIRequestor(object):
             options=options,
             _usage=_usage,
         )
-        resp = self._interpret_streaming_response(
+        resp = await self._interpret_streaming_response_async(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
             # returns a more specific type.
-            cast(IOBase, stream),
+            stream,
             rcode,
             rheaders,
         )
@@ -654,7 +664,7 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         api_mode: ApiMode,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[object, int, Mapping[str, str]]:
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
         """
         Mechanism for issuing an API call
         """
@@ -819,6 +829,22 @@ class _APIRequestor(object):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
+    async def _interpret_streaming_response_async(
+        self,
+        stream: AsyncIterable[bytes],
+        rcode: int,
+        rheaders: Mapping[str, str],
+    ) -> StripeStreamResponseAsync:
+        if self._should_handle_code_as_error(rcode):
+            json_content = b"".join([chunk async for chunk in stream])
+            self._interpret_response(json_content, rcode, rheaders)
+            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            raise RuntimeError(
+                "_interpret_response should have raised an error"
+            )
+        else:
+            return StripeStreamResponseAsync(stream, rcode, rheaders)
+
     def _interpret_streaming_response(
         self,
         stream: IOBase,
@@ -838,6 +864,7 @@ class _APIRequestor(object):
                 raise NotImplementedError(
                     "HTTP client %s does not return an IOBase object which "
                     "can be consumed when streaming a response."
+                    % self._get_http_client().name
                 )
 
             self._interpret_response(json_content, rcode, rheaders)

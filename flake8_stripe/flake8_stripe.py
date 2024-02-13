@@ -40,6 +40,7 @@ class TypingImportsChecker:
     allowed_typing_imports = [
         "Any",
         "AsyncIterator",
+        "AsyncIterable",
         "ClassVar",
         "Optional",
         "TypeVar",

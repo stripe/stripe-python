@@ -1189,9 +1189,7 @@ class HTTPXClient(HTTPClientAsync):
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
 
-    async def request_async(
-        self, method, url, headers, post_data=None, timeout=80.0
-    ) -> Tuple[bytes, int, Mapping[str, str]]:
+    def _get_request_args_kwargs(self, method, url, headers, post_data):
         kwargs = {}
 
         if self._proxy:
@@ -1199,11 +1197,19 @@ class HTTPXClient(HTTPClientAsync):
 
         if self._timeout:
             kwargs["timeout"] = self._timeout
+        return [
+            (method, url),
+            {"headers": headers, "data": post_data or {}, **kwargs},
+        ]
 
+    async def request_async(
+        self, method, url, headers, post_data=None, timeout=80.0
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
+        args, kwargs = self._get_request_args_kwargs(
+            method, url, headers, post_data
+        )
         try:
-            response = await self._client.request(
-                method, url, headers=headers, data=post_data or {}, **kwargs
-            )
+            response = await self._client.request(*args, **kwargs)
         except Exception as e:
             self._handle_request_error(e)
 
@@ -1224,7 +1230,21 @@ class HTTPXClient(HTTPClientAsync):
         raise APIConnectionError(msg, should_retry=should_retry)
 
     async def request_stream_async(self, method, url, headers, post_data=None):
-        raise NotImplementedError()
+        args, kwargs = self._get_request_args_kwargs(
+            method, url, headers, post_data
+        )
+        try:
+            response = await self._client.send(
+                request=self._client.build_request(*args, **kwargs),
+                stream=True,
+            )
+        except Exception as e:
+            self._handle_request_error(e)
+        content = response.aiter_bytes()
+        status_code = response.status_code
+        headers = response.headers
+
+        return content, status_code, headers
 
     async def close(self):
         await self._client.aclose()

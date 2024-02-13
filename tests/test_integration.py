@@ -84,6 +84,7 @@ class TestIntegration(object):
     def setup_stripe(self):
         orig_attrs = {
             "api_base": stripe.api_base,
+            "upload_api_base": stripe.upload_api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
             "default_http_client_async": stripe.default_http_client_async,
@@ -92,6 +93,7 @@ class TestIntegration(object):
             "proxy": stripe.proxy,
         }
         stripe.api_base = "http://localhost:12111"  # stripe-mock
+        stripe.upload_api_base = "http://localhost:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
         stripe._default_proxy = None
@@ -100,6 +102,7 @@ class TestIntegration(object):
         stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
+        stripe.upload_api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
         stripe.default_http_client_async = orig_attrs[
             "default_http_client_async"
@@ -433,3 +436,35 @@ class TestIntegration(object):
         MockServerRequestHandler.get_requests(1)
         assert exception is not None
         assert "Unauthorized" in str(exception.user_message)
+
+    @pytest.mark.anyio
+    async def test_async_httpx_stream(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (200, None, b"hello")
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+
+        chunks = []
+        result = await stripe.Quote.pdf_async("qt_123")
+        async for chunk in result.stream:
+            chunks.append(str(chunk, "utf-8"))
+
+        MockServerRequestHandler.get_requests(1)
+
+        assert "".join(chunks) == "hello"
+
+    @pytest.mark.anyio
+    async def test_async_httpx_stream_error(self):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (400, None, b'{"error": {"message": "bad request"}}')
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+
+        try:
+            await stripe.Quote.pdf_async("qt_123")
+        except stripe.InvalidRequestError as e:
+            assert "bad request" in str(e.user_message)
