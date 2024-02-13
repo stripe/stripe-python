@@ -398,6 +398,10 @@ class PaymentMethod(
         """
         A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         """
+        display_brand: Optional[str]
+        """
+        The brand to use when displaying the card, this accounts for customer's brand choice on dual-branded cards. Can be `american_express`, `cartes_bancaires`, `diners_club`, `discover`, `eftpos_australia`, `interac`, `jcb`, `mastercard`, `union_pay`, `visa`, or `other` and may contain more values in the future.
+        """
         exp_month: int
         """
         Two-digit number representing the card's expiration month.
@@ -1295,6 +1299,10 @@ class PaymentMethod(
         """
         Four-digit number representing the card's expiration year.
         """
+        networks: NotRequired["PaymentMethod.CreateParamsCardNetworks"]
+        """
+        Contains information about card networks used to process the payment.
+        """
         number: NotRequired["str"]
         """
         The card number, as a string without any separators.
@@ -1302,6 +1310,14 @@ class PaymentMethod(
         token: NotRequired["str"]
         """
         For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
+        """
+
+    class CreateParamsCardNetworks(TypedDict):
+        preferred: NotRequired[
+            "Literal['cartes_bancaires', 'mastercard', 'visa']"
+        ]
+        """
+        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
     class CreateParamsCashapp(TypedDict):
@@ -1585,6 +1601,18 @@ class PaymentMethod(
         exp_year: NotRequired["int"]
         """
         Four-digit number representing the card's expiration year.
+        """
+        networks: NotRequired["PaymentMethod.ModifyParamsCardNetworks"]
+        """
+        Contains information about card networks used to process the payment.
+        """
+
+    class ModifyParamsCardNetworks(TypedDict):
+        preferred: NotRequired[
+            "Literal['']|Literal['cartes_bancaires', 'mastercard', 'visa']"
+        ]
+        """
+        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
     class ModifyParamsLink(TypedDict):

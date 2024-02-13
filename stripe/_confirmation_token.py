@@ -426,6 +426,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
             """
+            display_brand: Optional[str]
+            """
+            The brand to use when displaying the card, this accounts for customer's brand choice on dual-branded cards. Can be `american_express`, `cartes_bancaires`, `diners_club`, `discover`, `eftpos_australia`, `interac`, `jcb`, `mastercard`, `union_pay`, `visa`, or `other` and may contain more values in the future.
+            """
             exp_month: int
             """
             Two-digit number representing the card's expiration month.

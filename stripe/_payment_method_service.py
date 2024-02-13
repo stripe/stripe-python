@@ -316,6 +316,10 @@ class PaymentMethodService(StripeService):
         """
         Four-digit number representing the card's expiration year.
         """
+        networks: NotRequired["PaymentMethodService.CreateParamsCardNetworks"]
+        """
+        Contains information about card networks used to process the payment.
+        """
         number: NotRequired["str"]
         """
         The card number, as a string without any separators.
@@ -323,6 +327,14 @@ class PaymentMethodService(StripeService):
         token: NotRequired["str"]
         """
         For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
+        """
+
+    class CreateParamsCardNetworks(TypedDict):
+        preferred: NotRequired[
+            "Literal['cartes_bancaires', 'mastercard', 'visa']"
+        ]
+        """
+        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
     class CreateParamsCashapp(TypedDict):
@@ -614,6 +626,18 @@ class PaymentMethodService(StripeService):
         exp_year: NotRequired["int"]
         """
         Four-digit number representing the card's expiration year.
+        """
+        networks: NotRequired["PaymentMethodService.UpdateParamsCardNetworks"]
+        """
+        Contains information about card networks used to process the payment.
+        """
+
+    class UpdateParamsCardNetworks(TypedDict):
+        preferred: NotRequired[
+            "Literal['']|Literal['cartes_bancaires', 'mastercard', 'visa']"
+        ]
+        """
+        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
     class UpdateParamsLink(TypedDict):
