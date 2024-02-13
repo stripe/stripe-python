@@ -1455,6 +1455,24 @@ class Charge(
                 "verified_address": VerifiedAddress,
             }
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """
@@ -1640,6 +1658,7 @@ class Charge(
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1688,6 +1707,7 @@ class Charge(
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,

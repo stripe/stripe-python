@@ -273,6 +273,10 @@ class Account(
         """
         The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
         """
+        payto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
+        """
         promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
@@ -1550,6 +1554,12 @@ class Account(
         """
         The paypal_payments capability.
         """
+        payto_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPromptpayPayments"
         ]
@@ -1776,6 +1786,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaytoPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

@@ -866,6 +866,20 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             pass
 
@@ -1048,6 +1062,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1081,6 +1096,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -1125,6 +1141,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,

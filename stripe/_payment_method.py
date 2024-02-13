@@ -838,6 +838,20 @@ class PaymentMethod(
         (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         """
 
+    class Payto(StripeObject):
+        bsb_number: Optional[str]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        last4: Optional[str]
+        """
+        Last four digits of the bank account number.
+        """
+        pay_id: Optional[str]
+        """
+        The PayID alias for the bank account.
+        """
+
     class Pix(StripeObject):
         pass
 
@@ -1138,6 +1152,10 @@ class PaymentMethod(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentMethod.CreateParamsPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentMethod.CreateParamsPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1167,7 +1185,7 @@ class PaymentMethod(
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1427,6 +1445,20 @@ class PaymentMethod(
     class CreateParamsPaypal(TypedDict):
         pass
 
+    class CreateParamsPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class CreateParamsPix(TypedDict):
         pass
 
@@ -1513,7 +1545,7 @@ class PaymentMethod(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         type: NotRequired[
-            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay', 'zip']"
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -1541,6 +1573,10 @@ class PaymentMethod(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        payto: NotRequired["PaymentMethod.ModifyParamsPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
@@ -1618,6 +1654,20 @@ class PaymentMethod(
     class ModifyParamsLink(TypedDict):
         pass
 
+    class ModifyParamsPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ModifyParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -1685,6 +1735,7 @@ class PaymentMethod(
     p24: Optional[P24]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     radar_options: Optional[RadarOptions]
@@ -1722,6 +1773,7 @@ class PaymentMethod(
         "p24",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -2225,6 +2277,7 @@ class PaymentMethod(
         "p24": P24,
         "paynow": Paynow,
         "paypal": Paypal,
+        "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,
