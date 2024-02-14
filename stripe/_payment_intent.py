@@ -797,7 +797,7 @@ class PaymentIntent(
             """
             mobile_auth_url: Optional[str]
             """
-            The url for mobile redirect based auth
+            The url for mobile redirect based auth (for internal use only and not typically available in standard API requests).
             """
             qr_code: Optional[QrCode]
             _inner_class_types = {"qr_code": QrCode}
@@ -1867,6 +1867,69 @@ class PaymentIntent(
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Defaults to retail.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Pix(StripeObject):
             expires_after_seconds: Optional[int]
             """
@@ -2075,6 +2138,7 @@ class PaymentIntent(
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -2111,6 +2175,7 @@ class PaymentIntent(
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -3840,6 +3905,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -3902,6 +3971,7 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -4142,6 +4212,20 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -4356,6 +4440,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix"
@@ -5217,6 +5307,56 @@ class PaymentIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
@@ -6493,6 +6633,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -6555,6 +6699,7 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -6795,6 +6940,20 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -7009,6 +7168,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix"
@@ -7870,6 +8035,56 @@ class PaymentIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
@@ -9168,6 +9383,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -9230,6 +9449,7 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -9470,6 +9690,20 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ModifyParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -9684,6 +9918,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix"
@@ -10545,6 +10785,56 @@ class PaymentIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
         """
 
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
@@ -11495,8 +11785,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11536,8 +11825,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11567,8 +11855,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11598,8 +11885,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11638,8 +11924,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11679,8 +11964,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11710,8 +11994,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11741,8 +12024,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",

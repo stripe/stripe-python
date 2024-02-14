@@ -426,6 +426,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
             """
+            display_brand: Optional[str]
+            """
+            The brand to use when displaying the card, this accounts for customer's brand choice on dual-branded cards. Can be `american_express`, `cartes_bancaires`, `diners_club`, `discover`, `eftpos_australia`, `interac`, `jcb`, `mastercard`, `union_pay`, `visa`, or `other` and may contain more values in the future.
+            """
             exp_month: int
             """
             Two-digit number representing the card's expiration month.
@@ -862,6 +866,20 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             pass
 
@@ -1044,6 +1062,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1077,6 +1096,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -1121,6 +1141,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
