@@ -21,7 +21,11 @@ from typing import (
 import stripe  # noqa: IMP101
 from stripe import _util
 
-from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import (
+    StripeResponse,
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._encode import _encode_datetime  # pyright: ignore
 from stripe._request_options import extract_options_from_dict
 from stripe._api_mode import ApiMode
@@ -471,7 +475,7 @@ class StripeObject(Dict[str, Any]):
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
-    ) -> StripeStreamResponse:
+    ) -> StripeStreamResponseAsync:
         if params is None:
             params = self._retrieve_params
 

@@ -1088,9 +1088,9 @@ class ClientTestBaseAsync(object):
             method, url, headers, post_data
         )
 
-    def make_request_stream(self, method, url, headers, post_data):
+    async def make_request_stream(self, method, url, headers, post_data):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True)
-        return client.request_stream_with_retries_async(
+        return await client.request_stream_with_retries_async(
             method, url, headers, post_data
         )
 
@@ -1132,14 +1132,24 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
         def mock_response(body={}, code=200):
             result = mocker.Mock()
             result.content = body
+
+            async def aiter_bytes():
+                yield bytes(body, "utf-8")
+
+            result.aiter_bytes = aiter_bytes
             result.status_code = code
             result.headers = {}
 
-            async def do(*args, **kwargs):
+            async def do_buffered(*args, **kwargs):
                 return result
 
-            async_mock = AsyncMock(side_effect=do)
+            async def do_stream(*args, **kwargs):
+                return result
 
+            async_mock = AsyncMock(side_effect=do_buffered)
+            async_mock_stream = AsyncMock(side_effect=do_stream)
+
+            request_mock.AsyncClient().send = async_mock_stream
             request_mock.AsyncClient().request = async_mock
             return result
 
@@ -1228,11 +1238,36 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
             check_call(request_mock, method, abs_url, data, headers)
 
     @pytest.mark.anyio
-    async def test_request_stream(
+    async def test_request_stream_async(
         self, mocker, request_mock, mock_response, check_call
     ):
-        # TODO
-        pass
+        for method in VALID_API_METHODS:
+            mock_response("some streamed content", 200)
+
+            abs_url = self.valid_url
+            data = ""
+
+            if method != "post":
+                abs_url = "%s?%s" % (abs_url, data)
+                data = None
+
+            headers = {"my-header": "header val"}
+
+            stream, code, _ = await self.make_request_stream_async(
+                method, abs_url, headers, data
+            )
+
+            assert code == 200
+
+            # Here we need to convert and align all content on one type (string)
+            # as some clients return a string stream others a byte stream.
+            body_content = b"".join([x async for x in stream])
+            if hasattr(body_content, "decode"):
+                body_content = body_content.decode("utf-8")
+
+            assert body_content == "some streamed content"
+
+            mocker.resetall()
 
     @pytest.mark.anyio
     async def test_exception(self, request_mock, mock_error):

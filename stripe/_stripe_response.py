@@ -2,7 +2,7 @@
 from io import IOBase
 import json
 from collections import OrderedDict
-from typing import Mapping, Optional
+from typing import Mapping, Optional, AsyncIterable
 
 
 class StripeResponseBase(object):
@@ -44,3 +44,19 @@ class StripeStreamResponse(StripeResponseBase):
     def __init__(self, io: IOBase, code: int, headers: Mapping[str, str]):
         StripeResponseBase.__init__(self, code, headers)
         self.io = io
+
+
+class StripeStreamResponseAsync(StripeResponseBase):
+    _stream: AsyncIterable[bytes]
+
+    def __init__(
+        self,
+        stream: AsyncIterable[bytes],
+        code: int,
+        headers: Mapping[str, str],
+    ):
+        StripeResponseBase.__init__(self, code, headers)
+        self._stream = stream
+
+    def stream(self) -> AsyncIterable[bytes]:
+        return self._stream
