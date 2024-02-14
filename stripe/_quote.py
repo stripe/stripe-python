@@ -5000,7 +5000,9 @@ class Quote(
         ...
 
     @overload
-    async def pdf_async(self, **params: Unpack["Quote.PdfParams"]) -> StripeStreamResponseAsync:
+    async def pdf_async(
+        self, **params: Unpack["Quote.PdfParams"]
+    ) -> StripeStreamResponseAsync:
         """
         Download the PDF for a finalized quote
         """
@@ -5015,9 +5017,7 @@ class Quote(
         """
         return await self._request_stream_async(
             "get",
-            "/v1/quotes/{quote}/pdf".format(
-                quote=sanitize_id(self.get("id"))
-            ),
+            "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(self.get("id"))),
             params=params,
         )
 
