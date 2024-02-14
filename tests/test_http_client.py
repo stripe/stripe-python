@@ -1141,6 +1141,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
             async_mock = AsyncMock(side_effect=do)
 
             request_mock.AsyncClient().send = async_mock
+            request_mock.AsyncClient().request = async_mock
             return result
 
         return mock_response

@@ -9,7 +9,10 @@ import pytest
 import stripe
 from stripe import util
 from stripe._encode import _json_encode_date_callback
-from stripe._stripe_response import StripeStreamResponse
+from stripe._stripe_response import (
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._api_requestor import _APIRequestor, _api_encode
 from stripe._stripe_object import StripeObject
 from stripe._requestor_options import (
@@ -300,15 +303,20 @@ class TestAPIRequestor(object):
     async def test_empty_methods_streaming_response_async(
         self, requestor_streaming, http_client_mock_streaming_async
     ):
+        async def async_iter():
+            yield b"this"
+            yield b"is"
+            yield b"data"
+
         for meth in VALID_API_METHODS:
             http_client_mock_streaming_async.stub_request(
                 meth,
                 path=self.valid_path,
-                rbody=util.io.BytesIO(b"thisisdata"),
+                rbody=async_iter(),
                 rcode=200,
             )
 
-            resp = await requestor_streaming.request_stream_async(
+            resp = await requestor_streaming._request_stream_async(
                 meth,
                 self.valid_path,
                 {},
@@ -324,9 +332,9 @@ class TestAPIRequestor(object):
             http_client_mock_streaming_async.assert_requested(
                 meth, post_data=post_data
             )
-            assert isinstance(resp, StripeStreamResponse)
+            assert isinstance(resp, StripeStreamResponseAsync)
 
-            assert resp.io.getvalue() == b"thisisdata"
+            assert b"".join([x async for x in resp.stream()]) == b"thisisdata"
 
     def test_empty_methods_streaming_response(
         self, requestor_streaming, http_client_mock_streaming
