@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._util import class_method_variant, sanitize_id
@@ -7,7 +8,10 @@ from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
 
 
-class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
+class EphemeralKey(
+    CreateableAPIResource["EphemeralKey"],
+    DeletableAPIResource["EphemeralKey"],
+):
     OBJECT_NAME: ClassVar[Literal["ephemeral_key"]] = "ephemeral_key"
 
     class DeleteParams(RequestOptions):
