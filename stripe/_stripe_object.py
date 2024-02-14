@@ -480,7 +480,7 @@ class StripeObject(Dict[str, Any]):
             params = self._retrieve_params
 
         request_options, request_params = extract_options_from_dict(params)
-        return await self._requestor._request_stream_async(  # pyright: ignore[reportPrivateUsage]
+        return await self._requestor.request_stream_async(
             method,
             url,
             params=request_params,
