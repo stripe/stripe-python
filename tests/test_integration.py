@@ -446,14 +446,8 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
 
-        chunks = []
         result = await stripe.Quote.pdf_async("qt_123")
-        async for chunk in result.stream():
-            chunks.append(str(chunk, "utf-8"))
-
-        MockServerRequestHandler.get_requests(1)
-
-        assert "".join(chunks) == "hello"
+        assert str(await result.read(), "utf-8") == "hello"
 
     @pytest.mark.anyio
     async def test_async_httpx_stream_error(self):
