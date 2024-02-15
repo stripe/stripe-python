@@ -642,9 +642,21 @@ class TokenService(StripeService):
         """
         Cardholder's full name.
         """
+        networks: NotRequired["TokenService.CreateParamsCardNetworks"]
+        """
+        Contains information about card networks used to process the payment.
+        """
         number: str
         """
         The card number, as a string without any separators.
+        """
+
+    class CreateParamsCardNetworks(TypedDict):
+        preferred: NotRequired[
+            "Literal['cartes_bancaires', 'mastercard', 'visa']"
+        ]
+        """
+        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
     class CreateParamsCvcUpdate(TypedDict):

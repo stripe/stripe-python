@@ -127,6 +127,10 @@ class InvoiceLineItem(StripeObject):
     """
     Unique identifier for the object.
     """
+    invoice: Optional[str]
+    """
+    The ID of the invoice that contains this line item.
+    """
     invoice_item: Optional[ExpandableField["InvoiceItem"]]
     """
     The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any.
