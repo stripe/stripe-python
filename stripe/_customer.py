@@ -2063,26 +2063,6 @@ class Customer(
         )
 
     @classmethod
-    def modify_cash_balance(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
-    ) -> "CashBalance":
-        """
-        Changes the settings on a customer's cash balance.
-        """
-        return cast(
-            "CashBalance",
-            cls._static_request(
-                "post",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve_cash_balance(
         cls,
         customer: str,
@@ -2095,6 +2075,26 @@ class Customer(
             "CashBalance",
             cls._static_request(
                 "get",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def modify_cash_balance(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
+    ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
+        return cast(
+            "CashBalance",
+            cls._static_request(
+                "post",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer)
                 ),

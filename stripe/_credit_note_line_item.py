@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
-from stripe._list_object import ListObject
-from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._tax_rate import TaxRate
 
 
-class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
+class CreditNoteLineItem(StripeObject):
     """
     The credit note line item object
     """
@@ -70,24 +67,6 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         taxable_amount: Optional[int]
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     amount: int
@@ -154,28 +133,6 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
     The amount in cents (or local equivalent) representing the unit amount being credited for this line item, excluding all tax and discounts.
     """
-
-    @classmethod
-    def list(
-        cls, **params: Unpack["CreditNoteLineItem.ListParams"]
-    ) -> ListObject["CreditNoteLineItem"]:
-        """
-        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "tax_amounts": TaxAmount,

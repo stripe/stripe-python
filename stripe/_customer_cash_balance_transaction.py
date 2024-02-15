@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
-from stripe._list_object import ListObject
-from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar, Optional
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -15,9 +12,7 @@ if TYPE_CHECKING:
     from stripe._refund import Refund
 
 
-class CustomerCashBalanceTransaction(
-    ListableAPIResource["CustomerCashBalanceTransaction"],
-):
+class CustomerCashBalanceTransaction(StripeObject):
     """
     Customers with certain payments enabled have a cash balance, representing funds that were paid
     by the customer to a merchant, but have not yet been allocated to a payment. Cash Balance Transactions
@@ -145,30 +140,6 @@ class CustomerCashBalanceTransaction(
         The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
         """
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     adjusted_for_overdraft: Optional[AdjustedForOverdraft]
     applied_to_payment: Optional[AppliedToPayment]
     created: int
@@ -221,41 +192,6 @@ class CustomerCashBalanceTransaction(
     The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
     """
     unapplied_from_payment: Optional[UnappliedFromPayment]
-
-    @classmethod
-    def list(
-        cls, **params: Unpack["CustomerCashBalanceTransaction.ListParams"]
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
-        """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
-        """
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    def retrieve(
-        cls,
-        id: str,
-        **params: Unpack["CustomerCashBalanceTransaction.RetrieveParams"]
-    ) -> "CustomerCashBalanceTransaction":
-        """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
-        """
-        instance = cls(id, **params)
-        instance.refresh()
-        return instance
-
     _inner_class_types = {
         "adjusted_for_overdraft": AdjustedForOverdraft,
         "applied_to_payment": AppliedToPayment,

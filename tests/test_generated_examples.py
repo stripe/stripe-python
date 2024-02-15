@@ -726,7 +726,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        stripe.Account.list_persons(
+        stripe.Account.persons(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
