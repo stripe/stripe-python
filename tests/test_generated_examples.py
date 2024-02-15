@@ -1487,7 +1487,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        stripe.Account.list_persons(
+        stripe.Account.persons(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -1525,7 +1525,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_get_async(
         self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        await stripe.Account.list_persons_async(
+        await stripe.Account.persons_async(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )

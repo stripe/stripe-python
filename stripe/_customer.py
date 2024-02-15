@@ -55,9 +55,9 @@ if TYPE_CHECKING:
 
 @nested_resource_class_methods("balance_transaction")
 @nested_resource_class_methods("cash_balance_transaction")
-@nested_resource_class_methods("entitlement")
 @nested_resource_class_methods("source")
 @nested_resource_class_methods("tax_id")
+@nested_resource_class_methods("entitlement")
 class Customer(
     CreateableAPIResource["Customer"],
     DeletableAPIResource["Customer"],
@@ -2418,42 +2418,6 @@ class Customer(
         )
 
     @classmethod
-    def list_entitlements(
-        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
-    ) -> ListObject["CustomerEntitlement"]:
-        """
-        Retrieve a list of entitlements for a customer
-        """
-        return cast(
-            ListObject["CustomerEntitlement"],
-            cls._static_request(
-                "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_entitlements_async(
-        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
-    ) -> ListObject["CustomerEntitlement"]:
-        """
-        Retrieve a list of entitlements for a customer
-        """
-        return cast(
-            ListObject["CustomerEntitlement"],
-            await cls._static_request_async(
-                "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create_source(
         cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
@@ -2816,19 +2780,17 @@ class Customer(
         )
 
     @classmethod
-    def modify_cash_balance(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
-    ) -> "CashBalance":
+    def list_entitlements(
+        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
+    ) -> ListObject["CustomerEntitlement"]:
         """
-        Changes the settings on a customer's cash balance.
+        Retrieve a list of entitlements for a customer
         """
         return cast(
-            "CashBalance",
+            ListObject["CustomerEntitlement"],
             cls._static_request(
-                "post",
-                "/v1/customers/{customer}/cash_balance".format(
+                "get",
+                "/v1/customers/{customer}/entitlements".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2836,19 +2798,17 @@ class Customer(
         )
 
     @classmethod
-    async def modify_cash_balance_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
-    ) -> "CashBalance":
+    async def list_entitlements_async(
+        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
+    ) -> ListObject["CustomerEntitlement"]:
         """
-        Changes the settings on a customer's cash balance.
+        Retrieve a list of entitlements for a customer
         """
         return cast(
-            "CashBalance",
+            ListObject["CustomerEntitlement"],
             await cls._static_request_async(
-                "post",
-                "/v1/customers/{customer}/cash_balance".format(
+                "get",
+                "/v1/customers/{customer}/entitlements".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2888,6 +2848,46 @@ class Customer(
             "CashBalance",
             await cls._static_request_async(
                 "get",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def modify_cash_balance(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
+    ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
+        return cast(
+            "CashBalance",
+            cls._static_request(
+                "post",
+                "/v1/customers/{customer}/cash_balance".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_cash_balance_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
+    ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
+        return cast(
+            "CashBalance",
+            await cls._static_request_async(
+                "post",
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer)
                 ),

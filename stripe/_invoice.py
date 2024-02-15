@@ -10100,6 +10100,42 @@ class Invoice(
         ).auto_paging_iter_async()
 
     @classmethod
+    def list_payments(
+        cls, invoice: str, **params: Unpack["Invoice.ListPaymentsParams"]
+    ) -> ListObject["InvoicePayment"]:
+        """
+        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
+        """
+        return cast(
+            ListObject["InvoicePayment"],
+            cls._static_request(
+                "get",
+                "/v1/invoices/{invoice}/payments".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_payments_async(
+        cls, invoice: str, **params: Unpack["Invoice.ListPaymentsParams"]
+    ) -> ListObject["InvoicePayment"]:
+        """
+        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
+        """
+        return cast(
+            ListObject["InvoicePayment"],
+            await cls._static_request_async(
+                "get",
+                "/v1/invoices/{invoice}/payments".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_payment(
         cls,
         invoice: str,
@@ -10138,42 +10174,6 @@ class Invoice(
                 "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
                     invoice=sanitize_id(invoice),
                     invoice_payment=sanitize_id(invoice_payment),
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_payments(
-        cls, invoice: str, **params: Unpack["Invoice.ListPaymentsParams"]
-    ) -> ListObject["InvoicePayment"]:
-        """
-        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
-        """
-        return cast(
-            ListObject["InvoicePayment"],
-            cls._static_request(
-                "get",
-                "/v1/invoices/{invoice}/payments".format(
-                    invoice=sanitize_id(invoice)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_payments_async(
-        cls, invoice: str, **params: Unpack["Invoice.ListPaymentsParams"]
-    ) -> ListObject["InvoicePayment"]:
-        """
-        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
-        """
-        return cast(
-            ListObject["InvoicePayment"],
-            await cls._static_request_async(
-                "get",
-                "/v1/invoices/{invoice}/payments".format(
-                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
