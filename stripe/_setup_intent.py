@@ -957,6 +957,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -988,6 +992,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1262,6 +1267,9 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -1992,6 +2000,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.CreateParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2023,6 +2035,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2297,6 +2310,9 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -2994,6 +3010,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -3025,6 +3045,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -3299,6 +3320,9 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
