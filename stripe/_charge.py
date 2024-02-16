@@ -373,6 +373,12 @@ class Charge(
                 If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
 
+            class DecrementalAuthorization(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not the decremental authorization feature is supported.
+                """
+
             class ExtendedAuthorization(StripeObject):
                 status: Literal["disabled", "enabled"]
                 """
@@ -708,6 +714,7 @@ class Charge(
             """
             Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             """
+            decremental_authorization: Optional[DecrementalAuthorization]
             description: Optional[str]
             """
             A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
@@ -778,6 +785,7 @@ class Charge(
             """
             _inner_class_types = {
                 "checks": Checks,
+                "decremental_authorization": DecrementalAuthorization,
                 "extended_authorization": ExtendedAuthorization,
                 "incremental_authorization": IncrementalAuthorization,
                 "installments": Installments,

@@ -2514,6 +2514,12 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -5284,6 +5290,12 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -6209,6 +6221,16 @@ class PaymentIntentService(StripeService):
         account for tax reporting, and the funds from charges will be transferred
         to the destination account. The ID of the resulting transfer will be
         returned on the successful charge's `transfer` field.
+        """
+
+    class DecrementAuthorizationParams(TypedDict):
+        amount: int
+        """
+        The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class IncrementAuthorizationParams(TypedDict):
@@ -8106,6 +8128,12 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -9517,6 +9545,82 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
+                    intent=sanitize_id(intent),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def decrement_authorization(
+        self,
+        intent: str,
+        params: "PaymentIntentService.DecrementAuthorizationParams",
+        options: RequestOptions = {},
+    ) -> PaymentIntent:
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            PaymentIntent,
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def decrement_authorization_async(
+        self,
+        intent: str,
+        params: "PaymentIntentService.DecrementAuthorizationParams",
+        options: RequestOptions = {},
+    ) -> PaymentIntent:
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            PaymentIntent,
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
                     intent=sanitize_id(intent),
                 ),
                 api_mode="V1",
