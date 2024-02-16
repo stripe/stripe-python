@@ -217,7 +217,9 @@ class StripeRequestCall(object):
 class HTTPClientMock(object):
     def __init__(self, mocker):
         self.mock_client = mocker.Mock(
-            wraps=stripe.http_client.new_default_http_client()
+            wraps=stripe.http_client.new_default_http_client(
+                async_fallback_client=stripe.http_client.new_http_client_async_fallback()
+            )
         )
 
         self.mock_client._verify_ssl_certs = True
@@ -226,6 +228,8 @@ class HTTPClientMock(object):
         self.funcs = [
             self.mock_client.request_with_retries,
             self.mock_client.request_stream_with_retries,
+            self.mock_client.request_with_retries_async,
+            self.mock_client.request_stream_with_retries_async,
         ]
         self.func_call_order = []
 
