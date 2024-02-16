@@ -109,14 +109,6 @@ class TestAPIRequestor(object):
         )
         return requestor
 
-    @pytest.fixture
-    def requestor_streaming(self, http_client_mock_streaming):
-        requestor_streaming = _APIRequestor(
-            client=http_client_mock_streaming.get_mock_http_client(),
-            options=_GlobalRequestorOptions(),
-        )
-        return requestor_streaming
-
     @property
     def valid_path(self):
         return "/foo"
@@ -251,17 +243,17 @@ class TestAPIRequestor(object):
             assert resp == {}
 
     def test_empty_methods_streaming_response(
-        self, requestor_streaming, http_client_mock_streaming
+        self, requestor, http_client_mock
     ):
         for meth in VALID_API_METHODS:
-            http_client_mock_streaming.stub_request(
+            http_client_mock.stub_request(
                 meth,
                 path=self.valid_path,
                 rbody=util.io.BytesIO(b"thisisdata"),
                 rcode=200,
             )
 
-            resp = requestor_streaming.request_stream(
+            resp = requestor.request_stream(
                 meth,
                 self.valid_path,
                 {},
@@ -274,9 +266,7 @@ class TestAPIRequestor(object):
             else:
                 post_data = None
 
-            http_client_mock_streaming.assert_requested(
-                meth, post_data=post_data
-            )
+            http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeStreamResponse)
 
             assert resp.io.getvalue() == b"thisisdata"
@@ -329,7 +319,7 @@ class TestAPIRequestor(object):
                 http_client_mock.assert_requested(method, abs_url=abs_url)
 
     def test_methods_with_params_and_streaming_response(
-        self, requestor_streaming, http_client_mock_streaming
+        self, requestor, http_client_mock
     ):
         for method in VALID_API_METHODS:
             encoded = (
@@ -337,7 +327,7 @@ class TestAPIRequestor(object):
                 "alist[0]=1&alist[1]=2&alist[2]=3"
             )
 
-            http_client_mock_streaming.stub_request(
+            http_client_mock.stub_request(
                 method,
                 path=self.valid_path,
                 query_string=encoded if method != "post" else "",
@@ -351,7 +341,7 @@ class TestAPIRequestor(object):
                 "adatetime": datetime.datetime(2013, 1, 1, tzinfo=GMT1()),
             }
 
-            resp = requestor_streaming.request_stream(
+            resp = requestor.request_stream(
                 method,
                 self.valid_path,
                 params,
@@ -363,18 +353,14 @@ class TestAPIRequestor(object):
             assert resp.io.getvalue() == b'{"foo": "bar", "baz": 6}'
 
             if method == "post":
-                http_client_mock_streaming.assert_requested(
-                    method, post_data=encoded
-                )
+                http_client_mock.assert_requested(method, post_data=encoded)
             else:
                 abs_url = "%s%s?%s" % (
                     stripe.api_base,
                     self.valid_path,
                     encoded,
                 )
-                http_client_mock_streaming.assert_requested(
-                    method, abs_url=abs_url
-                )
+                http_client_mock.assert_requested(method, abs_url=abs_url)
 
     def test_uses_headers(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -746,9 +732,9 @@ class TestAPIRequestor(object):
             )
 
     def test_extract_error_from_stream_request_for_bytes(
-        self, requestor_streaming, http_client_mock_streaming
+        self, requestor, http_client_mock
     ):
-        http_client_mock_streaming.stub_request(
+        http_client_mock.stub_request(
             "get",
             path=self.valid_path,
             rbody=util.io.BytesIO(b'{"error": "invalid_grant"}'),
@@ -756,15 +742,15 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
-            requestor_streaming.request_stream(
+            requestor.request_stream(
                 "get", self.valid_path, {}, base_address="api", api_mode="V1"
             )
 
     def test_extract_error_from_stream_request_for_response(
-        self, requestor_streaming, http_client_mock_streaming
+        self, requestor, http_client_mock
     ):
         # Responses don't have getvalue, they only have a read method.
-        http_client_mock_streaming.stub_request(
+        http_client_mock.stub_request(
             "get",
             path=self.valid_path,
             rbody=urllib3.response.HTTPResponse(
@@ -775,7 +761,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
-            requestor_streaming.request_stream(
+            requestor.request_stream(
                 "get", self.valid_path, {}, base_address="api", api_mode="V1"
             )
 

@@ -105,13 +105,11 @@ class TestQuote(object):
 
     def test_can_pdf(
         self,
-        file_stripe_mock_stripe_client_streaming,
-        http_client_mock_streaming,
+        file_stripe_mock_stripe_client,
+        http_client_mock,
     ):
-        stream = file_stripe_mock_stripe_client_streaming.quotes.pdf(
-            TEST_RESOURCE_ID
-        )
-        http_client_mock_streaming.assert_requested(
+        stream = file_stripe_mock_stripe_client.quotes.pdf(TEST_RESOURCE_ID)
+        http_client_mock.assert_requested(
             "get",
             api_base=stripe.upload_api_base,
             path="/v1/quotes/%s/pdf" % TEST_RESOURCE_ID,
