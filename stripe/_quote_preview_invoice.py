@@ -2,11 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
-from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional, Union
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -30,7 +28,7 @@ if TYPE_CHECKING:
     from stripe.test_helpers._test_clock import TestClock
 
 
-class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
+class QuotePreviewInvoice(StripeObject):
     """
     Invoices are statements of amounts owed by a customer, and are either
     generated one-off, or generated periodically from a subscription.
@@ -274,6 +272,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
             "my_itn",
             "my_sst",
             "no_vat",
+            "no_voec",
             "nz_gst",
             "pe_ruc",
             "ph_tin",
@@ -298,7 +297,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
             "za_vat",
         ]
         """
-        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
         """
         value: Optional[str]
         """
@@ -624,7 +623,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
                     Literal["any", "automatic", "challenge"]
                 ]
                 """
-                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
                 """
                 _inner_class_types = {"installments": Installments}
 
@@ -1031,24 +1030,6 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         The account where funds from the payment will be transferred to upon payment success.
         """
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
     account_country: Optional[str]
     """
     The country of the business associated with this invoice, most often the business creating the invoice.
@@ -1387,49 +1368,6 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     """
     Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     """
-
-    @classmethod
-    def list(
-        cls, **params: Unpack["QuotePreviewInvoice.ListParams"]
-    ) -> ListObject["QuotePreviewInvoice"]:
-        """
-        Preview the invoices that would be generated by accepting the quote.
-        """
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["QuotePreviewInvoice.ListParams"]
-    ) -> ListObject["QuotePreviewInvoice"]:
-        """
-        Preview the invoices that would be generated by accepting the quote.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
     _inner_class_types = {
         "amounts_due": AmountsDue,
         "applies_to": AppliesTo,

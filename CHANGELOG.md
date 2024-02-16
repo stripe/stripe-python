@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.3.0 - 2024-02-15
+* [#1230](https://github.com/stripe/stripe-python/pull/1230) Update generated code
+  * Add support for `networks` on `Card`, `PaymentMethod.CreateParamsCard`, `PaymentMethod.ModifyParamsCard`, and `Token.CreateParamsCard`
+  * Add support for new value `no_voec` on enums `Checkout.Session.CustomerDetails.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetails.TaxId.type`, `Tax.Transaction.CustomerDetails.TaxId.type`, and `TaxId.type`
+  * Add support for new value `no_voec` on enums `Customer.CreateParams.tax_id_data[].type`, `Invoice.UpcomingLinesParams.customer_details.tax_ids[].type`, `Invoice.UpcomingParams.customer_details.tax_ids[].type`,  and `Tax.Calculation.CreateParams.customer_details.tax_ids[].type`
+  * Add support for new value `financial_connections.account.refreshed_ownership` on enum `Event.type`
+  * Add support for `display_brand` on `PaymentMethod.card`
+  * Add support for new value `financial_connections.account.refreshed_ownership` on enums `WebhookEndpoint.CreateParams.enabled_events[]` and `WebhookEndpoint.UpdateParams.enabled_events[]`
+* [#1237](https://github.com/stripe/stripe-python/pull/1237) Remove broken child methods
+  * Bugfix: remove support for `CreditNoteLineItem.list`, `CustomerCashBalanceTransaction.list`, and `CustomerCashBalanceTransaction.retrieve`. These methods were included in the library unintentionally and never functioned.
+* [#1232](https://github.com/stripe/stripe-python/pull/1232) Improve types in _http_client.py
+
 ## 8.3.0b1 - 2024-02-08
 * [#1226](https://github.com/stripe/stripe-python/pull/1226) Update generated code for beta
   * Add support for `payment_method_options` on `ConfirmationToken`

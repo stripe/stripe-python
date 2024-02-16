@@ -797,7 +797,7 @@ class PaymentIntent(
             """
             mobile_auth_url: Optional[str]
             """
-            The url for mobile redirect based auth
+            The url for mobile redirect based auth (for internal use only and not typically available in standard API requests).
             """
             qr_code: Optional[QrCode]
             _inner_class_types = {"qr_code": QrCode}
@@ -1551,6 +1551,12 @@ class PaymentIntent(
             """
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
+            request_decremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+            """
             request_extended_authorization: Optional[
                 Literal["if_available", "never"]
             ]
@@ -1575,7 +1581,7 @@ class PaymentIntent(
                 Literal["any", "automatic", "challenge"]
             ]
             """
-            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             require_cvc_recollection: Optional[bool]
             """
@@ -1867,6 +1873,69 @@ class PaymentIntent(
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Defaults to retail.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Pix(StripeObject):
             expires_after_seconds: Optional[int]
             """
@@ -2075,6 +2144,7 @@ class PaymentIntent(
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -2111,6 +2181,7 @@ class PaymentIntent(
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -3840,6 +3911,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -3878,6 +3953,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -3902,12 +3981,14 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -4142,6 +4223,20 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -4170,6 +4265,9 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -4356,6 +4454,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix"
@@ -4642,6 +4746,12 @@ class PaymentIntent(
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -4666,7 +4776,7 @@ class PaymentIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         require_cvc_recollection: NotRequired["bool"]
         """
@@ -5217,6 +5327,56 @@ class PaymentIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
@@ -6493,6 +6653,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -6531,6 +6695,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -6555,12 +6723,14 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -6795,6 +6965,20 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -6823,6 +7007,9 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -7009,6 +7196,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix"
@@ -7295,6 +7488,12 @@ class PaymentIntent(
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -7319,7 +7518,7 @@ class PaymentIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         require_cvc_recollection: NotRequired["bool"]
         """
@@ -7872,6 +8071,56 @@ class PaymentIntent(
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
         """
 
+    class CreateParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
+        """
+
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
         expires_after_seconds: NotRequired["int"]
         """
@@ -8170,6 +8419,16 @@ class PaymentIntent(
         account for tax reporting, and the funds from charges will be transferred
         to the destination account. The ID of the resulting transfer will be
         returned on the successful charge's `transfer` field.
+        """
+
+    class DecrementAuthorizationParams(RequestOptions):
+        amount: int
+        """
+        The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class IncrementAuthorizationParams(RequestOptions):
@@ -9168,6 +9427,10 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -9206,6 +9469,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -9230,12 +9497,14 @@ class PaymentIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -9470,6 +9739,20 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ModifyParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -9498,6 +9781,9 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -9684,6 +9970,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix"
@@ -9970,6 +10262,12 @@ class PaymentIntent(
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
+        request_decremental_authorization: NotRequired[
+            "Literal['if_available', 'never']"
+        ]
+        """
+        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+        """
         request_extended_authorization: NotRequired[
             "Literal['if_available', 'never']"
         ]
@@ -9994,7 +10292,7 @@ class PaymentIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         require_cvc_recollection: NotRequired["bool"]
         """
@@ -10545,6 +10843,56 @@ class PaymentIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
         """
 
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
@@ -11495,8 +11843,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11536,8 +11883,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11567,8 +11913,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11598,8 +11943,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11638,8 +11982,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11679,8 +12022,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11710,8 +12052,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         ...
 
@@ -11741,8 +12082,7 @@ class PaymentIntent(
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
-        attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-        to learn more about manual confirmation.
+        attempt.
         """
         return cast(
             "PaymentIntent",
@@ -11801,6 +12141,242 @@ class PaymentIntent(
             await cls._static_request_async(
                 "post",
                 cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_decrement_authorization(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def decrement_authorization(
+        intent: str,
+        **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @overload
+    def decrement_authorization(
+        self, **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @class_method_variant("_cls_decrement_authorization")
+    def decrement_authorization(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_decrement_authorization_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def decrement_authorization_async(
+        intent: str,
+        **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @overload
+    async def decrement_authorization_async(
+        self, **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @class_method_variant("_cls_decrement_authorization_async")
+    async def decrement_authorization_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.DecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform an decremental authorization on an eligible
+        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
                 params=params,
             ),
         )

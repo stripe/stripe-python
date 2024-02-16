@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._api_resource import APIResource
+from stripe._createable_api_resource import CreateableAPIResource
 from typing import ClassVar
 from typing_extensions import Literal
 
 
-class UsageRecord(APIResource["UsageRecord"]):
+class UsageRecord(CreateableAPIResource["UsageRecord"]):
     """
     Usage records allow you to report customer usage and metrics to Stripe for
     metered billing of subscription prices.

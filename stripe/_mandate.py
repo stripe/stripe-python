@@ -128,6 +128,59 @@ class Mandate(APIResource["Mandate"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Payto(StripeObject):
+            amount: Optional[int]
+            """
+            Amount that will be collected. It is required when `amount_type` is `fixed`.
+            """
+            amount_type: Literal["fixed", "maximum"]
+            """
+            The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+            """
+            end_date: Optional[str]
+            """
+            Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+            """
+            payment_schedule: Literal[
+                "adhoc",
+                "annual",
+                "daily",
+                "fortnightly",
+                "monthly",
+                "quarterly",
+                "semi_annual",
+                "weekly",
+            ]
+            """
+            The periodicity at which payments will be collected.
+            """
+            payments_per_period: Optional[int]
+            """
+            The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+            """
+            purpose: Optional[
+                Literal[
+                    "dependant_support",
+                    "government",
+                    "loan",
+                    "mortgage",
+                    "other",
+                    "pension",
+                    "personal",
+                    "retail",
+                    "salary",
+                    "tax",
+                    "utility",
+                ]
+            ]
+            """
+            The purpose for which payments are made. Defaults to retail.
+            """
+            start_date: Optional[str]
+            """
+            Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+            """
+
         class SepaDebit(StripeObject):
             reference: str
             """
@@ -151,6 +204,7 @@ class Mandate(APIResource["Mandate"]):
         cashapp: Optional[Cashapp]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         sepa_debit: Optional[SepaDebit]
         type: str
         """
@@ -165,6 +219,7 @@ class Mandate(APIResource["Mandate"]):
             "cashapp": Cashapp,
             "link": Link,
             "paypal": Paypal,
+            "payto": Payto,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }

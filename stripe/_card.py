@@ -6,6 +6,7 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
@@ -25,6 +26,12 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["card"]] = "card"
+
+    class Networks(StripeObject):
+        preferred: Optional[str]
+        """
+        The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
+        """
 
     class DeleteParams(RequestOptions):
         pass
@@ -143,6 +150,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     Cardholder name.
     """
+    networks: Optional[Networks]
     object: Literal["card"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -310,3 +318,5 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             "stripe.Account.retrieve_external_account('account_id', 'card_id') "
             "(see https://stripe.com/docs/api/external_account_cards/retrieve)."
         )
+
+    _inner_class_types = {"networks": Networks}

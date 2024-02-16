@@ -373,6 +373,12 @@ class Charge(
                 If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
 
+            class DecrementalAuthorization(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not the decremental authorization feature is supported.
+                """
+
             class ExtendedAuthorization(StripeObject):
                 status: Literal["disabled", "enabled"]
                 """
@@ -708,6 +714,7 @@ class Charge(
             """
             Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             """
+            decremental_authorization: Optional[DecrementalAuthorization]
             description: Optional[str]
             """
             A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
@@ -778,6 +785,7 @@ class Charge(
             """
             _inner_class_types = {
                 "checks": Checks,
+                "decremental_authorization": DecrementalAuthorization,
                 "extended_authorization": ExtendedAuthorization,
                 "incremental_authorization": IncrementalAuthorization,
                 "installments": Installments,
@@ -1455,6 +1463,24 @@ class Charge(
                 "verified_address": VerifiedAddress,
             }
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """
@@ -1569,6 +1595,9 @@ class Charge(
             The last four digits of the Swish account phone number
             """
 
+        class Twint(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
             """
@@ -1640,6 +1669,7 @@ class Charge(
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1648,6 +1678,7 @@ class Charge(
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
         swish: Optional[Swish]
+        twint: Optional[Twint]
         type: str
         """
         The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
@@ -1688,6 +1719,7 @@ class Charge(
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -1696,6 +1728,7 @@ class Charge(
             "sofort": Sofort,
             "stripe_account": StripeAccount,
             "swish": Swish,
+            "twint": Twint,
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,

@@ -399,6 +399,12 @@ class AccountService(StripeService):
         """
         The paypal_payments capability.
         """
+        payto_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPromptpayPayments"
         ]
@@ -452,6 +458,12 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        twint_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
         """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesUsBankAccountAchPayments"
@@ -634,6 +646,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
         requested: NotRequired["bool"]
         """
@@ -683,6 +701,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTwintPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1979,6 +2003,12 @@ class AccountService(StripeService):
         """
         The paypal_payments capability.
         """
+        payto_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPromptpayPayments"
         ]
@@ -2032,6 +2062,12 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        twint_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
         """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesUsBankAccountAchPayments"
@@ -2214,6 +2250,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesPromptpayPayments(TypedDict):
         requested: NotRequired["bool"]
         """
@@ -2263,6 +2305,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTwintPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

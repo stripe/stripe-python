@@ -524,7 +524,7 @@ class SetupIntent(
                 Literal["any", "automatic", "challenge", "challenge_only"]
             ]
             """
-            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -547,6 +547,65 @@ class SetupIntent(
             """
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
+
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Defaults to retail.
+                """
+                start_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -619,6 +678,7 @@ class SetupIntent(
         card: Optional[Card]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         sepa_debit: Optional[SepaDebit]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
@@ -626,6 +686,7 @@ class SetupIntent(
             "card": Card,
             "link": Link,
             "paypal": Paypal,
+            "payto": Payto,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }
@@ -856,6 +917,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -892,6 +957,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -916,12 +985,14 @@ class SetupIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1154,6 +1225,20 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -1182,6 +1267,9 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -1232,6 +1320,12 @@ class SetupIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsPayto"
+        ]
+        """
+        If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
         sepa_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -1313,7 +1407,7 @@ class SetupIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         three_d_secure: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
@@ -1456,6 +1550,48 @@ class SetupIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
+        """
+        start_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -1824,6 +1960,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1860,6 +2000,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.CreateParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1884,12 +2028,14 @@ class SetupIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2122,6 +2268,20 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -2150,6 +2310,9 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -2200,6 +2363,10 @@ class SetupIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsPayto"]
+        """
+        If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
         sepa_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -2281,7 +2448,7 @@ class SetupIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         three_d_secure: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
@@ -2424,6 +2591,48 @@ class SetupIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
+        """
+        start_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -2761,6 +2970,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        payto: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPayto"]
+        """
+        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
         pix: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -2797,6 +3010,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataTwint"]
+        """
+        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2821,12 +3038,14 @@ class SetupIntent(
             "p24",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -3059,6 +3278,20 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataPayto(TypedDict):
+        account_number: NotRequired["str"]
+        """
+        The account number for the bank account.
+        """
+        bsb_number: NotRequired["str"]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        pay_id: NotRequired["str"]
+        """
+        The PayID alias for the bank account.
+        """
+
     class ModifyParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -3087,6 +3320,9 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -3137,6 +3373,10 @@ class SetupIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        payto: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsPayto"]
+        """
+        If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
         sepa_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
@@ -3218,7 +3458,7 @@ class SetupIntent(
             "Literal['any', 'automatic', 'challenge']"
         ]
         """
-        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
         three_d_secure: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
@@ -3361,6 +3601,48 @@ class SetupIntent(
         subsellers: NotRequired["List[str]"]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPayto(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsPaytoMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+        amount: NotRequired["int"]
+        """
+        Amount that will be collected. It is required when `amount_type` is `fixed`.
+        """
+        amount_type: NotRequired["Literal['fixed', 'maximum']"]
+        """
+        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+        """
+        end_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+        """
+        payment_schedule: NotRequired[
+            "Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        ]
+        """
+        The periodicity at which payments will be collected.
+        """
+        payments_per_period: NotRequired["int"]
+        """
+        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+        """
+        purpose: NotRequired[
+            "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        ]
+        """
+        The purpose for which payments are made. Defaults to retail.
+        """
+        start_date: NotRequired["str"]
+        """
+        Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):

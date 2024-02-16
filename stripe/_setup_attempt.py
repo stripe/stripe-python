@@ -320,6 +320,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Paypal(StripeObject):
             pass
 
+        class Payto(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             pass
 
@@ -374,6 +377,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         type: str
@@ -394,6 +398,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "link": Link,
             "paypal": Paypal,
+            "payto": Payto,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,
