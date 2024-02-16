@@ -34,7 +34,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.account_links.create(
@@ -72,7 +72,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.capabilities.list("acct_xxxxxxxxxxxxx")
@@ -105,7 +105,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.capabilities.retrieve(
@@ -143,7 +143,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.capabilities.update(
@@ -176,7 +176,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.delete("acct_xxxxxxxxxxxxx")
@@ -209,7 +209,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.delete(
@@ -245,7 +245,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.delete(
@@ -282,7 +282,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.list(
@@ -320,7 +320,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.list(
@@ -358,7 +358,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.list(
@@ -394,7 +394,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.retrieve(
@@ -430,7 +430,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.retrieve(
@@ -467,7 +467,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.create(
@@ -505,7 +505,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.create(
@@ -544,7 +544,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.update(
@@ -584,7 +584,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.external_accounts.update(
@@ -618,7 +618,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.list({"limit": 3})
@@ -646,7 +646,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.retrieve("acct_xxxxxxxxxxxxx")
@@ -676,7 +676,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.login_links.create("acct_xxxxxxxxxxxxx")
@@ -709,7 +709,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.persons.delete(
@@ -746,7 +746,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.persons.list(
@@ -782,7 +782,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.persons.retrieve(
@@ -820,7 +820,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.persons.create(
@@ -859,7 +859,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.persons.update(
@@ -901,7 +901,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.create(
@@ -944,7 +944,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.update(
@@ -982,7 +982,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.accounts.reject(
@@ -1017,7 +1017,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.list({"limit": 3})
@@ -1047,7 +1047,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.retrieve("fee_xxxxxxxxxxxxx")
@@ -1081,7 +1081,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.refunds.list(
@@ -1117,7 +1117,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.refunds.retrieve(
@@ -1150,7 +1150,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.refunds.create("fee_xxxxxxxxxxxxx")
@@ -1185,7 +1185,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.application_fees.refunds.update(
@@ -1224,7 +1224,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.delete_where(
@@ -1264,7 +1264,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.find(
@@ -1301,7 +1301,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
@@ -1335,7 +1335,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
@@ -1368,7 +1368,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.create(
@@ -1410,7 +1410,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.apps.secrets.create(
@@ -1448,7 +1448,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.balance_transactions.list({"limit": 3})
@@ -1478,7 +1478,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.balance_transactions.retrieve("txn_xxxxxxxxxxxxx")
@@ -1509,7 +1509,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.billing_portal.configurations.list({"limit": 3})
@@ -1539,7 +1539,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.billing_portal.configurations.retrieve("bpc_xxxxxxxxxxxxx")
@@ -1582,7 +1582,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.billing_portal.configurations.create(
@@ -1634,7 +1634,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.billing_portal.configurations.update(
@@ -1677,7 +1677,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.billing_portal.sessions.create(
@@ -1713,7 +1713,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.capture("ch_xxxxxxxxxxxxx")
@@ -1742,7 +1742,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.list({"limit": 3})
@@ -1770,7 +1770,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.retrieve("ch_xxxxxxxxxxxxx")
@@ -1804,7 +1804,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.create(
@@ -1844,7 +1844,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.update(
@@ -1881,7 +1881,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.charges.search(
@@ -1915,7 +1915,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.expire("sess_xyz")
@@ -1945,7 +1945,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.expire("cs_test_xxxxxxxxxxxxx")
@@ -1976,7 +1976,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.list({"limit": 3})
@@ -2006,7 +2006,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.retrieve("cs_test_xxxxxxxxxxxxx")
@@ -2036,7 +2036,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.line_items.list("sess_xyz")
@@ -2083,7 +2083,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.create(
@@ -2137,7 +2137,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.checkout.sessions.create(
@@ -2175,7 +2175,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.country_specs.list({"limit": 3})
@@ -2205,7 +2205,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.country_specs.retrieve("US")
@@ -2233,7 +2233,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.coupons.delete("Z4OV52SU")
@@ -2262,7 +2262,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.coupons.list({"limit": 3})
@@ -2290,7 +2290,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.coupons.retrieve("Z4OV52SU")
@@ -2323,7 +2323,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.coupons.create(
@@ -2362,7 +2362,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.coupons.update(
@@ -2395,7 +2395,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.list({"limit": 3})
@@ -2429,7 +2429,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.line_items.list(
@@ -2470,7 +2470,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.create(
@@ -2522,7 +2522,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.preview(
@@ -2567,7 +2567,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.preview_lines.list(
@@ -2602,7 +2602,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.credit_notes.void_credit_note("cn_xxxxxxxxxxxxx")
@@ -2636,7 +2636,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customer_sessions.create(
@@ -2676,7 +2676,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.balance_transactions.list(
@@ -2712,7 +2712,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.balance_transactions.retrieve(
@@ -2750,7 +2750,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.balance_transactions.create(
@@ -2789,7 +2789,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.balance_transactions.update(
@@ -2824,7 +2824,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.cash_balance.retrieve("cus_123")
@@ -2858,7 +2858,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.cash_balance.update(
@@ -2890,7 +2890,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.delete("cus_xxxxxxxxxxxxx")
@@ -2929,7 +2929,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.funding_instructions.create(
@@ -2969,7 +2969,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.list({"limit": 3})
@@ -2998,7 +2998,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.list({"limit": 3})
@@ -3026,7 +3026,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.retrieve("cus_xxxxxxxxxxxxx")
@@ -3060,7 +3060,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_methods.list(
@@ -3097,7 +3097,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_methods.list(
@@ -3131,7 +3131,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.create(
@@ -3168,7 +3168,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.update(
@@ -3205,7 +3205,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.search(
@@ -3242,7 +3242,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.search(
@@ -3279,7 +3279,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sources.detach(
@@ -3315,7 +3315,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sources.detach(
@@ -3353,7 +3353,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.list(
@@ -3391,7 +3391,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.list(
@@ -3427,7 +3427,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.retrieve(
@@ -3463,7 +3463,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.retrieve(
@@ -3501,7 +3501,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.update(
@@ -3540,7 +3540,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.create(
@@ -3578,7 +3578,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.create(
@@ -3617,7 +3617,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.update(
@@ -3657,7 +3657,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.payment_sources.update(
@@ -3695,7 +3695,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.tax_ids.delete(
@@ -3732,7 +3732,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.tax_ids.list(
@@ -3768,7 +3768,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.tax_ids.retrieve(
@@ -3806,7 +3806,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.customers.tax_ids.create(
@@ -3840,7 +3840,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.disputes.close("dp_xxxxxxxxxxxxx")
@@ -3869,7 +3869,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.disputes.list({"limit": 3})
@@ -3897,7 +3897,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.disputes.retrieve("dp_xxxxxxxxxxxxx")
@@ -3929,7 +3929,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.disputes.update(
@@ -3962,7 +3962,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.events.list({"limit": 3})
@@ -3990,7 +3990,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.events.retrieve("evt_xxxxxxxxxxxxx")
@@ -4019,7 +4019,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.file_links.list({"limit": 3})
@@ -4047,7 +4047,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.file_links.retrieve("link_xxxxxxxxxxxxx")
@@ -4076,7 +4076,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.file_links.create({"file": "file_xxxxxxxxxxxxx"})
@@ -4109,7 +4109,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.file_links.update(
@@ -4140,7 +4140,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.files.list({"limit": 3})
@@ -4168,7 +4168,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.files.retrieve("file_xxxxxxxxxxxxx")
@@ -4199,7 +4199,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.files.create(
@@ -4234,7 +4234,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.disconnect("fca_xyz")
@@ -4264,7 +4264,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.disconnect("fca_xxxxxxxxxxxxx")
@@ -4294,7 +4294,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.list()
@@ -4324,7 +4324,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.retrieve("fca_xyz")
@@ -4357,7 +4357,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.list(
@@ -4391,7 +4391,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.retrieve("fca_xxxxxxxxxxxxx")
@@ -4425,7 +4425,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.owners.list(
@@ -4463,7 +4463,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.owners.list(
@@ -4500,7 +4500,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.refresh(
@@ -4538,7 +4538,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.subscribe(
@@ -4576,7 +4576,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.accounts.unsubscribe(
@@ -4610,7 +4610,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.sessions.retrieve("fcsess_xyz")
@@ -4640,7 +4640,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.sessions.retrieve("fcsess_xxxxxxxxxxxxx")
@@ -4674,7 +4674,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.sessions.create(
@@ -4718,7 +4718,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.sessions.create(
@@ -4758,7 +4758,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.transactions.retrieve("tr_123")
@@ -4789,7 +4789,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.financial_connections.transactions.list({"account": "fca_xyz"})
@@ -4820,7 +4820,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_reports.list({"limit": 3})
@@ -4850,7 +4850,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_reports.retrieve("vr_xxxxxxxxxxxxx")
@@ -4880,7 +4880,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.cancel("vs_xxxxxxxxxxxxx")
@@ -4911,7 +4911,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.list({"limit": 3})
@@ -4941,7 +4941,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.retrieve("vs_xxxxxxxxxxxxx")
@@ -4972,7 +4972,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.create({"type": "document"})
@@ -5007,7 +5007,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.update(
@@ -5041,7 +5041,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.identity.verification_sessions.redact("vs_xxxxxxxxxxxxx")
@@ -5071,7 +5071,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoice_items.delete("ii_xxxxxxxxxxxxx")
@@ -5100,7 +5100,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoice_items.list({"limit": 3})
@@ -5130,7 +5130,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoice_items.retrieve("ii_xxxxxxxxxxxxx")
@@ -5162,7 +5162,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoice_items.create(
@@ -5202,7 +5202,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoice_items.update(
@@ -5234,7 +5234,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.delete("in_xxxxxxxxxxxxx")
@@ -5264,7 +5264,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.finalize_invoice("in_xxxxxxxxxxxxx")
@@ -5293,7 +5293,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.list({"limit": 3})
@@ -5321,7 +5321,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.retrieve("in_xxxxxxxxxxxxx")
@@ -5353,7 +5353,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.retrieve(
@@ -5386,7 +5386,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.mark_uncollectible("in_xxxxxxxxxxxxx")
@@ -5414,7 +5414,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.pay("in_xxxxxxxxxxxxx")
@@ -5443,7 +5443,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.create({"customer": "cus_xxxxxxxxxxxxx"})
@@ -5476,7 +5476,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.update(
@@ -5513,7 +5513,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.search(
@@ -5547,7 +5547,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.send_invoice("in_xxxxxxxxxxxxx")
@@ -5578,7 +5578,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.upcoming({"customer": "cus_9utnxg47pWjV1e"})
@@ -5608,7 +5608,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.invoices.void_invoice("in_xxxxxxxxxxxxx")
@@ -5638,7 +5638,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.authorizations.approve("iauth_xxxxxxxxxxxxx")
@@ -5668,7 +5668,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.authorizations.decline("iauth_xxxxxxxxxxxxx")
@@ -5699,7 +5699,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.authorizations.list({"limit": 3})
@@ -5729,7 +5729,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.authorizations.retrieve("iauth_xxxxxxxxxxxxx")
@@ -5763,7 +5763,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.authorizations.update(
@@ -5798,7 +5798,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cardholders.list({"limit": 3})
@@ -5828,7 +5828,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cardholders.retrieve("ich_xxxxxxxxxxxxx")
@@ -5873,7 +5873,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cardholders.create(
@@ -5924,7 +5924,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cardholders.update(
@@ -5957,7 +5957,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cards.list({"limit": 3})
@@ -5987,7 +5987,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cards.retrieve("ic_xxxxxxxxxxxxx")
@@ -6022,7 +6022,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cards.create(
@@ -6063,7 +6063,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.cards.update(
@@ -6098,7 +6098,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.disputes.list({"limit": 3})
@@ -6128,7 +6128,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.disputes.retrieve("idp_xxxxxxxxxxxxx")
@@ -6165,7 +6165,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.disputes.create(
@@ -6206,7 +6206,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.disputes.submit("idp_xxxxxxxxxxxxx")
@@ -6237,7 +6237,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.transactions.list({"limit": 3})
@@ -6267,7 +6267,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.transactions.retrieve("ipi_xxxxxxxxxxxxx")
@@ -6301,7 +6301,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.issuing.transactions.update(
@@ -6333,7 +6333,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.mandates.retrieve("mandate_xxxxxxxxxxxxx")
@@ -6363,7 +6363,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.apply_customer_balance("pi_xxxxxxxxxxxxx")
@@ -6393,7 +6393,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.cancel("pi_xxxxxxxxxxxxx")
@@ -6423,7 +6423,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.capture("pi_xxxxxxxxxxxxx")
@@ -6457,7 +6457,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.confirm(
@@ -6492,7 +6492,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.list({"limit": 3})
@@ -6522,7 +6522,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.retrieve("pi_xxxxxxxxxxxxx")
@@ -6556,7 +6556,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.increment_authorization(
@@ -6595,7 +6595,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.create(
@@ -6637,7 +6637,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.create(
@@ -6678,7 +6678,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.update(
@@ -6717,7 +6717,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.create(
@@ -6760,7 +6760,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.search(
@@ -6794,7 +6794,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx")
@@ -6828,7 +6828,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_intents.verify_microdeposits(
@@ -6860,7 +6860,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.retrieve("pl_xyz")
@@ -6891,7 +6891,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.list({"limit": 3})
@@ -6921,7 +6921,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.retrieve("plink_xxxxxxxxxxxxx")
@@ -6951,7 +6951,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.line_items.list("pl_xyz")
@@ -6984,7 +6984,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.create(
@@ -7024,7 +7024,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.create(
@@ -7065,7 +7065,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_links.update(
@@ -7100,7 +7100,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_method_configurations.list({"application": "foo"})
@@ -7130,7 +7130,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_method_configurations.retrieve("foo")
@@ -7164,7 +7164,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_method_configurations.create(
@@ -7204,7 +7204,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_method_configurations.update(
@@ -7242,7 +7242,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.attach(
@@ -7276,7 +7276,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.detach("pm_xxxxxxxxxxxxx")
@@ -7310,7 +7310,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.list(
@@ -7345,7 +7345,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.retrieve("pm_xxxxxxxxxxxxx")
@@ -7384,7 +7384,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.create(
@@ -7429,7 +7429,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payment_methods.update(
@@ -7463,7 +7463,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.cancel("po_xxxxxxxxxxxxx")
@@ -7492,7 +7492,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.list({"limit": 3})
@@ -7520,7 +7520,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.retrieve("po_xxxxxxxxxxxxx")
@@ -7552,7 +7552,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.create({"amount": 1100, "currency": "usd"})
@@ -7585,7 +7585,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.update(
@@ -7619,7 +7619,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.payouts.reverse("po_xxxxxxxxxxxxx")
@@ -7647,7 +7647,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.delete("price_xxxxxxxxxxxxx")
@@ -7674,7 +7674,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.list({"limit": 3})
@@ -7702,7 +7702,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.retrieve("price_xxxxxxxxxxxxx")
@@ -7736,7 +7736,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.create(
@@ -7778,7 +7778,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.create(
@@ -7818,7 +7818,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.plans.update(
@@ -7851,7 +7851,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.list({"limit": 3})
@@ -7879,7 +7879,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.retrieve("price_xxxxxxxxxxxxx")
@@ -7917,7 +7917,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.create(
@@ -7963,7 +7963,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.create(
@@ -8003,7 +8003,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.update(
@@ -8038,7 +8038,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.prices.search(
@@ -8070,7 +8070,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.delete("prod_xxxxxxxxxxxxx")
@@ -8099,7 +8099,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.list({"limit": 3})
@@ -8127,7 +8127,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.retrieve("prod_xxxxxxxxxxxxx")
@@ -8156,7 +8156,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.create({"name": "Gold Special"})
@@ -8189,7 +8189,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.update(
@@ -8226,7 +8226,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.products.search(
@@ -8261,7 +8261,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.promotion_codes.list({"limit": 3})
@@ -8291,7 +8291,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.promotion_codes.retrieve("promo_xxxxxxxxxxxxx")
@@ -8322,7 +8322,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.promotion_codes.create({"coupon": "Z4OV52SU"})
@@ -8357,7 +8357,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.promotion_codes.update(
@@ -8391,7 +8391,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.accept("qt_xxxxxxxxxxxxx")
@@ -8421,7 +8421,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.cancel("qt_xxxxxxxxxxxxx")
@@ -8451,7 +8451,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.finalize_quote("qt_xxxxxxxxxxxxx")
@@ -8480,7 +8480,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.list({"limit": 3})
@@ -8508,7 +8508,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.retrieve("qt_xxxxxxxxxxxxx")
@@ -8538,7 +8538,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.line_items.list("qt_xxxxxxxxxxxxx")
@@ -8566,7 +8566,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.pdf("qt_xxxxxxxxxxxxx")
@@ -8598,7 +8598,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.create(
@@ -8638,7 +8638,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.update(
@@ -8673,7 +8673,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.early_fraud_warnings.list({"limit": 3})
@@ -8703,7 +8703,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.early_fraud_warnings.retrieve("issfr_xxxxxxxxxxxxx")
@@ -8733,7 +8733,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_list_items.delete("rsli_xxxxxxxxxxxxx")
@@ -8767,7 +8767,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_list_items.list(
@@ -8802,7 +8802,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_list_items.retrieve("rsli_xxxxxxxxxxxxx")
@@ -8836,7 +8836,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_list_items.create(
@@ -8872,7 +8872,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_lists.delete("rsl_xxxxxxxxxxxxx")
@@ -8903,7 +8903,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_lists.list({"limit": 3})
@@ -8933,7 +8933,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_lists.retrieve("rsl_xxxxxxxxxxxxx")
@@ -8968,7 +8968,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_lists.create(
@@ -9009,7 +9009,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.radar.value_lists.update(
@@ -9043,7 +9043,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.refunds.cancel("re_xxxxxxxxxxxxx")
@@ -9072,7 +9072,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.refunds.list({"limit": 3})
@@ -9100,7 +9100,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.refunds.retrieve("re_xxxxxxxxxxxxx")
@@ -9129,7 +9129,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.refunds.create({"charge": "ch_xxxxxxxxxxxxx"})
@@ -9162,7 +9162,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.refunds.update(
@@ -9197,7 +9197,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reporting.report_runs.list({"limit": 3})
@@ -9227,7 +9227,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reporting.report_runs.retrieve("frr_xxxxxxxxxxxxx")
@@ -9264,7 +9264,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reporting.report_runs.create(
@@ -9303,7 +9303,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reporting.report_types.list()
@@ -9333,7 +9333,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reporting.report_types.retrieve("balance.summary.1")
@@ -9363,7 +9363,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reviews.approve("prv_xxxxxxxxxxxxx")
@@ -9392,7 +9392,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reviews.list({"limit": 3})
@@ -9420,7 +9420,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.reviews.retrieve("prv_xxxxxxxxxxxxx")
@@ -9454,7 +9454,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_attempts.list({"limit": 3, "setup_intent": "si_xyz"})
@@ -9484,7 +9484,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.cancel("seti_xxxxxxxxxxxxx")
@@ -9518,7 +9518,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.confirm(
@@ -9551,7 +9551,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.list({"limit": 3})
@@ -9581,7 +9581,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.retrieve("seti_xxxxxxxxxxxxx")
@@ -9612,7 +9612,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.create({"payment_method_types": ["card"]})
@@ -9647,7 +9647,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.update(
@@ -9681,7 +9681,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx")
@@ -9715,7 +9715,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.setup_intents.verify_microdeposits(
@@ -9749,7 +9749,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.list()
@@ -9780,7 +9780,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.list({"limit": 3})
@@ -9810,7 +9810,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.retrieve("shr_xxxxxxxxxxxxx")
@@ -9845,7 +9845,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.create(
@@ -9887,7 +9887,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.create(
@@ -9928,7 +9928,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.shipping_rates.update(
@@ -9963,7 +9963,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sigma.scheduled_query_runs.list({"limit": 3})
@@ -9993,7 +9993,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sigma.scheduled_query_runs.retrieve("sqr_xxxxxxxxxxxxx")
@@ -10021,7 +10021,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sources.retrieve("src_xxxxxxxxxxxxx")
@@ -10049,7 +10049,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sources.retrieve("src_xxxxxxxxxxxxx")
@@ -10081,7 +10081,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.sources.update(
@@ -10115,7 +10115,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.delete("si_xxxxxxxxxxxxx")
@@ -10146,7 +10146,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.list({"subscription": "sub_xxxxxxxxxxxxx"})
@@ -10176,7 +10176,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.retrieve("si_xxxxxxxxxxxxx")
@@ -10211,7 +10211,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.create(
@@ -10252,7 +10252,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.update(
@@ -10290,7 +10290,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.usage_record_summaries.list(
@@ -10328,7 +10328,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_items.usage_records.create(
@@ -10362,7 +10362,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.cancel("sub_sched_xxxxxxxxxxxxx")
@@ -10393,7 +10393,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.list({"limit": 3})
@@ -10423,7 +10423,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.retrieve("sub_sched_xxxxxxxxxxxxx")
@@ -10464,7 +10464,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.create(
@@ -10513,7 +10513,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.update(
@@ -10547,7 +10547,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscription_schedules.release("sub_sched_xxxxxxxxxxxxx")
@@ -10577,7 +10577,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.cancel("sub_xxxxxxxxxxxxx")
@@ -10607,7 +10607,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.delete_discount("sub_xyz")
@@ -10636,7 +10636,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.list({"limit": 3})
@@ -10666,7 +10666,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.retrieve("sub_xxxxxxxxxxxxx")
@@ -10700,7 +10700,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.create(
@@ -10740,7 +10740,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.update(
@@ -10777,7 +10777,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.subscriptions.search(
@@ -10811,7 +10811,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.calculations.line_items.list("xxx")
@@ -10855,7 +10855,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.calculations.create(
@@ -10900,7 +10900,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_codes.list({"limit": 3})
@@ -10928,7 +10928,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
@@ -10957,7 +10957,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_rates.list({"limit": 3})
@@ -10985,7 +10985,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_rates.retrieve("txr_xxxxxxxxxxxxx")
@@ -11020,7 +11020,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_rates.create(
@@ -11061,7 +11061,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax_rates.update(
@@ -11096,7 +11096,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.registrations.list({"status": "all"})
@@ -11131,7 +11131,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.registrations.create(
@@ -11172,7 +11172,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.registrations.update(
@@ -11204,7 +11204,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.settings.retrieve()
@@ -11233,7 +11233,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.settings.update({"defaults": {"tax_code": "txcd_10000000"}})
@@ -11268,7 +11268,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tax.transactions.create_from_calculation(
@@ -11304,7 +11304,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.delete("uc_123")
@@ -11334,7 +11334,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.delete("tmc_xxxxxxxxxxxxx")
@@ -11364,7 +11364,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.list()
@@ -11394,7 +11394,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.retrieve("uc_123")
@@ -11425,7 +11425,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.list({"limit": 3})
@@ -11455,7 +11455,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.retrieve("tmc_xxxxxxxxxxxxx")
@@ -11485,7 +11485,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.create()
@@ -11519,7 +11519,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.update(
@@ -11556,7 +11556,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.create(
@@ -11595,7 +11595,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.configurations.update(
@@ -11629,7 +11629,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.connection_tokens.create()
@@ -11659,7 +11659,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.locations.delete("tml_xxxxxxxxxxxxx")
@@ -11690,7 +11690,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.locations.list({"limit": 3})
@@ -11720,7 +11720,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.locations.retrieve("tml_xxxxxxxxxxxxx")
@@ -11760,7 +11760,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.locations.create(
@@ -11806,7 +11806,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.locations.update(
@@ -11840,7 +11840,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.cancel_action("tmr_xxxxxxxxxxxxx")
@@ -11870,7 +11870,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.delete("tmr_xxxxxxxxxxxxx")
@@ -11901,7 +11901,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.list({"limit": 3})
@@ -11931,7 +11931,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.retrieve("tmr_xxxxxxxxxxxxx")
@@ -11966,7 +11966,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.create(
@@ -12007,7 +12007,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.update(
@@ -12045,7 +12045,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.process_payment_intent(
@@ -12084,7 +12084,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.terminal.readers.process_setup_intent(
@@ -12126,7 +12126,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.customers.fund_cash_balance(
@@ -12199,7 +12199,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.authorizations.capture(
@@ -12272,7 +12272,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.authorizations.expire(
@@ -12309,7 +12309,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.authorizations.increment(
@@ -12369,7 +12369,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.authorizations.create(
@@ -12431,7 +12431,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.authorizations.reverse(
@@ -12465,7 +12465,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.cards.deliver_card("card_123")
@@ -12495,7 +12495,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.cards.fail_card("card_123")
@@ -12525,7 +12525,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.cards.return_card("card_123")
@@ -12555,7 +12555,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.cards.ship_card("card_123")
@@ -12634,7 +12634,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.transactions.create_force_capture(
@@ -12764,7 +12764,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.transactions.create_unlinked_refund(
@@ -12849,7 +12849,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.issuing.transactions.refund(
@@ -12883,7 +12883,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.refunds.expire("re_123")
@@ -12917,7 +12917,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.advance(
@@ -12955,7 +12955,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.advance(
@@ -12989,7 +12989,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.delete("clock_xyz")
@@ -13019,7 +13019,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.delete("clock_xxxxxxxxxxxxx")
@@ -13049,7 +13049,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.list()
@@ -13079,7 +13079,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.retrieve("clock_xyz")
@@ -13110,7 +13110,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.list({"limit": 3})
@@ -13140,7 +13140,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.retrieve("clock_xxxxxxxxxxxxx")
@@ -13174,7 +13174,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.create(
@@ -13211,7 +13211,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.test_clocks.create({"frozen_time": 1577836800})
@@ -13246,7 +13246,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.inbound_transfers.fail(
@@ -13282,7 +13282,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.inbound_transfers.return_inbound_transfer(
@@ -13314,7 +13314,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.inbound_transfers.succeed("ibt_123")
@@ -13344,7 +13344,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.outbound_transfers.fail("obt_123")
@@ -13374,7 +13374,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.outbound_transfers.post("obt_123")
@@ -13408,7 +13408,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.outbound_transfers.return_outbound_transfer(
@@ -13448,7 +13448,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.received_credits.create(
@@ -13492,7 +13492,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.test_helpers.treasury.received_debits.create(
@@ -13528,7 +13528,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.retrieve("tok_xxxx")
@@ -13564,7 +13564,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create(
@@ -13612,7 +13612,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create(
@@ -13653,7 +13653,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create({"pii": {"id_number": "000000000"}})
@@ -13688,7 +13688,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create(
@@ -13731,7 +13731,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create(
@@ -13769,7 +13769,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.tokens.create({"cvc_update": {"cvc": "123"}})
@@ -13800,7 +13800,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.topups.cancel("tu_xxxxxxxxxxxxx")
@@ -13829,7 +13829,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.topups.list({"limit": 3})
@@ -13857,7 +13857,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.topups.retrieve("tu_xxxxxxxxxxxxx")
@@ -13891,7 +13891,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.topups.create(
@@ -13931,7 +13931,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.topups.update(
@@ -13964,7 +13964,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.list({"limit": 3})
@@ -13992,7 +13992,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.retrieve("tr_xxxxxxxxxxxxx")
@@ -14026,7 +14026,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.create(
@@ -14066,7 +14066,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.update(
@@ -14104,7 +14104,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.reversals.list(
@@ -14140,7 +14140,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.reversals.retrieve(
@@ -14177,7 +14177,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.reversals.create(
@@ -14216,7 +14216,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.transfers.reversals.update(
@@ -14255,7 +14255,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.credit_reversals.list(
@@ -14290,7 +14290,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.credit_reversals.retrieve("credrev_xxxxxxxxxxxxx")
@@ -14323,7 +14323,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.credit_reversals.create(
@@ -14362,7 +14362,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.debit_reversals.list(
@@ -14397,7 +14397,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.debit_reversals.retrieve("debrev_xxxxxxxxxxxxx")
@@ -14428,7 +14428,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.debit_reversals.create(
@@ -14463,7 +14463,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.financial_accounts.features.list("fa_xxxxxxxxxxxxx")
@@ -14494,7 +14494,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.financial_accounts.list({"limit": 3})
@@ -14524,7 +14524,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.financial_accounts.retrieve("fa_xxxxxxxxxxxxx")
@@ -14558,7 +14558,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.financial_accounts.create(
@@ -14598,7 +14598,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.financial_accounts.update(
@@ -14632,7 +14632,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.inbound_transfers.cancel("ibt_xxxxxxxxxxxxx")
@@ -14666,7 +14666,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.inbound_transfers.list(
@@ -14701,7 +14701,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.inbound_transfers.retrieve("ibt_xxxxxxxxxxxxx")
@@ -14738,7 +14738,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.inbound_transfers.create(
@@ -14777,7 +14777,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_payments.cancel("bot_xxxxxxxxxxxxx")
@@ -14811,7 +14811,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_payments.list(
@@ -14846,7 +14846,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_payments.retrieve("bot_xxxxxxxxxxxxx")
@@ -14884,7 +14884,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_payments.create(
@@ -14924,7 +14924,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_transfers.cancel("obt_xxxxxxxxxxxxx")
@@ -14958,7 +14958,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_transfers.list(
@@ -14993,7 +14993,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_transfers.retrieve("obt_xxxxxxxxxxxxx")
@@ -15030,7 +15030,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.outbound_transfers.create(
@@ -15073,7 +15073,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.received_credits.list(
@@ -15108,7 +15108,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.received_credits.retrieve("rc_xxxxxxxxxxxxx")
@@ -15142,7 +15142,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.received_debits.list(
@@ -15177,7 +15177,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.received_debits.retrieve("rd_xxxxxxxxxxxxx")
@@ -15211,7 +15211,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.transaction_entries.list(
@@ -15246,7 +15246,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.transaction_entries.retrieve("trxne_xxxxxxxxxxxxx")
@@ -15280,7 +15280,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.transactions.list(
@@ -15315,7 +15315,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.treasury.transactions.retrieve("trxn_xxxxxxxxxxxxx")
@@ -15345,7 +15345,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.webhook_endpoints.delete("we_xxxxxxxxxxxxx")
@@ -15376,7 +15376,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.webhook_endpoints.list({"limit": 3})
@@ -15406,7 +15406,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.webhook_endpoints.retrieve("we_xxxxxxxxxxxxx")
@@ -15440,7 +15440,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.webhook_endpoints.create(
@@ -15480,7 +15480,7 @@ class TestGeneratedExamples(object):
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=undefined.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.webhook_endpoints.update(
