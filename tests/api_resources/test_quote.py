@@ -140,10 +140,10 @@ class TestQuote(object):
         )
         assert isinstance(resources.data[0], stripe.LineItem)
 
-    def test_can_pdf(self, setup_upload_api_base, http_client_mock_streaming):
+    def test_can_pdf(self, setup_upload_api_base, http_client_mock):
         resource = stripe.Quote.retrieve(TEST_RESOURCE_ID)
         stream = resource.pdf()
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             api_base=stripe.upload_api_base,
             path="/v1/quotes/%s/pdf" % TEST_RESOURCE_ID,
@@ -152,10 +152,10 @@ class TestQuote(object):
         assert content == b"Stripe binary response"
 
     def test_can_pdf_classmethod(
-        self, setup_upload_api_base, http_client_mock_streaming
+        self, setup_upload_api_base, http_client_mock
     ):
         stream = stripe.Quote.pdf(TEST_RESOURCE_ID)
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             api_base=stripe.upload_api_base,
             path="/v1/quotes/%s/pdf" % TEST_RESOURCE_ID,

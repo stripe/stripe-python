@@ -215,28 +215,19 @@ class StripeRequestCall(object):
 
 
 class HTTPClientMock(object):
-    def __init__(self, mocker, is_streaming=False, is_async=False):
-        if is_async:
-            self.mock_client = mocker.Mock(
-                wraps=stripe.http_client.new_default_http_client_async()
-            )
-        else:
-            self.mock_client = mocker.Mock(
-                wraps=stripe.http_client.new_default_http_client()
-            )
+    def __init__(self, mocker):
+        self.mock_client = mocker.Mock(
+            wraps=stripe.http_client.new_default_http_client()
+        )
 
-        self.is_async = is_async
         self.mock_client._verify_ssl_certs = True
         self.mock_client.name = "mockclient"
-        if is_async and is_streaming:
-            self.func = self.mock_client.request_stream_with_retries_async
-        elif is_async and not is_streaming:
-            self.func = self.mock_client.request_with_retries_async
-        elif is_streaming:
-            self.func = self.mock_client.request_stream_with_retries
-        else:
-            self.func = self.mock_client.request_with_retries
         self.registered_responses = {}
+        self.funcs = [
+            self.mock_client.request_with_retries,
+            self.mock_client.request_stream_with_retries,
+        ]
+        self.func_call_order = []
 
     def get_mock_http_client(self) -> Mock:
         return self.mock_client
@@ -250,73 +241,78 @@ class HTTPClientMock(object):
         rcode=200,
         rheaders={},
     ) -> None:
-        def custom_side_effect(called_method, called_abs_url, *args, **kwargs):
-            called_path = urlsplit(called_abs_url).path
-            called_query = ""
-            if urlsplit(called_abs_url).query:
-                called_query = urlencode(
-                    parse_and_sort(urlsplit(called_abs_url).query)
-                )
-            if (
-                called_method,
-                called_path,
-                called_query,
-            ) not in self.registered_responses:
-                raise AssertionError(
-                    "Unexpected request made to %s %s %s"
-                    % (called_method, called_path, called_query)
-                )
-            return self.registered_responses[
-                (called_method, called_path, called_query)
-            ]
+        def custom_side_effect_for_func(func):
+            def custom_side_effect(
+                called_method, called_abs_url, *args, **kwargs
+            ):
+                self.func_call_order.append(func)
+                called_path = urlsplit(called_abs_url).path
+                called_query = ""
+                if urlsplit(called_abs_url).query:
+                    called_query = urlencode(
+                        parse_and_sort(urlsplit(called_abs_url).query)
+                    )
+                if (
+                    called_method,
+                    called_path,
+                    called_query,
+                ) not in self.registered_responses:
+                    raise AssertionError(
+                        "Unexpected request made to %s %s %s"
+                        % (called_method, called_path, called_query)
+                    )
+                ret = self.registered_responses[
+                    (called_method, called_path, called_query)
+                ]
+                return ret
 
-        async def awaitable(x):
-            return x
+            return custom_side_effect
 
         self.registered_responses[
             (method, path, urlencode(parse_and_sort(query_string)))
-        ] = (
-            awaitable(
-                (
-                    rbody,
-                    rcode,
-                    rheaders,
-                )
-            )
-            if self.is_async
-            else (rbody, rcode, rheaders)
-        )
+        ] = (rbody, rcode, rheaders)
 
-        self.func.side_effect = custom_side_effect
+        for func in self.funcs:
+            func.side_effect = custom_side_effect_for_func(func)
 
     def get_last_call(self) -> StripeRequestCall:
-        if not self.func.called:
+        if len(self.func_call_order) == 0:
             raise AssertionError(
                 "Expected request to have been made, but no calls were found."
             )
-        return StripeRequestCall.from_mock_call(self.func.call_args)
+        return StripeRequestCall.from_mock_call(
+            self.func_call_order[-1].call_args
+        )
 
     def get_all_calls(self) -> List[StripeRequestCall]:
+        calls_by_func = {
+            func: list(func.call_args_list) for func in self.funcs
+        }
+
+        calls = []
+        for func in self.func_call_order:
+            calls.append(calls_by_func[func].pop(0))
+
         return [
-            StripeRequestCall.from_mock_call(call_args)
-            for call_args in self.func.call_args_list
+            StripeRequestCall.from_mock_call(call_args) for call_args in calls
         ]
 
     def find_call(
         self, method, api_base, path, query_string
     ) -> StripeRequestCall:
-        for call_args in self.func.call_args_list:
-            request_call = StripeRequestCall.from_mock_call(call_args)
-            try:
-                if request_call.check(
-                    method=method,
-                    api_base=api_base,
-                    path=path,
-                    query_string=query_string,
-                ):
-                    return request_call
-            except AssertionError:
-                pass
+        for func in self.funcs:
+            for call_args in func.call_args_list:
+                request_call = StripeRequestCall.from_mock_call(call_args)
+                try:
+                    if request_call.check(
+                        method=method,
+                        api_base=api_base,
+                        path=path,
+                        query_string=query_string,
+                    ):
+                        return request_call
+                except AssertionError:
+                    pass
         raise AssertionError(
             "Expected request to have been made, but no calls were found."
         )
@@ -374,13 +370,15 @@ class HTTPClientMock(object):
         )
 
     def assert_no_request(self):
-        if self.func.called:
-            msg = (
-                "Expected no request to have been made, but %s calls were "
-                "found." % (self.func.call_count)
-            )
-            raise AssertionError(msg)
+        for func in self.funcs:
+            if func.called:
+                msg = (
+                    "Expected no request to have been made, but %s calls were "
+                    "found." % (sum([func.call_count for func in self.funcs]))
+                )
+                raise AssertionError(msg)
 
     def reset_mock(self):
-        self.func.reset_mock()
+        for func in self.funcs:
+            func.reset_mock()
         self.registered_responses = {}

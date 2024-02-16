@@ -99,33 +99,6 @@ def http_client_mock(mocker):
 
 
 @pytest.fixture
-def http_client_mock_streaming(mocker):
-    mock_client = HTTPClientMock(mocker, is_streaming=True)
-    old_client = stripe.default_http_client
-    stripe.default_http_client = mock_client.get_mock_http_client()
-    yield mock_client
-    stripe.default_http_client = old_client
-
-
-@pytest.fixture
-def http_client_mock_async(mocker):
-    mock_client = HTTPClientMock(mocker, is_async=True)
-    old_client = stripe.default_http_client_async
-    stripe.default_http_client_async = mock_client.get_mock_http_client()
-    yield mock_client
-    stripe.default_http_client_async = old_client
-
-
-@pytest.fixture
-def http_client_mock_streaming_async(mocker):
-    mock_client = HTTPClientMock(mocker, is_streaming=True, is_async=True)
-    old_client = stripe.default_http_client_async
-    stripe.default_http_client_async = mock_client.get_mock_http_client()
-    yield mock_client
-    stripe.default_http_client_async = old_client
-
-
-@pytest.fixture
 def stripe_mock_stripe_client(http_client_mock):
     return StripeClient(
         MOCK_API_KEY,
@@ -140,22 +113,4 @@ def file_stripe_mock_stripe_client(http_client_mock):
         MOCK_API_KEY,
         base_addresses={"files": MOCK_API_BASE},
         http_client=http_client_mock.get_mock_http_client(),
-    )
-
-
-@pytest.fixture
-def stripe_mock_stripe_client_streaming(http_client_mock_streaming):
-    return StripeClient(
-        MOCK_API_KEY,
-        base_addresses={"api": MOCK_API_BASE},
-        http_client=http_client_mock_streaming.get_mock_http_client(),
-    )
-
-
-@pytest.fixture
-def file_stripe_mock_stripe_client_streaming(http_client_mock_streaming):
-    return StripeClient(
-        MOCK_API_KEY,
-        base_addresses={"files": MOCK_API_BASE},
-        http_client=http_client_mock_streaming.get_mock_http_client(),
     )

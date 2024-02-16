@@ -109,8 +109,8 @@ class TestCustomMethod(object):
 
         assert ids == ["cus_1", "cus_2", "cus_3"]
 
-    def test_call_custom_stream_method_class(self, http_client_mock_streaming):
-        http_client_mock_streaming.stub_request(
+    def test_call_custom_stream_method_class(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             rbody=util.io.BytesIO(str.encode("response body")),
@@ -119,7 +119,7 @@ class TestCustomMethod(object):
 
         resp = self.MyResource.do_stream_stuff("mid", foo="bar")
 
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             post_data="foo=bar",
@@ -150,9 +150,9 @@ class TestCustomMethod(object):
         assert obj.thing_done is True
 
     def test_call_custom_stream_method_class_with_object(
-        self, http_client_mock_streaming
+        self, http_client_mock
     ):
-        http_client_mock_streaming.stub_request(
+        http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             rbody=util.io.BytesIO(str.encode("response body")),
@@ -162,7 +162,7 @@ class TestCustomMethod(object):
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         resp = self.MyResource.do_stream_stuff(obj, foo="bar")
 
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             post_data="foo=bar",
@@ -192,10 +192,8 @@ class TestCustomMethod(object):
         )
         assert obj.thing_done is True
 
-    def test_call_custom_stream_method_instance(
-        self, http_client_mock_streaming
-    ):
-        http_client_mock_streaming.stub_request(
+    def test_call_custom_stream_method_instance(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             rbody=util.io.BytesIO(str.encode("response body")),
@@ -205,7 +203,7 @@ class TestCustomMethod(object):
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         resp = obj.do_stream_stuff(foo="bar")
 
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
             post_data="foo=bar",
