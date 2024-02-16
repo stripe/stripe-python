@@ -268,9 +268,14 @@ class HTTPClientMock(object):
                 ret = self.registered_responses[
                     (called_method, called_path, called_query)
                 ]
+                if func._mock_name.endswith("async"):
+                    return awaitable(ret)
                 return ret
 
             return custom_side_effect
+
+        async def awaitable(x):
+            return x
 
         self.registered_responses[
             (method, path, urlencode(parse_and_sort(query_string)))

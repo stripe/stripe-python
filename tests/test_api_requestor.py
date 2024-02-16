@@ -309,7 +309,7 @@ class TestAPIRequestor(object):
                 rcode=200,
             )
 
-            resp = await requestor._request_stream_async(
+            resp = await requestor.request_stream_async(
                 meth,
                 self.valid_path,
                 {},

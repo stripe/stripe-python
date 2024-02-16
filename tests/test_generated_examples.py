@@ -17810,9 +17810,7 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_quotes_pdf_get(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
+    def test_quotes_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
@@ -22849,9 +22847,7 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_tax_forms_pdf_get(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
+    def test_tax_forms_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.tax.Form.pdf("form_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
