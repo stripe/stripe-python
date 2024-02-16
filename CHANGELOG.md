@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.4.0b1 - 2024-02-16
+* [#1235](https://github.com/stripe/stripe-python/pull/1235) Update generated code for beta
+  * Add support for `payto` and `twint` payment methods throughout the API
+  * Add support for `decrement_authorization` method on resource `PaymentIntent`
+* [#1236](https://github.com/stripe/stripe-python/pull/1236) Beta: StripeStreamResponseAsync.read helper
+* [#1233](https://github.com/stripe/stripe-python/pull/1233) Beta: async streaming
+
 ## 8.3.0 - 2024-02-15
 * [#1230](https://github.com/stripe/stripe-python/pull/1230) Update generated code
   * Add support for `networks` on `Card`, `PaymentMethod.CreateParamsCard`, `PaymentMethod.ModifyParamsCard`, and `Token.CreateParamsCard`
