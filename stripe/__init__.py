@@ -141,6 +141,7 @@ from stripe._stripe_response import StripeResponse as StripeResponse
 from stripe._stripe_response import StripeResponseBase as StripeResponseBase
 from stripe._stripe_response import (
     StripeStreamResponse as StripeStreamResponse,
+    StripeStreamResponseAsync as StripeStreamResponseAsync,
 )
 
 # Error types

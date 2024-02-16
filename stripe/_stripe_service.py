@@ -1,4 +1,10 @@
-from stripe._api_requestor import _APIRequestor, StripeStreamResponse
+from stripe._api_requestor import (
+    _APIRequestor,
+)
+from stripe._stripe_response import (
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions
 from stripe._base_address import BaseAddress
@@ -82,7 +88,7 @@ class StripeService(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-    ) -> StripeStreamResponse:
+    ) -> StripeStreamResponseAsync:
         return await self._requestor.request_stream_async(
             method,
             url,
