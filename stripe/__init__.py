@@ -37,7 +37,6 @@ preview_api_version: str = _ApiVersion.PREVIEW
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
-default_http_client_async: Optional["HTTPClientAsync"] = None
 app_info: Optional[AppInfo] = None
 enable_telemetry: bool = True
 max_network_retries: int = 0
@@ -162,7 +161,6 @@ from stripe._error import (
 # HttpClient
 from stripe._http_client import (
     HTTPClient as HTTPClient,
-    HTTPClientAsync as HTTPClientAsync,
     PycurlClient as PycurlClient,
     RequestsClient as RequestsClient,
     UrlFetchClient as UrlFetchClient,

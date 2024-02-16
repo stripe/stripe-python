@@ -43,10 +43,8 @@ class TestSearchResultObject(object):
         assert res.data[0].foo == "bar"
 
     @pytest.mark.anyio
-    async def test_search_async(
-        self, http_client_mock_async, search_result_object
-    ):
-        http_client_mock_async.stub_request(
+    async def test_search_async(self, http_client_mock, search_result_object):
+        http_client_mock.stub_request(
             "get",
             path="/my/path",
             query_string="myparam=you",
@@ -62,7 +60,7 @@ class TestSearchResultObject(object):
             myparam="you", stripe_account="acct_123"
         )
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/my/path",
             query_string="myparam=you",
@@ -273,27 +271,27 @@ class TestAutoPagingAsync:
         return model
 
     @pytest.mark.anyio
-    async def test_iter_one_page(self, http_client_mock_async):
+    async def test_iter_one_page(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], False, None),
             "mykey",
         )
 
-        http_client_mock_async.assert_no_request()
+        http_client_mock.assert_no_request()
 
         seen = [item["id"] async for item in sro.auto_paging_iter_async()]
 
         assert seen == ["pm_123", "pm_124"]
 
     @pytest.mark.anyio
-    async def test_iter_two_pages(self, http_client_mock_async):
+    async def test_iter_two_pages(self, http_client_mock):
         sro = stripe.SearchResultObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], True, "token"),
             "mykey",
         )
         sro._retrieve_params = {"foo": "bar"}
 
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "get",
             path="/v1/pageablemodels",
             query_string="page=token&foo=bar",
@@ -304,7 +302,7 @@ class TestAutoPagingAsync:
 
         seen = [item["id"] async for item in sro.auto_paging_iter_async()]
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/pageablemodels",
             query_string="page=token&foo=bar",

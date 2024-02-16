@@ -413,13 +413,13 @@ class TestStripeObject(object):
         )
 
     @pytest.mark.anyio
-    async def test_request_async_succeeds(self, http_client_mock_async):
-        http_client_mock_async.stub_request("get", "/foo")
+    async def test_request_async_succeeds(self, http_client_mock):
+        http_client_mock.stub_request("get", "/foo")
         obj = stripe.stripe_object.StripeObject("id", "key")
         await obj._request_async(
             "get", "/foo", base_address="api", api_mode="V1"
         )
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             api_key="key",
             stripe_account=None,
         )

@@ -17,6 +17,7 @@ from stripe._error import APIConnectionError
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
     Mapping,
     MutableMapping,
@@ -31,10 +32,8 @@ from typing import (
 from typing_extensions import (
     Literal,
     NoReturn,
-    Self,
     TypedDict,
     Awaitable,
-    Type,
     Never,
 )
 
@@ -119,9 +118,7 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
     return impl(*args, **kwargs)
 
 
-def new_default_http_client_async(
-    *args: Any, **kwargs: Any
-) -> "HTTPClientAsync":
+def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
     if httpx:
         impl = HTTPXClient
     else:
@@ -130,7 +127,7 @@ def new_default_http_client_async(
     return impl(*args, **kwargs)
 
 
-class HTTPClientBase(object):
+class HTTPClient(object):
     name: ClassVar[str]
 
     class _Proxy(TypedDict):
@@ -147,6 +144,7 @@ class HTTPClientBase(object):
         self,
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, _Proxy]] = None,
+        async_fallback_client: Optional["HTTPClient"] = None,
     ):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
@@ -165,6 +163,7 @@ class HTTPClientBase(object):
                     " keys."
                 )
         self._proxy = proxy.copy() if proxy else None
+        self._async_fallback_client = async_fallback_client
 
         self._thread_local = threading.local()
 
@@ -282,9 +281,6 @@ class HTTPClientBase(object):
                 request_id, request_duration_ms, usage=usage
             )
 
-
-class HTTPClient(HTTPClientBase):
-    # TODO: more specific types here would be helpful
     def request_with_retries(
         self,
         method: str,
@@ -415,8 +411,6 @@ class HTTPClient(HTTPClientBase):
             "HTTPClient subclasses must implement `close`"
         )
 
-
-class HTTPClientAsync(HTTPClientBase):
     async def request_with_retries_async(
         self,
         method: str,
@@ -455,12 +449,6 @@ class HTTPClientAsync(HTTPClientBase):
             is_streaming=True,
             max_network_retries=max_network_retries,
             _usage=_usage,
-        )
-
-    @classmethod
-    async def sleep_async(cls: Type[Self], secs: float) -> Awaitable[None]:
-        raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `sleep`"
         )
 
     @overload
@@ -555,20 +543,37 @@ class HTTPClientAsync(HTTPClientBase):
     async def request_async(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[bytes, int, Mapping[str, str]]:
+        if self._async_fallback_client is not None:
+            return await self._async_fallback_client.request_async(
+                method, url, headers, post_data
+            )
         raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `request_async`"
+            "HTTPClient subclasses must implement `request_async`"
         )
 
     async def request_stream_async(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
+        if self._async_fallback_client is not None:
+            return await self._async_fallback_client.request_stream_async(
+                method, url, headers, post_data
+            )
         raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `request_stream_async`"
+            "HTTPClient subclasses must implement `request_stream_async`"
         )
 
     async def close_async(self):
+        if self._async_fallback_client is not None:
+            return await self._async_fallback_client.close_async()
         raise NotImplementedError(
-            "HTTPClientAsync subclasses must implement `close_async`"
+            "HTTPClient subclasses must implement `close_async`"
+        )
+
+    def sleep_async(self, secs: float) -> Awaitable[None]:
+        if self._async_fallback_client is not None:
+            return self._async_fallback_client.sleep_async(secs)
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `sleep`"
         )
 
 
@@ -581,10 +586,13 @@ class RequestsClient(HTTPClient):
         session: Optional["RequestsSession"] = None,
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
+        async_fallback_client: Optional[HTTPClient] = None,
         **kwargs
     ):
         super(RequestsClient, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+            verify_ssl_certs=verify_ssl_certs,
+            proxy=proxy,
+            async_fallback_client=async_fallback_client,
         )
         self._session = session
         self._timeout = timeout
@@ -765,9 +773,12 @@ class UrlFetchClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
         deadline: int = 55,
+        async_fallback_client: Optional[HTTPClient] = None,
     ):
         super(UrlFetchClient, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+            verify_ssl_certs=verify_ssl_certs,
+            proxy=proxy,
+            async_fallback_client=async_fallback_client,
         )
 
         # no proxy support in urlfetch. for a patch, see:
@@ -895,9 +906,12 @@ class PycurlClient(HTTPClient):
         self,
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
+        async_fallback_client: Optional[HTTPClient] = None,
     ):
         super(PycurlClient, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+            verify_ssl_certs=verify_ssl_certs,
+            proxy=proxy,
+            async_fallback_client=async_fallback_client,
         )
 
         assert pycurl is not None
@@ -1084,9 +1098,12 @@ class Urllib2Client(HTTPClient):
         self,
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
+        async_fallback_client: Optional[HTTPClient] = None,
     ):
         super(Urllib2Client, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+            verify_ssl_certs=verify_ssl_certs,
+            proxy=proxy,
+            async_fallback_client=async_fallback_client,
         )
         # prepare and cache proxy tied opener here
         self._opener = None
@@ -1189,7 +1206,7 @@ class Urllib2Client(HTTPClient):
         pass
 
 
-class HTTPXClient(HTTPClientAsync):
+class HTTPXClient(HTTPClient):
     name = "httpx"
 
     def __init__(
@@ -1216,7 +1233,8 @@ class HTTPXClient(HTTPClientAsync):
         else:
             kwargs["verify"] = False
 
-        self._client = httpx.AsyncClient(**kwargs)
+        self._client_async = httpx.AsyncClient(**kwargs)
+        self._client = httpx.Client(**kwargs)
         self._timeout = timeout
 
     def sleep_async(self, secs):
@@ -1237,6 +1255,27 @@ class HTTPXClient(HTTPClientAsync):
             {"headers": headers, "data": post_data or {}, **kwargs},
         ]
 
+    def request(
+        self,
+        method: str,
+        url: str,
+        headers: Mapping[str, str],
+        post_data=None,
+        timeout: float = 80.0,
+    ) -> Tuple[bytes, int, Mapping[str, str]]:
+        args, kwargs = self._get_request_args_kwargs(
+            method, url, headers, post_data
+        )
+        try:
+            response = self._client.request(*args, **kwargs)
+        except Exception as e:
+            self._handle_request_error(e)
+
+        content = response.content
+        status_code = response.status_code
+        response_headers = response.headers
+        return content, status_code, response_headers
+
     async def request_async(
         self,
         method: str,
@@ -1249,7 +1288,7 @@ class HTTPXClient(HTTPClientAsync):
             method, url, headers, post_data
         )
         try:
-            response = await self._client.request(*args, **kwargs)
+            response = await self._client_async.request(*args, **kwargs)
         except Exception as e:
             self._handle_request_error(e)
 
@@ -1269,6 +1308,25 @@ class HTTPXClient(HTTPClientAsync):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry)
 
+    def request_stream(
+        self, method: str, url: str, headers: Mapping[str, str], post_data=None
+    ) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
+        args, kwargs = self._get_request_args_kwargs(
+            method, url, headers, post_data
+        )
+        try:
+            response = self._client.send(
+                request=self._client_async.build_request(*args, **kwargs),
+                stream=True,
+            )
+        except Exception as e:
+            self._handle_request_error(e)
+        content = response.iter_bytes()
+        status_code = response.status_code
+        headers = response.headers
+
+        return content, status_code, headers
+
     async def request_stream_async(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
@@ -1276,8 +1334,8 @@ class HTTPXClient(HTTPClientAsync):
             method, url, headers, post_data
         )
         try:
-            response = await self._client.send(
-                request=self._client.build_request(*args, **kwargs),
+            response = await self._client_async.send(
+                request=self._client_async.build_request(*args, **kwargs),
                 stream=True,
             )
         except Exception as e:
@@ -1288,11 +1346,14 @@ class HTTPXClient(HTTPClientAsync):
 
         return content, status_code, headers
 
-    async def close(self):
-        await self._client.aclose()
+    def close(self):
+        self._client.close()
+
+    async def close_async(self):
+        await self._client_async.aclose()
 
 
-class NoImportFoundAsyncClient(HTTPClientAsync):
+class NoImportFoundAsyncClient(HTTPClient):
     def __init__(self, **kwargs):
         super(NoImportFoundAsyncClient, self).__init__(**kwargs)
 
@@ -1302,7 +1363,7 @@ class NoImportFoundAsyncClient(HTTPClientAsync):
             (
                 "Import httpx not found. To make async http requests,"
                 "You must either install httpx or define your own"
-                "async http client by subclassing stripe.HTTPClientAsync"
+                "async http client by subclassing stripe.HTTPClient"
                 "and setting stripe.default_http_client to an instance of it."
             )
         )

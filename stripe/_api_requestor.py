@@ -51,9 +51,8 @@ from stripe._requestor_options import (
 )
 from stripe._http_client import (
     HTTPClient,
-    HTTPClientAsync,
     new_default_http_client,
-    new_default_http_client_async,
+    new_http_client_async_fallback,
 )
 from stripe._app_info import AppInfo
 
@@ -79,7 +78,6 @@ class _APIRequestor(object):
     ):
         self._options = options
         self._client = client
-        self._client_async = None
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
     # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
@@ -91,12 +89,18 @@ class _APIRequestor(object):
             global _default_proxy
 
             if not stripe.default_http_client:
+                kwargs = {
+                    "verify_ssl_certs": stripe.verify_ssl_certs,
+                    "proxy": stripe.proxy,
+                }
                 # If the stripe.default_http_client has not been set by the user
                 # yet, we'll set it here. This way, we aren't creating a new
                 # HttpClient for every request.
                 stripe.default_http_client = new_default_http_client(
-                    verify_ssl_certs=stripe.verify_ssl_certs,
-                    proxy=stripe.proxy,
+                    async_fallback_client=new_http_client_async_fallback(
+                        **kwargs
+                    ),
+                    **kwargs,
                 )
                 _default_proxy = stripe.proxy
             elif stripe.proxy != _default_proxy:
@@ -112,22 +116,6 @@ class _APIRequestor(object):
             assert stripe.default_http_client is not None
             return stripe.default_http_client
         return client
-
-    def _get_http_client_async(self) -> HTTPClientAsync:
-        client_async = self._client_async
-
-        if client_async is None:
-            if not stripe.default_http_client_async:
-                stripe.default_http_client_async = (
-                    new_default_http_client_async(
-                        verify_ssl_certs=stripe.verify_ssl_certs,
-                        proxy=stripe.proxy,
-                    )
-                )
-            assert stripe.default_http_client_async is not None
-            return stripe.default_http_client_async
-
-        return client_async
 
     def _replace_options(
         self, options: Optional[RequestOptions]
@@ -762,7 +750,7 @@ class _APIRequestor(object):
                 rcontent,
                 rcode,
                 rheaders,
-            ) = await self._get_http_client_async().request_stream_with_retries_async(
+            ) = await self._get_http_client().request_stream_with_retries_async(
                 method,
                 abs_url,
                 headers,
@@ -775,7 +763,7 @@ class _APIRequestor(object):
                 rcontent,
                 rcode,
                 rheaders,
-            ) = await self._get_http_client_async().request_with_retries_async(
+            ) = await self._get_http_client().request_with_retries_async(
                 method,
                 abs_url,
                 headers,
