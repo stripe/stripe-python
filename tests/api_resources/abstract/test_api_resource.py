@@ -328,25 +328,25 @@ class TestAPIResource(object):
         )
 
     @pytest.mark.anyio
-    async def test_async_methods_succeed(self, http_client_mock_async):
-        http_client_mock_async.stub_request(
+    async def test_async_methods_succeed(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
             "/v1/myresources",
             rbody='{"id": "foo", "object": "myresource"}',
         )
         resource = await self.MyDeletableResource.my_method_async()
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "post",
             path="/v1/myresources",
         )
 
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "get",
             "/v1/myresources/foo",
             rbody='{"id": "foo", "object": "myresource"}',
         )
         await resource.refresh_async()
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/myresources/foo",
         )

@@ -87,7 +87,6 @@ class TestIntegration(object):
             "upload_api_base": stripe.upload_api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
-            "default_http_client_async": stripe.default_http_client_async,
             "enable_telemetry": stripe.enable_telemetry,
             "max_network_retries": stripe.max_network_retries,
             "proxy": stripe.proxy,
@@ -104,9 +103,6 @@ class TestIntegration(object):
         stripe.api_base = orig_attrs["api_base"]
         stripe.upload_api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
-        stripe.default_http_client_async = orig_attrs[
-            "default_http_client_async"
-        ]
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
         stripe.max_network_retries = orig_attrs["max_network_retries"]
         stripe.proxy = orig_attrs["proxy"]
@@ -364,11 +360,15 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
-        stripe.default_http_client_async = stripe.HTTPXClient()
+        stripe.default_http_client = stripe.new_default_http_client()
+        assert isinstance(stripe.default_http_client, stripe.RequestsClient)
+        stripe.default_http_client._async_fallback_client = (
+            stripe.HTTPXClient()
+        )
         # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
         # so we set only the read timeout specifically.
-        stripe.default_http_client_async._timeout = httpx.Timeout(
-            None, read=0.01
+        stripe.default_http_client._async_fallback_client._timeout = (
+            httpx.Timeout(None, read=0.01)
         )
         stripe.max_network_retries = 0
 

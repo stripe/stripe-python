@@ -13,7 +13,11 @@ from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
-from stripe._http_client import HTTPClient, new_default_http_client
+from stripe._http_client import (
+    HTTPClient,
+    new_default_http_client,
+    new_http_client_async_fallback,
+)
 from stripe._api_version import _ApiVersion
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
@@ -150,7 +154,11 @@ class StripeClient(object):
 
         if http_client is None:
             http_client = new_default_http_client(
-                proxy=proxy, verify_ssl_certs=verify_ssl_certs
+                async_fallback_client=new_http_client_async_fallback(
+                    proxy=proxy, verify_ssl_certs=verify_ssl_certs
+                ),
+                proxy=proxy,
+                verify_ssl_certs=verify_ssl_certs,
             )
 
         self._requestor = _APIRequestor(

@@ -437,25 +437,25 @@ class TestAutoPagingAsync:
         }
 
     @pytest.mark.anyio
-    async def test_iter_one_page(self, http_client_mock_async):
+    async def test_iter_one_page(self, http_client_mock):
         lo = stripe.ListObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], False), "mykey"
         )
 
-        http_client_mock_async.assert_no_request()
+        http_client_mock.assert_no_request()
 
         seen = [item["id"] async for item in lo.auto_paging_iter_async()]
 
         assert seen == ["pm_123", "pm_124"]
 
     @pytest.mark.anyio
-    async def test_iter_two_pages(self, http_client_mock_async):
+    async def test_iter_two_pages(self, http_client_mock):
         lo = stripe.ListObject.construct_from(
             self.pageable_model_response(["pm_123", "pm_124"], True), "mykey"
         )
         lo._retrieve_params = {"foo": "bar"}
 
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "get",
             path="/v1/pageablemodels",
             query_string="starting_after=pm_124&foo=bar",
@@ -466,7 +466,7 @@ class TestAutoPagingAsync:
 
         seen = [item["id"] async for item in lo.auto_paging_iter_async()]
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/pageablemodels",
             query_string="starting_after=pm_124&foo=bar",
@@ -475,13 +475,13 @@ class TestAutoPagingAsync:
         assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
 
     @pytest.mark.anyio
-    async def test_iter_reverse(self, http_client_mock_async):
+    async def test_iter_reverse(self, http_client_mock):
         lo = stripe.ListObject.construct_from(
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
 
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "get",
             path="/v1/pageablemodels",
             query_string="ending_before=pm_125&foo=bar",
@@ -492,7 +492,7 @@ class TestAutoPagingAsync:
 
         seen = [item["id"] async for item in lo.auto_paging_iter_async()]
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/pageablemodels",
             query_string="ending_before=pm_125&foo=bar",

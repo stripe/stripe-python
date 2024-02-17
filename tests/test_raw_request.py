@@ -149,8 +149,8 @@ class TestRawRequest(object):
         )
 
     @pytest.mark.anyio
-    async def test_form_request_get_async(self, http_client_mock_async):
-        http_client_mock_async.stub_request(
+    async def test_form_request_get_async(self, http_client_mock):
+        http_client_mock.stub_request(
             "get",
             path=self.GET_REL_URL,
             rbody='{"id": "acct_123", "object": "account"}',
@@ -160,7 +160,7 @@ class TestRawRequest(object):
 
         resp = await stripe.raw_request_async("get", self.GET_REL_URL)
 
-        http_client_mock_async.assert_requested("get", path=self.GET_REL_URL)
+        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
 
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)

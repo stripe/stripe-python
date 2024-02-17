@@ -76,9 +76,9 @@ class TestPreview(object):
         assert resp.body == expected_body
 
     @pytest.mark.anyio
-    async def test_get_async(self, http_client_mock_async):
+    async def test_get_async(self, http_client_mock):
         expected_body = '{"id": "acc_123"}'
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "get",
             path="/v1/accounts/acc_123",
             rbody=expected_body,
@@ -88,7 +88,7 @@ class TestPreview(object):
 
         resp = await stripe.preview.get_async("/v1/accounts/acc_123")
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             api_base=stripe.api_base,
             path="/v1/accounts/acc_123",
@@ -99,9 +99,9 @@ class TestPreview(object):
         assert resp.body == expected_body
 
     @pytest.mark.anyio
-    async def test_post_async(self, http_client_mock_async):
+    async def test_post_async(self, http_client_mock):
         expected_body = '{"id": "acc_123"}'
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "post",
             path="/v1/accounts",
             rbody=expected_body,
@@ -111,7 +111,7 @@ class TestPreview(object):
 
         resp = await stripe.preview.post_async("/v1/accounts", arg="string")
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "post",
             api_base=stripe.api_base,
             path="/v1/accounts",
@@ -125,9 +125,9 @@ class TestPreview(object):
         assert resp.body == expected_body
 
     @pytest.mark.anyio
-    async def test_delete_async(self, http_client_mock_async):
+    async def test_delete_async(self, http_client_mock):
         expected_body = '{"id": "acc_123"}'
-        http_client_mock_async.stub_request(
+        http_client_mock.stub_request(
             "delete",
             path="/v1/accounts/acc_123",
             rbody=expected_body,
@@ -137,7 +137,7 @@ class TestPreview(object):
 
         resp = await stripe.preview.delete_async("/v1/accounts/acc_123")
 
-        http_client_mock_async.assert_requested(
+        http_client_mock.assert_requested(
             "delete",
             api_base=stripe.api_base,
             path="/v1/accounts/acc_123",

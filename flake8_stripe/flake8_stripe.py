@@ -58,6 +58,7 @@ class TypingImportsChecker:
         "Set",
         "Callable",
         "Generator",
+        "Iterable",
     ]
 
     def __init__(self, tree: ast.AST):

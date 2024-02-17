@@ -269,12 +269,13 @@ class TestAPIRequestor(object):
             assert resp == {}
 
     @pytest.mark.anyio
-    async def test_empty_methods_async(
-        self, requestor, http_client_mock_async
-    ):
+    async def test_empty_methods_async(self, requestor, http_client_mock):
         for meth in VALID_API_METHODS:
-            http_client_mock_async.stub_request(
-                meth, path=self.valid_path, rbody="{}", rcode=200
+            http_client_mock.stub_request(
+                meth,
+                path=self.valid_path,
+                rbody="{}",
+                rcode=200,
             )
 
             resp = await requestor.request_async(
@@ -286,14 +287,14 @@ class TestAPIRequestor(object):
             else:
                 post_data = None
 
-            http_client_mock_async.assert_requested(meth, post_data=post_data)
+            http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
             assert resp == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_streaming_response_async(
-        self, requestor_streaming, http_client_mock_streaming_async
+        self, requestor, http_client_mock
     ):
         async def async_iter():
             yield b"this"
@@ -301,14 +302,14 @@ class TestAPIRequestor(object):
             yield b"data"
 
         for meth in VALID_API_METHODS:
-            http_client_mock_streaming_async.stub_request(
+            http_client_mock.stub_request(
                 meth,
                 path=self.valid_path,
                 rbody=async_iter(),
                 rcode=200,
             )
 
-            resp = await requestor_streaming.request_stream_async(
+            resp = await requestor.request_stream_async(
                 meth,
                 self.valid_path,
                 {},
@@ -321,9 +322,7 @@ class TestAPIRequestor(object):
             else:
                 post_data = None
 
-            http_client_mock_streaming_async.assert_requested(
-                meth, post_data=post_data
-            )
+            http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeStreamResponseAsync)
 
             assert b"".join([x async for x in resp.stream()]) == b"thisisdata"
