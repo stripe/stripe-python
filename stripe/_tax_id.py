@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -21,6 +20,7 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._application import Application
+    from stripe._customer import Customer
 
 
 class TaxId(
@@ -206,6 +206,12 @@ class TaxId(
         type: Literal["account", "application", "customer", "self"]
         """
         Type of owner referenced.
+        """
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     country: Optional[str]
@@ -400,21 +406,15 @@ class TaxId(
 
         return result
 
-    def instance_url(self):
-        token = self.id
-        customer = self.customer
-        base = Customer.class_url()
-        assert customer is not None
-        if isinstance(customer, Customer):
-            customer = customer.id
-        cust_extn = sanitize_id(customer)
-        extn = sanitize_id(token)
-        return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)
-
     @classmethod
-    def retrieve(cls, id, **params):
-        raise NotImplementedError(
-            "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
-        )
+    def retrieve(
+        cls, id: str, **params: Unpack["TaxId.RetrieveParams"]
+    ) -> "TaxId":
+        """
+        Retrieves an account or customer tax_id object.
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
 
     _inner_class_types = {"owner": Owner, "verification": Verification}
