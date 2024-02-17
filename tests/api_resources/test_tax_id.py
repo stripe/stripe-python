@@ -15,19 +15,14 @@ class TestTaxId(object):
 
     def test_has_instance_url(self):
         resource = self.construct_resource()
-        assert (
-            resource.instance_url()
-            == "/v1/tax_ids/%s" % TEST_RESOURCE_ID
-        )
+        assert resource.instance_url() == "/v1/tax_ids/%s" % TEST_RESOURCE_ID
 
     def test_is_creatable(self, http_client_mock):
         stripe.TaxId.create(
             type="eu_vat",
             value="DE123456789",
         )
-        http_client_mock.assert_requested(
-            "post", path="/v1/tax_ids"
-        )
+        http_client_mock.assert_requested("post", path="/v1/tax_ids")
 
     def test_is_retrievable(self, http_client_mock):
         stripe.TaxId.retrieve(TEST_RESOURCE_ID)
