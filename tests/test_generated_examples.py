@@ -8549,30 +8549,28 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_quotes_pdf_get(
-        self, http_client_mock_streaming: HTTPClientMock
-    ) -> None:
+    def test_quotes_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
             query_string="",
         )
 
     def test_quotes_pdf_get_service(
-        self, http_client_mock_streaming: HTTPClientMock
+        self, http_client_mock: HTTPClientMock
     ) -> None:
-        http_client_mock_streaming.stub_request(
+        http_client_mock.stub_request(
             "get",
             "/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock_streaming.get_mock_http_client(),
+            http_client=http_client_mock.get_mock_http_client(),
         )
 
         client.quotes.pdf("qt_xxxxxxxxxxxxx")
-        http_client_mock_streaming.assert_requested(
+        http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
             query_string="",
