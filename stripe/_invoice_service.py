@@ -120,10 +120,10 @@ class InvoiceService(StripeService):
         Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
         """
         pending_invoice_items_behavior: NotRequired[
-            "Literal['exclude', 'include', 'include_and_require']"
+            "Literal['exclude', 'include']"
         ]
         """
-        How to handle pending invoice items on invoice creation. One of `include` or `exclude`. `include` will include any pending invoice items, and will create an empty draft invoice if no pending invoice items exist. `exclude` will always create an empty invoice draft regardless if there are pending invoice items or not. Defaults to `exclude` if the parameter is omitted.
+        How to handle pending invoice items on invoice creation. Defaults to `exclude` if the parameter is omitted.
         """
         rendering: NotRequired["InvoiceService.CreateParamsRendering"]
         """
