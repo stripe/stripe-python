@@ -6,9 +6,6 @@ from typing_extensions import Self, Unpack
 from typing import (
     Any,
     AsyncIterator,
-    Iterator,
-    List,
-    Generic,
     TypeVar,
     cast,
     Mapping,
@@ -19,16 +16,31 @@ from stripe._api_requestor import (
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions, extract_options_from_dict
 
-from urllib.parse import quote_plus
 from stripe._list_object_base import ListObjectBase
 
 T = TypeVar("T", bound=StripeObject)
 
 
-class ListObjectAsync(ListObjectBase, Generic[T]):
+class ListObjectAsync(ListObjectBase[T]):
     """
     Variant of ListObject that contains *only* async versions of request-making methods.
     """
+
+    @classmethod
+    def _empty_list(
+        cls,
+        **params: Unpack[RequestOptions],
+    ) -> Self:
+        return cls._construct_from(
+            values={"data": []},
+            last_response=None,
+            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                **params,
+            ),
+            api_mode="V1",
+            prefer_async_versions=True,
+        )
+
     async def list_async(self, **params: Mapping[str, Any]) -> Self:
         return cast(
             Self,

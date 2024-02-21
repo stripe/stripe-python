@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
@@ -274,7 +275,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -283,7 +284,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     @classmethod
     async def list_async(
         cls, **params: Unpack["BalanceTransaction.ListParams"]
-    ) -> ListObject["BalanceTransaction"]:
+    ) -> ListObjectAsync["BalanceTransaction"]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
 
@@ -294,10 +295,10 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

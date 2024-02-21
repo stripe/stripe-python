@@ -254,6 +254,7 @@ class StripeObject(Dict[str, Any]):
         last_response: Optional[StripeResponse] = None,
         *,
         api_mode: ApiMode = "V1",
+        prefer_async_versions: bool = False,
     ) -> Self:
         return cls._construct_from(
             values=values,
@@ -264,6 +265,7 @@ class StripeObject(Dict[str, Any]):
             ),
             api_mode=api_mode,
             last_response=last_response,
+            prefer_async_versions=prefer_async_versions,
         )
 
     @classmethod
@@ -274,6 +276,7 @@ class StripeObject(Dict[str, Any]):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
+        prefer_async_versions: bool,
     ) -> Self:
         instance = cls(
             values.get("id"),
@@ -285,6 +288,7 @@ class StripeObject(Dict[str, Any]):
             last_response=last_response,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
         return instance
 
@@ -298,6 +302,7 @@ class StripeObject(Dict[str, Any]):
         last_response: Optional[StripeResponse] = None,
         *,
         api_mode: ApiMode = "V1",
+        prefer_async_versions: bool = False,
     ) -> None:
         self._refresh_from(
             values=values,
@@ -311,6 +316,7 @@ class StripeObject(Dict[str, Any]):
                 }
             ),
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
 
     def _refresh_from(
@@ -321,6 +327,7 @@ class StripeObject(Dict[str, Any]):
         last_response: Optional[StripeResponse] = None,
         requestor: Optional["_APIRequestor"] = None,
         api_mode: ApiMode,
+        prefer_async_versions: bool
     ) -> None:
         self._requestor = requestor or self._requestor
         self._last_response = last_response or getattr(
@@ -355,6 +362,7 @@ class StripeObject(Dict[str, Any]):
                             klass_=inner_class,
                             requestor=self._requestor,
                             api_mode=api_mode,
+                            prefer_async_versions=prefer_async_versions,
                         ),
                     )
                     for k, v in v.items()
@@ -368,6 +376,7 @@ class StripeObject(Dict[str, Any]):
                         klass_=inner_class,
                         requestor=self._requestor,
                         api_mode=api_mode,
+                        prefer_async_versions=prefer_async_versions,
                     ),
                 )
             super(StripeObject, self).__setitem__(k, obj)

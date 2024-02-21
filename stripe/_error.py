@@ -81,6 +81,7 @@ class StripeError(Exception):
             values=self.json_body["error"],
             requestor=stripe._APIRequestor._global_instance(),
             api_mode="V1",
+            prefer_async_versions=False,
         )
 
 

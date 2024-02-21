@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from typing import ClassVar, List
@@ -70,7 +71,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -79,7 +80,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     @classmethod
     async def list_async(
         cls, **params: Unpack["TaxCode.ListParams"]
-    ) -> ListObject["TaxCode"]:
+    ) -> ListObjectAsync["TaxCode"]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
         """
@@ -88,10 +89,10 @@ class TaxCode(ListableAPIResource["TaxCode"]):
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

@@ -7,8 +7,6 @@ from typing import (
     Any,
     AsyncIterator,
     Iterator,
-    List,
-    Generic,
     TypeVar,
     cast,
     Mapping,
@@ -25,13 +23,29 @@ from stripe._list_object_base import ListObjectBase
 T = TypeVar("T", bound=StripeObject)
 
 
-class ListObject(ListObjectBase, Generic[T]):
+class ListObject(ListObjectBase[T]):
     """
     Represents a list response from the Stripe API. Unlike ListObjectAsync, also contains sync versions of request-making methods like `.auto_paging_iter` and `.next_page`.
     """
+
     # Even though ListObjectAsync is the "async version" we cannot omit async methods from
     # ListObject and must include both, because this is the class that gets deserialized by default
     # when object: 'list_object'
+
+    @classmethod
+    def _empty_list(
+        cls,
+        **params: Unpack[RequestOptions],
+    ) -> Self:
+        return cls._construct_from(
+            values={"data": []},
+            last_response=None,
+            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                **params,
+            ),
+            api_mode="V1",
+            prefer_async_versions=False,
+        )
 
     def list(self, **params: Mapping[str, Any]) -> Self:
         return cast(

@@ -90,6 +90,7 @@ from stripe._api_resource import APIResource as APIResource
 from stripe._error_object import ErrorObject as ErrorObject
 from stripe._error_object import OAuthErrorObject as OAuthErrorObject
 from stripe._list_object import ListObject as ListObject
+from stripe._list_object_async import ListObjectAsync as ListObjectAsync
 from stripe._search_result_object import (
     SearchResultObject as SearchResultObject,
 )

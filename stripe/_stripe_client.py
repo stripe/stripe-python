@@ -272,6 +272,7 @@ class StripeClient(object):
             values=data,
             requestor=self._requestor,
             api_mode="V1",
+            prefer_async_versions=False,
         )
 
         return event

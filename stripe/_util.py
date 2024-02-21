@@ -11,7 +11,7 @@ from stripe._api_mode import ApiMode
 
 from urllib.parse import quote_plus  # noqa: F401
 
-from typing_extensions import Type, TYPE_CHECKING
+from typing_extensions import Literal, Type, TYPE_CHECKING
 from typing import (
     Callable,
     TypeVar,
@@ -199,6 +199,13 @@ def get_object_classes():
     return OBJECT_CLASSES
 
 
+def get_object_classes_async():
+    # This is here to avoid a circular dependency
+    from stripe._object_classes import OBJECT_CLASSES_ASYNC
+
+    return OBJECT_CLASSES_ASYNC
+
+
 Resp = Union["StripeResponse", Dict[str, Any], List["Resp"]]
 
 
@@ -252,6 +259,7 @@ def convert_to_stripe_object(
             stripe_account=stripe_account,
         ),
         api_mode=api_mode,
+        prefer_async_versions=False,
     )
 
 
@@ -263,6 +271,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    prefer_async_versions: bool
 ) -> "StripeObject":
     ...
 
@@ -275,6 +284,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    prefer_async_versions: bool,
 ) -> List["StripeObject"]:
     ...
 
@@ -286,6 +296,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    prefer_async_versions: bool,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -307,6 +318,7 @@ def _convert_to_stripe_object(
                 requestor=requestor,
                 api_mode=api_mode,
                 klass_=klass_,
+                prefer_async_versions=prefer_async_versions,
             )
             for i in resp
         ]
@@ -315,6 +327,8 @@ def _convert_to_stripe_object(
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
             klass = get_object_classes().get(klass_name, StripeObject)
+            if prefer_async_versions:
+                klass = get_object_classes_async().get(klass_name, klass)
         elif klass_ is not None:
             klass = klass_
         else:
@@ -325,6 +339,7 @@ def _convert_to_stripe_object(
             last_response=stripe_response,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
 
         # We only need to update _retrieve_params when special params were

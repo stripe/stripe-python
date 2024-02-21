@@ -201,6 +201,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=False,
         )
 
     async def request_async(
@@ -232,6 +233,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=True,
         )
 
     def request_stream(

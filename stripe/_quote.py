@@ -3,11 +3,11 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe._stripe_response import StripeStreamResponseAsync
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, Dict, List, Optional, cast, overload
@@ -4183,7 +4183,7 @@ class Quote(
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -4192,7 +4192,7 @@ class Quote(
     @classmethod
     async def list_async(
         cls, **params: Unpack["Quote.ListParams"]
-    ) -> ListObject["Quote"]:
+    ) -> ListObjectAsync["Quote"]:
         """
         Returns a list of your quotes.
         """
@@ -4201,10 +4201,10 @@ class Quote(
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -4993,16 +4993,14 @@ class Quote(
     @staticmethod
     async def pdf_async(
         quote: str, **params: Unpack["Quote.PdfParams"]
-    ) -> StripeStreamResponseAsync:
+    ) -> Any:
         """
         Download the PDF for a finalized quote
         """
         ...
 
     @overload
-    async def pdf_async(
-        self, **params: Unpack["Quote.PdfParams"]
-    ) -> StripeStreamResponseAsync:
+    async def pdf_async(self, **params: Unpack["Quote.PdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote
         """
@@ -5011,14 +5009,19 @@ class Quote(
     @class_method_variant("_cls_pdf_async")
     async def pdf_async(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Quote.PdfParams"]
-    ) -> StripeStreamResponseAsync:
+    ) -> Any:
         """
         Download the PDF for a finalized quote
         """
-        return await self._request_stream_async(
-            "get",
-            "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(self.get("id"))),
-            params=params,
+        return cast(
+            Any,
+            await self._request_stream_async(
+                "get",
+                "/v1/quotes/{quote}/pdf".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
         )
 
     @classmethod

@@ -153,3 +153,7 @@ OBJECT_CLASSES = {
     stripe.WebhookEndpoint.OBJECT_NAME: stripe.WebhookEndpoint,
     # Object classes: The end of the section generated from our OpenAPI spec
 }
+
+OBJECT_CLASSES_ASYNC = {
+    stripe.ListObjectAsync.OBJECT_NAME: stripe.ListObjectAsync
+}

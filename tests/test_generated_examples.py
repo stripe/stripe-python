@@ -56,7 +56,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_account_links_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.AccountLink.create_async(
             account="acct_xxxxxxxxxxxxx",
@@ -64,7 +64,7 @@ class TestGeneratedExamples(object):
             return_url="https://example.com/return",
             type="account_onboarding",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/account_links",
             query_string="",
@@ -73,15 +73,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_account_links_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/account_links",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.account_links.create_async(
@@ -92,7 +92,7 @@ class TestGeneratedExamples(object):
                 "type": "account_onboarding",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/account_links",
             query_string="",
@@ -132,10 +132,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.list_capabilities_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
             query_string="",
@@ -143,19 +143,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.capabilities.list_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
             query_string="",
@@ -200,13 +200,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.retrieve_capability_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
@@ -214,22 +214,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.capabilities.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
@@ -278,14 +278,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.modify_capability_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
             requested=True,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
@@ -294,15 +294,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_capabilities_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.capabilities.update_async(
@@ -310,7 +310,7 @@ class TestGeneratedExamples(object):
             "card_payments",
             {"requested": True},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
@@ -348,10 +348,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.delete_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -359,19 +359,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/accounts/acct_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.delete_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -416,13 +416,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.delete_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -430,22 +430,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.delete_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -490,13 +490,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_delete_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.delete_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -504,22 +504,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_delete_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.delete_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -565,13 +565,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="limit=3",
@@ -579,23 +579,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="limit=3",
@@ -642,14 +642,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=bank_account&limit=3",
@@ -657,23 +657,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             "object=bank_account&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=bank_account&limit=3",
@@ -720,14 +720,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             object="card",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=card&limit=3",
@@ -735,23 +735,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             "object=card&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=card&limit=3",
@@ -796,13 +796,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.retrieve_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -810,22 +810,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -870,13 +870,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_5_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.retrieve_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -884,22 +884,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_get_5_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -946,13 +946,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.create_external_account_async(
             "acct_xxxxxxxxxxxxx",
             external_account="btok_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="",
@@ -961,22 +961,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.create_async(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "btok_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="",
@@ -1024,13 +1024,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.create_external_account_async(
             "acct_xxxxxxxxxxxxx",
             external_account="tok_xxxx_debit",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="",
@@ -1039,22 +1039,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.create_async(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "tok_xxxx_debit"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="",
@@ -1104,14 +1104,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.modify_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -1120,15 +1120,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.update_async(
@@ -1136,7 +1136,7 @@ class TestGeneratedExamples(object):
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -1186,14 +1186,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.modify_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -1202,15 +1202,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_external_accounts_post_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.external_accounts.update_async(
@@ -1218,7 +1218,7 @@ class TestGeneratedExamples(object):
             "card_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
@@ -1257,10 +1257,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts",
             query_string="limit=3",
@@ -1268,20 +1268,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts",
             query_string="limit=3",
@@ -1318,10 +1318,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.retrieve_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -1329,19 +1329,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.retrieve_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -1380,10 +1380,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_login_links_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.create_login_link_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
             query_string="",
@@ -1391,19 +1391,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_login_links_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.login_links.create_async("acct_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
             query_string="",
@@ -1448,13 +1448,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.delete_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1462,22 +1462,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.persons.delete_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1523,13 +1523,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.persons_async(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             query_string="limit=3",
@@ -1537,23 +1537,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.persons.list_async(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             query_string="limit=3",
@@ -1598,13 +1598,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.retrieve_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1612,22 +1612,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.persons.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1675,14 +1675,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.create_person_async(
             "acct_xxxxxxxxxxxxx",
             first_name="Jane",
             last_name="Diaz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             query_string="",
@@ -1691,22 +1691,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/persons",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.persons.create_async(
             "acct_xxxxxxxxxxxxx",
             {"first_name": "Jane", "last_name": "Diaz"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             query_string="",
@@ -1756,14 +1756,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.modify_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1772,15 +1772,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_persons_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.persons.update_async(
@@ -1788,7 +1788,7 @@ class TestGeneratedExamples(object):
             "person_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
@@ -1846,7 +1846,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.create_async(
             type="custom",
@@ -1857,7 +1857,7 @@ class TestGeneratedExamples(object):
                 "transfers": {"requested": True},
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts",
             query_string="",
@@ -1866,15 +1866,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.create_async(
@@ -1888,7 +1888,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts",
             query_string="",
@@ -1934,13 +1934,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.modify_async(
             "acct_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -1949,22 +1949,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.update_async(
             "acct_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
             query_string="",
@@ -2012,13 +2012,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_reject_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Account.reject_async(
             "acct_xxxxxxxxxxxxx",
             reason="fraud",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
@@ -2027,22 +2027,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_accounts_reject_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/accounts/acct_xxxxxxxxxxxxx/reject",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.accounts.reject_async(
             "acct_xxxxxxxxxxxxx",
             {"reason": "fraud"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
@@ -2083,10 +2083,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees",
             query_string="limit=3",
@@ -2094,20 +2094,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/application_fees",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees",
             query_string="limit=3",
@@ -2146,10 +2146,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.retrieve_async("fee_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
             query_string="",
@@ -2157,19 +2157,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/application_fees/fee_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.retrieve_async("fee_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
             query_string="",
@@ -2215,13 +2215,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.list_refunds_async(
             "fee_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="limit=3",
@@ -2229,23 +2229,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.refunds.list_async(
             "fee_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="limit=3",
@@ -2290,13 +2290,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.retrieve_refund_async(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
             query_string="",
@@ -2304,22 +2304,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.refunds.retrieve_async(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
             query_string="",
@@ -2358,10 +2358,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.create_refund_async("fee_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="",
@@ -2369,19 +2369,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.refunds.create_async("fee_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="",
@@ -2430,14 +2430,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ApplicationFee.modify_refund_async(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
             query_string="",
@@ -2446,15 +2446,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_application_fees_refunds_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.application_fees.refunds.update_async(
@@ -2462,7 +2462,7 @@ class TestGeneratedExamples(object):
             "fr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
             query_string="",
@@ -2512,13 +2512,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_delete_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.delete_where_async(
             name="my-api-key",
             scope={"type": "account"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets/delete",
             query_string="",
@@ -2527,15 +2527,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_delete_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/apps/secrets/delete",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.delete_where_async(
@@ -2544,7 +2544,7 @@ class TestGeneratedExamples(object):
                 "scope": {"type": "account"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets/delete",
             query_string="",
@@ -2593,13 +2593,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_find_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.find_async(
             name="sec_123",
             scope={"type": "account"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets/find",
             query_string="name=sec_123&scope[type]=account",
@@ -2607,16 +2607,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_find_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/apps/secrets/find",
             "name=sec_123&scope[type]=account",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.find_async(
@@ -2625,7 +2625,7 @@ class TestGeneratedExamples(object):
                 "scope": {"type": "account"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets/find",
             query_string="name=sec_123&scope[type]=account",
@@ -2666,13 +2666,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.list_async(
             scope={"type": "account"},
             limit=2,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets",
             query_string="scope[type]=account&limit=2",
@@ -2680,16 +2680,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/apps/secrets",
             "scope[type]=account&limit=2",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.list_async(
@@ -2698,7 +2698,7 @@ class TestGeneratedExamples(object):
                 "limit": 2,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets",
             query_string="scope[type]=account&limit=2",
@@ -2741,13 +2741,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.list_async(
             scope={"type": "account"},
             limit=2,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets",
             query_string="scope[type]=account&limit=2",
@@ -2755,16 +2755,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/apps/secrets",
             "scope[type]=account&limit=2",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.list_async(
@@ -2773,7 +2773,7 @@ class TestGeneratedExamples(object):
                 "limit": 2,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/apps/secrets",
             query_string="scope[type]=account&limit=2",
@@ -2822,14 +2822,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.create_async(
             name="sec_123",
             payload="very secret string",
             scope={"type": "account"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets",
             query_string="",
@@ -2838,15 +2838,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/apps/secrets",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.create_async(
@@ -2856,7 +2856,7 @@ class TestGeneratedExamples(object):
                 "scope": {"type": "account"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets",
             query_string="",
@@ -2908,14 +2908,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.apps.Secret.create_async(
             name="my-api-key",
             payload="secret_key_xxxxxx",
             scope={"type": "account"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets",
             query_string="",
@@ -2924,15 +2924,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_apps_secrets_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/apps/secrets",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.apps.secrets.create_async(
@@ -2942,7 +2942,7 @@ class TestGeneratedExamples(object):
                 "scope": {"type": "account"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/apps/secrets",
             query_string="",
@@ -2983,10 +2983,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_balance_transactions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.BalanceTransaction.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/balance_transactions",
             query_string="limit=3",
@@ -2994,20 +2994,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_balance_transactions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/balance_transactions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.balance_transactions.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/balance_transactions",
             query_string="limit=3",
@@ -3046,10 +3046,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_balance_transactions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.BalanceTransaction.retrieve_async("txn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
             query_string="",
@@ -3057,19 +3057,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_balance_transactions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/balance_transactions/txn_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.balance_transactions.retrieve_async("txn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
             query_string="",
@@ -3109,10 +3109,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.billing_portal.Configuration.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
             query_string="limit=3",
@@ -3120,20 +3120,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/billing_portal/configurations",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.billing_portal.configurations.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
             query_string="limit=3",
@@ -3172,12 +3172,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.billing_portal.Configuration.retrieve_async(
             "bpc_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
             query_string="",
@@ -3185,21 +3185,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.billing_portal.configurations.retrieve_async(
             "bpc_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
             query_string="",
@@ -3266,7 +3266,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.billing_portal.Configuration.create_async(
             features={
@@ -3281,7 +3281,7 @@ class TestGeneratedExamples(object):
                 "terms_of_service_url": "https://example.com/terms",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
@@ -3290,15 +3290,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/billing_portal/configurations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.billing_portal.configurations.create_async(
@@ -3316,7 +3316,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
@@ -3372,7 +3372,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.billing_portal.Configuration.modify_async(
             "bpc_xxxxxxxxxxxxx",
@@ -3381,7 +3381,7 @@ class TestGeneratedExamples(object):
                 "terms_of_service_url": "https://example.com/terms",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
             query_string="",
@@ -3390,15 +3390,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_configurations_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.billing_portal.configurations.update_async(
@@ -3410,7 +3410,7 @@ class TestGeneratedExamples(object):
                 },
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
             query_string="",
@@ -3460,13 +3460,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_sessions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.billing_portal.Session.create_async(
             customer="cus_xxxxxxxxxxxxx",
             return_url="https://example.com/account",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/sessions",
             query_string="",
@@ -3475,15 +3475,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_billing_portal_sessions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/billing_portal/sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.billing_portal.sessions.create_async(
@@ -3492,7 +3492,7 @@ class TestGeneratedExamples(object):
                 "return_url": "https://example.com/account",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/billing_portal/sessions",
             query_string="",
@@ -3532,10 +3532,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_capture_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.capture_async("ch_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
             query_string="",
@@ -3543,19 +3543,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_capture_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/charges/ch_xxxxxxxxxxxxx/capture",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.capture_async("ch_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
             query_string="",
@@ -3593,10 +3593,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges",
             query_string="limit=3",
@@ -3604,20 +3604,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/charges",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges",
             query_string="limit=3",
@@ -3654,10 +3654,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.retrieve_async("ch_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
             query_string="",
@@ -3665,19 +3665,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/charges/ch_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.retrieve_async("ch_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
             query_string="",
@@ -3728,7 +3728,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.create_async(
             amount=2000,
@@ -3736,7 +3736,7 @@ class TestGeneratedExamples(object):
             source="tok_xxxx",
             description="My First Test Charge (created for API docs at https://www.stripe.com/docs/api)",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges",
             query_string="",
@@ -3745,15 +3745,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/charges",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.create_async(
@@ -3764,7 +3764,7 @@ class TestGeneratedExamples(object):
                 "description": "My First Test Charge (created for API docs at https://www.stripe.com/docs/api)",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges",
             query_string="",
@@ -3810,13 +3810,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.modify_async(
             "ch_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
             query_string="",
@@ -3825,22 +3825,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/charges/ch_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.update_async(
             "ch_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
             query_string="",
@@ -3887,12 +3887,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Charge.search_async(
             query="amount>999 AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges/search",
             query_string="query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -3900,16 +3900,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_charges_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/charges/search",
             "query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.charges.search_async(
@@ -3917,7 +3917,7 @@ class TestGeneratedExamples(object):
                 "query": "amount>999 AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/charges/search",
             query_string="query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -3956,10 +3956,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_expire_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.expire_async("sess_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
             query_string="",
@@ -3967,19 +3967,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_expire_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/checkout/sessions/sess_xyz/expire",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.expire_async("sess_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
             query_string="",
@@ -4018,10 +4018,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_expire_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.expire_async("cs_test_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
             query_string="",
@@ -4029,19 +4029,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_expire_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.expire_async("cs_test_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
             query_string="",
@@ -4081,10 +4081,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions",
             query_string="limit=3",
@@ -4092,20 +4092,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/checkout/sessions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions",
             query_string="limit=3",
@@ -4144,10 +4144,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.retrieve_async("cs_test_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
             query_string="",
@@ -4155,19 +4155,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.retrieve_async("cs_test_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
             query_string="",
@@ -4206,10 +4206,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_line_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.list_line_items_async("sess_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
             query_string="",
@@ -4217,19 +4217,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_line_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/checkout/sessions/sess_xyz/line_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.line_items.list_async("sess_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
             query_string="",
@@ -4304,7 +4304,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.create_async(
             success_url="https://example.com/success",
@@ -4323,7 +4323,7 @@ class TestGeneratedExamples(object):
                 },
             ],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions",
             query_string="",
@@ -4332,15 +4332,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/checkout/sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.create_async(
@@ -4362,7 +4362,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions",
             query_string="",
@@ -4416,14 +4416,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.checkout.Session.create_async(
             success_url="https://example.com/success",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
             mode="payment",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions",
             query_string="",
@@ -4432,15 +4432,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_checkout_sessions_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/checkout/sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.checkout.sessions.create_async(
@@ -4452,7 +4452,7 @@ class TestGeneratedExamples(object):
                 "mode": "payment",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/checkout/sessions",
             query_string="",
@@ -4491,10 +4491,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_country_specs_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CountrySpec.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/country_specs",
             query_string="limit=3",
@@ -4502,20 +4502,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_country_specs_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/country_specs",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.country_specs.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/country_specs",
             query_string="limit=3",
@@ -4554,10 +4554,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_country_specs_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CountrySpec.retrieve_async("US")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/country_specs/US",
             query_string="",
@@ -4565,19 +4565,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_country_specs_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/country_specs/US",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.country_specs.retrieve_async("US")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/country_specs/US",
             query_string="",
@@ -4614,10 +4614,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Coupon.delete_async("Z4OV52SU")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4625,19 +4625,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/coupons/Z4OV52SU",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.coupons.delete_async("Z4OV52SU")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4675,10 +4675,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Coupon.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/coupons",
             query_string="limit=3",
@@ -4686,20 +4686,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/coupons",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.coupons.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/coupons",
             query_string="limit=3",
@@ -4736,10 +4736,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Coupon.retrieve_async("Z4OV52SU")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4747,19 +4747,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/coupons/Z4OV52SU",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.coupons.retrieve_async("Z4OV52SU")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4808,14 +4808,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Coupon.create_async(
             percent_off=25.5,
             duration="repeating",
             duration_in_months=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
@@ -4824,15 +4824,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/coupons",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.coupons.create_async(
@@ -4842,7 +4842,7 @@ class TestGeneratedExamples(object):
                 "duration_in_months": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
@@ -4888,13 +4888,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Coupon.modify_async(
             "Z4OV52SU",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4903,22 +4903,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_coupons_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/coupons/Z4OV52SU",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.coupons.update_async(
             "Z4OV52SU",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
@@ -4957,10 +4957,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes",
             query_string="limit=3",
@@ -4968,20 +4968,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/credit_notes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes",
             query_string="limit=3",
@@ -5027,13 +5027,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_lines_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.list_lines_async(
             "cn_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
             query_string="limit=3",
@@ -5041,23 +5041,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_lines_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.line_items.list_async(
             "cn_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
             query_string="limit=3",
@@ -5116,7 +5116,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.create_async(
             invoice="in_xxxxxxxxxxxxx",
@@ -5128,7 +5128,7 @@ class TestGeneratedExamples(object):
                 },
             ],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/credit_notes",
             query_string="",
@@ -5137,15 +5137,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/credit_notes",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.create_async(
@@ -5160,7 +5160,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/credit_notes",
             query_string="",
@@ -5221,7 +5221,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_preview_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.preview_async(
             invoice="in_xxxxxxxxxxxxx",
@@ -5233,7 +5233,7 @@ class TestGeneratedExamples(object):
                 },
             ],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/preview",
             query_string="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
@@ -5241,16 +5241,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_preview_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/credit_notes/preview",
             "invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.preview_async(
@@ -5265,7 +5265,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/preview",
             query_string="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
@@ -5313,13 +5313,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_preview_lines_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.preview_lines_async(
             limit=3,
             invoice="in_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/preview/lines",
             query_string="limit=3&invoice=in_xxxxxxxxxxxxx",
@@ -5327,16 +5327,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_preview_lines_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/credit_notes/preview/lines",
             "limit=3&invoice=in_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.preview_lines.list_async(
@@ -5345,7 +5345,7 @@ class TestGeneratedExamples(object):
                 "invoice": "in_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/credit_notes/preview/lines",
             query_string="limit=3&invoice=in_xxxxxxxxxxxxx",
@@ -5384,10 +5384,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_void_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CreditNote.void_credit_note_async("cn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
             query_string="",
@@ -5395,19 +5395,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_credit_notes_void_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.credit_notes.void_credit_note_async("cn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
             query_string="",
@@ -5456,13 +5456,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customer_sessions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.CustomerSession.create_async(
             customer="cus_123",
             components={"buy_button": {"enabled": True}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customer_sessions",
             query_string="",
@@ -5471,15 +5471,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customer_sessions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customer_sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customer_sessions.create_async(
@@ -5488,7 +5488,7 @@ class TestGeneratedExamples(object):
                 "components": {"buy_button": {"enabled": True}},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customer_sessions",
             query_string="",
@@ -5535,13 +5535,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_balance_transactions_async(
             "cus_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             query_string="limit=3",
@@ -5549,23 +5549,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.balance_transactions.list_async(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             query_string="limit=3",
@@ -5610,13 +5610,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_balance_transaction_async(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
             query_string="",
@@ -5624,22 +5624,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.balance_transactions.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
             query_string="",
@@ -5687,14 +5687,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_balance_transaction_async(
             "cus_xxxxxxxxxxxxx",
             amount=-500,
             currency="usd",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             query_string="",
@@ -5703,22 +5703,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.balance_transactions.create_async(
             "cus_xxxxxxxxxxxxx",
             {"amount": -500, "currency": "usd"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             query_string="",
@@ -5768,14 +5768,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_balance_transaction_async(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
             query_string="",
@@ -5784,15 +5784,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_balance_transactions_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.balance_transactions.update_async(
@@ -5800,7 +5800,7 @@ class TestGeneratedExamples(object):
             "cbtxn_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
             query_string="",
@@ -5840,10 +5840,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_cash_balance_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_cash_balance_async("cus_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
             query_string="",
@@ -5851,19 +5851,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_cash_balance_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_123/cash_balance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.cash_balance.retrieve_async("cus_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
             query_string="",
@@ -5910,13 +5910,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_cash_balance_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_cash_balance_async(
             "cus_123",
             settings={"reconciliation_mode": "manual"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/cash_balance",
             query_string="",
@@ -5925,22 +5925,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_cash_balance_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_123/cash_balance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.cash_balance.update_async(
             "cus_123",
             {"settings": {"reconciliation_mode": "manual"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/cash_balance",
             query_string="",
@@ -5978,10 +5978,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.delete_async("cus_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -5989,19 +5989,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/customers/cus_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.delete_async("cus_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -6060,7 +6060,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_funding_instructions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_funding_instructions_async(
             "cus_123",
@@ -6071,7 +6071,7 @@ class TestGeneratedExamples(object):
             currency="usd",
             funding_type="bank_transfer",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/funding_instructions",
             query_string="",
@@ -6080,15 +6080,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_funding_instructions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_123/funding_instructions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.funding_instructions.create_async(
@@ -6102,7 +6102,7 @@ class TestGeneratedExamples(object):
                 "funding_type": "bank_transfer",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/funding_instructions",
             query_string="",
@@ -6141,10 +6141,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers",
             query_string="limit=3",
@@ -6152,20 +6152,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers",
             query_string="limit=3",
@@ -6203,10 +6203,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers",
             query_string="limit=3",
@@ -6214,20 +6214,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers",
             query_string="limit=3",
@@ -6264,10 +6264,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_async("cus_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -6275,19 +6275,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.retrieve_async("cus_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -6333,13 +6333,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_payment_methods_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_payment_methods_async(
             "cus_xyz",
             type="card",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xyz/payment_methods",
             query_string="type=card",
@@ -6347,23 +6347,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_payment_methods_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xyz/payment_methods",
             "type=card",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_methods.list_async(
             "cus_xyz",
             {"type": "card"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xyz/payment_methods",
             query_string="type=card",
@@ -6409,13 +6409,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_payment_methods_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_payment_methods_async(
             "cus_xxxxxxxxxxxxx",
             type="card",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
             query_string="type=card",
@@ -6423,23 +6423,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_payment_methods_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
             "type=card",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_methods.list_async(
             "cus_xxxxxxxxxxxxx",
             {"type": "card"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
             query_string="type=card",
@@ -6484,12 +6484,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_async(
             description="My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers",
             query_string="",
@@ -6498,15 +6498,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.create_async(
@@ -6514,7 +6514,7 @@ class TestGeneratedExamples(object):
                 "description": "My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers",
             query_string="",
@@ -6560,13 +6560,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_async(
             "cus_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -6575,22 +6575,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.update_async(
             "cus_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
@@ -6637,12 +6637,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.search_async(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/search",
             query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
@@ -6650,16 +6650,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/search",
             "query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.search_async(
@@ -6667,7 +6667,7 @@ class TestGeneratedExamples(object):
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/search",
             query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
@@ -6713,12 +6713,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_search_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.search_async(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/search",
             query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
@@ -6726,16 +6726,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_search_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/search",
             "query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.search_async(
@@ -6743,7 +6743,7 @@ class TestGeneratedExamples(object):
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/search",
             query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
@@ -6788,13 +6788,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.delete_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -6802,22 +6802,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sources.detach_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -6862,13 +6862,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_delete_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.delete_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -6876,22 +6876,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_delete_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sources.detach_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -6938,14 +6938,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_sources_async(
             "cus_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=bank_account&limit=3",
@@ -6953,23 +6953,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources",
             "object=bank_account&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.list_async(
             "cus_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=bank_account&limit=3",
@@ -7016,14 +7016,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_sources_async(
             "cus_xxxxxxxxxxxxx",
             object="card",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=card&limit=3",
@@ -7031,23 +7031,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources",
             "object=card&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.list_async(
             "cus_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=card&limit=3",
@@ -7092,13 +7092,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -7106,22 +7106,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -7166,13 +7166,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -7180,22 +7180,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_get_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -7244,14 +7244,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_source_async(
             "cus_123",
             "card_123",
             account_holder_name="Kamil",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
@@ -7260,15 +7260,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_123/sources/card_123",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.update_async(
@@ -7276,7 +7276,7 @@ class TestGeneratedExamples(object):
             "card_123",
             {"account_holder_name": "Kamil"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
@@ -7324,13 +7324,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_source_async(
             "cus_xxxxxxxxxxxxx",
             source="btok_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="",
@@ -7339,22 +7339,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.create_async(
             "cus_xxxxxxxxxxxxx",
             {"source": "btok_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="",
@@ -7402,13 +7402,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_source_async(
             "cus_xxxxxxxxxxxxx",
             source="tok_xxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="",
@@ -7417,22 +7417,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.create_async(
             "cus_xxxxxxxxxxxxx",
             {"source": "tok_xxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="",
@@ -7482,14 +7482,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -7498,15 +7498,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.update_async(
@@ -7514,7 +7514,7 @@ class TestGeneratedExamples(object):
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
             query_string="",
@@ -7564,14 +7564,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_5_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.modify_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             name="Jenny Rosen",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -7580,15 +7580,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_sources_post_5_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.payment_sources.update_async(
@@ -7596,7 +7596,7 @@ class TestGeneratedExamples(object):
             "card_xxxxxxxxxxxxx",
             {"name": "Jenny Rosen"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
@@ -7642,13 +7642,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.delete_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
@@ -7656,22 +7656,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.tax_ids.delete_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
@@ -7717,13 +7717,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.list_tax_ids_async(
             "cus_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             query_string="limit=3",
@@ -7731,23 +7731,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.tax_ids.list_async(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             query_string="limit=3",
@@ -7792,13 +7792,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.retrieve_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
@@ -7806,22 +7806,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.tax_ids.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
@@ -7869,14 +7869,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.create_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             type="eu_vat",
             value="DE123456789",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             query_string="",
@@ -7885,22 +7885,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_customers_tax_ids_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.customers.tax_ids.create_async(
             "cus_xxxxxxxxxxxxx",
             {"type": "eu_vat", "value": "DE123456789"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             query_string="",
@@ -7940,10 +7940,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_close_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Dispute.close_async("dp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
             query_string="",
@@ -7951,19 +7951,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_close_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/disputes/dp_xxxxxxxxxxxxx/close",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.disputes.close_async("dp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
             query_string="",
@@ -8001,10 +8001,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Dispute.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/disputes",
             query_string="limit=3",
@@ -8012,20 +8012,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/disputes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.disputes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/disputes",
             query_string="limit=3",
@@ -8062,10 +8062,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Dispute.retrieve_async("dp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
             query_string="",
@@ -8073,19 +8073,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/disputes/dp_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.disputes.retrieve_async("dp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
             query_string="",
@@ -8130,13 +8130,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Dispute.modify_async(
             "dp_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
             query_string="",
@@ -8145,22 +8145,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_disputes_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/disputes/dp_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.disputes.update_async(
             "dp_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
             query_string="",
@@ -8199,10 +8199,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_events_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Event.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/events",
             query_string="limit=3",
@@ -8210,20 +8210,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_events_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/events",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.events.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/events",
             query_string="limit=3",
@@ -8260,10 +8260,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_events_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Event.retrieve_async("evt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
             query_string="",
@@ -8271,19 +8271,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_events_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/events/evt_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.events.retrieve_async("evt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
             query_string="",
@@ -8321,10 +8321,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.FileLink.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/file_links",
             query_string="limit=3",
@@ -8332,20 +8332,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/file_links",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.file_links.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/file_links",
             query_string="limit=3",
@@ -8382,10 +8382,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.FileLink.retrieve_async("link_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
             query_string="",
@@ -8393,19 +8393,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/file_links/link_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.file_links.retrieve_async("link_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
             query_string="",
@@ -8444,10 +8444,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.FileLink.create_async(file="file_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/file_links",
             query_string="",
@@ -8456,19 +8456,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/file_links",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.file_links.create_async({"file": "file_xxxxxxxxxxxxx"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/file_links",
             query_string="",
@@ -8514,13 +8514,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.FileLink.modify_async(
             "link_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
             query_string="",
@@ -8529,22 +8529,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_file_links_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/file_links/link_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.file_links.update_async(
             "link_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
             query_string="",
@@ -8581,10 +8581,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.File.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/files",
             query_string="limit=3",
@@ -8592,20 +8592,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/files",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.files.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/files",
             query_string="limit=3",
@@ -8642,10 +8642,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.File.retrieve_async("file_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
             query_string="",
@@ -8653,19 +8653,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/files/file_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.files.retrieve_async("file_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
             query_string="",
@@ -8710,13 +8710,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.File.create_async(
             purpose="account_requirement",
             file=io.StringIO("foo"),
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/files",
             query_string="",
@@ -8724,15 +8724,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_files_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/files",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.files.create_async(
@@ -8741,7 +8741,7 @@ class TestGeneratedExamples(object):
                 "file": io.StringIO("foo"),
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/files",
             query_string="",
@@ -8780,10 +8780,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_disconnect_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.disconnect_async("fca_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
             query_string="",
@@ -8791,19 +8791,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_disconnect_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/accounts/fca_xyz/disconnect",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.disconnect_async("fca_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
             query_string="",
@@ -8842,12 +8842,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_disconnect_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.disconnect_async(
             "fca_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
             query_string="",
@@ -8855,21 +8855,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_disconnect_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.disconnect_async(
             "fca_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
             query_string="",
@@ -8908,10 +8908,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
             query_string="",
@@ -8919,19 +8919,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
             query_string="",
@@ -8970,10 +8970,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.retrieve_async("fca_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
             query_string="",
@@ -8981,19 +8981,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts/fca_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.retrieve_async("fca_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
             query_string="",
@@ -9039,12 +9039,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.list_async(
             account_holder={"customer": "cus_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
             query_string="account_holder[customer]=cus_xxxxxxxxxxxxx",
@@ -9052,16 +9052,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts",
             "account_holder[customer]=cus_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.list_async(
@@ -9069,7 +9069,7 @@ class TestGeneratedExamples(object):
                 "account_holder": {"customer": "cus_xxxxxxxxxxxxx"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
             query_string="account_holder[customer]=cus_xxxxxxxxxxxxx",
@@ -9108,12 +9108,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.retrieve_async(
             "fca_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
             query_string="",
@@ -9121,21 +9121,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_get_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.retrieve_async(
             "fca_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
             query_string="",
@@ -9181,13 +9181,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_owners_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.list_owners_async(
             "fca_xyz",
             ownership="fcaowns_xyz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz/owners",
             query_string="ownership=fcaowns_xyz",
@@ -9195,23 +9195,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_owners_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts/fca_xyz/owners",
             "ownership=fcaowns_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.owners.list_async(
             "fca_xyz",
             {"ownership": "fcaowns_xyz"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz/owners",
             query_string="ownership=fcaowns_xyz",
@@ -9258,14 +9258,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_owners_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.list_owners_async(
             "fca_xxxxxxxxxxxxx",
             limit=3,
             ownership="fcaowns_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
             query_string="limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
@@ -9273,23 +9273,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_owners_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
             "limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.owners.list_async(
             "fca_xxxxxxxxxxxxx",
             {"limit": 3, "ownership": "fcaowns_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
             query_string="limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
@@ -9336,13 +9336,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_refresh_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.refresh_account_async(
             "fca_xyz",
             features=["balance"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/refresh",
             query_string="",
@@ -9351,22 +9351,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_refresh_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/accounts/fca_xyz/refresh",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.refresh_async(
             "fca_xyz",
             {"features": ["balance"]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/refresh",
             query_string="",
@@ -9414,13 +9414,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_subscribe_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.subscribe_async(
             "fa_123",
             features=["transactions"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fa_123/subscribe",
             query_string="",
@@ -9429,22 +9429,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_subscribe_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/accounts/fa_123/subscribe",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.subscribe_async(
             "fa_123",
             {"features": ["transactions"]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fa_123/subscribe",
             query_string="",
@@ -9492,13 +9492,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_unsubscribe_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Account.unsubscribe_async(
             "fa_123",
             features=["transactions"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fa_123/unsubscribe",
             query_string="",
@@ -9507,22 +9507,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_accounts_unsubscribe_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/accounts/fa_123/unsubscribe",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.accounts.unsubscribe_async(
             "fa_123",
             {"features": ["transactions"]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fa_123/unsubscribe",
             query_string="",
@@ -9562,10 +9562,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Session.retrieve_async("fcsess_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
             query_string="",
@@ -9573,21 +9573,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/sessions/fcsess_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.sessions.retrieve_async(
             "fcsess_xyz"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
             query_string="",
@@ -9626,12 +9626,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Session.retrieve_async(
             "fcsess_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
             query_string="",
@@ -9639,21 +9639,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.sessions.retrieve_async(
             "fcsess_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
             query_string="",
@@ -9702,13 +9702,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Session.create_async(
             account_holder={"type": "customer", "customer": "cus_123"},
             permissions=["balances"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
@@ -9717,15 +9717,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.sessions.create_async(
@@ -9734,7 +9734,7 @@ class TestGeneratedExamples(object):
                 "permissions": ["balances"],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
@@ -9792,7 +9792,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Session.create_async(
             account_holder={
@@ -9802,7 +9802,7 @@ class TestGeneratedExamples(object):
             permissions=["payment_method", "balances"],
             filters={"countries": ["US"]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
@@ -9811,15 +9811,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_sessions_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/financial_connections/sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.sessions.create_async(
@@ -9832,7 +9832,7 @@ class TestGeneratedExamples(object):
                 "filters": {"countries": ["US"]},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
@@ -9872,10 +9872,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_transactions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Transaction.retrieve_async("tr_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
             query_string="",
@@ -9883,21 +9883,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_transactions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/transactions/tr_123",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.transactions.retrieve_async(
             "tr_123"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
             query_string="",
@@ -9937,12 +9937,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_transactions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.financial_connections.Transaction.list_async(
             account="fca_xyz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/transactions",
             query_string="account=fca_xyz",
@@ -9950,16 +9950,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_financial_connections_transactions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/financial_connections/transactions",
             "account=fca_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.financial_connections.transactions.list_async(
@@ -9967,7 +9967,7 @@ class TestGeneratedExamples(object):
                 "account": "fca_xyz",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/financial_connections/transactions",
             query_string="account=fca_xyz",
@@ -10007,10 +10007,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_reports_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationReport.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
             query_string="limit=3",
@@ -10018,20 +10018,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_reports_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/identity/verification_reports",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_reports.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
             query_string="limit=3",
@@ -10070,12 +10070,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_reports_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationReport.retrieve_async(
             "vr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
             query_string="",
@@ -10083,21 +10083,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_reports_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_reports.retrieve_async(
             "vr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
             query_string="",
@@ -10136,12 +10136,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.cancel_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -10149,21 +10149,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.cancel_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -10203,10 +10203,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
             query_string="limit=3",
@@ -10214,20 +10214,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/identity/verification_sessions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
             query_string="limit=3",
@@ -10266,12 +10266,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.retrieve_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
             query_string="",
@@ -10279,21 +10279,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.retrieve_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
             query_string="",
@@ -10334,10 +10334,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.create_async(type="document")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions",
             query_string="",
@@ -10346,15 +10346,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/identity/verification_sessions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.create_async(
@@ -10362,7 +10362,7 @@ class TestGeneratedExamples(object):
                 "type": "document",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions",
             query_string="",
@@ -10410,13 +10410,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.modify_async(
             "vs_xxxxxxxxxxxxx",
             type="id_number",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
             query_string="",
@@ -10425,22 +10425,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.update_async(
             "vs_xxxxxxxxxxxxx",
             {"type": "id_number"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
             query_string="",
@@ -10480,12 +10480,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_redact_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.identity.VerificationSession.redact_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
             query_string="",
@@ -10493,21 +10493,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_identity_verification_sessions_redact_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.identity.verification_sessions.redact_async(
             "vs_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
             query_string="",
@@ -10546,10 +10546,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.InvoiceItem.delete_async("ii_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10557,19 +10557,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoice_items.delete_async("ii_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10607,10 +10607,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.InvoiceItem.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoiceitems",
             query_string="limit=3",
@@ -10618,20 +10618,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoiceitems",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoice_items.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoiceitems",
             query_string="limit=3",
@@ -10670,10 +10670,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.InvoiceItem.retrieve_async("ii_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10681,19 +10681,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoice_items.retrieve_async("ii_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10740,13 +10740,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.InvoiceItem.create_async(
             customer="cus_xxxxxxxxxxxxx",
             price="price_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
@@ -10755,15 +10755,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoiceitems",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoice_items.create_async(
@@ -10772,7 +10772,7 @@ class TestGeneratedExamples(object):
                 "price": "price_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
@@ -10820,13 +10820,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.InvoiceItem.modify_async(
             "ii_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10835,22 +10835,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoice_items.update_async(
             "ii_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
@@ -10888,10 +10888,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.delete_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -10899,19 +10899,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/invoices/in_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.delete_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -10950,10 +10950,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_finalize_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.finalize_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
             query_string="",
@@ -10961,19 +10961,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_finalize_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx/finalize",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.finalize_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
             query_string="",
@@ -11011,10 +11011,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices",
             query_string="limit=3",
@@ -11022,20 +11022,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoices",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices",
             query_string="limit=3",
@@ -11072,10 +11072,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.retrieve_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -11083,19 +11083,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoices/in_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.retrieve_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -11139,13 +11139,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.retrieve_async(
             "in_xxxxxxxxxxxxx",
             expand=["customer"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="expand[0]=customer",
@@ -11153,23 +11153,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoices/in_xxxxxxxxxxxxx",
             "expand[0]=customer",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.retrieve_async(
             "in_xxxxxxxxxxxxx",
             {"expand": ["customer"]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="expand[0]=customer",
@@ -11208,10 +11208,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_mark_uncollectible_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.mark_uncollectible_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
             query_string="",
@@ -11219,19 +11219,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_mark_uncollectible_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.mark_uncollectible_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
             query_string="",
@@ -11268,10 +11268,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_pay_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.pay_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
             query_string="",
@@ -11279,19 +11279,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_pay_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx/pay",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.pay_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
             query_string="",
@@ -11330,10 +11330,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.create_async(customer="cus_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices",
             query_string="",
@@ -11342,19 +11342,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.create_async({"customer": "cus_xxxxxxxxxxxxx"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices",
             query_string="",
@@ -11400,13 +11400,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.modify_async(
             "in_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -11415,22 +11415,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.update_async(
             "in_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
@@ -11477,12 +11477,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.search_async(
             query="total>999 AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/search",
             query_string="query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -11490,16 +11490,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoices/search",
             "query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.search_async(
@@ -11507,7 +11507,7 @@ class TestGeneratedExamples(object):
                 "query": "total>999 AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/search",
             query_string="query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -11546,10 +11546,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_send_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.send_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
             query_string="",
@@ -11557,19 +11557,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_send_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx/send",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.send_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
             query_string="",
@@ -11609,10 +11609,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_upcoming_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.upcoming_async(customer="cus_9utnxg47pWjV1e")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/upcoming",
             query_string="customer=cus_9utnxg47pWjV1e",
@@ -11620,22 +11620,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_upcoming_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/invoices/upcoming",
             "customer=cus_9utnxg47pWjV1e",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.upcoming_async(
             {"customer": "cus_9utnxg47pWjV1e"}
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/invoices/upcoming",
             query_string="customer=cus_9utnxg47pWjV1e",
@@ -11674,10 +11674,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_void_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Invoice.void_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
             query_string="",
@@ -11685,19 +11685,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_invoices_void_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/invoices/in_xxxxxxxxxxxxx/void",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.invoices.void_invoice_async("in_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
             query_string="",
@@ -11736,10 +11736,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_approve_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.approve_async("iauth_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
             query_string="",
@@ -11747,21 +11747,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_approve_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.authorizations.approve_async(
             "iauth_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
             query_string="",
@@ -11800,10 +11800,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_decline_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.decline_async("iauth_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
             query_string="",
@@ -11811,21 +11811,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_decline_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.authorizations.decline_async(
             "iauth_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
             query_string="",
@@ -11865,10 +11865,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
             query_string="limit=3",
@@ -11876,20 +11876,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/authorizations",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.authorizations.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
             query_string="limit=3",
@@ -11928,12 +11928,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.retrieve_async(
             "iauth_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
             query_string="",
@@ -11941,21 +11941,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.authorizations.retrieve_async(
             "iauth_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
             query_string="",
@@ -12002,13 +12002,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.modify_async(
             "iauth_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
             query_string="",
@@ -12017,22 +12017,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_authorizations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.authorizations.update_async(
             "iauth_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
             query_string="",
@@ -12073,10 +12073,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Cardholder.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
             query_string="limit=3",
@@ -12084,20 +12084,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/cardholders",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cardholders.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
             query_string="limit=3",
@@ -12136,10 +12136,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Cardholder.retrieve_async("ich_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
             query_string="",
@@ -12147,19 +12147,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cardholders.retrieve_async("ich_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
             query_string="",
@@ -12230,7 +12230,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Cardholder.create_async(
             type="individual",
@@ -12247,7 +12247,7 @@ class TestGeneratedExamples(object):
                 },
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cardholders",
             query_string="",
@@ -12256,15 +12256,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/cardholders",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cardholders.create_async(
@@ -12284,7 +12284,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cardholders",
             query_string="",
@@ -12332,13 +12332,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Cardholder.modify_async(
             "ich_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
             query_string="",
@@ -12347,22 +12347,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cardholders_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cardholders.update_async(
             "ich_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
             query_string="",
@@ -12401,10 +12401,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cards",
             query_string="limit=3",
@@ -12412,20 +12412,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/cards",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cards.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cards",
             query_string="limit=3",
@@ -12464,10 +12464,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.retrieve_async("ic_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
             query_string="",
@@ -12475,19 +12475,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/cards/ic_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cards.retrieve_async("ic_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
             query_string="",
@@ -12538,14 +12538,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.create_async(
             cardholder="ich_xxxxxxxxxxxxx",
             currency="usd",
             type="virtual",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cards",
             query_string="",
@@ -12554,15 +12554,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/cards",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cards.create_async(
@@ -12572,7 +12572,7 @@ class TestGeneratedExamples(object):
                 "type": "virtual",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cards",
             query_string="",
@@ -12620,13 +12620,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.modify_async(
             "ic_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
             query_string="",
@@ -12635,22 +12635,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_cards_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/cards/ic_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.cards.update_async(
             "ic_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
             query_string="",
@@ -12691,10 +12691,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Dispute.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/disputes",
             query_string="limit=3",
@@ -12702,20 +12702,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/disputes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.disputes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/disputes",
             query_string="limit=3",
@@ -12754,10 +12754,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Dispute.retrieve_async("idp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
             query_string="",
@@ -12765,19 +12765,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.disputes.retrieve_async("idp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
             query_string="",
@@ -12834,7 +12834,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Dispute.create_async(
             transaction="ipi_xxxxxxxxxxxxx",
@@ -12843,7 +12843,7 @@ class TestGeneratedExamples(object):
                 "fraudulent": {"explanation": "Purchase was unrecognized."},
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/disputes",
             query_string="",
@@ -12852,15 +12852,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/disputes",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.disputes.create_async(
@@ -12874,7 +12874,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/disputes",
             query_string="",
@@ -12914,10 +12914,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_submit_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Dispute.submit_async("idp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
             query_string="",
@@ -12925,19 +12925,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_disputes_submit_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.disputes.submit_async("idp_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
             query_string="",
@@ -12977,10 +12977,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/transactions",
             query_string="limit=3",
@@ -12988,20 +12988,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/transactions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.transactions.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/transactions",
             query_string="limit=3",
@@ -13040,10 +13040,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.retrieve_async("ipi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
             query_string="",
@@ -13051,19 +13051,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.transactions.retrieve_async("ipi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
             query_string="",
@@ -13110,13 +13110,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.modify_async(
             "ipi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
             query_string="",
@@ -13125,22 +13125,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_issuing_transactions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.issuing.transactions.update_async(
             "ipi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
             query_string="",
@@ -13178,10 +13178,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_mandates_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Mandate.retrieve_async("mandate_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
             query_string="",
@@ -13189,19 +13189,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_mandates_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/mandates/mandate_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.mandates.retrieve_async("mandate_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
             query_string="",
@@ -13240,12 +13240,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_apply_customer_balance_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.apply_customer_balance_async(
             "pi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
             query_string="",
@@ -13253,21 +13253,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_apply_customer_balance_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.apply_customer_balance_async(
             "pi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
             query_string="",
@@ -13306,10 +13306,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.cancel_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -13317,19 +13317,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.cancel_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -13368,10 +13368,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_capture_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.capture_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
             query_string="",
@@ -13379,19 +13379,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_capture_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.capture_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
             query_string="",
@@ -13438,13 +13438,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_confirm_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.confirm_async(
             "pi_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm",
             query_string="",
@@ -13453,22 +13453,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_confirm_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.confirm_async(
             "pi_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm",
             query_string="",
@@ -13509,10 +13509,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents",
             query_string="limit=3",
@@ -13520,20 +13520,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_intents",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents",
             query_string="limit=3",
@@ -13572,10 +13572,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.retrieve_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
             query_string="",
@@ -13583,19 +13583,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.retrieve_async("pi_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
             query_string="",
@@ -13642,13 +13642,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_increment_authorization_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.increment_authorization_async(
             "pi_xxxxxxxxxxxxx",
             amount=2099,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
             query_string="",
@@ -13657,22 +13657,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_increment_authorization_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.increment_authorization_async(
             "pi_xxxxxxxxxxxxx",
             {"amount": 2099},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
             query_string="",
@@ -13724,14 +13724,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.create_async(
             amount=1099,
             currency="eur",
             automatic_payment_methods={"enabled": True},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -13740,15 +13740,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.create_async(
@@ -13758,7 +13758,7 @@ class TestGeneratedExamples(object):
                 "automatic_payment_methods": {"enabled": True},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -13810,14 +13810,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.create_async(
             amount=2000,
             currency="usd",
             automatic_payment_methods={"enabled": True},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -13826,15 +13826,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.create_async(
@@ -13844,7 +13844,7 @@ class TestGeneratedExamples(object):
                 "automatic_payment_methods": {"enabled": True},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -13892,13 +13892,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.modify_async(
             "pi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
             query_string="",
@@ -13907,22 +13907,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.update_async(
             "pi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
             query_string="",
@@ -13977,14 +13977,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.create_async(
             amount=200,
             currency="usd",
             payment_method_data={"type": "p24", "p24": {"bank": "blik"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -13993,15 +13993,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_post_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.create_async(
@@ -14014,7 +14014,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents",
             query_string="",
@@ -14061,12 +14061,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.search_async(
             query="status:'succeeded' AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents/search",
             query_string="query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -14074,16 +14074,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_intents/search",
             "query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.search_async(
@@ -14091,7 +14091,7 @@ class TestGeneratedExamples(object):
                 "query": "status:'succeeded' AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_intents/search",
             query_string="query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -14130,12 +14130,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_verify_microdeposits_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -14143,21 +14143,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_verify_microdeposits_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -14204,13 +14204,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_verify_microdeposits_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentIntent.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -14219,22 +14219,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_intents_verify_microdeposits_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_intents.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -14272,10 +14272,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.retrieve_async("pl_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
             query_string="",
@@ -14283,19 +14283,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_links/pl_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.retrieve_async("pl_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
             query_string="",
@@ -14335,10 +14335,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links",
             query_string="limit=3",
@@ -14346,20 +14346,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_links",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links",
             query_string="limit=3",
@@ -14398,10 +14398,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.retrieve_async("plink_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
@@ -14409,19 +14409,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_links/plink_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.retrieve_async("plink_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
@@ -14460,10 +14460,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_line_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.list_line_items_async("pl_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
             query_string="",
@@ -14471,19 +14471,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_line_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_links/pl_xyz/line_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.line_items.list_async("pl_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
             query_string="",
@@ -14532,12 +14532,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.create_async(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links",
             query_string="",
@@ -14546,15 +14546,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_links",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.create_async(
@@ -14564,7 +14564,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links",
             query_string="",
@@ -14614,12 +14614,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.create_async(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links",
             query_string="",
@@ -14628,15 +14628,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_links",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.create_async(
@@ -14646,7 +14646,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links",
             query_string="",
@@ -14694,13 +14694,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentLink.modify_async(
             "plink_xxxxxxxxxxxxx",
             active=False,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
@@ -14709,22 +14709,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_links_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_links/plink_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_links.update_async(
             "plink_xxxxxxxxxxxxx",
             {"active": False},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
@@ -14765,10 +14765,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethodConfiguration.list_async(application="foo")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_method_configurations",
             query_string="application=foo",
@@ -14776,16 +14776,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_method_configurations",
             "application=foo",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_method_configurations.list_async(
@@ -14793,7 +14793,7 @@ class TestGeneratedExamples(object):
                 "application": "foo",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_method_configurations",
             query_string="application=foo",
@@ -14832,10 +14832,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethodConfiguration.retrieve_async("foo")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
             query_string="",
@@ -14843,19 +14843,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_method_configurations/foo",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_method_configurations.retrieve_async("foo")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
             query_string="",
@@ -14904,13 +14904,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethodConfiguration.create_async(
             acss_debit={"display_preference": {"preference": "none"}},
             affirm={"display_preference": {"preference": "none"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_method_configurations",
             query_string="",
@@ -14919,15 +14919,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_method_configurations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_method_configurations.create_async(
@@ -14936,7 +14936,7 @@ class TestGeneratedExamples(object):
                 "affirm": {"display_preference": {"preference": "none"}},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_method_configurations",
             query_string="",
@@ -14984,13 +14984,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethodConfiguration.modify_async(
             "foo",
             acss_debit={"display_preference": {"preference": "on"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_method_configurations/foo",
             query_string="",
@@ -14999,22 +14999,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_method_configurations_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_method_configurations/foo",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_method_configurations.update_async(
             "foo",
             {"acss_debit": {"display_preference": {"preference": "on"}}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_method_configurations/foo",
             query_string="",
@@ -15062,13 +15062,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_attach_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.attach_async(
             "pm_xxxxxxxxxxxxx",
             customer="cus_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/attach",
             query_string="",
@@ -15077,22 +15077,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_attach_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_methods/pm_xxxxxxxxxxxxx/attach",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.attach_async(
             "pm_xxxxxxxxxxxxx",
             {"customer": "cus_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/attach",
             query_string="",
@@ -15132,10 +15132,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_detach_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.detach_async("pm_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
             query_string="",
@@ -15143,19 +15143,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_detach_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.detach_async("pm_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
             query_string="",
@@ -15203,13 +15203,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.list_async(
             customer="cus_xxxxxxxxxxxxx",
             type="card",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_methods",
             query_string="customer=cus_xxxxxxxxxxxxx&type=card",
@@ -15217,16 +15217,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_methods",
             "customer=cus_xxxxxxxxxxxxx&type=card",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.list_async(
@@ -15235,7 +15235,7 @@ class TestGeneratedExamples(object):
                 "type": "card",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_methods",
             query_string="customer=cus_xxxxxxxxxxxxx&type=card",
@@ -15274,10 +15274,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.retrieve_async("pm_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
             query_string="",
@@ -15285,19 +15285,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payment_methods/pm_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.retrieve_async("pm_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
             query_string="",
@@ -15356,7 +15356,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.create_async(
             type="card",
@@ -15367,7 +15367,7 @@ class TestGeneratedExamples(object):
                 "cvc": "314",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods",
             query_string="",
@@ -15376,15 +15376,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_methods",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.create_async(
@@ -15398,7 +15398,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods",
             query_string="",
@@ -15446,13 +15446,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PaymentMethod.modify_async(
             "pm_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
             query_string="",
@@ -15461,22 +15461,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payment_methods_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payment_methods/pm_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payment_methods.update_async(
             "pm_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
             query_string="",
@@ -15516,10 +15516,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.cancel_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -15527,19 +15527,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payouts/po_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.cancel_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -15577,10 +15577,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payouts",
             query_string="limit=3",
@@ -15588,20 +15588,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payouts",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payouts",
             query_string="limit=3",
@@ -15638,10 +15638,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.retrieve_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
             query_string="",
@@ -15649,19 +15649,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/payouts/po_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.retrieve_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
             query_string="",
@@ -15703,13 +15703,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.create_async(
             amount=1100,
             currency="usd",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts",
             query_string="",
@@ -15718,19 +15718,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payouts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.create_async({"amount": 1100, "currency": "usd"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts",
             query_string="",
@@ -15776,13 +15776,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.modify_async(
             "po_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
             query_string="",
@@ -15791,22 +15791,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payouts/po_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.update_async(
             "po_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
             query_string="",
@@ -15846,10 +15846,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_reverse_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Payout.reverse_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
             query_string="",
@@ -15857,19 +15857,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_payouts_reverse_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/payouts/po_xxxxxxxxxxxxx/reverse",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.payouts.reverse_async("po_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
             query_string="",
@@ -15906,10 +15906,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.delete_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -15917,19 +15917,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/plans/price_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.delete_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -15965,10 +15965,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/plans",
             query_string="limit=3",
@@ -15976,20 +15976,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/plans",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/plans",
             query_string="limit=3",
@@ -16026,10 +16026,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.retrieve_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16037,19 +16037,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/plans/price_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.retrieve_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16100,7 +16100,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.create_async(
             amount=2000,
@@ -16108,7 +16108,7 @@ class TestGeneratedExamples(object):
             interval="month",
             product="prod_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans",
             query_string="",
@@ -16117,15 +16117,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/plans",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.create_async(
@@ -16136,7 +16136,7 @@ class TestGeneratedExamples(object):
                 "product": "prod_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans",
             query_string="",
@@ -16188,7 +16188,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.create_async(
             amount=2000,
@@ -16196,7 +16196,7 @@ class TestGeneratedExamples(object):
             interval="month",
             product={"name": "My product"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans",
             query_string="",
@@ -16205,15 +16205,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/plans",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.create_async(
@@ -16224,7 +16224,7 @@ class TestGeneratedExamples(object):
                 "product": {"name": "My product"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans",
             query_string="",
@@ -16270,13 +16270,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Plan.modify_async(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16285,22 +16285,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_plans_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/plans/price_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.plans.update_async(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16339,10 +16339,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices",
             query_string="limit=3",
@@ -16350,20 +16350,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/prices",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices",
             query_string="limit=3",
@@ -16400,10 +16400,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.retrieve_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16411,19 +16411,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/prices/price_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.retrieve_async("price_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16482,7 +16482,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.create_async(
             unit_amount=2000,
@@ -16494,7 +16494,7 @@ class TestGeneratedExamples(object):
             recurring={"interval": "month"},
             product="prod_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices",
             query_string="",
@@ -16503,15 +16503,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/prices",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.create_async(
@@ -16526,7 +16526,7 @@ class TestGeneratedExamples(object):
                 "product": "prod_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices",
             query_string="",
@@ -16578,7 +16578,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.create_async(
             unit_amount=2000,
@@ -16586,7 +16586,7 @@ class TestGeneratedExamples(object):
             recurring={"interval": "month"},
             product="prod_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices",
             query_string="",
@@ -16595,15 +16595,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/prices",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.create_async(
@@ -16614,7 +16614,7 @@ class TestGeneratedExamples(object):
                 "product": "prod_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices",
             query_string="",
@@ -16660,13 +16660,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.modify_async(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16675,22 +16675,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/prices/price_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.update_async(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/prices/price_xxxxxxxxxxxxx",
             query_string="",
@@ -16735,12 +16735,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Price.search_async(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -16748,16 +16748,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_prices_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/prices/search",
             "query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.prices.search_async(
@@ -16765,7 +16765,7 @@ class TestGeneratedExamples(object):
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/prices/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -16802,10 +16802,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.delete_async("prod_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -16813,19 +16813,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/products/prod_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.delete_async("prod_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -16863,10 +16863,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products",
             query_string="limit=3",
@@ -16874,20 +16874,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/products",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products",
             query_string="limit=3",
@@ -16924,10 +16924,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.retrieve_async("prod_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -16935,19 +16935,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/products/prod_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.retrieve_async("prod_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -16986,10 +16986,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.create_async(name="Gold Special")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/products",
             query_string="",
@@ -16998,19 +16998,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/products",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.create_async({"name": "Gold Special"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/products",
             query_string="",
@@ -17056,13 +17056,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.modify_async(
             "prod_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -17071,22 +17071,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/products/prod_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.update_async(
             "prod_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
@@ -17133,12 +17133,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Product.search_async(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -17146,16 +17146,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_products_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/products/search",
             "query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.products.search_async(
@@ -17163,7 +17163,7 @@ class TestGeneratedExamples(object):
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/products/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -17203,10 +17203,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/promotion_codes",
             query_string="limit=3",
@@ -17214,20 +17214,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/promotion_codes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.promotion_codes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/promotion_codes",
             query_string="limit=3",
@@ -17266,10 +17266,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.retrieve_async("promo_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
             query_string="",
@@ -17277,19 +17277,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.promotion_codes.retrieve_async("promo_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
             query_string="",
@@ -17330,10 +17330,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.create_async(coupon="Z4OV52SU")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/promotion_codes",
             query_string="",
@@ -17342,19 +17342,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/promotion_codes",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.promotion_codes.create_async({"coupon": "Z4OV52SU"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/promotion_codes",
             query_string="",
@@ -17402,13 +17402,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.modify_async(
             "promo_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
             query_string="",
@@ -17417,22 +17417,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_promotion_codes_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.promotion_codes.update_async(
             "promo_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
             query_string="",
@@ -17472,10 +17472,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_accept_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.accept_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
             query_string="",
@@ -17483,19 +17483,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_accept_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/quotes/qt_xxxxxxxxxxxxx/accept",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.accept_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
             query_string="",
@@ -17534,10 +17534,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.cancel_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -17545,19 +17545,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.cancel_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -17596,10 +17596,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_finalize_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.finalize_quote_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
             query_string="",
@@ -17607,19 +17607,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_finalize_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.finalize_quote_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
             query_string="",
@@ -17657,10 +17657,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes",
             query_string="limit=3",
@@ -17668,20 +17668,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/quotes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes",
             query_string="limit=3",
@@ -17718,10 +17718,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.retrieve_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
             query_string="",
@@ -17729,19 +17729,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/quotes/qt_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.retrieve_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
             query_string="",
@@ -17780,10 +17780,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_line_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.list_line_items_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
             query_string="",
@@ -17791,47 +17791,49 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_line_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.line_items.list_async("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
             query_string="",
             api_base="https://api.stripe.com",
         )
 
-    def test_quotes_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
+    def test_quotes_pdf_get(
+        self, http_client_mock_streaming: HTTPClientMock
+    ) -> None:
         stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_streaming.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
             query_string="",
         )
 
     def test_quotes_pdf_get_service(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_streaming: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_streaming.stub_request(
             "get",
             "/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_streaming.get_mock_http_client(),
         )
 
         client.quotes.pdf("qt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_streaming.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
             query_string="",
@@ -17880,13 +17882,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.create_async(
             customer="cus_xxxxxxxxxxxxx",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes",
             query_string="",
@@ -17895,15 +17897,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/quotes",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.create_async(
@@ -17914,7 +17916,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes",
             query_string="",
@@ -17960,13 +17962,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.modify_async(
             "qt_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
             query_string="",
@@ -17975,22 +17977,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/quotes/qt_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.update_async(
             "qt_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
             query_string="",
@@ -18036,13 +18038,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_preview_invoices_lines_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Quote.list_preview_invoice_lines_async(
             "qt_xyz",
             "in_xyz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
             query_string="",
@@ -18050,22 +18052,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_quotes_preview_invoices_lines_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.quotes.list_preview_invoice_lines_async(
             "qt_xyz",
             "in_xyz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
             query_string="",
@@ -18105,10 +18107,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_early_fraud_warnings_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.EarlyFraudWarning.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
             query_string="limit=3",
@@ -18116,20 +18118,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_early_fraud_warnings_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/early_fraud_warnings",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.early_fraud_warnings.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
             query_string="limit=3",
@@ -18168,12 +18170,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_early_fraud_warnings_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.EarlyFraudWarning.retrieve_async(
             "issfr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
             query_string="",
@@ -18181,21 +18183,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_early_fraud_warnings_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.early_fraud_warnings.retrieve_async(
             "issfr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
             query_string="",
@@ -18234,10 +18236,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueListItem.delete_async("rsli_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
@@ -18245,19 +18247,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_list_items.delete_async("rsli_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
@@ -18305,13 +18307,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueListItem.list_async(
             limit=3,
             value_list="rsl_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_list_items",
             query_string="limit=3&value_list=rsl_xxxxxxxxxxxxx",
@@ -18319,16 +18321,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/value_list_items",
             "limit=3&value_list=rsl_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_list_items.list_async(
@@ -18337,7 +18339,7 @@ class TestGeneratedExamples(object):
                 "value_list": "rsl_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_list_items",
             query_string="limit=3&value_list=rsl_xxxxxxxxxxxxx",
@@ -18376,10 +18378,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueListItem.retrieve_async("rsli_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
@@ -18387,21 +18389,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_list_items.retrieve_async(
             "rsli_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
@@ -18450,13 +18452,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueListItem.create_async(
             value_list="rsl_xxxxxxxxxxxxx",
             value="1.2.3.4",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_list_items",
             query_string="",
@@ -18465,15 +18467,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_list_items_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/radar/value_list_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_list_items.create_async(
@@ -18482,7 +18484,7 @@ class TestGeneratedExamples(object):
                 "value": "1.2.3.4",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_list_items",
             query_string="",
@@ -18522,10 +18524,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueList.delete_async("rsl_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18533,19 +18535,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_lists.delete_async("rsl_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18585,10 +18587,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueList.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_lists",
             query_string="limit=3",
@@ -18596,20 +18598,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/value_lists",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_lists.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_lists",
             query_string="limit=3",
@@ -18648,10 +18650,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueList.retrieve_async("rsl_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18659,19 +18661,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_lists.retrieve_async("rsl_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18722,14 +18724,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueList.create_async(
             alias="custom_ip_xxxxxxxxxxxxx",
             name="Custom IP Blocklist",
             item_type="ip_address",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_lists",
             query_string="",
@@ -18738,15 +18740,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/radar/value_lists",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_lists.create_async(
@@ -18756,7 +18758,7 @@ class TestGeneratedExamples(object):
                 "item_type": "ip_address",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_lists",
             query_string="",
@@ -18804,13 +18806,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.radar.ValueList.modify_async(
             "rsl_xxxxxxxxxxxxx",
             name="Updated IP Block List",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18819,22 +18821,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_radar_value_lists_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.radar.value_lists.update_async(
             "rsl_xxxxxxxxxxxxx",
             {"name": "Updated IP Block List"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
@@ -18874,10 +18876,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.cancel_async("re_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -18885,19 +18887,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/refunds/re_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.refunds.cancel_async("re_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -18935,10 +18937,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/refunds",
             query_string="limit=3",
@@ -18946,20 +18948,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/refunds",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.refunds.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/refunds",
             query_string="limit=3",
@@ -18996,10 +18998,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.retrieve_async("re_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
             query_string="",
@@ -19007,19 +19009,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/refunds/re_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.refunds.retrieve_async("re_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
             query_string="",
@@ -19058,10 +19060,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.create_async(charge="ch_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds",
             query_string="",
@@ -19070,19 +19072,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/refunds",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.refunds.create_async({"charge": "ch_xxxxxxxxxxxxx"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds",
             query_string="",
@@ -19128,13 +19130,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.modify_async(
             "re_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
             query_string="",
@@ -19143,22 +19145,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_refunds_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/refunds/re_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.refunds.update_async(
             "re_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
             query_string="",
@@ -19199,10 +19201,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.reporting.ReportRun.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
             query_string="limit=3",
@@ -19210,20 +19212,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reporting/report_runs",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reporting.report_runs.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
             query_string="limit=3",
@@ -19262,10 +19264,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.reporting.ReportRun.retrieve_async("frr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
             query_string="",
@@ -19273,19 +19275,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reporting.report_runs.retrieve_async("frr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
             query_string="",
@@ -19340,7 +19342,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.reporting.ReportRun.create_async(
             report_type="balance.summary.1",
@@ -19349,7 +19351,7 @@ class TestGeneratedExamples(object):
                 "interval_end": 1525132800,
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/reporting/report_runs",
             query_string="",
@@ -19358,15 +19360,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_runs_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/reporting/report_runs",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reporting.report_runs.create_async(
@@ -19378,7 +19380,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/reporting/report_runs",
             query_string="",
@@ -19418,10 +19420,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_types_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.reporting.ReportType.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_types",
             query_string="",
@@ -19429,19 +19431,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_types_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reporting/report_types",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reporting.report_types.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_types",
             query_string="",
@@ -19480,10 +19482,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_types_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.reporting.ReportType.retrieve_async("balance.summary.1")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
             query_string="",
@@ -19491,19 +19493,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reporting_report_types_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reporting/report_types/balance.summary.1",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reporting.report_types.retrieve_async("balance.summary.1")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
             query_string="",
@@ -19542,10 +19544,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_approve_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Review.approve_async("prv_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
             query_string="",
@@ -19553,19 +19555,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_approve_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/reviews/prv_xxxxxxxxxxxxx/approve",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reviews.approve_async("prv_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
             query_string="",
@@ -19603,10 +19605,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Review.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reviews",
             query_string="limit=3",
@@ -19614,20 +19616,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reviews",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reviews.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reviews",
             query_string="limit=3",
@@ -19664,10 +19666,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Review.retrieve_async("prv_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
             query_string="",
@@ -19675,19 +19677,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_reviews_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/reviews/prv_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.reviews.retrieve_async("prv_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
             query_string="",
@@ -19730,13 +19732,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_attempts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupAttempt.list_async(
             limit=3,
             setup_intent="si_xyz",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_attempts",
             query_string="limit=3&setup_intent=si_xyz",
@@ -19744,16 +19746,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_attempts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/setup_attempts",
             "limit=3&setup_intent=si_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_attempts.list_async(
@@ -19762,7 +19764,7 @@ class TestGeneratedExamples(object):
                 "setup_intent": "si_xyz",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_attempts",
             query_string="limit=3&setup_intent=si_xyz",
@@ -19801,10 +19803,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.cancel_async("seti_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -19812,19 +19814,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.cancel_async("seti_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -19871,13 +19873,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_confirm_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.confirm_async(
             "seti_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm",
             query_string="",
@@ -19886,22 +19888,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_confirm_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.confirm_async(
             "seti_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm",
             query_string="",
@@ -19940,10 +19942,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_intents",
             query_string="limit=3",
@@ -19951,20 +19953,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/setup_intents",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_intents",
             query_string="limit=3",
@@ -20003,10 +20005,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.retrieve_async("seti_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
             query_string="",
@@ -20014,19 +20016,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.retrieve_async("seti_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
             query_string="",
@@ -20067,10 +20069,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.create_async(payment_method_types=["card"])
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
@@ -20079,15 +20081,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.create_async(
@@ -20095,7 +20097,7 @@ class TestGeneratedExamples(object):
                 "payment_method_types": ["card"],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
@@ -20143,13 +20145,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.modify_async(
             "seti_xxxxxxxxxxxxx",
             metadata={"user_id": "3435453"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
             query_string="",
@@ -20158,22 +20160,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.update_async(
             "seti_xxxxxxxxxxxxx",
             {"metadata": {"user_id": "3435453"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
             query_string="",
@@ -20213,12 +20215,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_verify_microdeposits_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -20226,21 +20228,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_verify_microdeposits_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -20287,13 +20289,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_verify_microdeposits_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SetupIntent.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -20302,22 +20304,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_setup_intents_verify_microdeposits_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.setup_intents.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
@@ -20357,10 +20359,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="",
@@ -20368,19 +20370,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/shipping_rates",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="",
@@ -20420,10 +20422,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="limit=3",
@@ -20431,20 +20433,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/shipping_rates",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="limit=3",
@@ -20483,10 +20485,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.retrieve_async("shr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
             query_string="",
@@ -20494,19 +20496,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/shipping_rates/shr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.retrieve_async("shr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
             query_string="",
@@ -20557,14 +20559,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.create_async(
             display_name="Sample Shipper",
             fixed_amount={"currency": "usd", "amount": 400},
             type="fixed_amount",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates",
             query_string="",
@@ -20573,15 +20575,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/shipping_rates",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.create_async(
@@ -20591,7 +20593,7 @@ class TestGeneratedExamples(object):
                 "type": "fixed_amount",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates",
             query_string="",
@@ -20643,14 +20645,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.create_async(
             display_name="Ground shipping",
             type="fixed_amount",
             fixed_amount={"amount": 500, "currency": "usd"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates",
             query_string="",
@@ -20659,15 +20661,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/shipping_rates",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.create_async(
@@ -20677,7 +20679,7 @@ class TestGeneratedExamples(object):
                 "fixed_amount": {"amount": 500, "currency": "usd"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates",
             query_string="",
@@ -20725,13 +20727,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.ShippingRate.modify_async(
             "shr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
             query_string="",
@@ -20740,22 +20742,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_shipping_rates_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/shipping_rates/shr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.shipping_rates.update_async(
             "shr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
             query_string="",
@@ -20796,10 +20798,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sigma_scheduled_query_runs_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.sigma.ScheduledQueryRun.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
             query_string="limit=3",
@@ -20807,20 +20809,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sigma_scheduled_query_runs_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/sigma/scheduled_query_runs",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sigma.scheduled_query_runs.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
             query_string="limit=3",
@@ -20859,12 +20861,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sigma_scheduled_query_runs_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.sigma.ScheduledQueryRun.retrieve_async(
             "sqr_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
             query_string="",
@@ -20872,21 +20874,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sigma_scheduled_query_runs_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sigma.scheduled_query_runs.retrieve_async(
             "sqr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
             query_string="",
@@ -20923,10 +20925,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -20934,19 +20936,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/sources/src_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sources.retrieve_async("src_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -20983,10 +20985,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -20994,19 +20996,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/sources/src_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sources.retrieve_async("src_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -21051,13 +21053,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Source.modify_async(
             "src_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -21066,22 +21068,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_sources_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/sources/src_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.sources.update_async(
             "src_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
@@ -21121,10 +21123,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.delete_async("si_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21132,19 +21134,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/subscription_items/si_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.delete_async("si_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21184,12 +21186,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.list_async(
             subscription="sub_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items",
             query_string="subscription=sub_xxxxxxxxxxxxx",
@@ -21197,16 +21199,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscription_items",
             "subscription=sub_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.list_async(
@@ -21214,7 +21216,7 @@ class TestGeneratedExamples(object):
                 "subscription": "sub_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items",
             query_string="subscription=sub_xxxxxxxxxxxxx",
@@ -21253,10 +21255,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.retrieve_async("si_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21264,19 +21266,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscription_items/si_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.retrieve_async("si_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21327,14 +21329,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.create_async(
             subscription="sub_xxxxxxxxxxxxx",
             price="price_xxxxxxxxxxxxx",
             quantity=2,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items",
             query_string="",
@@ -21343,15 +21345,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.create_async(
@@ -21361,7 +21363,7 @@ class TestGeneratedExamples(object):
                 "quantity": 2,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items",
             query_string="",
@@ -21409,13 +21411,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.modify_async(
             "si_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21424,22 +21426,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_items/si_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.update_async(
             "si_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
@@ -21486,13 +21488,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_usage_record_summaries_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.list_usage_record_summaries_async(
             "si_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
             query_string="limit=3",
@@ -21500,23 +21502,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_usage_record_summaries_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.usage_record_summaries.list_async(
             "si_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
             query_string="limit=3",
@@ -21564,14 +21566,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_usage_records_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionItem.create_usage_record_async(
             "si_xxxxxxxxxxxxx",
             quantity=100,
             timestamp=1571252444,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
             query_string="",
@@ -21580,22 +21582,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_items_usage_records_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_items.usage_records.create_async(
             "si_xxxxxxxxxxxxx",
             {"quantity": 100, "timestamp": 1571252444},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
             query_string="",
@@ -21635,12 +21637,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.cancel_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -21648,21 +21650,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.cancel_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -21702,10 +21704,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_schedules",
             query_string="limit=3",
@@ -21713,20 +21715,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscription_schedules",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_schedules",
             query_string="limit=3",
@@ -21765,12 +21767,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.retrieve_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
             query_string="",
@@ -21778,21 +21780,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.retrieve_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
             query_string="",
@@ -21857,7 +21859,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.create_async(
             customer="cus_xxxxxxxxxxxxx",
@@ -21870,7 +21872,7 @@ class TestGeneratedExamples(object):
                 },
             ],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
@@ -21879,15 +21881,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_schedules",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.create_async(
@@ -21905,7 +21907,7 @@ class TestGeneratedExamples(object):
                 ],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
@@ -21953,13 +21955,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.modify_async(
             "sub_sched_xxxxxxxxxxxxx",
             end_behavior="release",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
             query_string="",
@@ -21968,22 +21970,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.update_async(
             "sub_sched_xxxxxxxxxxxxx",
             {"end_behavior": "release"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
             query_string="",
@@ -22023,12 +22025,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_release_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.SubscriptionSchedule.release_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
             query_string="",
@@ -22036,21 +22038,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscription_schedules_release_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscription_schedules.release_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
             query_string="",
@@ -22089,10 +22091,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.cancel_async("sub_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22100,19 +22102,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/subscriptions/sub_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.cancel_async("sub_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22151,10 +22153,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_discount_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.delete_discount_async("sub_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
             query_string="",
@@ -22162,19 +22164,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_discount_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/subscriptions/sub_xyz/discount",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.delete_discount_async("sub_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
             query_string="",
@@ -22212,10 +22214,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions",
             query_string="limit=3",
@@ -22223,20 +22225,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscriptions",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions",
             query_string="limit=3",
@@ -22275,10 +22277,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.retrieve_async("sub_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22286,19 +22288,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscriptions/sub_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.retrieve_async("sub_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22347,13 +22349,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.create_async(
             customer="cus_xxxxxxxxxxxxx",
             items=[{"price": "price_xxxxxxxxxxxxx"}],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscriptions",
             query_string="",
@@ -22362,15 +22364,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscriptions",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.create_async(
@@ -22379,7 +22381,7 @@ class TestGeneratedExamples(object):
                 "items": [{"price": "price_xxxxxxxxxxxxx"}],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscriptions",
             query_string="",
@@ -22427,13 +22429,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.modify_async(
             "sub_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22442,22 +22444,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/subscriptions/sub_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.update_async(
             "sub_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
@@ -22504,12 +22506,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_search_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Subscription.search_async(
             query="status:'active' AND metadata['order_id']:'6735'",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions/search",
             query_string="query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -22517,16 +22519,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_subscriptions_search_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/subscriptions/search",
             "query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.subscriptions.search_async(
@@ -22534,7 +22536,7 @@ class TestGeneratedExamples(object):
                 "query": "status:'active' AND metadata['order_id']:'6735'",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/subscriptions/search",
             query_string="query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
@@ -22573,10 +22575,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_calculations_line_items_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Calculation.list_line_items_async("xxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
             query_string="",
@@ -22584,19 +22586,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_calculations_line_items_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax/calculations/xxx/line_items",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.calculations.line_items.list_async("xxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
             query_string="",
@@ -22665,7 +22667,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_calculations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Calculation.create_async(
             currency="usd",
@@ -22681,7 +22683,7 @@ class TestGeneratedExamples(object):
                 "address_source": "shipping",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/calculations",
             query_string="",
@@ -22690,15 +22692,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_calculations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax/calculations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.calculations.create_async(
@@ -22717,7 +22719,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/calculations",
             query_string="",
@@ -22756,10 +22758,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_codes_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxCode.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_codes",
             query_string="limit=3",
@@ -22767,20 +22769,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_codes_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax_codes",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_codes.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_codes",
             query_string="limit=3",
@@ -22817,10 +22819,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_codes_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxCode.retrieve_async("txcd_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
             query_string="",
@@ -22828,47 +22830,49 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_codes_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax_codes/txcd_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_codes.retrieve_async("txcd_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
 
-    def test_tax_forms_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
+    def test_tax_forms_pdf_get(
+        self, http_client_mock_streaming: HTTPClientMock
+    ) -> None:
         stripe.tax.Form.pdf("form_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_streaming.assert_requested(
             "get",
             path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
             query_string="",
         )
 
     def test_tax_forms_pdf_get_service(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_streaming: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_streaming.stub_request(
             "get",
             "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_streaming.get_mock_http_client(),
         )
 
         client.tax.forms.pdf("form_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_streaming.assert_requested(
             "get",
             path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
             query_string="",
@@ -22906,10 +22910,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxRate.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_rates",
             query_string="limit=3",
@@ -22917,20 +22921,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax_rates",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_rates.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_rates",
             query_string="limit=3",
@@ -22967,10 +22971,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxRate.retrieve_async("txr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
@@ -22978,19 +22982,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax_rates/txr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_rates.retrieve_async("txr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
@@ -23043,7 +23047,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxRate.create_async(
             display_name="VAT",
@@ -23052,7 +23056,7 @@ class TestGeneratedExamples(object):
             percentage=16,
             inclusive=False,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax_rates",
             query_string="",
@@ -23061,15 +23065,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax_rates",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_rates.create_async(
@@ -23081,7 +23085,7 @@ class TestGeneratedExamples(object):
                 "inclusive": False,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax_rates",
             query_string="",
@@ -23127,13 +23131,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.TaxRate.modify_async(
             "txr_xxxxxxxxxxxxx",
             active=False,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
@@ -23142,22 +23146,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_rates_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax_rates/txr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax_rates.update_async(
             "txr_xxxxxxxxxxxxx",
             {"active": False},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
@@ -23198,10 +23202,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Registration.list_async(status="all")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/registrations",
             query_string="status=all",
@@ -23209,20 +23213,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax/registrations",
             "status=all",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.registrations.list_async({"status": "all"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/registrations",
             query_string="status=all",
@@ -23273,14 +23277,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Registration.create_async(
             country="IE",
             country_options={"ie": {"type": "oss_union"}},
             active_from="now",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/registrations",
             query_string="",
@@ -23289,15 +23293,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax/registrations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.registrations.create_async(
@@ -23307,7 +23311,7 @@ class TestGeneratedExamples(object):
                 "active_from": "now",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/registrations",
             query_string="",
@@ -23355,13 +23359,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Registration.modify_async(
             "taxreg_xxxxxxxxxxxxx",
             expires_at="now",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
             query_string="",
@@ -23370,22 +23374,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_registrations_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.registrations.update_async(
             "taxreg_xxxxxxxxxxxxx",
             {"expires_at": "now"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
             query_string="",
@@ -23423,10 +23427,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_settings_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Settings.retrieve_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/settings",
             query_string="",
@@ -23434,19 +23438,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_settings_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tax/settings",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.settings.retrieve_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tax/settings",
             query_string="",
@@ -23485,12 +23489,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_settings_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Settings.modify_async(
             defaults={"tax_code": "txcd_10000000"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/settings",
             query_string="",
@@ -23499,15 +23503,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_settings_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax/settings",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.settings.update_async(
@@ -23515,7 +23519,7 @@ class TestGeneratedExamples(object):
                 "defaults": {"tax_code": "txcd_10000000"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/settings",
             query_string="",
@@ -23565,13 +23569,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_transactions_create_from_calculation_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.tax.Transaction.create_from_calculation_async(
             calculation="xxx",
             reference="yyy",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/transactions/create_from_calculation",
             query_string="",
@@ -23580,15 +23584,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tax_transactions_create_from_calculation_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tax/transactions/create_from_calculation",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tax.transactions.create_from_calculation_async(
@@ -23597,7 +23601,7 @@ class TestGeneratedExamples(object):
                 "reference": "yyy",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tax/transactions/create_from_calculation",
             query_string="",
@@ -23637,10 +23641,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.delete_async("uc_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -23648,19 +23652,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/terminal/configurations/uc_123",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.delete_async("uc_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -23699,10 +23703,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_delete_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.delete_async("tmc_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -23710,19 +23714,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_delete_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.delete_async("tmc_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -23761,10 +23765,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations",
             query_string="",
@@ -23772,19 +23776,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/configurations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations",
             query_string="",
@@ -23823,10 +23827,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.retrieve_async("uc_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -23834,19 +23838,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/configurations/uc_123",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.retrieve_async("uc_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -23886,10 +23890,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations",
             query_string="limit=3",
@@ -23897,20 +23901,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/configurations",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations",
             query_string="limit=3",
@@ -23949,10 +23953,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.retrieve_async("tmc_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -23960,21 +23964,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_get_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.retrieve_async(
             "tmc_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -24013,10 +24017,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.create_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations",
             query_string="",
@@ -24024,19 +24028,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/configurations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.create_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations",
             query_string="",
@@ -24083,13 +24087,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.modify_async(
             "uc_123",
             tipping={"usd": {"fixed_amounts": [10]}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -24098,22 +24102,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/configurations/uc_123",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.update_async(
             "uc_123",
             {"tipping": {"usd": {"fixed_amounts": [10]}}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
@@ -24161,12 +24165,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.create_async(
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations",
             query_string="",
@@ -24175,15 +24179,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/configurations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.create_async(
@@ -24191,7 +24195,7 @@ class TestGeneratedExamples(object):
                 "bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations",
             query_string="",
@@ -24239,13 +24243,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Configuration.modify_async(
             "tmc_xxxxxxxxxxxxx",
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -24254,22 +24258,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_configurations_post_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.configurations.update_async(
             "tmc_xxxxxxxxxxxxx",
             {"bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
@@ -24309,10 +24313,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_connection_tokens_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.ConnectionToken.create_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
             query_string="",
@@ -24320,19 +24324,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_connection_tokens_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/connection_tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.connection_tokens.create_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
             query_string="",
@@ -24371,10 +24375,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Location.delete_async("tml_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24382,19 +24386,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.locations.delete_async("tml_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24434,10 +24438,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Location.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/locations",
             query_string="limit=3",
@@ -24445,20 +24449,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/locations",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.locations.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/locations",
             query_string="limit=3",
@@ -24497,10 +24501,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Location.retrieve_async("tml_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24508,19 +24512,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.locations.retrieve_async("tml_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24581,7 +24585,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Location.create_async(
             display_name="My First Store",
@@ -24593,7 +24597,7 @@ class TestGeneratedExamples(object):
                 "country": "US",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/locations",
             query_string="",
@@ -24602,15 +24606,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/locations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.locations.create_async(
@@ -24625,7 +24629,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/locations",
             query_string="",
@@ -24673,13 +24677,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Location.modify_async(
             "tml_xxxxxxxxxxxxx",
             display_name="My First Store",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24688,22 +24692,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_locations_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.locations.update_async(
             "tml_xxxxxxxxxxxxx",
             {"display_name": "My First Store"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
@@ -24743,10 +24747,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_cancel_action_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.cancel_action_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
             query_string="",
@@ -24754,19 +24758,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_cancel_action_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.cancel_action_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
             query_string="",
@@ -24805,10 +24809,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.delete_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -24816,19 +24820,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.delete_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -24868,10 +24872,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/readers",
             query_string="limit=3",
@@ -24879,20 +24883,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/readers",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/readers",
             query_string="limit=3",
@@ -24931,10 +24935,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.retrieve_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -24942,19 +24946,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.retrieve_async("tmr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -25005,14 +25009,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.create_async(
             registration_code="puppies-plug-could",
             label="Blue Rabbit",
             location="tml_1234",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers",
             query_string="",
@@ -25021,15 +25025,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/readers",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.create_async(
@@ -25039,7 +25043,7 @@ class TestGeneratedExamples(object):
                 "location": "tml_1234",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers",
             query_string="",
@@ -25087,13 +25091,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.modify_async(
             "tmr_xxxxxxxxxxxxx",
             label="Blue Rabbit",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -25102,22 +25106,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.update_async(
             "tmr_xxxxxxxxxxxxx",
             {"label": "Blue Rabbit"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
@@ -25165,13 +25169,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_process_payment_intent_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.process_payment_intent_async(
             "tmr_xxxxxxxxxxxxx",
             payment_intent="pi_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
             query_string="",
@@ -25180,22 +25184,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_process_payment_intent_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.process_payment_intent_async(
             "tmr_xxxxxxxxxxxxx",
             {"payment_intent": "pi_xxxxxxxxxxxxx"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
             query_string="",
@@ -25247,14 +25251,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_process_setup_intent_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.terminal.Reader.process_setup_intent_async(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
             customer_consent_collected=True,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
@@ -25263,15 +25267,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_terminal_readers_process_setup_intent_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.terminal.readers.process_setup_intent_async(
@@ -25281,7 +25285,7 @@ class TestGeneratedExamples(object):
                 "customer_consent_collected": True,
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
@@ -25330,14 +25334,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_customers_fund_cash_balance_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Customer.TestHelpers.fund_cash_balance_async(
             "cus_123",
             amount=30,
             currency="eur",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/customers/cus_123/fund_cash_balance",
             query_string="",
@@ -25346,22 +25350,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_customers_fund_cash_balance_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/customers/cus_123/fund_cash_balance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.customers.fund_cash_balance_async(
             "cus_123",
             {"amount": 30, "currency": "eur"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/customers/cus_123/fund_cash_balance",
             query_string="",
@@ -25481,7 +25485,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_capture_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.TestHelpers.capture_async(
             "example_authorization",
@@ -25522,7 +25526,7 @@ class TestGeneratedExamples(object):
                 "reference": "foo",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
@@ -25531,15 +25535,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_capture_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/authorizations/example_authorization/capture",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.authorizations.capture_async(
@@ -25583,7 +25587,7 @@ class TestGeneratedExamples(object):
                 },
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
@@ -25627,12 +25631,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_expire_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.TestHelpers.expire_async(
             "example_authorization",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/expire",
             query_string="",
@@ -25640,21 +25644,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_expire_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/authorizations/example_authorization/expire",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.authorizations.expire_async(
             "example_authorization",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/expire",
             query_string="",
@@ -25702,14 +25706,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_increment_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.TestHelpers.increment_async(
             "example_authorization",
             increment_amount=50,
             is_amount_controllable=True,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
@@ -25718,22 +25722,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_increment_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/authorizations/example_authorization/increment",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.authorizations.increment_async(
             "example_authorization",
             {"increment_amount": 50, "is_amount_controllable": True},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
@@ -25827,7 +25831,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.TestHelpers.create_async(
             amount=100,
@@ -25855,7 +25859,7 @@ class TestGeneratedExamples(object):
             },
             wallet="apple_pay",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
@@ -25864,15 +25868,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/authorizations",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.authorizations.create_async(
@@ -25903,7 +25907,7 @@ class TestGeneratedExamples(object):
                 "wallet": "apple_pay",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
@@ -25951,13 +25955,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_reverse_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Authorization.TestHelpers.reverse_async(
             "example_authorization",
             reverse_amount=20,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
             query_string="",
@@ -25966,22 +25970,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_authorizations_reverse_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.authorizations.reverse_async(
             "example_authorization",
             {"reverse_amount": 20},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
             query_string="",
@@ -26021,10 +26025,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_deliver_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.TestHelpers.deliver_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
             query_string="",
@@ -26032,19 +26036,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_deliver_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.cards.deliver_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
             query_string="",
@@ -26083,10 +26087,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_fail_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.TestHelpers.fail_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
             query_string="",
@@ -26094,19 +26098,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_fail_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/cards/card_123/shipping/fail",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.cards.fail_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
             query_string="",
@@ -26145,10 +26149,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_return_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.TestHelpers.return_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
             query_string="",
@@ -26156,19 +26160,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_return_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/cards/card_123/shipping/return",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.cards.return_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
             query_string="",
@@ -26207,10 +26211,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_ship_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Card.TestHelpers.ship_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
             query_string="",
@@ -26218,19 +26222,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_cards_shipping_ship_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/cards/card_123/shipping/ship",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.cards.ship_card_async("card_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
             query_string="",
@@ -26369,7 +26373,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_create_force_capture_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.TestHelpers.create_force_capture_async(
             amount=100,
@@ -26420,7 +26424,7 @@ class TestGeneratedExamples(object):
                 "reference": "foo",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
@@ -26429,15 +26433,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_create_force_capture_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/transactions/create_force_capture",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.transactions.create_force_capture_async(
@@ -26491,7 +26495,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
@@ -26631,7 +26635,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_create_unlinked_refund_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.TestHelpers.create_unlinked_refund_async(
             amount=100,
@@ -26682,7 +26686,7 @@ class TestGeneratedExamples(object):
                 "reference": "foo",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
@@ -26691,15 +26695,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_create_unlinked_refund_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.transactions.create_unlinked_refund_async(
@@ -26753,7 +26757,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
@@ -26801,13 +26805,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_refund_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.issuing.Transaction.TestHelpers.refund_async(
             "example_transaction",
             refund_amount=50,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/example_transaction/refund",
             query_string="",
@@ -26816,22 +26820,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_issuing_transactions_refund_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/issuing/transactions/example_transaction/refund",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.issuing.transactions.refund_async(
             "example_transaction",
             {"refund_amount": 50},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/transactions/example_transaction/refund",
             query_string="",
@@ -26871,10 +26875,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_refunds_expire_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Refund.TestHelpers.expire_async("re_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
             query_string="",
@@ -26882,19 +26886,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_refunds_expire_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/refunds/re_123/expire",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.refunds.expire_async("re_123")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
             query_string="",
@@ -26941,13 +26945,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_advance_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.advance_async(
             "clock_xyz",
             frozen_time=142,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks/clock_xyz/advance",
             query_string="",
@@ -26956,22 +26960,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_advance_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/test_clocks/clock_xyz/advance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.advance_async(
             "clock_xyz",
             {"frozen_time": 142},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks/clock_xyz/advance",
             query_string="",
@@ -27019,13 +27023,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_advance_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.advance_async(
             "clock_xxxxxxxxxxxxx",
             frozen_time=1675552261,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
             query_string="",
@@ -27034,22 +27038,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_advance_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.advance_async(
             "clock_xxxxxxxxxxxxx",
             {"frozen_time": 1675552261},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
             query_string="",
@@ -27089,10 +27093,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.delete_async("clock_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
@@ -27100,19 +27104,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/test_helpers/test_clocks/clock_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.delete_async("clock_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
@@ -27151,10 +27155,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_delete_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.delete_async("clock_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
@@ -27162,21 +27166,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_delete_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.delete_async(
             "clock_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
@@ -27215,10 +27219,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27226,19 +27230,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/test_helpers/test_clocks",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.list_async()
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27277,10 +27281,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.retrieve_async("clock_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
@@ -27288,19 +27292,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/test_helpers/test_clocks/clock_xyz",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.retrieve_async("clock_xyz")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
@@ -27340,10 +27344,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
             query_string="limit=3",
@@ -27351,20 +27355,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/test_helpers/test_clocks",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
             query_string="limit=3",
@@ -27403,12 +27407,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.retrieve_async(
             "clock_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
@@ -27416,21 +27420,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_get_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.retrieve_async(
             "clock_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
@@ -27479,13 +27483,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.create_async(
             frozen_time=123,
             name="cogsworth",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27494,15 +27498,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/test_clocks",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.create_async(
@@ -27511,7 +27515,7 @@ class TestGeneratedExamples(object):
                 "name": "cogsworth",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27553,12 +27557,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.test_helpers.TestClock.create_async(
             frozen_time=1577836800
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27567,15 +27571,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_test_clocks_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/test_clocks",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.test_clocks.create_async(
@@ -27583,7 +27587,7 @@ class TestGeneratedExamples(object):
                 "frozen_time": 1577836800,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
             query_string="",
@@ -27631,13 +27635,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_fail_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.TestHelpers.fail_async(
             "ibt_123",
             failure_details={"code": "account_closed"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
             query_string="",
@@ -27646,22 +27650,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_fail_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.inbound_transfers.fail_async(
             "ibt_123",
             {"failure_details": {"code": "account_closed"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
             query_string="",
@@ -27705,12 +27709,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_return_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer_async(
             "ibt_123",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
             query_string="",
@@ -27718,21 +27722,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_return_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.inbound_transfers.return_inbound_transfer_async(
             "ibt_123"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
             query_string="",
@@ -27771,12 +27775,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_succeed_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.TestHelpers.succeed_async(
             "ibt_123",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
             query_string="",
@@ -27784,21 +27788,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_inbound_transfers_succeed_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.inbound_transfers.succeed_async(
             "ibt_123",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
             query_string="",
@@ -27837,12 +27841,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_fail_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.TestHelpers.fail_async(
             "obt_123"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
             query_string="",
@@ -27850,21 +27854,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_fail_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.outbound_transfers.fail_async(
             "obt_123",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
             query_string="",
@@ -27903,12 +27907,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_post_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.TestHelpers.post_async(
             "obt_123"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
             query_string="",
@@ -27916,21 +27920,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_post_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.outbound_transfers.post_async(
             "obt_123",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
             query_string="",
@@ -27977,13 +27981,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_return_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer_async(
             "obt_123",
             returned_details={"code": "account_closed"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
             query_string="",
@@ -27992,22 +27996,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_outbound_transfers_return_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.outbound_transfers.return_outbound_transfer_async(
             "obt_123",
             {"returned_details": {"code": "account_closed"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
             query_string="",
@@ -28061,7 +28065,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_received_credits_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedCredit.TestHelpers.create_async(
             financial_account="fa_123",
@@ -28069,7 +28073,7 @@ class TestGeneratedExamples(object):
             amount=1234,
             currency="usd",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/received_credits",
             query_string="",
@@ -28078,15 +28082,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_received_credits_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/received_credits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.received_credits.create_async(
@@ -28097,7 +28101,7 @@ class TestGeneratedExamples(object):
                 "currency": "usd",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/received_credits",
             query_string="",
@@ -28151,7 +28155,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_received_debits_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedDebit.TestHelpers.create_async(
             financial_account="fa_123",
@@ -28159,7 +28163,7 @@ class TestGeneratedExamples(object):
             amount=1234,
             currency="usd",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/received_debits",
             query_string="",
@@ -28168,15 +28172,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_test_helpers_treasury_received_debits_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/test_helpers/treasury/received_debits",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.test_helpers.treasury.received_debits.create_async(
@@ -28187,7 +28191,7 @@ class TestGeneratedExamples(object):
                 "currency": "usd",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/received_debits",
             query_string="",
@@ -28225,10 +28229,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.retrieve_async("tok_xxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
             query_string="",
@@ -28236,19 +28240,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/tokens/tok_xxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.retrieve_async("tok_xxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
             query_string="",
@@ -28303,7 +28307,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(
             card={
@@ -28313,7 +28317,7 @@ class TestGeneratedExamples(object):
                 "cvc": "314",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28322,15 +28326,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async(
@@ -28343,7 +28347,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28403,7 +28407,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(
             bank_account={
@@ -28415,7 +28419,7 @@ class TestGeneratedExamples(object):
                 "account_number": "000123456789",
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28424,15 +28428,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async(
@@ -28447,7 +28451,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28487,10 +28491,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_3_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(pii={"id_number": "000000000"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28499,19 +28503,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_3_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async({"pii": {"id_number": "000000000"}})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28563,7 +28567,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_4_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(
             account={
@@ -28571,7 +28575,7 @@ class TestGeneratedExamples(object):
                 "tos_shown_and_accepted": True,
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28580,15 +28584,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_4_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async(
@@ -28599,7 +28603,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28653,7 +28657,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_5_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(
             person={
@@ -28662,7 +28666,7 @@ class TestGeneratedExamples(object):
                 "relationship": {"owner": True},
             },
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28671,15 +28675,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_5_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async(
@@ -28691,7 +28695,7 @@ class TestGeneratedExamples(object):
                 },
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28731,10 +28735,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_6_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Token.create_async(cvc_update={"cvc": "123"})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28743,19 +28747,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_tokens_post_6_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/tokens",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.tokens.create_async({"cvc_update": {"cvc": "123"}})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
@@ -28795,10 +28799,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Topup.cancel_async("tu_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -28806,19 +28810,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/topups/tu_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.topups.cancel_async("tu_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -28856,10 +28860,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Topup.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/topups",
             query_string="limit=3",
@@ -28867,20 +28871,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/topups",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.topups.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/topups",
             query_string="limit=3",
@@ -28917,10 +28921,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Topup.retrieve_async("tu_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
             query_string="",
@@ -28928,19 +28932,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/topups/tu_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.topups.retrieve_async("tu_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
             query_string="",
@@ -28991,7 +28995,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Topup.create_async(
             amount=2000,
@@ -28999,7 +29003,7 @@ class TestGeneratedExamples(object):
             description="Top-up for Jenny Rosen",
             statement_descriptor="Top-up",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups",
             query_string="",
@@ -29008,15 +29012,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/topups",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.topups.create_async(
@@ -29027,7 +29031,7 @@ class TestGeneratedExamples(object):
                 "statement_descriptor": "Top-up",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups",
             query_string="",
@@ -29073,13 +29077,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Topup.modify_async(
             "tu_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
             query_string="",
@@ -29088,22 +29092,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_topups_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/topups/tu_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.topups.update_async(
             "tu_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
             query_string="",
@@ -29142,10 +29146,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers",
             query_string="limit=3",
@@ -29153,20 +29157,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/transfers",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers",
             query_string="limit=3",
@@ -29203,10 +29207,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.retrieve_async("tr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
             query_string="",
@@ -29214,19 +29218,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/transfers/tr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.retrieve_async("tr_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
             query_string="",
@@ -29277,7 +29281,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.create_async(
             amount=400,
@@ -29285,7 +29289,7 @@ class TestGeneratedExamples(object):
             destination="acct_xxxxxxxxxxxxx",
             transfer_group="ORDER_95",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers",
             query_string="",
@@ -29294,15 +29298,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/transfers",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.create_async(
@@ -29313,7 +29317,7 @@ class TestGeneratedExamples(object):
                 "transfer_group": "ORDER_95",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers",
             query_string="",
@@ -29359,13 +29363,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.modify_async(
             "tr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
             query_string="",
@@ -29374,22 +29378,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/transfers/tr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.update_async(
             "tr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
             query_string="",
@@ -29436,13 +29440,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.list_reversals_async(
             "tr_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             query_string="limit=3",
@@ -29450,23 +29454,23 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.reversals.list_async(
             "tr_xxxxxxxxxxxxx",
             {"limit": 3},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             query_string="limit=3",
@@ -29511,13 +29515,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.retrieve_reversal_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
             query_string="",
@@ -29525,22 +29529,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.reversals.retrieve_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
             query_string="",
@@ -29587,13 +29591,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.create_reversal_async(
             "tr_xxxxxxxxxxxxx",
             amount=100,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             query_string="",
@@ -29602,22 +29606,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.reversals.create_async(
             "tr_xxxxxxxxxxxxx",
             {"amount": 100},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             query_string="",
@@ -29667,14 +29671,14 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.Transfer.modify_reversal_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
             query_string="",
@@ -29683,15 +29687,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_transfers_reversals_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.transfers.reversals.update_async(
@@ -29699,7 +29703,7 @@ class TestGeneratedExamples(object):
             "trr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
             query_string="",
@@ -29748,13 +29752,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.CreditReversal.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -29762,16 +29766,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/credit_reversals",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.credit_reversals.list_async(
@@ -29780,7 +29784,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -29819,12 +29823,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.CreditReversal.retrieve_async(
             "credrev_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
             query_string="",
@@ -29832,21 +29836,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.credit_reversals.retrieve_async(
             "credrev_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
             query_string="",
@@ -29893,12 +29897,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.CreditReversal.create_async(
             received_credit="rc_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/credit_reversals",
             query_string="",
@@ -29907,15 +29911,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_credit_reversals_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/credit_reversals",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.credit_reversals.create_async(
@@ -29923,7 +29927,7 @@ class TestGeneratedExamples(object):
                 "received_credit": "rc_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/credit_reversals",
             query_string="",
@@ -29972,13 +29976,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.DebitReversal.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -29986,16 +29990,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/debit_reversals",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.debit_reversals.list_async(
@@ -30004,7 +30008,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -30043,12 +30047,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.DebitReversal.retrieve_async(
             "debrev_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
             query_string="",
@@ -30056,21 +30060,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.debit_reversals.retrieve_async(
             "debrev_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
             query_string="",
@@ -30115,12 +30119,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.DebitReversal.create_async(
             received_debit="rd_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/debit_reversals",
             query_string="",
@@ -30129,15 +30133,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_debit_reversals_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/debit_reversals",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.debit_reversals.create_async(
@@ -30145,7 +30149,7 @@ class TestGeneratedExamples(object):
                 "received_debit": "rd_xxxxxxxxxxxxx",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/debit_reversals",
             query_string="",
@@ -30185,12 +30189,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_features_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.FinancialAccount.retrieve_features_async(
             "fa_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
             query_string="",
@@ -30198,21 +30202,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_features_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.financial_accounts.features.list_async(
             "fa_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
             query_string="",
@@ -30252,10 +30256,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.FinancialAccount.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
             query_string="limit=3",
@@ -30263,20 +30267,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/financial_accounts",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.financial_accounts.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
             query_string="limit=3",
@@ -30315,12 +30319,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.FinancialAccount.retrieve_async(
             "fa_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
             query_string="",
@@ -30328,21 +30332,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.financial_accounts.retrieve_async(
             "fa_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
             query_string="",
@@ -30391,13 +30395,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.FinancialAccount.create_async(
             supported_currencies=["usd"],
             features={},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/financial_accounts",
             query_string="",
@@ -30406,15 +30410,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/financial_accounts",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.financial_accounts.create_async(
@@ -30423,7 +30427,7 @@ class TestGeneratedExamples(object):
                 "features": {},
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/financial_accounts",
             query_string="",
@@ -30471,13 +30475,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.FinancialAccount.modify_async(
             "fa_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
             query_string="",
@@ -30486,22 +30490,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_financial_accounts_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.financial_accounts.update_async(
             "fa_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
             query_string="",
@@ -30541,10 +30545,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.cancel_async("ibt_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -30552,21 +30556,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.inbound_transfers.cancel_async(
             "ibt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -30614,13 +30618,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -30628,16 +30632,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/inbound_transfers",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.inbound_transfers.list_async(
@@ -30646,7 +30650,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -30685,12 +30689,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.retrieve_async(
             "ibt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
             query_string="",
@@ -30698,21 +30702,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.inbound_transfers.retrieve_async(
             "ibt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
             query_string="",
@@ -30767,7 +30771,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.InboundTransfer.create_async(
             financial_account="fa_xxxxxxxxxxxxx",
@@ -30776,7 +30780,7 @@ class TestGeneratedExamples(object):
             origin_payment_method="pm_xxxxxxxxxxxxx",
             description="InboundTransfer from my bank account",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers",
             query_string="",
@@ -30785,15 +30789,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_inbound_transfers_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/inbound_transfers",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.inbound_transfers.create_async(
@@ -30805,7 +30809,7 @@ class TestGeneratedExamples(object):
                 "description": "InboundTransfer from my bank account",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers",
             query_string="",
@@ -30845,10 +30849,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundPayment.cancel_async("bot_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -30856,21 +30860,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_payments.cancel_async(
             "bot_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -30918,13 +30922,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundPayment.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -30932,16 +30936,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/outbound_payments",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_payments.list_async(
@@ -30950,7 +30954,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -30989,12 +30993,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundPayment.retrieve_async(
             "bot_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
             query_string="",
@@ -31002,21 +31006,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_payments.retrieve_async(
             "bot_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
             query_string="",
@@ -31073,7 +31077,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundPayment.create_async(
             financial_account="fa_xxxxxxxxxxxxx",
@@ -31083,7 +31087,7 @@ class TestGeneratedExamples(object):
             destination_payment_method="pm_xxxxxxxxxxxxx",
             description="OutboundPayment to a 3rd party",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments",
             query_string="",
@@ -31092,15 +31096,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_payments_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/outbound_payments",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_payments.create_async(
@@ -31113,7 +31117,7 @@ class TestGeneratedExamples(object):
                 "description": "OutboundPayment to a 3rd party",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments",
             query_string="",
@@ -31153,12 +31157,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_cancel_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.cancel_async(
             "obt_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -31166,21 +31170,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_cancel_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_transfers.cancel_async(
             "obt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
             query_string="",
@@ -31228,13 +31232,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31242,16 +31246,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/outbound_transfers",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_transfers.list_async(
@@ -31260,7 +31264,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31299,12 +31303,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.retrieve_async(
             "obt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
             query_string="",
@@ -31312,21 +31316,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_transfers.retrieve_async(
             "obt_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
             query_string="",
@@ -31381,7 +31385,7 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.OutboundTransfer.create_async(
             financial_account="fa_xxxxxxxxxxxxx",
@@ -31390,7 +31394,7 @@ class TestGeneratedExamples(object):
             currency="usd",
             description="OutboundTransfer to my external bank account",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers",
             query_string="",
@@ -31399,15 +31403,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_outbound_transfers_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/treasury/outbound_transfers",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.outbound_transfers.create_async(
@@ -31419,7 +31423,7 @@ class TestGeneratedExamples(object):
                 "description": "OutboundTransfer to my external bank account",
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers",
             query_string="",
@@ -31468,13 +31472,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_credits_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedCredit.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_credits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31482,16 +31486,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_credits_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/received_credits",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.received_credits.list_async(
@@ -31500,7 +31504,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_credits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31539,10 +31543,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_credits_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedCredit.retrieve_async("rc_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
             query_string="",
@@ -31550,21 +31554,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_credits_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.received_credits.retrieve_async(
             "rc_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
             query_string="",
@@ -31612,13 +31616,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_debits_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedDebit.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_debits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31626,16 +31630,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_debits_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/received_debits",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.received_debits.list_async(
@@ -31644,7 +31648,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_debits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31683,10 +31687,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_debits_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.ReceivedDebit.retrieve_async("rd_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
             query_string="",
@@ -31694,21 +31698,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_received_debits_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.received_debits.retrieve_async(
             "rd_xxxxxxxxxxxxx"
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
             query_string="",
@@ -31756,13 +31760,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transaction_entries_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.TransactionEntry.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31770,16 +31774,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transaction_entries_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/transaction_entries",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.transaction_entries.list_async(
@@ -31788,7 +31792,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31827,12 +31831,12 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transaction_entries_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.TransactionEntry.retrieve_async(
             "trxne_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
             query_string="",
@@ -31840,21 +31844,21 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transaction_entries_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.transaction_entries.retrieve_async(
             "trxne_xxxxxxxxxxxxx",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
             query_string="",
@@ -31902,13 +31906,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transactions_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.Transaction.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transactions",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31916,16 +31920,16 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transactions_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/transactions",
             "financial_account=fa_xxxxxxxxxxxxx&limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.transactions.list_async(
@@ -31934,7 +31938,7 @@ class TestGeneratedExamples(object):
                 "limit": 3,
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transactions",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
@@ -31973,10 +31977,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transactions_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.treasury.Transaction.retrieve_async("trxn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
             query_string="",
@@ -31984,19 +31988,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_treasury_transactions_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.treasury.transactions.retrieve_async("trxn_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
             query_string="",
@@ -32035,10 +32039,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_delete_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.WebhookEndpoint.delete_async("we_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
@@ -32046,19 +32050,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_delete_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "delete",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.webhook_endpoints.delete_async("we_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
@@ -32098,10 +32102,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_get_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.WebhookEndpoint.list_async(limit=3)
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
             query_string="limit=3",
@@ -32109,20 +32113,20 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_get_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/webhook_endpoints",
             "limit=3",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.webhook_endpoints.list_async({"limit": 3})
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
             query_string="limit=3",
@@ -32161,10 +32165,10 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_get_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.WebhookEndpoint.retrieve_async("we_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
@@ -32172,19 +32176,19 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_get_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "get",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.webhook_endpoints.retrieve_async("we_xxxxxxxxxxxxx")
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
@@ -32233,13 +32237,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_post_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.WebhookEndpoint.create_async(
             url="https://example.com/my/webhook/endpoint",
             enabled_events=["charge.failed", "charge.succeeded"],
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/webhook_endpoints",
             query_string="",
@@ -32248,15 +32252,15 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_post_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/webhook_endpoints",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.webhook_endpoints.create_async(
@@ -32265,7 +32269,7 @@ class TestGeneratedExamples(object):
                 "enabled_events": ["charge.failed", "charge.succeeded"],
             }
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/webhook_endpoints",
             query_string="",
@@ -32313,13 +32317,13 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_post_2_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
         await stripe.WebhookEndpoint.modify_async(
             "we_xxxxxxxxxxxxx",
             url="https://example.com/new_endpoint",
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
@@ -32328,22 +32332,22 @@ class TestGeneratedExamples(object):
 
     @pytest.mark.anyio
     async def test_webhook_endpoints_post_2_service_async(
-        self, http_client_mock: HTTPClientMock
+        self, http_client_mock_async: HTTPClientMock
     ) -> None:
-        http_client_mock.stub_request(
+        http_client_mock_async.stub_request(
             "post",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
         client = StripeClient(
             "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
+            http_client=http_client_mock_async.get_mock_http_client(),
         )
 
         await client.webhook_endpoints.update_async(
             "we_xxxxxxxxxxxxx",
             {"url": "https://example.com/new_endpoint"},
         )
-        http_client_mock.assert_requested(
+        http_client_mock_async.assert_requested(
             "post",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",

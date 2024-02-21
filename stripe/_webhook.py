@@ -31,6 +31,7 @@ class Webhook(object):
                 api_key=api_key or stripe.api_key
             ),
             api_mode="V1",
+            prefer_async_versions=False,
         )
 
         return event

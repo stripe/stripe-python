@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
@@ -9444,7 +9445,7 @@ class Invoice(
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -9453,7 +9454,7 @@ class Invoice(
     @classmethod
     async def list_async(
         cls, **params: Unpack["Invoice.ListParams"]
-    ) -> ListObject["Invoice"]:
+    ) -> ListObjectAsync["Invoice"]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
         """
@@ -9462,10 +9463,10 @@ class Invoice(
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

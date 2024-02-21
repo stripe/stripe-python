@@ -77,4 +77,5 @@ def deserialize(
             stripe_account=stripe_account,
         ),
         api_mode="V1",
+        prefer_async_versions=False,
     )

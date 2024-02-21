@@ -34,6 +34,7 @@ class ErrorObject(StripeObject):
         last_response=None,
         *,
         api_mode: ApiMode = "V1",
+        prefer_async_versions: bool = False,
     ):
         return self._refresh_from(
             values=values,
@@ -47,6 +48,7 @@ class ErrorObject(StripeObject):
                 }
             ),
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
 
     def _refresh_from(
@@ -56,7 +58,8 @@ class ErrorObject(StripeObject):
         partial=False,
         last_response=None,
         requestor,
-        api_mode: ApiMode
+        api_mode: ApiMode,
+        prefer_async_versions: bool,
     ) -> None:
         # Unlike most other API resources, the API will omit attributes in
         # error objects when they have a null value. We manually set default
@@ -83,6 +86,7 @@ class ErrorObject(StripeObject):
             last_response=last_response,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
 
 
@@ -97,6 +101,7 @@ class OAuthErrorObject(StripeObject):
         last_response=None,
         *,
         api_mode: ApiMode = "V1",
+        prefer_async_versions: bool = False,
     ):
         return self._refresh_from(
             values=values,
@@ -110,6 +115,7 @@ class OAuthErrorObject(StripeObject):
                 }
             ),
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )
 
     def _refresh_from(
@@ -120,6 +126,7 @@ class OAuthErrorObject(StripeObject):
         last_response=None,
         requestor,
         api_mode: ApiMode,
+        prefer_async_versions: bool,
     ) -> None:
         # Unlike most other API resources, the API will omit attributes in
         # error objects when they have a null value. We manually set default
@@ -133,4 +140,5 @@ class OAuthErrorObject(StripeObject):
             last_response=last_response,
             requestor=requestor,
             api_mode=api_mode,
+            prefer_async_versions=prefer_async_versions,
         )

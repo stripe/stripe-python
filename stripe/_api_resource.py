@@ -88,7 +88,11 @@ class APIResource(StripeObject, Generic[T]):
         )
 
         if type(self) is type(obj):
-            self._refresh_from(values=obj, api_mode=api_mode)
+            self._refresh_from(
+                values=obj,
+                api_mode=api_mode,
+                prefer_async_versions=False,
+            )
             return self
         else:
             return obj
@@ -112,7 +116,9 @@ class APIResource(StripeObject, Generic[T]):
         )
 
         if type(self) is type(obj):
-            self._refresh_from(values=obj, api_mode=api_mode)
+            self._refresh_from(
+                values=obj, api_mode=api_mode, prefer_async_versions=True
+            )
             return self
         else:
             return obj
@@ -137,7 +143,9 @@ class APIResource(StripeObject, Generic[T]):
             _usage=_usage,
         )
 
-        self._refresh_from(values=obj, api_mode=api_mode)
+        self._refresh_from(
+            values=obj, api_mode=api_mode, prefer_async_versions=False
+        )
         return self
 
     async def _request_and_refresh_async(
@@ -160,7 +168,9 @@ class APIResource(StripeObject, Generic[T]):
             _usage=_usage,
         )
 
-        self._refresh_from(values=obj, api_mode=api_mode)
+        self._refresh_from(
+            values=obj, api_mode=api_mode, prefer_async_versions=True
+        )
         return self
 
     @classmethod

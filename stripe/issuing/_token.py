@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
@@ -319,7 +320,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -328,7 +329,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     @classmethod
     async def list_async(
         cls, **params: Unpack["Token.ListParams"]
-    ) -> ListObject["Token"]:
+    ) -> ListObjectAsync["Token"]:
         """
         Lists all Issuing Token objects for a given card.
         """
@@ -337,10 +338,10 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

@@ -1,11 +1,10 @@
 # pyright: strict, reportUnnecessaryTypeIgnoreComment=false
 # reportUnnecessaryTypeIgnoreComment is set to false because some type ignores are required in some
 # python versions but not the others
-from typing_extensions import Self, Unpack
+from typing_extensions import Self
 
 from typing import (
     Any,
-    AsyncIterator,
     Iterator,
     List,
     Generic,
@@ -13,13 +12,9 @@ from typing import (
     cast,
     Mapping,
 )
-from stripe._api_requestor import (
-    _APIRequestor,  # pyright: ignore[reportPrivateUsage]
-)
 from stripe._stripe_object import StripeObject
-from stripe._request_options import RequestOptions, extract_options_from_dict
+from stripe._request_options import RequestOptions
 
-from urllib.parse import quote_plus
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -62,45 +57,9 @@ class ListObjectBase(StripeObject, Generic[T]):
             ),
         )
 
-    def create(self, **params: Mapping[str, Any]) -> T:
-        url = self.get("url")
-        if not isinstance(url, str):
-            raise ValueError(
-                'Cannot call .create on a list object for the collection of an object without a string "url" property'
-            )
-        return cast(
-            T,
-            self._request(
-                "post",
-                url,
-                params=params,
-                base_address="api",
-                api_mode="V1",
-            ),
-        )
-
-    def retrieve(self, id: str, **params: Mapping[str, Any]):
-        url = self.get("url")
-        if not isinstance(url, str):
-            raise ValueError(
-                'Cannot call .retrieve on a list object for the collection of an object without a string "url" property'
-            )
-
-        url = "%s/%s" % (self.get("url"), quote_plus(id))
-        return cast(
-            T,
-            self._request(
-                "get",
-                url,
-                params=params,
-                base_address="api",
-                api_mode="V1",
-            ),
-        )
-
     def __getitem__(self, k: str) -> T:
         if isinstance(k, str):  # pyright: ignore
-            return super(ListObject, self).__getitem__(k)
+            return super(ListObjectBase, self).__getitem__(k)
         else:
             raise KeyError(
                 "You tried to access the %s index, but ListObject types only "
@@ -122,20 +81,6 @@ class ListObjectBase(StripeObject, Generic[T]):
 
     def __reversed__(self) -> Iterator[T]:  # pyright: ignore (see above)
         return getattr(self, "data", []).__reversed__()
-
-    @classmethod
-    def _empty_list(
-        cls,
-        **params: Unpack[RequestOptions],
-    ) -> Self:
-        return cls._construct_from(
-            values={"data": []},
-            last_response=None,
-            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
-                **params,
-            ),
-            api_mode="V1",
-        )
 
     @property
     def is_empty(self) -> bool:

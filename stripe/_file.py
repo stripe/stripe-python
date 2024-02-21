@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from typing import Any, ClassVar, Dict, List, Optional, cast
@@ -234,7 +235,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -243,7 +244,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
     @classmethod
     async def list_async(
         cls, **params: Unpack["File.ListParams"]
-    ) -> ListObject["File"]:
+    ) -> ListObjectAsync["File"]:
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
         """
@@ -252,10 +253,10 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
@@ -208,7 +209,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -217,7 +218,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     async def list_async(
         cls, **params: Unpack["ApplicationFee.ListParams"]
-    ) -> ListObject["ApplicationFee"]:
+    ) -> ListObjectAsync["ApplicationFee"]:
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
         """
@@ -226,10 +227,10 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

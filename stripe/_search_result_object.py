@@ -125,6 +125,7 @@ class SearchResultObject(StripeObject, Generic[T]):
                 **params,
             ),
             api_mode="V1",
+            prefer_async_versions=False,
         )
 
     @property

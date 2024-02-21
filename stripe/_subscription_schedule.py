@@ -3,6 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
+from stripe._list_object_async import ListObjectAsync
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
@@ -3011,7 +3012,7 @@ class SubscriptionSchedule(
         if not isinstance(result, ListObject):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObject from API, got %s"
                 % (type(result).__name__)
             )
 
@@ -3020,7 +3021,7 @@ class SubscriptionSchedule(
     @classmethod
     async def list_async(
         cls, **params: Unpack["SubscriptionSchedule.ListParams"]
-    ) -> ListObject["SubscriptionSchedule"]:
+    ) -> ListObjectAsync["SubscriptionSchedule"]:
         """
         Retrieves the list of your subscription schedules.
         """
@@ -3029,10 +3030,10 @@ class SubscriptionSchedule(
             cls.class_url(),
             params=params,
         )
-        if not isinstance(result, ListObject):
+        if not isinstance(result, ListObjectAsync):
 
             raise TypeError(
-                "Expected list object from API, got %s"
+                "Expected ListObjectAsync from API, got %s"
                 % (type(result).__name__)
             )
 

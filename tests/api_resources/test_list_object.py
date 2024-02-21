@@ -499,3 +499,19 @@ class TestAutoPagingAsync:
         )
 
         assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
+
+    @pytest.mark.anyio
+    async def test_prefer_async_versions(self, http_client_mock):
+        # Top level list object
+        lo_async = await stripe.Customer.list_async(limit=1)
+        lo_sync = stripe.Customer.list(limit=1)
+        assert isinstance(lo_async, stripe.ListObjectAsync)
+        assert not isinstance(lo_sync, stripe.ListObjectAsync)
+        assert isinstance(lo_sync, stripe.ListObject)
+        lo_async = await lo_async.next_page_async()
+        lo_sync = lo_sync.next_page()
+        assert isinstance(lo_async, stripe.ListObjectAsync)
+        assert not isinstance(lo_sync, stripe.ListObjectAsync)
+        assert isinstance(lo_sync, stripe.ListObject)
+        # Next page of a list object
+        # List object embedded on a non-list object response
