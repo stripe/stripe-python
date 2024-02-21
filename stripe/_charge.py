@@ -1877,6 +1877,9 @@ class Charge(
 
     class ListParams(RequestOptions):
         created: NotRequired["Charge.ListParamsCreated|int"]
+        """
+        Only return charges that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         Only return charges for the customer specified by this customer ID.

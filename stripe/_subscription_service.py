@@ -654,6 +654,9 @@ class SubscriptionService(StripeService):
         The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
         """
         created: NotRequired["SubscriptionService.ListParamsCreated|int"]
+        """
+        Only return subscriptions that were created during the given date interval.
+        """
         current_period_end: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodEnd|int"
         ]

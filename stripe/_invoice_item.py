@@ -192,6 +192,9 @@ class InvoiceItem(
 
     class ListParams(RequestOptions):
         created: NotRequired["InvoiceItem.ListParamsCreated|int"]
+        """
+        Only return invoice items that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.

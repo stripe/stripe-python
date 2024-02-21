@@ -72,6 +72,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     class ListParams(RequestOptions):
         created: NotRequired["BalanceTransaction.ListParamsCreated|int"]
+        """
+        Only return transactions that were created during the given date interval.
+        """
         currency: NotRequired["str"]
         """
         Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

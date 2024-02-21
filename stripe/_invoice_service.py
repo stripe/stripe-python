@@ -636,6 +636,9 @@ class InvoiceService(StripeService):
         The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.
         """
         created: NotRequired["InvoiceService.ListParamsCreated|int"]
+        """
+        Only return invoices that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         Only return invoices for the customer specified by this customer ID.
