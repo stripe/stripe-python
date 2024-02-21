@@ -67,7 +67,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         """
         type: str
         """
-        Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`.
+        Type of the fee, one of: `application_fee`, `payment_method_passthrough_fee`, `stripe_fee` or `tax`.
         """
 
     class ListParams(RequestOptions):
