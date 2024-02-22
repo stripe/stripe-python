@@ -106,8 +106,7 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
     return impl(*args, **kwargs)
 
 
-class HTTPClientBase(object):
-
+class HTTPClient(object):
     name: ClassVar[str]
 
     class _Proxy(TypedDict):
@@ -259,8 +258,6 @@ class HTTPClientBase(object):
                 request_id, request_duration_ms, usage=usage
             )
 
-
-class HTTPClient(HTTPClientBase):
     # TODO: more specific types here would be helpful
     def request_with_retries(
         self,
