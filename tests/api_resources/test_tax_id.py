@@ -1,5 +1,3 @@
-import pytest
-
 import stripe
 
 
@@ -17,11 +15,38 @@ class TestTaxId(object):
 
     def test_has_instance_url(self):
         resource = self.construct_resource()
-        assert (
-            resource.instance_url()
-            == "/v1/customers/cus_123/tax_ids/%s" % TEST_RESOURCE_ID
+        assert resource.instance_url() == "/v1/tax_ids/%s" % TEST_RESOURCE_ID
+
+    def test_is_creatable(self, http_client_mock):
+        stripe.TaxId.create(
+            type="eu_vat",
+            value="DE123456789",
+        )
+        http_client_mock.assert_requested("post", path="/v1/tax_ids")
+
+    def test_is_retrievable(self, http_client_mock):
+        stripe.TaxId.retrieve(TEST_RESOURCE_ID)
+        http_client_mock.assert_requested(
+            "get", path="/v1/tax_ids/%s" % TEST_RESOURCE_ID
         )
 
-    def test_is_not_retrievable(self):
-        with pytest.raises(NotImplementedError):
-            stripe.TaxId.retrieve(TEST_RESOURCE_ID)
+    def test_is_deletable(self, http_client_mock):
+        resource = stripe.TaxId.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        http_client_mock.assert_requested(
+            "delete", path="/v1/tax_ids/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
+    def test_can_delete(self, http_client_mock):
+        resource = stripe.TaxId.delete(TEST_RESOURCE_ID)
+        http_client_mock.assert_requested(
+            "delete", path="/v1/tax_ids/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
+    def test_is_listable(self, http_client_mock):
+        resources = stripe.TaxId.list()
+        http_client_mock.assert_requested("get", path="/v1/tax_ids")
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.TaxId)
