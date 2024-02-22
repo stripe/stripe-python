@@ -17,6 +17,10 @@ class VerificationSessionService(StripeService):
         """
 
     class CreateParams(TypedDict):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -67,6 +71,10 @@ class VerificationSessionService(StripeService):
         """
 
     class ListParams(TypedDict):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         created: NotRequired[
             "VerificationSessionService.ListParamsCreated|int"
         ]

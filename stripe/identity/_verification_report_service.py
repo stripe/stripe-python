@@ -11,6 +11,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class VerificationReportService(StripeService):
     class ListParams(TypedDict):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         created: NotRequired["VerificationReportService.ListParamsCreated|int"]
         """
         Only return VerificationReports that were created during the given date interval.

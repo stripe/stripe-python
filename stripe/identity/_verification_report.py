@@ -294,6 +294,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         _inner_class_types = {"error": Error}
 
     class ListParams(RequestOptions):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         created: NotRequired["VerificationReport.ListParamsCreated|int"]
         """
         Only return VerificationReports that were created during the given date interval.
@@ -347,6 +351,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         Specifies which fields in the response should be expanded.
         """
 
+    client_reference_id: Optional[str]
+    """
+    A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
