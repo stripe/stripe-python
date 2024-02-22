@@ -57,6 +57,9 @@ class PayoutService(StripeService):
     class ListParams(TypedDict):
         arrival_date: NotRequired["PayoutService.ListParamsArrivalDate|int"]
         created: NotRequired["PayoutService.ListParamsCreated|int"]
+        """
+        Only return payouts that were created during the given date interval.
+        """
         destination: NotRequired["str"]
         """
         The ID of an external account - only return payouts sent to this external account.

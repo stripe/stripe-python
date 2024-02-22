@@ -149,7 +149,7 @@ class Configuration(
                 "always_invoice", "create_prorations", "none"
             ]
             """
-            Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+            Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
             _inner_class_types = {"products": Product}
 

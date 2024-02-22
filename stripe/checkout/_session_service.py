@@ -1965,7 +1965,7 @@ class SessionService(StripeService):
     class ListParams(TypedDict):
         created: NotRequired["SessionService.ListParamsCreated|int"]
         """
-        Only return the Checkout Sessions that were created during the given date interval.
+        Only return Checkout Sessions that were created during the given date interval.
         """
         customer: NotRequired["str"]
         """

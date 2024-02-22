@@ -17,6 +17,10 @@ class VerificationSessionService(StripeService):
         """
 
     class CreateParams(TypedDict):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -67,9 +71,16 @@ class VerificationSessionService(StripeService):
         """
 
     class ListParams(TypedDict):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         created: NotRequired[
             "VerificationSessionService.ListParamsCreated|int"
         ]
+        """
+        Only return VerificationSessions that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

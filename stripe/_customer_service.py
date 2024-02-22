@@ -354,6 +354,9 @@ class CustomerService(StripeService):
 
     class ListParams(TypedDict):
         created: NotRequired["CustomerService.ListParamsCreated|int"]
+        """
+        Only return customers that were created during the given date interval.
+        """
         email: NotRequired["str"]
         """
         A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.

@@ -12,6 +12,9 @@ from typing_extensions import NotRequired, TypedDict
 class EventService(StripeService):
     class ListParams(TypedDict):
         created: NotRequired["EventService.ListParamsCreated|int"]
+        """
+        Only return events that were created during the given date interval.
+        """
         delivery_success: NotRequired["bool"]
         """
         Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.

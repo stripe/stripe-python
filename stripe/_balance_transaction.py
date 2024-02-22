@@ -67,11 +67,14 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         """
         type: str
         """
-        Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`.
+        Type of the fee, one of: `application_fee`, `payment_method_passthrough_fee`, `stripe_fee` or `tax`.
         """
 
     class ListParams(RequestOptions):
         created: NotRequired["BalanceTransaction.ListParamsCreated|int"]
+        """
+        Only return transactions that were created during the given date interval.
+        """
         currency: NotRequired["str"]
         """
         Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

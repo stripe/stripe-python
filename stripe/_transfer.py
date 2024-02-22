@@ -107,6 +107,9 @@ class Transfer(
 
     class ListParams(RequestOptions):
         created: NotRequired["Transfer.ListParamsCreated|int"]
+        """
+        Only return transfers that were created during the given date interval.
+        """
         destination: NotRequired["str"]
         """
         Only return transfers for the destination specified by this account ID.

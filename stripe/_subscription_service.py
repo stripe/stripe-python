@@ -189,7 +189,7 @@ class SubscriptionService(StripeService):
             "Literal['always_invoice', 'create_prorations', 'none']"
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
+        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
         """
         transfer_data: NotRequired[
             "SubscriptionService.CreateParamsTransferData"
@@ -654,6 +654,9 @@ class SubscriptionService(StripeService):
         The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
         """
         created: NotRequired["SubscriptionService.ListParamsCreated|int"]
+        """
+        Only return subscriptions that were created during the given date interval.
+        """
         current_period_end: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodEnd|int"
         ]
@@ -772,7 +775,7 @@ class SubscriptionService(StripeService):
             "Literal['always_invoice', 'create_prorations', 'none']"
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         """
         proration_date: NotRequired["int"]
         """
@@ -938,7 +941,7 @@ class SubscriptionService(StripeService):
             "Literal['always_invoice', 'create_prorations', 'none']"
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         """
         proration_date: NotRequired["int"]
         """
