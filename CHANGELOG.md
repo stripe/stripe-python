@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.4.0 - 2024-02-22
+* [#1241](https://github.com/stripe/stripe-python/pull/1241) Update generated code
+  - Add `InvoiceLineItem.modify` method.
+* [#1244](https://github.com/stripe/stripe-python/pull/1244) Add TaxIds API
+  * Add support for `create`, `retrieve`, `delete`, and `list` methods on resource `TaxId`
+  * The `instance_url` function on resource `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
+* [#1243](https://github.com/stripe/stripe-python/pull/1243) Remove http client base
+* [#1242](https://github.com/stripe/stripe-python/pull/1242) Testing: unify http client mock
+
 ## 8.4.0b1 - 2024-02-16
 * [#1235](https://github.com/stripe/stripe-python/pull/1235) Update generated code for beta
   * Add support for `payto` and `twint` payment methods throughout the API
