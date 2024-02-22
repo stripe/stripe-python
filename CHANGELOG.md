@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.5.0b1 - 2024-02-22
+* [#1246](https://github.com/stripe/stripe-python/pull/1246) Update generated code for beta
+
+* [#1239](https://github.com/stripe/stripe-python/pull/1239) Beta: Collapse HTTPClientAsync into HTTPClient
+  * ⚠️ Removes the `stripe.default_http_client_async` global and the `stripe.HTTPClientAsync` class.
+    * To set your own async-enabled http client, set `stripe.default_http_client` to a subclass of `stripe.HTTPClient` such as `stripe.HTTPXClient` that implements `.request_async`, `.sleep_async`, `.request_stream_async`, and `.close_async`.
+    * The default http client of the library is still `RequestsClient` for synchronous methods, that "falls back" to a `HTTPXClient` when asynchronous methods are called.
+
 ## 8.4.0 - 2024-02-22
 * [#1241](https://github.com/stripe/stripe-python/pull/1241) Update generated code
   - Add `InvoiceLineItem.modify` method.
