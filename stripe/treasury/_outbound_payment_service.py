@@ -193,6 +193,10 @@ class OutboundPaymentService(StripeService):
         """
 
     class ListParams(TypedDict):
+        created: NotRequired["OutboundPaymentService.ListParamsCreated|int"]
+        """
+        Only return OutboundPayments that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         Only return OutboundPayments sent to this customer.
@@ -222,6 +226,24 @@ class OutboundPaymentService(StripeService):
         ]
         """
         Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
+        """
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(TypedDict):

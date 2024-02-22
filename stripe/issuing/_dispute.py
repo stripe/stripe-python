@@ -501,7 +501,7 @@ class Dispute(
     class ListParams(RequestOptions):
         created: NotRequired["Dispute.ListParamsCreated|int"]
         """
-        Select Issuing disputes that were created during the given date interval.
+        Only return Issuing disputes that were created during the given date interval.
         """
         ending_before: NotRequired["str"]
         """

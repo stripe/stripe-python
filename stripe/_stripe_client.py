@@ -93,6 +93,7 @@ from stripe._subscription_item_service import SubscriptionItemService
 from stripe._subscription_schedule_service import SubscriptionScheduleService
 from stripe._tax_service import TaxService
 from stripe._tax_code_service import TaxCodeService
+from stripe._tax_id_service import TaxIdService
 from stripe._tax_rate_service import TaxRateService
 from stripe._terminal_service import TerminalService
 from stripe._token_service import TokenService
@@ -246,6 +247,7 @@ class StripeClient(object):
         )
         self.tax = TaxService(self._requestor)
         self.tax_codes = TaxCodeService(self._requestor)
+        self.tax_ids = TaxIdService(self._requestor)
         self.tax_rates = TaxRateService(self._requestor)
         self.terminal = TerminalService(self._requestor)
         self.tokens = TokenService(self._requestor)
