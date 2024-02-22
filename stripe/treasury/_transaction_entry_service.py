@@ -12,6 +12,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class TransactionEntryService(StripeService):
     class ListParams(TypedDict):
         created: NotRequired["TransactionEntryService.ListParamsCreated|int"]
+        """
+        Only return TransactionEntries that were created during the given date interval.
+        """
         effective_at: NotRequired[
             "TransactionEntryService.ListParamsEffectiveAt|int"
         ]

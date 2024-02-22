@@ -290,6 +290,9 @@ class FinancialAccount(
 
     class ListParams(RequestOptions):
         created: NotRequired["FinancialAccount.ListParamsCreated|int"]
+        """
+        Only return FinancialAccounts that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         An object ID cursor for use in pagination.

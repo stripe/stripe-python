@@ -180,6 +180,10 @@ class VerificationSession(
         """
 
     class CreateParams(RequestOptions):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -230,7 +234,14 @@ class VerificationSession(
         """
 
     class ListParams(RequestOptions):
+        client_reference_id: NotRequired["str"]
+        """
+        A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+        """
         created: NotRequired["VerificationSession.ListParamsCreated|int"]
+        """
+        Only return VerificationSessions that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -330,6 +341,10 @@ class VerificationSession(
         Specifies which fields in the response should be expanded.
         """
 
+    client_reference_id: Optional[str]
+    """
+    A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
+    """
     client_secret: Optional[str]
     """
     The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don't store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.

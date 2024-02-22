@@ -199,7 +199,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         """
         created: NotRequired["Token.ListParamsCreated|int"]
         """
-        Select Issuing tokens that were created during the given date interval.
+        Only return Issuing tokens that were created during the given date interval.
         """
         ending_before: NotRequired["str"]
         """

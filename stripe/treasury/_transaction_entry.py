@@ -107,6 +107,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     class ListParams(RequestOptions):
         created: NotRequired["TransactionEntry.ListParamsCreated|int"]
+        """
+        Only return TransactionEntries that were created during the given date interval.
+        """
         effective_at: NotRequired["TransactionEntry.ListParamsEffectiveAt|int"]
         ending_before: NotRequired["str"]
         """

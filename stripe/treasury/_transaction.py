@@ -116,6 +116,9 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     class ListParams(RequestOptions):
         created: NotRequired["Transaction.ListParamsCreated|int"]
+        """
+        Only return Transactions that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

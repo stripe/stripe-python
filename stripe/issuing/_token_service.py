@@ -17,7 +17,7 @@ class TokenService(StripeService):
         """
         created: NotRequired["TokenService.ListParamsCreated|int"]
         """
-        Select Issuing tokens that were created during the given date interval.
+        Only return Issuing tokens that were created during the given date interval.
         """
         ending_before: NotRequired["str"]
         """

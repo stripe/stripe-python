@@ -549,6 +549,7 @@ from stripe._tax_deducted_at_source import (
     TaxDeductedAtSource as TaxDeductedAtSource,
 )
 from stripe._tax_id import TaxId as TaxId
+from stripe._tax_id_service import TaxIdService as TaxIdService
 from stripe._tax_rate import TaxRate as TaxRate
 from stripe._tax_rate_service import TaxRateService as TaxRateService
 from stripe._tax_service import TaxService as TaxService

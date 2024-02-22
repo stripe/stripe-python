@@ -87,6 +87,9 @@ class Payout(
     class ListParams(RequestOptions):
         arrival_date: NotRequired["Payout.ListParamsArrivalDate|int"]
         created: NotRequired["Payout.ListParamsCreated|int"]
+        """
+        Only return payouts that were created during the given date interval.
+        """
         destination: NotRequired["str"]
         """
         The ID of an external account - only return payouts sent to this external account.

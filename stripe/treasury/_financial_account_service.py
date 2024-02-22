@@ -195,6 +195,9 @@ class FinancialAccountService(StripeService):
 
     class ListParams(TypedDict):
         created: NotRequired["FinancialAccountService.ListParamsCreated|int"]
+        """
+        Only return FinancialAccounts that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         An object ID cursor for use in pagination.
