@@ -4,6 +4,7 @@ from unittest.mock import call
 import pytest
 import json
 from mock import AsyncMock
+import asyncio
 
 import stripe
 from stripe import _http_client
@@ -1317,6 +1318,25 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
     ):
         # TODO
         pass
+
+    def test_connection_pooling(self):
+        client = _http_client.HTTPXClient(connection_pooling=True)
+
+        async def go():
+            await client.request_async("get", self.valid_url, {}, None)
+
+        # With connection pooling, httpx will attempt to re-use a connection
+        # across two different event loops and trigger an error.
+        # on the second request.
+        asyncio.run(go())
+        with pytest.raises(APIConnectionError):
+            asyncio.run(go())
+
+        # With no connection pooling, httpx will not attempt re-use
+        # and will not trigger an error if used in multiple event loops.
+        client = _http_client.HTTPXClient(connection_pooling=False)
+        asyncio.run(go())
+        asyncio.run(go())
 
 
 class TestHTTPXClientRetryBehavior(TestHTTPXClient):

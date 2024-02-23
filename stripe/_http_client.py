@@ -120,11 +120,9 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
 
 def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
     if httpx:
-        impl = HTTPXClient
+        return HTTPXClient(*args, **kwargs, connection_pooling=False)
     else:
-        impl = NoImportFoundAsyncClient
-
-    return impl(*args, **kwargs)
+        return NoImportFoundAsyncClient(*args, **kwargs)
 
 
 class HTTPClient(object):
@@ -1210,7 +1208,10 @@ class HTTPXClient(HTTPClient):
     name = "httpx"
 
     def __init__(
-        self, timeout: Optional[Union[float, "HTTPXTimeout"]] = 80, **kwargs
+        self,
+        timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
+        connection_pooling=True,
+        **kwargs
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
@@ -1232,6 +1233,9 @@ class HTTPXClient(HTTPClient):
             kwargs["verify"] = stripe.ca_bundle_path
         else:
             kwargs["verify"] = False
+
+        if not connection_pooling:
+            kwargs["limits"] = httpx.Limits(max_keepalive_connections=0)
 
         self._client_async = httpx.AsyncClient(**kwargs)
         self._client = httpx.Client(**kwargs)
