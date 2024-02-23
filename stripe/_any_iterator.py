@@ -4,6 +4,10 @@ T = TypeVar("T")
 
 
 class AnyIterator(Iterator[T], AsyncIterator[T]):
+    """
+    AnyIterator supports iteration through both `for ... in <AnyIterator>` and `async for ... in <AnyIterator> syntaxes.
+    """
+
     def __init__(
         self, iterator: Iterator[T], async_iterator: AsyncIterator[T]
     ) -> None:
