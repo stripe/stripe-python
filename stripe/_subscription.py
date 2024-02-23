@@ -2976,9 +2976,7 @@ class Subscription(
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
     ) -> AsyncIterator["Subscription"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,

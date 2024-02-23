@@ -926,9 +926,7 @@ class Price(
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> AsyncIterator["Price"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     _inner_class_types = {
         "currency_options": CurrencyOptions,

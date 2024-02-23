@@ -871,9 +871,7 @@ class Product(
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> AsyncIterator["Product"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     _inner_class_types = {
         "features": Feature,

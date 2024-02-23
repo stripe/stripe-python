@@ -2164,9 +2164,7 @@ class Customer(
     async def search_auto_paging_iter_async(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> AsyncIterator["Customer"]:
-        return (
-            await cls.search_async(*args, **kwargs)
-        ).auto_paging_iter_async()
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     @classmethod
     def create_balance_transaction(
