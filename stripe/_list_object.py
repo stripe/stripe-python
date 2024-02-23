@@ -16,27 +16,11 @@ from typing import (
 from stripe._api_requestor import (
     _APIRequestor,  # pyright: ignore[reportPrivateUsage]
 )
+from stripe._any_iterator import AnyIterator
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions, extract_options_from_dict
 
 from urllib.parse import quote_plus
-
-
-TIter = TypeVar("TIter", bound=StripeObject)
-
-
-class SyncAsyncIterator(Iterator[TIter], AsyncIterator[TIter]):
-    def __init__(
-        self, iterator: Iterator[TIter], async_iterator: AsyncIterator[TIter]
-    ) -> None:
-        self._iterator = iterator
-        self._async_iterator = async_iterator
-
-    def __next__(self) -> TIter:
-        return self._iterator.__next__()
-
-    async def __anext__(self) -> Any:
-        return await self._async_iterator.__anext__()
 
 
 T = TypeVar("T", bound=StripeObject)
@@ -141,8 +125,8 @@ class ListObject(StripeObject, Generic[T]):
     def __reversed__(self) -> Iterator[T]:  # pyright: ignore (see above)
         return getattr(self, "data", []).__reversed__()
 
-    def auto_paging_iter(self) -> SyncAsyncIterator[T]:
-        return SyncAsyncIterator(
+    def auto_paging_iter(self) -> AnyIterator[T]:
+        return AnyIterator(
             self._auto_paging_iter(),
             self._auto_paging_iter_async(),
         )
