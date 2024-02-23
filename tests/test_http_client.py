@@ -1318,6 +1318,14 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
         # TODO
         pass
 
+    def test_allow_sync_methods(self):
+        client = self.REQUEST_CLIENT(allow_sync_methods=False)
+        assert client._client is None
+        with pytest.raises(RuntimeError):
+            client.request("GET", "http://foo", {})
+        with pytest.raises(RuntimeError):
+            client.request_stream("GET", "http://foo", {})
+
 
 class TestHTTPXClientRetryBehavior(TestHTTPXClient):
     responses = None
