@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Iterator, AsyncIterator
+from typing import TypeVar, Iterator, AsyncIterator
 
 T = TypeVar("T")
 
