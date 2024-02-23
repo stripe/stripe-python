@@ -15,10 +15,6 @@ class ListableAPIResource(APIResource[T]):
         return cls.list(**params).auto_paging_iter()
 
     @classmethod
-    async def auto_paging_iter_async(cls, **params):
-        return (await cls.list_async(**params)).auto_paging_iter()
-
-    @classmethod
     def list(cls, **params) -> ListObject[T]:
         result = cls._static_request(
             "get",
