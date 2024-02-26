@@ -1534,17 +1534,25 @@ class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
     @pytest.fixture
     def mock_response(self, mocker, request_mock):
         def mock_response(mock, body={}, code=200):
-            result = mocker.Mock()
-            result.content = mocker.MagicMock()
 
-            result.content.__aiter__.return_value = [
-                bytes(body, "utf-8") if isinstance(body, str) else body
-            ]
-            result.status = code
-            result.headers = {}
-            result.content.read = mocker.AsyncMock(return_value=body)
+            class Content:
+                def __aiter__(self):
+                    async def chunk():
+                        yield bytes(body, "utf-8") if isinstance(body, str) else body
+                    return chunk()
 
-            request_mock.ClientSession().request = mocker.AsyncMock(
+                async def read(self):
+                    return body
+
+            class Result:
+                def __init__(self):
+                    self.content = Content()
+                    self.status = code
+                    self.headers = {}
+
+            result = Result()
+
+            request_mock.ClientSession().request = AsyncMock(
                 return_value=result
             )
             return result
