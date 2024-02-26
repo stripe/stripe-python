@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -46,6 +47,7 @@ if TYPE_CHECKING:
     from stripe._transfer import Transfer
 
 
+@nested_resource_class_methods("refund")
 class Charge(
     CreateableAPIResource["Charge"],
     ListableAPIResource["Charge"],
@@ -1927,6 +1929,24 @@ class Charge(
         Maximum value to filter by (inclusive)
         """
 
+    class ListRefundsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
     class ModifyParams(RequestOptions):
         customer: NotRequired["str"]
         """
@@ -2016,6 +2036,12 @@ class Charge(
         """
 
     class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveRefundParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -2397,6 +2423,45 @@ class Charge(
         url = self.instance_url()
         self._request_and_refresh("post", url, params)
         return self
+
+    @classmethod
+    def retrieve_refund(
+        cls,
+        charge: str,
+        refund: str,
+        **params: Unpack["Charge.RetrieveRefundParams"]
+    ) -> "Refund":
+        """
+        Retrieves the details of an existing refund.
+        """
+        return cast(
+            "Refund",
+            cls._static_request(
+                "get",
+                "/v1/charges/{charge}/refunds/{refund}".format(
+                    charge=sanitize_id(charge), refund=sanitize_id(refund)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_refunds(
+        cls, charge: str, **params: Unpack["Charge.ListRefundsParams"]
+    ) -> ListObject["Refund"]:
+        """
+        You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
+        """
+        return cast(
+            ListObject["Refund"],
+            cls._static_request(
+                "get",
+                "/v1/charges/{charge}/refunds".format(
+                    charge=sanitize_id(charge)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "billing_details": BillingDetails,
