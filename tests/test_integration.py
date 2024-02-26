@@ -1,7 +1,6 @@
 import platform
 from threading import Thread, Lock
 import json
-from typing import cast, Any
 import warnings
 import time
 
