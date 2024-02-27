@@ -85,6 +85,18 @@ def set_app_info(
     }
 
 
+# Add a beta version to the API version.
+def add_beta_version(
+    beta_name: str,
+    beta_version: str,
+):
+    if stripe.api_version.find(f"; {beta_name}=") != -1:
+        raise Exception(
+            f"Stripe version header {stripe.api_version} already contains entry for beta {beta_name}"
+        )
+    stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
+
+
 # Infrastructure types
 from stripe._api_resource import APIResource as APIResource
 from stripe._error_object import ErrorObject as ErrorObject
