@@ -277,6 +277,54 @@ response = stripe.raw_request(
 deserialized_resp = stripe.deserialize(response)
 ```
 
+### Async
+
+Asynchronous versions of request-making methods are available by suffixing the method name
+with `_async`.
+
+```python
+# With StripeClient
+client = StripeClient("sk_test_...")
+customer = await client.customers.retrieve_async("cus_xyz")
+
+# With global client
+stripe.api_key = "sk_test_..."
+customer = await stripe.Customer.retrieve_async("cus_xyz")
+
+# .auto_paging_iter() implements both AsyncIterable and Iterable
+async for c in await stripe.Customer.list_async().auto_paging_iter():
+  ...
+```
+
+There is no `.save_async` as `.save` is [deprecated since stripe-python v5](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v5#deprecated). Please migrate to `.modify_async`.
+
+The default HTTP client uses `requests` for making synchronous requests but
+`httpx` for making async requests. If you're migrating to async, we recommend
+you to explicitly initialize your own http client and pass it to StripeClient
+or set it as the global default.
+
+```python
+# By default, an explicitly initialized HTTPXClient will raise an exception if you
+# attempt to call a sync method. If you intend to only use async, this is useful to
+# make sure you don't unintentionally make a synchronous request.
+my_http_client = stripe.HTTPXClient()
+
+# If you want to use httpx to make sync requests, you can disable this
+# behavior.
+my_http_client = stripe.HTTPXClient(allow_sync_requests=True)
+
+# aiohttp is also available (does not support sync requests)
+my_http_client = stripe.AIOHTTPClient()
+
+# With StripeClient
+client = StripeClient("sk_test_...", http_client=my_http_client)
+
+# With the global client
+stripe.default_http_client = my_http_client
+```
+
+You can also subclass `stripe.HTTPClient` and provide your own instance.
+
 ## Support
 
 New features and bug fixes are released on the latest major version of the Stripe Python library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.
