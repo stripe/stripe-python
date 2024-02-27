@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ErrorObject(StripeObject):
     charge: Optional[str]
-    code: int
+    code: Optional[str]
     decline_code: Optional[str]
     doc_url: Optional[str]
     message: Optional[str]
