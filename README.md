@@ -279,7 +279,7 @@ deserialized_resp = stripe.deserialize(response)
 
 ### Async
 
-Asynchronous versions of most request-making methods are available by suffixing the method name
+Asynchronous versions of request-making methods are available by suffixing the method name
 with `_async`.
 
 ```python
