@@ -474,23 +474,33 @@ class RequestsClient(HTTPClient):
         if is_streaming:
             kwargs["stream"] = True
 
-        if getattr(self._thread_local, "session", None) is None:
-            self._thread_local.session = (
-                self._session or self.requests.Session()
-            )
-
         try:
             try:
-                result = cast(
-                    "RequestsSession", self._thread_local.session
-                ).request(
-                    method,
-                    url,
-                    headers=headers,
-                    data=post_data,
-                    timeout=self._timeout,
-                    **kwargs,
-                )
+                if stripe.reuse_sessions:
+                    if getattr(self._thread_local, "session", None) is None:
+                        self._thread_local.session = (
+                            self._session or self.requests.Session()
+                        )
+                    result = cast(
+                        "RequestsSession", self._thread_local.session
+                    ).request(
+                        method,
+                        url,
+                        headers=headers,
+                        data=post_data,
+                        timeout=self._timeout,
+                        **kwargs,
+                    )
+                else:
+                    with self.requests.Session() as session:
+                        result = session.request(
+                            method,
+                            url,
+                            headers=headers,
+                            data=post_data,
+                            timeout=self._timeout,
+                            **kwargs,
+                        )
             except TypeError as e:
                 raise TypeError(
                     "Warning: It looks like your installed version of the "
