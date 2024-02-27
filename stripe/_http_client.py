@@ -61,6 +61,7 @@ try:
     import httpx
     import anyio
     from httpx import Timeout as HTTPXTimeout
+    from httpx import Client as HTTPXClientType
 except ImportError:
     httpx = None
     anyio = None
@@ -1222,8 +1223,13 @@ class Urllib2Client(HTTPClient):
 class HTTPXClient(HTTPClient):
     name = "httpx"
 
+    _client: Optional["HTTPXClientType"]
+
     def __init__(
-        self, timeout: Optional[Union[float, "HTTPXTimeout"]] = 80, **kwargs
+        self,
+        timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
+        allow_sync_methods=False,
+        **kwargs
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
@@ -1247,7 +1253,9 @@ class HTTPXClient(HTTPClient):
             kwargs["verify"] = False
 
         self._client_async = httpx.AsyncClient(**kwargs)
-        self._client = httpx.Client(**kwargs)
+        self._client = None
+        if allow_sync_methods:
+            self._client = httpx.Client(**kwargs)
         self._timeout = timeout
 
     def sleep_async(self, secs):
@@ -1275,6 +1283,11 @@ class HTTPXClient(HTTPClient):
         headers: Mapping[str, str],
         post_data=None,
     ) -> Tuple[bytes, int, Mapping[str, str]]:
+        if self._client is None:
+            raise RuntimeError(
+                "Stripe: HTTPXClient was initialized with allow_sync_methods=False, "
+                "so it cannot be used for synchronous requests."
+            )
         args, kwargs = self._get_request_args_kwargs(
             method, url, headers, post_data
         )
@@ -1322,6 +1335,11 @@ class HTTPXClient(HTTPClient):
     def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
+        if self._client is None:
+            raise RuntimeError(
+                "Stripe: HTTPXClient was not initialized with allow_sync_methods=True, "
+                "so it cannot be used for synchronous requests."
+            )
         args, kwargs = self._get_request_args_kwargs(
             method, url, headers, post_data
         )
@@ -1358,7 +1376,8 @@ class HTTPXClient(HTTPClient):
         return content, status_code, headers
 
     def close(self):
-        self._client.close()
+        if self._client is not None:
+            self._client.close()
 
     async def close_async(self):
         await self._client_async.aclose()
