@@ -418,8 +418,6 @@ class ClientTestBase(object):
 
             headers = {"my-header": "header val"}
 
-            print(dir(self))
-            print("make_request_stream" in dir(self))
             stream, code, _ = self.make_request_stream(
                 method, abs_url, headers, data
             )
@@ -1199,9 +1197,23 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
 
     def make_request(self, method, url, headers, post_data, timeout=80):
         client = self.REQUEST_CLIENT(
-            verify_ssl_certs=True, proxy="http://slap/", timeout=timeout
+            verify_ssl_certs=True,
+            proxy="http://slap/",
+            timeout=timeout,
+            allow_sync_methods=True,
         )
         return client.request_with_retries(method, url, headers, post_data)
+
+    def make_request_stream(self, method, url, headers, post_data, timeout=80):
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True,
+            proxy="http://slap/",
+            timeout=timeout,
+            allow_sync_methods=True,
+        )
+        return client.request_stream_with_retries(
+            method, url, headers, post_data
+        )
 
     async def make_request_async(
         self, method, url, headers, post_data, timeout=80
@@ -1318,13 +1330,19 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
         # TODO
         pass
 
-    def test_allow_sync_methods(self):
-        client = self.REQUEST_CLIENT(allow_sync_methods=False)
+    def test_allow_sync_methods(self, request_mock, mock_response):
+        client = self.REQUEST_CLIENT()
         assert client._client is None
         with pytest.raises(RuntimeError):
             client.request("GET", "http://foo", {})
         with pytest.raises(RuntimeError):
             client.request_stream("GET", "http://foo", {})
+        client = self.REQUEST_CLIENT(allow_sync_methods=True)
+        assert client._client is not None
+        mock_response(request_mock, '{"foo": "baz"}', 200)
+        client.request("GET", "http://foo", {})
+        mock_response(request_mock, '{"foo": "baz"}', 200)
+        client.request_stream("GET", "http://foo", {})
 
 
 class TestHTTPXClientRetryBehavior(TestHTTPXClient):
@@ -1384,9 +1402,9 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
     def max_retries(self):
         return 3
 
-    def make_client(self):
+    def make_client(self, **kwargs):
         client = self.REQUEST_CLIENT(
-            verify_ssl_certs=True, timeout=80, proxy="http://slap/"
+            verify_ssl_certs=True, timeout=80, proxy="http://slap/", **kwargs
         )
         # Override sleep time to speed up tests
         client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
@@ -1394,13 +1412,13 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         return client
 
     def make_request(self, *args, **kwargs):
-        client = self.make_client()
+        client = self.make_client(allow_sync_methods=True)
         return client.request_with_retries(
             "GET", self.valid_url, {}, None, self.max_retries()
         )
 
     def make_request_stream(self, *args, **kwargs):
-        client = self.make_client()
+        client = self.make_client(allow_sync_methods=True)
         return client.request_stream_with_retries(
             "GET", self.valid_url, {}, None, self.max_retries()
         )
