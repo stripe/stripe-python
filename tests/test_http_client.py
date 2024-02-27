@@ -1534,11 +1534,13 @@ class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
     @pytest.fixture
     def mock_response(self, mocker, request_mock):
         def mock_response(mock, body={}, code=200):
-
             class Content:
                 def __aiter__(self):
                     async def chunk():
-                        yield bytes(body, "utf-8") if isinstance(body, str) else body
+                        yield bytes(body, "utf-8") if isinstance(
+                            body, str
+                        ) else body
+
                     return chunk()
 
                 async def read(self):
