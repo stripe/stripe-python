@@ -22,6 +22,7 @@ class StripeClientTestCase(object):
         ("pycurl", "stripe._http_client.pycurl"),
         ("urllib.request", "stripe._http_client.urllibrequest"),
         ("httpx", "stripe._http_client.httpx"),
+        ("aiohttp", "stripe._http_client.aiohttp"),
     ]
 
     @pytest.fixture
@@ -69,11 +70,29 @@ class TestNewHttpClientAsyncFallback(StripeClientTestCase):
     def test_new_http_client_async_fallback_httpx(self, request_mocks):
         self.check_default((), _http_client.HTTPXClient)
 
+    # Using the AIOHTTPClient constructor will complain if there's
+    # no active asyncio event loop. This test can pass in isolation
+    # but if it runs after another asyncio-enabled test that closes
+    # the asyncio event loop it will fail unless it is declared to
+    # use the asyncio backend.
+    @pytest.mark.anyio
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    async def test_new_http_client_async_fallback_aiohttp(
+        self, request_mocks, anyio_backend
+    ):
+        self.check_default(
+            (("httpx"),),
+            _http_client.AIOHTTPClient,
+        )
+
     def test_new_http_client_async_fallback_no_import_found(
         self, request_mocks
     ):
         self.check_default(
-            (("httpx"),),
+            (
+                ("httpx"),
+                ("aiohttp"),
+            ),
             _http_client.NoImportFoundAsyncClient,
         )
 
@@ -1491,6 +1510,421 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         assert error.should_retry
 
         error = connection_error(request_mock.exceptions.ConnectionError())
+        assert error.should_retry
+
+    # Skip inherited basic client tests
+    def test_request(self):
+        pass
+
+    def test_request_async(self):
+        pass
+
+    def test_timeout(self):
+        pass
+
+    def test_timeout_async(self):
+        pass
+
+
+class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
+    REQUEST_CLIENT: Type[
+        _http_client.AIOHTTPClient
+    ] = _http_client.AIOHTTPClient
+
+    @pytest.fixture
+    def mock_response(self, mocker, request_mock):
+        def mock_response(mock, body={}, code=200):
+            class Content:
+                def __aiter__(self):
+                    async def chunk():
+                        yield bytes(body, "utf-8") if isinstance(
+                            body, str
+                        ) else body
+
+                    return chunk()
+
+                async def read(self):
+                    return body
+
+            class Result:
+                def __init__(self):
+                    self.content = Content()
+                    self.status = code
+                    self.headers = {}
+
+            result = Result()
+
+            request_mock.ClientSession().request = AsyncMock(
+                return_value=result
+            )
+            return result
+
+        return mock_response
+
+    @pytest.fixture
+    def mock_error(self, mocker, request_mock):
+        def mock_error(mock):
+            # The first kind of request exceptions we catch
+            mock.exceptions.SSLError = Exception
+            request_mock.ClientSession().request.side_effect = (
+                mock.exceptions.SSLError()
+            )
+
+        return mock_error
+
+    @pytest.fixture
+    def check_call(self, request_mock, mocker):
+        def check_call(
+            mock,
+            method,
+            url,
+            post_data,
+            headers,
+            is_streaming=False,
+            timeout=80,
+            times=None,
+        ):
+            times = times or 1
+            args = (method, url)
+            kwargs = {
+                "headers": headers,
+                "data": post_data or {},
+                "timeout": timeout,
+                "proxies": {"http": "http://slap/", "https": "http://slap/"},
+            }
+
+            if is_streaming:
+                kwargs["stream"] = True
+
+            calls = [mocker.call(*args, **kwargs) for _ in range(times)]
+            request_mock.ClientSession().request.assert_has_calls(calls)
+
+        return check_call
+
+    @pytest.fixture
+    def check_call_async(self, request_mock, mocker):
+        def check_call_async(
+            mock,
+            method,
+            url,
+            post_data,
+            headers,
+            is_streaming=False,
+            timeout=80,
+            times=None,
+        ):
+            times = times or 1
+            args = (method, url)
+            kwargs = {
+                "headers": headers,
+                "data": post_data,
+                "timeout": timeout,
+                "proxy": "http://slap/",
+            }
+
+            calls = [mocker.call(*args, **kwargs) for _ in range(times)]
+            request_mock.ClientSession().request.assert_has_calls(calls)
+
+        return check_call_async
+
+    def make_request(self, method, url, headers, post_data, timeout=80):
+        pass
+
+    async def make_request_async(
+        self, method, url, headers, post_data, timeout=80
+    ):
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True, proxy="http://slap/", timeout=timeout
+        )
+        return await client.request_with_retries_async(
+            method, url, headers, post_data
+        )
+
+    async def make_request_stream_async(
+        self, method, url, headers, post_data, timeout=80
+    ):
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True, proxy="http://slap/"
+        )
+        return await client.request_stream_with_retries_async(
+            method, url, headers, post_data
+        )
+
+    def test_request(self):
+        pass
+
+    def test_request_stream(self):
+        pass
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_request_async(
+        self, request_mock, mock_response, check_call_async
+    ):
+
+        mock_response(request_mock, '{"foo": "baz"}', 200)
+
+        for method in VALID_API_METHODS:
+            abs_url = self.valid_url
+            data = {}
+
+            if method != "post":
+                abs_url = "%s?%s" % (abs_url, data)
+                data = {}
+
+            headers = {"my-header": "header val"}
+            body, code, _ = await self.make_request_async(
+                method, abs_url, headers, data
+            )
+            assert code == 200
+            assert body == '{"foo": "baz"}'
+
+            check_call_async(request_mock, method, abs_url, data, headers)
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_request_stream_async(
+        self, mocker, request_mock, mock_response, check_call
+    ):
+        for method in VALID_API_METHODS:
+            mock_response(request_mock, "some streamed content", 200)
+
+            abs_url = self.valid_url
+            data = ""
+
+            if method != "post":
+                abs_url = "%s?%s" % (abs_url, data)
+                data = None
+
+            headers = {"my-header": "header val"}
+
+            stream, code, _ = await self.make_request_stream_async(
+                method, abs_url, headers, data
+            )
+
+            assert code == 200
+
+            # Here we need to convert and align all content on one type (string)
+            # as some clients return a string stream others a byte stream.
+            body_content = b"".join([x async for x in stream])
+            if hasattr(body_content, "decode"):
+                body_content = body_content.decode("utf-8")
+
+            assert body_content == "some streamed content"
+
+            mocker.resetall()
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_exception(self, request_mock, mock_error):
+        mock_error(request_mock)
+        with pytest.raises(stripe.APIConnectionError):
+            await self.make_request_async("get", self.valid_url, {}, None)
+
+    def test_timeout(
+        self, request_mock, mock_response, check_call, anyio_backend
+    ):
+        pass
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_timeout_async(
+        self, request_mock, mock_response, check_call_async
+    ):
+        headers = {"my-header": "header val"}
+        data = {}
+        mock_response(request_mock, '{"foo": "baz"}', 200)
+        await self.make_request_async(
+            "POST", self.valid_url, headers, data, timeout=5
+        )
+
+        check_call_async(
+            request_mock, "POST", self.valid_url, data, headers, timeout=5
+        )
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_request_stream_forwards_stream_param(
+        self, mocker, request_mock, mock_response, check_call
+    ):
+        # TODO
+        pass
+
+
+class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
+    responses = None
+
+    @pytest.fixture
+    def mock_retry(self, mocker, request_mock):
+        def mock_retry(
+            retry_error_num=0, no_retry_error_num=0, responses=None
+        ):
+            if responses is None:
+                responses = []
+            # Mocking classes of exception we catch. Any group of exceptions
+            # with the same inheritance pattern will work
+            request_root_error_class = Exception
+            request_mock.exceptions.RequestException = request_root_error_class
+
+            no_retry_parent_class = LookupError
+            no_retry_child_class = KeyError
+            request_mock.exceptions.SSLError = no_retry_parent_class
+            no_retry_errors = [no_retry_child_class()] * no_retry_error_num
+
+            retry_parent_class = EnvironmentError
+            retry_child_class = IOError
+            request_mock.exceptions.Timeout = retry_parent_class
+            request_mock.exceptions.ConnectionError = retry_parent_class
+            retry_errors = [retry_child_class()] * retry_error_num
+            # Include mock responses as possible side-effects
+            # to simulate returning proper results after some exceptions
+
+            results = retry_errors + no_retry_errors + responses
+
+            request_mock.ClientSession().request = AsyncMock(
+                side_effect=results
+            )
+            self.responses = results
+
+            return request_mock
+
+        return mock_retry
+
+    @pytest.fixture
+    def check_call_numbers(self, check_call_async):
+        valid_url = self.valid_url
+
+        def check_call_numbers(times, is_streaming=False):
+            check_call_async(
+                None,
+                "GET",
+                valid_url,
+                None,
+                {},
+                times=times,
+                is_streaming=is_streaming,
+            )
+
+        return check_call_numbers
+
+    def max_retries(self):
+        return 3
+
+    def make_client(self):
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True, timeout=80, proxy="http://slap/"
+        )
+        # Override sleep time to speed up tests
+        client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
+        # Override configured max retries
+        return client
+
+    def make_request(self, *args, **kwargs):
+        pass
+
+    def make_request_stream(self, *args, **kwargs):
+        pass
+
+    async def make_request_async(self, *args, **kwargs):
+        client = self.make_client()
+        return await client.request_with_retries_async(
+            "GET", self.valid_url, {}, None, self.max_retries()
+        )
+
+    async def make_request_stream_async(self, *args, **kwargs):
+        client = self.make_client()
+        return await client.request_stream_with_retries_async(
+            "GET", self.valid_url, {}, None, self.max_retries()
+        )
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_retry_error_until_response(
+        self,
+        mock_retry,
+        mock_response,
+        check_call_numbers,
+        request_mock,
+        mocker,
+    ):
+        mock_retry(
+            retry_error_num=1,
+            responses=[mock_response(request_mock, code=202)],
+        )
+        _, code, _ = await self.make_request_async()
+        assert code == 202
+        check_call_numbers(2)
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_retry_error_until_exceeded(
+        self, mock_retry, mock_response, check_call_numbers
+    ):
+        mock_retry(retry_error_num=self.max_retries())
+        with pytest.raises(stripe.APIConnectionError):
+            await self.make_request_async()
+
+        check_call_numbers(self.max_retries())
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_no_retry_error(
+        self, mock_retry, mock_response, check_call_numbers
+    ):
+        mock_retry(no_retry_error_num=self.max_retries())
+        with pytest.raises(stripe.APIConnectionError):
+            await self.make_request_async()
+        check_call_numbers(1)
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_retry_codes(
+        self, mock_retry, mock_response, request_mock, check_call_numbers
+    ):
+        mock_retry(
+            responses=[
+                mock_response(request_mock, code=409),
+                mock_response(request_mock, code=202),
+            ]
+        )
+        _, code, _ = await self.make_request_async()
+        assert code == 202
+        check_call_numbers(2)
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_retry_codes_until_exceeded(
+        self, mock_retry, mock_response, request_mock, check_call_numbers
+    ):
+        mock_retry(
+            responses=[mock_response(request_mock, code=409)]
+            * (self.max_retries() + 1)
+        )
+        _, code, _ = await self.make_request_async()
+        assert code == 409
+        check_call_numbers(self.max_retries() + 1)
+
+    def connection_error(self, client, given_exception):
+        with pytest.raises(stripe.APIConnectionError) as error:
+            client._handle_request_error(given_exception)
+        return error.value
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_handle_request_error_should_retry(
+        self, mock_retry, anyio_backend
+    ):
+        client = self.REQUEST_CLIENT()
+        request_mock = mock_retry()
+
+        error = self.connection_error(
+            client, request_mock.exceptions.Timeout()
+        )
+        assert error.should_retry
+
+        error = self.connection_error(
+            client, request_mock.exceptions.ConnectionError()
+        )
         assert error.should_retry
 
     # Skip inherited basic client tests

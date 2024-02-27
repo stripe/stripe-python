@@ -5,6 +5,7 @@ import warnings
 import time
 
 import httpx
+import aiohttp
 
 import stripe
 import pytest
@@ -72,6 +73,8 @@ class MyTestHandler(BaseHTTPRequestHandler):
 
 
 class TestIntegration(object):
+    mock_server = None
+
     @pytest.fixture(autouse=True)
     def close_mock_server(self):
         yield
@@ -103,6 +106,7 @@ class TestIntegration(object):
         stripe.api_base = orig_attrs["api_base"]
         stripe.upload_api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
+        stripe.default_http_client = orig_attrs["default_http_client"]
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
         stripe.max_network_retries = orig_attrs["max_network_retries"]
         stripe.proxy = orig_attrs["proxy"]
@@ -328,7 +332,24 @@ class TestIntegration(object):
         assert usage == ["stripe_client"]
 
     @pytest.mark.anyio
-    async def test_async_raw_request_success(self):
+    @pytest.fixture(params=["aiohttp", "httpx"])
+    async def async_http_client(self, request, anyio_backend):
+        if request.param == "httpx":
+            return stripe.HTTPXClient()
+        elif request.param == "aiohttp":
+            if anyio_backend != "asyncio":
+                return pytest.skip("aiohttp only works with asyncio")
+            return stripe.AIOHTTPClient()
+        else:
+            raise ValueError(f"Unknown http client name: {request.param}")
+
+    @pytest.fixture
+    async def set_global_async_http_client(self, async_http_client):
+        stripe.default_http_client = async_http_client
+
+    async def test_async_raw_request_success(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             default_body = '{"id": "cus_123", "object": "customer"}'.encode(
                 "utf-8"
@@ -351,8 +372,9 @@ class TestIntegration(object):
         assert req.command == "POST"
         assert isinstance(cus, stripe.Customer)
 
-    @pytest.mark.anyio
-    async def test_async_raw_request_timeout(self):
+    async def test_async_raw_request_timeout(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 time.sleep(0.02)
@@ -360,16 +382,19 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
-        stripe.default_http_client = stripe.new_default_http_client()
-        assert isinstance(stripe.default_http_client, stripe.RequestsClient)
-        stripe.default_http_client._async_fallback_client = (
-            stripe.HTTPXClient()
-        )
         # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
         # so we set only the read timeout specifically.
-        stripe.default_http_client._async_fallback_client._timeout = (
-            httpx.Timeout(None, read=0.01)
-        )
+        hc = stripe.default_http_client
+
+        expected_message = ""
+        if isinstance(hc, stripe.HTTPXClient):
+            hc._timeout = httpx.Timeout(None, read=0.01)
+            expected_message = "A ReadTimeout was raised"
+        elif isinstance(hc, stripe.AIOHTTPClient):
+            hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)
+            expected_message = "A ServerTimeoutError was raised"
+        else:
+            raise ValueError(f"Unknown http client: {hc.name}")
         stripe.max_network_retries = 0
 
         exception = None
@@ -382,10 +407,11 @@ class TestIntegration(object):
 
         assert exception is not None
 
-        assert "A ReadTimeout was raised" in str(exception.user_message)
+        assert expected_message in str(exception.user_message)
 
-    @pytest.mark.anyio
-    async def test_async_httpx_raw_request_retries(self):
+    async def test_async_raw_request_retries(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 if n == 0:
@@ -410,8 +436,9 @@ class TestIntegration(object):
 
         assert req.path == "/v1/customers"
 
-    @pytest.mark.anyio
-    async def test_async_httpx_raw_request_unretryable(self):
+    async def test_async_raw_request_unretryable(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 return (
@@ -437,8 +464,7 @@ class TestIntegration(object):
         assert exception is not None
         assert "Unauthorized" in str(exception.user_message)
 
-    @pytest.mark.anyio
-    async def test_async_httpx_stream(self):
+    async def test_async_httpx_stream(self, set_global_async_http_client):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 return (200, None, b"hello")
@@ -449,8 +475,9 @@ class TestIntegration(object):
         result = await stripe.Quote.pdf_async("qt_123")
         assert str(await result.read(), "utf-8") == "hello"
 
-    @pytest.mark.anyio
-    async def test_async_httpx_stream_error(self):
+    async def test_async_httpx_stream_error(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 return (400, None, b'{"error": {"message": "bad request"}}')
