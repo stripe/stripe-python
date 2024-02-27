@@ -165,6 +165,7 @@ from stripe._http_client import (
     RequestsClient as RequestsClient,
     UrlFetchClient as UrlFetchClient,
     HTTPXClient as HTTPXClient,
+    AIOHTTPClient as AIOHTTPClient,
     new_default_http_client as new_default_http_client,
 )
 
