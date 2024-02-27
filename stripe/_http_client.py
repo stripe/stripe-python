@@ -1377,8 +1377,6 @@ class AIOHTTPClient(HTTPClient):
                 "Unexpected: tried to initialize AIOHTTPClient but the aiohttp module is not present."
             )
 
-        self.httpx = httpx
-
         kwargs = {}
         if self._verify_ssl_certs:
             ssl_context = ssl.create_default_context(
