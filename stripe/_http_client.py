@@ -1215,7 +1215,7 @@ class HTTPXClient(HTTPClient):
     def __init__(
         self,
         timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
-        allow_sync_methods=True,
+        allow_sync_methods=False,
         **kwargs
     ):
         super(HTTPXClient, self).__init__(**kwargs)
@@ -1273,7 +1273,7 @@ class HTTPXClient(HTTPClient):
     ) -> Tuple[bytes, int, Mapping[str, str]]:
         if self._client is None:
             raise RuntimeError(
-                "HTTPXClient was initialized with allow_sync_methods=False, "
+                "Stripe: HTTPXClient was initialized with allow_sync_methods=False, "
                 "so it cannot be used for synchronous requests."
             )
         args, kwargs = self._get_request_args_kwargs(
@@ -1326,7 +1326,7 @@ class HTTPXClient(HTTPClient):
     ) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         if self._client is None:
             raise RuntimeError(
-                "HTTPXClient was initialized with allow_sync_methods=False, "
+                "Stripe: HTTPXClient was not initialized with allow_sync_methods=True, "
                 "so it cannot be used for synchronous requests."
             )
         args, kwargs = self._get_request_args_kwargs(
