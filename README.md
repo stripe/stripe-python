@@ -282,7 +282,7 @@ deserialized_resp = stripe.deserialize(response)
 Asynchronous versions of most request-making methods are available by suffixing the method name
 with `_async`.
 
-```
+```python
 # With StripeClient
 client = StripeClient("sk_test_...")
 customer = await client.customers.retrieve_async("cus_xyz")
