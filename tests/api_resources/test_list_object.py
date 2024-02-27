@@ -444,7 +444,7 @@ class TestAutoPagingAsync:
 
         http_client_mock.assert_no_request()
 
-        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+        seen = [item["id"] async for item in lo.auto_paging_iter()]
 
         assert seen == ["pm_123", "pm_124"]
 
@@ -464,7 +464,7 @@ class TestAutoPagingAsync:
             ),
         )
 
-        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+        seen = [item["id"] async for item in lo.auto_paging_iter()]
 
         http_client_mock.assert_requested(
             "get",
@@ -490,7 +490,7 @@ class TestAutoPagingAsync:
             ),
         )
 
-        seen = [item["id"] async for item in lo.auto_paging_iter_async()]
+        seen = [item["id"] async for item in lo.auto_paging_iter()]
 
         http_client_mock.assert_requested(
             "get",

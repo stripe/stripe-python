@@ -19,6 +19,7 @@ from stripe._stripe_object import StripeObject
 from stripe import _util
 import warnings
 from stripe._request_options import RequestOptions, extract_options_from_dict
+from stripe._any_iterator import AnyIterator
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -91,7 +92,7 @@ class SearchResultObject(StripeObject, Generic[T]):
     def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def auto_paging_iter(self) -> Iterator[T]:
+    def _auto_paging_iter(self) -> Iterator[T]:
         page = self
 
         while True:
@@ -102,7 +103,12 @@ class SearchResultObject(StripeObject, Generic[T]):
             if page.is_empty:
                 break
 
-    async def auto_paging_iter_async(self) -> AsyncIterator[T]:
+    def auto_paging_iter(self) -> AnyIterator[T]:
+        return AnyIterator(
+            self._auto_paging_iter(), self._auto_paging_iter_async()
+        )
+
+    async def _auto_paging_iter_async(self) -> AsyncIterator[T]:
         page = self
 
         while True:
