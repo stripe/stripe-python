@@ -1399,9 +1399,11 @@ class AIOHTTPClient(HTTPClient):
         kwargs = {}
         if self._verify_ssl_certs:
             ssl_context = ssl.create_default_context(
-                capath=stripe.ca_bundle_path
+                cafile=stripe.ca_bundle_path
             )
             kwargs["connector"] = TCPConnector(ssl=ssl_context)
+        else:
+            kwargs["connector"] = TCPConnector(verify_ssl=False)
 
         self._session = aiohttp.ClientSession(**kwargs)
         self._timeout = timeout
