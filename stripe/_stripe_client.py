@@ -13,7 +13,7 @@ from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
-from stripe._http_client import HTTPClient, new_default_http_client
+from stripe._http_client import HTTPClient, new_default_http_client, _default_http_client_impl, RequestsClient
 from stripe._api_version import _ApiVersion
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
@@ -141,10 +141,17 @@ class StripeClient(object):
             max_network_retries=max_network_retries,
         )
 
+        self._requests_session = None
         if http_client is None:
-            http_client = new_default_http_client(
-                proxy=proxy, verify_ssl_certs=verify_ssl_certs
-            )
+            kwargs = {
+                "proxy": proxy,
+                "verify_ssl_certs": verify_ssl_certs,
+            }
+            if _default_http_client_impl() == RequestsClient:
+                import requests
+                self._requests_session = requests.Session()
+                kwargs["session"] = self._requests_session
+            http_client = new_default_http_client(**kwargs)
 
         self._requestor = _APIRequestor(
             options=requestor_options,
@@ -253,3 +260,9 @@ class StripeClient(object):
         )
 
         return event
+
+    def close(self) -> None:
+        if self._requests_session:
+            self._requests_session.close()
+
+
