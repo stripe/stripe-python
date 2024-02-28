@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.5.0b3 - 2024-02-27
+* [#1262](https://github.com/stripe/stripe-python/pull/1262) Beta: fix ssl for AIOHTTP client
+
 ## 8.5.0b2 - 2024-02-27
 * **Python async** - In this beta release, async support is now "feature complete". If you notice missing async support for something, it's probably a bug! Usage instructions for the async interface are available in the [README.md](https://github.com/stripe/stripe-python/blob/beta/README.md#async).
   * [#1253](https://github.com/stripe/stripe-python/pull/1253) Beta: Support 'allow_sync_methods=False' in HTTPXClient
