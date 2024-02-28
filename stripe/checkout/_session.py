@@ -3556,7 +3556,7 @@ class Session(
     """
     customer_details: Optional[CustomerDetails]
     """
-    The customer details including the customer's tax exempt status and the customer's tax IDs. Only the customer's email is present on Sessions in `setup` mode.
+    The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.
     """
     customer_email: Optional[str]
     """
