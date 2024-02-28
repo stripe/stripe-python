@@ -10,7 +10,14 @@ from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Type, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Type,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -360,6 +367,14 @@ class Refund(
         """
 
     class ListParams(RequestOptions):
+        charge: NotRequired["str"]
+        """
+        Only return refunds for the charge specified by this charge ID.
+        """
+        created: NotRequired["Refund.ListParamsCreated|int"]
+        """
+        Only return refunds that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -372,9 +387,31 @@ class Refund(
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
+        payment_intent: NotRequired["str"]
+        """
+        Only return refunds for the PaymentIntent specified by this ID.
+        """
         starting_after: NotRequired["str"]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
         """
 
     class ModifyParams(RequestOptions):
@@ -656,7 +693,7 @@ class Refund(
         cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         """
-        You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
         """
         result = cls._static_request(
             "get",
@@ -677,7 +714,7 @@ class Refund(
         cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         """
-        You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
         """
         result = await cls._static_request_async(
             "get",

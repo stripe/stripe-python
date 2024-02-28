@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar
 from typing_extensions import Literal
 
 
@@ -13,13 +13,6 @@ class CustomerEntitlement(StripeObject):
     OBJECT_NAME: ClassVar[
         Literal["customer_entitlement"]
     ] = "customer_entitlement"
-
-    class Quantity(StripeObject):
-        total_available: int
-        """
-        The total quantity available to the customer.
-        """
-
     feature: str
     """
     The feature that the customer is entitled to.
@@ -40,12 +33,3 @@ class CustomerEntitlement(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    quantity: Optional[Quantity]
-    """
-    Contains information about entitlements relating to features with type=quantity. Required when the feature has type=quantity.
-    """
-    type: Literal["quantity", "switch"]
-    """
-    The type of feature.
-    """
-    _inner_class_types = {"quantity": Quantity}

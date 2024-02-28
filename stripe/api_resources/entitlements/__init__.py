@@ -16,5 +16,4 @@ warn(
     stacklevel=2,
 )
 if not TYPE_CHECKING:
-    from stripe.api_resources.entitlements.event import Event
     from stripe.api_resources.entitlements.feature import Feature

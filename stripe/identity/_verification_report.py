@@ -384,7 +384,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Result from a selfie check
     """
-    type: Optional[Literal["document", "id_number"]]
+    type: Literal["document", "id_number"]
     """
     Type of report.
     """

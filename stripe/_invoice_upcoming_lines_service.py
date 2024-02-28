@@ -1137,7 +1137,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         coupon: NotRequired["str"]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule.
+        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired["str"]
         """
