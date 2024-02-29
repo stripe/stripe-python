@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.6.0b1 - 2024-02-29
+* [#1251](https://github.com/stripe/stripe-python/pull/1251) Update generated code for beta
+  * Remove support for resource `Entitlements.Event`
+* [#1264](https://github.com/stripe/stripe-python/pull/1264) Remove unconditional import of TCPConnector from aiohttp in _http_client
+* [#1259](https://github.com/stripe/stripe-python/pull/1259) Add helper to add beta version
+
 ## 8.5.0b3 - 2024-02-27
 * [#1262](https://github.com/stripe/stripe-python/pull/1262) Beta: fix ssl for AIOHTTP client
 
