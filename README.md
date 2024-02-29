@@ -33,7 +33,7 @@ python setup.py install
 
 ### Requirements
 
-- Python 3.6+ (PyPy supported)
+-   Python 3.6+ (PyPy supported)
 
 #### Python 2.7 deprecation
 
@@ -228,9 +228,9 @@ is anything we can do to improve the types for your type checker of choice.
 ### Types and the Versioning Policy
 
 We release type changes in minor releases. While stripe-python follows semantic
-versioning, our semantic versions describe the *runtime behavior* of the
-library alone. Our *type annotations are not reflected in the semantic
-version*. That is, upgrading to a new minor version of stripe-python might
+versioning, our semantic versions describe the _runtime behavior_ of the
+library alone. Our _type annotations are not reflected in the semantic
+version_. That is, upgrading to a new minor version of stripe-python might
 result in your type checker producing a type error that it didn't before. You
 can use a `~=x.x` or `x.x.*` [version specifier](https://peps.python.org/pep-0440/#examples)
 in your `requirements.txt` to constrain `pip` to a certain minor range of `stripe-python`.
@@ -258,10 +258,10 @@ pip install stripe==5.3.0b3
 
 We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
 
-If your beta feature requires a `Stripe-Version` header to be sent, use the `stripe.api_version` field to set it:
+If your beta feature requires a `Stripe-Version` header to be sent, set the `stripe.api_version` field using the `stripe.add_beta_version` function:
 
 ```python
-stripe.api_version += "; feature_beta=v3"
+stripe.add_beta_version("feature_beta", "v3")
 ```
 
 ## Support
