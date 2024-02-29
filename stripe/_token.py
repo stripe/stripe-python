@@ -597,7 +597,7 @@ class Token(CreateableAPIResource["Token"]):
     class CreateParamsBankAccount(TypedDict):
         account_holder_name: NotRequired["str"]
         """
-        The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
+        The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
         """
         account_holder_type: NotRequired["Literal['company', 'individual']"]
         """
@@ -620,6 +620,10 @@ class Token(CreateableAPIResource["Token"]):
         currency: NotRequired["str"]
         """
         The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](https://stripe.com/docs/payouts)
+        """
+        payment_method: NotRequired["str"]
+        """
+        The ID of a Payment Method with a `type` of `us_bank_account`. The Payment Method's bank account information will be copied and returned as a Bank Account Token. This parameter is exclusive with respect to all other parameters in the `bank_account` hash. You must include the top-level `customer` parameter if the Payment Method is attached to a `Customer` object. If the Payment Method is not attached to a `Customer` object, it will be consumed and cannot be used again. You may not use Payment Methods which were created by a Setup Intent with `attach_to_self=true`.
         """
         routing_number: NotRequired["str"]
         """
