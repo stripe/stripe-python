@@ -296,7 +296,8 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
 
-    def test_measures_stripe_client_telemetry(self):
+    @pytest.mark.anyio
+    async def test_measures_stripe_client_telemetry(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, req_num):
                 return [
@@ -317,8 +318,8 @@ class TestIntegration(object):
                 "api": "http://localhost:%s" % self.mock_server_port
             },
         )
-        client.customers.create()
-        client.customers.create()
+        await client.customers.create_async()
+        await client.customers.create_async()
 
         reqs = MockServerRequestHandler.get_requests(2)
 
@@ -329,7 +330,7 @@ class TestIntegration(object):
         assert "last_request_metrics" in telemetry
 
         usage = telemetry["last_request_metrics"]["usage"]
-        assert usage == ["stripe_client"]
+        assert usage == ["stripe_client", "async"]
 
     @pytest.mark.anyio
     @pytest.fixture(params=["aiohttp", "httpx"])
