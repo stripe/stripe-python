@@ -94,6 +94,10 @@ class ReaderService(StripeService):
         """
 
     class ProcessPaymentIntentParamsProcessConfig(TypedDict):
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
+        """
         skip_tipping: NotRequired["bool"]
         """
         Override showing a tipping selection screen on this transaction.
@@ -132,7 +136,10 @@ class ReaderService(StripeService):
         """
 
     class ProcessSetupIntentParamsProcessConfig(TypedDict):
-        pass
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
+        """
 
     class RefundPaymentParams(TypedDict):
         amount: NotRequired["int"]
@@ -159,9 +166,21 @@ class ReaderService(StripeService):
         """
         Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
         """
+        refund_payment_config: NotRequired[
+            "ReaderService.RefundPaymentParamsRefundPaymentConfig"
+        ]
+        """
+        Configuration overrides
+        """
         reverse_transfer: NotRequired["bool"]
         """
         Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+        """
+
+    class RefundPaymentParamsRefundPaymentConfig(TypedDict):
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
         """
 
     class RetrieveParams(TypedDict):

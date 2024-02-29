@@ -1479,7 +1479,7 @@ class Session(
         """
         billing_address_collection: NotRequired["Literal['auto', 'required']"]
         """
-        Specify whether Checkout should collect the customer's billing address.
+        Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
         cancel_url: NotRequired["str"]
         """
@@ -1598,7 +1598,7 @@ class Session(
         Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
         This may occur if the Checkout Session includes a free trial or a discount.
 
-        Can only be set in `subscription` mode.
+        Can only be set in `subscription` mode. Defaults to `always`.
 
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
@@ -1641,7 +1641,7 @@ class Session(
             "Literal['always', 'if_required', 'never']"
         ]
         """
-        This parameter applies to `ui_mode: embedded`. By default, Stripe will always redirect to your return_url after a successful confirmation. If you set `redirect_on_completion: 'if_required'`, then we will only redirect if your user chooses a redirect-based payment method.
+        This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
         """
         return_url: NotRequired["str"]
         """
@@ -1689,7 +1689,7 @@ class Session(
         """
         ui_mode: NotRequired["Literal['embedded', 'hosted']"]
         """
-        `ui_mode` can be `hosted` or `embedded`. The default is `hosted`.
+        The UI mode of the Session. Defaults to `hosted`.
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -3470,7 +3470,7 @@ class Session(
     automatic_tax: AutomaticTax
     billing_address_collection: Optional[Literal["auto", "required"]]
     """
-    Describes whether Checkout should collect the customer's billing address.
+    Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
     """
     cancel_url: Optional[str]
     """
@@ -3525,7 +3525,7 @@ class Session(
     """
     customer_details: Optional[CustomerDetails]
     """
-    The customer details including the customer's tax exempt status and the customer's tax IDs. Only the customer's email is present on Sessions in `setup` mode.
+    The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.
     """
     customer_email: Optional[str]
     """
@@ -3629,7 +3629,7 @@ class Session(
     """
     payment_method_collection: Optional[Literal["always", "if_required"]]
     """
-    Configure whether a Checkout Session should collect a payment method.
+    Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails
@@ -3658,7 +3658,7 @@ class Session(
     """
     redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
     """
-    Applies to Checkout Sessions with `ui_mode: embedded`. By default, Stripe will always redirect to your return_url after a successful confirmation. If you set `redirect_on_completion: 'if_required'`, then we will only redirect if your user chooses a redirect-based payment method.
+    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
     """
     return_url: Optional[str]
     """
@@ -3710,7 +3710,7 @@ class Session(
     """
     ui_mode: Optional[Literal["embedded", "hosted"]]
     """
-    The UI mode of the Session. Can be `hosted` (default) or `embedded`.
+    The UI mode of the Session. Defaults to `hosted`.
     """
     url: Optional[str]
     """

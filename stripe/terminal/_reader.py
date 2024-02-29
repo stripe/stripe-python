@@ -51,6 +51,10 @@ class Reader(
                     Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
                     """
 
+                enable_customer_cancellation: Optional[bool]
+                """
+                Enable customer initiated cancellation when processing this payment.
+                """
                 skip_tipping: Optional[bool]
                 """
                 Override showing a tipping selection screen on this transaction.
@@ -73,7 +77,10 @@ class Reader(
 
         class ProcessSetupIntent(StripeObject):
             class ProcessConfig(StripeObject):
-                pass
+                enable_customer_cancellation: Optional[bool]
+                """
+                Enable customer initiated cancellation when processing this SetupIntent.
+                """
 
             generated_card: Optional[str]
             """
@@ -90,6 +97,12 @@ class Reader(
             _inner_class_types = {"process_config": ProcessConfig}
 
         class RefundPayment(StripeObject):
+            class RefundPaymentConfig(StripeObject):
+                enable_customer_cancellation: Optional[bool]
+                """
+                Enable customer initiated cancellation when refunding this payment.
+                """
+
             amount: Optional[int]
             """
             The amount being refunded.
@@ -120,10 +133,15 @@ class Reader(
             """
             Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
             """
+            refund_payment_config: Optional[RefundPaymentConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
             reverse_transfer: Optional[bool]
             """
             Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
             """
+            _inner_class_types = {"refund_payment_config": RefundPaymentConfig}
 
         class SetReaderDisplay(StripeObject):
             class Cart(StripeObject):
@@ -349,6 +367,10 @@ class Reader(
         """
 
     class ProcessPaymentIntentParamsProcessConfig(TypedDict):
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
+        """
         skip_tipping: NotRequired["bool"]
         """
         Override showing a tipping selection screen on this transaction.
@@ -387,7 +409,10 @@ class Reader(
         """
 
     class ProcessSetupIntentParamsProcessConfig(TypedDict):
-        pass
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
+        """
 
     class RefundPaymentParams(RequestOptions):
         amount: NotRequired["int"]
@@ -414,9 +439,21 @@ class Reader(
         """
         Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
         """
+        refund_payment_config: NotRequired[
+            "Reader.RefundPaymentParamsRefundPaymentConfig"
+        ]
+        """
+        Configuration overrides
+        """
         reverse_transfer: NotRequired["bool"]
         """
         Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+        """
+
+    class RefundPaymentParamsRefundPaymentConfig(TypedDict):
+        enable_customer_cancellation: NotRequired["bool"]
+        """
+        Enables cancel button on transaction screens.
         """
 
     class RetrieveParams(RequestOptions):

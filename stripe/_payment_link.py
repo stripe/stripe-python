@@ -702,7 +702,7 @@ class PaymentLink(
         """
         billing_address_collection: NotRequired["Literal['auto', 'required']"]
         """
-        Configuration for collecting the customer's billing address.
+        Configuration for collecting the customer's billing address. Defaults to `auto`.
         """
         consent_collection: NotRequired[
             "PaymentLink.CreateParamsConsentCollection"
@@ -764,7 +764,7 @@ class PaymentLink(
         """
         Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
 
-        Can only be set in `subscription` mode.
+        Can only be set in `subscription` mode. Defaults to `always`.
 
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
@@ -1576,7 +1576,7 @@ class PaymentLink(
         """
         billing_address_collection: NotRequired["Literal['auto', 'required']"]
         """
-        Configuration for collecting the customer's billing address.
+        Configuration for collecting the customer's billing address. Defaults to `auto`.
         """
         custom_fields: NotRequired[
             "Literal['']|List[PaymentLink.ModifyParamsCustomField]"
@@ -1626,7 +1626,7 @@ class PaymentLink(
         """
         Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
 
-        Can only be set in `subscription` mode.
+        Can only be set in `subscription` mode. Defaults to `always`.
 
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
@@ -2296,7 +2296,7 @@ class PaymentLink(
     automatic_tax: AutomaticTax
     billing_address_collection: Literal["auto", "required"]
     """
-    Configuration for collecting the customer's billing address.
+    Configuration for collecting the customer's billing address. Defaults to `auto`.
     """
     consent_collection: Optional[ConsentCollection]
     """
@@ -2353,7 +2353,7 @@ class PaymentLink(
     """
     payment_method_collection: Literal["always", "if_required"]
     """
-    Configuration for collecting a payment method during checkout.
+    Configuration for collecting a payment method during checkout. Defaults to `always`.
     """
     payment_method_types: Optional[
         List[
