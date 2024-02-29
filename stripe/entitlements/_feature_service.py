@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.entitlements._feature import Feature
 from typing import List, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 class FeatureService(StripeService):
@@ -21,20 +21,6 @@ class FeatureService(StripeService):
         name: str
         """
         The feature's name, for your own purpose, not meant to be displayable to the customer.
-        """
-        quantity: NotRequired["FeatureService.CreateParamsQuantity"]
-        """
-        Contains information about type=quantity features. This is required when type=quantity.
-        """
-        type: Literal["quantity", "switch"]
-        """
-        The type of feature.
-        """
-
-    class CreateParamsQuantity(TypedDict):
-        units_available: int
-        """
-        The quantity of units made available by this feature. This quantity will be multiplied by the line_item quantity for line_items that contain this feature.
         """
 
     class ListParams(TypedDict):

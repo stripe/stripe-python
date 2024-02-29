@@ -46,7 +46,6 @@ OBJECT_CLASSES = {
     stripe.CustomerSession.OBJECT_NAME: stripe.CustomerSession,
     stripe.Discount.OBJECT_NAME: stripe.Discount,
     stripe.Dispute.OBJECT_NAME: stripe.Dispute,
-    stripe.entitlements.Event.OBJECT_NAME: stripe.entitlements.Event,
     stripe.entitlements.Feature.OBJECT_NAME: stripe.entitlements.Feature,
     stripe.EphemeralKey.OBJECT_NAME: stripe.EphemeralKey,
     stripe.Event.OBJECT_NAME: stripe.Event,

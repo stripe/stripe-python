@@ -4,9 +4,8 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, List, cast
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class Feature(
@@ -21,12 +20,6 @@ class Feature(
         Literal["entitlements.feature"]
     ] = "entitlements.feature"
 
-    class Quantity(StripeObject):
-        units_available: int
-        """
-        The quantity of units made available by this feature. This quantity will be multiplied by the line_item quantity for line_items that contain this feature.
-        """
-
     class CreateParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -39,20 +32,6 @@ class Feature(
         name: str
         """
         The feature's name, for your own purpose, not meant to be displayable to the customer.
-        """
-        quantity: NotRequired["Feature.CreateParamsQuantity"]
-        """
-        Contains information about type=quantity features. This is required when type=quantity.
-        """
-        type: Literal["quantity", "switch"]
-        """
-        The type of feature.
-        """
-
-    class CreateParamsQuantity(TypedDict):
-        units_available: int
-        """
-        The quantity of units made available by this feature. This quantity will be multiplied by the line_item quantity for line_items that contain this feature.
         """
 
     class ListParams(RequestOptions):
@@ -92,14 +71,6 @@ class Feature(
     object: Literal["entitlements.feature"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    quantity: Optional[Quantity]
-    """
-    Contains information about type=quantity features. This is required when type=quantity.
-    """
-    type: Literal["quantity", "switch"]
-    """
-    The type of feature.
     """
 
     @classmethod
@@ -173,5 +144,3 @@ class Feature(
             )
 
         return result
-
-    _inner_class_types = {"quantity": Quantity}
