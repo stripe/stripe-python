@@ -10,8 +10,6 @@ import asyncio
 import ssl
 from http.client import HTTPResponse
 
-from aiohttp import TCPConnector
-
 # Used for global variables
 import stripe  # noqa: IMP101
 from stripe import _util
@@ -1401,9 +1399,9 @@ class AIOHTTPClient(HTTPClient):
             ssl_context = ssl.create_default_context(
                 cafile=stripe.ca_bundle_path
             )
-            kwargs["connector"] = TCPConnector(ssl=ssl_context)
+            kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
         else:
-            kwargs["connector"] = TCPConnector(verify_ssl=False)
+            kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
 
         self._session = aiohttp.ClientSession(**kwargs)
         self._timeout = timeout
