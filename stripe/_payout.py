@@ -86,6 +86,9 @@ class Payout(
 
     class ListParams(RequestOptions):
         arrival_date: NotRequired["Payout.ListParamsArrivalDate|int"]
+        """
+        Only return payouts that are expected to arrive during the given date interval.
+        """
         created: NotRequired["Payout.ListParamsCreated|int"]
         """
         Only return payouts that were created during the given date interval.
