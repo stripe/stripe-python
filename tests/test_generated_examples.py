@@ -10939,6 +10939,123 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_tax_ids_delete(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.TaxId.delete("taxid_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/tax_ids/taxid_123",
+            query_string="",
+        )
+
+    def test_tax_ids_delete_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/tax_ids/taxid_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.delete("taxid_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/tax_ids/taxid_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_get(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.TaxId.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids",
+            query_string="",
+        )
+
+    def test_tax_ids_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_ids",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_get_2(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.TaxId.retrieve("taxid_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids/taxid_123",
+            query_string="",
+        )
+
+    def test_tax_ids_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_ids/taxid_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.retrieve("taxid_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids/taxid_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_post(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.TaxId.create(
+            type="eu_vat",
+            value="123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_ids",
+            query_string="",
+            post_data="type=eu_vat&value=123",
+        )
+
+    def test_tax_ids_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax_ids",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.create({"type": "eu_vat", "value": "123"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_ids",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=eu_vat&value=123",
+        )
+
     def test_tax_rates_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.TaxRate.list(limit=3)
         http_client_mock.assert_requested(
