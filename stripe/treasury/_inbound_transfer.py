@@ -122,7 +122,7 @@ class InboundTransfer(
             """
             network: Literal["ach"]
             """
-            The US bank account network used to debit funds.
+            The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             """
             routing_number: Optional[str]
             """
