@@ -98,7 +98,7 @@ class OutboundTransfer(
             """
             network: Literal["ach", "us_domestic_wire"]
             """
-            The US bank account network used to send funds.
+            The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             """
             routing_number: Optional[str]
             """
@@ -235,7 +235,7 @@ class OutboundTransfer(
     class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
         network: NotRequired["Literal['ach', 'us_domestic_wire']"]
         """
-        Designate the OutboundTransfer as using a US bank account network configuration.
+        Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         """
 
     class CreateParamsNetworkDetails(TypedDict):

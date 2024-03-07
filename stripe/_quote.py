@@ -1442,6 +1442,7 @@ class Quote(
         A precise Unix timestamp.
         """
         type: Literal[
+            "billing_period_end",
             "discount_end",
             "duration",
             "quote_acceptance_date",
@@ -2907,6 +2908,7 @@ class Quote(
         A precise Unix timestamp.
         """
         type: Literal[
+            "billing_period_end",
             "discount_end",
             "duration",
             "quote_acceptance_date",

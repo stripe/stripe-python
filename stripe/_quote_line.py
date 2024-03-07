@@ -355,6 +355,7 @@ class QuoteLine(StripeObject):
         A precise Unix timestamp.
         """
         type: Literal[
+            "billing_period_end",
             "discount_end",
             "duration",
             "quote_acceptance_date",

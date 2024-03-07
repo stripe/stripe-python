@@ -32,6 +32,9 @@ class AccountSessionService(StripeService):
         capital_financing_promotion: NotRequired[
             "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotion"
         ]
+        documents: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDocuments"
+        ]
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
@@ -79,6 +82,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsDocuments(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDocumentsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPaymentDetails(TypedDict):

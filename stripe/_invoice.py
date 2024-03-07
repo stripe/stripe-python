@@ -669,6 +669,9 @@ class Invoice(
             class Konbini(StripeObject):
                 pass
 
+            class SepaDebit(StripeObject):
+                pass
+
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
                     permissions: Optional[
@@ -729,6 +732,10 @@ class Invoice(
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
             """
+            sepa_debit: Optional[SepaDebit]
+            """
+            If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+            """
             us_bank_account: Optional[UsBankAccount]
             """
             If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
@@ -739,6 +746,7 @@ class Invoice(
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
+                "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -948,7 +956,8 @@ class Invoice(
 
         metadata: Optional[Dict[str, str]]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will reflect the metadata of the subscription at the time of invoice creation. *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+         *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         """
         pause_collection: Optional[PauseCollection]
         """
@@ -1368,6 +1377,12 @@ class Invoice(
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -1488,6 +1503,9 @@ class Invoice(
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
@@ -4156,6 +4174,12 @@ class Invoice(
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -4276,6 +4300,9 @@ class Invoice(
         """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
