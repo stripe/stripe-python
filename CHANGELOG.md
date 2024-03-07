@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.7.0b1 - 2024-03-07
+* [#1265](https://github.com/stripe/stripe-python/pull/1265) Update generated code for beta
+  * Add support for new value `billing_period_end` on enums `Quote.CreateParamsLineEndsAt.type`, `QuoteLine.EndsAt.type`, and `Quote.ModifyParamsLineEndsAt.type`
+
 ## 8.6.0b1 - 2024-02-29
 * [#1251](https://github.com/stripe/stripe-python/pull/1251) Update generated code for beta
   * Remove support for resource `Entitlements.Event`
