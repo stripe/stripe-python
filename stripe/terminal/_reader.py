@@ -92,7 +92,13 @@ class Reader(
                     """
 
                 custom_text: Optional[CustomText]
+                """
+                Default text of input being collected.
+                """
                 required: Optional[bool]
+                """
+                Indicate that this input is required, disabling the skip button.
+                """
                 selection: Optional[Selection]
                 """
                 Information about a selection being collected using a reader
@@ -102,6 +108,9 @@ class Reader(
                 Information about a signature being collected using a reader
                 """
                 skipped: Optional[bool]
+                """
+                Indicate that this input was skipped by the user.
+                """
                 type: Literal[
                     "email",
                     "numeric",
@@ -111,7 +120,7 @@ class Reader(
                     "text",
                 ]
                 """
-                Which supported input type will be collected.
+                Type of input being collected.
                 """
                 _inner_class_types = {
                     "custom_text": CustomText,
