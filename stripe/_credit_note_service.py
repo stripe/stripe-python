@@ -138,6 +138,10 @@ class CreditNoteService(StripeService):
         """
 
     class ListParams(TypedDict):
+        created: NotRequired["CreditNoteService.ListParamsCreated|int"]
+        """
+        Only return credit notes that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         Only return credit notes for the customer specified by this customer ID.
@@ -161,6 +165,24 @@ class CreditNoteService(StripeService):
         starting_after: NotRequired["str"]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
         """
 
     class PreviewParams(TypedDict):

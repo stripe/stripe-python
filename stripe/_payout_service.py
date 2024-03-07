@@ -56,6 +56,9 @@ class PayoutService(StripeService):
 
     class ListParams(TypedDict):
         arrival_date: NotRequired["PayoutService.ListParamsArrivalDate|int"]
+        """
+        Only return payouts that are expected to arrive during the given date interval.
+        """
         created: NotRequired["PayoutService.ListParamsCreated|int"]
         """
         Only return payouts that were created during the given date interval.

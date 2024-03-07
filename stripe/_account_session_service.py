@@ -29,6 +29,9 @@ class AccountSessionService(StripeService):
         """
         Configuration for the account onboarding embedded component.
         """
+        documents: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDocuments"
+        ]
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
@@ -61,6 +64,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsDocuments(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDocumentsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPaymentDetails(TypedDict):

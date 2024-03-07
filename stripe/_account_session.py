@@ -32,6 +32,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class Documents(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class PaymentDetails(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -99,11 +110,13 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             _inner_class_types = {"features": Features}
 
         account_onboarding: AccountOnboarding
+        documents: Documents
         payment_details: PaymentDetails
         payments: Payments
         payouts: Payouts
         _inner_class_types = {
             "account_onboarding": AccountOnboarding,
+            "documents": Documents,
             "payment_details": PaymentDetails,
             "payments": Payments,
             "payouts": Payouts,
@@ -130,6 +143,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
+        documents: NotRequired[
+            "AccountSession.CreateParamsComponentsDocuments"
+        ]
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
         ]
@@ -158,6 +174,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsDocuments(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsDocumentsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPaymentDetails(TypedDict):

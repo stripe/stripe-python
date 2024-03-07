@@ -1118,6 +1118,12 @@ class SessionService(StripeService):
         """
         Installment options for card payments
         """
+        request_three_d_secure: NotRequired[
+            "Literal['any', 'automatic', 'challenge']"
+        ]
+        """
+        We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+        """
         setup_future_usage: NotRequired["Literal['off_session', 'on_session']"]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
