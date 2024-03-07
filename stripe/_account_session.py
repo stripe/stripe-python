@@ -43,6 +43,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class Documents(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class PaymentDetails(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -111,12 +122,14 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         account_onboarding: AccountOnboarding
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
+        documents: Documents
         payment_details: PaymentDetails
         payments: Payments
         payouts: Payouts
         _inner_class_types = {
             "account_onboarding": AccountOnboarding,
             "capital_financing_promotion": CapitalFinancingPromotion,
+            "documents": Documents,
             "payment_details": PaymentDetails,
             "payments": Payments,
             "payouts": Payouts,
