@@ -273,6 +273,12 @@ class InvoiceService(StripeService):
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -393,6 +399,9 @@ class InvoiceService(StripeService):
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
@@ -1552,6 +1561,12 @@ class InvoiceService(StripeService):
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -1672,6 +1687,9 @@ class InvoiceService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
