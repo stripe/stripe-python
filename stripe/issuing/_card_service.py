@@ -28,6 +28,10 @@ class CardService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        personalization_design: NotRequired["str"]
+        """
+        The personalization design object belonging to this card.
+        """
         pin: NotRequired["CardService.CreateParamsPin"]
         """
         The desired PIN for this card.
@@ -205,6 +209,7 @@ class CardService(StripeService):
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
+        personalization_design: NotRequired["str"]
         starting_after: NotRequired["str"]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -255,6 +260,7 @@ class CardService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        personalization_design: NotRequired["str"]
         pin: NotRequired["CardService.UpdateParamsPin"]
         """
         The desired new PIN for this card.
