@@ -4,6 +4,14 @@
 * [#1265](https://github.com/stripe/stripe-python/pull/1265) Update generated code for beta
   * Add support for new value `billing_period_end` on enums `Quote.CreateParamsLineEndsAt.type`, `QuoteLine.EndsAt.type`, and `Quote.ModifyParamsLineEndsAt.type`
 
+## 8.6.0 - 2024-03-07
+* [#1267](https://github.com/stripe/stripe-python/pull/1267) Update generated code
+  * Add support for `documents` on `AccountSession.Components`
+  * Add support for `request_three_d_secure` on `Checkout.Session.PaymentMethodOptionsCard` and `Checkout.Session.CreateParams.PaymentMethodOptionsCard`
+  * Add support for `created` on `CreditNote.ListParams`
+  * Add support for `sepa_debit` on `Invoice.PaymentSettings.PaymentMethodOptions`, `InvoiceCreateParams.PaymentSettings.PaymentMethodOptions`, and `InvoiceUpdateParams.PaymentSettings.PaymentMethodOptions`
+* [#1268](https://github.com/stripe/stripe-python/pull/1268) Update README.md
+
 ## 8.6.0b1 - 2024-02-29
 * [#1251](https://github.com/stripe/stripe-python/pull/1251) Update generated code for beta
   * Remove support for resource `Entitlements.Event`
