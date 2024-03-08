@@ -2131,7 +2131,7 @@ class Account(
     class CreateParamsControllerDashboard(TypedDict):
         type: NotRequired["Literal['express', 'full', 'none']"]
         """
-        Whether this account should have access to the full Stripe dashboard (`full`) or no dashboard (`none`).
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no dashboard (`none`). Defaults to `full`.
         """
 
     class CreateParamsDocuments(TypedDict):
