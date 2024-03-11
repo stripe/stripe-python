@@ -5948,6 +5948,82 @@ class TestGeneratedExamples(object):
             post_data="settings[reconciliation_mode]=manual",
         )
 
+    def test_customers_cash_balance_transactions_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.Customer.list_cash_balance_transactions(
+            "cus_123",
+            limit=3,
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance_transactions",
+            query_string="limit=3",
+        )
+
+    def test_customers_cash_balance_transactions_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_123/cash_balance_transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.cash_balance_transactions.list(
+            "cus_123",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance_transactions",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_customers_cash_balance_transactions_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.Customer.list_cash_balance_transactions_async(
+            "cus_123",
+            limit=3,
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance_transactions",
+            query_string="limit=3",
+        )
+
+    @pytest.mark.anyio
+    async def test_customers_cash_balance_transactions_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_123/cash_balance_transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.customers.cash_balance_transactions.list_async(
+            "cus_123",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance_transactions",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
     def test_customers_delete(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Customer.delete("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
