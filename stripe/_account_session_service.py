@@ -32,6 +32,9 @@ class AccountSessionService(StripeService):
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
+        """
+        Configuration for the documents embedded component.
+        """
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
