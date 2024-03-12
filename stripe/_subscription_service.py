@@ -51,7 +51,7 @@ class SubscriptionService(StripeService):
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this subscription. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired["Literal['']|float"]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -813,7 +813,7 @@ class SubscriptionService(StripeService):
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this subscription. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired["Literal['']|float"]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
