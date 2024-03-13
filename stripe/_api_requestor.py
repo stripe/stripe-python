@@ -655,6 +655,9 @@ class _APIRequestor(object):
         Mechanism for issuing an API call
         """
 
+        _usage = _usage or []
+        _usage = _usage + ["async"]
+
         # TODO - we can DRY this up, but we should do it in master too to avoid a perpetual source
         # of merge conflicts.
         request_options = merge_options(self._options, options)

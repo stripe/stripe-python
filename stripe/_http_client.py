@@ -502,7 +502,7 @@ class HTTPClient(object):
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Mapping[str, str]]:
-        self._add_telemetry_header(headers)
+        headers = self._add_telemetry_header(headers)
 
         num_retries = 0
 
