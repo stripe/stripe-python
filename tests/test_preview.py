@@ -93,7 +93,7 @@ class TestPreview(object):
             api_base=stripe.api_base,
             path="/v1/accounts/acc_123",
             stripe_version=_ApiVersion.PREVIEW,
-            usage=["raw_request"],
+            usage=["raw_request", "async"],
         )
 
         assert resp.body == expected_body
@@ -117,7 +117,7 @@ class TestPreview(object):
             path="/v1/accounts",
             content_type="application/json",
             stripe_version=_ApiVersion.PREVIEW,
-            usage=["raw_request"],
+            usage=["raw_request", "async"],
             post_data='{"arg": "string"}',
             is_json=True,
         )
@@ -142,7 +142,7 @@ class TestPreview(object):
             api_base=stripe.api_base,
             path="/v1/accounts/acc_123",
             stripe_version=_ApiVersion.PREVIEW,
-            usage=["raw_request"],
+            usage=["raw_request", "async"],
         )
 
         assert resp.body == expected_body
