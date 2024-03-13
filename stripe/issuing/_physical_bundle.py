@@ -26,6 +26,10 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         """
         The policy for how to use carrier letter text in a card design with this physical bundle.
         """
+        second_line: Literal["optional", "required", "unsupported"]
+        """
+        The policy for how to use a second line on a card with this physical bundle.
+        """
 
     class ListParams(RequestOptions):
         ending_before: NotRequired["str"]
