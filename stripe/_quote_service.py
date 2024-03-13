@@ -622,6 +622,7 @@ class QuoteService(StripeService):
         A precise Unix timestamp.
         """
         type: Literal[
+            "billing_period_end",
             "discount_end",
             "duration",
             "quote_acceptance_date",
@@ -2049,6 +2050,7 @@ class QuoteService(StripeService):
         A precise Unix timestamp.
         """
         type: Literal[
+            "billing_period_end",
             "discount_end",
             "duration",
             "quote_acceptance_date",
