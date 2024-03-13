@@ -565,6 +565,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Multibanco(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -807,28 +829,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class Multibanco(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Netbanking(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1019,6 +1019,12 @@ class PaymentMethodConfiguration(
         link: NotRequired["PaymentMethodConfiguration.CreateParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
         """
         name: NotRequired["str"]
         """
@@ -1429,6 +1435,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
@@ -1707,6 +1727,12 @@ class PaymentMethodConfiguration(
         link: NotRequired["PaymentMethodConfiguration.ModifyParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
         """
         name: NotRequired["str"]
         """
@@ -2113,6 +2139,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
@@ -2303,6 +2343,7 @@ class PaymentMethodConfiguration(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    multibanco: Optional[Multibanco]
     name: str
     """
     The configuration's name.
@@ -2326,7 +2367,6 @@ class PaymentMethodConfiguration(
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
     id_bank_transfer: Optional[IdBankTransfer]
-    multibanco: Optional[Multibanco]
     netbanking: Optional[Netbanking]
     pay_by_bank: Optional[PayByBank]
     upi: Optional[Upi]
@@ -2494,6 +2534,7 @@ class PaymentMethodConfiguration(
         "klarna": Klarna,
         "konbini": Konbini,
         "link": Link,
+        "multibanco": Multibanco,
         "oxxo": Oxxo,
         "p24": P24,
         "paynow": Paynow,
@@ -2505,7 +2546,6 @@ class PaymentMethodConfiguration(
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "id_bank_transfer": IdBankTransfer,
-        "multibanco": Multibanco,
         "netbanking": Netbanking,
         "pay_by_bank": PayByBank,
         "upi": Upi,
