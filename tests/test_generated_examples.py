@@ -13020,6 +13020,392 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_issuing_personalization_designs_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+        )
+
+    def test_issuing_personalization_designs_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.list_async()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.personalization_designs.list_async()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_personalization_designs_get_2(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.retrieve("pd_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+        )
+
+    def test_issuing_personalization_designs_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.retrieve("pd_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_get_2_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.retrieve_async("pd_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_get_2_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.personalization_designs.retrieve_async("pd_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_personalization_designs_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.create(physical_bundle="pb_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            post_data="physical_bundle=pb_xyz",
+        )
+
+    def test_issuing_personalization_designs_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.create(
+            {
+                "physical_bundle": "pb_xyz",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="physical_bundle=pb_xyz",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.create_async(
+            physical_bundle="pb_xyz",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            post_data="physical_bundle=pb_xyz",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.personalization_designs.create_async(
+            {
+                "physical_bundle": "pb_xyz",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="physical_bundle=pb_xyz",
+        )
+
+    def test_issuing_personalization_designs_post_2(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.modify("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+        )
+
+    def test_issuing_personalization_designs_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.update("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_post_2_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.modify_async("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_personalization_designs_post_2_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.personalization_designs.update_async("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_physical_bundles_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PhysicalBundle.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles",
+            query_string="",
+        )
+
+    def test_issuing_physical_bundles_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.physical_bundles.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_physical_bundles_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PhysicalBundle.list_async()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_physical_bundles_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.physical_bundles.list_async()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_physical_bundles_get_2(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PhysicalBundle.retrieve("pb_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles/pb_xyz",
+            query_string="",
+        )
+
+    def test_issuing_physical_bundles_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles/pb_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.physical_bundles.retrieve("pb_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles/pb_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_physical_bundles_get_2_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PhysicalBundle.retrieve_async("pb_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles/pb_xyz",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_issuing_physical_bundles_get_2_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles/pb_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.issuing.physical_bundles.retrieve_async("pb_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles/pb_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_issuing_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -26561,6 +26947,218 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_activate_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.TestHelpers.activate("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+            query_string="",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_activate_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.activate("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_activate_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.TestHelpers.activate_async(
+            "pd_xyz",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_activate_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.test_helpers.issuing.personalization_designs.activate_async(
+            "pd_xyz"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_deactivate_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.TestHelpers.deactivate("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+            query_string="",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_deactivate_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.deactivate(
+            "pd_xyz"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_deactivate_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.TestHelpers.deactivate_async(
+            "pd_xyz",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_deactivate_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.test_helpers.issuing.personalization_designs.deactivate_async(
+            "pd_xyz"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_reject_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.issuing.PersonalizationDesign.TestHelpers.reject(
+            "pd_xyz",
+            rejection_reasons={"card_logo": ["geographic_location"]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+            query_string="",
+            post_data="rejection_reasons[card_logo][0]=geographic_location",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_reject_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.reject(
+            "pd_xyz",
+            {"rejection_reasons": {"card_logo": ["geographic_location"]}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="rejection_reasons[card_logo][0]=geographic_location",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_reject_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.issuing.PersonalizationDesign.TestHelpers.reject_async(
+            "pd_xyz",
+            rejection_reasons={"card_logo": ["geographic_location"]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+            query_string="",
+            post_data="rejection_reasons[card_logo][0]=geographic_location",
+        )
+
+    @pytest.mark.anyio
+    async def test_test_helpers_issuing_personalization_designs_reject_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.test_helpers.issuing.personalization_designs.reject_async(
+            "pd_xyz",
+            {"rejection_reasons": {"card_logo": ["geographic_location"]}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="rejection_reasons[card_logo][0]=geographic_location",
         )
 
     def test_test_helpers_issuing_transactions_create_force_capture_post(
