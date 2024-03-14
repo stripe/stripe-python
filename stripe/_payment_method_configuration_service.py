@@ -153,6 +153,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
         """
+        multibanco: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
+        """
         name: NotRequired["str"]
         """
         Configuration name.
@@ -568,6 +574,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsOxxoDisplayPreference"
@@ -870,6 +890,12 @@ class PaymentMethodConfigurationService(StripeService):
         link: NotRequired["PaymentMethodConfigurationService.UpdateParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
         """
         name: NotRequired["str"]
         """
@@ -1277,6 +1303,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsLinkDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsMultibancoDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.

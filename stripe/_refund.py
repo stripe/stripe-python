@@ -140,6 +140,16 @@ class Refund(
         class Klarna(StripeObject):
             pass
 
+        class Multibanco(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class MxBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -227,6 +237,7 @@ class Refund(
         grabpay: Optional[Grabpay]
         jp_bank_transfer: Optional[JpBankTransfer]
         klarna: Optional[Klarna]
+        multibanco: Optional[Multibanco]
         mx_bank_transfer: Optional[MxBankTransfer]
         p24: Optional[P24]
         paynow: Optional[Paynow]
@@ -260,6 +271,7 @@ class Refund(
             "grabpay": Grabpay,
             "jp_bank_transfer": JpBankTransfer,
             "klarna": Klarna,
+            "multibanco": Multibanco,
             "mx_bank_transfer": MxBankTransfer,
             "p24": P24,
             "paynow": Paynow,

@@ -37,17 +37,18 @@ from stripe._application_fee_service import ApplicationFeeService
 from stripe._apps_service import AppsService
 from stripe._balance_service import BalanceService
 from stripe._balance_transaction_service import BalanceTransactionService
+from stripe._billing_service import BillingService
 from stripe._billing_portal_service import BillingPortalService
 from stripe._capital_service import CapitalService
 from stripe._charge_service import ChargeService
 from stripe._checkout_service import CheckoutService
 from stripe._climate_service import ClimateService
 from stripe._confirmation_token_service import ConfirmationTokenService
+from stripe._test_helpers_service import TestHelpersService
 from stripe._country_spec_service import CountrySpecService
 from stripe._coupon_service import CouponService
 from stripe._credit_note_service import CreditNoteService
 from stripe._customer_service import CustomerService
-from stripe._test_helpers_service import TestHelpersService
 from stripe._customer_session_service import CustomerSessionService
 from stripe._dispute_service import DisputeService
 from stripe._entitlements_service import EntitlementsService
@@ -185,17 +186,18 @@ class StripeClient(object):
         self.apps = AppsService(self._requestor)
         self.balance = BalanceService(self._requestor)
         self.balance_transactions = BalanceTransactionService(self._requestor)
+        self.billing = BillingService(self._requestor)
         self.billing_portal = BillingPortalService(self._requestor)
         self.capital = CapitalService(self._requestor)
         self.charges = ChargeService(self._requestor)
         self.checkout = CheckoutService(self._requestor)
         self.climate = ClimateService(self._requestor)
         self.confirmation_tokens = ConfirmationTokenService(self._requestor)
+        self.test_helpers = TestHelpersService(self._requestor)
         self.country_specs = CountrySpecService(self._requestor)
         self.coupons = CouponService(self._requestor)
         self.credit_notes = CreditNoteService(self._requestor)
         self.customers = CustomerService(self._requestor)
-        self.test_helpers = TestHelpersService(self._requestor)
         self.customer_sessions = CustomerSessionService(self._requestor)
         self.disputes = DisputeService(self._requestor)
         self.entitlements = EntitlementsService(self._requestor)

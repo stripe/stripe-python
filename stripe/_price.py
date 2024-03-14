@@ -156,6 +156,10 @@ class Price(
         """
         The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
         """
+        meter: Optional[str]
+        """
+        The meter tracking the usage of a metered price
+        """
         trial_period_days: Optional[int]
         """
         Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
@@ -410,6 +414,10 @@ class Price(
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
+        meter: NotRequired["str"]
+        """
+        The meter tracking the usage of a metered price
+        """
         trial_period_days: NotRequired["int"]
         """
         Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
@@ -519,6 +527,10 @@ class Price(
         interval: NotRequired["Literal['day', 'month', 'week', 'year']"]
         """
         Filter by billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        meter: NotRequired["str"]
+        """
+        Filter by the price's meter.
         """
         usage_type: NotRequired["Literal['licensed', 'metered']"]
         """
