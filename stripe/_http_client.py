@@ -1,3 +1,4 @@
+from functools import cached_property
 from io import BytesIO
 import sys
 import textwrap
@@ -1394,6 +1395,10 @@ class AIOHTTPClient(HTTPClient):
                 "Unexpected: tried to initialize AIOHTTPClient but the aiohttp module is not present."
             )
 
+        self._timeout = timeout
+
+    @cached_property
+    def _session(self):
         kwargs = {}
         if self._verify_ssl_certs:
             ssl_context = ssl.create_default_context(
@@ -1403,8 +1408,7 @@ class AIOHTTPClient(HTTPClient):
         else:
             kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
 
-        self._session = aiohttp.ClientSession(**kwargs)
-        self._timeout = timeout
+        return aiohttp.ClientSession(**kwargs)
 
     def sleep_async(self, secs):
         return asyncio.sleep(secs)
