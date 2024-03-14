@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.8.0b1 - 2024-03-14
+* [#1270](https://github.com/stripe/stripe-python/pull/1270) Update generated code for beta
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `modify`, `reactivate`, and `retrieve` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+  * Add support for `create` test helper method on resource `ConfirmationToken`
+  * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
+* [#1266](https://github.com/stripe/stripe-python/pull/1266) Beta: record usage of async interface
+
 ## 8.7.0 - 2024-03-14
 * [#1269](https://github.com/stripe/stripe-python/pull/1269) Update generated code
   * Add support for `personalization_design` on parameter classes `CardService.CreateParams`, `CardService.ListParams`, `CardService.UpdateParams`, `stripe.issuing.Card.CreateParams`, `stripe.issuing.Card.ListParams`, and `stripe.issuing.Card.ModifyParams` and resource `stripe.issuing.Card`
