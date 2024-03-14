@@ -70,9 +70,7 @@ class TestNewHttpClientAsyncFallback(StripeClientTestCase):
     def test_new_http_client_async_fallback_httpx(self, request_mocks):
         self.check_default((), _http_client.HTTPXClient)
 
-    def test_new_http_client_async_fallback_aiohttp(
-        self, request_mocks
-    ):
+    def test_new_http_client_async_fallback_aiohttp(self, request_mocks):
         self.check_default(
             (("httpx"),),
             _http_client.AIOHTTPClient,
