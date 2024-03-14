@@ -1,3 +1,12 @@
+## 8.7.0 - 2024-03-14
+* [#1269](https://github.com/stripe/stripe-python/pull/1269) Update generated code
+  * Add support for `personalization_design` on parameter classes `CardService.CreateParams`, `CardService.ListParams`, `CardService.UpdateParams`, `stripe.issuing.Card.CreateParams`, `stripe.issuing.Card.ListParams`, and `stripe.issuing.Card.ModifyParams` and resource `stripe.issuing.Card`
+  * Add support for `sepa_debit` on parameter classes `SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptions`, `SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptions`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptions`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptions` and resource class `stripe.Subscription.PaymentSettings.PaymentMethodOptions`
+  * Add support for resource `stripe.issuing.PersonalizationDesign`
+  * Add support for resource `stripe.issuing.PhysicalBundle`
+  * Change type from `float` to `Literal['']|float` of `application_fee_percent` on fields `stripe.Subscription.CreateParams`, `stripe.Subscription.ModifyParams`, `SubscriptionService.UpdateParams`, and `SubscriptionService.CreateParams`
+  
+
 ## 8.6.0 - 2024-03-07
 * [#1267](https://github.com/stripe/stripe-python/pull/1267) Update generated code
   * Add support for `documents` on `AccountSession.Components`
