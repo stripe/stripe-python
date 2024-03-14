@@ -244,6 +244,9 @@ class Subscription(
             class Konbini(StripeObject):
                 pass
 
+            class SepaDebit(StripeObject):
+                pass
+
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
                     permissions: Optional[
@@ -294,6 +297,10 @@ class Subscription(
             """
             This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
             """
+            sepa_debit: Optional[SepaDebit]
+            """
+            This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
+            """
             us_bank_account: Optional[UsBankAccount]
             """
             This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
@@ -304,6 +311,7 @@ class Subscription(
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
+                "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -450,7 +458,7 @@ class Subscription(
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this subscription. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired["Literal['']|float"]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -854,6 +862,12 @@ class Subscription(
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -962,6 +976,9 @@ class Subscription(
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
@@ -1156,7 +1173,7 @@ class Subscription(
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this subscription. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired["Literal['']|float"]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -1564,6 +1581,12 @@ class Subscription(
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
         """
+        sepa_debit: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        This sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -1672,6 +1695,9 @@ class Subscription(
         """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
+        pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(

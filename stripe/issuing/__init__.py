@@ -12,6 +12,16 @@ from stripe.issuing._cardholder_service import (
 )
 from stripe.issuing._dispute import Dispute as Dispute
 from stripe.issuing._dispute_service import DisputeService as DisputeService
+from stripe.issuing._personalization_design import (
+    PersonalizationDesign as PersonalizationDesign,
+)
+from stripe.issuing._personalization_design_service import (
+    PersonalizationDesignService as PersonalizationDesignService,
+)
+from stripe.issuing._physical_bundle import PhysicalBundle as PhysicalBundle
+from stripe.issuing._physical_bundle_service import (
+    PhysicalBundleService as PhysicalBundleService,
+)
 from stripe.issuing._token import Token as Token
 from stripe.issuing._token_service import TokenService as TokenService
 from stripe.issuing._transaction import Transaction as Transaction

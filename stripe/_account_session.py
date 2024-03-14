@@ -146,6 +146,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         documents: NotRequired[
             "AccountSession.CreateParamsComponentsDocuments"
         ]
+        """
+        Configuration for the documents embedded component.
+        """
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
         ]
