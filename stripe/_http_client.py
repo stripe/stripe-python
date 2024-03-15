@@ -1,4 +1,3 @@
-from functools import cached_property
 from io import BytesIO
 import sys
 import textwrap
@@ -1397,20 +1396,23 @@ class AIOHTTPClient(HTTPClient):
 
         self._timeout = timeout
 
-    @cached_property
+    @property
     def _session(self):
         assert aiohttp is not None
 
-        kwargs = {}
-        if self._verify_ssl_certs:
-            ssl_context = ssl.create_default_context(
-                cafile=stripe.ca_bundle_path
-            )
-            kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
-        else:
-            kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
+        if self._cached_session is None:
+            kwargs = {}
+            if self._verify_ssl_certs:
+                ssl_context = ssl.create_default_context(
+                    cafile=stripe.ca_bundle_path
+                )
+                kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
+            else:
+                kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
 
-        return aiohttp.ClientSession(**kwargs)
+            self._cached_session = aiohttp.ClientSession(**kwargs)
+
+        return self._cached_session
 
     def sleep_async(self, secs):
         return asyncio.sleep(secs)
