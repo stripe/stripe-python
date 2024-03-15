@@ -1399,6 +1399,8 @@ class AIOHTTPClient(HTTPClient):
 
     @cached_property
     def _session(self):
+        assert aiohttp is not None
+
         kwargs = {}
         if self._verify_ssl_certs:
             ssl_context = ssl.create_default_context(
