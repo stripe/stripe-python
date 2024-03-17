@@ -1395,6 +1395,7 @@ class AIOHTTPClient(HTTPClient):
             )
 
         self._timeout = timeout
+        self._cached_session = None
 
     @property
     def _session(self):
