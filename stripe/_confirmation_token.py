@@ -1897,6 +1897,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     Shipping information collected on this ConfirmationToken.
     """
+    use_stripe_sdk: bool
+    """
+    Indicates whether the Stripe SDK is used to handle confirmation flow. Defaults to `true` on ConfirmationToken.
+    """
 
     @classmethod
     def retrieve(
