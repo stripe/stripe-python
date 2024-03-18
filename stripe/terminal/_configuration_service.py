@@ -21,6 +21,10 @@ class ConfigurationService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        name: NotRequired["str"]
+        """
+        Name of the configuration
+        """
         offline: NotRequired[
             "Literal['']|ConfigurationService.CreateParamsOffline"
         ]
@@ -353,6 +357,10 @@ class ConfigurationService(StripeService):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
+        """
+        name: NotRequired["str"]
+        """
+        Name of the configuration
         """
         offline: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsOffline"
