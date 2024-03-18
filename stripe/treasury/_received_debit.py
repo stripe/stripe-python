@@ -136,6 +136,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://stripe.com/docs/api#issuing_disputes) object.
         """
+        payout: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
+        """
         received_credit_capital_withholding: Optional[str]
         """
         The ReceivedCredit that Capital withheld from
