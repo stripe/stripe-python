@@ -14906,7 +14906,9 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.features.list("fa_xxxxxxxxxxxxx")
+        client.treasury.financial_accounts.features.retrieve(
+            "fa_xxxxxxxxxxxxx"
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
