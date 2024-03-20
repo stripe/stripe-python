@@ -50,6 +50,7 @@ from stripe._exchange_rate_service import ExchangeRateService
 from stripe._file_service import FileService
 from stripe._file_link_service import FileLinkService
 from stripe._financial_connections_service import FinancialConnectionsService
+from stripe._forwarding_service import ForwardingService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
 from stripe._invoice_item_service import InvoiceItemService
@@ -189,6 +190,7 @@ class StripeClient(object):
         self.financial_connections = FinancialConnectionsService(
             self._requestor
         )
+        self.forwarding = ForwardingService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
         self.invoice_items = InvoiceItemService(self._requestor)

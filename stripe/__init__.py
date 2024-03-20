@@ -214,6 +214,7 @@ from stripe import (
     checkout as checkout,
     climate as climate,
     financial_connections as financial_connections,
+    forwarding as forwarding,
     identity as identity,
     issuing as issuing,
     radar as radar,
@@ -358,6 +359,7 @@ from stripe._file_service import FileService as FileService
 from stripe._financial_connections_service import (
     FinancialConnectionsService as FinancialConnectionsService,
 )
+from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )

@@ -22,6 +22,7 @@ if not TYPE_CHECKING:
         checkout,
         climate,
         financial_connections,
+        forwarding,
         identity,
         issuing,
         radar,
