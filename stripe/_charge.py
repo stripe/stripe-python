@@ -1621,6 +1621,10 @@ class Charge(
             """
             Last four digits of the bank account number.
             """
+            payment_reference: Optional[str]
+            """
+            Reference number to locate ACH payments with customer's bank.
+            """
             routing_number: Optional[str]
             """
             Routing number of the bank account.
