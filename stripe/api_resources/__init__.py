@@ -25,6 +25,7 @@ if not TYPE_CHECKING:
         climate,
         entitlements,
         financial_connections,
+        forwarding,
         gift_cards,
         identity,
         issuing,

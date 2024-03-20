@@ -238,6 +238,7 @@ from stripe import (
     climate as climate,
     entitlements as entitlements,
     financial_connections as financial_connections,
+    forwarding as forwarding,
     gift_cards as gift_cards,
     identity as identity,
     issuing as issuing,
@@ -404,6 +405,7 @@ from stripe._file_service import FileService as FileService
 from stripe._financial_connections_service import (
     FinancialConnectionsService as FinancialConnectionsService,
 )
+from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )
