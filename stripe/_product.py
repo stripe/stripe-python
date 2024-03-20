@@ -57,7 +57,7 @@ class Product(
     class Feature(StripeObject):
         name: Optional[str]
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class PackageDimensions(StripeObject):
@@ -97,7 +97,7 @@ class Product(
         """
         features: NotRequired["List[Product.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -262,7 +262,7 @@ class Product(
     class CreateParamsFeature(TypedDict):
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class CreateParamsPackageDimensions(TypedDict):
@@ -365,7 +365,7 @@ class Product(
         """
         features: NotRequired["Literal['']|List[Product.ModifyParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -412,7 +412,7 @@ class Product(
     class ModifyParamsFeature(TypedDict):
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class ModifyParamsPackageDimensions(TypedDict):
@@ -475,7 +475,7 @@ class Product(
     """
     features: List[Feature]
     """
-    A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
     """
     id: str
     """

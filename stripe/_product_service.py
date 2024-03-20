@@ -32,7 +32,7 @@ class ProductService(StripeService):
         """
         features: NotRequired["List[ProductService.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -199,7 +199,7 @@ class ProductService(StripeService):
     class CreateParamsFeature(TypedDict):
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class CreateParamsPackageDimensions(TypedDict):
@@ -328,7 +328,7 @@ class ProductService(StripeService):
             "Literal['']|List[ProductService.UpdateParamsFeature]"
         ]
         """
-        A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -375,7 +375,7 @@ class ProductService(StripeService):
     class UpdateParamsFeature(TypedDict):
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class UpdateParamsPackageDimensions(TypedDict):
