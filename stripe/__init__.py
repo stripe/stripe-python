@@ -474,6 +474,10 @@ from stripe._platform_tax_fee import PlatformTaxFee as PlatformTaxFee
 from stripe._price import Price as Price
 from stripe._price_service import PriceService as PriceService
 from stripe._product import Product as Product
+from stripe._product_feature import ProductFeature as ProductFeature
+from stripe._product_feature_service import (
+    ProductFeatureService as ProductFeatureService,
+)
 from stripe._product_service import ProductService as ProductService
 from stripe._promotion_code import PromotionCode as PromotionCode
 from stripe._promotion_code_service import (

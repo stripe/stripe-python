@@ -96,6 +96,7 @@ OBJECT_CLASSES = {
     stripe.PlatformTaxFee.OBJECT_NAME: stripe.PlatformTaxFee,
     stripe.Price.OBJECT_NAME: stripe.Price,
     stripe.Product.OBJECT_NAME: stripe.Product,
+    stripe.ProductFeature.OBJECT_NAME: stripe.ProductFeature,
     stripe.PromotionCode.OBJECT_NAME: stripe.PromotionCode,
     stripe.Quote.OBJECT_NAME: stripe.Quote,
     stripe.QuoteLine.OBJECT_NAME: stripe.QuoteLine,
