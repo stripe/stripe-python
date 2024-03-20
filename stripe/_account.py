@@ -257,6 +257,10 @@ class Account(
         """
         The status of the link_payments capability of the account, or whether the account can directly process Link charges.
         """
+        mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the MobilepPay capability of the account, or whether the account can directly process MobilePay charges.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -1484,6 +1488,12 @@ class Account(
         """
         The link_payments capability.
         """
+        mobilepay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesMobilepayPayments"
+        ]
+        """
+        The mobilepay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -1704,6 +1714,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesLinkPayments(TypedDict):
+        requested: NotRequired["bool"]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired["bool"]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
