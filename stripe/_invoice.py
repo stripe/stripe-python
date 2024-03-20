@@ -1969,7 +1969,7 @@ class Invoice(
         """
         coupon: NotRequired["str"]
         """
-        The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired["str"]
         """
@@ -1989,7 +1989,7 @@ class Invoice(
             "Literal['']|List[Invoice.CreatePreviewParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         expand: NotRequired["List[str]"]
         """
@@ -4858,7 +4858,7 @@ class Invoice(
         """
         coupon: NotRequired["str"]
         """
-        The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired["str"]
         """
@@ -4878,7 +4878,7 @@ class Invoice(
             "Literal['']|List[Invoice.UpcomingLinesParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         ending_before: NotRequired["str"]
         """
@@ -6913,7 +6913,7 @@ class Invoice(
         """
         coupon: NotRequired["str"]
         """
-        The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired["str"]
         """
@@ -6931,7 +6931,7 @@ class Invoice(
             "Literal['']|List[Invoice.UpcomingParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         expand: NotRequired["List[str]"]
         """
