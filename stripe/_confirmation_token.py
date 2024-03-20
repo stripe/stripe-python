@@ -17,7 +17,6 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
-    from stripe._payment_method import PaymentMethod
     from stripe._setup_attempt import SetupAttempt
 
 
@@ -1866,10 +1865,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     payment_intent: Optional[str]
     """
     ID of the PaymentIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.
-    """
-    payment_method: Optional[ExpandableField["PaymentMethod"]]
-    """
-    ID of an existing PaymentMethod.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """
