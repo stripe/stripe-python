@@ -23,6 +23,12 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParams(TypedDict):
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -952,6 +958,12 @@ class SetupIntentService(StripeService):
         confirm: NotRequired["bool"]
         """
         Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary.
+        """
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
         """
         customer: NotRequired["str"]
         """

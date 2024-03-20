@@ -1906,6 +1906,12 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
         """
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this PaymentIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         error_on_requires_action: NotRequired["bool"]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
@@ -3782,6 +3788,12 @@ class PaymentIntent(
         confirmation_method: NotRequired["Literal['automatic', 'manual']"]
         """
         Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
+        """
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this PaymentIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
         """
         currency: str
         """

@@ -28,6 +28,7 @@ OBJECT_CLASSES = {
     stripe.climate.Order.OBJECT_NAME: stripe.climate.Order,
     stripe.climate.Product.OBJECT_NAME: stripe.climate.Product,
     stripe.climate.Supplier.OBJECT_NAME: stripe.climate.Supplier,
+    stripe.ConfirmationToken.OBJECT_NAME: stripe.ConfirmationToken,
     stripe.ConnectCollectionTransfer.OBJECT_NAME: stripe.ConnectCollectionTransfer,
     stripe.CountrySpec.OBJECT_NAME: stripe.CountrySpec,
     stripe.Coupon.OBJECT_NAME: stripe.Coupon,
