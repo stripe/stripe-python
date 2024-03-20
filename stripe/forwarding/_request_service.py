@@ -31,7 +31,7 @@ class RequestService(StripeService):
         """
         The field kinds to be replaced in the forwarded request.
         """
-        request: NotRequired["RequestService.CreateParamsRequest"]
+        request: "RequestService.CreateParamsRequest"
         """
         The request body and headers to be sent to the destination endpoint.
         """
