@@ -1394,17 +1394,26 @@ class AIOHTTPClient(HTTPClient):
                 "Unexpected: tried to initialize AIOHTTPClient but the aiohttp module is not present."
             )
 
-        kwargs = {}
-        if self._verify_ssl_certs:
-            ssl_context = ssl.create_default_context(
-                cafile=stripe.ca_bundle_path
-            )
-            kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
-        else:
-            kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
-
-        self._session = aiohttp.ClientSession(**kwargs)
         self._timeout = timeout
+        self._cached_session = None
+
+    @property
+    def _session(self):
+        assert aiohttp is not None
+
+        if self._cached_session is None:
+            kwargs = {}
+            if self._verify_ssl_certs:
+                ssl_context = ssl.create_default_context(
+                    cafile=stripe.ca_bundle_path
+                )
+                kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
+            else:
+                kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
+
+            self._cached_session = aiohttp.ClientSession(**kwargs)
+
+        return self._cached_session
 
     def sleep_async(self, secs):
         return asyncio.sleep(secs)
