@@ -799,6 +799,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
 
+        class Mobilepay(StripeObject):
+            pass
+
         class Oxxo(StripeObject):
             pass
 
@@ -1025,6 +1028,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
         link: Optional[Link]
+        mobilepay: Optional[Mobilepay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         paynow: Optional[Paynow]
@@ -1058,6 +1062,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -1102,6 +1107,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna": Klarna,
             "konbini": Konbini,
             "link": Link,
+            "mobilepay": Mobilepay,
             "oxxo": Oxxo,
             "p24": P24,
             "paynow": Paynow,
@@ -1312,6 +1318,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1394,6 +1406,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -1619,6 +1632,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
