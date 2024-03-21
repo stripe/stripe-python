@@ -1281,6 +1281,32 @@ class Charge(
             You could use this attribute to get a sense of international fees.
             """
 
+        class Mobilepay(StripeObject):
+            class Card(StripeObject):
+                brand: Optional[str]
+                """
+                Brand of the card used in the transaction
+                """
+                country: Optional[str]
+                """
+                Two-letter ISO code representing the country of the card
+                """
+                exp_month: Optional[int]
+                """
+                Two digit number representing the card's expiration month
+                """
+                exp_year: Optional[int]
+                """
+                Two digit number representing the card's expiration year
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the card
+                """
+
+            card: Optional[Card]
+            _inner_class_types = {"card": Card}
+
         class Multibanco(StripeObject):
             entity: Optional[str]
             """
@@ -1670,6 +1696,7 @@ class Charge(
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
         link: Optional[Link]
+        mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
@@ -1720,6 +1747,7 @@ class Charge(
             "klarna": Klarna,
             "konbini": Konbini,
             "link": Link,
+            "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "oxxo": Oxxo,
             "p24": P24,
