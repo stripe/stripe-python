@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.9.0b1 - 2024-03-21
+* [#1272](https://github.com/stripe/stripe-python/pull/1272) Update generated code for beta
+  * Add support for new resources `Entitlements.ActiveEntitlementSummary` and `Entitlements.ActiveEntitlement`
+  * Add support for `list` method on resource `ActiveEntitlement`
+* [#1271](https://github.com/stripe/stripe-python/pull/1271) Support AIOHTTPClient init without running event loop
+
 ## 8.8.0b1 - 2024-03-14
 * [#1270](https://github.com/stripe/stripe-python/pull/1270) Update generated code for beta
   * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
