@@ -291,6 +291,10 @@ class Configuration(
         """
         Specifies which fields in the response should be expanded.
         """
+        name: NotRequired["str"]
+        """
+        Name of the configuration
+        """
         offline: NotRequired["Literal['']|Configuration.CreateParamsOffline"]
         """
         Configurations for collecting transactions offline.
@@ -612,6 +616,10 @@ class Configuration(
         """
         Specifies which fields in the response should be expanded.
         """
+        name: NotRequired["str"]
+        """
+        Name of the configuration
+        """
         offline: NotRequired["Literal['']|Configuration.ModifyParamsOffline"]
         """
         Configurations for collecting transactions offline.
@@ -917,6 +925,10 @@ class Configuration(
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    name: Optional[str]
+    """
+    String indicating the name of the Configuration object, set by the user
     """
     object: Literal["terminal.configuration"]
     """

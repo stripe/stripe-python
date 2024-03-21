@@ -128,6 +128,10 @@ class SetupIntent(
                 "expired_card",
                 "financial_connections_account_inactive",
                 "financial_connections_no_successful_transaction_refresh",
+                "forwarding_api_inactive",
+                "forwarding_api_invalid_parameter",
+                "forwarding_api_upstream_connection_error",
+                "forwarding_api_upstream_connection_timeout",
                 "gift_card_balance_insufficient",
                 "gift_card_code_exists",
                 "gift_card_inactive",
@@ -901,6 +905,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataMultibanco"
         ]
@@ -987,6 +997,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -1213,6 +1224,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
@@ -1954,6 +1968,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataMultibanco"
         ]
@@ -2040,6 +2060,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -2266,6 +2287,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
@@ -2974,6 +2998,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataMultibanco"
         ]
@@ -3060,6 +3090,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -3286,6 +3317,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataMultibanco(TypedDict):

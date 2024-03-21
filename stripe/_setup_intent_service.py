@@ -238,6 +238,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataMultibanco"
         ]
@@ -342,6 +348,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -572,6 +579,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
@@ -1331,6 +1341,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataMultibanco"
         ]
@@ -1431,6 +1447,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -1659,6 +1676,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
@@ -2397,6 +2417,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataMultibanco"
         ]
@@ -2497,6 +2523,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -2725,6 +2752,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataMultibanco(TypedDict):

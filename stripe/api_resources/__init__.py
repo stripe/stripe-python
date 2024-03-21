@@ -25,6 +25,7 @@ if not TYPE_CHECKING:
         climate,
         entitlements,
         financial_connections,
+        forwarding,
         gift_cards,
         identity,
         issuing,
@@ -68,10 +69,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
-    from stripe.api_resources.customer_entitlement import CustomerEntitlement
-    from stripe.api_resources.customer_entitlement_summary import (
-        CustomerEntitlementSummary,
-    )
     from stripe.api_resources.customer_session import CustomerSession
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.dispute import Dispute
@@ -104,6 +101,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.platform_tax_fee import PlatformTaxFee
     from stripe.api_resources.price import Price
     from stripe.api_resources.product import Product
+    from stripe.api_resources.product_feature import ProductFeature
     from stripe.api_resources.promotion_code import PromotionCode
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.quote_line import QuoteLine

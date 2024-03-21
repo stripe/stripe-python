@@ -4,7 +4,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.entitlements._feature import Feature
-from typing import List, cast
+from typing import Dict, List, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -17,6 +17,10 @@ class FeatureService(StripeService):
         lookup_key: str
         """
         A unique key you provide as your own system identifier. This may be up to 80 characters.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         name: str
         """

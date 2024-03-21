@@ -3255,7 +3255,7 @@ class QuoteService(StripeService):
         options: RequestOptions = {},
     ) -> Any:
         """
-        Download the PDF for a finalized quote
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,
@@ -3276,7 +3276,7 @@ class QuoteService(StripeService):
         options: RequestOptions = {},
     ) -> Any:
         """
-        Download the PDF for a finalized quote
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,

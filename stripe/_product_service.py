@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._product import Product
+from stripe._product_feature_service import ProductFeatureService
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
@@ -11,6 +12,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ProductService(StripeService):
+    def __init__(self, requestor):
+        super().__init__(requestor)
+        self.features = ProductFeatureService(self._requestor)
+
     class CreateParams(TypedDict):
         active: NotRequired["bool"]
         """
@@ -32,7 +37,7 @@ class ProductService(StripeService):
         """
         features: NotRequired["List[ProductService.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -202,12 +207,9 @@ class ProductService(StripeService):
 
     class CreateParamsFeature(TypedDict):
         feature: NotRequired["str"]
-        """
-        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
-        """
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class CreateParamsPackageDimensions(TypedDict):
@@ -361,7 +363,7 @@ class ProductService(StripeService):
             "Literal['']|List[ProductService.UpdateParamsFeature]"
         ]
         """
-        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -407,12 +409,9 @@ class ProductService(StripeService):
 
     class UpdateParamsFeature(TypedDict):
         feature: NotRequired["str"]
-        """
-        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
-        """
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class UpdateParamsPackageDimensions(TypedDict):

@@ -238,6 +238,7 @@ from stripe import (
     climate as climate,
     entitlements as entitlements,
     financial_connections as financial_connections,
+    forwarding as forwarding,
     gift_cards as gift_cards,
     identity as identity,
     issuing as issuing,
@@ -352,18 +353,6 @@ from stripe._customer_cash_balance_transaction import (
 from stripe._customer_cash_balance_transaction_service import (
     CustomerCashBalanceTransactionService as CustomerCashBalanceTransactionService,
 )
-from stripe._customer_entitlement import (
-    CustomerEntitlement as CustomerEntitlement,
-)
-from stripe._customer_entitlement_service import (
-    CustomerEntitlementService as CustomerEntitlementService,
-)
-from stripe._customer_entitlement_summary import (
-    CustomerEntitlementSummary as CustomerEntitlementSummary,
-)
-from stripe._customer_entitlement_summary_service import (
-    CustomerEntitlementSummaryService as CustomerEntitlementSummaryService,
-)
 from stripe._customer_funding_instructions_service import (
     CustomerFundingInstructionsService as CustomerFundingInstructionsService,
 )
@@ -404,6 +393,7 @@ from stripe._file_service import FileService as FileService
 from stripe._financial_connections_service import (
     FinancialConnectionsService as FinancialConnectionsService,
 )
+from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )
@@ -474,6 +464,10 @@ from stripe._platform_tax_fee import PlatformTaxFee as PlatformTaxFee
 from stripe._price import Price as Price
 from stripe._price_service import PriceService as PriceService
 from stripe._product import Product as Product
+from stripe._product_feature import ProductFeature as ProductFeature
+from stripe._product_feature_service import (
+    ProductFeatureService as ProductFeatureService,
+)
 from stripe._product_service import ProductService as ProductService
 from stripe._promotion_code import PromotionCode as PromotionCode
 from stripe._promotion_code_service import (

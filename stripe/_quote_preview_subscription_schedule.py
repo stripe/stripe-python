@@ -474,7 +474,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         pause_collection: Optional[PauseCollection]
         """
-        If specified, payment collection for this subscription will be paused.
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
         """
         proration_behavior: Literal[
             "always_invoice", "create_prorations", "none"

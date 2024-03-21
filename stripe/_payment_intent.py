@@ -143,6 +143,10 @@ class PaymentIntent(
                 "expired_card",
                 "financial_connections_account_inactive",
                 "financial_connections_no_successful_transaction_refresh",
+                "forwarding_api_inactive",
+                "forwarding_api_invalid_parameter",
+                "forwarding_api_upstream_connection_error",
+                "forwarding_api_upstream_connection_timeout",
                 "gift_card_balance_insufficient",
                 "gift_card_code_exists",
                 "gift_card_inactive",
@@ -1825,6 +1829,20 @@ class PaymentIntent(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
             """
 
+        class Mobilepay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
         class Multibanco(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2166,6 +2184,7 @@ class PaymentIntent(
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
         link: Optional[Link]
+        mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
@@ -2204,6 +2223,7 @@ class PaymentIntent(
             "klarna": Klarna,
             "konbini": Konbini,
             "link": Link,
+            "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "oxxo": Oxxo,
             "p24": P24,
@@ -3919,6 +3939,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataMultibanco"
         ]
@@ -4011,6 +4037,7 @@ class PaymentIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -4241,6 +4268,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
@@ -4468,6 +4498,12 @@ class PaymentIntent(
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
         multibanco: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsMultibanco"
@@ -5279,6 +5315,26 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -6689,6 +6745,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataMultibanco"
         ]
@@ -6781,6 +6843,7 @@ class PaymentIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -7011,6 +7074,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
@@ -7238,6 +7304,12 @@ class PaymentIntent(
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
         multibanco: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsMultibanco"
@@ -8049,6 +8121,26 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -9516,6 +9608,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataMultibanco"
         ]
@@ -9608,6 +9706,7 @@ class PaymentIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -9838,6 +9937,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
@@ -10065,6 +10167,12 @@ class PaymentIntent(
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
         multibanco: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsMultibanco"
@@ -10876,6 +10984,26 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

@@ -5,6 +5,7 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -32,12 +33,14 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._price import Price
+    from stripe._product_feature import ProductFeature
     from stripe._tax_code import TaxCode
     from stripe.entitlements._feature import (
         Feature as EntitlementsFeatureResource,
     )
 
 
+@nested_resource_class_methods("feature")
 class Product(
     CreateableAPIResource["Product"],
     DeletableAPIResource["Product"],
@@ -60,12 +63,9 @@ class Product(
 
     class Feature(StripeObject):
         feature: Optional[ExpandableField["EntitlementsFeatureResource"]]
-        """
-        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
-        """
         name: Optional[str]
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class PackageDimensions(StripeObject):
@@ -112,6 +112,16 @@ class Product(
         """
         _inner_class_types = {"gift_card": GiftCard}
 
+    class CreateFeatureParams(RequestOptions):
+        entitlement_feature: str
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object attached to this product.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class CreateParams(RequestOptions):
         active: NotRequired["bool"]
         """
@@ -131,7 +141,7 @@ class Product(
         """
         features: NotRequired["List[Product.CreateParamsFeature]"]
         """
-        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         id: NotRequired["str"]
         """
@@ -299,12 +309,9 @@ class Product(
 
     class CreateParamsFeature(TypedDict):
         feature: NotRequired["str"]
-        """
-        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
-        """
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class CreateParamsPackageDimensions(TypedDict):
@@ -348,8 +355,29 @@ class Product(
         """
         currency: str
 
+    class DeleteFeatureParams(RequestOptions):
+        pass
+
     class DeleteParams(RequestOptions):
         pass
+
+    class ListFeaturesParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
     class ListParams(RequestOptions):
         active: NotRequired["bool"]
@@ -430,7 +458,7 @@ class Product(
         """
         features: NotRequired["Literal['']|List[Product.ModifyParamsFeature]"]
         """
-        A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+        A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
         """
         images: NotRequired["Literal['']|List[str]"]
         """
@@ -476,12 +504,9 @@ class Product(
 
     class ModifyParamsFeature(TypedDict):
         feature: NotRequired["str"]
-        """
-        The ID of the [Feature](docs/api/entitlements/feature) object. This property is mutually-exclusive with `name`; either one must be specified, but not both.
-        """
         name: str
         """
-        The feature's name. Up to 80 characters long.
+        The marketing feature name. Up to 80 characters long.
         """
 
     class ModifyParamsPackageDimensions(TypedDict):
@@ -544,7 +569,7 @@ class Product(
     """
     features: List[Feature]
     """
-    A list of up to 15 features for this product. Entries using `name` are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
     """
     id: str
     """
@@ -872,6 +897,120 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> AsyncIterator["Product"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    def delete_feature(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.DeleteFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Deletes the feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "delete",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def delete_feature_async(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.DeleteFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Deletes the feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "delete",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_features(
+        cls, product: str, **params: Unpack["Product.ListFeaturesParams"]
+    ) -> ListObject["ProductFeature"]:
+        """
+        Retrieve a list of features for a product
+        """
+        return cast(
+            ListObject["ProductFeature"],
+            cls._static_request(
+                "get",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_features_async(
+        cls, product: str, **params: Unpack["Product.ListFeaturesParams"]
+    ) -> ListObject["ProductFeature"]:
+        """
+        Retrieve a list of features for a product
+        """
+        return cast(
+            ListObject["ProductFeature"],
+            await cls._static_request_async(
+                "get",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_feature(
+        cls, product: str, **params: Unpack["Product.CreateFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Creates a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "post",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_feature_async(
+        cls, product: str, **params: Unpack["Product.CreateFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Creates a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "post",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "features": Feature,

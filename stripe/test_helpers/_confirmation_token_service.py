@@ -169,6 +169,12 @@ class ConfirmationTokenService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         multibanco: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataMultibanco"
         ]
@@ -273,6 +279,7 @@ class ConfirmationTokenService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
@@ -503,6 +510,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
