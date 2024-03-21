@@ -353,18 +353,6 @@ from stripe._customer_cash_balance_transaction import (
 from stripe._customer_cash_balance_transaction_service import (
     CustomerCashBalanceTransactionService as CustomerCashBalanceTransactionService,
 )
-from stripe._customer_entitlement import (
-    CustomerEntitlement as CustomerEntitlement,
-)
-from stripe._customer_entitlement_service import (
-    CustomerEntitlementService as CustomerEntitlementService,
-)
-from stripe._customer_entitlement_summary import (
-    CustomerEntitlementSummary as CustomerEntitlementSummary,
-)
-from stripe._customer_entitlement_summary_service import (
-    CustomerEntitlementSummaryService as CustomerEntitlementSummaryService,
-)
 from stripe._customer_funding_instructions_service import (
     CustomerFundingInstructionsService as CustomerFundingInstructionsService,
 )

@@ -16,4 +16,10 @@ warn(
     stacklevel=2,
 )
 if not TYPE_CHECKING:
+    from stripe.api_resources.entitlements.active_entitlement import (
+        ActiveEntitlement,
+    )
+    from stripe.api_resources.entitlements.active_entitlement_summary import (
+        ActiveEntitlementSummary,
+    )
     from stripe.api_resources.entitlements.feature import Feature

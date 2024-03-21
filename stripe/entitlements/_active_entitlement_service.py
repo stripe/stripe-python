@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._customer_entitlement import CustomerEntitlement
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe._util import sanitize_id
+from stripe.entitlements._active_entitlement import ActiveEntitlement
 from typing import List, cast
 from typing_extensions import NotRequired, TypedDict
 
 
-class CustomerEntitlementService(StripeService):
+class ActiveEntitlementService(StripeService):
     class ListParams(TypedDict):
+        customer: str
+        """
+        The ID of the customer.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -30,20 +33,17 @@ class CustomerEntitlementService(StripeService):
 
     def list(
         self,
-        customer: str,
-        params: "CustomerEntitlementService.ListParams" = {},
+        params: "ActiveEntitlementService.ListParams",
         options: RequestOptions = {},
-    ) -> ListObject[CustomerEntitlement]:
+    ) -> ListObject[ActiveEntitlement]:
         """
-        Retrieve a list of entitlements for a customer
+        Retrieve a list of active entitlements for a customer
         """
         return cast(
-            ListObject[CustomerEntitlement],
+            ListObject[ActiveEntitlement],
             self._request(
                 "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/entitlements/active_entitlements",
                 api_mode="V1",
                 base_address="api",
                 params=params,
@@ -53,20 +53,17 @@ class CustomerEntitlementService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
-        params: "CustomerEntitlementService.ListParams" = {},
+        params: "ActiveEntitlementService.ListParams",
         options: RequestOptions = {},
-    ) -> ListObject[CustomerEntitlement]:
+    ) -> ListObject[ActiveEntitlement]:
         """
-        Retrieve a list of entitlements for a customer
+        Retrieve a list of active entitlements for a customer
         """
         return cast(
-            ListObject[CustomerEntitlement],
+            ListObject[ActiveEntitlement],
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/entitlements/active_entitlements",
                 api_mode="V1",
                 base_address="api",
                 params=params,

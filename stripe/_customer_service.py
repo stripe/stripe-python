@@ -8,10 +8,6 @@ from stripe._customer_cash_balance_service import CustomerCashBalanceService
 from stripe._customer_cash_balance_transaction_service import (
     CustomerCashBalanceTransactionService,
 )
-from stripe._customer_entitlement_service import CustomerEntitlementService
-from stripe._customer_entitlement_summary_service import (
-    CustomerEntitlementSummaryService,
-)
 from stripe._customer_funding_instructions_service import (
     CustomerFundingInstructionsService,
 )
@@ -40,10 +36,6 @@ class CustomerService(StripeService):
             self._requestor,
         )
         self.cash_balance_transactions = CustomerCashBalanceTransactionService(
-            self._requestor,
-        )
-        self.entitlements = CustomerEntitlementService(self._requestor)
-        self.entitlement_summary = CustomerEntitlementSummaryService(
             self._requestor,
         )
         self.payment_sources = CustomerPaymentSourceService(self._requestor)

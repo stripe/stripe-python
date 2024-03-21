@@ -42,8 +42,6 @@ if TYPE_CHECKING:
     from stripe._customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
-    from stripe._customer_entitlement import CustomerEntitlement
-    from stripe._customer_entitlement_summary import CustomerEntitlementSummary
     from stripe._discount import Discount
     from stripe._funding_instructions import FundingInstructions
     from stripe._payment_method import PaymentMethod
@@ -57,7 +55,6 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("cash_balance_transaction")
 @nested_resource_class_methods("source")
 @nested_resource_class_methods("tax_id")
-@nested_resource_class_methods("entitlement")
 class Customer(
     CreateableAPIResource["Customer"],
     DeletableAPIResource["Customer"],
@@ -750,24 +747,6 @@ class Customer(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class ListEntitlementsParams(RequestOptions):
-        ending_before: NotRequired["str"]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired["int"]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired["str"]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
     class ListParams(RequestOptions):
         created: NotRequired["Customer.ListParamsCreated|int"]
         """
@@ -1238,12 +1217,6 @@ class Customer(
         """
 
     class RetrieveCashBalanceTransactionParams(RequestOptions):
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveEntitlementSummaryParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -2781,42 +2754,6 @@ class Customer(
         )
 
     @classmethod
-    def list_entitlements(
-        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
-    ) -> ListObject["CustomerEntitlement"]:
-        """
-        Retrieve a list of entitlements for a customer
-        """
-        return cast(
-            ListObject["CustomerEntitlement"],
-            cls._static_request(
-                "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_entitlements_async(
-        cls, customer: str, **params: Unpack["Customer.ListEntitlementsParams"]
-    ) -> ListObject["CustomerEntitlement"]:
-        """
-        Retrieve a list of entitlements for a customer
-        """
-        return cast(
-            ListObject["CustomerEntitlement"],
-            await cls._static_request_async(
-                "get",
-                "/v1/customers/{customer}/entitlements".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve_cash_balance(
         cls,
         customer: str,
@@ -2890,46 +2827,6 @@ class Customer(
             await cls._static_request_async(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def retrieve_entitlement_summary(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.RetrieveEntitlementSummaryParams"]
-    ) -> "CustomerEntitlementSummary":
-        """
-        Retrieve the entitlement summary for a customer
-        """
-        return cast(
-            "CustomerEntitlementSummary",
-            cls._static_request(
-                "get",
-                "/v1/customers/{customer}/entitlement_summary".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def retrieve_entitlement_summary_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.RetrieveEntitlementSummaryParams"]
-    ) -> "CustomerEntitlementSummary":
-        """
-        Retrieve the entitlement summary for a customer
-        """
-        return cast(
-            "CustomerEntitlementSummary",
-            await cls._static_request_async(
-                "get",
-                "/v1/customers/{customer}/entitlement_summary".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
