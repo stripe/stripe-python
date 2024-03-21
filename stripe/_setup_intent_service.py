@@ -23,6 +23,12 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParams(TypedDict):
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -232,6 +238,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -318,6 +330,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -545,6 +558,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -953,6 +969,12 @@ class SetupIntentService(StripeService):
         """
         Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary.
         """
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         customer: NotRequired["str"]
         """
         ID of the Customer this SetupIntent belongs to, if one exists.
@@ -1209,6 +1231,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1291,6 +1319,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -1516,6 +1545,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -2165,6 +2197,12 @@ class SetupIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -2247,6 +2285,7 @@ class SetupIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -2472,6 +2511,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):

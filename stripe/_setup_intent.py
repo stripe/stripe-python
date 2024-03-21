@@ -128,6 +128,10 @@ class SetupIntent(
                 "expired_card",
                 "financial_connections_account_inactive",
                 "financial_connections_no_successful_transaction_refresh",
+                "forwarding_api_inactive",
+                "forwarding_api_invalid_parameter",
+                "forwarding_api_upstream_connection_error",
+                "forwarding_api_upstream_connection_timeout",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -613,6 +617,12 @@ class SetupIntent(
         """
 
     class ConfirmParams(RequestOptions):
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
@@ -804,6 +814,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -876,6 +892,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -1099,6 +1116,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -1503,6 +1523,12 @@ class SetupIntent(
         """
         Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary.
         """
+        confirmation_token: NotRequired["str"]
+        """
+        ID of the ConfirmationToken used to confirm this SetupIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
         customer: NotRequired["str"]
         """
         ID of the Customer this SetupIntent belongs to, if one exists.
@@ -1745,6 +1771,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired["SetupIntent.CreateParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1817,6 +1849,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -2040,6 +2073,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -2661,6 +2697,12 @@ class SetupIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        mobilepay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
+        """
         oxxo: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -2733,6 +2775,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -2956,6 +2999,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataOxxo(TypedDict):
