@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from typing import ClassVar, List, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
 
 
@@ -28,6 +28,10 @@ class Feature(
         lookup_key: str
         """
         A unique key you provide as your own system identifier. This may be up to 80 characters.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         name: str
         """
@@ -67,6 +71,10 @@ class Feature(
     lookup_key: str
     """
     A unique key you provide as your own system identifier. This may be up to 80 characters.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     name: str
     """
