@@ -268,7 +268,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
     device_fingerprint: Optional[str]
     """
-    The hashed ID derived from the device ID from the card network associated with the token
+    The hashed ID derived from the device ID from the card network associated with the token.
     """
     id: str
     """
