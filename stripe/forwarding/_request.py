@@ -96,7 +96,7 @@ class Request(
         """
         The Forwarding Config used when making the forwarded request. The config specifes the HTTP method, merchant credentials, connection settings, and supported destination URLs.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -122,11 +122,11 @@ class Request(
         """
 
     class CreateParamsRequest(TypedDict):
-        body: NotRequired["str"]
+        body: NotRequired[str]
         """
         The body payload to send to the destination endpoint.
         """
-        headers: NotRequired["List[Request.CreateParamsRequestHeader]"]
+        headers: NotRequired[List["Request.CreateParamsRequestHeader"]]
         """
         The headers to include in the forwarded request. Can be omitted if no additional headers (excluding Stripe-generated ones such as the Content-Type header) should be included.
         """
@@ -146,43 +146,43 @@ class Request(
         """
         Similar to other List endpoints, filters results based on created timestamp. You can pass gt, gte, lt, and lte timestamp values.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A pagination cursor to fetch the next page of the list. The value must be a ForwardingRequest ID.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Return results where the `created` field is greater than this value.
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Return results where the `created` field is greater than or equal to this value.
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Return results where the `created` field is less than this value.
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Return results where the `created` field is less than or equal to this value.
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

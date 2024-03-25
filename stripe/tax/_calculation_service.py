@@ -20,7 +20,7 @@ class CalculationService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The ID of an existing customer to use for this calculation. If provided, the customer's address and tax IDs are copied to `customer_details`.
         """
@@ -30,7 +30,7 @@ class CalculationService(StripeService):
         """
         Details about the customer, including address and tax IDs.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -44,7 +44,7 @@ class CalculationService(StripeService):
         """
         Shipping cost details to be used for the calculation.
         """
-        tax_date: NotRequired["int"]
+        tax_date: NotRequired[int]
         """
         Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.
         """
@@ -56,22 +56,22 @@ class CalculationService(StripeService):
         """
         The customer's postal address (for example, home or business location).
         """
-        address_source: NotRequired["Literal['billing', 'shipping']"]
+        address_source: NotRequired[Literal["billing", "shipping"]]
         """
         The type of customer address provided.
         """
-        ip_address: NotRequired["str"]
+        ip_address: NotRequired[str]
         """
         The customer's IP address (IPv4 or IPv6).
         """
         tax_ids: NotRequired[
-            "List[CalculationService.CreateParamsCustomerDetailsTaxId]"
+            List["CalculationService.CreateParamsCustomerDetailsTaxId"]
         ]
         """
         The customer's tax IDs. Stripe Tax might consider a transaction with applicable tax IDs to be B2B, which might affect the tax calculation result. Stripe Tax doesn't validate tax IDs for correctness.
         """
         taxability_override: NotRequired[
-            "Literal['customer_exempt', 'none', 'reverse_charge']"
+            Literal["customer_exempt", "none", "reverse_charge"]
         ]
         """
         Overrides the tax calculation result to allow you to not collect tax from your customer. Use this if you've manually checked your customer's tax exemptions. Prefer providing the customer's `tax_ids` where possible, which automatically determines whether `reverse_charge` applies.
@@ -186,41 +186,41 @@ class CalculationService(StripeService):
         """
         A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the line item's total price. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         If provided, the product's `tax_code` will be used as the line item's `tax_code`.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A custom identifier for this line item, which must be unique across the line items in the calculation. The reference helps identify each line item in exported [tax reports](https://stripe.com/docs/tax/reports).
         """
-        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
+        tax_behavior: NotRequired[Literal["exclusive", "inclusive"]]
         """
         Specifies whether the `amount` includes taxes. Defaults to `exclusive`.
         """
-        tax_code: NotRequired["str"]
+        tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
         """
 
     class CreateParamsShippingCost(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         If provided, the [shipping rate](https://stripe.com/docs/api/shipping_rates/object)'s `amount`, `tax_code` and `tax_behavior` are used. If you provide a shipping rate, then you cannot pass the `amount`, `tax_code`, or `tax_behavior` parameters.
         """
-        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']"]
+        tax_behavior: NotRequired[Literal["exclusive", "inclusive"]]
         """
         Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. Defaults to `exclusive`.
         """
-        tax_code: NotRequired["str"]
+        tax_code: NotRequired[str]
         """
         The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
         """

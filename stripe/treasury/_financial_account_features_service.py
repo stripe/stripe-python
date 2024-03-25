@@ -24,7 +24,7 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -158,13 +158,13 @@ class FinancialAccountFeaturesService(StripeService):
         """
 
     class ListParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -182,7 +182,7 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

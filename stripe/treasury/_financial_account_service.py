@@ -18,7 +18,7 @@ class FinancialAccountService(StripeService):
         self.features = FinancialAccountFeaturesService(self._requestor)
 
     class CreateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -26,7 +26,7 @@ class FinancialAccountService(StripeService):
         """
         Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -184,11 +184,11 @@ class FinancialAccountService(StripeService):
         """
 
     class CreateParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
         """
         Restricts all inbound money movement.
         """
-        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
         """
         Restricts all outbound money movement.
         """
@@ -198,49 +198,49 @@ class FinancialAccountService(StripeService):
         """
         Only return FinancialAccounts that were created during the given date interval.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         An object ID cursor for use in pagination.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit ranging from 1 to 100 (defaults to 10).
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         An object ID cursor for use in pagination.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -248,7 +248,7 @@ class FinancialAccountService(StripeService):
         """
         Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -402,11 +402,11 @@ class FinancialAccountService(StripeService):
         """
 
     class UpdateParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
         """
         Restricts all inbound money movement.
         """
-        outbound_flows: NotRequired["Literal['restricted', 'unrestricted']"]
+        outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
         """
         Restricts all outbound money movement.
         """

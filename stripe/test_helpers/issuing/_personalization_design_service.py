@@ -10,19 +10,19 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class PersonalizationDesignService(StripeService):
     class ActivateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class DeactivateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RejectParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -33,13 +33,34 @@ class PersonalizationDesignService(StripeService):
 
     class RejectParamsRejectionReasons(TypedDict):
         card_logo: NotRequired[
-            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_binary_image', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]"
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_binary_image",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
         ]
         """
         The reason(s) the card logo was rejected.
         """
         carrier_text: NotRequired[
-            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]"
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
         ]
         """
         The reason(s) the carrier text was rejected.
