@@ -60,6 +60,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
                 """
+                destination_on_behalf_of_charge_management: Optional[bool]
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+                """
                 dispute_management: bool
                 """
                 Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
@@ -81,6 +85,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 capture_payments: bool
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
+                """
+                destination_on_behalf_of_charge_management: Optional[bool]
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
                 """
                 dispute_management: bool
                 """
@@ -242,6 +250,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
         """
+        destination_on_behalf_of_charge_management: NotRequired["bool"]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        """
         dispute_management: NotRequired["bool"]
         """
         Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
@@ -267,6 +279,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capture_payments: NotRequired["bool"]
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        destination_on_behalf_of_charge_management: NotRequired["bool"]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired["bool"]
         """
