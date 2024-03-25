@@ -10,7 +10,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class MandateService(StripeService):
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

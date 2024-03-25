@@ -162,7 +162,7 @@ class Balance(SingletonAPIResource["Balance"]):
         _inner_class_types = {"source_types": SourceTypes}
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

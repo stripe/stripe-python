@@ -15,7 +15,7 @@ class EphemeralKey(
     OBJECT_NAME: ClassVar[Literal["ephemeral_key"]] = "ephemeral_key"
 
     class DeleteParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

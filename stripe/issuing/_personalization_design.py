@@ -101,13 +101,13 @@ class PersonalizationDesign(
         """
 
     class ActivateParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CreateParams(RequestOptions):
-        card_logo: NotRequired["str"]
+        card_logo: NotRequired[str]
         """
         The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
         """
@@ -117,19 +117,19 @@ class PersonalizationDesign(
         """
         Hash containing carrier text, for use with physical bundles that support carrier text.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        lookup_key: NotRequired["str"]
+        lookup_key: NotRequired[str]
         """
         A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         Friendly display name.
         """
@@ -143,7 +143,7 @@ class PersonalizationDesign(
         """
         Information on whether this personalization design is used to create cards when one is not specified.
         """
-        transfer_lookup_key: NotRequired["bool"]
+        transfer_lookup_key: NotRequired[bool]
         """
         If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         """
@@ -173,25 +173,25 @@ class PersonalizationDesign(
         """
 
     class DeactivateParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        lookup_keys: NotRequired["List[str]"]
+        lookup_keys: NotRequired[List[str]]
         """
         Only return personalization designs with the given lookup keys.
         """
@@ -199,23 +199,23 @@ class PersonalizationDesign(
         """
         Only return personalization designs with the given preferences.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         status: NotRequired[
-            "Literal['active', 'inactive', 'rejected', 'review']"
+            Literal["active", "inactive", "rejected", "review"]
         ]
         """
         Only return personalization designs with the given status.
         """
 
     class ListParamsPreferences(TypedDict):
-        is_default: NotRequired["bool"]
+        is_default: NotRequired[bool]
         """
         Only return the personalization design that's set as the default. A connected account uses the Connect platform's default design if no personalization design is set as the default.
         """
-        is_platform_default: NotRequired["bool"]
+        is_platform_default: NotRequired[bool]
         """
         Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.
         """
@@ -231,7 +231,7 @@ class PersonalizationDesign(
         """
         Hash containing carrier text, for use with physical bundles that support carrier text.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -239,7 +239,7 @@ class PersonalizationDesign(
         """
         A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -247,7 +247,7 @@ class PersonalizationDesign(
         """
         Friendly display name. Providing an empty string will set the field to null.
         """
-        physical_bundle: NotRequired["str"]
+        physical_bundle: NotRequired[str]
         """
         The physical bundle object belonging to this personalization design.
         """
@@ -257,7 +257,7 @@ class PersonalizationDesign(
         """
         Information on whether this personalization design is used to create cards when one is not specified.
         """
-        transfer_lookup_key: NotRequired["bool"]
+        transfer_lookup_key: NotRequired[bool]
         """
         If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         """
@@ -287,7 +287,7 @@ class PersonalizationDesign(
         """
 
     class RejectParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -298,20 +298,41 @@ class PersonalizationDesign(
 
     class RejectParamsRejectionReasons(TypedDict):
         card_logo: NotRequired[
-            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_binary_image', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]"
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_binary_image",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
         ]
         """
         The reason(s) the card logo was rejected.
         """
         carrier_text: NotRequired[
-            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]"
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
         ]
         """
         The reason(s) the carrier text was rejected.
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
