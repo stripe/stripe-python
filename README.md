@@ -250,7 +250,7 @@ We would love for you to try these and share feedback with us before these featu
 To install a beta version use `pip install` with the exact version you'd like to use:
 
 ```
-pip install stripe==v8.6.0b1
+pip install --pre stripe
 ```
 
 > **Note**
