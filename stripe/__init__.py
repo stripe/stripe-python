@@ -214,6 +214,7 @@ from stripe import (
     checkout as checkout,
     climate as climate,
     financial_connections as financial_connections,
+    forwarding as forwarding,
     identity as identity,
     issuing as issuing,
     radar as radar,
@@ -281,6 +282,10 @@ from stripe._charge import Charge as Charge
 from stripe._charge_service import ChargeService as ChargeService
 from stripe._checkout_service import CheckoutService as CheckoutService
 from stripe._climate_service import ClimateService as ClimateService
+from stripe._confirmation_token import ConfirmationToken as ConfirmationToken
+from stripe._confirmation_token_service import (
+    ConfirmationTokenService as ConfirmationTokenService,
+)
 from stripe._connect_collection_transfer import (
     ConnectCollectionTransfer as ConnectCollectionTransfer,
 )
@@ -354,6 +359,7 @@ from stripe._file_service import FileService as FileService
 from stripe._financial_connections_service import (
     FinancialConnectionsService as FinancialConnectionsService,
 )
+from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )

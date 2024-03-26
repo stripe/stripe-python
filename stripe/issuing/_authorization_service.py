@@ -11,11 +11,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class AuthorizationService(StripeService):
     class ApproveParams(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -25,7 +25,7 @@ class AuthorizationService(StripeService):
         """
 
     class DeclineParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -35,11 +35,11 @@ class AuthorizationService(StripeService):
         """
 
     class ListParams(TypedDict):
-        card: NotRequired["str"]
+        card: NotRequired[str]
         """
         Only return authorizations that belong to the given card.
         """
-        cardholder: NotRequired["str"]
+        cardholder: NotRequired[str]
         """
         Only return authorizations that belong to the given cardholder.
         """
@@ -47,53 +47,53 @@ class AuthorizationService(StripeService):
         """
         Only return authorizations that were created during the given date interval.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        status: NotRequired["Literal['closed', 'pending', 'reversed']"]
+        status: NotRequired[Literal["closed", "pending", "reversed"]]
         """
         Only return authorizations with the given status. One of `pending`, `closed`, or `reversed`.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

@@ -36,11 +36,12 @@ from stripe._billing_portal_service import BillingPortalService
 from stripe._charge_service import ChargeService
 from stripe._checkout_service import CheckoutService
 from stripe._climate_service import ClimateService
+from stripe._confirmation_token_service import ConfirmationTokenService
+from stripe._test_helpers_service import TestHelpersService
 from stripe._country_spec_service import CountrySpecService
 from stripe._coupon_service import CouponService
 from stripe._credit_note_service import CreditNoteService
 from stripe._customer_service import CustomerService
-from stripe._test_helpers_service import TestHelpersService
 from stripe._customer_session_service import CustomerSessionService
 from stripe._dispute_service import DisputeService
 from stripe._ephemeral_key_service import EphemeralKeyService
@@ -49,6 +50,7 @@ from stripe._exchange_rate_service import ExchangeRateService
 from stripe._file_service import FileService
 from stripe._file_link_service import FileLinkService
 from stripe._financial_connections_service import FinancialConnectionsService
+from stripe._forwarding_service import ForwardingService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
 from stripe._invoice_item_service import InvoiceItemService
@@ -172,11 +174,12 @@ class StripeClient(object):
         self.charges = ChargeService(self._requestor)
         self.checkout = CheckoutService(self._requestor)
         self.climate = ClimateService(self._requestor)
+        self.confirmation_tokens = ConfirmationTokenService(self._requestor)
+        self.test_helpers = TestHelpersService(self._requestor)
         self.country_specs = CountrySpecService(self._requestor)
         self.coupons = CouponService(self._requestor)
         self.credit_notes = CreditNoteService(self._requestor)
         self.customers = CustomerService(self._requestor)
-        self.test_helpers = TestHelpersService(self._requestor)
         self.customer_sessions = CustomerSessionService(self._requestor)
         self.disputes = DisputeService(self._requestor)
         self.ephemeral_keys = EphemeralKeyService(self._requestor)
@@ -187,6 +190,7 @@ class StripeClient(object):
         self.financial_connections = FinancialConnectionsService(
             self._requestor
         )
+        self.forwarding = ForwardingService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
         self.invoice_items = InvoiceItemService(self._requestor)

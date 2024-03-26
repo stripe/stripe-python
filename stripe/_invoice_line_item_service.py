@@ -11,33 +11,33 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class InvoiceLineItemService(StripeService):
     class ListParams(TypedDict):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class UpdateParams(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
         """
-        discountable: NotRequired["bool"]
+        discountable: NotRequired[bool]
         """
         Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.
         """
@@ -47,7 +47,7 @@ class InvoiceLineItemService(StripeService):
         """
         The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -59,7 +59,7 @@ class InvoiceLineItemService(StripeService):
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -67,7 +67,7 @@ class InvoiceLineItemService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Non-negative integer. The quantity of units for the line item.
         """
@@ -83,11 +83,11 @@ class InvoiceLineItemService(StripeService):
         """
 
     class UpdateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -107,7 +107,7 @@ class InvoiceLineItemService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         The ID of the product that this price will belong to. One of `product` or `product_data` is required.
         """
@@ -118,30 +118,30 @@ class InvoiceLineItemService(StripeService):
         Data used to generate a new product object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
     class UpdateParamsPriceDataProductData(TypedDict):
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
         """
-        images: NotRequired["List[str]"]
+        images: NotRequired[List[str]]
         """
         A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -149,7 +149,7 @@ class InvoiceLineItemService(StripeService):
         """
         The product's name, meant to be displayable to the customer.
         """
-        tax_code: NotRequired["str"]
+        tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
@@ -171,11 +171,11 @@ class InvoiceLineItemService(StripeService):
         """
 
     class UpdateParamsTaxAmountTaxRateData(TypedDict):
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
         """
@@ -187,7 +187,7 @@ class InvoiceLineItemService(StripeService):
         """
         This specifies if the tax rate is inclusive or exclusive.
         """
-        jurisdiction: NotRequired["str"]
+        jurisdiction: NotRequired[str]
         """
         The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
         """
@@ -195,12 +195,26 @@ class InvoiceLineItemService(StripeService):
         """
         The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
         """
         tax_type: NotRequired[
-            "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'vat', 'service_tax']"
+            Literal[
+                "amusement_tax",
+                "communications_tax",
+                "gst",
+                "hst",
+                "igst",
+                "jct",
+                "lease_tax",
+                "pst",
+                "qst",
+                "rst",
+                "sales_tax",
+                "vat",
+                "service_tax",
+            ]
         ]
         """
         The high-level tax type, such as `vat` or `sales_tax`.

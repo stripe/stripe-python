@@ -12,7 +12,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class PaymentIntentService(StripeService):
     class ApplyCustomerBalanceParams(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         Amount that you intend to apply to this PaymentIntent from the customer's cash balance.
 
@@ -22,41 +22,43 @@ class PaymentIntentService(StripeService):
 
         When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CancelParams(TypedDict):
         cancellation_reason: NotRequired[
-            "Literal['abandoned', 'duplicate', 'fraudulent', 'requested_by_customer']"
+            Literal[
+                "abandoned", "duplicate", "fraudulent", "requested_by_customer"
+            ]
         ]
         """
         Reason for canceling this PaymentIntent. Possible values are: `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CaptureParams(TypedDict):
-        amount_to_capture: NotRequired["int"]
+        amount_to_capture: NotRequired[int]
         """
         The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount is automatically refunded. Defaults to the full `amount_capturable` if it's not provided.
         """
-        application_fee_amount: NotRequired["int"]
+        application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        final_capture: NotRequired["bool"]
+        final_capture: NotRequired[bool]
         """
         Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://stripe.com/docs/payments/multicapture) is available for PaymentIntents.
         """
@@ -64,11 +66,11 @@ class PaymentIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
-        statement_descriptor_suffix: NotRequired["str"]
+        statement_descriptor_suffix: NotRequired[str]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. The concatenated descriptor must be 1-22 characters long.
         """
@@ -81,27 +83,33 @@ class PaymentIntentService(StripeService):
         """
 
     class CaptureParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when a charge succeeds.
         """
 
     class ConfirmParams(TypedDict):
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
         """
-        error_on_requires_action: NotRequired["bool"]
+        confirmation_token: NotRequired[str]
+        """
+        ID of the ConfirmationToken used to confirm this PaymentIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+        """
+        error_on_requires_action: NotRequired[bool]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        mandate: NotRequired["str"]
+        mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment.
         """
@@ -112,7 +120,7 @@ class PaymentIntentService(StripeService):
         """
         Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
         """
-        payment_method: NotRequired["str"]
+        payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
         """
@@ -140,7 +148,7 @@ class PaymentIntentService(StripeService):
         """
         Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
         If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
@@ -164,7 +172,7 @@ class PaymentIntentService(StripeService):
         """
         Shipping information for this PaymentIntent.
         """
-        use_stripe_sdk: NotRequired["bool"]
+        use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
@@ -178,7 +186,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
+        accepted_at: NotRequired[int]
         """
         The time at which the customer accepted the Mandate.
         """
@@ -203,11 +211,11 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: NotRequired["str"]
+        ip_address: NotRequired[str]
         """
         The IP address from which the Mandate was accepted by the customer.
         """
-        user_agent: NotRequired["str"]
+        user_agent: NotRequired[str]
         """
         The user agent of the browser from which the Mandate was accepted by the customer.
         """
@@ -339,9 +347,15 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        mobilepay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
         oxxo: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataOxxo"
@@ -429,6 +443,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -499,11 +514,11 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account that the funds will be debited from.
         """
-        sort_code: NotRequired["str"]
+        sort_code: NotRequired[str]
         """
         Sort code of the bank account. (e.g., `10-20-30`)
         """
@@ -532,27 +547,27 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -574,14 +589,43 @@ class PaymentIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+            Literal[
+                "arzte_und_apotheker_bank",
+                "austrian_anadi_bank_ag",
+                "bank_austria",
+                "bankhaus_carl_spangler",
+                "bankhaus_schelhammer_und_schattera_ag",
+                "bawag_psk_ag",
+                "bks_bank_ag",
+                "brull_kallmus_bank_ag",
+                "btv_vier_lander_bank",
+                "capital_bank_grawe_gruppe_ag",
+                "deutsche_bank_ag",
+                "dolomitenbank",
+                "easybank_ag",
+                "erste_bank_und_sparkassen",
+                "hypo_alpeadriabank_international_ag",
+                "hypo_bank_burgenland_aktiengesellschaft",
+                "hypo_noe_lb_fur_niederosterreich_u_wien",
+                "hypo_oberosterreich_salzburg_steiermark",
+                "hypo_tirol_bank_ag",
+                "hypo_vorarlberg_bank_ag",
+                "marchfelder_bank",
+                "oberbank_ag",
+                "raiffeisen_bankengruppe_osterreich",
+                "schoellerbank_ag",
+                "sparda_bank_wien",
+                "volksbank_gruppe",
+                "volkskreditbank_ag",
+                "vr_bank_braunau",
+            ]
         ]
         """
         The customer's bank.
         """
 
     class ConfirmParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type for FPX transaction
         """
@@ -621,7 +665,24 @@ class PaymentIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            Literal[
+                "abn_amro",
+                "asn_bank",
+                "bunq",
+                "handelsbanken",
+                "ing",
+                "knab",
+                "moneyou",
+                "n26",
+                "nn",
+                "rabobank",
+                "regiobank",
+                "revolut",
+                "sns_bank",
+                "triodos_bank",
+                "van_lanschot",
+                "yoursafe",
+            ]
         ]
         """
         The customer's bank.
@@ -658,12 +719,42 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
+            Literal[
+                "alior_bank",
+                "bank_millennium",
+                "bank_nowy_bfg_sa",
+                "bank_pekao_sa",
+                "banki_spbdzielcze",
+                "blik",
+                "bnp_paribas",
+                "boz",
+                "citi_handlowy",
+                "credit_agricole",
+                "envelobank",
+                "etransfer_pocztowy24",
+                "getin_bank",
+                "ideabank",
+                "ing",
+                "inteligo",
+                "mbank_mtransfer",
+                "nest_przelew",
+                "noble_pay",
+                "pbac_z_ipko",
+                "plus_bank",
+                "santander_przelew24",
+                "tmobile_usbugi_bankowe",
+                "toyota_bank",
+                "velobank",
+                "volkswagen_bank",
+            ]
         ]
         """
         The customer's bank.
@@ -682,7 +773,7 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -706,23 +797,23 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type: individual or company.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        account_type: NotRequired[Literal["checking", "savings"]]
         """
         Account type: checkings or savings. Defaults to checking if omitted.
         """
-        financial_connections_account: NotRequired["str"]
+        financial_connections_account: NotRequired[str]
         """
         The ID of a Financial Connections Account to use as a payment method.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         Routing number of the bank account.
         """
@@ -866,6 +957,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsOxxo"
         ]
@@ -965,7 +1062,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -978,17 +1075,17 @@ class PaymentIntentService(StripeService):
         The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
         or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
         """
-        interval_description: NotRequired["str"]
+        interval_description: NotRequired[str]
         """
         Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
         """
         payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
+            Literal["combined", "interval", "sporadic"]
         ]
         """
         Payment schedule for the mandate.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        transaction_type: NotRequired[Literal["business", "personal"]]
         """
         Transaction type of the mandate.
         """
@@ -1002,11 +1099,11 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        preferred_locale: NotRequired["str"]
+        preferred_locale: NotRequired[str]
         """
         Preferred language of the Affirm authorization page that the customer is redirected to.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1026,12 +1123,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
         This field differs from the statement descriptor and item name.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1085,7 +1182,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
         """
         Preferred language of the Bancontact authorization page that the customer is redirected to.
         """
@@ -1103,7 +1200,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
+        code: NotRequired[str]
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
@@ -1119,7 +1216,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
         """
@@ -1145,7 +1242,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        cvc_token: NotRequired["str"]
+        cvc_token: NotRequired[str]
         """
         A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
         """
@@ -1163,45 +1260,57 @@ class PaymentIntentService(StripeService):
         """
         Configuration options for setting up an eMandate for cards issued in India.
         """
-        moto: NotRequired["bool"]
+        moto: NotRequired[bool]
         """
         When specified, this parameter indicates that a transaction will be marked
         as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
         parameter can only be provided during confirmation.
         """
         network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+            Literal[
+                "amex",
+                "cartes_bancaires",
+                "diners",
+                "discover",
+                "eftpos_au",
+                "interac",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "unknown",
+                "visa",
+            ]
         ]
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
         request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
         """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
+            Literal["any", "automatic", "challenge"]
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
-        require_cvc_recollection: NotRequired["bool"]
+        require_cvc_recollection: NotRequired[bool]
         """
         When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
@@ -1234,7 +1343,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
+        enabled: NotRequired[bool]
         """
         Setting to true enables installments for this PaymentIntent.
         This will cause the response to contain a list of available installment plans.
@@ -1272,11 +1381,11 @@ class PaymentIntentService(StripeService):
         """
         One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         A description of the mandate or subscription that is meant to be displayed to the customer.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
         """
@@ -1284,7 +1393,7 @@ class PaymentIntentService(StripeService):
         """
         Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
         """
@@ -1296,22 +1405,22 @@ class PaymentIntentService(StripeService):
         """
         Start date of the mandate or subscription. Start date should not be lesser than yesterday.
         """
-        supported_types: NotRequired["List[Literal['india']]"]
+        supported_types: NotRequired[List[Literal["india"]]]
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
 
     class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
+        request_extended_authorization: NotRequired[bool]
         """
         Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         """
-        request_incremental_authorization_support: NotRequired["bool"]
+        request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         This field was released by mistake and will be removed in the next major version
@@ -1319,7 +1428,7 @@ class PaymentIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+            Literal["A", "C", "I", "N", "R", "U", "Y"]
         ]
         """
         The `transStatus` returned from the card Issuer's ACS in the ARes.
@@ -1332,13 +1441,13 @@ class PaymentIntentService(StripeService):
         is what you should specify here.)
         """
         electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
+            Literal["01", "02", "05", "06", "07"]
         ]
         """
         The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
         provider and indicates what degree of authentication was performed.
         """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        exemption_indicator: NotRequired[Literal["low_risk", "none"]]
         """
         The exemption requested via 3DS and accepted by the issuer at authentication time.
         """
@@ -1350,7 +1459,7 @@ class PaymentIntentService(StripeService):
         explicit card brand choice. The parameter `payment_method_options.card.network``
         must be populated accordingly
         """
-        requestor_challenge_indicator: NotRequired["str"]
+        requestor_challenge_indicator: NotRequired[str]
         """
         The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
         AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
@@ -1384,14 +1493,14 @@ class PaymentIntentService(StripeService):
         to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
         messageExtension: CB-AVALGO
         """
-        cb_exemption: NotRequired["str"]
+        cb_exemption: NotRequired[str]
         """
         The exemption indicator returned from Cartes Bancaires in the ARes.
         message extension: CB-EXEMPTION; string (4 characters)
         This is a 3 byte bitmap (low significant byte first and most significant
         bit first) that has been Base64 encoded
         """
-        cb_score: NotRequired["int"]
+        cb_score: NotRequired[int]
         """
         The risk score returned from Cartes Bancaires in the ARes.
         message extension: CB-SCORE; numeric value 0-99
@@ -1426,11 +1535,11 @@ class PaymentIntentService(StripeService):
         """
         Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
         """
-        funding_type: NotRequired["Literal['bank_transfer']"]
+        funding_type: NotRequired[Literal["bank_transfer"]]
         """
         The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1451,7 +1560,17 @@ class PaymentIntentService(StripeService):
         Configuration for the eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+            List[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ]
+            ]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -1478,7 +1597,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1490,7 +1609,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1502,7 +1621,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1514,7 +1633,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1552,12 +1671,57 @@ class PaymentIntentService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+            ]
         ]
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1585,7 +1749,7 @@ class PaymentIntentService(StripeService):
         """
         A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1605,7 +1769,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        persistent_token: NotRequired["str"]
+        persistent_token: NotRequired[str]
         """
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
@@ -1622,12 +1786,32 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1639,7 +1823,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1649,13 +1833,13 @@ class PaymentIntentService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        tos_shown_and_accepted: NotRequired["bool"]
+        tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
     class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1672,16 +1856,38 @@ class PaymentIntentService(StripeService):
         Controls when the funds will be captured from the customer's account.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-DE",
+                "de-LU",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "fi-FI",
+                "fr-BE",
+                "fr-FR",
+                "fr-LU",
+                "hu-HU",
+                "it-IT",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sk-SK",
+                "sv-SE",
+            ]
         ]
         """
         [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        risk_correlation_id: NotRequired["str"]
+        risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
         """
@@ -1699,15 +1905,15 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
+        expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1719,7 +1925,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1790,7 +1996,7 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1839,7 +2045,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -1849,16 +2055,20 @@ class PaymentIntentService(StripeService):
         TypedDict,
     ):
         permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+            List[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ]
+            ]
         ]
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
         """
         List of data features that you would like to retrieve upon account creation.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
@@ -1872,13 +2082,13 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
         """
         Triggers validations to run across the selected networks
         """
 
     class ConfirmParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
+        app_id: NotRequired[str]
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
@@ -1886,7 +2096,7 @@ class PaymentIntentService(StripeService):
         """
         The client type that the end customer will pay from
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1898,7 +2108,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1910,7 +2120,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -1920,7 +2130,7 @@ class PaymentIntentService(StripeService):
         """
         Shipping address.
         """
-        carrier: NotRequired["str"]
+        carrier: NotRequired[str]
         """
         The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
         """
@@ -1928,37 +2138,37 @@ class PaymentIntentService(StripeService):
         """
         Recipient name.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         Recipient phone (including extension).
         """
-        tracking_number: NotRequired["str"]
+        tracking_number: NotRequired[str]
         """
         The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         """
 
     class ConfirmParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -1968,7 +2178,7 @@ class PaymentIntentService(StripeService):
         """
         Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
         """
-        application_fee_amount: NotRequired["int"]
+        application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
@@ -1979,24 +2189,30 @@ class PaymentIntentService(StripeService):
         When you enable this parameter, this PaymentIntent accepts payment methods that you enable in the Dashboard and that are compatible with this PaymentIntent's other parameters.
         """
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
         """
-        confirm: NotRequired["bool"]
+        confirm: NotRequired[bool]
         """
         Set to `true` to attempt to [confirm this PaymentIntent](https://stripe.com/docs/api/payment_intents/confirm) immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, you can also provide the parameters available in the [Confirm API](https://stripe.com/docs/api/payment_intents/confirm).
         """
-        confirmation_method: NotRequired["Literal['automatic', 'manual']"]
+        confirmation_method: NotRequired[Literal["automatic", "manual"]]
         """
         Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
+        """
+        confirmation_token: NotRequired[str]
+        """
+        ID of the ConfirmationToken used to confirm this PaymentIntent.
+
+        If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
         """
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         ID of the Customer this PaymentIntent belongs to, if one exists.
 
@@ -2004,19 +2220,19 @@ class PaymentIntentService(StripeService):
 
         If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        error_on_requires_action: NotRequired["bool"]
+        error_on_requires_action: NotRequired[bool]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        mandate: NotRequired["str"]
+        mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
@@ -2026,7 +2242,7 @@ class PaymentIntentService(StripeService):
         """
         This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -2034,17 +2250,17 @@ class PaymentIntentService(StripeService):
         """
         Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
-        on_behalf_of: NotRequired["str"]
+        on_behalf_of: NotRequired[str]
         """
         The Stripe account ID that these funds are intended for. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        payment_method: NotRequired["str"]
+        payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
 
         If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
         """
-        payment_method_configuration: NotRequired["str"]
+        payment_method_configuration: NotRequired[str]
         """
         The ID of the payment method configuration to use with this PaymentIntent.
         """
@@ -2062,7 +2278,7 @@ class PaymentIntentService(StripeService):
         """
         Payment method-specific configuration for this PaymentIntent.
         """
-        payment_method_types: NotRequired["List[str]"]
+        payment_method_types: NotRequired[List[str]]
         """
         The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         """
@@ -2072,15 +2288,15 @@ class PaymentIntentService(StripeService):
         """
         Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).
         """
-        receipt_email: NotRequired["str"]
+        receipt_email: NotRequired[str]
         """
         Email address to send the receipt to. If you specify `receipt_email` for a payment in live mode, you send a receipt regardless of your [email settings](https://dashboard.stripe.com/account/emails).
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
-        setup_future_usage: NotRequired["Literal['off_session', 'on_session']"]
+        setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2092,11 +2308,11 @@ class PaymentIntentService(StripeService):
         """
         Shipping information for this PaymentIntent.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
-        statement_descriptor_suffix: NotRequired["str"]
+        statement_descriptor_suffix: NotRequired[str]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. The concatenated descriptor must contain 1-22 characters.
         """
@@ -2107,17 +2323,17 @@ class PaymentIntentService(StripeService):
         The parameters that you can use to automatically create a Transfer.
         Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        transfer_group: NotRequired["str"]
+        transfer_group: NotRequired[str]
         """
         A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
         """
-        use_stripe_sdk: NotRequired["bool"]
+        use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
     class CreateParamsAutomaticPaymentMethods(TypedDict):
-        allow_redirects: NotRequired["Literal['always', 'never']"]
+        allow_redirects: NotRequired[Literal["always", "never"]]
         """
         Controls whether this PaymentIntent will accept redirect-based payment methods.
 
@@ -2135,7 +2351,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired["int"]
+        accepted_at: NotRequired[int]
         """
         The time at which the customer accepted the Mandate.
         """
@@ -2296,9 +2512,15 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        mobilepay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
         oxxo: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataOxxo"
@@ -2386,6 +2608,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -2456,11 +2679,11 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account that the funds will be debited from.
         """
-        sort_code: NotRequired["str"]
+        sort_code: NotRequired[str]
         """
         Sort code of the bank account. (e.g., `10-20-30`)
         """
@@ -2489,27 +2712,27 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -2531,14 +2754,43 @@ class PaymentIntentService(StripeService):
 
     class CreateParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+            Literal[
+                "arzte_und_apotheker_bank",
+                "austrian_anadi_bank_ag",
+                "bank_austria",
+                "bankhaus_carl_spangler",
+                "bankhaus_schelhammer_und_schattera_ag",
+                "bawag_psk_ag",
+                "bks_bank_ag",
+                "brull_kallmus_bank_ag",
+                "btv_vier_lander_bank",
+                "capital_bank_grawe_gruppe_ag",
+                "deutsche_bank_ag",
+                "dolomitenbank",
+                "easybank_ag",
+                "erste_bank_und_sparkassen",
+                "hypo_alpeadriabank_international_ag",
+                "hypo_bank_burgenland_aktiengesellschaft",
+                "hypo_noe_lb_fur_niederosterreich_u_wien",
+                "hypo_oberosterreich_salzburg_steiermark",
+                "hypo_tirol_bank_ag",
+                "hypo_vorarlberg_bank_ag",
+                "marchfelder_bank",
+                "oberbank_ag",
+                "raiffeisen_bankengruppe_osterreich",
+                "schoellerbank_ag",
+                "sparda_bank_wien",
+                "volksbank_gruppe",
+                "volkskreditbank_ag",
+                "vr_bank_braunau",
+            ]
         ]
         """
         The customer's bank.
         """
 
     class CreateParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type for FPX transaction
         """
@@ -2578,7 +2830,24 @@ class PaymentIntentService(StripeService):
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            Literal[
+                "abn_amro",
+                "asn_bank",
+                "bunq",
+                "handelsbanken",
+                "ing",
+                "knab",
+                "moneyou",
+                "n26",
+                "nn",
+                "rabobank",
+                "regiobank",
+                "revolut",
+                "sns_bank",
+                "triodos_bank",
+                "van_lanschot",
+                "yoursafe",
+            ]
         ]
         """
         The customer's bank.
@@ -2615,12 +2884,42 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
+            Literal[
+                "alior_bank",
+                "bank_millennium",
+                "bank_nowy_bfg_sa",
+                "bank_pekao_sa",
+                "banki_spbdzielcze",
+                "blik",
+                "bnp_paribas",
+                "boz",
+                "citi_handlowy",
+                "credit_agricole",
+                "envelobank",
+                "etransfer_pocztowy24",
+                "getin_bank",
+                "ideabank",
+                "ing",
+                "inteligo",
+                "mbank_mtransfer",
+                "nest_przelew",
+                "noble_pay",
+                "pbac_z_ipko",
+                "plus_bank",
+                "santander_przelew24",
+                "tmobile_usbugi_bankowe",
+                "toyota_bank",
+                "velobank",
+                "volkswagen_bank",
+            ]
         ]
         """
         The customer's bank.
@@ -2639,7 +2938,7 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -2663,23 +2962,23 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type: individual or company.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        account_type: NotRequired[Literal["checking", "savings"]]
         """
         Account type: checkings or savings. Defaults to checking if omitted.
         """
-        financial_connections_account: NotRequired["str"]
+        financial_connections_account: NotRequired[str]
         """
         The ID of a Financial Connections Account to use as a payment method.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         Routing number of the bank account.
         """
@@ -2823,6 +3122,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsOxxo"
         ]
@@ -2922,7 +3227,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -2935,17 +3240,17 @@ class PaymentIntentService(StripeService):
         The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
         or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
         """
-        interval_description: NotRequired["str"]
+        interval_description: NotRequired[str]
         """
         Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
         """
         payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
+            Literal["combined", "interval", "sporadic"]
         ]
         """
         Payment schedule for the mandate.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        transaction_type: NotRequired[Literal["business", "personal"]]
         """
         Transaction type of the mandate.
         """
@@ -2959,11 +3264,11 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        preferred_locale: NotRequired["str"]
+        preferred_locale: NotRequired[str]
         """
         Preferred language of the Affirm authorization page that the customer is redirected to.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2983,12 +3288,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
         This field differs from the statement descriptor and item name.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3042,7 +3347,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
         """
         Preferred language of the Bancontact authorization page that the customer is redirected to.
         """
@@ -3060,7 +3365,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
+        code: NotRequired[str]
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
@@ -3076,7 +3381,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
         """
@@ -3102,7 +3407,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        cvc_token: NotRequired["str"]
+        cvc_token: NotRequired[str]
         """
         A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
         """
@@ -3120,45 +3425,57 @@ class PaymentIntentService(StripeService):
         """
         Configuration options for setting up an eMandate for cards issued in India.
         """
-        moto: NotRequired["bool"]
+        moto: NotRequired[bool]
         """
         When specified, this parameter indicates that a transaction will be marked
         as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
         parameter can only be provided during confirmation.
         """
         network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+            Literal[
+                "amex",
+                "cartes_bancaires",
+                "diners",
+                "discover",
+                "eftpos_au",
+                "interac",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "unknown",
+                "visa",
+            ]
         ]
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
         request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
         """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
+            Literal["any", "automatic", "challenge"]
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
-        require_cvc_recollection: NotRequired["bool"]
+        require_cvc_recollection: NotRequired[bool]
         """
         When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
@@ -3191,7 +3508,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
+        enabled: NotRequired[bool]
         """
         Setting to true enables installments for this PaymentIntent.
         This will cause the response to contain a list of available installment plans.
@@ -3229,11 +3546,11 @@ class PaymentIntentService(StripeService):
         """
         One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         A description of the mandate or subscription that is meant to be displayed to the customer.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
         """
@@ -3241,7 +3558,7 @@ class PaymentIntentService(StripeService):
         """
         Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
         """
@@ -3253,22 +3570,22 @@ class PaymentIntentService(StripeService):
         """
         Start date of the mandate or subscription. Start date should not be lesser than yesterday.
         """
-        supported_types: NotRequired["List[Literal['india']]"]
+        supported_types: NotRequired[List[Literal["india"]]]
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
 
     class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
+        request_extended_authorization: NotRequired[bool]
         """
         Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         """
-        request_incremental_authorization_support: NotRequired["bool"]
+        request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         This field was released by mistake and will be removed in the next major version
@@ -3276,7 +3593,7 @@ class PaymentIntentService(StripeService):
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+            Literal["A", "C", "I", "N", "R", "U", "Y"]
         ]
         """
         The `transStatus` returned from the card Issuer's ACS in the ARes.
@@ -3289,13 +3606,13 @@ class PaymentIntentService(StripeService):
         is what you should specify here.)
         """
         electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
+            Literal["01", "02", "05", "06", "07"]
         ]
         """
         The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
         provider and indicates what degree of authentication was performed.
         """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        exemption_indicator: NotRequired[Literal["low_risk", "none"]]
         """
         The exemption requested via 3DS and accepted by the issuer at authentication time.
         """
@@ -3307,7 +3624,7 @@ class PaymentIntentService(StripeService):
         explicit card brand choice. The parameter `payment_method_options.card.network``
         must be populated accordingly
         """
-        requestor_challenge_indicator: NotRequired["str"]
+        requestor_challenge_indicator: NotRequired[str]
         """
         The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
         AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
@@ -3341,14 +3658,14 @@ class PaymentIntentService(StripeService):
         to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
         messageExtension: CB-AVALGO
         """
-        cb_exemption: NotRequired["str"]
+        cb_exemption: NotRequired[str]
         """
         The exemption indicator returned from Cartes Bancaires in the ARes.
         message extension: CB-EXEMPTION; string (4 characters)
         This is a 3 byte bitmap (low significant byte first and most significant
         bit first) that has been Base64 encoded
         """
-        cb_score: NotRequired["int"]
+        cb_score: NotRequired[int]
         """
         The risk score returned from Cartes Bancaires in the ARes.
         message extension: CB-SCORE; numeric value 0-99
@@ -3383,11 +3700,11 @@ class PaymentIntentService(StripeService):
         """
         Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
         """
-        funding_type: NotRequired["Literal['bank_transfer']"]
+        funding_type: NotRequired[Literal["bank_transfer"]]
         """
         The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3408,7 +3725,17 @@ class PaymentIntentService(StripeService):
         Configuration for the eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+            List[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ]
+            ]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -3435,7 +3762,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3447,7 +3774,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3459,7 +3786,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3471,7 +3798,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3509,12 +3836,57 @@ class PaymentIntentService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+            ]
         ]
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3542,7 +3914,7 @@ class PaymentIntentService(StripeService):
         """
         A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3562,7 +3934,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        persistent_token: NotRequired["str"]
+        persistent_token: NotRequired[str]
         """
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
@@ -3579,12 +3951,32 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3596,7 +3988,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3606,13 +3998,13 @@ class PaymentIntentService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        tos_shown_and_accepted: NotRequired["bool"]
+        tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3629,16 +4021,38 @@ class PaymentIntentService(StripeService):
         Controls when the funds will be captured from the customer's account.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-DE",
+                "de-LU",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "fi-FI",
+                "fr-BE",
+                "fr-FR",
+                "fr-LU",
+                "hu-HU",
+                "it-IT",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sk-SK",
+                "sv-SE",
+            ]
         ]
         """
         [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        risk_correlation_id: NotRequired["str"]
+        risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
         """
@@ -3656,15 +4070,15 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
+        expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3676,7 +4090,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3747,7 +4161,7 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3796,7 +4210,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -3806,16 +4220,20 @@ class PaymentIntentService(StripeService):
         TypedDict,
     ):
         permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+            List[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ]
+            ]
         ]
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
         """
         List of data features that you would like to retrieve upon account creation.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
@@ -3829,13 +4247,13 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
         """
         Triggers validations to run across the selected networks
         """
 
     class CreateParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
+        app_id: NotRequired[str]
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
@@ -3843,7 +4261,7 @@ class PaymentIntentService(StripeService):
         """
         The client type that the end customer will pay from
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3855,7 +4273,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3867,7 +4285,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -3877,7 +4295,7 @@ class PaymentIntentService(StripeService):
         """
         Shipping address.
         """
-        carrier: NotRequired["str"]
+        carrier: NotRequired[str]
         """
         The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
         """
@@ -3885,43 +4303,43 @@ class PaymentIntentService(StripeService):
         """
         Recipient name.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         Recipient phone (including extension).
         """
-        tracking_number: NotRequired["str"]
+        tracking_number: NotRequired[str]
         """
         The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         """
 
     class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when a charge succeeds.
         The amount is capped at the total transaction amount and if no amount is set,
@@ -3944,23 +4362,23 @@ class PaymentIntentService(StripeService):
         """
         The updated total amount that you intend to collect from the cardholder. This amount must be greater than the currently authorized amount.
         """
-        application_fee_amount: NotRequired["int"]
+        application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
@@ -3973,7 +4391,7 @@ class PaymentIntentService(StripeService):
         """
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when a charge succeeds.
         """
@@ -3983,65 +4401,65 @@ class PaymentIntentService(StripeService):
         """
         A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp or a dictionary with a number of different query options.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         Only return PaymentIntents for the customer that this customer ID specifies.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(TypedDict):
-        client_secret: NotRequired["str"]
+        client_secret: NotRequired[str]
         """
         The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class SearchParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        page: NotRequired["str"]
+        page: NotRequired[str]
         """
         A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
         """
@@ -4051,7 +4469,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParams(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
         """
@@ -4060,16 +4478,16 @@ class PaymentIntentService(StripeService):
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         ID of the Customer this PaymentIntent belongs to, if one exists.
 
@@ -4077,11 +4495,11 @@ class PaymentIntentService(StripeService):
 
         If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -4089,11 +4507,11 @@ class PaymentIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        payment_method: NotRequired["str"]
+        payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
         """
-        payment_method_configuration: NotRequired["str"]
+        payment_method_configuration: NotRequired[str]
         """
         The ID of the payment method configuration to use with this PaymentIntent.
         """
@@ -4111,7 +4529,7 @@ class PaymentIntentService(StripeService):
         """
         Payment-method-specific configuration for this PaymentIntent.
         """
-        payment_method_types: NotRequired["List[str]"]
+        payment_method_types: NotRequired[List[str]]
         """
         The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         """
@@ -4137,11 +4555,11 @@ class PaymentIntentService(StripeService):
         """
         Shipping information for this PaymentIntent.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
-        statement_descriptor_suffix: NotRequired["str"]
+        statement_descriptor_suffix: NotRequired[str]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
@@ -4151,7 +4569,7 @@ class PaymentIntentService(StripeService):
         """
         Use this parameter to automatically create a Transfer when the payment succeeds. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        transfer_group: NotRequired["str"]
+        transfer_group: NotRequired[str]
         """
         A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
@@ -4283,9 +4701,15 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        mobilepay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataMobilepay"
+        ]
+        """
+        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
         oxxo: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataOxxo"
@@ -4373,6 +4797,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -4443,11 +4868,11 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account that the funds will be debited from.
         """
-        sort_code: NotRequired["str"]
+        sort_code: NotRequired[str]
         """
         Sort code of the bank account. (e.g., `10-20-30`)
         """
@@ -4476,27 +4901,27 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -4518,14 +4943,43 @@ class PaymentIntentService(StripeService):
 
     class UpdateParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+            Literal[
+                "arzte_und_apotheker_bank",
+                "austrian_anadi_bank_ag",
+                "bank_austria",
+                "bankhaus_carl_spangler",
+                "bankhaus_schelhammer_und_schattera_ag",
+                "bawag_psk_ag",
+                "bks_bank_ag",
+                "brull_kallmus_bank_ag",
+                "btv_vier_lander_bank",
+                "capital_bank_grawe_gruppe_ag",
+                "deutsche_bank_ag",
+                "dolomitenbank",
+                "easybank_ag",
+                "erste_bank_und_sparkassen",
+                "hypo_alpeadriabank_international_ag",
+                "hypo_bank_burgenland_aktiengesellschaft",
+                "hypo_noe_lb_fur_niederosterreich_u_wien",
+                "hypo_oberosterreich_salzburg_steiermark",
+                "hypo_tirol_bank_ag",
+                "hypo_vorarlberg_bank_ag",
+                "marchfelder_bank",
+                "oberbank_ag",
+                "raiffeisen_bankengruppe_osterreich",
+                "schoellerbank_ag",
+                "sparda_bank_wien",
+                "volksbank_gruppe",
+                "volkskreditbank_ag",
+                "vr_bank_braunau",
+            ]
         ]
         """
         The customer's bank.
         """
 
     class UpdateParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type for FPX transaction
         """
@@ -4565,7 +5019,24 @@ class PaymentIntentService(StripeService):
 
     class UpdateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            Literal[
+                "abn_amro",
+                "asn_bank",
+                "bunq",
+                "handelsbanken",
+                "ing",
+                "knab",
+                "moneyou",
+                "n26",
+                "nn",
+                "rabobank",
+                "regiobank",
+                "revolut",
+                "sns_bank",
+                "triodos_bank",
+                "van_lanschot",
+                "yoursafe",
+            ]
         ]
         """
         The customer's bank.
@@ -4602,12 +5073,42 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
+            Literal[
+                "alior_bank",
+                "bank_millennium",
+                "bank_nowy_bfg_sa",
+                "bank_pekao_sa",
+                "banki_spbdzielcze",
+                "blik",
+                "bnp_paribas",
+                "boz",
+                "citi_handlowy",
+                "credit_agricole",
+                "envelobank",
+                "etransfer_pocztowy24",
+                "getin_bank",
+                "ideabank",
+                "ing",
+                "inteligo",
+                "mbank_mtransfer",
+                "nest_przelew",
+                "noble_pay",
+                "pbac_z_ipko",
+                "plus_bank",
+                "santander_przelew24",
+                "tmobile_usbugi_bankowe",
+                "toyota_bank",
+                "velobank",
+                "volkswagen_bank",
+            ]
         ]
         """
         The customer's bank.
@@ -4626,7 +5127,7 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -4650,23 +5151,23 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type: individual or company.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        account_type: NotRequired[Literal["checking", "savings"]]
         """
         Account type: checkings or savings. Defaults to checking if omitted.
         """
-        financial_connections_account: NotRequired["str"]
+        financial_connections_account: NotRequired[str]
         """
         The ID of a Financial Connections Account to use as a payment method.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         Routing number of the bank account.
         """
@@ -4810,6 +5311,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mobilepay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMobilepay"
+        ]
+        """
+        If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsOxxo"
         ]
@@ -4909,7 +5416,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -4922,17 +5429,17 @@ class PaymentIntentService(StripeService):
         The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
         or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
         """
-        interval_description: NotRequired["str"]
+        interval_description: NotRequired[str]
         """
         Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
         """
         payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
+            Literal["combined", "interval", "sporadic"]
         ]
         """
         Payment schedule for the mandate.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        transaction_type: NotRequired[Literal["business", "personal"]]
         """
         Transaction type of the mandate.
         """
@@ -4946,11 +5453,11 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        preferred_locale: NotRequired["str"]
+        preferred_locale: NotRequired[str]
         """
         Preferred language of the Affirm authorization page that the customer is redirected to.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4970,12 +5477,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
         This field differs from the statement descriptor and item name.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5029,7 +5536,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
         """
         Preferred language of the Bancontact authorization page that the customer is redirected to.
         """
@@ -5047,7 +5554,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired["str"]
+        code: NotRequired[str]
         """
         The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         """
@@ -5063,7 +5570,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
         """
@@ -5089,7 +5596,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        cvc_token: NotRequired["str"]
+        cvc_token: NotRequired[str]
         """
         A single-use `cvc_update` Token that represents a card CVC value. When provided, the CVC value will be verified during the card payment attempt. This parameter can only be provided during confirmation.
         """
@@ -5107,45 +5614,57 @@ class PaymentIntentService(StripeService):
         """
         Configuration options for setting up an eMandate for cards issued in India.
         """
-        moto: NotRequired["bool"]
+        moto: NotRequired[bool]
         """
         When specified, this parameter indicates that a transaction will be marked
         as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
         parameter can only be provided during confirmation.
         """
         network: NotRequired[
-            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
+            Literal[
+                "amex",
+                "cartes_bancaires",
+                "diners",
+                "discover",
+                "eftpos_au",
+                "interac",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "unknown",
+                "visa",
+            ]
         ]
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
         request_extended_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
         """
-        request_multicapture: NotRequired["Literal['if_available', 'never']"]
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
         """
-        request_overcapture: NotRequired["Literal['if_available', 'never']"]
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
-            "Literal['any', 'automatic', 'challenge']"
+            Literal["any", "automatic", "challenge"]
         ]
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
-        require_cvc_recollection: NotRequired["bool"]
+        require_cvc_recollection: NotRequired[bool]
         """
         When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         """
@@ -5178,7 +5697,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired["bool"]
+        enabled: NotRequired[bool]
         """
         Setting to true enables installments for this PaymentIntent.
         This will cause the response to contain a list of available installment plans.
@@ -5216,11 +5735,11 @@ class PaymentIntentService(StripeService):
         """
         One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         A description of the mandate or subscription that is meant to be displayed to the customer.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
         """
@@ -5228,7 +5747,7 @@ class PaymentIntentService(StripeService):
         """
         Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
         """
@@ -5240,22 +5759,22 @@ class PaymentIntentService(StripeService):
         """
         Start date of the mandate or subscription. Start date should not be lesser than yesterday.
         """
-        supported_types: NotRequired["List[Literal['india']]"]
+        supported_types: NotRequired[List[Literal["india"]]]
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
 
     class UpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired["bool"]
+        request_extended_authorization: NotRequired[bool]
         """
         Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
         """
-        request_incremental_authorization_support: NotRequired["bool"]
+        request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
         request_incremental_authorization: NotRequired[
-            "Literal['if_available', 'never']"
+            Literal["if_available", "never"]
         ]
         """
         This field was released by mistake and will be removed in the next major version
@@ -5263,7 +5782,7 @@ class PaymentIntentService(StripeService):
 
     class UpdateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
-            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+            Literal["A", "C", "I", "N", "R", "U", "Y"]
         ]
         """
         The `transStatus` returned from the card Issuer's ACS in the ARes.
@@ -5276,13 +5795,13 @@ class PaymentIntentService(StripeService):
         is what you should specify here.)
         """
         electronic_commerce_indicator: NotRequired[
-            "Literal['01', '02', '05', '06', '07']"
+            Literal["01", "02", "05", "06", "07"]
         ]
         """
         The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
         provider and indicates what degree of authentication was performed.
         """
-        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        exemption_indicator: NotRequired[Literal["low_risk", "none"]]
         """
         The exemption requested via 3DS and accepted by the issuer at authentication time.
         """
@@ -5294,7 +5813,7 @@ class PaymentIntentService(StripeService):
         explicit card brand choice. The parameter `payment_method_options.card.network``
         must be populated accordingly
         """
-        requestor_challenge_indicator: NotRequired["str"]
+        requestor_challenge_indicator: NotRequired[str]
         """
         The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
         AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
@@ -5328,14 +5847,14 @@ class PaymentIntentService(StripeService):
         to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
         messageExtension: CB-AVALGO
         """
-        cb_exemption: NotRequired["str"]
+        cb_exemption: NotRequired[str]
         """
         The exemption indicator returned from Cartes Bancaires in the ARes.
         message extension: CB-EXEMPTION; string (4 characters)
         This is a 3 byte bitmap (low significant byte first and most significant
         bit first) that has been Base64 encoded
         """
-        cb_score: NotRequired["int"]
+        cb_score: NotRequired[int]
         """
         The risk score returned from Cartes Bancaires in the ARes.
         message extension: CB-SCORE; numeric value 0-99
@@ -5370,11 +5889,11 @@ class PaymentIntentService(StripeService):
         """
         Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
         """
-        funding_type: NotRequired["Literal['bank_transfer']"]
+        funding_type: NotRequired[Literal["bank_transfer"]]
         """
         The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5395,7 +5914,17 @@ class PaymentIntentService(StripeService):
         Configuration for the eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+            List[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ]
+            ]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -5422,7 +5951,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5434,7 +5963,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5446,7 +5975,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5458,7 +5987,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5496,12 +6025,57 @@ class PaymentIntentService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+            ]
         ]
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5529,7 +6103,7 @@ class PaymentIntentService(StripeService):
         """
         A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5549,7 +6123,7 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        persistent_token: NotRequired["str"]
+        persistent_token: NotRequired[str]
         """
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
@@ -5566,12 +6140,32 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class UpdateParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5583,7 +6177,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5593,13 +6187,13 @@ class PaymentIntentService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        tos_shown_and_accepted: NotRequired["bool"]
+        tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
     class UpdateParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5616,16 +6210,38 @@ class PaymentIntentService(StripeService):
         Controls when the funds will be captured from the customer's account.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-DE",
+                "de-LU",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "fi-FI",
+                "fr-BE",
+                "fr-FR",
+                "fr-LU",
+                "hu-HU",
+                "it-IT",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sk-SK",
+                "sv-SE",
+            ]
         ]
         """
         [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        risk_correlation_id: NotRequired["str"]
+        risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
         """
@@ -5643,15 +6259,15 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired["int"]
+        expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5663,7 +6279,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5734,7 +6350,7 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5783,7 +6399,7 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -5793,16 +6409,20 @@ class PaymentIntentService(StripeService):
         TypedDict,
     ):
         permissions: NotRequired[
-            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
+            List[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ]
+            ]
         ]
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
+        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
         """
         List of data features that you would like to retrieve upon account creation.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
@@ -5816,13 +6436,13 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
+        requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
         """
         Triggers validations to run across the selected networks
         """
 
     class UpdateParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
+        app_id: NotRequired[str]
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
@@ -5830,7 +6450,7 @@ class PaymentIntentService(StripeService):
         """
         The client type that the end customer will pay from
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5842,7 +6462,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5858,7 +6478,7 @@ class PaymentIntentService(StripeService):
         """
         Shipping address.
         """
-        carrier: NotRequired["str"]
+        carrier: NotRequired[str]
         """
         The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
         """
@@ -5866,57 +6486,57 @@ class PaymentIntentService(StripeService):
         """
         Recipient name.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         Recipient phone (including extension).
         """
-        tracking_number: NotRequired["str"]
+        tracking_number: NotRequired[str]
         """
         The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         """
 
     class UpdateParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when a charge succeeds.
         """
 
     class VerifyMicrodepositsParams(TypedDict):
-        amounts: NotRequired["List[int]"]
+        amounts: NotRequired[List[int]]
         """
         Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
         """
-        descriptor_code: NotRequired["str"]
+        descriptor_code: NotRequired[str]
         """
         A six-character code starting with SM present in the microdeposit sent to the bank account.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

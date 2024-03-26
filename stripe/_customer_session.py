@@ -60,7 +60,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         The ID of an existing customer for which to create the customer session.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

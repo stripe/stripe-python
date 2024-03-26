@@ -5,6 +5,9 @@ from stripe.test_helpers import (
     terminal as terminal,
     treasury as treasury,
 )
+from stripe.test_helpers._confirmation_token_service import (
+    ConfirmationTokenService as ConfirmationTokenService,
+)
 from stripe.test_helpers._customer_service import (
     CustomerService as CustomerService,
 )
