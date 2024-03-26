@@ -355,14 +355,6 @@ class WebhookEndpointService(StripeService):
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
-                "invoiceitem.updated",
-                "order.created",
-                "recipient.created",
-                "recipient.deleted",
-                "recipient.updated",
-                "sku.created",
-                "sku.deleted",
-                "sku.updated",
             ]
         ]
         """
@@ -647,14 +639,6 @@ class WebhookEndpointService(StripeService):
                     "treasury.received_credit.failed",
                     "treasury.received_credit.succeeded",
                     "treasury.received_debit.created",
-                    "invoiceitem.updated",
-                    "order.created",
-                    "recipient.created",
-                    "recipient.deleted",
-                    "recipient.updated",
-                    "sku.created",
-                    "sku.deleted",
-                    "sku.updated",
                 ]
             ]
         ]
