@@ -1217,7 +1217,7 @@ class Account(
         """
         controller: NotRequired["Account.CreateParamsController"]
         """
-        The configuration of the account when `type` is not provided.
+        A hash of configuration describing the account controller's attributes.
         """
         country: NotRequired[str]
         """
