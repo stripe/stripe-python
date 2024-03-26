@@ -136,6 +136,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://stripe.com/docs/api#issuing_disputes) object.
         """
+        payout: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
+        """
 
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
@@ -164,11 +168,11 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -200,25 +204,25 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
 
     class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The bank account holder's name.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         The bank account number.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         The bank account's routing number.
         """
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -226,21 +230,21 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         The FinancialAccount that funds were pulled from.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        status: NotRequired["Literal['failed', 'succeeded']"]
+        status: NotRequired[Literal["failed", "succeeded"]]
         """
         Only return ReceivedDebits that have the given status: `succeeded` or `failed`.
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

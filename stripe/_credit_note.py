@@ -155,19 +155,19 @@ class CreditNote(
         """
 
     class CreateParams(RequestOptions):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the total amount of the credit note.
         """
-        credit_amount: NotRequired["int"]
+        credit_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
         """
-        effective_at: NotRequired["int"]
+        effective_at: NotRequired[int]
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -175,33 +175,38 @@ class CreditNote(
         """
         ID of the invoice.
         """
-        lines: NotRequired["List[CreditNote.CreateParamsLine]"]
+        lines: NotRequired[List["CreditNote.CreateParamsLine"]]
         """
         Line items that make up the credit note.
         """
-        memo: NotRequired["str"]
+        memo: NotRequired[str]
         """
         The credit note's memo appears on the credit note PDF.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        out_of_band_amount: NotRequired["int"]
+        out_of_band_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
         """
         reason: NotRequired[
-            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']"
+            Literal[
+                "duplicate",
+                "fraudulent",
+                "order_change",
+                "product_unsatisfactory",
+            ]
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired["str"]
+        refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to.
         """
-        refund_amount: NotRequired["int"]
+        refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
@@ -211,19 +216,19 @@ class CreditNote(
         """
 
     class CreateParamsLine(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The line item amount to credit. Only valid when `type` is `invoice_line_item`.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
         """
-        invoice_line_item: NotRequired["str"]
+        invoice_line_item: NotRequired[str]
         """
         The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The line item quantity to credit.
         """
@@ -241,11 +246,11 @@ class CreditNote(
         """
         Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -265,25 +270,25 @@ class CreditNote(
         """
 
     class CreateParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         The ID of the shipping rate to use for this order.
         """
 
     class ListLinesParams(RequestOptions):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
@@ -293,81 +298,81 @@ class CreditNote(
         """
         Only return credit notes that were created during the given date interval.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         Only return credit notes for the customer specified by this customer ID.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        invoice: NotRequired["str"]
+        invoice: NotRequired[str]
         """
         Only return credit notes for the invoice specified by this invoice ID.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        memo: NotRequired["str"]
+        memo: NotRequired[str]
         """
         Credit note memo.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
     class PreviewLinesParams(RequestOptions):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the total amount of the credit note.
         """
-        credit_amount: NotRequired["int"]
+        credit_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
         """
-        effective_at: NotRequired["int"]
+        effective_at: NotRequired[int]
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -375,37 +380,42 @@ class CreditNote(
         """
         ID of the invoice.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        lines: NotRequired["List[CreditNote.PreviewLinesParamsLine]"]
+        lines: NotRequired[List["CreditNote.PreviewLinesParamsLine"]]
         """
         Line items that make up the credit note.
         """
-        memo: NotRequired["str"]
+        memo: NotRequired[str]
         """
         The credit note's memo appears on the credit note PDF.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        out_of_band_amount: NotRequired["int"]
+        out_of_band_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
         """
         reason: NotRequired[
-            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']"
+            Literal[
+                "duplicate",
+                "fraudulent",
+                "order_change",
+                "product_unsatisfactory",
+            ]
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired["str"]
+        refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to.
         """
-        refund_amount: NotRequired["int"]
+        refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
@@ -413,25 +423,25 @@ class CreditNote(
         """
         When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class PreviewLinesParamsLine(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The line item amount to credit. Only valid when `type` is `invoice_line_item`.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
         """
-        invoice_line_item: NotRequired["str"]
+        invoice_line_item: NotRequired[str]
         """
         The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The line item quantity to credit.
         """
@@ -449,11 +459,11 @@ class CreditNote(
         """
         Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -473,25 +483,25 @@ class CreditNote(
         """
 
     class PreviewLinesParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         The ID of the shipping rate to use for this order.
         """
 
     class PreviewParams(RequestOptions):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the total amount of the credit note.
         """
-        credit_amount: NotRequired["int"]
+        credit_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
         """
-        effective_at: NotRequired["int"]
+        effective_at: NotRequired[int]
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -499,33 +509,38 @@ class CreditNote(
         """
         ID of the invoice.
         """
-        lines: NotRequired["List[CreditNote.PreviewParamsLine]"]
+        lines: NotRequired[List["CreditNote.PreviewParamsLine"]]
         """
         Line items that make up the credit note.
         """
-        memo: NotRequired["str"]
+        memo: NotRequired[str]
         """
         The credit note's memo appears on the credit note PDF.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        out_of_band_amount: NotRequired["int"]
+        out_of_band_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
         """
         reason: NotRequired[
-            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']"
+            Literal[
+                "duplicate",
+                "fraudulent",
+                "order_change",
+                "product_unsatisfactory",
+            ]
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired["str"]
+        refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to.
         """
-        refund_amount: NotRequired["int"]
+        refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
@@ -535,19 +550,19 @@ class CreditNote(
         """
 
     class PreviewParamsLine(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The line item amount to credit. Only valid when `type` is `invoice_line_item`.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
         """
-        invoice_line_item: NotRequired["str"]
+        invoice_line_item: NotRequired[str]
         """
         The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The line item quantity to credit.
         """
@@ -565,11 +580,11 @@ class CreditNote(
         """
         Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -589,19 +604,19 @@ class CreditNote(
         """
 
     class PreviewParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         The ID of the shipping rate to use for this order.
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class VoidCreditNoteParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

@@ -454,6 +454,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "expired_card",
                 "financial_connections_account_inactive",
                 "financial_connections_no_successful_transaction_refresh",
+                "forwarding_api_inactive",
+                "forwarding_api_invalid_parameter",
+                "forwarding_api_upstream_connection_error",
+                "forwarding_api_upstream_connection_timeout",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -664,15 +668,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         can be a string with an integer Unix timestamp or a
         dictionary with a number of different query options.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
@@ -681,25 +685,25 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         Only return SetupAttempts created by the SetupIntent specified by
         this ID.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
