@@ -38,6 +38,30 @@ class AccountSessionService(StripeService):
         """
         Configuration for the documents embedded component.
         """
+        financial_account: NotRequired[
+            "AccountSessionService.CreateParamsComponentsFinancialAccount"
+        ]
+        """
+        Configuration for the financial account component.
+        """
+        financial_account_transactions: NotRequired[
+            "AccountSessionService.CreateParamsComponentsFinancialAccountTransactions"
+        ]
+        """
+        Configuration for the financial account transactions component.
+        """
+        issuing_card: NotRequired[
+            "AccountSessionService.CreateParamsComponentsIssuingCard"
+        ]
+        """
+        Configuration for the issuing card component.
+        """
+        issuing_cards_list: NotRequired[
+            "AccountSessionService.CreateParamsComponentsIssuingCardsList"
+        ]
+        """
+        Configuration for the issuing cards list component.
+        """
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
@@ -101,6 +125,75 @@ class AccountSessionService(StripeService):
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
+
+    class CreateParamsComponentsFinancialAccount(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsFinancialAccountFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
+        money_movement: NotRequired[bool]
+        """
+        Whether to allow money movement features.
+        """
+
+    class CreateParamsComponentsFinancialAccountTransactions(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsFinancialAccountTransactionsFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountTransactionsFeatures(
+        TypedDict
+    ):
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute features.
+        """
+
+    class CreateParamsComponentsIssuingCard(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsIssuingCardFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsIssuingCardsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsIssuingCardsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
+        card_management: NotRequired[bool]
+        """
+        Whether to allow card management features.
+        """
+        cardholder_management: NotRequired[bool]
+        """
+        Whether to allow cardholder management features.
+        """
 
     class CreateParamsComponentsPaymentDetails(TypedDict):
         enabled: bool
