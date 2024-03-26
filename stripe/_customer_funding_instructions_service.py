@@ -18,7 +18,7 @@ class CustomerFundingInstructionsService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -35,7 +35,7 @@ class CustomerFundingInstructionsService(StripeService):
         Configuration for eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['iban', 'sort_code', 'spei', 'zengin']]"
+            List[Literal["iban", "sort_code", "spei", "zengin"]]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.

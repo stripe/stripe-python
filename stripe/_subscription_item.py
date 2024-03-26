@@ -54,16 +54,21 @@ class SubscriptionItem(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         payment_behavior: NotRequired[
-            "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']"
+            Literal[
+                "allow_incomplete",
+                "default_incomplete",
+                "error_if_incomplete",
+                "pending_if_incomplete",
+            ]
         ]
         """
         Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -74,11 +79,11 @@ class SubscriptionItem(
 
         Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
         """
-        plan: NotRequired["str"]
+        plan: NotRequired[str]
         """
         The identifier of the plan to add to the subscription.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -87,16 +92,16 @@ class SubscriptionItem(
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         """
-        proration_date: NotRequired["int"]
+        proration_date: NotRequired[int]
         """
         If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity you'd like to apply to the subscription item you're creating.
         """
@@ -129,16 +134,16 @@ class SubscriptionItem(
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -148,17 +153,17 @@ class SubscriptionItem(
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class CreateUsageRecordParams(RequestOptions):
-        action: NotRequired["Literal['increment', 'set']"]
+        action: NotRequired[Literal["increment", "set"]]
         """
         Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -172,35 +177,35 @@ class SubscriptionItem(
         """
 
     class DeleteParams(RequestOptions):
-        clear_usage: NotRequired["bool"]
+        clear_usage: NotRequired[bool]
         """
         Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         """
-        proration_date: NotRequired["int"]
+        proration_date: NotRequired[int]
         """
         If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
         """
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
@@ -210,19 +215,19 @@ class SubscriptionItem(
         """
 
     class ListUsageRecordSummariesParams(RequestOptions):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
@@ -234,7 +239,7 @@ class SubscriptionItem(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -242,12 +247,17 @@ class SubscriptionItem(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        off_session: NotRequired["bool"]
+        off_session: NotRequired[bool]
         """
         Indicates if a customer is on or off-session while an invoice payment is attempted.
         """
         payment_behavior: NotRequired[
-            "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']"
+            Literal[
+                "allow_incomplete",
+                "default_incomplete",
+                "error_if_incomplete",
+                "pending_if_incomplete",
+            ]
         ]
         """
         Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -258,11 +268,11 @@ class SubscriptionItem(
 
         Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
         """
-        plan: NotRequired["str"]
+        plan: NotRequired[str]
         """
         The identifier of the new plan for this subscription item.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
@@ -271,16 +281,16 @@ class SubscriptionItem(
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         """
-        proration_date: NotRequired["int"]
+        proration_date: NotRequired[int]
         """
         If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity you'd like to apply to the subscription item you're creating.
         """
@@ -309,16 +319,16 @@ class SubscriptionItem(
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -328,13 +338,13 @@ class SubscriptionItem(
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

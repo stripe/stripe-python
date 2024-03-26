@@ -24,7 +24,7 @@ class AccountService(StripeService):
         self.persons = AccountPersonService(self._requestor)
 
     class CreateParams(TypedDict):
-        account_token: NotRequired["str"]
+        account_token: NotRequired[str]
         """
         An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
         """
@@ -35,7 +35,7 @@ class AccountService(StripeService):
         Business information about the account.
         """
         business_type: NotRequired[
-            "Literal['company', 'government_entity', 'individual', 'non_profit']"
+            Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
         The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
@@ -48,11 +48,11 @@ class AccountService(StripeService):
         """
         Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. Available countries include [Stripe's global markets](https://stripe.com/global) as well as countries where [cross-border payouts](https://stripe.com/docs/connect/cross-border-payouts) are supported.
         """
-        default_currency: NotRequired["str"]
+        default_currency: NotRequired[str]
         """
         Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
         """
@@ -60,11 +60,11 @@ class AccountService(StripeService):
         """
         Documents that may be submitted to satisfy various informational requests.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -92,18 +92,18 @@ class AccountService(StripeService):
         """
         Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
         """
-        type: NotRequired["Literal['custom', 'express', 'standard']"]
+        type: NotRequired[Literal["custom", "express", "standard"]]
         """
         The type of Stripe account to create. May be one of `custom`, `express` or `standard`.
         """
 
     class CreateParamsBankAccount(TypedDict):
         object: Literal["bank_account"]
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
         """
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
         """
@@ -115,11 +115,11 @@ class AccountService(StripeService):
         """
         The country in which the bank account is located.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
         """
@@ -131,11 +131,11 @@ class AccountService(StripeService):
         """
         The applicant's gross annual revenue for its preceding fiscal year.
         """
-        estimated_worker_count: NotRequired["int"]
+        estimated_worker_count: NotRequired[int]
         """
         An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
         """
-        mcc: NotRequired["str"]
+        mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
@@ -145,11 +145,11 @@ class AccountService(StripeService):
         """
         An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The customer-facing business name.
         """
-        product_description: NotRequired["str"]
+        product_description: NotRequired[str]
         """
         Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
         """
@@ -159,11 +159,11 @@ class AccountService(StripeService):
         """
         A publicly available mailing address for sending support issues to.
         """
-        support_email: NotRequired["str"]
+        support_email: NotRequired[str]
         """
         A publicly available email address for sending support issues to.
         """
-        support_phone: NotRequired["str"]
+        support_phone: NotRequired[str]
         """
         A publicly available phone number to call with support issues.
         """
@@ -171,7 +171,7 @@ class AccountService(StripeService):
         """
         A publicly available website for handling support issues.
         """
-        url: NotRequired["str"]
+        url: NotRequired[str]
         """
         The business's publicly available website.
         """
@@ -201,27 +201,27 @@ class AccountService(StripeService):
         """
 
     class CreateParamsBusinessProfileSupportAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -463,262 +463,262 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesAcssDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesAffirmPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesBacsDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesBancontactPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesBlikPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesBoletoPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesCardIssuing(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesCardPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesCartesBancairesPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesCashappPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesEpsPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesFpxPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesGiropayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesIdealPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesIndiaInternationalPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesJcbPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesLegacyPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesLinkPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesPaynowPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesRevolutPayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesSwishPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesTaxReportingUs1099K(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesTaxReportingUs1099Misc(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesTransfers(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesUsBankAccountAchPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCapabilitiesZipPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class CreateParamsCard(TypedDict):
         object: Literal["card"]
-        address_city: NotRequired["str"]
-        address_country: NotRequired["str"]
-        address_line1: NotRequired["str"]
-        address_line2: NotRequired["str"]
-        address_state: NotRequired["str"]
-        address_zip: NotRequired["str"]
-        currency: NotRequired["str"]
-        cvc: NotRequired["str"]
+        address_city: NotRequired[str]
+        address_country: NotRequired[str]
+        address_line1: NotRequired[str]
+        address_line2: NotRequired[str]
+        address_state: NotRequired[str]
+        address_zip: NotRequired[str]
+        currency: NotRequired[str]
+        cvc: NotRequired[str]
         exp_month: int
         exp_year: int
-        name: NotRequired["str"]
+        name: NotRequired[str]
         number: str
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
-        default_for_currency: NotRequired["bool"]
+        default_for_currency: NotRequired[bool]
 
     class CreateParamsCardToken(TypedDict):
         object: Literal["card"]
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         token: str
 
     class CreateParamsCompany(TypedDict):
@@ -738,35 +738,35 @@ class AccountService(StripeService):
         """
         The Kanji variation of the company's primary address (Japan only).
         """
-        directors_provided: NotRequired["bool"]
+        directors_provided: NotRequired[bool]
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
-        executives_provided: NotRequired["bool"]
+        executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.executive` requirement.
         """
-        export_license_id: NotRequired["str"]
+        export_license_id: NotRequired[str]
         """
         The export license ID number of the company, also referred as Import Export Code (India only).
         """
-        export_purpose_code: NotRequired["str"]
+        export_purpose_code: NotRequired[str]
         """
         The purpose code to use for export transactions (India only).
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The company's legal name.
         """
-        name_kana: NotRequired["str"]
+        name_kana: NotRequired[str]
         """
         The Kana variation of the company's legal name (Japan only).
         """
-        name_kanji: NotRequired["str"]
+        name_kanji: NotRequired[str]
         """
         The Kanji variation of the company's legal name (Japan only).
         """
-        owners_provided: NotRequired["bool"]
+        owners_provided: NotRequired[bool]
         """
         Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.owner` requirement.
         """
@@ -776,11 +776,11 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The company's phone number (used for verification).
         """
-        registration_number: NotRequired["str"]
+        registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         """
@@ -790,15 +790,15 @@ class AccountService(StripeService):
         """
         The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
-        tax_id: NotRequired["str"]
+        tax_id: NotRequired[str]
         """
         The business ID number of the company, as appropriate for the company's country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
         """
-        tax_id_registrar: NotRequired["str"]
+        tax_id_registrar: NotRequired[str]
         """
         The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
         """
-        vat_id: NotRequired["str"]
+        vat_id: NotRequired[str]
         """
         The VAT number of the company.
         """
@@ -810,101 +810,101 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCompanyAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsCompanyAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class CreateParamsCompanyAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class CreateParamsCompanyOwnershipDeclaration(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the beneficial owner attestation was made.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the beneficial owner attestation was made.
         """
-        user_agent: NotRequired["str"]
+        user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
         """
@@ -918,11 +918,11 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCompanyVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
@@ -972,43 +972,43 @@ class AccountService(StripeService):
         """
 
     class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsCompanyLicense(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsCompanyMinisterialDecree(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsCompanyRegistrationVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsProofOfRegistration(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
@@ -1036,19 +1036,19 @@ class AccountService(StripeService):
         """
         The individual's date of birth.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The individual's email address.
         """
-        first_name: NotRequired["str"]
+        first_name: NotRequired[str]
         """
         The individual's first name.
         """
-        first_name_kana: NotRequired["str"]
+        first_name_kana: NotRequired[str]
         """
         The Kana variation of the the individual's first name (Japan only).
         """
-        first_name_kanji: NotRequired["str"]
+        first_name_kanji: NotRequired[str]
         """
         The Kanji variation of the individual's first name (Japan only).
         """
@@ -1056,31 +1056,31 @@ class AccountService(StripeService):
         """
         A list of alternate names or aliases that the individual is known by.
         """
-        gender: NotRequired["str"]
+        gender: NotRequired[str]
         """
         The individual's gender (International regulations require either "male" or "female").
         """
-        id_number: NotRequired["str"]
+        id_number: NotRequired[str]
         """
         The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        id_number_secondary: NotRequired["str"]
+        id_number_secondary: NotRequired[str]
         """
         The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        last_name: NotRequired["str"]
+        last_name: NotRequired[str]
         """
         The individual's last name.
         """
-        last_name_kana: NotRequired["str"]
+        last_name_kana: NotRequired[str]
         """
         The Kana variation of the individual's last name (Japan only).
         """
-        last_name_kanji: NotRequired["str"]
+        last_name_kanji: NotRequired[str]
         """
         The Kanji variation of the individual's last name (Japan only).
         """
-        maiden_name: NotRequired["str"]
+        maiden_name: NotRequired[str]
         """
         The individual's maiden name.
         """
@@ -1088,11 +1088,11 @@ class AccountService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The individual's phone number.
         """
-        political_exposure: NotRequired["Literal['existing', 'none']"]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -1108,7 +1108,7 @@ class AccountService(StripeService):
         """
         Describes the person's relationship to the account.
         """
-        ssn_last_4: NotRequired["str"]
+        ssn_last_4: NotRequired[str]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
         """
@@ -1120,87 +1120,87 @@ class AccountService(StripeService):
         """
 
     class CreateParamsIndividualAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsIndividualAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class CreateParamsIndividualAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
@@ -1220,41 +1220,41 @@ class AccountService(StripeService):
         """
 
     class CreateParamsIndividualRegisteredAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsIndividualRelationship(TypedDict):
-        director: NotRequired["bool"]
+        director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
         """
-        executive: NotRequired["bool"]
+        executive: NotRequired[bool]
         """
         Whether the person has significant responsibility to control, manage, or direct the organization.
         """
-        owner: NotRequired["bool"]
+        owner: NotRequired[bool]
         """
         Whether the person is an owner of the account's legal entity.
         """
@@ -1262,7 +1262,7 @@ class AccountService(StripeService):
         """
         The percent owned by the person of the account's legal entity.
         """
-        title: NotRequired["str"]
+        title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
         """
@@ -1282,21 +1282,21 @@ class AccountService(StripeService):
         """
 
     class CreateParamsIndividualVerificationAdditionalDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
     class CreateParamsIndividualVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
@@ -1338,25 +1338,25 @@ class AccountService(StripeService):
         """
 
     class CreateParamsSettingsBacsDebitPayments(TypedDict):
-        display_name: NotRequired["str"]
+        display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
         """
 
     class CreateParamsSettingsBranding(TypedDict):
-        icon: NotRequired["str"]
+        icon: NotRequired[str]
         """
         (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
         """
-        logo: NotRequired["str"]
+        logo: NotRequired[str]
         """
         (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
         """
-        primary_color: NotRequired["str"]
+        primary_color: NotRequired[str]
         """
         A CSS hex color value representing the primary branding color for this account.
         """
-        secondary_color: NotRequired["str"]
+        secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
         """
@@ -1370,11 +1370,11 @@ class AccountService(StripeService):
         """
 
     class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -1390,7 +1390,7 @@ class AccountService(StripeService):
         """
         Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
         """
-        statement_descriptor_prefix: NotRequired["str"]
+        statement_descriptor_prefix: NotRequired[str]
         """
         The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
         """
@@ -1404,31 +1404,31 @@ class AccountService(StripeService):
         """
 
     class CreateParamsSettingsCardPaymentsDeclineOn(TypedDict):
-        avs_failure: NotRequired["bool"]
+        avs_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
         """
-        cvc_failure: NotRequired["bool"]
+        cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         """
-        statement_descriptor_kana: NotRequired["str"]
+        statement_descriptor_kana: NotRequired[str]
         """
         The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only).
         """
-        statement_descriptor_kanji: NotRequired["str"]
+        statement_descriptor_kanji: NotRequired[str]
         """
         The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only).
         """
 
     class CreateParamsSettingsPayouts(TypedDict):
-        debit_negative_balances: NotRequired["bool"]
+        debit_negative_balances: NotRequired[bool]
         """
         A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
         """
@@ -1438,7 +1438,7 @@ class AccountService(StripeService):
         """
         Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
         """
@@ -1448,18 +1448,24 @@ class AccountService(StripeService):
         """
         The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/docs/connect/manage-payout-schedule).
         """
-        interval: NotRequired[
-            "Literal['daily', 'manual', 'monthly', 'weekly']"
-        ]
+        interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
         """
-        monthly_anchor: NotRequired["int"]
+        monthly_anchor: NotRequired[int]
         """
         The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
         weekly_anchor: NotRequired[
-            "Literal['friday', 'monday', 'saturday', 'sunday', 'thursday', 'tuesday', 'wednesday']"
+            Literal[
+                "friday",
+                "monday",
+                "saturday",
+                "sunday",
+                "thursday",
+                "tuesday",
+                "wednesday",
+            ]
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
@@ -1474,11 +1480,11 @@ class AccountService(StripeService):
         """
 
     class CreateParamsSettingsTreasuryTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -1488,19 +1494,19 @@ class AccountService(StripeService):
         """
 
     class CreateParamsTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted their service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted their service agreement.
         """
-        service_agreement: NotRequired["str"]
+        service_agreement: NotRequired[str]
         """
         The user's service agreement type.
         """
-        user_agent: NotRequired["str"]
+        user_agent: NotRequired[str]
         """
         The user agent of the browser from which the account representative accepted their service agreement.
         """
@@ -1513,43 +1519,43 @@ class AccountService(StripeService):
         """
         Only return connected accounts that were created during the given date interval.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RejectParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -1559,19 +1565,19 @@ class AccountService(StripeService):
         """
 
     class RetrieveCurrentParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        account_token: NotRequired["str"]
+        account_token: NotRequired[str]
         """
         An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
         """
@@ -1582,7 +1588,7 @@ class AccountService(StripeService):
         Business information about the account.
         """
         business_type: NotRequired[
-            "Literal['company', 'government_entity', 'individual', 'non_profit']"
+            Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
         The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
@@ -1595,7 +1601,7 @@ class AccountService(StripeService):
         """
         Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
         """
-        default_currency: NotRequired["str"]
+        default_currency: NotRequired[str]
         """
         Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
         """
@@ -1603,11 +1609,11 @@ class AccountService(StripeService):
         """
         Documents that may be submitted to satisfy various informational requests.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -1638,11 +1644,11 @@ class AccountService(StripeService):
 
     class UpdateParamsBankAccount(TypedDict):
         object: Literal["bank_account"]
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
         """
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
         """
@@ -1654,11 +1660,11 @@ class AccountService(StripeService):
         """
         The country in which the bank account is located.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
         """
@@ -1670,11 +1676,11 @@ class AccountService(StripeService):
         """
         The applicant's gross annual revenue for its preceding fiscal year.
         """
-        estimated_worker_count: NotRequired["int"]
+        estimated_worker_count: NotRequired[int]
         """
         An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
         """
-        mcc: NotRequired["str"]
+        mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
@@ -1684,11 +1690,11 @@ class AccountService(StripeService):
         """
         An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The customer-facing business name.
         """
-        product_description: NotRequired["str"]
+        product_description: NotRequired[str]
         """
         Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
         """
@@ -1698,11 +1704,11 @@ class AccountService(StripeService):
         """
         A publicly available mailing address for sending support issues to.
         """
-        support_email: NotRequired["str"]
+        support_email: NotRequired[str]
         """
         A publicly available email address for sending support issues to.
         """
-        support_phone: NotRequired["str"]
+        support_phone: NotRequired[str]
         """
         A publicly available phone number to call with support issues.
         """
@@ -1710,7 +1716,7 @@ class AccountService(StripeService):
         """
         A publicly available website for handling support issues.
         """
-        url: NotRequired["str"]
+        url: NotRequired[str]
         """
         The business's publicly available website.
         """
@@ -1740,27 +1746,27 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsBusinessProfileSupportAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -2002,262 +2008,262 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesAcssDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesAffirmPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesBacsDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesBancontactPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesBankTransferPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesBlikPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesBoletoPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesCardIssuing(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesCardPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesCartesBancairesPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesCashappPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesEpsPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesFpxPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesGiropayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesGrabpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesIdealPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesIndiaInternationalPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesJcbPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesKlarnaPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesKonbiniPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesLegacyPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesLinkPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesMobilepayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesOxxoPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesP24Payments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesPaynowPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesPromptpayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesRevolutPayPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesSepaDebitPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesSofortPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesSwishPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesTaxReportingUs1099K(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesTaxReportingUs1099Misc(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesTransfers(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesTreasury(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesUsBankAccountAchPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCapabilitiesZipPayments(TypedDict):
-        requested: NotRequired["bool"]
+        requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
     class UpdateParamsCard(TypedDict):
         object: Literal["card"]
-        address_city: NotRequired["str"]
-        address_country: NotRequired["str"]
-        address_line1: NotRequired["str"]
-        address_line2: NotRequired["str"]
-        address_state: NotRequired["str"]
-        address_zip: NotRequired["str"]
-        currency: NotRequired["str"]
-        cvc: NotRequired["str"]
+        address_city: NotRequired[str]
+        address_country: NotRequired[str]
+        address_line1: NotRequired[str]
+        address_line2: NotRequired[str]
+        address_state: NotRequired[str]
+        address_zip: NotRequired[str]
+        currency: NotRequired[str]
+        cvc: NotRequired[str]
         exp_month: int
         exp_year: int
-        name: NotRequired["str"]
+        name: NotRequired[str]
         number: str
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
-        default_for_currency: NotRequired["bool"]
+        default_for_currency: NotRequired[bool]
 
     class UpdateParamsCardToken(TypedDict):
         object: Literal["card"]
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         token: str
 
     class UpdateParamsCompany(TypedDict):
@@ -2277,35 +2283,35 @@ class AccountService(StripeService):
         """
         The Kanji variation of the company's primary address (Japan only).
         """
-        directors_provided: NotRequired["bool"]
+        directors_provided: NotRequired[bool]
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
-        executives_provided: NotRequired["bool"]
+        executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.executive` requirement.
         """
-        export_license_id: NotRequired["str"]
+        export_license_id: NotRequired[str]
         """
         The export license ID number of the company, also referred as Import Export Code (India only).
         """
-        export_purpose_code: NotRequired["str"]
+        export_purpose_code: NotRequired[str]
         """
         The purpose code to use for export transactions (India only).
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The company's legal name.
         """
-        name_kana: NotRequired["str"]
+        name_kana: NotRequired[str]
         """
         The Kana variation of the company's legal name (Japan only).
         """
-        name_kanji: NotRequired["str"]
+        name_kanji: NotRequired[str]
         """
         The Kanji variation of the company's legal name (Japan only).
         """
-        owners_provided: NotRequired["bool"]
+        owners_provided: NotRequired[bool]
         """
         Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.owner` requirement.
         """
@@ -2315,11 +2321,11 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The company's phone number (used for verification).
         """
-        registration_number: NotRequired["str"]
+        registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         """
@@ -2329,15 +2335,15 @@ class AccountService(StripeService):
         """
         The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
-        tax_id: NotRequired["str"]
+        tax_id: NotRequired[str]
         """
         The business ID number of the company, as appropriate for the company's country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
         """
-        tax_id_registrar: NotRequired["str"]
+        tax_id_registrar: NotRequired[str]
         """
         The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
         """
-        vat_id: NotRequired["str"]
+        vat_id: NotRequired[str]
         """
         The VAT number of the company.
         """
@@ -2349,101 +2355,101 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCompanyAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsCompanyAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class UpdateParamsCompanyAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class UpdateParamsCompanyOwnershipDeclaration(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the beneficial owner attestation was made.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the beneficial owner attestation was made.
         """
-        user_agent: NotRequired["str"]
+        user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
         """
@@ -2457,11 +2463,11 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCompanyVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
@@ -2511,43 +2517,43 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsCompanyLicense(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsCompanyMinisterialDecree(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsCompanyRegistrationVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsProofOfRegistration(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
@@ -2575,19 +2581,19 @@ class AccountService(StripeService):
         """
         The individual's date of birth.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The individual's email address.
         """
-        first_name: NotRequired["str"]
+        first_name: NotRequired[str]
         """
         The individual's first name.
         """
-        first_name_kana: NotRequired["str"]
+        first_name_kana: NotRequired[str]
         """
         The Kana variation of the the individual's first name (Japan only).
         """
-        first_name_kanji: NotRequired["str"]
+        first_name_kanji: NotRequired[str]
         """
         The Kanji variation of the individual's first name (Japan only).
         """
@@ -2595,31 +2601,31 @@ class AccountService(StripeService):
         """
         A list of alternate names or aliases that the individual is known by.
         """
-        gender: NotRequired["str"]
+        gender: NotRequired[str]
         """
         The individual's gender (International regulations require either "male" or "female").
         """
-        id_number: NotRequired["str"]
+        id_number: NotRequired[str]
         """
         The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        id_number_secondary: NotRequired["str"]
+        id_number_secondary: NotRequired[str]
         """
         The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        last_name: NotRequired["str"]
+        last_name: NotRequired[str]
         """
         The individual's last name.
         """
-        last_name_kana: NotRequired["str"]
+        last_name_kana: NotRequired[str]
         """
         The Kana variation of the individual's last name (Japan only).
         """
-        last_name_kanji: NotRequired["str"]
+        last_name_kanji: NotRequired[str]
         """
         The Kanji variation of the individual's last name (Japan only).
         """
-        maiden_name: NotRequired["str"]
+        maiden_name: NotRequired[str]
         """
         The individual's maiden name.
         """
@@ -2627,11 +2633,11 @@ class AccountService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The individual's phone number.
         """
-        political_exposure: NotRequired["Literal['existing', 'none']"]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -2647,7 +2653,7 @@ class AccountService(StripeService):
         """
         Describes the person's relationship to the account.
         """
-        ssn_last_4: NotRequired["str"]
+        ssn_last_4: NotRequired[str]
         """
         The last four digits of the individual's Social Security Number (U.S. only).
         """
@@ -2659,87 +2665,87 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsIndividualAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsIndividualAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class UpdateParamsIndividualAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
@@ -2759,41 +2765,41 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsIndividualRegisteredAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsIndividualRelationship(TypedDict):
-        director: NotRequired["bool"]
+        director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
         """
-        executive: NotRequired["bool"]
+        executive: NotRequired[bool]
         """
         Whether the person has significant responsibility to control, manage, or direct the organization.
         """
-        owner: NotRequired["bool"]
+        owner: NotRequired[bool]
         """
         Whether the person is an owner of the account's legal entity.
         """
@@ -2801,7 +2807,7 @@ class AccountService(StripeService):
         """
         The percent owned by the person of the account's legal entity.
         """
-        title: NotRequired["str"]
+        title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
         """
@@ -2821,21 +2827,21 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsIndividualVerificationAdditionalDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
     class UpdateParamsIndividualVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
@@ -2881,25 +2887,25 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsSettingsBacsDebitPayments(TypedDict):
-        display_name: NotRequired["str"]
+        display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
         """
 
     class UpdateParamsSettingsBranding(TypedDict):
-        icon: NotRequired["str"]
+        icon: NotRequired[str]
         """
         (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
         """
-        logo: NotRequired["str"]
+        logo: NotRequired[str]
         """
         (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
         """
-        primary_color: NotRequired["str"]
+        primary_color: NotRequired[str]
         """
         A CSS hex color value representing the primary branding color for this account.
         """
-        secondary_color: NotRequired["str"]
+        secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
         """
@@ -2913,11 +2919,11 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsSettingsCardIssuingTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -2933,7 +2939,7 @@ class AccountService(StripeService):
         """
         Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
         """
-        statement_descriptor_prefix: NotRequired["str"]
+        statement_descriptor_prefix: NotRequired[str]
         """
         The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
         """
@@ -2947,11 +2953,11 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsSettingsCardPaymentsDeclineOn(TypedDict):
-        avs_failure: NotRequired["bool"]
+        avs_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
         """
-        cvc_failure: NotRequired["bool"]
+        cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
         """
@@ -2963,21 +2969,21 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsSettingsPayments(TypedDict):
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         """
-        statement_descriptor_kana: NotRequired["str"]
+        statement_descriptor_kana: NotRequired[str]
         """
         The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only).
         """
-        statement_descriptor_kanji: NotRequired["str"]
+        statement_descriptor_kanji: NotRequired[str]
         """
         The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only).
         """
 
     class UpdateParamsSettingsPayouts(TypedDict):
-        debit_negative_balances: NotRequired["bool"]
+        debit_negative_balances: NotRequired[bool]
         """
         A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
         """
@@ -2987,7 +2993,7 @@ class AccountService(StripeService):
         """
         Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
         """
@@ -2997,18 +3003,24 @@ class AccountService(StripeService):
         """
         The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/docs/connect/manage-payout-schedule).
         """
-        interval: NotRequired[
-            "Literal['daily', 'manual', 'monthly', 'weekly']"
-        ]
+        interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
         """
-        monthly_anchor: NotRequired["int"]
+        monthly_anchor: NotRequired[int]
         """
         The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
         weekly_anchor: NotRequired[
-            "Literal['friday', 'monday', 'saturday', 'sunday', 'thursday', 'tuesday', 'wednesday']"
+            Literal[
+                "friday",
+                "monday",
+                "saturday",
+                "sunday",
+                "thursday",
+                "tuesday",
+                "wednesday",
+            ]
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
@@ -3023,11 +3035,11 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsSettingsTreasuryTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -3037,19 +3049,19 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsTosAcceptance(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted their service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted their service agreement.
         """
-        service_agreement: NotRequired["str"]
+        service_agreement: NotRequired[str]
         """
         The user's service agreement type.
         """
-        user_agent: NotRequired["str"]
+        user_agent: NotRequired[str]
         """
         The user agent of the browser from which the account representative accepted their service agreement.
         """

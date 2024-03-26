@@ -12,11 +12,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class AccountExternalAccountService(StripeService):
     class CreateParams(TypedDict):
-        default_for_currency: NotRequired["bool"]
+        default_for_currency: NotRequired[bool]
         """
         When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -29,18 +29,18 @@ class AccountExternalAccountService(StripeService):
         """
         Please refer to full [documentation](https://stripe.com/docs/api) instead.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
     class CreateParamsBankAccount(TypedDict):
         object: Literal["bank_account"]
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
         """
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
         """
@@ -52,72 +52,72 @@ class AccountExternalAccountService(StripeService):
         """
         The country in which the bank account is located.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
         """
 
     class CreateParamsCard(TypedDict):
         object: Literal["card"]
-        address_city: NotRequired["str"]
-        address_country: NotRequired["str"]
-        address_line1: NotRequired["str"]
-        address_line2: NotRequired["str"]
-        address_state: NotRequired["str"]
-        address_zip: NotRequired["str"]
-        currency: NotRequired["str"]
-        cvc: NotRequired["str"]
+        address_city: NotRequired[str]
+        address_country: NotRequired[str]
+        address_line1: NotRequired[str]
+        address_line2: NotRequired[str]
+        address_state: NotRequired[str]
+        address_zip: NotRequired[str]
+        currency: NotRequired[str]
+        cvc: NotRequired[str]
         exp_month: int
         exp_year: int
-        name: NotRequired["str"]
+        name: NotRequired[str]
         number: str
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
 
     class CreateParamsCardToken(TypedDict):
         object: Literal["card"]
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         token: str
 
     class DeleteParams(TypedDict):
         pass
 
     class ListParams(TypedDict):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        object: NotRequired["Literal['bank_account', 'card']"]
+        object: NotRequired[Literal["bank_account", "card"]]
         """
         Filter external accounts according to a particular object type.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The name of the person or business that owns the bank account.
         """
@@ -128,36 +128,36 @@ class AccountExternalAccountService(StripeService):
         The type of entity that holds the account. This can be either `individual` or `company`.
         """
         account_type: NotRequired[
-            "Literal['checking', 'futsu', 'savings', 'toza']"
+            Literal["checking", "futsu", "savings", "toza"]
         ]
         """
         The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
         """
-        address_city: NotRequired["str"]
+        address_city: NotRequired[str]
         """
         City/District/Suburb/Town/Village.
         """
-        address_country: NotRequired["str"]
+        address_country: NotRequired[str]
         """
         Billing address country, if provided when creating card.
         """
-        address_line1: NotRequired["str"]
+        address_line1: NotRequired[str]
         """
         Address line 1 (Street address/PO Box/Company name).
         """
-        address_line2: NotRequired["str"]
+        address_line2: NotRequired[str]
         """
         Address line 2 (Apartment/Suite/Unit/Building).
         """
-        address_state: NotRequired["str"]
+        address_state: NotRequired[str]
         """
         State/County/Province/Region.
         """
-        address_zip: NotRequired["str"]
+        address_zip: NotRequired[str]
         """
         ZIP or postal code.
         """
-        default_for_currency: NotRequired["bool"]
+        default_for_currency: NotRequired[bool]
         """
         When set to true, this becomes the default external account for its currency.
         """
@@ -167,15 +167,15 @@ class AccountExternalAccountService(StripeService):
         """
         Documents that may be submitted to satisfy various informational requests.
         """
-        exp_month: NotRequired["str"]
+        exp_month: NotRequired[str]
         """
         Two digit number representing the card's expiration month.
         """
-        exp_year: NotRequired["str"]
+        exp_year: NotRequired[str]
         """
         Four digit number representing the card's expiration year.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -183,7 +183,7 @@ class AccountExternalAccountService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         Cardholder name.
         """
@@ -197,7 +197,7 @@ class AccountExternalAccountService(StripeService):
         """
 
     class UpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """

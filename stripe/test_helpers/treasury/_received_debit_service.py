@@ -17,11 +17,11 @@ class ReceivedDebitService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -53,15 +53,15 @@ class ReceivedDebitService(StripeService):
         """
 
     class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The bank account holder's name.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         The bank account number.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         The bank account's routing number.
         """

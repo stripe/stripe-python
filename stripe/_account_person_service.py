@@ -41,23 +41,23 @@ class AccountPersonService(StripeService):
         """
         Documents that may be submitted to satisfy various informational requests.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The person's email address.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        first_name: NotRequired["str"]
+        first_name: NotRequired[str]
         """
         The person's first name.
         """
-        first_name_kana: NotRequired["str"]
+        first_name_kana: NotRequired[str]
         """
         The Kana variation of the person's first name (Japan only).
         """
-        first_name_kanji: NotRequired["str"]
+        first_name_kanji: NotRequired[str]
         """
         The Kanji variation of the person's first name (Japan only).
         """
@@ -65,31 +65,31 @@ class AccountPersonService(StripeService):
         """
         A list of alternate names or aliases that the person is known by.
         """
-        gender: NotRequired["str"]
+        gender: NotRequired[str]
         """
         The person's gender (International regulations require either "male" or "female").
         """
-        id_number: NotRequired["str"]
+        id_number: NotRequired[str]
         """
         The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        id_number_secondary: NotRequired["str"]
+        id_number_secondary: NotRequired[str]
         """
         The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        last_name: NotRequired["str"]
+        last_name: NotRequired[str]
         """
         The person's last name.
         """
-        last_name_kana: NotRequired["str"]
+        last_name_kana: NotRequired[str]
         """
         The Kana variation of the person's last name (Japan only).
         """
-        last_name_kanji: NotRequired["str"]
+        last_name_kanji: NotRequired[str]
         """
         The Kanji variation of the person's last name (Japan only).
         """
-        maiden_name: NotRequired["str"]
+        maiden_name: NotRequired[str]
         """
         The person's maiden name.
         """
@@ -97,19 +97,19 @@ class AccountPersonService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        nationality: NotRequired["str"]
+        nationality: NotRequired[str]
         """
         The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
         """
-        person_token: NotRequired["str"]
+        person_token: NotRequired[str]
         """
         A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The person's phone number.
         """
-        political_exposure: NotRequired["str"]
+        political_exposure: NotRequired[str]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -125,7 +125,7 @@ class AccountPersonService(StripeService):
         """
         The relationship that this person has with the account's legal entity.
         """
-        ssn_last_4: NotRequired["str"]
+        ssn_last_4: NotRequired[str]
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
@@ -145,11 +145,11 @@ class AccountPersonService(StripeService):
         """
 
     class CreateParamsAdditionalTosAcceptancesAccount(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -159,87 +159,87 @@ class AccountPersonService(StripeService):
         """
 
     class CreateParamsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class CreateParamsAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
@@ -277,63 +277,63 @@ class AccountPersonService(StripeService):
         """
 
     class CreateParamsDocumentsCompanyAuthorization(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsPassport(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsDocumentsVisa(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class CreateParamsRegisteredAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsRelationship(TypedDict):
-        director: NotRequired["bool"]
+        director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
         """
-        executive: NotRequired["bool"]
+        executive: NotRequired[bool]
         """
         Whether the person has significant responsibility to control, manage, or direct the organization.
         """
-        legal_guardian: NotRequired["bool"]
+        legal_guardian: NotRequired[bool]
         """
         Whether the person is the legal guardian of the account's representative.
         """
-        owner: NotRequired["bool"]
+        owner: NotRequired[bool]
         """
         Whether the person is an owner of the account's legal entity.
         """
@@ -341,11 +341,11 @@ class AccountPersonService(StripeService):
         """
         The percent owned by the person of the account's legal entity.
         """
-        representative: NotRequired["bool"]
+        representative: NotRequired[bool]
         """
         Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
         """
-        title: NotRequired["str"]
+        title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
         """
@@ -365,21 +365,21 @@ class AccountPersonService(StripeService):
         """
 
     class CreateParamsVerificationAdditionalDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
     class CreateParamsVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
@@ -388,15 +388,15 @@ class AccountPersonService(StripeService):
         pass
 
     class ListParams(TypedDict):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
@@ -406,35 +406,35 @@ class AccountPersonService(StripeService):
         """
         Filters on the list of people returned based on the person's relationship to the account's company.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsRelationship(TypedDict):
-        director: NotRequired["bool"]
+        director: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are directors of the account's company.
         """
-        executive: NotRequired["bool"]
+        executive: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are executives of the account's company.
         """
-        legal_guardian: NotRequired["bool"]
+        legal_guardian: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are legal guardians of the account's representative.
         """
-        owner: NotRequired["bool"]
+        owner: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are owners of the account's company.
         """
-        representative: NotRequired["bool"]
+        representative: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are the representative of the account's company.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -470,23 +470,23 @@ class AccountPersonService(StripeService):
         """
         Documents that may be submitted to satisfy various informational requests.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The person's email address.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        first_name: NotRequired["str"]
+        first_name: NotRequired[str]
         """
         The person's first name.
         """
-        first_name_kana: NotRequired["str"]
+        first_name_kana: NotRequired[str]
         """
         The Kana variation of the person's first name (Japan only).
         """
-        first_name_kanji: NotRequired["str"]
+        first_name_kanji: NotRequired[str]
         """
         The Kanji variation of the person's first name (Japan only).
         """
@@ -494,31 +494,31 @@ class AccountPersonService(StripeService):
         """
         A list of alternate names or aliases that the person is known by.
         """
-        gender: NotRequired["str"]
+        gender: NotRequired[str]
         """
         The person's gender (International regulations require either "male" or "female").
         """
-        id_number: NotRequired["str"]
+        id_number: NotRequired[str]
         """
         The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        id_number_secondary: NotRequired["str"]
+        id_number_secondary: NotRequired[str]
         """
         The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
         """
-        last_name: NotRequired["str"]
+        last_name: NotRequired[str]
         """
         The person's last name.
         """
-        last_name_kana: NotRequired["str"]
+        last_name_kana: NotRequired[str]
         """
         The Kana variation of the person's last name (Japan only).
         """
-        last_name_kanji: NotRequired["str"]
+        last_name_kanji: NotRequired[str]
         """
         The Kanji variation of the person's last name (Japan only).
         """
-        maiden_name: NotRequired["str"]
+        maiden_name: NotRequired[str]
         """
         The person's maiden name.
         """
@@ -526,19 +526,19 @@ class AccountPersonService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        nationality: NotRequired["str"]
+        nationality: NotRequired[str]
         """
         The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable.
         """
-        person_token: NotRequired["str"]
+        person_token: NotRequired[str]
         """
         A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The person's phone number.
         """
-        political_exposure: NotRequired["str"]
+        political_exposure: NotRequired[str]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -554,7 +554,7 @@ class AccountPersonService(StripeService):
         """
         The relationship that this person has with the account's legal entity.
         """
-        ssn_last_4: NotRequired["str"]
+        ssn_last_4: NotRequired[str]
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
@@ -574,11 +574,11 @@ class AccountPersonService(StripeService):
         """
 
     class UpdateParamsAdditionalTosAcceptancesAccount(TypedDict):
-        date: NotRequired["int"]
+        date: NotRequired[int]
         """
         The Unix timestamp marking when the account representative accepted the service agreement.
         """
-        ip: NotRequired["str"]
+        ip: NotRequired[str]
         """
         The IP address from which the account representative accepted the service agreement.
         """
@@ -588,87 +588,87 @@ class AccountPersonService(StripeService):
         """
 
     class UpdateParamsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsAddressKana(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
 
     class UpdateParamsAddressKanji(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City or ward.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Block or building number.
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Building details.
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         Postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         Prefecture.
         """
-        town: NotRequired["str"]
+        town: NotRequired[str]
         """
         Town or cho-me.
         """
@@ -706,63 +706,63 @@ class AccountPersonService(StripeService):
         """
 
     class UpdateParamsDocumentsCompanyAuthorization(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsPassport(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsDocumentsVisa(TypedDict):
-        files: NotRequired["List[str]"]
+        files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
     class UpdateParamsRegisteredAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class UpdateParamsRelationship(TypedDict):
-        director: NotRequired["bool"]
+        director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
         """
-        executive: NotRequired["bool"]
+        executive: NotRequired[bool]
         """
         Whether the person has significant responsibility to control, manage, or direct the organization.
         """
-        legal_guardian: NotRequired["bool"]
+        legal_guardian: NotRequired[bool]
         """
         Whether the person is the legal guardian of the account's representative.
         """
-        owner: NotRequired["bool"]
+        owner: NotRequired[bool]
         """
         Whether the person is an owner of the account's legal entity.
         """
@@ -770,11 +770,11 @@ class AccountPersonService(StripeService):
         """
         The percent owned by the person of the account's legal entity.
         """
-        representative: NotRequired["bool"]
+        representative: NotRequired[bool]
         """
         Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
         """
-        title: NotRequired["str"]
+        title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
         """
@@ -794,21 +794,21 @@ class AccountPersonService(StripeService):
         """
 
     class UpdateParamsVerificationAdditionalDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
     class UpdateParamsVerificationDocument(TypedDict):
-        back: NotRequired["str"]
+        back: NotRequired[str]
         """
         The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
-        front: NotRequired["str"]
+        front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """

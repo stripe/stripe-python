@@ -173,7 +173,7 @@ class Session(CreateableAPIResource["Session"]):
         }
 
     class CreateParams(RequestOptions):
-        configuration: NotRequired["str"]
+        configuration: NotRequired[str]
         """
         The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
         """
@@ -181,7 +181,7 @@ class Session(CreateableAPIResource["Session"]):
         """
         The ID of an existing customer.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -190,16 +190,64 @@ class Session(CreateableAPIResource["Session"]):
         Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
         """
         locale: NotRequired[
-            "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-AU', 'en-CA', 'en-GB', 'en-IE', 'en-IN', 'en-NZ', 'en-SG', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']"
+            Literal[
+                "auto",
+                "bg",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "en-AU",
+                "en-CA",
+                "en-GB",
+                "en-IE",
+                "en-IN",
+                "en-NZ",
+                "en-SG",
+                "es",
+                "es-419",
+                "et",
+                "fi",
+                "fil",
+                "fr",
+                "fr-CA",
+                "hr",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lt",
+                "lv",
+                "ms",
+                "mt",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "pt-BR",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sv",
+                "th",
+                "tr",
+                "vi",
+                "zh",
+                "zh-HK",
+                "zh-TW",
+            ]
         ]
         """
         The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer's `preferred_locales` or browser's locale is used.
         """
-        on_behalf_of: NotRequired["str"]
+        on_behalf_of: NotRequired[str]
         """
         The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         The default URL to redirect customers to when they click on the portal's link to return to your website.
         """
@@ -258,7 +306,7 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired["str"]
+        custom_message: NotRequired[str]
         """
         A custom message to display to the customer after the flow is completed.
         """
@@ -307,7 +355,9 @@ class Session(CreateableAPIResource["Session"]):
 
     class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
         discounts: NotRequired[
-            "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]"
+            List[
+                "Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount"
+            ]
         ]
         """
         The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
@@ -324,11 +374,11 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The ID of the coupon to apply to this subscription update.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         The ID of a promotion code to apply to this subscription update.
         """
@@ -338,11 +388,11 @@ class Session(CreateableAPIResource["Session"]):
         """
         The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
         """

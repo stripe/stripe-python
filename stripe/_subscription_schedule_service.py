@@ -11,21 +11,21 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class SubscriptionScheduleService(StripeService):
     class CancelParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        invoice_now: NotRequired["bool"]
+        invoice_now: NotRequired[bool]
         """
         If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
         """
-        prorate: NotRequired["bool"]
+        prorate: NotRequired[bool]
         """
         If the subscription schedule is `active`, indicates if the cancellation should be prorated. Defaults to `true`.
         """
 
     class CreateParams(TypedDict):
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
         """
@@ -36,16 +36,16 @@ class SubscriptionScheduleService(StripeService):
         Object representing the subscription schedule's default settings.
         """
         end_behavior: NotRequired[
-            "Literal['cancel', 'none', 'release', 'renew']"
+            Literal["cancel", "none", "release", "renew"]
         ]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        from_subscription: NotRequired["str"]
+        from_subscription: NotRequired[str]
         """
         Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls.
         """
@@ -54,7 +54,7 @@ class SubscriptionScheduleService(StripeService):
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         phases: NotRequired[
-            "List[SubscriptionScheduleService.CreateParamsPhase]"
+            List["SubscriptionScheduleService.CreateParamsPhase"]
         ]
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
@@ -65,7 +65,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsDefaultSettings(TypedDict):
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -75,9 +75,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Default settings for automatic tax computation.
         """
-        billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'phase_start']"
-        ]
+        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
@@ -88,12 +86,12 @@ class SubscriptionScheduleService(StripeService):
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        default_payment_method: NotRequired["str"]
+        default_payment_method: NotRequired[str]
         """
         ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         """
@@ -131,7 +129,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsDefaultSettingsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -141,11 +139,11 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
+        amount_gte: NotRequired[int]
         """
         Monetary threshold that triggers the subscription to advance to a new billing period
         """
-        reset_billing_cycle_anchor: NotRequired["bool"]
+        reset_billing_cycle_anchor: NotRequired[bool]
         """
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
@@ -155,7 +153,7 @@ class SubscriptionScheduleService(StripeService):
         """
         The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
         """
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         """
@@ -167,7 +165,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsDefaultSettingsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -177,7 +175,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsDefaultSettingsTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         """
@@ -188,12 +186,12 @@ class SubscriptionScheduleService(StripeService):
 
     class CreateParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
-            "List[SubscriptionScheduleService.CreateParamsPhaseAddInvoiceItem]"
+            List["SubscriptionScheduleService.CreateParamsPhaseAddInvoiceItem"]
         ]
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -203,9 +201,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Automatic tax settings for this phase.
         """
-        billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'phase_start']"
-        ]
+        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
@@ -216,20 +212,20 @@ class SubscriptionScheduleService(StripeService):
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The identifier of the coupon to apply to this phase of the subscription schedule.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        default_payment_method: NotRequired["str"]
+        default_payment_method: NotRequired[str]
         """
         ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         """
@@ -241,7 +237,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
         """
@@ -255,20 +251,20 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired["int"]
+        iterations: NotRequired[int]
         """
         Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         """
-        on_behalf_of: NotRequired["str"]
+        on_behalf_of: NotRequired[str]
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
@@ -279,17 +275,17 @@ class SubscriptionScheduleService(StripeService):
         """
         The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         """
-        trial: NotRequired["bool"]
+        trial: NotRequired[bool]
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_end: NotRequired["int"]
+        trial_end: NotRequired[int]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
         """
 
     class CreateParamsPhaseAddInvoiceItem(TypedDict):
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -299,7 +295,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for this item. Defaults to 1.
         """
@@ -318,16 +314,16 @@ class SubscriptionScheduleService(StripeService):
         The ID of the product that this price will belong to.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -345,7 +341,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsPhaseAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -355,11 +351,11 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
+        amount_gte: NotRequired[int]
         """
         Monetary threshold that triggers the subscription to advance to a new billing period
         """
-        reset_billing_cycle_anchor: NotRequired["bool"]
+        reset_billing_cycle_anchor: NotRequired[bool]
         """
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
@@ -369,7 +365,7 @@ class SubscriptionScheduleService(StripeService):
         """
         The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
         """
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         """
@@ -381,7 +377,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsPhaseInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -397,15 +393,15 @@ class SubscriptionScheduleService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
         """
-        plan: NotRequired["str"]
+        plan: NotRequired[str]
         """
         The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -415,7 +411,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
         """
@@ -444,16 +440,16 @@ class SubscriptionScheduleService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -463,13 +459,13 @@ class SubscriptionScheduleService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class CreateParamsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         """
@@ -497,19 +493,19 @@ class SubscriptionScheduleService(StripeService):
         """
         Only return subscription schedules that were created during the given date interval.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         Only return subscription schedules for the given customer.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
@@ -519,99 +515,99 @@ class SubscriptionScheduleService(StripeService):
         """
         Only return subscription schedules that were released during the given date interval.
         """
-        scheduled: NotRequired["bool"]
+        scheduled: NotRequired[bool]
         """
         Only return subscription schedules that have not started yet.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParamsCanceledAt(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class ListParamsCompletedAt(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class ListParamsReleasedAt(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class ReleaseParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        preserve_cancel_date: NotRequired["bool"]
+        preserve_cancel_date: NotRequired[bool]
         """
         Keep any cancellation on the subscription that the schedule has set
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -624,12 +620,12 @@ class SubscriptionScheduleService(StripeService):
         Object representing the subscription schedule's default settings.
         """
         end_behavior: NotRequired[
-            "Literal['cancel', 'none', 'release', 'renew']"
+            Literal["cancel", "none", "release", "renew"]
         ]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -638,20 +634,20 @@ class SubscriptionScheduleService(StripeService):
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         phases: NotRequired[
-            "List[SubscriptionScheduleService.UpdateParamsPhase]"
+            List["SubscriptionScheduleService.UpdateParamsPhase"]
         ]
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
         """
 
     class UpdateParamsDefaultSettings(TypedDict):
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -661,9 +657,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Default settings for automatic tax computation.
         """
-        billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'phase_start']"
-        ]
+        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
@@ -674,12 +668,12 @@ class SubscriptionScheduleService(StripeService):
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        default_payment_method: NotRequired["str"]
+        default_payment_method: NotRequired[str]
         """
         ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         """
@@ -717,7 +711,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsDefaultSettingsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -727,11 +721,11 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
+        amount_gte: NotRequired[int]
         """
         Monetary threshold that triggers the subscription to advance to a new billing period
         """
-        reset_billing_cycle_anchor: NotRequired["bool"]
+        reset_billing_cycle_anchor: NotRequired[bool]
         """
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
@@ -741,7 +735,7 @@ class SubscriptionScheduleService(StripeService):
         """
         The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
         """
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         """
@@ -753,7 +747,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsDefaultSettingsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -763,7 +757,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsDefaultSettingsTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         """
@@ -774,12 +768,12 @@ class SubscriptionScheduleService(StripeService):
 
     class UpdateParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
-            "List[SubscriptionScheduleService.UpdateParamsPhaseAddInvoiceItem]"
+            List["SubscriptionScheduleService.UpdateParamsPhaseAddInvoiceItem"]
         ]
         """
         A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
         """
-        application_fee_percent: NotRequired["float"]
+        application_fee_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         """
@@ -789,9 +783,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Automatic tax settings for this phase.
         """
-        billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'phase_start']"
-        ]
+        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
@@ -802,20 +794,20 @@ class SubscriptionScheduleService(StripeService):
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The identifier of the coupon to apply to this phase of the subscription schedule.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        default_payment_method: NotRequired["str"]
+        default_payment_method: NotRequired[str]
         """
         ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
         """
@@ -841,20 +833,20 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired["int"]
+        iterations: NotRequired[int]
         """
         Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
         """
-        on_behalf_of: NotRequired["str"]
+        on_behalf_of: NotRequired[str]
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
@@ -869,7 +861,7 @@ class SubscriptionScheduleService(StripeService):
         """
         The data with which to automatically create a Transfer for each of the associated subscription's invoices.
         """
-        trial: NotRequired["bool"]
+        trial: NotRequired[bool]
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
@@ -879,7 +871,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsPhaseAddInvoiceItem(TypedDict):
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -889,7 +881,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for this item. Defaults to 1.
         """
@@ -908,16 +900,16 @@ class SubscriptionScheduleService(StripeService):
         The ID of the product that this price will belong to.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -935,7 +927,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsPhaseAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -945,11 +937,11 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired["int"]
+        amount_gte: NotRequired[int]
         """
         Monetary threshold that triggers the subscription to advance to a new billing period
         """
-        reset_billing_cycle_anchor: NotRequired["bool"]
+        reset_billing_cycle_anchor: NotRequired[bool]
         """
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
@@ -959,7 +951,7 @@ class SubscriptionScheduleService(StripeService):
         """
         The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
         """
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         """
@@ -971,7 +963,7 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsPhaseInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -987,15 +979,15 @@ class SubscriptionScheduleService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
         """
-        plan: NotRequired["str"]
+        plan: NotRequired[str]
         """
         The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object.
         """
@@ -1005,7 +997,7 @@ class SubscriptionScheduleService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
         """
@@ -1034,16 +1026,16 @@ class SubscriptionScheduleService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -1053,13 +1045,13 @@ class SubscriptionScheduleService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class UpdateParamsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
         """
