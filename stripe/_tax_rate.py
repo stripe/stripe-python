@@ -78,7 +78,6 @@ class TaxRate(
                 "rst",
                 "sales_tax",
                 "vat",
-                "service_tax",
             ]
         ]
         """
@@ -180,7 +179,6 @@ class TaxRate(
                 "rst",
                 "sales_tax",
                 "vat",
-                "service_tax",
             ]
         ]
         """
@@ -271,7 +269,6 @@ class TaxRate(
             "rst",
             "sales_tax",
             "vat",
-            "service_tax",
         ]
     ]
     """

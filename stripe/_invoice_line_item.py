@@ -289,7 +289,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
                 "rst",
                 "sales_tax",
                 "vat",
-                "service_tax",
             ]
         ]
         """
