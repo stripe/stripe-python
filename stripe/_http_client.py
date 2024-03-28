@@ -30,6 +30,7 @@ from typing import (
 from typing_extensions import (
     Literal,
     NoReturn,
+    Type,
     TypedDict,
 )
 
@@ -93,16 +94,19 @@ def _now_ms():
     return int(round(time.time() * 1000))
 
 
-def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
+def _default_http_client_impl() -> Type["HTTPClient"]:
     if urlfetch:
-        impl = UrlFetchClient
+        return UrlFetchClient
     elif requests:
-        impl = RequestsClient
+        return RequestsClient
     elif pycurl:
-        impl = PycurlClient
+        return PycurlClient
     else:
-        impl = Urllib2Client
+        return Urllib2Client
 
+
+def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
+    impl = _default_http_client_impl()
     return impl(*args, **kwargs)
 
 

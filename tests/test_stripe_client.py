@@ -29,7 +29,7 @@ class TestStripeClient(object):
         assert customer.id is not None
 
     def test_no_api_key(self):
-        with pytest.raises(stripe.error.AuthenticationError):
+        with pytest.raises(stripe.AuthenticationError):
             stripe.StripeClient(None)  # type: ignore
 
     def test_http_client_and_options_overlap(self):
@@ -403,3 +403,9 @@ class TestStripeClient(object):
 
         customer.delete()
         http_client_mock.assert_requested("delete", path=path, usage=None)
+
+    def test_default_requests_client_session(self):
+        client = stripe.StripeClient("sk_test_456")
+        assert isinstance(client._requestor._client, stripe.RequestsClient)
+        assert client._requestor._client._session is client._requests_session
+        client.close()
