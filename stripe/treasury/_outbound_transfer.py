@@ -19,6 +19,7 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe._mandate import Mandate
     from stripe.treasury._transaction import Transaction
 
 
@@ -95,6 +96,10 @@ class OutboundTransfer(
             last4: Optional[str]
             """
             Last four digits of the bank account number.
+            """
+            mandate: Optional[ExpandableField["Mandate"]]
+            """
+            ID of the mandate used to make this payment.
             """
             network: Literal["ach", "us_domestic_wire"]
             """

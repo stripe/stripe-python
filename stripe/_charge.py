@@ -821,7 +821,7 @@ class Charge(
                 """
                 cardholder_verification_method: Optional[str]
                 """
-                How the cardholder verified ownership of the card.
+                Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
                 """
                 dedicated_file_name: Optional[str]
                 """
@@ -1143,7 +1143,7 @@ class Charge(
                 """
                 cardholder_verification_method: Optional[str]
                 """
-                How the cardholder verified ownership of the card.
+                Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
                 """
                 dedicated_file_name: Optional[str]
                 """
@@ -1538,6 +1538,10 @@ class Charge(
             last4: Optional[str]
             """
             Last four digits of the bank account number.
+            """
+            mandate: Optional[ExpandableField["Mandate"]]
+            """
+            ID of the mandate used to make this payment.
             """
             payment_reference: Optional[str]
             """

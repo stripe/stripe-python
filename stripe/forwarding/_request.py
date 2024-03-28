@@ -27,6 +27,8 @@ class Request(
 
     Forwarding Requests are synchronous requests that return a response or time out according to
     Stripe's limits.
+
+    Related guide: [Forward card details to third-party API endpoints](https://docs.stripe.com/payments/forwarding).
     """
 
     OBJECT_NAME: ClassVar[Literal["forwarding.request"]] = "forwarding.request"
