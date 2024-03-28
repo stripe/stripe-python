@@ -14,11 +14,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class CustomerPaymentSourceService(StripeService):
     class CreateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -26,84 +26,84 @@ class CustomerPaymentSourceService(StripeService):
         """
         Please refer to full [documentation](https://stripe.com/docs/api) instead.
         """
-        validate: NotRequired["bool"]
+        validate: NotRequired[bool]
 
     class DeleteParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class ListParams(TypedDict):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        object: NotRequired["str"]
+        object: NotRequired[str]
         """
         Filter sources according to a particular object type.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        account_holder_name: NotRequired["str"]
+        account_holder_name: NotRequired[str]
         """
         The name of the person or business that owns the bank account.
         """
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         The type of entity that holds the account. This can be either `individual` or `company`.
         """
-        address_city: NotRequired["str"]
+        address_city: NotRequired[str]
         """
         City/District/Suburb/Town/Village.
         """
-        address_country: NotRequired["str"]
+        address_country: NotRequired[str]
         """
         Billing address country, if provided when creating card.
         """
-        address_line1: NotRequired["str"]
+        address_line1: NotRequired[str]
         """
         Address line 1 (Street address/PO Box/Company name).
         """
-        address_line2: NotRequired["str"]
+        address_line2: NotRequired[str]
         """
         Address line 2 (Apartment/Suite/Unit/Building).
         """
-        address_state: NotRequired["str"]
+        address_state: NotRequired[str]
         """
         State/County/Province/Region.
         """
-        address_zip: NotRequired["str"]
+        address_zip: NotRequired[str]
         """
         ZIP or postal code.
         """
-        exp_month: NotRequired["str"]
+        exp_month: NotRequired[str]
         """
         Two digit number representing the card's expiration month.
         """
-        exp_year: NotRequired["str"]
+        exp_year: NotRequired[str]
         """
         Four digit number representing the card's expiration year.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -111,7 +111,7 @@ class CustomerPaymentSourceService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         Cardholder name.
         """
@@ -124,51 +124,51 @@ class CustomerPaymentSourceService(StripeService):
         """
         Owner's address.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         Owner's email address.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         Owner's full name.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         Owner's phone number.
         """
 
     class UpdateParamsOwnerAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class VerifyParams(TypedDict):
-        amounts: NotRequired["List[int]"]
+        amounts: NotRequired[List[int]]
         """
         Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

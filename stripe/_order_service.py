@@ -16,7 +16,7 @@ class OrderService(StripeService):
         self.line_items = OrderLineItemService(self._requestor)
 
     class CancelParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -42,11 +42,11 @@ class OrderService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer associated with this order.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
@@ -56,11 +56,11 @@ class OrderService(StripeService):
         """
         The coupons, promotion codes, and/or discounts to apply to the order.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        ip_address: NotRequired["str"]
+        ip_address: NotRequired[str]
         """
         The IP address of the purchaser for this order.
         """
@@ -68,7 +68,7 @@ class OrderService(StripeService):
         """
         A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -104,47 +104,47 @@ class OrderService(StripeService):
         """
         The billing address provided by the customer.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The billing email provided by the customer.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The billing name provided by the customer.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The billing phone number provided by the customer.
         """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
 
     class CreateParamsCredit(TypedDict):
-        gift_card: NotRequired["str"]
+        gift_card: NotRequired[str]
         """
         The gift card to apply to the order.
         """
@@ -154,21 +154,21 @@ class OrderService(StripeService):
         """
 
     class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsLineItem(TypedDict):
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description for the line item. Will default to the name of the associated product.
         """
@@ -178,7 +178,7 @@ class OrderService(StripeService):
         """
         The discounts applied to this line item.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
 
@@ -192,7 +192,7 @@ class OrderService(StripeService):
 
         Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
 
@@ -208,7 +208,7 @@ class OrderService(StripeService):
 
         `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -218,37 +218,37 @@ class OrderService(StripeService):
         """
 
     class CreateParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
 
     class CreateParamsLineItemPriceData(TypedDict):
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         ID of the product this price belongs to.
 
         Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -282,7 +282,7 @@ class OrderService(StripeService):
         """
         The dimensions of this product for shipping purposes.
         """
-        shippable: NotRequired["bool"]
+        shippable: NotRequired[bool]
         """
         Whether this product is shipped (i.e., physical goods).
         """
@@ -320,7 +320,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettings(TypedDict):
-        application_fee_amount: NotRequired["int"]
+        application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
         """
@@ -331,20 +331,44 @@ class OrderService(StripeService):
         PaymentMethod-specific configuration to provide to the order's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
+            List[
+                Literal[
+                    "acss_debit",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "card",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "klarna",
+                    "link",
+                    "oxxo",
+                    "p24",
+                    "paypal",
+                    "sepa_debit",
+                    "sofort",
+                    "wechat_pay",
+                ]
+            ]
         ]
         """
         The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         The URL to redirect the customer to after they authenticate their payment.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
         """
-        statement_descriptor_suffix: NotRequired["str"]
+        statement_descriptor_suffix: NotRequired[str]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
@@ -467,7 +491,7 @@ class OrderService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -482,17 +506,17 @@ class OrderService(StripeService):
         The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
         or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
         """
-        interval_description: NotRequired["str"]
+        interval_description: NotRequired[str]
         """
         Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
         """
         payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
+            Literal["combined", "interval", "sporadic"]
         ]
         """
         Payment schedule for the mandate.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        transaction_type: NotRequired[Literal["business", "personal"]]
         """
         Transaction type of the mandate.
         """
@@ -501,7 +525,7 @@ class OrderService(StripeService):
         TypedDict,
     ):
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
@@ -510,11 +534,11 @@ class OrderService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with the payment method.
 
@@ -540,7 +564,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
         """
         Preferred language of the Bancontact authorization page that the customer is redirected to.
         """
@@ -559,13 +583,13 @@ class OrderService(StripeService):
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
         """
         setup_future_usage: NotRequired[
-            "Literal['none', 'off_session', 'on_session']"
+            Literal["none", "off_session", "on_session"]
         ]
         """
         Indicates that you intend to make future payments with the payment method.
@@ -586,11 +610,11 @@ class OrderService(StripeService):
         """
         Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
         """
-        funding_type: NotRequired["Literal['bank_transfer']"]
+        funding_type: NotRequired[Literal["bank_transfer"]]
         """
         The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -611,7 +635,17 @@ class OrderService(StripeService):
         Configuration for the eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+            List[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ]
+            ]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -661,12 +695,57 @@ class OrderService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+            ]
         ]
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -686,7 +765,7 @@ class OrderService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        persistent_token: NotRequired["str"]
+        persistent_token: NotRequired[str]
         """
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
@@ -704,11 +783,11 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -720,7 +799,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -730,7 +809,7 @@ class OrderService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        tos_shown_and_accepted: NotRequired["bool"]
+        tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
@@ -741,20 +820,42 @@ class OrderService(StripeService):
         Controls when the funds will be captured from the customer's account.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-DE",
+                "de-LU",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "fi-FI",
+                "fr-BE",
+                "fr-FR",
+                "fr-LU",
+                "hu-HU",
+                "it-IT",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sk-SK",
+                "sv-SE",
+            ]
         ]
         """
         [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        reference_id: NotRequired["str"]
+        reference_id: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        risk_correlation_id: NotRequired["str"]
+        risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
         """
@@ -770,7 +871,7 @@ class OrderService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        subsellers: NotRequired["List[str]"]
+        subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
         """
@@ -821,7 +922,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
+        app_id: NotRequired[str]
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
@@ -829,7 +930,7 @@ class OrderService(StripeService):
         """
         The client type that the end customer will pay from
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -841,7 +942,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsPaymentSettingsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         """
@@ -851,7 +952,7 @@ class OrderService(StripeService):
         """
 
     class CreateParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         The ID of the shipping rate to use for this order.
         """
@@ -879,21 +980,21 @@ class OrderService(StripeService):
         """
         Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         """
-        tax_code: NotRequired["str"]
+        tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
         """
-        type: NotRequired["Literal['fixed_amount']"]
+        type: NotRequired[Literal["fixed_amount"]]
         """
         The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
         """
@@ -946,7 +1047,10 @@ class OrderService(StripeService):
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         currency_options: NotRequired[
-            "Dict[str, OrderService.CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
+            Dict[
+                str,
+                "OrderService.CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions",
+            ]
         ]
         """
         Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
@@ -960,7 +1064,7 @@ class OrderService(StripeService):
         A non-negative integer in cents representing how much to charge.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -981,27 +1085,27 @@ class OrderService(StripeService):
         """
 
     class CreateParamsShippingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
@@ -1013,7 +1117,7 @@ class OrderService(StripeService):
         """
         The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
         """
-        tax_ids: NotRequired["List[OrderService.CreateParamsTaxDetailsTaxId]"]
+        tax_ids: NotRequired[List["OrderService.CreateParamsTaxDetailsTaxId"]]
         """
         The purchaser's tax IDs to be used for this order.
         """
@@ -1097,41 +1201,41 @@ class OrderService(StripeService):
         """
 
     class ListParams(TypedDict):
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         Only return orders for the given customer.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ReopenParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class SubmitParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -1157,11 +1261,11 @@ class OrderService(StripeService):
         """
         The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
         """
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer associated with this order.
         """
@@ -1175,15 +1279,15 @@ class OrderService(StripeService):
         """
         The coupons, promotion codes, and/or discounts to apply to the order. Pass the empty string `""` to unset this field.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        ip_address: NotRequired["str"]
+        ip_address: NotRequired[str]
         """
         The IP address of the purchaser for this order.
         """
-        line_items: NotRequired["List[OrderService.UpdateParamsLineItem]"]
+        line_items: NotRequired[List["OrderService.UpdateParamsLineItem"]]
         """
         A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
         """
@@ -1223,47 +1327,47 @@ class OrderService(StripeService):
         """
         The billing address provided by the customer.
         """
-        email: NotRequired["str"]
+        email: NotRequired[str]
         """
         The billing email provided by the customer.
         """
-        name: NotRequired["str"]
+        name: NotRequired[str]
         """
         The billing name provided by the customer.
         """
-        phone: NotRequired["str"]
+        phone: NotRequired[str]
         """
         The billing phone number provided by the customer.
         """
 
     class UpdateParamsBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
 
     class UpdateParamsCredit(TypedDict):
-        gift_card: NotRequired["str"]
+        gift_card: NotRequired[str]
         """
         The gift card to apply to the order.
         """
@@ -1273,21 +1377,21 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsLineItem(TypedDict):
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description for the line item. Will default to the name of the associated product.
         """
@@ -1297,11 +1401,11 @@ class OrderService(StripeService):
         """
         The discounts applied to this line item.
         """
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of an existing line item on the order.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
 
@@ -1315,7 +1419,7 @@ class OrderService(StripeService):
 
         Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
 
@@ -1331,7 +1435,7 @@ class OrderService(StripeService):
 
         `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -1341,37 +1445,37 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
 
     class UpdateParamsLineItemPriceData(TypedDict):
-        currency: NotRequired["str"]
+        currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        product: NotRequired["str"]
+        product: NotRequired[str]
         """
         ID of the product this price belongs to.
 
         Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -1405,7 +1509,7 @@ class OrderService(StripeService):
         """
         The dimensions of this product for shipping purposes.
         """
-        shippable: NotRequired["bool"]
+        shippable: NotRequired[bool]
         """
         Whether this product is shipped (i.e., physical goods).
         """
@@ -1454,7 +1558,31 @@ class OrderService(StripeService):
         PaymentMethod-specific configuration to provide to the order's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
+            List[
+                Literal[
+                    "acss_debit",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "card",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "klarna",
+                    "link",
+                    "oxxo",
+                    "p24",
+                    "paypal",
+                    "sepa_debit",
+                    "sofort",
+                    "wechat_pay",
+                ]
+            ]
         ]
         """
         The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
@@ -1463,11 +1591,11 @@ class OrderService(StripeService):
         """
         The URL to redirect the customer to after they authenticate their payment.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
         """
-        statement_descriptor_suffix: NotRequired["str"]
+        statement_descriptor_suffix: NotRequired[str]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
@@ -1590,7 +1718,7 @@ class OrderService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
-            "Literal['automatic', 'instant', 'microdeposits']"
+            Literal["automatic", "instant", "microdeposits"]
         ]
         """
         Bank account verification method.
@@ -1605,17 +1733,17 @@ class OrderService(StripeService):
         The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
         or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
         """
-        interval_description: NotRequired["str"]
+        interval_description: NotRequired[str]
         """
         Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
         """
         payment_schedule: NotRequired[
-            "Literal['combined', 'interval', 'sporadic']"
+            Literal["combined", "interval", "sporadic"]
         ]
         """
         Payment schedule for the mandate.
         """
-        transaction_type: NotRequired["Literal['business', 'personal']"]
+        transaction_type: NotRequired[Literal["business", "personal"]]
         """
         Transaction type of the mandate.
         """
@@ -1624,7 +1752,7 @@ class OrderService(StripeService):
         TypedDict,
     ):
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
@@ -1633,11 +1761,11 @@ class OrderService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with the payment method.
 
@@ -1663,7 +1791,7 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
         """
         Preferred language of the Bancontact authorization page that the customer is redirected to.
         """
@@ -1682,13 +1810,13 @@ class OrderService(StripeService):
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
         capture_method: NotRequired[
-            "Literal['automatic', 'automatic_async', 'manual']"
+            Literal["automatic", "automatic_async", "manual"]
         ]
         """
         Controls when the funds will be captured from the customer's account.
         """
         setup_future_usage: NotRequired[
-            "Literal['none', 'off_session', 'on_session']"
+            Literal["none", "off_session", "on_session"]
         ]
         """
         Indicates that you intend to make future payments with the payment method.
@@ -1709,11 +1837,11 @@ class OrderService(StripeService):
         """
         Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
         """
-        funding_type: NotRequired["Literal['bank_transfer']"]
+        funding_type: NotRequired[Literal["bank_transfer"]]
         """
         The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1734,7 +1862,17 @@ class OrderService(StripeService):
         Configuration for the eu_bank_transfer funding type.
         """
         requested_address_types: NotRequired[
-            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+            List[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ]
+            ]
         ]
         """
         List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -1784,12 +1922,57 @@ class OrderService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+            ]
         ]
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1809,7 +1992,7 @@ class OrderService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
-        persistent_token: NotRequired["str"]
+        persistent_token: NotRequired[str]
         """
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
@@ -1827,11 +2010,11 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired["int"]
+        expires_after_days: NotRequired[int]
         """
         The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1843,7 +2026,7 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1853,7 +2036,7 @@ class OrderService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        tos_shown_and_accepted: NotRequired["bool"]
+        tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
@@ -1864,20 +2047,42 @@ class OrderService(StripeService):
         Controls when the funds will be captured from the customer's account.
         """
         preferred_locale: NotRequired[
-            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-DE",
+                "de-LU",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "fi-FI",
+                "fr-BE",
+                "fr-FR",
+                "fr-LU",
+                "hu-HU",
+                "it-IT",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sk-SK",
+                "sv-SE",
+            ]
         ]
         """
         [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         """
-        reference: NotRequired["str"]
+        reference: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        reference_id: NotRequired["str"]
+        reference_id: NotRequired[str]
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        risk_correlation_id: NotRequired["str"]
+        risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
         """
@@ -1893,7 +2098,7 @@ class OrderService(StripeService):
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
-        subsellers: NotRequired["List[str]"]
+        subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
         """
@@ -1944,7 +2149,7 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired["str"]
+        app_id: NotRequired[str]
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
@@ -1952,7 +2157,7 @@ class OrderService(StripeService):
         """
         The client type that the end customer will pay from
         """
-        setup_future_usage: NotRequired["Literal['none']"]
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1964,7 +2169,7 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsPaymentSettingsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         """
@@ -1974,7 +2179,7 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired["str"]
+        shipping_rate: NotRequired[str]
         """
         The ID of the shipping rate to use for this order.
         """
@@ -2002,21 +2207,21 @@ class OrderService(StripeService):
         """
         Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         """
-        tax_code: NotRequired["str"]
+        tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
         """
-        type: NotRequired["Literal['fixed_amount']"]
+        type: NotRequired[Literal["fixed_amount"]]
         """
         The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
         """
@@ -2069,7 +2274,10 @@ class OrderService(StripeService):
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         currency_options: NotRequired[
-            "Dict[str, OrderService.UpdateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
+            Dict[
+                str,
+                "OrderService.UpdateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions",
+            ]
         ]
         """
         Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
@@ -2083,7 +2291,7 @@ class OrderService(StripeService):
         A non-negative integer in cents representing how much to charge.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -2104,27 +2312,27 @@ class OrderService(StripeService):
         """
 
     class UpdateParamsShippingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
@@ -2136,7 +2344,7 @@ class OrderService(StripeService):
         """
         The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
         """
-        tax_ids: NotRequired["List[OrderService.UpdateParamsTaxDetailsTaxId]"]
+        tax_ids: NotRequired[List["OrderService.UpdateParamsTaxDetailsTaxId"]]
         """
         The purchaser's tax IDs to be used for this order.
         """

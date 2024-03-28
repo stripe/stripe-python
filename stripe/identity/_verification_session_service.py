@@ -11,21 +11,21 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class VerificationSessionService(StripeService):
     class CancelParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CreateParams(TypedDict):
-        client_reference_id: NotRequired["str"]
+        client_reference_id: NotRequired[str]
         """
         A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -33,7 +33,7 @@ class VerificationSessionService(StripeService):
         """
         A set of options for the session's verification checks.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
         """
@@ -52,26 +52,26 @@ class VerificationSessionService(StripeService):
 
     class CreateParamsOptionsDocument(TypedDict):
         allowed_types: NotRequired[
-            "List[Literal['driving_license', 'id_card', 'passport']]"
+            List[Literal["driving_license", "id_card", "passport"]]
         ]
         """
         Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
         """
-        require_id_number: NotRequired["bool"]
+        require_id_number: NotRequired[bool]
         """
         Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
         """
-        require_live_capture: NotRequired["bool"]
+        require_live_capture: NotRequired[bool]
         """
         Disable image uploads, identity document images have to be captured using the device's camera.
         """
-        require_matching_selfie: NotRequired["bool"]
+        require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
         """
 
     class ListParams(TypedDict):
-        client_reference_id: NotRequired["str"]
+        client_reference_id: NotRequired[str]
         """
         A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         """
@@ -81,65 +81,65 @@ class VerificationSessionService(StripeService):
         """
         Only return VerificationSessions that were created during the given date interval.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         status: NotRequired[
-            "Literal['canceled', 'processing', 'requires_input', 'verified']"
+            Literal["canceled", "processing", "requires_input", "verified"]
         ]
         """
         Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RedactParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -147,7 +147,7 @@ class VerificationSessionService(StripeService):
         """
         A set of options for the session's verification checks.
         """
-        type: NotRequired["Literal['document', 'id_number']"]
+        type: NotRequired[Literal["document", "id_number"]]
         """
         The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
         """
@@ -162,20 +162,20 @@ class VerificationSessionService(StripeService):
 
     class UpdateParamsOptionsDocument(TypedDict):
         allowed_types: NotRequired[
-            "List[Literal['driving_license', 'id_card', 'passport']]"
+            List[Literal["driving_license", "id_card", "passport"]]
         ]
         """
         Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
         """
-        require_id_number: NotRequired["bool"]
+        require_id_number: NotRequired[bool]
         """
         Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
         """
-        require_live_capture: NotRequired["bool"]
+        require_live_capture: NotRequired[bool]
         """
         Disable image uploads, identity document images have to be captured using the device's camera.
         """
-        require_matching_selfie: NotRequired["bool"]
+        require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
         """

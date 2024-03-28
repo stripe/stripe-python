@@ -21,11 +21,11 @@ class TransactionService(StripeService):
         """
         Tax Calculation ID to be used as input when creating the transaction.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -35,21 +35,21 @@ class TransactionService(StripeService):
         """
 
     class CreateReversalParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        flat_amount: NotRequired["int"]
+        flat_amount: NotRequired[int]
         """
         A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
         """
         line_items: NotRequired[
-            "List[TransactionService.CreateReversalParamsLineItem]"
+            List["TransactionService.CreateReversalParamsLineItem"]
         ]
         """
         The line item amounts to reverse.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -81,7 +81,7 @@ class TransactionService(StripeService):
         """
         The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
@@ -89,7 +89,7 @@ class TransactionService(StripeService):
         """
         The `id` of the line item to reverse in the original transaction.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity reversed. Appears in [tax exports](https://stripe.com/docs/tax/reports), but does not affect the amount of tax reversed.
         """
@@ -109,7 +109,7 @@ class TransactionService(StripeService):
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

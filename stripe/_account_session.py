@@ -144,7 +144,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -238,15 +238,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
-        capture_payments: NotRequired["bool"]
+        capture_payments: NotRequired[bool]
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
         """
-        dispute_management: NotRequired["bool"]
+        dispute_management: NotRequired[bool]
         """
         Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
         """
-        refund_management: NotRequired["bool"]
+        refund_management: NotRequired[bool]
         """
         Whether to allow sending refunds. This is `true` by default.
         """
@@ -264,15 +264,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPaymentsFeatures(TypedDict):
-        capture_payments: NotRequired["bool"]
+        capture_payments: NotRequired[bool]
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
         """
-        dispute_management: NotRequired["bool"]
+        dispute_management: NotRequired[bool]
         """
         Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
         """
-        refund_management: NotRequired["bool"]
+        refund_management: NotRequired[bool]
         """
         Whether to allow sending refunds. This is `true` by default.
         """
@@ -290,15 +290,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
-        edit_payout_schedule: NotRequired["bool"]
+        edit_payout_schedule: NotRequired[bool]
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
-        instant_payouts: NotRequired["bool"]
+        instant_payouts: NotRequired[bool]
         """
         Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
-        standard_payouts: NotRequired["bool"]
+        standard_payouts: NotRequired[bool]
         """
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """

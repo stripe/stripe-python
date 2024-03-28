@@ -18,11 +18,11 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     ] = "terminal.connection_token"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        location: NotRequired["str"]
+        location: NotRequired[str]
         """
         The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens).
         """

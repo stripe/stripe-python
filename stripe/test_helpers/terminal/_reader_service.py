@@ -10,7 +10,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ReaderService(StripeService):
     class PresentPaymentMethodParams(TypedDict):
-        amount_tip: NotRequired["int"]
+        amount_tip: NotRequired[int]
         """
         Simulated on-reader tip amount.
         """
@@ -20,7 +20,7 @@ class ReaderService(StripeService):
         """
         Simulated data for the card_present payment method.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -30,19 +30,19 @@ class ReaderService(StripeService):
         """
         Simulated data for the interac_present payment method.
         """
-        type: NotRequired["Literal['card_present', 'interac_present']"]
+        type: NotRequired[Literal["card_present", "interac_present"]]
         """
         Simulated payment type.
         """
 
     class PresentPaymentMethodParamsCardPresent(TypedDict):
-        number: NotRequired["str"]
+        number: NotRequired[str]
         """
         The card number, as a string without any separators.
         """
 
     class PresentPaymentMethodParamsInteracPresent(TypedDict):
-        number: NotRequired["str"]
+        number: NotRequired[str]
         """
         Card Number
         """

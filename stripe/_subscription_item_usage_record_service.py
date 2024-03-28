@@ -10,11 +10,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class SubscriptionItemUsageRecordService(StripeService):
     class CreateParams(TypedDict):
-        action: NotRequired["Literal['increment', 'set']"]
+        action: NotRequired[Literal["increment", "set"]]
         """
         Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

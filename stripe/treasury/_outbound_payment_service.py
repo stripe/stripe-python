@@ -11,7 +11,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class OutboundPaymentService(StripeService):
     class CancelParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -25,15 +25,15 @@ class OutboundPaymentService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
-        destination_payment_method: NotRequired["str"]
+        destination_payment_method: NotRequired[str]
         """
         The PaymentMethod to use as the payment instrument for the OutboundPayment. Exclusive with `destination_payment_method_data`.
         """
@@ -55,7 +55,7 @@ class OutboundPaymentService(StripeService):
         """
         End user details.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -63,11 +63,11 @@ class OutboundPaymentService(StripeService):
         """
         The FinancialAccount to pull funds from.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        statement_descriptor: NotRequired["str"]
+        statement_descriptor: NotRequired[str]
         """
         The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
         """
@@ -79,11 +79,11 @@ class OutboundPaymentService(StripeService):
         """
         Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         """
-        financial_account: NotRequired["str"]
+        financial_account: NotRequired[str]
         """
         Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -121,49 +121,49 @@ class OutboundPaymentService(StripeService):
     class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
         TypedDict,
     ):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
 
     class CreateParamsDestinationPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type: individual or company.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        account_type: NotRequired[Literal["checking", "savings"]]
         """
         Account type: checkings or savings. Defaults to checking if omitted.
         """
-        financial_connections_account: NotRequired["str"]
+        financial_connections_account: NotRequired[str]
         """
         The ID of a Financial Connections Account to use as a payment method.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         Routing number of the bank account.
         """
@@ -177,13 +177,13 @@ class OutboundPaymentService(StripeService):
         """
 
     class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
-        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
+        network: NotRequired[Literal["ach", "us_domestic_wire"]]
         """
         Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         """
 
     class CreateParamsEndUserDetails(TypedDict):
-        ip_address: NotRequired["str"]
+        ip_address: NotRequired[str]
         """
         IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
         """
@@ -197,15 +197,15 @@ class OutboundPaymentService(StripeService):
         """
         Only return OutboundPayments that were created during the given date interval.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         Only return OutboundPayments sent to this customer.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -213,41 +213,41 @@ class OutboundPaymentService(StripeService):
         """
         Returns objects associated with this FinancialAccount.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         status: NotRequired[
-            "Literal['canceled', 'failed', 'posted', 'processing', 'returned']"
+            Literal["canceled", "failed", "posted", "processing", "returned"]
         ]
         """
         Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

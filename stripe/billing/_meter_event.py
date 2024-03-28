@@ -21,11 +21,11 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
         """
         The name of the meter event. Corresponds with the `event_name` field on a meter.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        identifier: NotRequired["str"]
+        identifier: NotRequired[str]
         """
         A unique identifier for the event. If not provided, one will be generated.
         """
