@@ -124,7 +124,7 @@ class InvoiceService(StripeService):
         Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
         """
         pending_invoice_items_behavior: NotRequired[
-            Literal["exclude", "include", "include_and_require"]
+            Literal["exclude", "include"]
         ]
         """
         How to handle pending invoice items on invoice creation. Defaults to `exclude` if the parameter is omitted.
