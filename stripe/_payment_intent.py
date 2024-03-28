@@ -4758,7 +4758,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -4782,7 +4782,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -4901,7 +4901,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -5226,7 +5226,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -5381,7 +5381,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -5480,7 +5480,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -5506,7 +5506,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -7775,7 +7775,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -7799,7 +7799,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -7918,7 +7918,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -8243,7 +8243,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -8398,7 +8398,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -8497,7 +8497,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -8523,7 +8523,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -10849,7 +10849,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -10873,7 +10873,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -10992,7 +10992,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -11317,7 +11317,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -11472,7 +11472,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -11571,7 +11571,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
@@ -11597,7 +11597,7 @@ class PaymentIntent(
         """
         Controls when the funds will be captured from the customer's account.
 
-        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
         """
