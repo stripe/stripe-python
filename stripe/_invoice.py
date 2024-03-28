@@ -2058,67 +2058,11 @@ class Invoice(
         """
         The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
         """
-        subscription_billing_cycle_anchor: NotRequired[
-            "Literal['now', 'unchanged']|int"
-        ]
-        """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.billing_cycle_anchor` instead.
-        """
-        subscription_cancel_at: NotRequired["Literal['']|int"]
-        """
-        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
-        """
-        subscription_cancel_at_period_end: NotRequired[bool]
-        """
-        Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
-        """
-        subscription_cancel_now: NotRequired[bool]
-        """
-        This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
-        """
-        subscription_default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. This field has been deprecated and will be removed in a future API version. Use `subscription_details.default_tax_rates` instead.
-        """
         subscription_details: NotRequired[
             "Invoice.CreatePreviewParamsSubscriptionDetails"
         ]
         """
         The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
-        """
-        subscription_items: NotRequired[
-            List["Invoice.CreatePreviewParamsSubscriptionItem"]
-        ]
-        """
-        A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
-        """
-        subscription_prebilling: NotRequired[
-            "Invoice.CreatePreviewParamsSubscriptionPrebilling"
-        ]
-        """
-        The pre-billing to apply to the subscription as a preview. This field has been deprecated and will be removed in a future API version. Use `subscription_details.prebilling` instead.
-        """
-        subscription_proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
-        """
-        subscription_proration_date: NotRequired[int]
-        """
-        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_date` instead.
-        """
-        subscription_resume_at: NotRequired[Literal["now"]]
-        """
-        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed. This field has been deprecated and will be removed in a future API version. Use `subscription_details.resume_at` instead.
-        """
-        subscription_start_date: NotRequired[int]
-        """
-        Date a subscription is intended to start (can be future or past). This field has been deprecated and will be removed in a future API version. Use `subscription_details.start_date` instead.
-        """
-        subscription_trial_end: NotRequired["Literal['now']|int"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
         """
 
     class CreatePreviewParamsAutomaticTax(TypedDict):
@@ -3893,156 +3837,6 @@ class Invoice(
         """
 
     class CreatePreviewParamsSubscriptionDetailsPrebilling(TypedDict):
-        iterations: int
-        """
-        This is used to determine the number of billing cycles to prebill.
-        """
-
-    class CreatePreviewParamsSubscriptionItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.CreatePreviewParamsSubscriptionItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        clear_usage: NotRequired[bool]
-        """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
-        """
-        deleted: NotRequired[bool]
-        """
-        A flag that, if set to `true`, will delete the specified item.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.CreatePreviewParamsSubscriptionItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        id: NotRequired[str]
-        """
-        Subscription item to update.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
-        """
-        price_data: NotRequired[
-            "Invoice.CreatePreviewParamsSubscriptionItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class CreatePreviewParamsSubscriptionItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class CreatePreviewParamsSubscriptionItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "Invoice.CreatePreviewParamsSubscriptionItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsSubscriptionItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "Invoice.CreatePreviewParamsSubscriptionItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsSubscriptionItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class CreatePreviewParamsSubscriptionItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Invoice.CreatePreviewParamsSubscriptionItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreatePreviewParamsSubscriptionItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class CreatePreviewParamsSubscriptionPrebilling(TypedDict):
         iterations: int
         """
         This is used to determine the number of billing cycles to prebill.
@@ -10893,6 +10687,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             "Invoice",
@@ -10912,6 +10708,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         ...
 
@@ -10921,6 +10719,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         ...
 
@@ -10930,6 +10730,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             "Invoice",
@@ -10948,6 +10750,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             "Invoice",
@@ -10967,6 +10771,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         ...
 
@@ -10976,6 +10782,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         ...
 
@@ -10985,6 +10793,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             "Invoice",

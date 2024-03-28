@@ -165,6 +165,10 @@ class Account(
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
+        amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
+        """
         au_becs_debit_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -693,6 +697,7 @@ class Account(
                 "verification_failed_keyed_match",
                 "verification_failed_name_match",
                 "verification_failed_other",
+                "verification_failed_representative_authority",
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
@@ -840,6 +845,7 @@ class Account(
                 "verification_failed_keyed_match",
                 "verification_failed_name_match",
                 "verification_failed_other",
+                "verification_failed_representative_authority",
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
@@ -1213,7 +1219,7 @@ class Account(
         """
         controller: NotRequired["Account.CreateParamsController"]
         """
-        The configuration of the account when `type` is not provided.
+        A hash of configuration describing the account controller's attributes.
         """
         country: NotRequired[str]
         """
@@ -1411,6 +1417,12 @@ class Account(
         ]
         """
         The afterpay_clearpay_payments capability.
+        """
+        amazon_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesAmazonPayPayments"
+        ]
+        """
+        The amazon_pay_payments capability.
         """
         au_becs_debit_payments: NotRequired[
             "Account.CreateParamsCapabilitiesAuBecsDebitPayments"
@@ -1656,6 +1668,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAmazonPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

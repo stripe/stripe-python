@@ -60,6 +60,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
                 """
+                destination_on_behalf_of_charge_management: Optional[bool]
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+                """
                 dispute_management: bool
                 """
                 Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
@@ -81,6 +85,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 capture_payments: bool
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
+                """
+                destination_on_behalf_of_charge_management: Optional[bool]
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
                 """
                 dispute_management: bool
                 """
@@ -165,6 +173,30 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the documents embedded component.
         """
+        financial_account: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccount"
+        ]
+        """
+        Configuration for the financial account component.
+        """
+        financial_account_transactions: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountTransactions"
+        ]
+        """
+        Configuration for the financial account transactions component.
+        """
+        issuing_card: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCard"
+        ]
+        """
+        Configuration for the issuing card component.
+        """
+        issuing_cards_list: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsList"
+        ]
+        """
+        Configuration for the issuing cards list component.
+        """
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
         ]
@@ -225,6 +257,75 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
 
+    class CreateParamsComponentsFinancialAccount(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
+        money_movement: NotRequired[bool]
+        """
+        Whether to allow money movement features.
+        """
+
+    class CreateParamsComponentsFinancialAccountTransactions(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountTransactionsFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountTransactionsFeatures(
+        TypedDict
+    ):
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute features.
+        """
+
+    class CreateParamsComponentsIssuingCard(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsIssuingCardsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
+        card_management: NotRequired[bool]
+        """
+        Whether to allow card management features.
+        """
+        cardholder_management: NotRequired[bool]
+        """
+        Whether to allow cardholder management features.
+        """
+
     class CreateParamsComponentsPaymentDetails(TypedDict):
         enabled: bool
         """
@@ -241,6 +342,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capture_payments: NotRequired[bool]
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """
@@ -267,6 +372,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capture_payments: NotRequired[bool]
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """

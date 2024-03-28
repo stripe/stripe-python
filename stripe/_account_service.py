@@ -50,7 +50,7 @@ class AccountService(StripeService):
         """
         controller: NotRequired["AccountService.CreateParamsController"]
         """
-        The configuration of the account when `type` is not provided.
+        A hash of configuration describing the account controller's attributes.
         """
         country: NotRequired[str]
         """
@@ -248,6 +248,12 @@ class AccountService(StripeService):
         ]
         """
         The afterpay_clearpay_payments capability.
+        """
+        amazon_pay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesAmazonPayPayments"
+        ]
+        """
+        The amazon_pay_payments capability.
         """
         au_becs_debit_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesAuBecsDebitPayments"
@@ -497,6 +503,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAmazonPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1874,6 +1886,12 @@ class AccountService(StripeService):
         """
         The afterpay_clearpay_payments capability.
         """
+        amazon_pay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesAmazonPayPayments"
+        ]
+        """
+        The amazon_pay_payments capability.
+        """
         au_becs_debit_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesAuBecsDebitPayments"
         ]
@@ -2122,6 +2140,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesAmazonPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

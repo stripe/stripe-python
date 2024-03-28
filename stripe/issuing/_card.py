@@ -1200,6 +1200,10 @@ class Card(
         """
         If `replacement_for` is specified, this should indicate why that card is being replaced.
         """
+        second_line: NotRequired["Literal['']|str"]
+        """
+        The second line to print on the card.
+        """
         shipping: NotRequired["Card.CreateParamsShipping"]
         """
         The address where the card will be shipped.

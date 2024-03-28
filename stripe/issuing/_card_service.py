@@ -46,6 +46,10 @@ class CardService(StripeService):
         """
         If `replacement_for` is specified, this should indicate why that card is being replaced.
         """
+        second_line: NotRequired["Literal['']|str"]
+        """
+        The second line to print on the card.
+        """
         shipping: NotRequired["CardService.CreateParamsShipping"]
         """
         The address where the card will be shipped.
