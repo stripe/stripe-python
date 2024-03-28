@@ -13,11 +13,11 @@ class MeterEventAdjustmentService(StripeService):
         """
         Specifies which event to cancel.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        type: NotRequired["Literal['cancel']"]
+        type: NotRequired[Literal["cancel"]]
         """
         Specifies whether to cancel a single event or a range of events for a time period.
         """

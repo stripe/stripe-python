@@ -11,13 +11,13 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ReaderService(StripeService):
     class CancelActionParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CollectInputsParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -25,7 +25,7 @@ class ReaderService(StripeService):
         """
         List of inputs to be collected using the Reader
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -35,7 +35,7 @@ class ReaderService(StripeService):
         """
         Customize the text which will be displayed while collecting this input
         """
-        required: NotRequired["bool"]
+        required: NotRequired[bool]
         """
         Indicate that this input is required, disabling the skip button
         """
@@ -51,15 +51,15 @@ class ReaderService(StripeService):
         """
 
     class CollectInputsParamsInputCustomText(TypedDict):
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The description which will be displayed when collecting this input
         """
-        skip_button: NotRequired["str"]
+        skip_button: NotRequired[str]
         """
         The skip button text
         """
-        submit_button: NotRequired["str"]
+        submit_button: NotRequired[str]
         """
         The submit button text
         """
@@ -75,7 +75,7 @@ class ReaderService(StripeService):
         """
 
     class CollectInputsParamsInputSelectionChoice(TypedDict):
-        style: NotRequired["Literal['primary', 'secondary']"]
+        style: NotRequired[Literal["primary", "secondary"]]
         """
         The style of the button which will be shown for this choice
         """
@@ -91,7 +91,7 @@ class ReaderService(StripeService):
         """
         Configuration overrides
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -101,11 +101,11 @@ class ReaderService(StripeService):
         """
 
     class CollectPaymentMethodParamsCollectConfig(TypedDict):
-        enable_customer_cancellation: NotRequired["bool"]
+        enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
         """
-        skip_tipping: NotRequired["bool"]
+        skip_tipping: NotRequired[bool]
         """
         Override showing a tipping selection screen on this transaction.
         """
@@ -117,13 +117,13 @@ class ReaderService(StripeService):
         """
 
     class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
-        amount_eligible: NotRequired["int"]
+        amount_eligible: NotRequired[int]
         """
         Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
         """
 
     class ConfirmPaymentIntentParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -133,15 +133,15 @@ class ReaderService(StripeService):
         """
 
     class CreateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        label: NotRequired["str"]
+        label: NotRequired[str]
         """
         Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
         """
-        location: NotRequired["str"]
+        location: NotRequired[str]
         """
         The location to assign the reader to.
         """
@@ -159,42 +159,49 @@ class ReaderService(StripeService):
 
     class ListParams(TypedDict):
         device_type: NotRequired[
-            "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']"
+            Literal[
+                "bbpos_chipper2x",
+                "bbpos_wisepad3",
+                "bbpos_wisepos_e",
+                "simulated_wisepos_e",
+                "stripe_m2",
+                "verifone_P400",
+            ]
         ]
         """
         Filters readers by device type
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        location: NotRequired["str"]
+        location: NotRequired[str]
         """
         A location ID to filter the response list to only readers at the specific location
         """
-        serial_number: NotRequired["str"]
+        serial_number: NotRequired[str]
         """
         Filters readers by serial number
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        status: NotRequired["Literal['offline', 'online']"]
+        status: NotRequired[Literal["offline", "online"]]
         """
         A status filter to filter readers to only offline or online readers
         """
 
     class ProcessPaymentIntentParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -210,11 +217,11 @@ class ReaderService(StripeService):
         """
 
     class ProcessPaymentIntentParamsProcessConfig(TypedDict):
-        enable_customer_cancellation: NotRequired["bool"]
+        enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
         """
-        skip_tipping: NotRequired["bool"]
+        skip_tipping: NotRequired[bool]
         """
         Override showing a tipping selection screen on this transaction.
         """
@@ -226,7 +233,7 @@ class ReaderService(StripeService):
         """
 
     class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
-        amount_eligible: NotRequired["int"]
+        amount_eligible: NotRequired[int]
         """
         Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
         """
@@ -236,7 +243,7 @@ class ReaderService(StripeService):
         """
         Customer Consent Collected
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -252,33 +259,33 @@ class ReaderService(StripeService):
         """
 
     class ProcessSetupIntentParamsProcessConfig(TypedDict):
-        enable_customer_cancellation: NotRequired["bool"]
+        enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
         """
 
     class RefundPaymentParams(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         A positive integer in __cents__ representing how much of this charge to refund.
         """
-        charge: NotRequired["str"]
+        charge: NotRequired[str]
         """
         ID of the Charge to refund.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        payment_intent: NotRequired["str"]
+        payment_intent: NotRequired[str]
         """
         ID of the PaymentIntent to refund.
         """
-        refund_application_fee: NotRequired["bool"]
+        refund_application_fee: NotRequired[bool]
         """
         Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
         """
@@ -288,19 +295,19 @@ class ReaderService(StripeService):
         """
         Configuration overrides
         """
-        reverse_transfer: NotRequired["bool"]
+        reverse_transfer: NotRequired[bool]
         """
         Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
         """
 
     class RefundPaymentParamsRefundPaymentConfig(TypedDict):
-        enable_customer_cancellation: NotRequired["bool"]
+        enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -310,7 +317,7 @@ class ReaderService(StripeService):
         """
         Cart
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -328,7 +335,7 @@ class ReaderService(StripeService):
         """
         Array of line items that were purchased.
         """
-        tax: NotRequired["int"]
+        tax: NotRequired[int]
         """
         The amount of tax in cents.
         """
@@ -352,7 +359,7 @@ class ReaderService(StripeService):
         """
 
     class UpdateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

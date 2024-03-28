@@ -37,19 +37,19 @@ class QuoteService(StripeService):
         )
 
     class AcceptParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CancelParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class CreateParams(TypedDict):
-        allow_backdated_lines: NotRequired["bool"]
+        allow_backdated_lines: NotRequired[bool]
         """
         Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
         """
@@ -66,12 +66,12 @@ class QuoteService(StripeService):
         Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
         """
@@ -89,11 +89,11 @@ class QuoteService(StripeService):
         """
         The discounts applied to the quote. You can only set up to one discount.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch. If no value is passed, the default expiration date configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
         """
@@ -115,15 +115,15 @@ class QuoteService(StripeService):
         """
         All invoices will be billed using the specified settings.
         """
-        line_items: NotRequired["List[QuoteService.CreateParamsLineItem]"]
+        line_items: NotRequired[List["QuoteService.CreateParamsLineItem"]]
         """
         A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
         """
-        lines: NotRequired["List[QuoteService.CreateParamsLine]"]
+        lines: NotRequired[List["QuoteService.CreateParamsLine"]]
         """
         A list of lines on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -131,7 +131,7 @@ class QuoteService(StripeService):
         """
         The account on behalf of which to charge.
         """
-        phases: NotRequired["List[QuoteService.CreateParamsPhase]"]
+        phases: NotRequired[List["QuoteService.CreateParamsPhase"]]
         """
         List representing phases of the Quote. Each phase can be customized to have different durations, prices, and coupons.
         """
@@ -142,12 +142,12 @@ class QuoteService(StripeService):
         When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
         """
         subscription_data_overrides: NotRequired[
-            "List[QuoteService.CreateParamsSubscriptionDataOverride]"
+            List["QuoteService.CreateParamsSubscriptionDataOverride"]
         ]
         """
         List representing overrides for `subscription_data` configurations for specific subscription schedules.
         """
-        test_clock: NotRequired["str"]
+        test_clock: NotRequired[str]
         """
         ID of the test clock to attach to the quote.
         """
@@ -171,7 +171,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -181,11 +181,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -203,7 +203,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -223,7 +223,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsFromQuote(TypedDict):
-        is_revision: NotRequired["bool"]
+        is_revision: NotRequired[bool]
         """
         Whether this quote is a revision of the previous quote.
         """
@@ -233,7 +233,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         """
@@ -243,7 +243,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -253,7 +253,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLine(TypedDict):
-        actions: NotRequired["List[QuoteService.CreateParamsLineAction]"]
+        actions: NotRequired[List["QuoteService.CreateParamsLineAction"]]
         """
         An array of operations the quote line performs.
         """
@@ -262,7 +262,7 @@ class QuoteService(StripeService):
         Details to identify the subscription schedule the quote line applies to.
         """
         billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'line_starts_at']"
+            Literal["automatic", "line_starts_at"]
         ]
         """
         For a point-in-time operation, this attribute lets you set or update whether the subscription's billing cycle anchor is reset at the `starts_at` timestamp.
@@ -272,7 +272,7 @@ class QuoteService(StripeService):
         Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
@@ -284,7 +284,7 @@ class QuoteService(StripeService):
         Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
         """
         set_schedule_end: NotRequired[
-            "Literal['line_ends_at', 'line_starts_at']"
+            Literal["line_ends_at", "line_starts_at"]
         ]
         """
         Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
@@ -311,7 +311,7 @@ class QuoteService(StripeService):
         """
         Details for the `add_item` type.
         """
-        add_metadata: NotRequired["Dict[str, str]"]
+        add_metadata: NotRequired[Dict[str, str]]
         """
         Details for the `add_metadata` type: specify a hash of key-value pairs.
         """
@@ -327,18 +327,18 @@ class QuoteService(StripeService):
         """
         Details for the `remove_item` type.
         """
-        remove_metadata: NotRequired["List[str]"]
+        remove_metadata: NotRequired[List[str]]
         """
         Details for the `remove_metadata` type: specify an array of metadata keys.
         """
         set_discounts: NotRequired[
-            "List[QuoteService.CreateParamsLineActionSetDiscount]"
+            List["QuoteService.CreateParamsLineActionSetDiscount"]
         ]
         """
         Details for the `set_discounts` type.
         """
         set_items: NotRequired[
-            "List[QuoteService.CreateParamsLineActionSetItem]"
+            List["QuoteService.CreateParamsLineActionSetItem"]
         ]
         """
         Details for the `set_items` type.
@@ -365,11 +365,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionAddDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to redeem.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         An ID of an existing discount for a coupon that was already redeemed.
         """
@@ -379,7 +379,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
         """
@@ -392,12 +392,12 @@ class QuoteService(StripeService):
 
     class CreateParamsLineActionAddItem(TypedDict):
         discounts: NotRequired[
-            "List[QuoteService.CreateParamsLineActionAddItemDiscount]"
+            List["QuoteService.CreateParamsLineActionAddItemDiscount"]
         ]
         """
         The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -405,11 +405,11 @@ class QuoteService(StripeService):
         """
         The ID of the price object.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for this item.
         """
-        tax_rates: NotRequired["List[str]"]
+        tax_rates: NotRequired[List[str]]
         """
         The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
         """
@@ -419,11 +419,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionAddItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -433,7 +433,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -445,7 +445,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -465,7 +465,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionAddItemTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
+        converts_to: NotRequired[List[str]]
         """
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
@@ -475,15 +475,15 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionRemoveDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to remove from the `discounts` array.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         The ID of a discount to remove from the `discounts` array.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         The ID of a promotion code to remove from the `discounts` array.
         """
@@ -495,27 +495,27 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionSetDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to replace the `discounts` array with.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         An ID of an existing discount to replace the `discounts` array with.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         An ID of an existing promotion code to replace the `discounts` array with.
         """
 
     class CreateParamsLineActionSetItem(TypedDict):
         discounts: NotRequired[
-            "List[QuoteService.CreateParamsLineActionSetItemDiscount]"
+            List["QuoteService.CreateParamsLineActionSetItemDiscount"]
         ]
         """
         If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
         """
@@ -523,11 +523,11 @@ class QuoteService(StripeService):
         """
         The ID of the price object.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
         """
-        tax_rates: NotRequired["List[str]"]
+        tax_rates: NotRequired[List[str]]
         """
         If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
         """
@@ -537,11 +537,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionSetItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -551,7 +551,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -563,7 +563,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -583,7 +583,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineActionSetItemTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
+        converts_to: NotRequired[List[str]]
         """
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
@@ -593,11 +593,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineAppliesTo(TypedDict):
-        new_reference: NotRequired["str"]
+        new_reference: NotRequired[str]
         """
         A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         """
-        subscription_schedule: NotRequired["str"]
+        subscription_schedule: NotRequired[str]
         """
         The ID of the schedule the line applies to.
         """
@@ -617,7 +617,7 @@ class QuoteService(StripeService):
         """
         Time span for the quote line starting from the `starts_at` date.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -657,7 +657,7 @@ class QuoteService(StripeService):
         """
         The discounts applied to this line item.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
         """
@@ -665,7 +665,7 @@ class QuoteService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -675,11 +675,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -697,7 +697,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -732,16 +732,16 @@ class QuoteService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -751,7 +751,7 @@ class QuoteService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
@@ -785,7 +785,7 @@ class QuoteService(StripeService):
         """
         The timestamp the given line ends at.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -809,7 +809,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineStartsAtLineEndsAt(TypedDict):
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -823,18 +823,18 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineTrialSettingsEndBehavior(TypedDict):
-        prorate_up_front: NotRequired["Literal['defer', 'include']"]
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
         """
         Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         """
 
     class CreateParamsPhase(TypedDict):
-        billing_cycle_anchor: NotRequired["Literal['reset']"]
+        billing_cycle_anchor: NotRequired[Literal["reset"]]
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -849,7 +849,7 @@ class QuoteService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         The date at which this phase of the quote ends. If set, `iterations` must not be set.
         """
@@ -859,7 +859,7 @@ class QuoteService(StripeService):
         """
         All invoices will be billed using the specified settings.
         """
-        iterations: NotRequired["int"]
+        iterations: NotRequired[int]
         """
         Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
         """
@@ -867,31 +867,31 @@ class QuoteService(StripeService):
         """
         A list of line items the customer is being quoted for within this phase. Each line item includes information about the product, the quantity, and the resulting cost.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on the subscription schedule's phases when the quote is accepted.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
         """
-        trial: NotRequired["bool"]
+        trial: NotRequired[bool]
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_end: NotRequired["int"]
+        trial_end: NotRequired[int]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`.
         """
 
     class CreateParamsPhaseDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -901,7 +901,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -913,7 +913,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -933,7 +933,7 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         """
@@ -945,7 +945,7 @@ class QuoteService(StripeService):
         """
         The discounts applied to this line item.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
         """
@@ -955,7 +955,7 @@ class QuoteService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -965,11 +965,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsPhaseLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -987,7 +987,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -1022,16 +1022,16 @@ class QuoteService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -1041,7 +1041,7 @@ class QuoteService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
@@ -1054,7 +1054,7 @@ class QuoteService(StripeService):
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: NotRequired[
-            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+            Literal["prorate_on_next_phase", "prorate_up_front"]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -1063,7 +1063,7 @@ class QuoteService(StripeService):
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
@@ -1073,19 +1073,19 @@ class QuoteService(StripeService):
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
-        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
-        from_schedule: NotRequired["str"]
+        from_schedule: NotRequired[str]
         """
         The id of a subscription schedule the quote will update. The quote will inherit the state of the subscription schedule, such as `phases`. Cannot be combined with other parameters.
         """
-        from_subscription: NotRequired["str"]
+        from_subscription: NotRequired[str]
         """
         The id of a subscription that the quote will update. By default, the quote will contain the state of the subscription (such as line items, collection method and billing thresholds) unless overridden.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
@@ -1096,7 +1096,7 @@ class QuoteService(StripeService):
         If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -1133,7 +1133,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line to start the bill period from.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -1151,11 +1151,11 @@ class QuoteService(StripeService):
     class CreateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -1173,7 +1173,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line item from which to bill until.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -1203,11 +1203,11 @@ class QuoteService(StripeService):
     class CreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -1224,25 +1224,25 @@ class QuoteService(StripeService):
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: NotRequired[
-            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+            Literal["prorate_on_next_phase", "prorate_up_front"]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
         """
-        description: NotRequired["str"]
+        description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -1255,11 +1255,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsSubscriptionDataOverrideAppliesTo(TypedDict):
-        new_reference: NotRequired["str"]
+        new_reference: NotRequired[str]
         """
         A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         """
-        subscription_schedule: NotRequired["str"]
+        subscription_schedule: NotRequired[str]
         """
         The ID of the schedule the line applies to.
         """
@@ -1291,7 +1291,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line to start the bill period from.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -1309,11 +1309,11 @@ class QuoteService(StripeService):
     class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -1333,7 +1333,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line item from which to bill until.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -1363,11 +1363,11 @@ class QuoteService(StripeService):
     class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -1379,11 +1379,11 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         """
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
         """
@@ -1393,105 +1393,107 @@ class QuoteService(StripeService):
         """
 
     class FinalizeQuoteParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
         """
 
     class ListParams(TypedDict):
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The ID of the customer whose quotes will be retrieved.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        from_subscription: NotRequired["str"]
+        from_subscription: NotRequired[str]
         """
         The subscription which the quote updates.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         status: NotRequired[
-            "Literal['accepted', 'accepting', 'canceled', 'draft', 'open', 'stale']"
+            Literal[
+                "accepted", "accepting", "canceled", "draft", "open", "stale"
+            ]
         ]
         """
         The status of the quote.
         """
-        test_clock: NotRequired["str"]
+        test_clock: NotRequired[str]
         """
         Provides a list of quotes that are associated with the specified test clock. The response will not include quotes with test clocks if this and the customer parameter is not set.
         """
 
     class ListPreviewInvoiceLinesParams(TypedDict):
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class MarkDraftParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class MarkStaleParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        reason: NotRequired["str"]
+        reason: NotRequired[str]
         """
         Reason the Quote is being marked stale.
         """
 
     class PdfParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class ReestimateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
     class UpdateParams(TypedDict):
-        allow_backdated_lines: NotRequired["bool"]
+        allow_backdated_lines: NotRequired[bool]
         """
         Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
         """
@@ -1508,12 +1510,12 @@ class QuoteService(StripeService):
         Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
         """
@@ -1531,11 +1533,11 @@ class QuoteService(StripeService):
         """
         The discounts applied to the quote. You can only set up to one discount.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        expires_at: NotRequired["int"]
+        expires_at: NotRequired[int]
         """
         A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
         """
@@ -1553,15 +1555,15 @@ class QuoteService(StripeService):
         """
         All invoices will be billed using the specified settings.
         """
-        line_items: NotRequired["List[QuoteService.UpdateParamsLineItem]"]
+        line_items: NotRequired[List["QuoteService.UpdateParamsLineItem"]]
         """
         A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
         """
-        lines: NotRequired["List[QuoteService.UpdateParamsLine]"]
+        lines: NotRequired[List["QuoteService.UpdateParamsLine"]]
         """
         A list of lines on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -1569,7 +1571,7 @@ class QuoteService(StripeService):
         """
         The account on behalf of which to charge.
         """
-        phases: NotRequired["List[QuoteService.UpdateParamsPhase]"]
+        phases: NotRequired[List["QuoteService.UpdateParamsPhase"]]
         """
         List representing phases of the Quote. Each phase can be customized to have different durations, prices, and coupons.
         """
@@ -1605,7 +1607,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -1615,11 +1617,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -1637,7 +1639,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -1657,7 +1659,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         """
@@ -1667,7 +1669,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The connected account being referenced when `type` is `account`.
         """
@@ -1677,7 +1679,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLine(TypedDict):
-        actions: NotRequired["List[QuoteService.UpdateParamsLineAction]"]
+        actions: NotRequired[List["QuoteService.UpdateParamsLineAction"]]
         """
         An array of operations the quote line performs.
         """
@@ -1686,7 +1688,7 @@ class QuoteService(StripeService):
         Details to identify the subscription schedule the quote line applies to.
         """
         billing_cycle_anchor: NotRequired[
-            "Literal['automatic', 'line_starts_at']"
+            Literal["automatic", "line_starts_at"]
         ]
         """
         For a point-in-time operation, this attribute lets you set or update whether the subscription's billing cycle anchor is reset at the `starts_at` timestamp.
@@ -1695,12 +1697,12 @@ class QuoteService(StripeService):
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
         """
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of an existing line on the quote.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
@@ -1712,7 +1714,7 @@ class QuoteService(StripeService):
         Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
         """
         set_schedule_end: NotRequired[
-            "Literal['line_ends_at', 'line_starts_at']"
+            Literal["line_ends_at", "line_starts_at"]
         ]
         """
         Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
@@ -1739,7 +1741,7 @@ class QuoteService(StripeService):
         """
         Details for the `add_item` type.
         """
-        add_metadata: NotRequired["Dict[str, str]"]
+        add_metadata: NotRequired[Dict[str, str]]
         """
         Details for the `add_metadata` type: specify a hash of key-value pairs.
         """
@@ -1755,18 +1757,18 @@ class QuoteService(StripeService):
         """
         Details for the `remove_item` type.
         """
-        remove_metadata: NotRequired["List[str]"]
+        remove_metadata: NotRequired[List[str]]
         """
         Details for the `remove_metadata` type: specify an array of metadata keys.
         """
         set_discounts: NotRequired[
-            "List[QuoteService.UpdateParamsLineActionSetDiscount]"
+            List["QuoteService.UpdateParamsLineActionSetDiscount"]
         ]
         """
         Details for the `set_discounts` type.
         """
         set_items: NotRequired[
-            "List[QuoteService.UpdateParamsLineActionSetItem]"
+            List["QuoteService.UpdateParamsLineActionSetItem"]
         ]
         """
         Details for the `set_items` type.
@@ -1793,11 +1795,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionAddDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to redeem.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         An ID of an existing discount for a coupon that was already redeemed.
         """
@@ -1807,7 +1809,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
         """
@@ -1820,12 +1822,12 @@ class QuoteService(StripeService):
 
     class UpdateParamsLineActionAddItem(TypedDict):
         discounts: NotRequired[
-            "List[QuoteService.UpdateParamsLineActionAddItemDiscount]"
+            List["QuoteService.UpdateParamsLineActionAddItemDiscount"]
         ]
         """
         The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -1833,11 +1835,11 @@ class QuoteService(StripeService):
         """
         The ID of the price object.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         Quantity for this item.
         """
-        tax_rates: NotRequired["List[str]"]
+        tax_rates: NotRequired[List[str]]
         """
         The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
         """
@@ -1847,11 +1849,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionAddItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -1861,7 +1863,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -1873,7 +1875,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -1893,7 +1895,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionAddItemTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
+        converts_to: NotRequired[List[str]]
         """
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
@@ -1903,15 +1905,15 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionRemoveDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to remove from the `discounts` array.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         The ID of a discount to remove from the `discounts` array.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         The ID of a promotion code to remove from the `discounts` array.
         """
@@ -1923,27 +1925,27 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionSetDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         The coupon code to replace the `discounts` array with.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         An ID of an existing discount to replace the `discounts` array with.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         An ID of an existing promotion code to replace the `discounts` array with.
         """
 
     class UpdateParamsLineActionSetItem(TypedDict):
         discounts: NotRequired[
-            "List[QuoteService.UpdateParamsLineActionSetItemDiscount]"
+            List["QuoteService.UpdateParamsLineActionSetItemDiscount"]
         ]
         """
         If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
         """
@@ -1951,11 +1953,11 @@ class QuoteService(StripeService):
         """
         The ID of the price object.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
         """
-        tax_rates: NotRequired["List[str]"]
+        tax_rates: NotRequired[List[str]]
         """
         If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
         """
@@ -1965,11 +1967,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionSetItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -1979,7 +1981,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -1991,7 +1993,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -2011,7 +2013,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineActionSetItemTrial(TypedDict):
-        converts_to: NotRequired["List[str]"]
+        converts_to: NotRequired[List[str]]
         """
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
@@ -2021,11 +2023,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineAppliesTo(TypedDict):
-        new_reference: NotRequired["str"]
+        new_reference: NotRequired[str]
         """
         A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         """
-        subscription_schedule: NotRequired["str"]
+        subscription_schedule: NotRequired[str]
         """
         The ID of the schedule the line applies to.
         """
@@ -2045,7 +2047,7 @@ class QuoteService(StripeService):
         """
         Time span for the quote line starting from the `starts_at` date.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2085,11 +2087,11 @@ class QuoteService(StripeService):
         """
         The discounts applied to this line item.
         """
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of an existing line item on the quote.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
         """
@@ -2097,7 +2099,7 @@ class QuoteService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -2107,11 +2109,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -2129,7 +2131,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -2164,16 +2166,16 @@ class QuoteService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -2183,7 +2185,7 @@ class QuoteService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
@@ -2217,7 +2219,7 @@ class QuoteService(StripeService):
         """
         The timestamp the given line ends at.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2241,11 +2243,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineStartsAtLineEndsAt(TypedDict):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -2259,18 +2261,18 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineTrialSettingsEndBehavior(TypedDict):
-        prorate_up_front: NotRequired["Literal['defer', 'include']"]
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
         """
         Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         """
 
     class UpdateParamsPhase(TypedDict):
-        billing_cycle_anchor: NotRequired["Literal['reset']"]
+        billing_cycle_anchor: NotRequired[Literal["reset"]]
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
         collection_method: NotRequired[
-            "Literal['charge_automatically', 'send_invoice']"
+            Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -2285,7 +2287,7 @@ class QuoteService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
-        end_date: NotRequired["int"]
+        end_date: NotRequired[int]
         """
         The date at which this phase of the quote ends. If set, `iterations` must not be set.
         """
@@ -2295,7 +2297,7 @@ class QuoteService(StripeService):
         """
         All invoices will be billed using the specified settings.
         """
-        iterations: NotRequired["int"]
+        iterations: NotRequired[int]
         """
         Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
         """
@@ -2303,31 +2305,31 @@ class QuoteService(StripeService):
         """
         A list of line items the customer is being quoted for within this phase. Each line item includes information about the product, the quantity, and the resulting cost.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on the subscription schedule's phases when the quote is accepted. After a quote has been finalized, this field can be updated by specifying an identical set of quote phases to what was on the quote originally, excluding changes in metadata and phases that are now in the past.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
         """
-        trial: NotRequired["bool"]
+        trial: NotRequired[bool]
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_end: NotRequired["int"]
+        trial_end: NotRequired[int]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`.
         """
 
     class UpdateParamsPhaseDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -2337,7 +2339,7 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
-        promotion_code: NotRequired["str"]
+        promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
         """
@@ -2349,7 +2351,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -2369,7 +2371,7 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsPhaseInvoiceSettings(TypedDict):
-        days_until_due: NotRequired["int"]
+        days_until_due: NotRequired[int]
         """
         Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         """
@@ -2381,7 +2383,7 @@ class QuoteService(StripeService):
         """
         The discounts applied to this line item.
         """
-        price: NotRequired["str"]
+        price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
         """
@@ -2391,7 +2393,7 @@ class QuoteService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
-        quantity: NotRequired["int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item.
         """
@@ -2401,11 +2403,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsPhaseLineItemDiscount(TypedDict):
-        coupon: NotRequired["str"]
+        coupon: NotRequired[str]
         """
         ID of the coupon to create a new discount for.
         """
-        discount: NotRequired["str"]
+        discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
@@ -2423,7 +2425,7 @@ class QuoteService(StripeService):
         """
         Time span for the redeemed discount.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp for the discount to end. Must be in the future.
         """
@@ -2458,16 +2460,16 @@ class QuoteService(StripeService):
         The recurring components of a price such as `interval` and `interval_count`.
         """
         tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
+            Literal["exclusive", "inclusive", "unspecified"]
         ]
         """
         Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         """
-        unit_amount: NotRequired["int"]
+        unit_amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
         """
-        unit_amount_decimal: NotRequired["str"]
+        unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
@@ -2477,7 +2479,7 @@ class QuoteService(StripeService):
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         """
-        interval_count: NotRequired["int"]
+        interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
@@ -2490,7 +2492,7 @@ class QuoteService(StripeService):
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: NotRequired[
-            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+            Literal["prorate_on_next_phase", "prorate_up_front"]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -2509,11 +2511,11 @@ class QuoteService(StripeService):
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
-        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
@@ -2524,7 +2526,7 @@ class QuoteService(StripeService):
         If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -2561,7 +2563,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line to start the bill period from.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2579,11 +2581,11 @@ class QuoteService(StripeService):
     class UpdateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -2601,7 +2603,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line item from which to bill until.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2631,11 +2633,11 @@ class QuoteService(StripeService):
     class UpdateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -2652,12 +2654,12 @@ class QuoteService(StripeService):
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: NotRequired[
-            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+            Literal["prorate_on_next_phase", "prorate_up_front"]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The customer the Subscription Data override applies to.
         """
@@ -2665,12 +2667,12 @@ class QuoteService(StripeService):
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
         proration_behavior: NotRequired[
-            "Literal['always_invoice', 'create_prorations', 'none']"
+            Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -2683,11 +2685,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsSubscriptionDataOverrideAppliesTo(TypedDict):
-        new_reference: NotRequired["str"]
+        new_reference: NotRequired[str]
         """
         A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         """
-        subscription_schedule: NotRequired["str"]
+        subscription_schedule: NotRequired[str]
         """
         The ID of the schedule the line applies to.
         """
@@ -2719,7 +2721,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line to start the bill period from.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2737,11 +2739,11 @@ class QuoteService(StripeService):
     class UpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -2761,7 +2763,7 @@ class QuoteService(StripeService):
         """
         Details of a Quote line item from which to bill until.
         """
-        timestamp: NotRequired["int"]
+        timestamp: NotRequired[int]
         """
         A precise Unix timestamp.
         """
@@ -2791,11 +2793,11 @@ class QuoteService(StripeService):
     class UpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
         TypedDict,
     ):
-        id: NotRequired["str"]
+        id: NotRequired[str]
         """
         The ID of a quote line.
         """
-        index: NotRequired["int"]
+        index: NotRequired[int]
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
@@ -2807,11 +2809,11 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsTransferData(TypedDict):
-        amount: NotRequired["int"]
+        amount: NotRequired[int]
         """
         The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         """
-        amount_percent: NotRequired["float"]
+        amount_percent: NotRequired[float]
         """
         A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
         """

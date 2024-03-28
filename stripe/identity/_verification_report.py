@@ -294,7 +294,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         _inner_class_types = {"error": Error}
 
     class ListParams(RequestOptions):
-        client_reference_id: NotRequired["str"]
+        client_reference_id: NotRequired[str]
         """
         A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         """
@@ -302,51 +302,51 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Only return VerificationReports that were created during the given date interval.
         """
-        ending_before: NotRequired["str"]
+        ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        limit: NotRequired["int"]
+        limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        starting_after: NotRequired["str"]
+        starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        type: NotRequired["Literal['document', 'id_number']"]
+        type: NotRequired[Literal["document", "id_number"]]
         """
         Only return VerificationReports of this type
         """
-        verification_session: NotRequired["str"]
+        verification_session: NotRequired[str]
         """
         Only return VerificationReports created by this VerificationSession ID. It is allowed to provide a VerificationIntent ID.
         """
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired["int"]
+        gt: NotRequired[int]
         """
         Minimum value to filter by (exclusive)
         """
-        gte: NotRequired["int"]
+        gte: NotRequired[int]
         """
         Minimum value to filter by (inclusive)
         """
-        lt: NotRequired["int"]
+        lt: NotRequired[int]
         """
         Maximum value to filter by (exclusive)
         """
-        lte: NotRequired["int"]
+        lte: NotRequired[int]
         """
         Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """

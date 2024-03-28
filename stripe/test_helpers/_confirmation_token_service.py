@@ -9,11 +9,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ConfirmationTokenService(StripeService):
     class CreateParams(TypedDict):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        payment_method: NotRequired["str"]
+        payment_method: NotRequired[str]
         """
         ID of an existing PaymentMethod.
         """
@@ -23,11 +23,11 @@ class ConfirmationTokenService(StripeService):
         """
         If provided, this hash will be used to create a PaymentMethod.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
         """
-        setup_future_usage: NotRequired["Literal['off_session', 'on_session']"]
+        setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
         """
         Indicates that you intend to make future payments with this ConfirmationToken's payment method.
 
@@ -165,7 +165,7 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        metadata: NotRequired["Dict[str, str]"]
+        metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
@@ -353,11 +353,11 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account that the funds will be debited from.
         """
-        sort_code: NotRequired["str"]
+        sort_code: NotRequired[str]
         """
         Sort code of the bank account. (e.g., `10-20-30`)
         """
@@ -386,27 +386,27 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """
@@ -428,14 +428,43 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
+            Literal[
+                "arzte_und_apotheker_bank",
+                "austrian_anadi_bank_ag",
+                "bank_austria",
+                "bankhaus_carl_spangler",
+                "bankhaus_schelhammer_und_schattera_ag",
+                "bawag_psk_ag",
+                "bks_bank_ag",
+                "brull_kallmus_bank_ag",
+                "btv_vier_lander_bank",
+                "capital_bank_grawe_gruppe_ag",
+                "deutsche_bank_ag",
+                "dolomitenbank",
+                "easybank_ag",
+                "erste_bank_und_sparkassen",
+                "hypo_alpeadriabank_international_ag",
+                "hypo_bank_burgenland_aktiengesellschaft",
+                "hypo_noe_lb_fur_niederosterreich_u_wien",
+                "hypo_oberosterreich_salzburg_steiermark",
+                "hypo_tirol_bank_ag",
+                "hypo_vorarlberg_bank_ag",
+                "marchfelder_bank",
+                "oberbank_ag",
+                "raiffeisen_bankengruppe_osterreich",
+                "schoellerbank_ag",
+                "sparda_bank_wien",
+                "volksbank_gruppe",
+                "volkskreditbank_ag",
+                "vr_bank_braunau",
+            ]
         ]
         """
         The customer's bank.
         """
 
     class CreateParamsPaymentMethodDataFpx(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type for FPX transaction
         """
@@ -475,7 +504,24 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
+            Literal[
+                "abn_amro",
+                "asn_bank",
+                "bunq",
+                "handelsbanken",
+                "ing",
+                "knab",
+                "moneyou",
+                "n26",
+                "nn",
+                "rabobank",
+                "regiobank",
+                "revolut",
+                "sns_bank",
+                "triodos_bank",
+                "van_lanschot",
+                "yoursafe",
+            ]
         ]
         """
         The customer's bank.
@@ -523,7 +569,34 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']"
+            Literal[
+                "alior_bank",
+                "bank_millennium",
+                "bank_nowy_bfg_sa",
+                "bank_pekao_sa",
+                "banki_spbdzielcze",
+                "blik",
+                "bnp_paribas",
+                "boz",
+                "citi_handlowy",
+                "credit_agricole",
+                "envelobank",
+                "etransfer_pocztowy24",
+                "getin_bank",
+                "ideabank",
+                "ing",
+                "inteligo",
+                "mbank_mtransfer",
+                "nest_przelew",
+                "noble_pay",
+                "pbac_z_ipko",
+                "plus_bank",
+                "santander_przelew24",
+                "tmobile_usbugi_bankowe",
+                "toyota_bank",
+                "velobank",
+                "volkswagen_bank",
+            ]
         ]
         """
         The customer's bank.
@@ -536,15 +609,15 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         The account number for the bank account.
         """
-        bsb_number: NotRequired["str"]
+        bsb_number: NotRequired[str]
         """
         Bank-State-Branch number of the bank account.
         """
-        pay_id: NotRequired["str"]
+        pay_id: NotRequired[str]
         """
         The PayID alias for the bank account.
         """
@@ -556,7 +629,7 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired["str"]
+        session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -583,23 +656,23 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-        account_holder_type: NotRequired["Literal['company', 'individual']"]
+        account_holder_type: NotRequired[Literal["company", "individual"]]
         """
         Account holder type: individual or company.
         """
-        account_number: NotRequired["str"]
+        account_number: NotRequired[str]
         """
         Account number of the bank account.
         """
-        account_type: NotRequired["Literal['checking', 'savings']"]
+        account_type: NotRequired[Literal["checking", "savings"]]
         """
         Account type: checkings or savings. Defaults to checking if omitted.
         """
-        financial_connections_account: NotRequired["str"]
+        financial_connections_account: NotRequired[str]
         """
         The ID of a Financial Connections Account to use as a payment method.
         """
-        routing_number: NotRequired["str"]
+        routing_number: NotRequired[str]
         """
         Routing number of the bank account.
         """
@@ -625,27 +698,27 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired["str"]
+        city: NotRequired[str]
         """
         City, district, suburb, town, or village.
         """
-        country: NotRequired["str"]
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
-        line1: NotRequired["str"]
+        line1: NotRequired[str]
         """
         Address line 1 (e.g., street, PO Box, or company name).
         """
-        line2: NotRequired["str"]
+        line2: NotRequired[str]
         """
         Address line 2 (e.g., apartment, suite, unit, or building).
         """
-        postal_code: NotRequired["str"]
+        postal_code: NotRequired[str]
         """
         ZIP or postal code.
         """
-        state: NotRequired["str"]
+        state: NotRequired[str]
         """
         State, county, province, or region.
         """

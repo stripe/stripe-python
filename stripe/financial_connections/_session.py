@@ -75,7 +75,7 @@ class Session(CreateableAPIResource["Session"]):
         """
         The account holder to link accounts for.
         """
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
@@ -100,22 +100,29 @@ class Session(CreateableAPIResource["Session"]):
         Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
         """
         prefetch: NotRequired[
-            "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
+            List[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ]
+            ]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
-        return_url: NotRequired["str"]
+        return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
         """
 
     class CreateParamsAccountHolder(TypedDict):
-        account: NotRequired["str"]
+        account: NotRequired[str]
         """
         The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
         """
-        customer: NotRequired["str"]
+        customer: NotRequired[str]
         """
         The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
         """
@@ -137,13 +144,13 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class CreateParamsManualEntry(TypedDict):
-        mode: NotRequired["Literal['automatic', 'custom']"]
+        mode: NotRequired[Literal["automatic", "custom"]]
         """
         Whether manual entry will be handled by Stripe during the Session.
         """
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]"]
+        expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
