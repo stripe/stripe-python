@@ -65,6 +65,7 @@ def setup_stripe():
         "api_key": stripe.api_key,
         "client_id": stripe.client_id,
         "default_http_client": stripe.default_http_client,
+        "absent_as_none": stripe.absent_as_none,
     }
     http_client = stripe.http_client.new_default_http_client()
     stripe.api_base = MOCK_API_BASE
@@ -79,6 +80,7 @@ def setup_stripe():
     stripe.api_key = orig_attrs["api_key"]
     stripe.client_id = orig_attrs["client_id"]
     stripe.default_http_client = orig_attrs["default_http_client"]
+    stripe.absent_as_none = orig_attrs["absent_as_none"]
 
 
 @pytest.fixture
