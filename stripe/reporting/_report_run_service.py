@@ -88,7 +88,6 @@ class ReportRunService(StripeService):
                 "transfer",
                 "transfer_reversal",
                 "unreconciled_customer_funds",
-                "obligation",
             ]
         ]
         """
