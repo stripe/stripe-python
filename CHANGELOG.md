@@ -1,12 +1,19 @@
 # Changelog
 
+## 8.10.0b1 - 2024-03-28
+* [#1277](https://github.com/stripe/stripe-python/pull/1277) Update generated code for beta
+    * Add support for `financial_account_transactions`, `financial_account`, `issuing_card`, and `issuing_cards_list` on `AccountSession.CreateParamsComponents` and `AccountSessionService.CreateParamsComponents`
+    * Remove support for `subscription_billing_cycle_anchor`, `subscription_cancel_at_period_end`, `subscription_cancel_at`, `subscription_cancel_now`, `subscription_default_tax_rates`, `subscription_items`, `subscription_prebilling`, `subscription_proration_behavior`, `subscription_proration_date`, `subscription_resume_at`, `subscription_start_date`, and `subscription_trial_end` on `Invoice.CreatePreviewParams` and `InvoiceService.CreatePreviewParams`
+
+* [#1283](https://github.com/stripe/stripe-python/pull/1283) Fix unneccessary quotes
+
 ## 8.9.0 - 2024-03-28
 * [#1276](https://github.com/stripe/stripe-python/pull/1276) Update generated code
   * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
   * Add support for `create`, `deactivate`, `list`, `modify`, `reactivate`, and `retrieve` methods on resource `Meter`
   * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
   * Add support for `amazon_pay_payments` on `Account.Capabilities`, `Account.CreateParamsCapabilities`, `Account.UpdateParamsCapabilities`,`AccountService.CreateParamsCapabilities`, and `AccountService.UpdateParamsCapabilities`
-  * Add support for new value `verification_failed_representative_authority` on enums `Account.FutureRequirements.Error.code`, `Account.Requirements.Errors.code`, `BankAccount.FutureRequirements.Error.code`, `BankAccount.Requirements.Errors.code`, `Capability.FutureRequirements.Error.code`, `Capability.Requirements.Errors.code`, `Person.FutureRequirements.Error.code`, `Person.Requirements.Errors.code`, 
+  * Add support for new value `verification_failed_representative_authority` on enums `Account.FutureRequirements.Error.code`, `Account.Requirements.Errors.code`, `BankAccount.FutureRequirements.Error.code`, `BankAccount.Requirements.Errors.code`, `Capability.FutureRequirements.Error.code`, `Capability.Requirements.Errors.code`, `Person.FutureRequirements.Error.code`, `Person.Requirements.Errors.code`,
   * Add support for `destination_on_behalf_of_charge_management` on `AccountSession.Components.PaymentDetails.Features`, `AccountSession.Components.Payments.Features`, `AccountSession.CreateParamsComponentsPaymentDetailsFeatures`, `AccountSession.CreateParamsComponentsPaymentsFeatures`, `AccountSessionService.CreateParamsComponentsPaymentDetailsFeatures` and `AccountSessionService.CreateParamsComponentsPaymentsFeatures`
   * Add support for `meter` on `Plan.CreateParams`, `Plan`, `PlanService.CreateParams`, `Price.Recurring`, `Price.CreateParamsRecurring`, `Price.ListParamsRecurring`, `PriceService.CreateParamsRecurring`, and `PriceService.ListParamsRecurring`
   * Add support for `mandate` on `Charge.PaymentMethodDetails.USBankAccount`, `Treasury.InboundTransfer.OriginPaymentMethodDetails.USBankAccount`, `Treasury.OutboundPayment.DestinationPaymentMethodDetails.USBankAccount`, and `Treasury.OutboundTransfer.DestinationPaymentMethodDetails.USBankAccount`
