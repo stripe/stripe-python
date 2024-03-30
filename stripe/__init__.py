@@ -210,6 +210,7 @@ if not TYPE_CHECKING:
 # The beginning of the section generated from our OpenAPI spec
 from stripe import (
     apps as apps,
+    billing as billing,
     billing_portal as billing_portal,
     checkout as checkout,
     climate as climate,
@@ -275,6 +276,7 @@ from stripe._bank_account import BankAccount as BankAccount
 from stripe._billing_portal_service import (
     BillingPortalService as BillingPortalService,
 )
+from stripe._billing_service import BillingService as BillingService
 from stripe._capability import Capability as Capability
 from stripe._card import Card as Card
 from stripe._cash_balance import CashBalance as CashBalance

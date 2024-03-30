@@ -1,3 +1,17 @@
+## 8.9.0 - 2024-03-28
+* [#1276](https://github.com/stripe/stripe-python/pull/1276) Update generated code
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `modify`, `reactivate`, and `retrieve` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+  * Add support for `amazon_pay_payments` on `Account.Capabilities`, `Account.CreateParamsCapabilities`, `Account.UpdateParamsCapabilities`,`AccountService.CreateParamsCapabilities`, and `AccountService.UpdateParamsCapabilities`
+  * Add support for new value `verification_failed_representative_authority` on enums `Account.FutureRequirements.Error.code`, `Account.Requirements.Errors.code`, `BankAccount.FutureRequirements.Error.code`, `BankAccount.Requirements.Errors.code`, `Capability.FutureRequirements.Error.code`, `Capability.Requirements.Errors.code`, `Person.FutureRequirements.Error.code`, `Person.Requirements.Errors.code`,
+  * Add support for `destination_on_behalf_of_charge_management` on `AccountSession.Components.PaymentDetails.Features`, `AccountSession.Components.Payments.Features`, `AccountSession.CreateParamsComponentsPaymentDetailsFeatures`, `AccountSession.CreateParamsComponentsPaymentsFeatures`, `AccountSessionService.CreateParamsComponentsPaymentDetailsFeatures` and `AccountSessionService.CreateParamsComponentsPaymentsFeatures`
+  * Add support for `meter` on `Plan.CreateParams`, `Plan`, `PlanService.CreateParams`, `Price.Recurring`, `Price.CreateParamsRecurring`, `Price.ListParamsRecurring`, `PriceService.CreateParamsRecurring`, and `PriceService.ListParamsRecurring`
+  * Add support for `mandate` on `Charge.PaymentMethodDetails.USBankAccount`, `Treasury.InboundTransfer.OriginPaymentMethodDetails.USBankAccount`, `Treasury.OutboundPayment.DestinationPaymentMethodDetails.USBankAccount`, and `Treasury.OutboundTransfer.DestinationPaymentMethodDetails.USBankAccount`
+  * Add support for `second_line` on `Issuing.Card.CreateParams`
+* [#1278](https://github.com/stripe/stripe-python/pull/1278) Types: remove unnecessary quotes
+* [#1279](https://github.com/stripe/stripe-python/pull/1279) Update README.md
+
 ## 8.8.0 - 2024-03-21
 * [#1273](https://github.com/stripe/stripe-python/pull/1273) Update generated code
   * Add support for new resources `ConfirmationToken` and `Forwarding.Request`
@@ -13,8 +27,8 @@
    * Add support for `mobilepay` on `Charge.PaymentMethodDetails`, `PaymentIntent.PaymentMethodOptions`, `PaymentIntentService.ConfirmParamsPaymentMethodData`, `PaymentIntentService.ConfirmParamsPaymentMethodOptions`, `PaymentIntentService.CreateParamsPaymentMethodData`, `PaymentIntentService.CreateParamsPaymentMethodOptions`, `PaymentIntentService.UpdateParamsPaymentMethodData`, `PaymentIntentService.UpdateParamsPaymentMethodOptions`, `PaymentMethod.CreateParams`, `PaymentMethod`, `SetupIntentService.ConfirmParamsPaymentMethodData`, `SetupIntentService.CreateParamsPaymentMethodData`, and `SetupIntentService.UpdateParamsPaymentMethodData`
    * Add support for new value `mobilepay` on enums `PaymentIntentService.ConfirmParamsPaymentMethodData.type`, `PaymentIntentService.CreateParamsPaymentMethodData.type`, `PaymentIntentService.UpdateParamsPaymentMethodData.type`, `SetupIntentService.ConfirmParamsPaymentMethodData.type`, `SetupIntentService.CreateParamsPaymentMethodData.type`, and `SetupIntentService.UpdateParamsPaymentMethodData.type`
    * Add support for new value `mobilepay` on enum `PaymentMethod.type`
-    
-    
+
+
 
 ## 8.7.0 - 2024-03-14
 * [#1269](https://github.com/stripe/stripe-python/pull/1269) Update generated code
@@ -23,7 +37,7 @@
   * Add support for resource `stripe.issuing.PersonalizationDesign`
   * Add support for resource `stripe.issuing.PhysicalBundle`
   * Change type from `float` to `Literal['']|float` of `application_fee_percent` on fields `stripe.Subscription.CreateParams`, `stripe.Subscription.ModifyParams`, `SubscriptionService.UpdateParams`, and `SubscriptionService.CreateParams`
-  
+
 
 ## 8.6.0 - 2024-03-07
 * [#1267](https://github.com/stripe/stripe-python/pull/1267) Update generated code

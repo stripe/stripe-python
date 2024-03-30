@@ -18,6 +18,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources import (
         abstract,
         apps,
+        billing,
         billing_portal,
         checkout,
         climate,

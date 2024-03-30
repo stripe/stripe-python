@@ -120,6 +120,10 @@ class Plan(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        meter: NotRequired[str]
+        """
+        The meter tracking the usage of a metered price
+        """
         nickname: NotRequired[str]
         """
         A brief description of the plan, hidden from customers.
@@ -342,6 +346,10 @@ class Plan(
     metadata: Optional[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    meter: Optional[str]
+    """
+    The meter tracking the usage of a metered price
     """
     nickname: Optional[str]
     """
