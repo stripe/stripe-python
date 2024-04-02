@@ -87,7 +87,7 @@ class InvoiceItem(
             "Literal['']|List[InvoiceItem.CreateParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice item or invoice line item.
+        The coupons and promotion codes to redeem into discounts for the invoice item or invoice line item.
         """
         expand: NotRequired[List[str]]
         """
@@ -162,6 +162,10 @@ class InvoiceItem(
         ]
         """
         Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsDiscountDiscountEnd(TypedDict):
@@ -296,7 +300,7 @@ class InvoiceItem(
             "Literal['']|List[InvoiceItem.ModifyParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -363,6 +367,10 @@ class InvoiceItem(
         ]
         """
         Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsDiscountDiscountEnd(TypedDict):
