@@ -988,7 +988,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsControllerApplication"
         ]
         """
-        The documentation for the application hash.
+        A hash of configuration describing the Connect application that controls the account.
         """
         dashboard: NotRequired[
             "AccountService.CreateParamsControllerDashboard"
@@ -1014,7 +1014,7 @@ class AccountService(StripeService):
     class CreateParamsControllerDashboard(TypedDict):
         type: NotRequired[Literal["express", "full", "none"]]
         """
-        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no dashboard (`none`). Defaults to `full`.
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
         """
 
     class CreateParamsDocuments(TypedDict):
