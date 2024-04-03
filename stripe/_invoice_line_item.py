@@ -414,6 +414,26 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             ),
         )
 
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["InvoiceLineItem.ModifyParams"]
+    ) -> "InvoiceLineItem":
+        """
+        Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
+        so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
+        item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
+        Updating an invoice's line item is only possible before the invoice is finalized.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "InvoiceLineItem",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "period": Period,

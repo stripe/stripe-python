@@ -34,3 +34,24 @@ class BalanceService(StripeService):
                 options=options,
             ),
         )
+
+    async def retrieve_async(
+        self,
+        params: "BalanceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Balance:
+        """
+        Retrieves the current account balance, based on the authentication that was used to make the request.
+         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+        """
+        return cast(
+            Balance,
+            await self._request_async(
+                "get",
+                "/v1/balance",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

@@ -56,6 +56,29 @@ class CardService(StripeService):
             ),
         )
 
+    async def deliver_card_async(
+        self,
+        card: str,
+        params: "CardService.DeliverCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to delivered.
+        """
+        return cast(
+            Card,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                    card=sanitize_id(card),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def fail_card(
         self,
         card: str,
@@ -68,6 +91,29 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                    card=sanitize_id(card),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def fail_card_async(
+        self,
+        card: str,
+        params: "CardService.FailCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to failure.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                     card=sanitize_id(card),
@@ -102,6 +148,29 @@ class CardService(StripeService):
             ),
         )
 
+    async def return_card_async(
+        self,
+        card: str,
+        params: "CardService.ReturnCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to returned.
+        """
+        return cast(
+            Card,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                    card=sanitize_id(card),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def ship_card(
         self,
         card: str,
@@ -114,6 +183,29 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                    card=sanitize_id(card),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def ship_card_async(
+        self,
+        card: str,
+        params: "CardService.ShipCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to shipped.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                     card=sanitize_id(card),

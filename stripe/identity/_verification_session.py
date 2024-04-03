@@ -466,6 +466,69 @@ class VerificationSession(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, session: str, **params: Unpack["VerificationSession.CancelParams"]
+    ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
+        return cast(
+            "VerificationSession",
+            await cls._static_request_async(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        session: str, **params: Unpack["VerificationSession.CancelParams"]
+    ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["VerificationSession.CancelParams"]
+    ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["VerificationSession.CancelParams"]
+    ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
+        return cast(
+            "VerificationSession",
+            await self._request_async(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["VerificationSession.CreateParams"]
     ) -> "VerificationSession":
@@ -481,6 +544,28 @@ class VerificationSession(
         return cast(
             "VerificationSession",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["VerificationSession.CreateParams"]
+    ) -> "VerificationSession":
+        """
+        Creates a VerificationSession object.
+
+        After the VerificationSession is created, display a verification modal using the session client_secret or send your users to the session's url.
+
+        If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
+
+        Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+        """
+        return cast(
+            "VerificationSession",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -509,6 +594,27 @@ class VerificationSession(
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["VerificationSession.ListParams"]
+    ) -> ListObject["VerificationSession"]:
+        """
+        Returns a list of VerificationSessions
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["VerificationSession.ModifyParams"]
     ) -> "VerificationSession":
@@ -522,6 +628,26 @@ class VerificationSession(
         return cast(
             "VerificationSession",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["VerificationSession.ModifyParams"]
+    ) -> "VerificationSession":
+        """
+        Updates a VerificationSession object.
+
+        When the session status is requires_input, you can use this method to update the
+        verification check and options.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "VerificationSession",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -656,6 +782,133 @@ class VerificationSession(
         )
 
     @classmethod
+    async def _cls_redact_async(
+        cls, session: str, **params: Unpack["VerificationSession.RedactParams"]
+    ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
+        return cast(
+            "VerificationSession",
+            await cls._static_request_async(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def redact_async(
+        session: str, **params: Unpack["VerificationSession.RedactParams"]
+    ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
+        ...
+
+    @overload
+    async def redact_async(
+        self, **params: Unpack["VerificationSession.RedactParams"]
+    ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
+        ...
+
+    @class_method_variant("_cls_redact_async")
+    async def redact_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["VerificationSession.RedactParams"]
+    ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
+        return cast(
+            "VerificationSession",
+            await self._request_async(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["VerificationSession.RetrieveParams"]
     ) -> "VerificationSession":
@@ -667,6 +920,20 @@ class VerificationSession(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["VerificationSession.RetrieveParams"]
+    ) -> "VerificationSession":
+        """
+        Retrieves the details of a VerificationSession that was previously created.
+
+        When the session status is requires_input, you can use this method to retrieve a valid
+        client_secret or url to allow re-submission.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

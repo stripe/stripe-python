@@ -253,6 +253,22 @@ class Meter(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Meter.CreateParams"]
+    ) -> "Meter":
+        """
+        Creates a billing meter
+        """
+        return cast(
+            "Meter",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_deactivate(
         cls, id: str, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
@@ -308,11 +324,87 @@ class Meter(
         )
 
     @classmethod
+    async def _cls_deactivate_async(
+        cls, id: str, **params: Unpack["Meter.DeactivateParams"]
+    ) -> "Meter":
+        """
+        Deactivates a billing meter
+        """
+        return cast(
+            "Meter",
+            await cls._static_request_async(
+                "post",
+                "/v1/billing/meters/{id}/deactivate".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def deactivate_async(
+        id: str, **params: Unpack["Meter.DeactivateParams"]
+    ) -> "Meter":
+        """
+        Deactivates a billing meter
+        """
+        ...
+
+    @overload
+    async def deactivate_async(
+        self, **params: Unpack["Meter.DeactivateParams"]
+    ) -> "Meter":
+        """
+        Deactivates a billing meter
+        """
+        ...
+
+    @class_method_variant("_cls_deactivate_async")
+    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Meter.DeactivateParams"]
+    ) -> "Meter":
+        """
+        Deactivates a billing meter
+        """
+        return cast(
+            "Meter",
+            await self._request_async(
+                "post",
+                "/v1/billing/meters/{id}/deactivate".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Meter.ListParams"]) -> ListObject["Meter"]:
         """
         Retrieve a list of billing meters.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Meter.ListParams"]
+    ) -> ListObject["Meter"]:
+        """
+        Retrieve a list of billing meters.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -337,6 +429,23 @@ class Meter(
         return cast(
             "Meter",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Meter.ModifyParams"]
+    ) -> "Meter":
+        """
+        Updates a billing meter
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Meter",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -399,6 +508,61 @@ class Meter(
         )
 
     @classmethod
+    async def _cls_reactivate_async(
+        cls, id: str, **params: Unpack["Meter.ReactivateParams"]
+    ) -> "Meter":
+        """
+        Reactivates a billing meter
+        """
+        return cast(
+            "Meter",
+            await cls._static_request_async(
+                "post",
+                "/v1/billing/meters/{id}/reactivate".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reactivate_async(
+        id: str, **params: Unpack["Meter.ReactivateParams"]
+    ) -> "Meter":
+        """
+        Reactivates a billing meter
+        """
+        ...
+
+    @overload
+    async def reactivate_async(
+        self, **params: Unpack["Meter.ReactivateParams"]
+    ) -> "Meter":
+        """
+        Reactivates a billing meter
+        """
+        ...
+
+    @class_method_variant("_cls_reactivate_async")
+    async def reactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Meter.ReactivateParams"]
+    ) -> "Meter":
+        """
+        Reactivates a billing meter
+        """
+        return cast(
+            "Meter",
+            await self._request_async(
+                "post",
+                "/v1/billing/meters/{id}/reactivate".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Meter.RetrieveParams"]
     ) -> "Meter":
@@ -407,6 +571,17 @@ class Meter(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Meter.RetrieveParams"]
+    ) -> "Meter":
+        """
+        Retrieves a billing meter given an ID
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -419,6 +594,24 @@ class Meter(
         return cast(
             ListObject["MeterEventSummary"],
             cls._static_request(
+                "get",
+                "/v1/billing/meters/{id}/event_summaries".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_event_summaries_async(
+        cls, id: str, **params: Unpack["Meter.ListEventSummariesParams"]
+    ) -> ListObject["MeterEventSummary"]:
+        """
+        Retrieve a list of billing meter event summaries.
+        """
+        return cast(
+            ListObject["MeterEventSummary"],
+            await cls._static_request_async(
                 "get",
                 "/v1/billing/meters/{id}/event_summaries".format(
                     id=sanitize_id(id)

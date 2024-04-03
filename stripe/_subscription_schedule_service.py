@@ -1080,6 +1080,26 @@ class SubscriptionScheduleService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SubscriptionScheduleService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[SubscriptionSchedule]:
+        """
+        Retrieves the list of your subscription schedules.
+        """
+        return cast(
+            ListObject[SubscriptionSchedule],
+            await self._request_async(
+                "get",
+                "/v1/subscription_schedules",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SubscriptionScheduleService.CreateParams" = {},
@@ -1091,6 +1111,26 @@ class SubscriptionScheduleService(StripeService):
         return cast(
             SubscriptionSchedule,
             self._request(
+                "post",
+                "/v1/subscription_schedules",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SubscriptionScheduleService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionSchedule:
+        """
+        Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
+        """
+        return cast(
+            SubscriptionSchedule,
+            await self._request_async(
                 "post",
                 "/v1/subscription_schedules",
                 api_mode="V1",
@@ -1112,6 +1152,29 @@ class SubscriptionScheduleService(StripeService):
         return cast(
             SubscriptionSchedule,
             self._request(
+                "get",
+                "/v1/subscription_schedules/{schedule}".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        schedule: str,
+        params: "SubscriptionScheduleService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionSchedule:
+        """
+        Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
+        """
+        return cast(
+            SubscriptionSchedule,
+            await self._request_async(
                 "get",
                 "/v1/subscription_schedules/{schedule}".format(
                     schedule=sanitize_id(schedule),
@@ -1146,6 +1209,29 @@ class SubscriptionScheduleService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        schedule: str,
+        params: "SubscriptionScheduleService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionSchedule:
+        """
+        Updates an existing subscription schedule.
+        """
+        return cast(
+            SubscriptionSchedule,
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         schedule: str,
@@ -1169,6 +1255,29 @@ class SubscriptionScheduleService(StripeService):
             ),
         )
 
+    async def cancel_async(
+        self,
+        schedule: str,
+        params: "SubscriptionScheduleService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionSchedule:
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        return cast(
+            SubscriptionSchedule,
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def release(
         self,
         schedule: str,
@@ -1181,6 +1290,29 @@ class SubscriptionScheduleService(StripeService):
         return cast(
             SubscriptionSchedule,
             self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def release_async(
+        self,
+        schedule: str,
+        params: "SubscriptionScheduleService.ReleaseParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionSchedule:
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        return cast(
+            SubscriptionSchedule,
+            await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
                     schedule=sanitize_id(schedule),

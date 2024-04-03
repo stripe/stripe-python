@@ -766,6 +766,26 @@ class ReportRunService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReportRunService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ReportRun]:
+        """
+        Returns a list of Report Runs, with the most recent appearing first.
+        """
+        return cast(
+            ListObject[ReportRun],
+            await self._request_async(
+                "get",
+                "/v1/reporting/report_runs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ReportRunService.CreateParams",
@@ -777,6 +797,26 @@ class ReportRunService(StripeService):
         return cast(
             ReportRun,
             self._request(
+                "post",
+                "/v1/reporting/report_runs",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ReportRunService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ReportRun:
+        """
+        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+        """
+        return cast(
+            ReportRun,
+            await self._request_async(
                 "post",
                 "/v1/reporting/report_runs",
                 api_mode="V1",
@@ -798,6 +838,29 @@ class ReportRunService(StripeService):
         return cast(
             ReportRun,
             self._request(
+                "get",
+                "/v1/reporting/report_runs/{report_run}".format(
+                    report_run=sanitize_id(report_run),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        report_run: str,
+        params: "ReportRunService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ReportRun:
+        """
+        Retrieves the details of an existing Report Run.
+        """
+        return cast(
+            ReportRun,
+            await self._request_async(
                 "get",
                 "/v1/reporting/report_runs/{report_run}".format(
                     report_run=sanitize_id(report_run),

@@ -50,3 +50,26 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        quote: str,
+        params: "QuoteComputedUpfrontLineItemsService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[LineItem]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
+        return cast(
+            ListObject[LineItem],
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                    quote=sanitize_id(quote),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

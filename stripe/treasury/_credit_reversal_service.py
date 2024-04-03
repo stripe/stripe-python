@@ -80,6 +80,26 @@ class CreditReversalService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "CreditReversalService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[CreditReversal]:
+        """
+        Returns a list of CreditReversals.
+        """
+        return cast(
+            ListObject[CreditReversal],
+            await self._request_async(
+                "get",
+                "/v1/treasury/credit_reversals",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "CreditReversalService.CreateParams",
@@ -91,6 +111,26 @@ class CreditReversalService(StripeService):
         return cast(
             CreditReversal,
             self._request(
+                "post",
+                "/v1/treasury/credit_reversals",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "CreditReversalService.CreateParams",
+        options: RequestOptions = {},
+    ) -> CreditReversal:
+        """
+        Reverses a ReceivedCredit and creates a CreditReversal object.
+        """
+        return cast(
+            CreditReversal,
+            await self._request_async(
                 "post",
                 "/v1/treasury/credit_reversals",
                 api_mode="V1",
@@ -112,6 +152,29 @@ class CreditReversalService(StripeService):
         return cast(
             CreditReversal,
             self._request(
+                "get",
+                "/v1/treasury/credit_reversals/{credit_reversal}".format(
+                    credit_reversal=sanitize_id(credit_reversal),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        credit_reversal: str,
+        params: "CreditReversalService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CreditReversal:
+        """
+        Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
+        """
+        return cast(
+            CreditReversal,
+            await self._request_async(
                 "get",
                 "/v1/treasury/credit_reversals/{credit_reversal}".format(
                     credit_reversal=sanitize_id(credit_reversal),

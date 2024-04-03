@@ -54,6 +54,26 @@ class ExchangeRateService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ExchangeRateService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ExchangeRate]:
+        """
+        Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
+        """
+        return cast(
+            ListObject[ExchangeRate],
+            await self._request_async(
+                "get",
+                "/v1/exchange_rates",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         rate_id: str,
@@ -66,6 +86,29 @@ class ExchangeRateService(StripeService):
         return cast(
             ExchangeRate,
             self._request(
+                "get",
+                "/v1/exchange_rates/{rate_id}".format(
+                    rate_id=sanitize_id(rate_id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        rate_id: str,
+        params: "ExchangeRateService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ExchangeRate:
+        """
+        Retrieves the exchange rates from the given currency to every supported currency.
+        """
+        return cast(
+            ExchangeRate,
+            await self._request_async(
                 "get",
                 "/v1/exchange_rates/{rate_id}".format(
                     rate_id=sanitize_id(rate_id),

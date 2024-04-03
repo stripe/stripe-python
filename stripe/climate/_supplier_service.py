@@ -54,6 +54,26 @@ class SupplierService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SupplierService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Supplier]:
+        """
+        Lists all available Climate supplier objects.
+        """
+        return cast(
+            ListObject[Supplier],
+            await self._request_async(
+                "get",
+                "/v1/climate/suppliers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         supplier: str,
@@ -66,6 +86,29 @@ class SupplierService(StripeService):
         return cast(
             Supplier,
             self._request(
+                "get",
+                "/v1/climate/suppliers/{supplier}".format(
+                    supplier=sanitize_id(supplier),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        supplier: str,
+        params: "SupplierService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Supplier:
+        """
+        Retrieves a Climate supplier object.
+        """
+        return cast(
+            Supplier,
+            await self._request_async(
                 "get",
                 "/v1/climate/suppliers/{supplier}".format(
                     supplier=sanitize_id(supplier),

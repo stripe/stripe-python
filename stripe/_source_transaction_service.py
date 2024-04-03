@@ -50,3 +50,26 @@ class SourceTransactionService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        source: str,
+        params: "SourceTransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[SourceTransaction]:
+        """
+        List source transactions for a given source.
+        """
+        return cast(
+            ListObject[SourceTransaction],
+            await self._request_async(
+                "get",
+                "/v1/sources/{source}/source_transactions".format(
+                    source=sanitize_id(source),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

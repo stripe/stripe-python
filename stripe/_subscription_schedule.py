@@ -1541,6 +1541,63 @@ class SubscriptionSchedule(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        schedule: str, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["SubscriptionSchedule.CreateParams"]
     ) -> "SubscriptionSchedule":
@@ -1550,6 +1607,22 @@ class SubscriptionSchedule(
         return cast(
             "SubscriptionSchedule",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["SubscriptionSchedule.CreateParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -1578,6 +1651,27 @@ class SubscriptionSchedule(
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["SubscriptionSchedule.ListParams"]
+    ) -> ListObject["SubscriptionSchedule"]:
+        """
+        Retrieves the list of your subscription schedules.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
     ) -> "SubscriptionSchedule":
@@ -1588,6 +1682,23 @@ class SubscriptionSchedule(
         return cast(
             "SubscriptionSchedule",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Updates an existing subscription schedule.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -1652,6 +1763,63 @@ class SubscriptionSchedule(
         )
 
     @classmethod
+    async def _cls_release_async(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def release_async(
+        schedule: str, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        ...
+
+    @overload
+    async def release_async(
+        self, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        ...
+
+    @class_method_variant("_cls_release_async")
+    async def release_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["SubscriptionSchedule.RetrieveParams"]
     ) -> "SubscriptionSchedule":
@@ -1660,6 +1828,17 @@ class SubscriptionSchedule(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["SubscriptionSchedule.RetrieveParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

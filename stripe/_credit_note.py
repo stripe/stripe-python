@@ -778,6 +778,35 @@ class CreditNote(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["CreditNote.CreateParams"]
+    ) -> "CreditNote":
+        """
+        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
+        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
+        in any combination of the following:
+
+
+        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
+        Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
+
+
+        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+
+        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
+        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        """
+        return cast(
+            "CreditNote",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["CreditNote.ListParams"]
     ) -> ListObject["CreditNote"]:
@@ -785,6 +814,27 @@ class CreditNote(
         Returns a list of credit notes.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["CreditNote.ListParams"]
+    ) -> ListObject["CreditNote"]:
+        """
+        Returns a list of credit notes.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -816,6 +866,23 @@ class CreditNote(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
+    ) -> "CreditNote":
+        """
+        Updates an existing credit note.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "CreditNote",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def preview(
         cls, **params: Unpack["CreditNote.PreviewParams"]
     ) -> "CreditNote":
@@ -825,6 +892,22 @@ class CreditNote(
         return cast(
             "CreditNote",
             cls._static_request(
+                "get",
+                "/v1/credit_notes/preview",
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def preview_async(
+        cls, **params: Unpack["CreditNote.PreviewParams"]
+    ) -> "CreditNote":
+        """
+        Get a preview of a credit note without creating it.
+        """
+        return cast(
+            "CreditNote",
+            await cls._static_request_async(
                 "get",
                 "/v1/credit_notes/preview",
                 params=params,
@@ -848,6 +931,22 @@ class CreditNote(
         )
 
     @classmethod
+    async def preview_lines_async(
+        cls, **params: Unpack["CreditNote.PreviewLinesParams"]
+    ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/credit_notes/preview/lines",
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
     ) -> "CreditNote":
@@ -856,6 +955,17 @@ class CreditNote(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
+    ) -> "CreditNote":
+        """
+        Retrieves the credit note object with the given identifier.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -912,6 +1022,59 @@ class CreditNote(
         )
 
     @classmethod
+    async def _cls_void_credit_note_async(
+        cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
+        return cast(
+            "CreditNote",
+            await cls._static_request_async(
+                "post",
+                "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def void_credit_note_async(
+        id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
+        ...
+
+    @overload
+    async def void_credit_note_async(
+        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
+        ...
+
+    @class_method_variant("_cls_void_credit_note_async")
+    async def void_credit_note_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
+        return cast(
+            "CreditNote",
+            await self._request_async(
+                "post",
+                "/v1/credit_notes/{id}/void".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_lines(
         cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
@@ -921,6 +1084,24 @@ class CreditNote(
         return cast(
             ListObject["CreditNoteLineItem"],
             cls._static_request(
+                "get",
+                "/v1/credit_notes/{credit_note}/lines".format(
+                    credit_note=sanitize_id(credit_note)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_lines_async(
+        cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
+    ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            await cls._static_request_async(
                 "get",
                 "/v1/credit_notes/{credit_note}/lines".format(
                     credit_note=sanitize_id(credit_note)

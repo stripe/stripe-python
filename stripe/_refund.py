@@ -576,6 +576,69 @@ class Refund(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, refund: str, **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
+        return cast(
+            "Refund",
+            await cls._static_request_async(
+                "post",
+                "/v1/refunds/{refund}/cancel".format(
+                    refund=sanitize_id(refund)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        refund: str, **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
+        return cast(
+            "Refund",
+            await self._request_async(
+                "post",
+                "/v1/refunds/{refund}/cancel".format(
+                    refund=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["Refund.CreateParams"]) -> "Refund":
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
@@ -600,6 +663,32 @@ class Refund(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Refund.CreateParams"]
+    ) -> "Refund":
+        """
+        When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
+
+        Creating a new refund will refund a charge that has previously been created but not yet refunded.
+        Funds will be refunded to the credit or debit card that was originally charged.
+
+        You can optionally refund only part of a charge.
+        You can do so multiple times, until the entire charge has been refunded.
+
+        Once entirely refunded, a charge can't be refunded again.
+        This method will raise an error when called on an already-refunded charge,
+        or when trying to refund more money than is left on a charge.
+        """
+        return cast(
+            "Refund",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
@@ -607,6 +696,27 @@ class Refund(
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Refund.ListParams"]
+    ) -> ListObject["Refund"]:
+        """
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -640,6 +750,25 @@ class Refund(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Refund.ModifyParams"]
+    ) -> "Refund":
+        """
+        Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
+
+        This request only accepts metadata as an argument.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Refund",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Refund.RetrieveParams"]
     ) -> "Refund":
@@ -648,6 +777,17 @@ class Refund(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Refund.RetrieveParams"]
+    ) -> "Refund":
+        """
+        Retrieves the details of an existing refund.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["Refund"]):
@@ -698,6 +838,61 @@ class Refund(
             return cast(
                 "Refund",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/refunds/{refund}/expire".format(
+                        refund=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_expire_async(
+            cls, refund: str, **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
+            return cast(
+                "Refund",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/refunds/{refund}/expire".format(
+                        refund=sanitize_id(refund)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def expire_async(
+            refund: str, **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
+            ...
+
+        @overload
+        async def expire_async(
+            self, **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
+            ...
+
+        @class_method_variant("_cls_expire_async")
+        async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
+            return cast(
+                "Refund",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/refunds/{refund}/expire".format(
                         refund=sanitize_id(self.resource.get("id"))

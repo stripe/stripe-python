@@ -75,3 +75,23 @@ class SetupAttemptService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        params: "SetupAttemptService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[SetupAttempt]:
+        """
+        Returns a list of SetupAttempts that associate with a provided SetupIntent.
+        """
+        return cast(
+            ListObject[SetupAttempt],
+            await self._request_async(
+                "get",
+                "/v1/setup_attempts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

@@ -196,6 +196,29 @@ class CustomerPaymentSourceService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        customer: str,
+        params: "CustomerPaymentSourceService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
+        """
+        List sources for a specified customer.
+        """
+        return cast(
+            ListObject[Union[Account, BankAccount, Card, Source]],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/sources".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         customer: str,
@@ -223,6 +246,33 @@ class CustomerPaymentSourceService(StripeService):
             ),
         )
 
+    async def create_async(
+        self,
+        customer: str,
+        params: "CustomerPaymentSourceService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Union[Account, BankAccount, Card, Source]:
+        """
+        When you create a new credit card, you must specify a customer or recipient on which to create it.
+
+        If the card's owner has no default card, then the new card will become the default.
+        However, if the owner already has a default, then it will not change.
+        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        """
+        return cast(
+            Union[Account, BankAccount, Card, Source],
+            await self._request_async(
+                "post",
+                "/v1/customers/{customer}/sources".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         customer: str,
@@ -236,6 +286,31 @@ class CustomerPaymentSourceService(StripeService):
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
+                "get",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerPaymentSourceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[Account, BankAccount, Card, Source]:
+        """
+        Retrieve a specified source for a given customer.
+        """
+        return cast(
+            Union[Account, BankAccount, Card, Source],
+            await self._request_async(
                 "get",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer),
@@ -273,6 +348,31 @@ class CustomerPaymentSourceService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerPaymentSourceService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[Account, BankAccount, Card, Source]:
+        """
+        Update a specified source for a given customer.
+        """
+        return cast(
+            Union[Account, BankAccount, Card, Source],
+            await self._request_async(
+                "post",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def delete(
         self,
         customer: str,
@@ -298,6 +398,31 @@ class CustomerPaymentSourceService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerPaymentSourceService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[Account, BankAccount, Card, Source]:
+        """
+        Delete a specified source for a given customer.
+        """
+        return cast(
+            Union[Account, BankAccount, Card, Source],
+            await self._request_async(
+                "delete",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def verify(
         self,
         customer: str,
@@ -311,6 +436,31 @@ class CustomerPaymentSourceService(StripeService):
         return cast(
             BankAccount,
             self._request(
+                "post",
+                "/v1/customers/{customer}/sources/{id}/verify".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def verify_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerPaymentSourceService.VerifyParams" = {},
+        options: RequestOptions = {},
+    ) -> BankAccount:
+        """
+        Verify a specified bank account for a given customer.
+        """
+        return cast(
+            BankAccount,
+            await self._request_async(
                 "post",
                 "/v1/customers/{customer}/sources/{id}/verify".format(
                     customer=sanitize_id(customer),

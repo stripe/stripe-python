@@ -85,6 +85,26 @@ class ApplicationFeeService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ApplicationFeeService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ApplicationFee]:
+        """
+        Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
+        """
+        return cast(
+            ListObject[ApplicationFee],
+            await self._request_async(
+                "get",
+                "/v1/application_fees",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -97,6 +117,27 @@ class ApplicationFeeService(StripeService):
         return cast(
             ApplicationFee,
             self._request(
+                "get",
+                "/v1/application_fees/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "ApplicationFeeService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ApplicationFee:
+        """
+        Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.
+        """
+        return cast(
+            ApplicationFee,
+            await self._request_async(
                 "get",
                 "/v1/application_fees/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

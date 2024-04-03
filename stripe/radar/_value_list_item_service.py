@@ -104,6 +104,29 @@ class ValueListItemService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        item: str,
+        params: "ValueListItemService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> ValueListItem:
+        """
+        Deletes a ValueListItem object, removing it from its parent value list.
+        """
+        return cast(
+            ValueListItem,
+            await self._request_async(
+                "delete",
+                "/v1/radar/value_list_items/{item}".format(
+                    item=sanitize_id(item),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         item: str,
@@ -116,6 +139,29 @@ class ValueListItemService(StripeService):
         return cast(
             ValueListItem,
             self._request(
+                "get",
+                "/v1/radar/value_list_items/{item}".format(
+                    item=sanitize_id(item),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        item: str,
+        params: "ValueListItemService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ValueListItem:
+        """
+        Retrieves a ValueListItem object.
+        """
+        return cast(
+            ValueListItem,
+            await self._request_async(
                 "get",
                 "/v1/radar/value_list_items/{item}".format(
                     item=sanitize_id(item),
@@ -147,6 +193,26 @@ class ValueListItemService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ValueListItemService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[ValueListItem]:
+        """
+        Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[ValueListItem],
+            await self._request_async(
+                "get",
+                "/v1/radar/value_list_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ValueListItemService.CreateParams",
@@ -158,6 +224,26 @@ class ValueListItemService(StripeService):
         return cast(
             ValueListItem,
             self._request(
+                "post",
+                "/v1/radar/value_list_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ValueListItemService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ValueListItem:
+        """
+        Creates a new ValueListItem object, which is added to the specified parent value list.
+        """
+        return cast(
+            ValueListItem,
+            await self._request_async(
                 "post",
                 "/v1/radar/value_list_items",
                 api_mode="V1",

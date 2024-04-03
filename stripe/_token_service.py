@@ -1066,6 +1066,27 @@ class TokenService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        token: str,
+        params: "TokenService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Token:
+        """
+        Retrieves the token with the given ID.
+        """
+        return cast(
+            Token,
+            await self._request_async(
+                "get",
+                "/v1/tokens/{token}".format(token=sanitize_id(token)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "TokenService.CreateParams" = {},
@@ -1078,6 +1099,27 @@ class TokenService(StripeService):
         return cast(
             Token,
             self._request(
+                "post",
+                "/v1/tokens",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "TokenService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Token:
+        """
+        Creates a single-use token that represents a bank account's details.
+        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+        """
+        return cast(
+            Token,
+            await self._request_async(
                 "post",
                 "/v1/tokens",
                 api_mode="V1",

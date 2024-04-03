@@ -174,6 +174,27 @@ class CouponService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        coupon: str,
+        params: "CouponService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Coupon:
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
+        return cast(
+            Coupon,
+            await self._request_async(
+                "delete",
+                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         coupon: str,
@@ -186,6 +207,27 @@ class CouponService(StripeService):
         return cast(
             Coupon,
             self._request(
+                "get",
+                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        coupon: str,
+        params: "CouponService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Coupon:
+        """
+        Retrieves the coupon with the given ID.
+        """
+        return cast(
+            Coupon,
+            await self._request_async(
                 "get",
                 "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
                 api_mode="V1",
@@ -216,6 +258,27 @@ class CouponService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        coupon: str,
+        params: "CouponService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Coupon:
+        """
+        Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
+        """
+        return cast(
+            Coupon,
+            await self._request_async(
+                "post",
+                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "CouponService.ListParams" = {},
@@ -227,6 +290,26 @@ class CouponService(StripeService):
         return cast(
             ListObject[Coupon],
             self._request(
+                "get",
+                "/v1/coupons",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "CouponService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Coupon]:
+        """
+        Returns a list of your coupons.
+        """
+        return cast(
+            ListObject[Coupon],
+            await self._request_async(
                 "get",
                 "/v1/coupons",
                 api_mode="V1",
@@ -249,6 +332,28 @@ class CouponService(StripeService):
         return cast(
             Coupon,
             self._request(
+                "post",
+                "/v1/coupons",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "CouponService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Coupon:
+        """
+        You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
+
+        A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
+        """
+        return cast(
+            Coupon,
+            await self._request_async(
                 "post",
                 "/v1/coupons",
                 api_mode="V1",

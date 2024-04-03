@@ -423,6 +423,22 @@ class SubscriptionItem(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["SubscriptionItem.CreateParams"]
+    ) -> "SubscriptionItem":
+        """
+        Adds a new item to an existing subscription. No existing items will be changed or replaced.
+        """
+        return cast(
+            "SubscriptionItem",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
@@ -472,6 +488,55 @@ class SubscriptionItem(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+    ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "SubscriptionItem",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+    ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+    ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+    ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["SubscriptionItem.ListParams"]
     ) -> ListObject["SubscriptionItem"]:
@@ -479,6 +544,27 @@ class SubscriptionItem(
         Returns a list of your subscription items for a given subscription.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["SubscriptionItem.ListParams"]
+    ) -> ListObject["SubscriptionItem"]:
+        """
+        Returns a list of your subscription items for a given subscription.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -510,6 +596,23 @@ class SubscriptionItem(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["SubscriptionItem.ModifyParams"]
+    ) -> "SubscriptionItem":
+        """
+        Updates the plan or quantity of an item on a current subscription.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "SubscriptionItem",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["SubscriptionItem.RetrieveParams"]
     ) -> "SubscriptionItem":
@@ -518,6 +621,17 @@ class SubscriptionItem(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["SubscriptionItem.RetrieveParams"]
+    ) -> "SubscriptionItem":
+        """
+        Retrieves the subscription item with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -547,6 +661,32 @@ class SubscriptionItem(
         )
 
     @classmethod
+    async def create_usage_record_async(
+        cls,
+        subscription_item: str,
+        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
+    ) -> "UsageRecord":
+        """
+        Creates a usage record for a specified subscription item and date, and fills it with a quantity.
+
+        Usage records provide quantity information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the [metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing) plan, Stripe helps you send accurate invoices to your customers.
+
+        The default calculation for usage is to add up all the quantity values of the usage records within a billing period. You can change this default behavior with the billing plan's aggregate_usage [parameter](https://stripe.com/docs/api/plans/create#create_plan-aggregate_usage). When there is more than one usage record with the same timestamp, Stripe adds the quantity values together. In most cases, this is the desired resolution, however, you can change this behavior with the action parameter.
+
+        The default pricing model for metered billing is [per-unit pricing. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing](https://stripe.com/docs/api/plans/object#plan_object-billing_scheme) model.
+        """
+        return cast(
+            "UsageRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_items/{subscription_item}/usage_records".format(
+                    subscription_item=sanitize_id(subscription_item)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_usage_record_summaries(
         cls,
         subscription_item: str,
@@ -560,6 +700,28 @@ class SubscriptionItem(
         return cast(
             ListObject["UsageRecordSummary"],
             cls._static_request(
+                "get",
+                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
+                    subscription_item=sanitize_id(subscription_item)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_usage_record_summaries_async(
+        cls,
+        subscription_item: str,
+        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
+    ) -> ListObject["UsageRecordSummary"]:
+        """
+        For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
+
+        The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn't ended yet. Since new usage records can still be added, the returned summary information for the subscription item's ID should be seen as unstable until the subscription billing period ends.
+        """
+        return cast(
+            ListObject["UsageRecordSummary"],
+            await cls._static_request_async(
                 "get",
                 "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
                     subscription_item=sanitize_id(subscription_item)

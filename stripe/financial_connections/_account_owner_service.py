@@ -54,3 +54,26 @@ class AccountOwnerService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        account: str,
+        params: "AccountOwnerService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[AccountOwner]:
+        """
+        Lists all owners for a given Account
+        """
+        return cast(
+            ListObject[AccountOwner],
+            await self._request_async(
+                "get",
+                "/v1/financial_connections/accounts/{account}/owners".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

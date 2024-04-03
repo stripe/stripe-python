@@ -255,6 +255,27 @@ class PlanService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        plan: str,
+        params: "PlanService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Plan:
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
+        return cast(
+            Plan,
+            await self._request_async(
+                "delete",
+                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         plan: str,
@@ -267,6 +288,27 @@ class PlanService(StripeService):
         return cast(
             Plan,
             self._request(
+                "get",
+                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        plan: str,
+        params: "PlanService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Plan:
+        """
+        Retrieves the plan with the given ID.
+        """
+        return cast(
+            Plan,
+            await self._request_async(
                 "get",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
                 api_mode="V1",
@@ -297,6 +339,27 @@ class PlanService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        plan: str,
+        params: "PlanService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Plan:
+        """
+        Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
+        """
+        return cast(
+            Plan,
+            await self._request_async(
+                "post",
+                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "PlanService.ListParams" = {},
@@ -317,6 +380,26 @@ class PlanService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PlanService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Plan]:
+        """
+        Returns a list of your plans.
+        """
+        return cast(
+            ListObject[Plan],
+            await self._request_async(
+                "get",
+                "/v1/plans",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "PlanService.CreateParams", options: RequestOptions = {}
     ) -> Plan:
@@ -326,6 +409,24 @@ class PlanService(StripeService):
         return cast(
             Plan,
             self._request(
+                "post",
+                "/v1/plans",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "PlanService.CreateParams", options: RequestOptions = {}
+    ) -> Plan:
+        """
+        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        """
+        return cast(
+            Plan,
+            await self._request_async(
                 "post",
                 "/v1/plans",
                 api_mode="V1",

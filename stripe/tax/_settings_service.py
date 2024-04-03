@@ -92,6 +92,26 @@ class SettingsService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        params: "SettingsService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Settings:
+        """
+        Retrieves Tax Settings for a merchant.
+        """
+        return cast(
+            Settings,
+            await self._request_async(
+                "get",
+                "/v1/tax/settings",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         params: "SettingsService.UpdateParams" = {},
@@ -103,6 +123,26 @@ class SettingsService(StripeService):
         return cast(
             Settings,
             self._request(
+                "post",
+                "/v1/tax/settings",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        params: "SettingsService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Settings:
+        """
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        """
+        return cast(
+            Settings,
+            await self._request_async(
                 "post",
                 "/v1/tax/settings",
                 api_mode="V1",

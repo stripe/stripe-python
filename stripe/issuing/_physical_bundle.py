@@ -111,6 +111,27 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["PhysicalBundle.ListParams"]
+    ) -> ListObject["PhysicalBundle"]:
+        """
+        Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PhysicalBundle.RetrieveParams"]
     ) -> "PhysicalBundle":
@@ -119,6 +140,17 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["PhysicalBundle.RetrieveParams"]
+    ) -> "PhysicalBundle":
+        """
+        Retrieves a physical bundle object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"features": Features}

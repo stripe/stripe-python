@@ -412,6 +412,63 @@ class InboundTransfer(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls,
+        inbound_transfer: str,
+        **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            await cls._static_request_async(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=sanitize_id(inbound_transfer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        inbound_transfer: str, **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            await self._request_async(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["InboundTransfer.CreateParams"]
     ) -> "InboundTransfer":
@@ -421,6 +478,22 @@ class InboundTransfer(
         return cast(
             "InboundTransfer",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["InboundTransfer.CreateParams"]
+    ) -> "InboundTransfer":
+        """
+        Creates an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -449,6 +522,27 @@ class InboundTransfer(
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["InboundTransfer.ListParams"]
+    ) -> ListObject["InboundTransfer"]:
+        """
+        Returns a list of InboundTransfers sent from the specified FinancialAccount.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
     ) -> "InboundTransfer":
@@ -457,6 +551,17 @@ class InboundTransfer(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
+    ) -> "InboundTransfer":
+        """
+        Retrieves the details of an existing InboundTransfer.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["InboundTransfer"]):
@@ -509,6 +614,61 @@ class InboundTransfer(
             return cast(
                 "InboundTransfer",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_fail_async(
+            cls, id: str, **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
+            return cast(
+                "InboundTransfer",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def fail_async(
+            id: str, **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
+        async def fail_async(
+            self, **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @class_method_variant("_cls_fail_async")
+        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
+            return cast(
+                "InboundTransfer",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                         id=sanitize_id(self.resource.get("id"))
@@ -578,6 +738,66 @@ class InboundTransfer(
             )
 
         @classmethod
+        async def _cls_return_inbound_transfer_async(
+            cls,
+            id: str,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
+            return cast(
+                "InboundTransfer",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def return_inbound_transfer_async(
+            id: str,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
+            ...
+
+        @overload
+        async def return_inbound_transfer_async(
+            self,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
+            ...
+
+        @class_method_variant("_cls_return_inbound_transfer_async")
+        async def return_inbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
+            return cast(
+                "InboundTransfer",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_succeed(
             cls, id: str, **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
@@ -624,6 +844,61 @@ class InboundTransfer(
             return cast(
                 "InboundTransfer",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_succeed_async(
+            cls, id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
+            return cast(
+                "InboundTransfer",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def succeed_async(
+            id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
+        async def succeed_async(
+            self, **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @class_method_variant("_cls_succeed_async")
+        async def succeed_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
+            return cast(
+                "InboundTransfer",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                         id=sanitize_id(self.resource.get("id"))

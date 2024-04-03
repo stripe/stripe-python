@@ -287,6 +287,22 @@ class PromotionCode(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["PromotionCode.CreateParams"]
+    ) -> "PromotionCode":
+        """
+        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        """
+        return cast(
+            "PromotionCode",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["PromotionCode.ListParams"]
     ) -> ListObject["PromotionCode"]:
@@ -294,6 +310,27 @@ class PromotionCode(
         Returns a list of your promotion codes.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PromotionCode.ListParams"]
+    ) -> ListObject["PromotionCode"]:
+        """
+        Returns a list of your promotion codes.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -325,6 +362,23 @@ class PromotionCode(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
+    ) -> "PromotionCode":
+        """
+        Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PromotionCode",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
     ) -> "PromotionCode":
@@ -333,6 +387,17 @@ class PromotionCode(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
+    ) -> "PromotionCode":
+        """
+        Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://stripe.com/docs/api/promotion_codes/list) with the desired code.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"restrictions": Restrictions}

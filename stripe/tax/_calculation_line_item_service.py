@@ -50,3 +50,26 @@ class CalculationLineItemService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        calculation: str,
+        params: "CalculationLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CalculationLineItem]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
+        return cast(
+            ListObject[CalculationLineItem],
+            await self._request_async(
+                "get",
+                "/v1/tax/calculations/{calculation}/line_items".format(
+                    calculation=sanitize_id(calculation),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

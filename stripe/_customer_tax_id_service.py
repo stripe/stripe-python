@@ -144,6 +144,31 @@ class CustomerTaxIdService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerTaxIdService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> TaxId:
+        """
+        Deletes an existing tax_id object.
+        """
+        return cast(
+            TaxId,
+            await self._request_async(
+                "delete",
+                "/v1/customers/{customer}/tax_ids/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         customer: str,
@@ -157,6 +182,31 @@ class CustomerTaxIdService(StripeService):
         return cast(
             TaxId,
             self._request(
+                "get",
+                "/v1/customers/{customer}/tax_ids/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer: str,
+        id: str,
+        params: "CustomerTaxIdService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> TaxId:
+        """
+        Retrieves the tax_id object with the given identifier.
+        """
+        return cast(
+            TaxId,
+            await self._request_async(
                 "get",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
                     customer=sanitize_id(customer),
@@ -192,6 +242,29 @@ class CustomerTaxIdService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        customer: str,
+        params: "CustomerTaxIdService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[TaxId]:
+        """
+        Returns a list of tax IDs for a customer.
+        """
+        return cast(
+            ListObject[TaxId],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/tax_ids".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         customer: str,
@@ -204,6 +277,29 @@ class CustomerTaxIdService(StripeService):
         return cast(
             TaxId,
             self._request(
+                "post",
+                "/v1/customers/{customer}/tax_ids".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        customer: str,
+        params: "CustomerTaxIdService.CreateParams",
+        options: RequestOptions = {},
+    ) -> TaxId:
+        """
+        Creates a new tax_id object for a customer.
+        """
+        return cast(
+            TaxId,
+            await self._request_async(
                 "post",
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),

@@ -39,3 +39,28 @@ class AccountLoginLinkService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        account: str,
+        params: "AccountLoginLinkService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> LoginLink:
+        """
+        Creates a single-use login link for an Express account to access their Stripe dashboard.
+
+        You may only create login links for [Express accounts](https://stripe.com/docs/connect/express-accounts) connected to your platform.
+        """
+        return cast(
+            LoginLink,
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/login_links".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

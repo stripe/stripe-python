@@ -272,6 +272,26 @@ class OutboundPaymentService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "OutboundPaymentService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[OutboundPayment]:
+        """
+        Returns a list of OutboundPayments sent from the specified FinancialAccount.
+        """
+        return cast(
+            ListObject[OutboundPayment],
+            await self._request_async(
+                "get",
+                "/v1/treasury/outbound_payments",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "OutboundPaymentService.CreateParams",
@@ -283,6 +303,26 @@ class OutboundPaymentService(StripeService):
         return cast(
             OutboundPayment,
             self._request(
+                "post",
+                "/v1/treasury/outbound_payments",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "OutboundPaymentService.CreateParams",
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Creates an OutboundPayment.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
                 "post",
                 "/v1/treasury/outbound_payments",
                 api_mode="V1",
@@ -315,6 +355,29 @@ class OutboundPaymentService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
+                "get",
+                "/v1/treasury/outbound_payments/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         id: str,
@@ -327,6 +390,29 @@ class OutboundPaymentService(StripeService):
         return cast(
             OutboundPayment,
             self._request(
+                "post",
+                "/v1/treasury/outbound_payments/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Cancel an OutboundPayment.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=sanitize_id(id),

@@ -562,6 +562,31 @@ class SourceService(StripeService):
             ),
         )
 
+    async def detach_async(
+        self,
+        customer: str,
+        id: str,
+        params: "SourceService.DetachParams" = {},
+        options: RequestOptions = {},
+    ) -> Union[Account, BankAccount, Card, Source]:
+        """
+        Delete a specified source for a given customer.
+        """
+        return cast(
+            Union[Account, BankAccount, Card, Source],
+            await self._request_async(
+                "delete",
+                "/v1/customers/{customer}/sources/{id}".format(
+                    customer=sanitize_id(customer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         source: str,
@@ -574,6 +599,27 @@ class SourceService(StripeService):
         return cast(
             Source,
             self._request(
+                "get",
+                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        source: str,
+        params: "SourceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Source:
+        """
+        Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
+        """
+        return cast(
+            Source,
+            await self._request_async(
                 "get",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
                 api_mode="V1",
@@ -606,6 +652,29 @@ class SourceService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        source: str,
+        params: "SourceService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Source:
+        """
+        Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        """
+        return cast(
+            Source,
+            await self._request_async(
+                "post",
+                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SourceService.CreateParams" = {},
@@ -617,6 +686,26 @@ class SourceService(StripeService):
         return cast(
             Source,
             self._request(
+                "post",
+                "/v1/sources",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SourceService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Source:
+        """
+        Creates a new source object.
+        """
+        return cast(
+            Source,
+            await self._request_async(
                 "post",
                 "/v1/sources",
                 api_mode="V1",
@@ -638,6 +727,29 @@ class SourceService(StripeService):
         return cast(
             Source,
             self._request(
+                "post",
+                "/v1/sources/{source}/verify".format(
+                    source=sanitize_id(source),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def verify_async(
+        self,
+        source: str,
+        params: "SourceService.VerifyParams",
+        options: RequestOptions = {},
+    ) -> Source:
+        """
+        Verify a given source.
+        """
+        return cast(
+            Source,
+            await self._request_async(
                 "post",
                 "/v1/sources/{source}/verify".format(
                     source=sanitize_id(source),

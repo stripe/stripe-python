@@ -401,6 +401,22 @@ class PersonalizationDesign(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["PersonalizationDesign.CreateParams"]
+    ) -> "PersonalizationDesign":
+        """
+        Creates a personalization design object.
+        """
+        return cast(
+            "PersonalizationDesign",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["PersonalizationDesign.ListParams"]
     ) -> ListObject["PersonalizationDesign"]:
@@ -408,6 +424,27 @@ class PersonalizationDesign(
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PersonalizationDesign.ListParams"]
+    ) -> ListObject["PersonalizationDesign"]:
+        """
+        Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -439,6 +476,23 @@ class PersonalizationDesign(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["PersonalizationDesign.ModifyParams"]
+    ) -> "PersonalizationDesign":
+        """
+        Updates a card personalization object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PersonalizationDesign",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PersonalizationDesign.RetrieveParams"]
     ) -> "PersonalizationDesign":
@@ -447,6 +501,17 @@ class PersonalizationDesign(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["PersonalizationDesign.RetrieveParams"]
+    ) -> "PersonalizationDesign":
+        """
+        Retrieves a personalization design object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     class TestHelpers(APIResourceTestHelpers["PersonalizationDesign"]):
@@ -504,6 +569,68 @@ class PersonalizationDesign(
             return cast(
                 "PersonalizationDesign",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
+                        personalization_design=sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_activate_async(
+            cls,
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
+                        personalization_design=sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def activate_async(
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
+            ...
+
+        @overload
+        async def activate_async(
+            self, **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
+            ...
+
+        @class_method_variant("_cls_activate_async")
+        async def activate_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                         personalization_design=sanitize_id(
@@ -577,6 +704,68 @@ class PersonalizationDesign(
             )
 
         @classmethod
+        async def _cls_deactivate_async(
+            cls,
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
+                        personalization_design=sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def deactivate_async(
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
+            ...
+
+        @overload
+        async def deactivate_async(
+            self, **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
+            ...
+
+        @class_method_variant("_cls_deactivate_async")
+        async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
+                        personalization_design=sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_reject(
             cls,
             personalization_design: str,
@@ -628,6 +817,68 @@ class PersonalizationDesign(
             return cast(
                 "PersonalizationDesign",
                 self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
+                        personalization_design=sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_reject_async(
+            cls,
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
+                        personalization_design=sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def reject_async(
+            personalization_design: str,
+            **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
+            ...
+
+        @overload
+        async def reject_async(
+            self, **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
+            ...
+
+        @class_method_variant("_cls_reject_async")
+        async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
+            return cast(
+                "PersonalizationDesign",
+                await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                         personalization_design=sanitize_id(
