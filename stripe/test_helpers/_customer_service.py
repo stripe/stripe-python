@@ -51,3 +51,26 @@ class CustomerService(StripeService):
                 options=options,
             ),
         )
+
+    async def fund_cash_balance_async(
+        self,
+        customer: str,
+        params: "CustomerService.FundCashBalanceParams",
+        options: RequestOptions = {},
+    ) -> CustomerCashBalanceTransaction:
+        """
+        Create an incoming testmode bank transfer
+        """
+        return cast(
+            CustomerCashBalanceTransaction,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

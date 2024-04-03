@@ -77,6 +77,27 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["TaxCode.ListParams"]
+    ) -> ListObject["TaxCode"]:
+        """
+        A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["TaxCode.RetrieveParams"]
     ) -> "TaxCode":
@@ -85,4 +106,15 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["TaxCode.RetrieveParams"]
+    ) -> "TaxCode":
+        """
+        Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance

@@ -37,6 +37,11 @@ class APIResource(StripeObject, Generic[T]):
     def refresh(self) -> Self:
         return self._request_and_refresh("get", self.instance_url())
 
+    async def refresh_async(self) -> Self:
+        return await self._request_and_refresh_async(
+            "get", self.instance_url()
+        )
+
     @classmethod
     def class_url(cls) -> str:
         if cls == APIResource:
@@ -64,12 +69,10 @@ class APIResource(StripeObject, Generic[T]):
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)
 
-    # The `method_` and `url_` arguments are suffixed with an underscore to
-    # avoid conflicting with actual request parameters in `params`.
     def _request(
         self,
-        method_,
-        url_,
+        method,
+        url,
         params=None,
         *,
         base_address: BaseAddress = "api",
@@ -77,8 +80,8 @@ class APIResource(StripeObject, Generic[T]):
     ) -> StripeObject:
         obj = StripeObject._request(
             self,
-            method_,
-            url_,
+            method,
+            url,
             params=params,
             base_address=base_address,
             api_mode=api_mode,
@@ -90,33 +93,76 @@ class APIResource(StripeObject, Generic[T]):
         else:
             return obj
 
-    # The `method_` and `url_` arguments are suffixed with an underscore to
-    # avoid conflicting with actual request parameters in `params`.
+    async def _request_async(
+        self,
+        method,
+        url,
+        params=None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ) -> StripeObject:
+        obj = await StripeObject._request_async(
+            self,
+            method,
+            url,
+            params=params,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
+
+        if type(self) is type(obj):
+            self._refresh_from(values=obj, api_mode=api_mode)
+            return self
+        else:
+            return obj
+
     def _request_and_refresh(
         self,
-        method_: Literal["get", "post", "delete"],
-        url_: str,
+        method: Literal["get", "post", "delete"],
+        url: str,
         params: Optional[Mapping[str, Any]] = None,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
     ) -> Self:
         obj = StripeObject._request(
             self,
-            method_,
-            url_,
+            method,
+            url,
             params=params,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         self._refresh_from(values=obj, api_mode=api_mode)
         return self
 
-    # The `method_` and `url_` arguments are suffixed with an underscore to
-    # avoid conflicting with actual request parameters in `params`.
+    async def _request_and_refresh_async(
+        self,
+        method: Literal["get", "post", "delete"],
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        usage: Optional[List[str]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ) -> Self:
+        obj = await StripeObject._request_async(
+            self,
+            method,
+            url,
+            params=params,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=usage,
+        )
+
+        self._refresh_from(values=obj, api_mode=api_mode)
+        return self
+
     @classmethod
     def _static_request(
         cls,
@@ -137,22 +183,60 @@ class APIResource(StripeObject, Generic[T]):
             api_mode=api_mode,
         )
 
-    # The `method_` and `url_` arguments are suffixed with an underscore to
-    # avoid conflicting with actual request parameters in `params`.
     @classmethod
-    def _static_request_stream(
+    async def _static_request_async(
         cls,
         method_,
         url_,
-        params=None,
+        params: Optional[Mapping[str, Any]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ):
+        request_options, request_params = extract_options_from_dict(params)
+        return await _APIRequestor._global_instance().request_async(
+            method_,
+            url_,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
+
+    @classmethod
+    def _static_request_stream(
+        cls,
+        method,
+        url,
+        params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
         return _APIRequestor._global_instance().request_stream(
-            method_,
-            url_,
+            method,
+            url,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
+
+    @classmethod
+    async def _static_request_stream_async(
+        cls,
+        method,
+        url,
+        params: Optional[Mapping[str, Any]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ):
+        request_options, request_params = extract_options_from_dict(params)
+        return await _APIRequestor._global_instance().request_stream_async(
+            method,
+            url,
             params=request_params,
             options=request_options,
             base_address=base_address,

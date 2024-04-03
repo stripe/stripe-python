@@ -35,3 +35,24 @@ class MandateService(StripeService):
                 options=options,
             ),
         )
+
+    async def retrieve_async(
+        self,
+        mandate: str,
+        params: "MandateService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Mandate:
+        """
+        Retrieves a Mandate object.
+        """
+        return cast(
+            Mandate,
+            await self._request_async(
+                "get",
+                "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

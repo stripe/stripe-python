@@ -614,6 +614,26 @@ class DisputeService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "DisputeService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Dispute]:
+        """
+        Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[Dispute],
+            await self._request_async(
+                "get",
+                "/v1/issuing/disputes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "DisputeService.CreateParams" = {},
@@ -625,6 +645,26 @@ class DisputeService(StripeService):
         return cast(
             Dispute,
             self._request(
+                "post",
+                "/v1/issuing/disputes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "DisputeService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Dispute:
+        """
+        Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
+        """
+        return cast(
+            Dispute,
+            await self._request_async(
                 "post",
                 "/v1/issuing/disputes",
                 api_mode="V1",
@@ -646,6 +686,29 @@ class DisputeService(StripeService):
         return cast(
             Dispute,
             self._request(
+                "get",
+                "/v1/issuing/disputes/{dispute}".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        dispute: str,
+        params: "DisputeService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Dispute:
+        """
+        Retrieves an Issuing Dispute object.
+        """
+        return cast(
+            Dispute,
+            await self._request_async(
                 "get",
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
@@ -680,6 +743,29 @@ class DisputeService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        dispute: str,
+        params: "DisputeService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Dispute:
+        """
+        Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
+        """
+        return cast(
+            Dispute,
+            await self._request_async(
+                "post",
+                "/v1/issuing/disputes/{dispute}".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def submit(
         self,
         dispute: str,
@@ -692,6 +778,29 @@ class DisputeService(StripeService):
         return cast(
             Dispute,
             self._request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def submit_async(
+        self,
+        dispute: str,
+        params: "DisputeService.SubmitParams" = {},
+        options: RequestOptions = {},
+    ) -> Dispute:
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        return cast(
+            Dispute,
+            await self._request_async(
                 "post",
                 "/v1/issuing/disputes/{dispute}/submit".format(
                     dispute=sanitize_id(dispute),

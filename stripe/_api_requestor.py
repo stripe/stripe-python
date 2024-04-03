@@ -3,6 +3,7 @@ import json
 import platform
 from typing import (
     Any,
+    AsyncIterable,
     Dict,
     List,
     Mapping,
@@ -12,7 +13,12 @@ from typing import (
     cast,
     ClassVar,
 )
-from typing_extensions import TYPE_CHECKING, Literal, NoReturn, Unpack
+from typing_extensions import (
+    TYPE_CHECKING,
+    Literal,
+    NoReturn,
+    Unpack,
+)
 import uuid
 from urllib.parse import urlsplit, urlunsplit
 
@@ -32,13 +38,21 @@ from urllib.parse import urlencode
 from stripe._encode import (
     _api_encode,
 )
-from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import (
+    StripeResponse,
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._request_options import RequestOptions, merge_options
 from stripe._requestor_options import (
     RequestorOptions,
     _GlobalRequestorOptions,
 )
-from stripe._http_client import HTTPClient, new_default_http_client
+from stripe._http_client import (
+    HTTPClient,
+    new_default_http_client,
+    new_http_client_async_fallback,
+)
 from stripe._app_info import AppInfo
 
 from stripe._base_address import BaseAddress
@@ -74,12 +88,18 @@ class _APIRequestor(object):
             global _default_proxy
 
             if not stripe.default_http_client:
+                kwargs = {
+                    "verify_ssl_certs": stripe.verify_ssl_certs,
+                    "proxy": stripe.proxy,
+                }
                 # If the stripe.default_http_client has not been set by the user
                 # yet, we'll set it here. This way, we aren't creating a new
                 # HttpClient for every request.
                 stripe.default_http_client = new_default_http_client(
-                    verify_ssl_certs=stripe.verify_ssl_certs,
-                    proxy=stripe.proxy,
+                    async_fallback_client=new_http_client_async_fallback(
+                        **kwargs
+                    ),
+                    **kwargs,
                 )
                 _default_proxy = stripe.proxy
             elif stripe.proxy != _default_proxy:
@@ -160,7 +180,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
@@ -171,7 +191,38 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
+        )
+        resp = requestor._interpret_response(rbody, rcode, rheaders)
+
+        return _convert_to_stripe_object(
+            resp=resp,
+            params=params,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+
+    async def request_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        usage: Optional[List[str]] = None,
+    ) -> "StripeObject":
+        requestor = self._replace_options(options)
+        rbody, rcode, rheaders = await requestor.request_raw_async(
+            method.lower(),
+            url,
+            params,
+            is_streaming=False,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
+            usage=usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
@@ -191,7 +242,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> StripeStreamResponse:
         stream, rcode, rheaders = self.request_raw(
             method.lower(),
@@ -201,12 +252,40 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = self._interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
             # returns a more specific type.
             cast(IOBase, stream),
+            rcode,
+            rheaders,
+        )
+        return resp
+
+    async def request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        usage: Optional[List[str]] = None,
+    ) -> StripeStreamResponseAsync:
+        stream, rcode, rheaders = await self.request_raw_async(
+            method.lower(),
+            url,
+            params,
+            is_streaming=True,
+            api_mode=api_mode,
+            base_address=base_address,
+            options=options,
+            usage=usage,
+        )
+        resp = await self._interpret_streaming_response_async(
+            stream,
             rcode,
             rheaders,
         )
@@ -378,7 +457,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ):
         """
         Mechanism for issuing an API call
@@ -457,7 +536,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             # For logging
             encoded_params,
             request_options.get("stripe_version"),
@@ -473,7 +552,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> Tuple[object, int, Mapping[str, str]]:
         (
             method,
@@ -481,7 +560,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             encoded_params,
             api_version,
         ) = self._args_for_request_with_retries(
@@ -491,7 +570,7 @@ class _APIRequestor(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         log_info("Request to Stripe api", method=method, url=abs_url)
@@ -510,7 +589,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
         else:
             (
@@ -523,7 +602,91 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
+            )
+
+        log_info("Stripe API response", path=abs_url, response_code=rcode)
+        log_debug("API response body", body=rcontent)
+
+        if "Request-Id" in rheaders:
+            request_id = rheaders["Request-Id"]
+            log_debug(
+                "Dashboard link for request",
+                link=dashboard_link(request_id),
+            )
+
+        return rcontent, rcode, rheaders
+
+    async def request_raw_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        is_streaming: bool = False,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+        usage: Optional[List[str]] = None,
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
+        """
+        Mechanism for issuing an API call
+        """
+
+        usage = usage or []
+        usage = usage + ["async"]
+
+        (
+            method,
+            abs_url,
+            headers,
+            post_data,
+            max_network_retries,
+            usage,
+            encoded_params,
+            api_version,
+        ) = self._args_for_request_with_retries(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=usage,
+        )
+
+        log_info("Request to Stripe api", method=method, url=abs_url)
+        log_debug(
+            "Post details",
+            post_data=encoded_params,
+            api_version=api_version,
+        )
+
+        if is_streaming:
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = await self._get_http_client().request_stream_with_retries_async(
+                method,
+                abs_url,
+                headers,
+                post_data,
+                max_network_retries=max_network_retries,
+                _usage=usage,
+            )
+        else:
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = await self._get_http_client().request_with_retries_async(
+                method,
+                abs_url,
+                headers,
+                post_data,
+                max_network_retries=max_network_retries,
+                _usage=usage,
             )
 
         log_info("Stripe API response", path=abs_url, response_code=rcode)
@@ -569,6 +732,22 @@ class _APIRequestor(object):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
+    async def _interpret_streaming_response_async(
+        self,
+        stream: AsyncIterable[bytes],
+        rcode: int,
+        rheaders: Mapping[str, str],
+    ) -> StripeStreamResponseAsync:
+        if self._should_handle_code_as_error(rcode):
+            json_content = b"".join([chunk async for chunk in stream])
+            self._interpret_response(json_content, rcode, rheaders)
+            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            raise RuntimeError(
+                "_interpret_response should have raised an error"
+            )
+        else:
+            return StripeStreamResponseAsync(stream, rcode, rheaders)
+
     def _interpret_streaming_response(
         self,
         stream: IOBase,
@@ -588,6 +767,7 @@ class _APIRequestor(object):
                 raise NotImplementedError(
                     "HTTP client %s does not return an IOBase object which "
                     "can be consumed when streaming a response."
+                    % self._get_http_client().name
                 )
 
             self._interpret_response(json_content, rcode, rheaders)

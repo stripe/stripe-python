@@ -503,6 +503,26 @@ class PriceService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PriceService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Price]:
+        """
+        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        """
+        return cast(
+            ListObject[Price],
+            await self._request_async(
+                "get",
+                "/v1/prices",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "PriceService.CreateParams", options: RequestOptions = {}
     ) -> Price:
@@ -512,6 +532,24 @@ class PriceService(StripeService):
         return cast(
             Price,
             self._request(
+                "post",
+                "/v1/prices",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "PriceService.CreateParams", options: RequestOptions = {}
+    ) -> Price:
+        """
+        Creates a new price for an existing product. The price can be recurring or one-time.
+        """
+        return cast(
+            Price,
+            await self._request_async(
                 "post",
                 "/v1/prices",
                 api_mode="V1",
@@ -542,6 +580,27 @@ class PriceService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        price: str,
+        params: "PriceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Price:
+        """
+        Retrieves the price with the given ID.
+        """
+        return cast(
+            Price,
+            await self._request_async(
+                "get",
+                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         price: str,
@@ -563,6 +622,27 @@ class PriceService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        price: str,
+        params: "PriceService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Price:
+        """
+        Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        return cast(
+            Price,
+            await self._request_async(
+                "post",
+                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def search(
         self, params: "PriceService.SearchParams", options: RequestOptions = {}
     ) -> SearchResultObject[Price]:
@@ -575,6 +655,27 @@ class PriceService(StripeService):
         return cast(
             SearchResultObject[Price],
             self._request(
+                "get",
+                "/v1/prices/search",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def search_async(
+        self, params: "PriceService.SearchParams", options: RequestOptions = {}
+    ) -> SearchResultObject[Price]:
+        """
+        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            SearchResultObject[Price],
+            await self._request_async(
                 "get",
                 "/v1/prices/search",
                 api_mode="V1",

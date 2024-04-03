@@ -169,6 +169,61 @@ class TestClock(
         )
 
     @classmethod
+    async def _cls_advance_async(
+        cls, test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        return cast(
+            "TestClock",
+            await cls._static_request_async(
+                "post",
+                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                    test_clock=sanitize_id(test_clock)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def advance_async(
+        test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        ...
+
+    @overload
+    async def advance_async(
+        self, **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        ...
+
+    @class_method_variant("_cls_advance_async")
+    async def advance_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        return cast(
+            "TestClock",
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                    test_clock=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["TestClock.CreateParams"]) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -176,6 +231,22 @@ class TestClock(
         return cast(
             "TestClock",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["TestClock.CreateParams"]
+    ) -> "TestClock":
+        """
+        Creates a new test clock that can be attached to new customers and quotes.
+        """
+        return cast(
+            "TestClock",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -232,6 +303,55 @@ class TestClock(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "TestClock",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["TestClock.ListParams"]
     ) -> ListObject["TestClock"]:
@@ -239,6 +359,27 @@ class TestClock(
         Returns a list of your test clocks.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["TestClock.ListParams"]
+    ) -> ListObject["TestClock"]:
+        """
+        Returns a list of your test clocks.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -261,4 +402,15 @@ class TestClock(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["TestClock.RetrieveParams"]
+    ) -> "TestClock":
+        """
+        Retrieves a test clock.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance

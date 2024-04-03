@@ -75,6 +75,29 @@ class OutboundPaymentService(StripeService):
             ),
         )
 
+    async def fail_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.FailParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def post(
         self,
         id: str,
@@ -98,6 +121,29 @@ class OutboundPaymentService(StripeService):
             ),
         )
 
+    async def post_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.PostParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def return_outbound_payment(
         self,
         id: str,
@@ -110,6 +156,29 @@ class OutboundPaymentService(StripeService):
         return cast(
             OutboundPayment,
             self._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def return_outbound_payment_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                     id=sanitize_id(id),

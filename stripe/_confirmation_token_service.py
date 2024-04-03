@@ -37,3 +37,26 @@ class ConfirmationTokenService(StripeService):
                 options=options,
             ),
         )
+
+    async def retrieve_async(
+        self,
+        confirmation_token: str,
+        params: "ConfirmationTokenService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ConfirmationToken:
+        """
+        Retrieves an existing ConfirmationToken object
+        """
+        return cast(
+            ConfirmationToken,
+            await self._request_async(
+                "get",
+                "/v1/confirmation_tokens/{confirmation_token}".format(
+                    confirmation_token=sanitize_id(confirmation_token),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

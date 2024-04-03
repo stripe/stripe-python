@@ -141,6 +141,26 @@ class FileService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "FileService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[File]:
+        """
+        Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
+        """
+        return cast(
+            ListObject[File],
+            await self._request_async(
+                "get",
+                "/v1/files",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "FileService.CreateParams", options: RequestOptions = {}
     ) -> File:
@@ -152,6 +172,26 @@ class FileService(StripeService):
         return cast(
             File,
             self._request(
+                "post",
+                "/v1/files",
+                api_mode="V1FILES",
+                base_address="files",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "FileService.CreateParams", options: RequestOptions = {}
+    ) -> File:
+        """
+        To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
+
+        All of Stripe's officially supported Client libraries support sending multipart/form-data.
+        """
+        return cast(
+            File,
+            await self._request_async(
                 "post",
                 "/v1/files",
                 api_mode="V1FILES",
@@ -173,6 +213,27 @@ class FileService(StripeService):
         return cast(
             File,
             self._request(
+                "get",
+                "/v1/files/{file}".format(file=sanitize_id(file)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        file: str,
+        params: "FileService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> File:
+        """
+        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://stripe.com/docs/file-upload#download-file-contents).
+        """
+        return cast(
+            File,
+            await self._request_async(
                 "get",
                 "/v1/files/{file}".format(file=sanitize_id(file)),
                 api_mode="V1",

@@ -39,6 +39,8 @@ class TypingImportsChecker:
 
     allowed_typing_imports = [
         "Any",
+        "AsyncIterator",
+        "AsyncIterable",
         "ClassVar",
         "Optional",
         "TypeVar",
@@ -56,6 +58,7 @@ class TypingImportsChecker:
         "Set",
         "Callable",
         "Generator",
+        "Iterable",
     ]
 
     def __init__(self, tree: ast.AST):

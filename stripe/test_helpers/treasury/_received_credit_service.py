@@ -85,3 +85,23 @@ class ReceivedCreditService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "ReceivedCreditService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ReceivedCredit:
+        """
+        Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
+        """
+        return cast(
+            ReceivedCredit,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/received_credits",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

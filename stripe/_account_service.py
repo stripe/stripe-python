@@ -3115,6 +3115,31 @@ class AccountService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        account: str,
+        params: "AccountService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "delete",
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         account: str,
@@ -3127,6 +3152,27 @@ class AccountService(StripeService):
         return cast(
             Account,
             self._request(
+                "get",
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        account: str,
+        params: "AccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Retrieves the details of an account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
                 api_mode="V1",
@@ -3165,6 +3211,35 @@ class AccountService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        account: str,
+        params: "AccountService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+        left unchanged.
+
+        For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
+        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
+        some properties can only be changed or updated for Custom accounts.
+
+        To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
+        [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve_current(
         self,
         params: "AccountService.RetrieveCurrentParams" = {},
@@ -3185,6 +3260,26 @@ class AccountService(StripeService):
             ),
         )
 
+    async def retrieve_current_async(
+        self,
+        params: "AccountService.RetrieveCurrentParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Retrieves the details of an account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "get",
+                "/v1/account",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "AccountService.ListParams" = {},
@@ -3196,6 +3291,26 @@ class AccountService(StripeService):
         return cast(
             ListObject[Account],
             self._request(
+                "get",
+                "/v1/accounts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "AccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Account]:
+        """
+        Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
+        """
+        return cast(
+            ListObject[Account],
+            await self._request_async(
                 "get",
                 "/v1/accounts",
                 api_mode="V1",
@@ -3230,6 +3345,31 @@ class AccountService(StripeService):
             ),
         )
 
+    async def create_async(
+        self,
+        params: "AccountService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
+        To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
+
+        If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
+        creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
+        You can prefill any information on the account.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v1/accounts",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def reject(
         self,
         account: str,
@@ -3244,6 +3384,31 @@ class AccountService(StripeService):
         return cast(
             Account,
             self._request(
+                "post",
+                "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reject_async(
+        self,
+        account: str,
+        params: "AccountService.RejectParams",
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        return cast(
+            Account,
+            await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
                     account=sanitize_id(account),

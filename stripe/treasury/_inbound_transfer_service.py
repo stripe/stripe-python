@@ -104,6 +104,26 @@ class InboundTransferService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "InboundTransferService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[InboundTransfer]:
+        """
+        Returns a list of InboundTransfers sent from the specified FinancialAccount.
+        """
+        return cast(
+            ListObject[InboundTransfer],
+            await self._request_async(
+                "get",
+                "/v1/treasury/inbound_transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "InboundTransferService.CreateParams",
@@ -115,6 +135,26 @@ class InboundTransferService(StripeService):
         return cast(
             InboundTransfer,
             self._request(
+                "post",
+                "/v1/treasury/inbound_transfers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "InboundTransferService.CreateParams",
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        Creates an InboundTransfer.
+        """
+        return cast(
+            InboundTransfer,
+            await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers",
                 api_mode="V1",
@@ -147,6 +187,29 @@ class InboundTransferService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "InboundTransferService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        Retrieves the details of an existing InboundTransfer.
+        """
+        return cast(
+            InboundTransfer,
+            await self._request_async(
+                "get",
+                "/v1/treasury/inbound_transfers/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         inbound_transfer: str,
@@ -159,6 +222,29 @@ class InboundTransferService(StripeService):
         return cast(
             InboundTransfer,
             self._request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=sanitize_id(inbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        inbound_transfer: str,
+        params: "InboundTransferService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        Cancels an InboundTransfer.
+        """
+        return cast(
+            InboundTransfer,
+            await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
                     inbound_transfer=sanitize_id(inbound_transfer),

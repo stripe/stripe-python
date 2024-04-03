@@ -243,6 +243,29 @@ class InvoiceLineItemService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        invoice: str,
+        params: "InvoiceLineItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[InvoiceLineItem]:
+        """
+        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[InvoiceLineItem],
+            await self._request_async(
+                "get",
+                "/v1/invoices/{invoice}/lines".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         invoice: str,
@@ -259,6 +282,34 @@ class InvoiceLineItemService(StripeService):
         return cast(
             InvoiceLineItem,
             self._request(
+                "post",
+                "/v1/invoices/{invoice}/lines/{line_item_id}".format(
+                    invoice=sanitize_id(invoice),
+                    line_item_id=sanitize_id(line_item_id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        invoice: str,
+        line_item_id: str,
+        params: "InvoiceLineItemService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> InvoiceLineItem:
+        """
+        Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
+        so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
+        item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
+        Updating an invoice's line item is only possible before the invoice is finalized.
+        """
+        return cast(
+            InvoiceLineItem,
+            await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/lines/{line_item_id}".format(
                     invoice=sanitize_id(invoice),

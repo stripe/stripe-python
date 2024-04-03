@@ -93,6 +93,29 @@ class CustomerBalanceTransactionService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        customer: str,
+        params: "CustomerBalanceTransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CustomerBalanceTransaction]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject[CustomerBalanceTransaction],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         customer: str,
@@ -105,6 +128,29 @@ class CustomerBalanceTransactionService(StripeService):
         return cast(
             CustomerBalanceTransaction,
             self._request(
+                "post",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        customer: str,
+        params: "CustomerBalanceTransactionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> CustomerBalanceTransaction:
+        """
+        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            CustomerBalanceTransaction,
+            await self._request_async(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
                     customer=sanitize_id(customer),
@@ -141,6 +187,31 @@ class CustomerBalanceTransactionService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        customer: str,
+        transaction: str,
+        params: "CustomerBalanceTransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CustomerBalanceTransaction:
+        """
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            CustomerBalanceTransaction,
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         customer: str,
@@ -154,6 +225,31 @@ class CustomerBalanceTransactionService(StripeService):
         return cast(
             CustomerBalanceTransaction,
             self._request(
+                "post",
+                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        customer: str,
+        transaction: str,
+        params: "CustomerBalanceTransactionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> CustomerBalanceTransaction:
+        """
+        Most credit balance transaction fields are immutable, but you may update its description and metadata.
+        """
+        return cast(
+            CustomerBalanceTransaction,
+            await self._request_async(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),

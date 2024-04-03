@@ -87,6 +87,27 @@ class TransferReversalService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        id: str,
+        params: "TransferReversalService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Reversal]:
+        """
+        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
+        """
+        return cast(
+            ListObject[Reversal],
+            await self._request_async(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         id: str,
@@ -103,6 +124,31 @@ class TransferReversalService(StripeService):
         return cast(
             Reversal,
             self._request(
+                "post",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        id: str,
+        params: "TransferReversalService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Reversal:
+        """
+        When you create a new reversal, you must specify a transfer to create it on.
+
+        When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.
+
+        Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
+        """
+        return cast(
+            Reversal,
+            await self._request_async(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -137,6 +183,31 @@ class TransferReversalService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        transfer: str,
+        id: str,
+        params: "TransferReversalService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Reversal:
+        """
+        By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
+        """
+        return cast(
+            Reversal,
+            await self._request_async(
+                "get",
+                "/v1/transfers/{transfer}/reversals/{id}".format(
+                    transfer=sanitize_id(transfer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         transfer: str,
@@ -152,6 +223,33 @@ class TransferReversalService(StripeService):
         return cast(
             Reversal,
             self._request(
+                "post",
+                "/v1/transfers/{transfer}/reversals/{id}".format(
+                    transfer=sanitize_id(transfer),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        transfer: str,
+        id: str,
+        params: "TransferReversalService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Reversal:
+        """
+        Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+        This request only accepts metadata and description as arguments.
+        """
+        return cast(
+            Reversal,
+            await self._request_async(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer),

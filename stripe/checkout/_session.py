@@ -3860,6 +3860,22 @@ class Session(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Session.CreateParams"]
+    ) -> "Session":
+        """
+        Creates a Session object.
+        """
+        return cast(
+            "Session",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_expire(
         cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
@@ -3921,6 +3937,69 @@ class Session(
         )
 
     @classmethod
+    async def _cls_expire_async(
+        cls, session: str, **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
+        return cast(
+            "Session",
+            await cls._static_request_async(
+                "post",
+                "/v1/checkout/sessions/{session}/expire".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def expire_async(
+        session: str, **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
+        ...
+
+    @overload
+    async def expire_async(
+        self, **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
+        ...
+
+    @class_method_variant("_cls_expire_async")
+    async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
+        return cast(
+            "Session",
+            await self._request_async(
+                "post",
+                "/v1/checkout/sessions/{session}/expire".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Session.ListParams"]
     ) -> ListObject["Session"]:
@@ -3928,6 +4007,27 @@ class Session(
         Returns a list of Checkout Sessions.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Session.ListParams"]
+    ) -> ListObject["Session"]:
+        """
+        Returns a list of Checkout Sessions.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -3997,6 +4097,61 @@ class Session(
         )
 
     @classmethod
+    async def _cls_list_line_items_async(
+        cls, session: str, **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/checkout/sessions/{session}/line_items".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        session: str, **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["LineItem"],
+            await self._request_async(
+                "get",
+                "/v1/checkout/sessions/{session}/line_items".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
@@ -4005,6 +4160,17 @@ class Session(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Session.RetrieveParams"]
+    ) -> "Session":
+        """
+        Retrieves a Session object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

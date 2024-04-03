@@ -667,6 +667,29 @@ class CustomerService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        customer: str,
+        params: "CustomerService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Customer:
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
+        return cast(
+            Customer,
+            await self._request_async(
+                "delete",
+                "/v1/customers/{customer}".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         customer: str,
@@ -679,6 +702,29 @@ class CustomerService(StripeService):
         return cast(
             Customer,
             self._request(
+                "get",
+                "/v1/customers/{customer}".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer: str,
+        params: "CustomerService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Customer:
+        """
+        Retrieves a Customer object.
+        """
+        return cast(
+            Customer,
+            await self._request_async(
                 "get",
                 "/v1/customers/{customer}".format(
                     customer=sanitize_id(customer),
@@ -715,6 +761,31 @@ class CustomerService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        customer: str,
+        params: "CustomerService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Customer:
+        """
+        Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
+
+        This request accepts mostly the same arguments as the customer creation call.
+        """
+        return cast(
+            Customer,
+            await self._request_async(
+                "post",
+                "/v1/customers/{customer}".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def delete_discount(
         self,
         customer: str,
@@ -727,6 +798,29 @@ class CustomerService(StripeService):
         return cast(
             Discount,
             self._request(
+                "delete",
+                "/v1/customers/{customer}/discount".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def delete_discount_async(
+        self,
+        customer: str,
+        params: "CustomerService.DeleteDiscountParams" = {},
+        options: RequestOptions = {},
+    ) -> Discount:
+        """
+        Removes the currently applied discount on a customer.
+        """
+        return cast(
+            Discount,
+            await self._request_async(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
                     customer=sanitize_id(customer),
@@ -758,6 +852,26 @@ class CustomerService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "CustomerService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Customer]:
+        """
+        Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
+        """
+        return cast(
+            ListObject[Customer],
+            await self._request_async(
+                "get",
+                "/v1/customers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "CustomerService.CreateParams" = {},
@@ -769,6 +883,26 @@ class CustomerService(StripeService):
         return cast(
             Customer,
             self._request(
+                "post",
+                "/v1/customers",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "CustomerService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Customer:
+        """
+        Creates a new customer object.
+        """
+        return cast(
+            Customer,
+            await self._request_async(
                 "post",
                 "/v1/customers",
                 api_mode="V1",
@@ -792,6 +926,29 @@ class CustomerService(StripeService):
         return cast(
             SearchResultObject[Customer],
             self._request(
+                "get",
+                "/v1/customers/search",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def search_async(
+        self,
+        params: "CustomerService.SearchParams",
+        options: RequestOptions = {},
+    ) -> SearchResultObject[Customer]:
+        """
+        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            SearchResultObject[Customer],
+            await self._request_async(
                 "get",
                 "/v1/customers/search",
                 api_mode="V1",

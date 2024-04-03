@@ -2137,6 +2137,26 @@ class CardService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "CardService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Card]:
+        """
+        Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[Card],
+            await self._request_async(
+                "get",
+                "/v1/issuing/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "CardService.CreateParams", options: RequestOptions = {}
     ) -> Card:
@@ -2146,6 +2166,24 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/issuing/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "CardService.CreateParams", options: RequestOptions = {}
+    ) -> Card:
+        """
+        Creates an Issuing Card object.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/issuing/cards",
                 api_mode="V1",
@@ -2176,6 +2214,27 @@ class CardService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        card: str,
+        params: "CardService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Retrieves an Issuing Card object.
+        """
+        return cast(
+            Card,
+            await self._request_async(
+                "get",
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         card: str,
@@ -2188,6 +2247,27 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        card: str,
+        params: "CardService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",

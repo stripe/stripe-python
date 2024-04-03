@@ -1128,6 +1128,22 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Source.CreateParams"]
+    ) -> "Source":
+        """
+        Creates a new source object.
+        """
+        return cast(
+            "Source",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_list_source_transactions(
         cls,
         source: str,
@@ -1185,6 +1201,63 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
+    async def _cls_list_source_transactions_async(
+        cls,
+        source: str,
+        **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
+        return cast(
+            ListObject["SourceTransaction"],
+            await cls._static_request_async(
+                "get",
+                "/v1/sources/{source}/source_transactions".format(
+                    source=sanitize_id(source)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_source_transactions_async(
+        source: str, **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
+        ...
+
+    @overload
+    async def list_source_transactions_async(
+        self, **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
+        ...
+
+    @class_method_variant("_cls_list_source_transactions_async")
+    async def list_source_transactions_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
+        return cast(
+            ListObject["SourceTransaction"],
+            await self._request_async(
+                "get",
+                "/v1/sources/{source}/source_transactions".format(
+                    source=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["Source.ModifyParams"]
     ) -> "Source":
@@ -1204,6 +1277,25 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Source.ModifyParams"]
+    ) -> "Source":
+        """
+        Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Source",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Source.RetrieveParams"]
     ) -> "Source":
@@ -1212,6 +1304,17 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Source.RetrieveParams"]
+    ) -> "Source":
+        """
+        Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -1259,6 +1362,61 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         return cast(
             "Source",
             self._request(
+                "post",
+                "/v1/sources/{source}/verify".format(
+                    source=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_verify_async(
+        cls, source: str, **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        """
+        Verify a given source.
+        """
+        return cast(
+            "Source",
+            await cls._static_request_async(
+                "post",
+                "/v1/sources/{source}/verify".format(
+                    source=sanitize_id(source)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def verify_async(
+        source: str, **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        """
+        Verify a given source.
+        """
+        ...
+
+    @overload
+    async def verify_async(
+        self, **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        """
+        Verify a given source.
+        """
+        ...
+
+    @class_method_variant("_cls_verify_async")
+    async def verify_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        """
+        Verify a given source.
+        """
+        return cast(
+            "Source",
+            await self._request_async(
                 "post",
                 "/v1/sources/{source}/verify".format(
                     source=sanitize_id(self.get("id"))

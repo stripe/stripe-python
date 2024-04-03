@@ -82,3 +82,19 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
                 params=params,
             ),
         )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["MeterEvent.CreateParams"]
+    ) -> "MeterEvent":
+        """
+        Creates a billing meter event
+        """
+        return cast(
+            "MeterEvent",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )

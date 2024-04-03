@@ -92,6 +92,26 @@ class PaymentMethodDomainService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PaymentMethodDomainService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PaymentMethodDomain]:
+        """
+        Lists the details of existing payment method domains.
+        """
+        return cast(
+            ListObject[PaymentMethodDomain],
+            await self._request_async(
+                "get",
+                "/v1/payment_method_domains",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "PaymentMethodDomainService.CreateParams",
@@ -103,6 +123,26 @@ class PaymentMethodDomainService(StripeService):
         return cast(
             PaymentMethodDomain,
             self._request(
+                "post",
+                "/v1/payment_method_domains",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PaymentMethodDomainService.CreateParams",
+        options: RequestOptions = {},
+    ) -> PaymentMethodDomain:
+        """
+        Creates a payment method domain.
+        """
+        return cast(
+            PaymentMethodDomain,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_domains",
                 api_mode="V1",
@@ -124,6 +164,29 @@ class PaymentMethodDomainService(StripeService):
         return cast(
             PaymentMethodDomain,
             self._request(
+                "get",
+                "/v1/payment_method_domains/{payment_method_domain}".format(
+                    payment_method_domain=sanitize_id(payment_method_domain),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        payment_method_domain: str,
+        params: "PaymentMethodDomainService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodDomain:
+        """
+        Retrieves the details of an existing payment method domain.
+        """
+        return cast(
+            PaymentMethodDomain,
+            await self._request_async(
                 "get",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
@@ -158,6 +221,29 @@ class PaymentMethodDomainService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        payment_method_domain: str,
+        params: "PaymentMethodDomainService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodDomain:
+        """
+        Updates an existing payment method domain.
+        """
+        return cast(
+            PaymentMethodDomain,
+            await self._request_async(
+                "post",
+                "/v1/payment_method_domains/{payment_method_domain}".format(
+                    payment_method_domain=sanitize_id(payment_method_domain),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def validate(
         self,
         payment_method_domain: str,
@@ -175,6 +261,34 @@ class PaymentMethodDomainService(StripeService):
         return cast(
             PaymentMethodDomain,
             self._request(
+                "post",
+                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
+                    payment_method_domain=sanitize_id(payment_method_domain),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def validate_async(
+        self,
+        payment_method_domain: str,
+        params: "PaymentMethodDomainService.ValidateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodDomain:
+        """
+        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements for this domain until it is active.
+
+        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+
+        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        """
+        return cast(
+            PaymentMethodDomain,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
                     payment_method_domain=sanitize_id(payment_method_domain),

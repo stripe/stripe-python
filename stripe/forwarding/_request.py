@@ -251,6 +251,22 @@ class Request(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Request.CreateParams"]
+    ) -> "Request":
+        """
+        Creates a ForwardingRequest object.
+        """
+        return cast(
+            "Request",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Request.ListParams"]
     ) -> ListObject["Request"]:
@@ -258,6 +274,27 @@ class Request(
         Lists all ForwardingRequest objects.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Request.ListParams"]
+    ) -> ListObject["Request"]:
+        """
+        Lists all ForwardingRequest objects.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -280,6 +317,17 @@ class Request(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Request.RetrieveParams"]
+    ) -> "Request":
+        """
+        Retrieves a ForwardingRequest object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

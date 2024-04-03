@@ -59,6 +59,29 @@ class CustomerCashBalanceTransactionService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        customer: str,
+        params: "CustomerCashBalanceTransactionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[CustomerCashBalanceTransaction]:
+        """
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
+        return cast(
+            ListObject[CustomerCashBalanceTransaction],
+            await self._request_async(
+                "get",
+                "/v1/customers/{customer}/cash_balance_transactions".format(
+                    customer=sanitize_id(customer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         customer: str,
@@ -72,6 +95,31 @@ class CustomerCashBalanceTransactionService(StripeService):
         return cast(
             CustomerCashBalanceTransaction,
             self._request(
+                "get",
+                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
+                    customer=sanitize_id(customer),
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer: str,
+        transaction: str,
+        params: "CustomerCashBalanceTransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> CustomerCashBalanceTransaction:
+        """
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
+        return cast(
+            CustomerCashBalanceTransaction,
+            await self._request_async(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),

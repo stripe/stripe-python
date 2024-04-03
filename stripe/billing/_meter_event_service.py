@@ -49,3 +49,23 @@ class MeterEventService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "MeterEventService.CreateParams",
+        options: RequestOptions = {},
+    ) -> MeterEvent:
+        """
+        Creates a billing meter event
+        """
+        return cast(
+            MeterEvent,
+            await self._request_async(
+                "post",
+                "/v1/billing/meter_events",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
