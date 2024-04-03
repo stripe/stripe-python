@@ -180,7 +180,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
@@ -191,7 +191,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
@@ -211,7 +211,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = await requestor.request_raw_async(
@@ -222,7 +222,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
@@ -242,7 +242,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> StripeStreamResponse:
         stream, rcode, rheaders = self.request_raw(
             method.lower(),
@@ -252,7 +252,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = self._interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
@@ -272,7 +272,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> StripeStreamResponseAsync:
         stream, rcode, rheaders = await self.request_raw_async(
             method.lower(),
@@ -282,7 +282,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = await self._interpret_streaming_response_async(
             stream,
@@ -457,7 +457,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ):
         """
         Mechanism for issuing an API call
@@ -536,7 +536,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             # For logging
             encoded_params,
             request_options.get("stripe_version"),
@@ -552,7 +552,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> Tuple[object, int, Mapping[str, str]]:
         (
             method,
@@ -560,7 +560,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             encoded_params,
             api_version,
         ) = self._args_for_request_with_retries(
@@ -570,7 +570,7 @@ class _APIRequestor(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         log_info("Request to Stripe api", method=method, url=abs_url)
@@ -589,7 +589,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
         else:
             (
@@ -602,7 +602,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
 
         log_info("Stripe API response", path=abs_url, response_code=rcode)
@@ -627,14 +627,14 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
         """
         Mechanism for issuing an API call
         """
 
-        _usage = _usage or []
-        _usage = _usage + ["async"]
+        usage = usage or []
+        usage = usage + ["async"]
 
         (
             method,
@@ -642,7 +642,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             encoded_params,
             api_version,
         ) = self._args_for_request_with_retries(
@@ -652,7 +652,7 @@ class _APIRequestor(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         log_info("Request to Stripe api", method=method, url=abs_url)
@@ -673,7 +673,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
         else:
             (
@@ -686,7 +686,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
 
         log_info("Stripe API response", path=abs_url, response_code=rcode)

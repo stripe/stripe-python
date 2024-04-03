@@ -400,7 +400,7 @@ class StripeObject(Dict[str, Any]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
@@ -417,7 +417,7 @@ class StripeObject(Dict[str, Any]):
             options=request_options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
     async def _request_async(
@@ -425,7 +425,7 @@ class StripeObject(Dict[str, Any]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
@@ -442,7 +442,7 @@ class StripeObject(Dict[str, Any]):
             options=request_options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
     def _request_stream(

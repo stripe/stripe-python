@@ -36,7 +36,7 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
         )
 
     async def _request_async(
@@ -56,7 +56,7 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
         )
 
     def _request_stream(
@@ -76,7 +76,7 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
         )
 
     async def _request_stream_async(
@@ -96,5 +96,5 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
         )

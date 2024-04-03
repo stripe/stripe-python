@@ -122,7 +122,7 @@ class APIResource(StripeObject, Generic[T]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
@@ -134,7 +134,7 @@ class APIResource(StripeObject, Generic[T]):
             params=params,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         self._refresh_from(values=obj, api_mode=api_mode)
@@ -145,7 +145,7 @@ class APIResource(StripeObject, Generic[T]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress = "api",
         api_mode: ApiMode = "V1",
@@ -157,7 +157,7 @@ class APIResource(StripeObject, Generic[T]):
             params=params,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         self._refresh_from(values=obj, api_mode=api_mode)
