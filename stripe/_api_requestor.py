@@ -636,87 +636,30 @@ class _APIRequestor(object):
         _usage = _usage or []
         _usage = _usage + ["async"]
 
-        # TODO - we can DRY this up, but we should do it in master too to avoid a perpetual source
-        # of merge conflicts.
-        request_options = merge_options(self._options, options)
-
-        # Special stripe_version handling for preview requests:
-        if (
-            options
-            and "stripe_version" in options
-            and (options["stripe_version"] is not None)
-        ):
-            # If user specified an API version, honor it
-            request_options["stripe_version"] = options["stripe_version"]
-
-        if request_options.get("api_key") is None:
-            raise error.AuthenticationError(
-                "No API key provided. (HINT: set your API key using "
-                '"stripe.api_key = <API-KEY>"). You can generate API keys '
-                "from the Stripe web interface.  See https://stripe.com/api "
-                "for details, or email support@stripe.com if you have any "
-                "questions."
-            )
-
-        abs_url = "%s%s" % (
-            self._options.base_addresses.get(base_address),
+        (
+            method,
+            abs_url,
+            headers,
+            post_data,
+            max_network_retries,
+            _usage,
+            encoded_params,
+            api_version,
+        ) = self._args_for_request_with_retries(
+            method,
             url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            _usage=_usage,
         )
-
-        encoded_params = urlencode(list(_api_encode(params or {})))
-
-        # Don't use strict form encoding by changing the square bracket control
-        # characters back to their literals. This is fine by the server, and
-        # makes these parameter strings easier to read.
-        encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
-
-        encoded_body = encoded_params
-
-        supplied_headers = None
-        if (
-            "headers" in request_options
-            and request_options["headers"] is not None
-        ):
-            supplied_headers = dict(request_options["headers"])
-
-        headers = self.request_headers(method, request_options)
-
-        if method == "get" or method == "delete":
-            if params:
-                query = encoded_params
-                scheme, netloc, path, base_query, fragment = urlsplit(abs_url)
-
-                if base_query:
-                    query = "%s&%s" % (base_query, query)
-
-                abs_url = urlunsplit((scheme, netloc, path, query, fragment))
-            post_data = None
-        elif method == "post":
-            if api_mode == "V1FILES":
-                generator = MultipartDataGenerator()
-                generator.add_params(params or {})
-                post_data = generator.get_post_data()
-                headers[
-                    "Content-Type"
-                ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
-            else:
-                post_data = encoded_body
-        else:
-            raise error.APIConnectionError(
-                "Unrecognized HTTP method %r.  This may indicate a bug in the "
-                "Stripe bindings.  Please contact support@stripe.com for "
-                "assistance." % (method,)
-            )
-
-        if supplied_headers is not None:
-            for key, value in supplied_headers.items():
-                headers[key] = value
 
         log_info("Request to Stripe api", method=method, url=abs_url)
         log_debug(
             "Post details",
             post_data=encoded_params,
-            api_version=request_options.get("stripe_version"),
+            api_version=api_version,
         )
 
         if is_streaming:
@@ -729,7 +672,7 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
+                max_network_retries=max_network_retries,
                 _usage=_usage,
             )
         else:
@@ -742,7 +685,7 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
+                max_network_retries=max_network_retries,
                 _usage=_usage,
             )
 
