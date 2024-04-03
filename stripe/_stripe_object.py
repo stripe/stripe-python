@@ -21,7 +21,11 @@ from typing import (
 import stripe  # noqa: IMP101
 from stripe import _util
 
-from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import (
+    StripeResponse,
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._encode import _encode_datetime  # pyright: ignore
 from stripe._request_options import extract_options_from_dict
 from stripe._api_mode import ApiMode
@@ -391,12 +395,10 @@ class StripeObject(Dict[str, Any]):
             api_mode=api_mode,
         )
 
-    # The `method_` and `url_` arguments are suffixed with an underscore to
-    # avoid conflicting with actual request parameters in `params`.
     def _request(
         self,
-        method_: Literal["get", "post", "delete"],
-        url_: str,
+        method: Literal["get", "post", "delete"],
+        url: str,
         params: Optional[Mapping[str, Any]] = None,
         _usage: Optional[List[str]] = None,
         *,
@@ -409,8 +411,33 @@ class StripeObject(Dict[str, Any]):
         request_options, request_params = extract_options_from_dict(params)
 
         return self._requestor.request(
-            method_,
-            url_,
+            method,
+            url,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+            _usage=_usage,
+        )
+
+    async def _request_async(
+        self,
+        method: Literal["get", "post", "delete"],
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        _usage: Optional[List[str]] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+    ) -> "StripeObject":
+        if params is None:
+            params = self._retrieve_params
+
+        request_options, request_params = extract_options_from_dict(params)
+
+        return await self._requestor.request_async(
+            method,
+            url,
             params=request_params,
             options=request_options,
             base_address=base_address,
@@ -432,6 +459,28 @@ class StripeObject(Dict[str, Any]):
 
         request_options, request_params = extract_options_from_dict(params)
         return self._requestor.request_stream(
+            method,
+            url,
+            params=request_params,
+            options=request_options,
+            base_address=base_address,
+            api_mode=api_mode,
+        )
+
+    async def _request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        *,
+        base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
+    ) -> StripeStreamResponseAsync:
+        if params is None:
+            params = self._retrieve_params
+
+        request_options, request_params = extract_options_from_dict(params)
+        return await self._requestor.request_stream_async(
             method,
             url,
             params=request_params,

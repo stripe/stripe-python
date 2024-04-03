@@ -42,6 +42,36 @@ class TestSearchResultObject(object):
         assert isinstance(res.data[0], stripe.Charge)
         assert res.data[0].foo == "bar"
 
+    @pytest.mark.anyio
+    async def test_search_async(self, http_client_mock, search_result_object):
+        http_client_mock.stub_request(
+            "get",
+            path="/my/path",
+            query_string="myparam=you",
+            rbody=json.dumps(
+                {
+                    "object": "search_result",
+                    "data": [{"object": "charge", "foo": "bar"}],
+                }
+            ),
+        )
+
+        res = await search_result_object._search_async(
+            myparam="you", stripe_account="acct_123"
+        )
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/my/path",
+            query_string="myparam=you",
+            stripe_account="acct_123",
+        )
+        assert isinstance(res, stripe.SearchResultObject)
+        assert res.stripe_account == "acct_123"
+        assert isinstance(res.data, list)
+        assert isinstance(res.data[0], stripe.Charge)
+        assert res.data[0].foo == "bar"
+
     def test_is_empty(self):
         sro = stripe.SearchResultObject.construct_from({"data": []}, None)
         assert sro.is_empty is True
@@ -217,6 +247,60 @@ class TestAutoPaging:
         )
 
         seen = [item["id"] for item in sro.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="page=token&foo=bar",
+        )
+
+        assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
+
+
+class TestAutoPagingAsync:
+    @staticmethod
+    def pageable_model_response(ids, has_more, next_page_token):
+        model = {
+            "object": "search_result",
+            "url": "/v1/pageablemodels",
+            "data": [{"id": id, "object": "pageablemodel"} for id in ids],
+            "has_more": has_more,
+            "next_page": next_page_token,
+        }
+
+        return model
+
+    @pytest.mark.anyio
+    async def test_iter_one_page(self, http_client_mock):
+        sro = stripe.SearchResultObject.construct_from(
+            self.pageable_model_response(["pm_123", "pm_124"], False, None),
+            "mykey",
+        )
+
+        http_client_mock.assert_no_request()
+
+        seen = [item["id"] async for item in sro.auto_paging_iter()]
+
+        assert seen == ["pm_123", "pm_124"]
+
+    @pytest.mark.anyio
+    async def test_iter_two_pages(self, http_client_mock):
+        sro = stripe.SearchResultObject.construct_from(
+            self.pageable_model_response(["pm_123", "pm_124"], True, "token"),
+            "mykey",
+        )
+        sro._retrieve_params = {"foo": "bar"}
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="page=token&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_125", "pm_126"], False, None)
+            ),
+        )
+
+        seen = [item["id"] async for item in sro.auto_paging_iter()]
 
         http_client_mock.assert_requested(
             "get",

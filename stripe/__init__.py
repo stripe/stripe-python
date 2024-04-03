@@ -134,6 +134,7 @@ from stripe._stripe_response import StripeResponse as StripeResponse
 from stripe._stripe_response import StripeResponseBase as StripeResponseBase
 from stripe._stripe_response import (
     StripeStreamResponse as StripeStreamResponse,
+    StripeStreamResponseAsync as StripeStreamResponseAsync,
 )
 
 # Error types
@@ -157,6 +158,8 @@ from stripe._http_client import (
     PycurlClient as PycurlClient,
     RequestsClient as RequestsClient,
     UrlFetchClient as UrlFetchClient,
+    HTTPXClient as HTTPXClient,
+    AIOHTTPClient as AIOHTTPClient,
     new_default_http_client as new_default_http_client,
 )
 

@@ -1,9 +1,11 @@
 import platform
-import sys
 from threading import Thread, Lock
 import json
 import warnings
 import time
+
+import httpx
+import aiohttp
 
 import stripe
 import pytest
@@ -14,10 +16,7 @@ from typing import List, Dict, Tuple, Optional
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
-if sys.version_info[0] < 3:
-    from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-else:
-    from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
 class MyTestHandler(BaseHTTPRequestHandler):
@@ -54,9 +53,11 @@ class MyTestHandler(BaseHTTPRequestHandler):
         status = provided_status or self.default_status
         headers = provided_headers or self.default_headers
         body = provided_body or self.default_body
+        content_length = len(body)
         self.send_response(status)
         for header_name, header_value in headers.items():
             self.send_header(header_name, header_value)
+        self.send_header("Content-Length", str(content_length))
         self.end_headers()
         self.wfile.write(body)
         return
@@ -72,6 +73,8 @@ class MyTestHandler(BaseHTTPRequestHandler):
 
 
 class TestIntegration(object):
+    mock_server = None
+
     @pytest.fixture(autouse=True)
     def close_mock_server(self):
         yield
@@ -84,6 +87,7 @@ class TestIntegration(object):
     def setup_stripe(self):
         orig_attrs = {
             "api_base": stripe.api_base,
+            "upload_api_base": stripe.upload_api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
             "enable_telemetry": stripe.enable_telemetry,
@@ -91,6 +95,7 @@ class TestIntegration(object):
             "proxy": stripe.proxy,
         }
         stripe.api_base = "http://localhost:12111"  # stripe-mock
+        stripe.upload_api_base = "http://localhost:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
         stripe._default_proxy = None
@@ -99,6 +104,7 @@ class TestIntegration(object):
         stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
+        stripe.upload_api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
         stripe.default_http_client = orig_attrs["default_http_client"]
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
@@ -155,10 +161,8 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.default_http_client = (
-            stripe.http_client.new_default_http_client(
-                proxy="http://localhost:%s" % self.mock_server_port
-            )
+        stripe.default_http_client = stripe.new_default_http_client(
+            proxy="http://localhost:%s" % self.mock_server_port
         )
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
@@ -277,7 +281,7 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
         stripe.enable_telemetry = True
-        stripe.default_http_client = stripe.http_client.RequestsClient()
+        stripe.default_http_client = stripe.RequestsClient()
 
         def work():
             stripe.Balance.retrieve()
@@ -292,7 +296,8 @@ class TestIntegration(object):
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
 
-    def test_measures_stripe_client_telemetry(self):
+    @pytest.mark.anyio
+    async def test_measures_stripe_client_telemetry(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, req_num):
                 return [
@@ -313,8 +318,8 @@ class TestIntegration(object):
                 "api": "http://localhost:%s" % self.mock_server_port
             },
         )
-        client.customers.create()
-        client.customers.create()
+        await client.customers.create_async()
+        await client.customers.create_async()
 
         reqs = MockServerRequestHandler.get_requests(2)
 
@@ -325,4 +330,148 @@ class TestIntegration(object):
         assert "last_request_metrics" in telemetry
 
         usage = telemetry["last_request_metrics"]["usage"]
-        assert usage == ["stripe_client"]
+        assert usage == ["stripe_client", "async"]
+
+    @pytest.mark.anyio
+    @pytest.fixture(params=["aiohttp", "httpx"])
+    async def async_http_client(self, request, anyio_backend):
+        if request.param == "httpx":
+            return stripe.HTTPXClient()
+        elif request.param == "aiohttp":
+            if anyio_backend != "asyncio":
+                return pytest.skip("aiohttp only works with asyncio")
+            return stripe.AIOHTTPClient()
+        else:
+            raise ValueError(f"Unknown http client name: {request.param}")
+
+    @pytest.fixture
+    async def set_global_async_http_client(self, async_http_client):
+        stripe.default_http_client = async_http_client
+
+    async def test_async_success(self, set_global_async_http_client):
+        class MockServerRequestHandler(MyTestHandler):
+            default_body = '{"id": "cus_123", "object": "customer"}'.encode(
+                "utf-8"
+            )
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        cus = await stripe.Customer.create_async(
+            description="My test customer"
+        )
+
+        reqs = MockServerRequestHandler.get_requests(1)
+        req = reqs[0]
+
+        assert req.path == "/v1/customers"
+        assert req.command == "POST"
+        assert isinstance(cus, stripe.Customer)
+
+    async def test_async_timeout(self, set_global_async_http_client):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                time.sleep(0.02)
+                return super().do_request(n)
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
+        # so we set only the read timeout specifically.
+        hc = stripe.default_http_client
+
+        expected_message = ""
+        if isinstance(hc, stripe.HTTPXClient):
+            hc._timeout = httpx.Timeout(None, read=0.01)
+            expected_message = "A ReadTimeout was raised"
+        elif isinstance(hc, stripe.AIOHTTPClient):
+            hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)
+            expected_message = "A ServerTimeoutError was raised"
+        else:
+            raise ValueError(f"Unknown http client: {hc.name}")
+        stripe.max_network_retries = 0
+
+        exception = None
+        try:
+            await stripe.Customer.create_async(description="My test customer")
+        except stripe.APIConnectionError as e:
+            exception = e
+
+        assert exception is not None
+
+        assert expected_message in str(exception.user_message)
+
+    async def test_async_retries(self, set_global_async_http_client):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                if n == 0:
+                    return (
+                        500,
+                        {"Request-Id": "req_1"},
+                        b'{"error": {"message": "Internal server error"}}',
+                    )
+                return (200, None, None)
+
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        await stripe.Customer.create_async(description="My test customer")
+
+        reqs = MockServerRequestHandler.get_requests(2)
+        req = reqs[0]
+
+        assert req.path == "/v1/customers"
+
+    async def test_async_unretryable(self, set_global_async_http_client):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (
+                    401,
+                    {"Request-Id": "req_1"},
+                    b'{"error": {"message": "Unauthorized"}}',
+                )
+
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        exception = None
+        try:
+            await stripe.Customer.create_async(description="My test customer")
+        except stripe.AuthenticationError as e:
+            exception = e
+
+        MockServerRequestHandler.get_requests(1)
+        assert exception is not None
+        assert "Unauthorized" in str(exception.user_message)
+
+    async def test_async_httpx_stream(self, set_global_async_http_client):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (200, None, b"hello")
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+
+        result = await stripe.Quote.pdf_async("qt_123")
+        assert str(await result.read(), "utf-8") == "hello"
+
+    async def test_async_httpx_stream_error(
+        self, set_global_async_http_client
+    ):
+        class MockServerRequestHandler(MyTestHandler):
+            def do_request(self, n):
+                return (400, None, b'{"error": {"message": "bad request"}}')
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+
+        try:
+            await stripe.Quote.pdf_async("qt_123")
+        except stripe.InvalidRequestError as e:
+            assert "bad request" in str(e.user_message)
