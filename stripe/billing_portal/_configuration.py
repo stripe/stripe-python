@@ -114,6 +114,12 @@ class Configuration(
             """
             _inner_class_types = {"cancellation_reason": CancellationReason}
 
+        class SubscriptionPause(StripeObject):
+            enabled: bool
+            """
+            Whether the feature is enabled.
+            """
+
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
                 prices: List[str]
@@ -152,12 +158,14 @@ class Configuration(
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
         subscription_update: SubscriptionUpdate
+        subscription_pause: SubscriptionPause
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
             "subscription_update": SubscriptionUpdate,
+            "subscription_pause": SubscriptionPause,
         }
 
     class LoginPage(StripeObject):
