@@ -765,6 +765,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsLink"
         ]
@@ -926,6 +932,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -1979,6 +1988,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsLink"
         ]
@@ -2140,6 +2155,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -3172,6 +3190,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsLink"
         ]
@@ -3333,6 +3357,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class UpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
