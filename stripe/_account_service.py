@@ -88,6 +88,10 @@ class AccountService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        risk_controls: NotRequired["AccountService.CreateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
         settings: NotRequired["AccountService.CreateParamsSettings"]
         """
         Options for customizing how the account functions within Stripe.
@@ -1387,6 +1391,30 @@ class AccountService(StripeService):
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
+    class CreateParamsRiskControls(TypedDict):
+        charges: NotRequired["AccountService.CreateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["AccountService.CreateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class CreateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class CreateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
     class CreateParamsSettings(TypedDict):
         bacs_debit_payments: NotRequired[
             "AccountService.CreateParamsSettingsBacsDebitPayments"
@@ -1728,6 +1756,10 @@ class AccountService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        risk_controls: NotRequired["AccountService.UpdateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
         """
         settings: NotRequired["AccountService.UpdateParamsSettings"]
         """
@@ -2988,6 +3020,30 @@ class AccountService(StripeService):
         front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class UpdateParamsRiskControls(TypedDict):
+        charges: NotRequired["AccountService.UpdateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["AccountService.UpdateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class UpdateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class UpdateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
         """
 
     class UpdateParamsSettings(TypedDict):

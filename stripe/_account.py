@@ -900,6 +900,17 @@ class Account(
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class RiskControls(StripeObject):
+        class Charges(StripeObject):
+            pause_requested: bool
+
+        class Payouts(StripeObject):
+            pause_requested: bool
+
+        charges: Charges
+        payouts: Payouts
+        _inner_class_types = {"charges": Charges, "payouts": Payouts}
+
     class Settings(StripeObject):
         class BacsDebitPayments(StripeObject):
             display_name: Optional[str]
@@ -1256,6 +1267,10 @@ class Account(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        risk_controls: NotRequired["Account.CreateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
         """
         settings: NotRequired["Account.CreateParamsSettings"]
         """
@@ -2532,6 +2547,30 @@ class Account(
         front: NotRequired[str]
         """
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class CreateParamsRiskControls(TypedDict):
+        charges: NotRequired["Account.CreateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["Account.CreateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class CreateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class CreateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
         """
 
     class CreateParamsSettings(TypedDict):
@@ -3831,6 +3870,7 @@ class Account(
     Whether Stripe can send payouts to this account.
     """
     requirements: Optional[Requirements]
+    risk_controls: Optional[RiskControls]
     settings: Optional[Settings]
     """
     Options for customizing how the account functions within Stripe.
@@ -4918,6 +4958,7 @@ class Account(
         "controller": Controller,
         "future_requirements": FutureRequirements,
         "requirements": Requirements,
+        "risk_controls": RiskControls,
         "settings": Settings,
         "tos_acceptance": TosAcceptance,
     }
