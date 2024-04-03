@@ -104,7 +104,7 @@ class CustomerService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.CreateParamsShipping"
@@ -490,7 +490,7 @@ class CustomerService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.UpdateParamsShipping"

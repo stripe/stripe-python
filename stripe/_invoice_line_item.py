@@ -371,7 +371,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     If true, discounts will apply to this line item. Always false for prorations.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """

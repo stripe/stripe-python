@@ -2008,7 +2008,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -3089,7 +3089,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -4721,7 +4721,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -5870,7 +5870,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -6788,7 +6788,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -7895,7 +7895,7 @@ class Invoice(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -9188,7 +9188,7 @@ class Invoice(
     """
     Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """

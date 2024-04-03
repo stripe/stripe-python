@@ -197,7 +197,7 @@ class SubscriptionSchedule(
                 """
                 _inner_class_types = {"discount_end": DiscountEnd}
 
-            discounts: Optional[List[Discount]]
+            discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.
             """
@@ -350,7 +350,7 @@ class SubscriptionSchedule(
             """
             Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
             """
-            discounts: Optional[List[Discount]]
+            discounts: List[Discount]
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
             """
@@ -456,7 +456,7 @@ class SubscriptionSchedule(
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        discounts: Optional[List[Discount]]
+        discounts: List[Discount]
         """
         The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
         """
@@ -1367,7 +1367,7 @@ class SubscriptionSchedule(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -2159,7 +2159,7 @@ class SubscriptionSchedule(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
