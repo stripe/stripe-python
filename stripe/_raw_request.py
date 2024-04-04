@@ -34,7 +34,7 @@ def raw_request(method_, url_, **params):
         options=options,
         base_address=base_address,
         api_mode=api_mode,
-        _usage=["raw_request"],
+        usage=["raw_request"],
     )
 
     return requestor._interpret_response(rbody, rcode, rheaders)
@@ -55,7 +55,7 @@ async def raw_request_async(method_, url_, **params):
         options=options,
         base_address=base_address,
         api_mode=api_mode,
-        _usage=["raw_request"],
+        usage=["raw_request"],
     )
 
     return requestor._interpret_response(rbody, rcode, rheaders)

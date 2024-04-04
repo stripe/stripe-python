@@ -181,7 +181,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
@@ -192,7 +192,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
@@ -212,7 +212,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = await requestor.request_raw_async(
@@ -223,7 +223,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = requestor._interpret_response(rbody, rcode, rheaders)
 
@@ -243,7 +243,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> StripeStreamResponse:
         stream, rcode, rheaders = self.request_raw(
             method.lower(),
@@ -253,7 +253,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = self._interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
@@ -273,7 +273,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> StripeStreamResponseAsync:
         stream, rcode, rheaders = await self.request_raw_async(
             method.lower(),
@@ -283,7 +283,7 @@ class _APIRequestor(object):
             api_mode=api_mode,
             base_address=base_address,
             options=options,
-            _usage=_usage,
+            usage=usage,
         )
         resp = await self._interpret_streaming_response_async(
             stream,
@@ -463,7 +463,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ):
         """
         Mechanism for issuing an API call
@@ -558,7 +558,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             # For logging
             encoded_params,
             request_options.get("stripe_version"),
@@ -574,7 +574,7 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> Tuple[object, int, Mapping[str, str]]:
         (
             method,
@@ -582,7 +582,7 @@ class _APIRequestor(object):
             headers,
             post_data,
             max_network_retries,
-            _usage,
+            usage,
             encoded_params,
             api_version,
         ) = self._args_for_request_with_retries(
@@ -592,7 +592,7 @@ class _APIRequestor(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=_usage,
+            usage=usage,
         )
 
         log_info("Request to Stripe api", method=method, url=abs_url)
@@ -611,7 +611,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
         else:
             (
@@ -624,7 +624,7 @@ class _APIRequestor(object):
                 headers,
                 post_data,
                 max_network_retries=max_network_retries,
-                _usage=_usage,
+                _usage=usage,
             )
 
         log_info("Stripe API response", path=abs_url, response_code=rcode)
@@ -649,103 +649,39 @@ class _APIRequestor(object):
         *,
         base_address: BaseAddress,
         api_mode: ApiMode,
-        _usage: Optional[List[str]] = None,
+        usage: Optional[List[str]] = None,
     ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
         """
         Mechanism for issuing an API call
         """
 
-        _usage = _usage or []
-        _usage = _usage + ["async"]
+        usage = usage or []
+        usage = usage + ["async"]
 
-        # TODO - we can DRY this up, but we should do it in master too to avoid a perpetual source
-        # of merge conflicts.
-        request_options = merge_options(self._options, options)
-
-        # Special stripe_version handling for preview requests:
-        if (
-            options
-            and "stripe_version" in options
-            and (options["stripe_version"] is not None)
-        ):
-            # If user specified an API version, honor it
-            request_options["stripe_version"] = options["stripe_version"]
-        elif api_mode == "preview":
-            request_options["stripe_version"] = stripe.preview_api_version
-
-        if request_options.get("api_key") is None:
-            raise error.AuthenticationError(
-                "No API key provided. (HINT: set your API key using "
-                '"stripe.api_key = <API-KEY>"). You can generate API keys '
-                "from the Stripe web interface.  See https://stripe.com/api "
-                "for details, or email support@stripe.com if you have any "
-                "questions."
-            )
-
-        abs_url = "%s%s" % (
-            self._options.base_addresses.get(base_address),
+        (
+            method,
+            abs_url,
+            headers,
+            post_data,
+            max_network_retries,
+            usage,
+            encoded_params,
+            api_version,
+        ) = self._args_for_request_with_retries(
+            method,
             url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=usage,
         )
-
-        encoded_params = urlencode(list(_api_encode(params or {})))
-
-        # Don't use strict form encoding by changing the square bracket control
-        # characters back to their literals. This is fine by the server, and
-        # makes these parameter strings easier to read.
-        encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
-
-        if api_mode == "preview":
-            encoded_body = json.dumps(
-                params or {}, default=_json_encode_date_callback
-            )
-        else:
-            encoded_body = encoded_params
-
-        supplied_headers = None
-        if (
-            "headers" in request_options
-            and request_options["headers"] is not None
-        ):
-            supplied_headers = dict(request_options["headers"])
-
-        headers = self.request_headers(method, request_options, api_mode)
-
-        if method == "get" or method == "delete":
-            if params:
-                query = encoded_params
-                scheme, netloc, path, base_query, fragment = urlsplit(abs_url)
-
-                if base_query:
-                    query = "%s&%s" % (base_query, query)
-
-                abs_url = urlunsplit((scheme, netloc, path, query, fragment))
-            post_data = None
-        elif method == "post":
-            if api_mode == "V1FILES":
-                generator = MultipartDataGenerator()
-                generator.add_params(params or {})
-                post_data = generator.get_post_data()
-                headers[
-                    "Content-Type"
-                ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
-            else:
-                post_data = encoded_body
-        else:
-            raise error.APIConnectionError(
-                "Unrecognized HTTP method %r.  This may indicate a bug in the "
-                "Stripe bindings.  Please contact support@stripe.com for "
-                "assistance." % (method,)
-            )
-
-        if supplied_headers is not None:
-            for key, value in supplied_headers.items():
-                headers[key] = value
 
         log_info("Request to Stripe api", method=method, url=abs_url)
         log_debug(
             "Post details",
             post_data=encoded_params,
-            api_version=request_options.get("stripe_version"),
+            api_version=api_version,
         )
 
         if is_streaming:
@@ -758,8 +694,8 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
-                _usage=_usage,
+                max_network_retries=max_network_retries,
+                _usage=usage,
             )
         else:
             (
@@ -771,8 +707,8 @@ class _APIRequestor(object):
                 abs_url,
                 headers,
                 post_data,
-                max_network_retries=request_options.get("max_network_retries"),
-                _usage=_usage,
+                max_network_retries=max_network_retries,
+                _usage=usage,
             )
 
         log_info("Stripe API response", path=abs_url, response_code=rcode)

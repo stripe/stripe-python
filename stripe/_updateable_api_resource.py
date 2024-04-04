@@ -24,7 +24,7 @@ class UpdateableAPIResource(APIResource[T]):
                 "post",
                 self.instance_url(),
                 params=updated_params,
-                _usage=["save"],
+                usage=["save"],
             )
         else:
             _util.logger.debug("Trying to save already saved object %r", self)

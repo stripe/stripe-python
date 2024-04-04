@@ -18300,6 +18300,38 @@ class TestGeneratedExamples(object):
             api_base="https://files.stripe.com",
         )
 
+    @pytest.mark.anyio
+    async def test_quotes_pdf_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.Quote.pdf_async("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_quotes_pdf_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.quotes.pdf_async("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
+        )
+
     def test_quotes_post(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Quote.create(
             customer="cus_xxxxxxxxxxxxx",
