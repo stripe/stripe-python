@@ -219,7 +219,7 @@ class SubscriptionScheduleService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -236,6 +236,12 @@ class SubscriptionScheduleService(StripeService):
         description: NotRequired["Literal['']|str"]
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionScheduleService.CreateParamsPhaseDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
         end_date: NotRequired[int]
         """
@@ -285,6 +291,14 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsPhaseAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionScheduleService.CreateParamsPhaseAddInvoiceItemDiscount"
+            ]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -302,6 +316,20 @@ class SubscriptionScheduleService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -360,6 +388,20 @@ class SubscriptionScheduleService(StripeService):
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class CreateParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class CreateParamsPhaseInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -393,6 +435,12 @@ class SubscriptionScheduleService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionScheduleService.CreateParamsPhaseItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -424,6 +472,20 @@ class SubscriptionScheduleService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsPhaseItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPhaseItemPriceData(TypedDict):
@@ -801,7 +863,7 @@ class SubscriptionScheduleService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -818,6 +880,12 @@ class SubscriptionScheduleService(StripeService):
         description: NotRequired["Literal['']|str"]
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionScheduleService.UpdateParamsPhaseDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
         end_date: NotRequired["int|Literal['now']"]
         """
@@ -871,6 +939,14 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class UpdateParamsPhaseAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionScheduleService.UpdateParamsPhaseAddInvoiceItemDiscount"
+            ]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -888,6 +964,20 @@ class SubscriptionScheduleService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class UpdateParamsPhaseAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -946,6 +1036,20 @@ class SubscriptionScheduleService(StripeService):
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class UpdateParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class UpdateParamsPhaseInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -979,6 +1083,12 @@ class SubscriptionScheduleService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionScheduleService.UpdateParamsPhaseItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -1010,6 +1120,20 @@ class SubscriptionScheduleService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class UpdateParamsPhaseItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPhaseItemPriceData(TypedDict):

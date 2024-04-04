@@ -548,6 +548,10 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class CreateParamsFromQuote(TypedDict):
         is_revision: NotRequired[bool]
@@ -580,6 +584,12 @@ class Quote(
         """
 
     class CreateParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.CreateParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -595,6 +605,20 @@ class Quote(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
+        """
+
+    class CreateParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsLineItemPriceData(TypedDict):
@@ -852,6 +876,10 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class ModifyParamsInvoiceSettings(TypedDict):
         days_until_due: NotRequired[int]
@@ -874,6 +902,12 @@ class Quote(
         """
 
     class ModifyParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
         id: NotRequired[str]
         """
         The ID of an existing line item on the quote.
@@ -893,6 +927,20 @@ class Quote(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
+        """
+
+    class ModifyParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsLineItemPriceData(TypedDict):

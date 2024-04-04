@@ -79,7 +79,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[InvoiceService.CreateParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
+        The coupons and promotion codes to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
         """
         due_date: NotRequired[int]
         """
@@ -187,11 +187,11 @@ class InvoiceService(StripeService):
     class CreateParamsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -202,6 +202,10 @@ class InvoiceService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsFromInvoice(TypedDict):
@@ -802,7 +806,7 @@ class InvoiceService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -822,7 +826,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[InvoiceService.UpcomingParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -1266,6 +1270,12 @@ class InvoiceService(StripeService):
         """
         A flag that, if set to `true`, will delete the specified item.
         """
+        discounts: NotRequired[
+            "Literal['']|List[InvoiceService.UpcomingParamsSubscriptionItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         id: NotRequired[str]
         """
         Subscription item to update.
@@ -1301,6 +1311,20 @@ class InvoiceService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class UpcomingParamsSubscriptionItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpcomingParamsSubscriptionItemPriceData(TypedDict):
@@ -1492,11 +1516,11 @@ class InvoiceService(StripeService):
     class UpdateParamsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class UpdateParamsDiscount(TypedDict):
@@ -1507,6 +1531,10 @@ class InvoiceService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsIssuer(TypedDict):
@@ -2208,7 +2236,7 @@ class InvoiceService(StripeService):
 
         Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource.
+        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date value passed in the request.
         """
         return cast(
             Invoice,
@@ -2232,7 +2260,7 @@ class InvoiceService(StripeService):
 
         Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource.
+        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date value passed in the request.
         """
         return cast(
             Invoice,
