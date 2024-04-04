@@ -251,6 +251,12 @@ class Configuration(
         """
         Information about updating subscriptions in the portal.
         """
+        subscription_pause: NotRequired[
+            "Configuration.CreateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
+        """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -320,6 +326,12 @@ class Configuration(
         ]
         """
         Which cancellation reasons will be given as options to the customer.
+        """
+
+    class CreateParamsFeaturesSubscriptionPause(TypedDict):
+        enabled: bool
+        """
+        Whether the feature is enabled.
         """
 
     class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
@@ -468,6 +480,12 @@ class Configuration(
         """
         Information about updating subscriptions in the portal.
         """
+        subscription_pause: NotRequired[
+            "Configuration.ModifyParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
+        """
 
     class ModifyParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -525,6 +543,12 @@ class Configuration(
         ]
         """
         Which cancellation reasons will be given as options to the customer.
+        """
+
+    class ModifyParamsFeaturesSubscriptionPause(TypedDict):
+        enabled: bool
+        """
+        Whether the feature is enabled.
         """
 
     class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
