@@ -1189,7 +1189,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """

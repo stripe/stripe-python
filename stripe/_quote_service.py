@@ -195,6 +195,10 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class CreateParamsDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -382,6 +386,10 @@ class QuoteService(StripeService):
         index: NotRequired[int]
         """
         The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The promotion code to redeem.
         """
 
     class CreateParamsLineActionAddDiscountDiscountEnd(TypedDict):
@@ -689,6 +697,10 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class CreateParamsLineItemDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -978,6 +990,10 @@ class QuoteService(StripeService):
         ]
         """
         Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPhaseLineItemDiscountDiscountEnd(TypedDict):
@@ -1631,6 +1647,10 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpdateParamsDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -1812,6 +1832,10 @@ class QuoteService(StripeService):
         index: NotRequired[int]
         """
         The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The promotion code to redeem.
         """
 
     class UpdateParamsLineActionAddDiscountDiscountEnd(TypedDict):
@@ -2123,6 +2147,10 @@ class QuoteService(StripeService):
         """
         Details to determine how long the discount should be applied for.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpdateParamsLineItemDiscountDiscountEnd(TypedDict):
         duration: NotRequired[
@@ -2416,6 +2444,10 @@ class QuoteService(StripeService):
         ]
         """
         Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPhaseLineItemDiscountDiscountEnd(TypedDict):

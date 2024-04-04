@@ -75,17 +75,17 @@ class ConfigurationService(StripeService):
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "ConfigurationService.CreateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "ConfigurationService.CreateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
@@ -159,7 +159,7 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -310,17 +310,17 @@ class ConfigurationService(StripeService):
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.UpdateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "ConfigurationService.UpdateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "ConfigurationService.UpdateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class UpdateParamsFeaturesCustomerUpdate(TypedDict):
@@ -382,7 +382,7 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """

@@ -54,9 +54,13 @@ class VerificationSession(
                 "document_expired",
                 "document_type_not_supported",
                 "document_unverified_other",
+                "email_unverified_other",
+                "email_verification_declined",
                 "id_number_insufficient_document_data",
                 "id_number_mismatch",
                 "id_number_unverified_other",
+                "phone_unverified_other",
+                "phone_verification_declined",
                 "selfie_document_missing_photo",
                 "selfie_face_mismatch",
                 "selfie_manipulated",
@@ -93,12 +97,41 @@ class VerificationSession(
             Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
             """
 
+        class Email(StripeObject):
+            require_verification: Optional[bool]
+            """
+            Request one time password verification of `provided_details.email`.
+            """
+
         class IdNumber(StripeObject):
             pass
 
+        class Phone(StripeObject):
+            require_verification: Optional[bool]
+            """
+            Request one time password verification of `provided_details.phone`.
+            """
+
         document: Optional[Document]
+        email: Optional[Email]
         id_number: Optional[IdNumber]
-        _inner_class_types = {"document": Document, "id_number": IdNumber}
+        phone: Optional[Phone]
+        _inner_class_types = {
+            "document": Document,
+            "email": Email,
+            "id_number": IdNumber,
+            "phone": Phone,
+        }
+
+    class ProvidedDetails(StripeObject):
+        email: Optional[str]
+        """
+        Email of user being verified
+        """
+        phone: Optional[str]
+        """
+        Phone number of user being verified
+        """
 
     class Redaction(StripeObject):
         status: Literal["processing", "redacted"]
@@ -155,6 +188,10 @@ class VerificationSession(
         """
         The user's verified date of birth.
         """
+        email: Optional[str]
+        """
+        The user's verified email address
+        """
         first_name: Optional[str]
         """
         The user's verified first name.
@@ -170,6 +207,10 @@ class VerificationSession(
         last_name: Optional[str]
         """
         The user's verified last name.
+        """
+        phone: Optional[str]
+        """
+        The user's verified phone number
         """
         _inner_class_types = {"address": Address, "dob": Dob}
 
@@ -196,13 +237,23 @@ class VerificationSession(
         """
         A set of options for the session's verification checks.
         """
+        provided_details: NotRequired[
+            "VerificationSession.CreateParamsProvidedDetails"
+        ]
+        """
+        Details provided about the user being verified. These details may be shown to the user.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
         """
-        type: Literal["document", "id_number"]
+        type: NotRequired[Literal["document", "id_number"]]
         """
         The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+        """
+        verification_flow: NotRequired[str]
+        """
+        The ID of a Verification Flow from the Dashboard.
         """
 
     class CreateParamsOptions(TypedDict):
@@ -211,6 +262,18 @@ class VerificationSession(
         ]
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
+        email: NotRequired[
+            "Literal['']|VerificationSession.CreateParamsOptionsEmail"
+        ]
+        """
+        Options that apply to the email check.
+        """
+        phone: NotRequired[
+            "Literal['']|VerificationSession.CreateParamsOptionsPhone"
+        ]
+        """
+        Options that apply to the phone check.
         """
 
     class CreateParamsOptionsDocument(TypedDict):
@@ -231,6 +294,28 @@ class VerificationSession(
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
+
+    class CreateParamsOptionsEmail(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.email`.
+        """
+
+    class CreateParamsOptionsPhone(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.phone`.
+        """
+
+    class CreateParamsProvidedDetails(TypedDict):
+        email: NotRequired[str]
+        """
+        Email of user being verified
+        """
+        phone: NotRequired[str]
+        """
+        Phone number of user being verified
         """
 
     class ListParams(RequestOptions):
@@ -296,6 +381,12 @@ class VerificationSession(
         """
         A set of options for the session's verification checks.
         """
+        provided_details: NotRequired[
+            "VerificationSession.ModifyParamsProvidedDetails"
+        ]
+        """
+        Details provided about the user being verified. These details may be shown to the user.
+        """
         type: NotRequired[Literal["document", "id_number"]]
         """
         The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
@@ -307,6 +398,18 @@ class VerificationSession(
         ]
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
+        email: NotRequired[
+            "Literal['']|VerificationSession.ModifyParamsOptionsEmail"
+        ]
+        """
+        Options that apply to the email check.
+        """
+        phone: NotRequired[
+            "Literal['']|VerificationSession.ModifyParamsOptionsPhone"
+        ]
+        """
+        Options that apply to the phone check.
         """
 
     class ModifyParamsOptionsDocument(TypedDict):
@@ -327,6 +430,28 @@ class VerificationSession(
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
+
+    class ModifyParamsOptionsEmail(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.email`.
+        """
+
+    class ModifyParamsOptionsPhone(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.phone`.
+        """
+
+    class ModifyParamsProvidedDetails(TypedDict):
+        email: NotRequired[str]
+        """
+        Email of user being verified
+        """
+        phone: NotRequired[str]
+        """
+        Phone number of user being verified
         """
 
     class RedactParams(RequestOptions):
@@ -381,6 +506,10 @@ class VerificationSession(
     """
     A set of options for the session's verification checks.
     """
+    provided_details: Optional[ProvidedDetails]
+    """
+    Details provided about the user being verified. These details may be shown to the user.
+    """
     redaction: Optional[Redaction]
     """
     Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
@@ -389,13 +518,17 @@ class VerificationSession(
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
     """
-    type: Literal["document", "id_number"]
+    type: Literal["document", "id_number", "verification_flow"]
     """
     The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
     """
     url: Optional[str]
     """
     The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don't store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
+    """
+    verification_flow: Optional[str]
+    """
+    The configuration token of a Verification Flow from the dashboard.
     """
     verified_outputs: Optional[VerifiedOutputs]
     """
@@ -939,6 +1072,7 @@ class VerificationSession(
     _inner_class_types = {
         "last_error": LastError,
         "options": Options,
+        "provided_details": ProvidedDetails,
         "redaction": Redaction,
         "verified_outputs": VerifiedOutputs,
     }

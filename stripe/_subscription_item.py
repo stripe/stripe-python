@@ -487,7 +487,7 @@ class SubscriptionItem(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     """

@@ -456,6 +456,10 @@ class CardService(StripeService):
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         """
+        allowed_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
+        """
         blocked_categories: NotRequired[
             List[
                 Literal[
@@ -759,6 +763,10 @@ class CardService(StripeService):
         ]
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        """
+        blocked_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
         """
         spending_limits: NotRequired[
             List["CardService.CreateParamsSpendingControlsSpendingLimit"]
@@ -1579,6 +1587,10 @@ class CardService(StripeService):
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         """
+        allowed_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
+        """
         blocked_categories: NotRequired[
             List[
                 Literal[
@@ -1882,6 +1894,10 @@ class CardService(StripeService):
         ]
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        """
+        blocked_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
         """
         spending_limits: NotRequired[
             List["CardService.UpdateParamsSpendingControlsSpendingLimit"]
