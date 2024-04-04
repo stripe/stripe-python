@@ -35,7 +35,7 @@ class InvoiceItemService(StripeService):
             "Literal['']|List[InvoiceItemService.CreateParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice item or invoice line item.
+        The coupons and promotion codes to redeem into discounts for the invoice item or invoice line item.
         """
         expand: NotRequired[List[str]]
         """
@@ -100,6 +100,10 @@ class InvoiceItemService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPeriod(TypedDict):
@@ -214,7 +218,7 @@ class InvoiceItemService(StripeService):
             "Literal['']|List[InvoiceItemService.UpdateParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -271,6 +275,10 @@ class InvoiceItemService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPeriod(TypedDict):

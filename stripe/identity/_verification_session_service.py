@@ -33,13 +33,23 @@ class VerificationSessionService(StripeService):
         """
         A set of options for the session's verification checks.
         """
+        provided_details: NotRequired[
+            "VerificationSessionService.CreateParamsProvidedDetails"
+        ]
+        """
+        Details provided about the user being verified. These details may be shown to the user.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
         """
-        type: Literal["document", "id_number"]
+        type: NotRequired[Literal["document", "id_number"]]
         """
         The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+        """
+        verification_flow: NotRequired[str]
+        """
+        The ID of a Verification Flow from the Dashboard.
         """
 
     class CreateParamsOptions(TypedDict):
@@ -48,6 +58,18 @@ class VerificationSessionService(StripeService):
         ]
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
+        email: NotRequired[
+            "Literal['']|VerificationSessionService.CreateParamsOptionsEmail"
+        ]
+        """
+        Options that apply to the email check.
+        """
+        phone: NotRequired[
+            "Literal['']|VerificationSessionService.CreateParamsOptionsPhone"
+        ]
+        """
+        Options that apply to the phone check.
         """
 
     class CreateParamsOptionsDocument(TypedDict):
@@ -68,6 +90,28 @@ class VerificationSessionService(StripeService):
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
+
+    class CreateParamsOptionsEmail(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.email`.
+        """
+
+    class CreateParamsOptionsPhone(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.phone`.
+        """
+
+    class CreateParamsProvidedDetails(TypedDict):
+        email: NotRequired[str]
+        """
+        Email of user being verified
+        """
+        phone: NotRequired[str]
+        """
+        Phone number of user being verified
         """
 
     class ListParams(TypedDict):
@@ -147,6 +191,12 @@ class VerificationSessionService(StripeService):
         """
         A set of options for the session's verification checks.
         """
+        provided_details: NotRequired[
+            "VerificationSessionService.UpdateParamsProvidedDetails"
+        ]
+        """
+        Details provided about the user being verified. These details may be shown to the user.
+        """
         type: NotRequired[Literal["document", "id_number"]]
         """
         The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
@@ -158,6 +208,18 @@ class VerificationSessionService(StripeService):
         ]
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
+        email: NotRequired[
+            "Literal['']|VerificationSessionService.UpdateParamsOptionsEmail"
+        ]
+        """
+        Options that apply to the email check.
+        """
+        phone: NotRequired[
+            "Literal['']|VerificationSessionService.UpdateParamsOptionsPhone"
+        ]
+        """
+        Options that apply to the phone check.
         """
 
     class UpdateParamsOptionsDocument(TypedDict):
@@ -178,6 +240,28 @@ class VerificationSessionService(StripeService):
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
+
+    class UpdateParamsOptionsEmail(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.email`.
+        """
+
+    class UpdateParamsOptionsPhone(TypedDict):
+        require_verification: NotRequired[bool]
+        """
+        Request one time password verification of `provided_details.phone`.
+        """
+
+    class UpdateParamsProvidedDetails(TypedDict):
+        email: NotRequired[str]
+        """
+        Email of user being verified
+        """
+        phone: NotRequired[str]
+        """
+        Phone number of user being verified
         """
 
     def list(
@@ -222,7 +306,7 @@ class VerificationSessionService(StripeService):
 
     def create(
         self,
-        params: "VerificationSessionService.CreateParams",
+        params: "VerificationSessionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> VerificationSession:
         """
@@ -248,7 +332,7 @@ class VerificationSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "VerificationSessionService.CreateParams",
+        params: "VerificationSessionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> VerificationSession:
         """

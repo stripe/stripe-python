@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
+from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
@@ -19,6 +20,7 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe._discount import Discount
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._tax_rate import TaxRate
@@ -53,6 +55,12 @@ class SubscriptionItem(
         ]
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionItem.CreateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
         """
         expand: NotRequired[List[str]]
         """
@@ -118,6 +126,20 @@ class SubscriptionItem(
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPriceData(TypedDict):
@@ -239,6 +261,12 @@ class SubscriptionItem(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionItem.ModifyParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -305,6 +333,20 @@ class SubscriptionItem(
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class ModifyParamsPriceData(TypedDict):
         currency: str
         """
@@ -356,6 +398,10 @@ class SubscriptionItem(
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
+    discounts: List[ExpandableField["Discount"]]
+    """
+    The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     """
     id: str
     """

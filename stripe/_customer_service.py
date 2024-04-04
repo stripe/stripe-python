@@ -104,7 +104,7 @@ class CustomerService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.CreateParamsShipping"
@@ -203,11 +203,11 @@ class CustomerService(StripeService):
     class CreateParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
@@ -490,7 +490,7 @@ class CustomerService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.UpdateParamsShipping"
@@ -579,11 +579,11 @@ class CustomerService(StripeService):
     class UpdateParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class UpdateParamsInvoiceSettingsRenderingOptions(TypedDict):

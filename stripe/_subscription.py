@@ -503,7 +503,7 @@ class Subscription(
         """
         coupon: NotRequired[str]
         """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -532,6 +532,12 @@ class Subscription(
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Subscription.CreateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -594,7 +600,7 @@ class Subscription(
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -624,6 +630,12 @@ class Subscription(
         """
 
     class CreateParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List["Subscription.CreateParamsAddInvoiceItemDiscount"]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -641,6 +653,20 @@ class Subscription(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class CreateParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
@@ -721,6 +747,20 @@ class Subscription(
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class CreateParamsInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -747,6 +787,12 @@ class Subscription(
         ]
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Subscription.CreateParamsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -777,6 +823,20 @@ class Subscription(
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsItemPriceData(TypedDict):
@@ -1246,7 +1306,7 @@ class Subscription(
         """
         coupon: NotRequired[str]
         """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         days_until_due: NotRequired[int]
         """
@@ -1267,6 +1327,12 @@ class Subscription(
         description: NotRequired["Literal['']|str"]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Subscription.ModifyParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -1363,6 +1429,12 @@ class Subscription(
         """
 
     class ModifyParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List["Subscription.ModifyParamsAddInvoiceItemDiscount"]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -1380,6 +1452,20 @@ class Subscription(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class ModifyParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsAddInvoiceItemPriceData(TypedDict):
@@ -1450,6 +1536,20 @@ class Subscription(
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
 
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class ModifyParamsInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -1485,6 +1585,12 @@ class Subscription(
         """
         A flag that, if set to `true`, will delete the specified item.
         """
+        discounts: NotRequired[
+            "Literal['']|List[Subscription.ModifyParamsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         id: NotRequired[str]
         """
         Subscription item to update.
@@ -1518,6 +1624,20 @@ class Subscription(
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class ModifyParamsItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsItemPriceData(TypedDict):
@@ -1947,7 +2067,11 @@ class Subscription(
     """
     discount: Optional["Discount"]
     """
-    Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis.
+    Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+    """
+    discounts: List[ExpandableField["Discount"]]
+    """
+    The discounts applied to the subscription. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     """
     ended_at: Optional[int]
     """

@@ -2039,11 +2039,11 @@ class Session(
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
@@ -2918,7 +2918,7 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
-        reference: NotRequired["Literal['']|str"]
+        reference: NotRequired[str]
         """
         The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
         """

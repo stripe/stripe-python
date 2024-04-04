@@ -47,6 +47,7 @@ class ReaderService(StripeService):
                 "bbpos_chipper2x",
                 "bbpos_wisepad3",
                 "bbpos_wisepos_e",
+                "mobile_phone_reader",
                 "simulated_wisepos_e",
                 "stripe_m2",
                 "verifone_P400",

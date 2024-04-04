@@ -527,6 +527,9 @@ class SetupIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class CardPresent(StripeObject):
+            pass
+
         class Link(StripeObject):
             persistent_token: Optional[str]
             """
@@ -591,6 +594,7 @@ class SetupIntent(
 
         acss_debit: Optional[AcssDebit]
         card: Optional[Card]
+        card_present: Optional[CardPresent]
         link: Optional[Link]
         paypal: Optional[Paypal]
         sepa_debit: Optional[SepaDebit]
@@ -598,6 +602,7 @@ class SetupIntent(
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "card": Card,
+            "card_present": CardPresent,
             "link": Link,
             "paypal": Paypal,
             "sepa_debit": SepaDebit,
@@ -1280,6 +1285,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -1433,6 +1444,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -2326,6 +2340,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -2479,6 +2499,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -3341,6 +3364,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -3494,6 +3523,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[

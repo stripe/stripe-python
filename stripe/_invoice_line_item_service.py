@@ -45,7 +45,7 @@ class InvoiceLineItemService(StripeService):
             "Literal['']|List[InvoiceLineItemService.UpdateParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -90,6 +90,10 @@ class InvoiceLineItemService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPeriod(TypedDict):

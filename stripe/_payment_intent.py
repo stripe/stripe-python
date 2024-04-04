@@ -777,28 +777,28 @@ class PaymentIntent(
 
         class SwishHandleRedirectOrDisplayQrCode(StripeObject):
             class QrCode(StripeObject):
-                data: Optional[str]
+                data: str
                 """
                 The raw data string used to generate QR code, it should be used together with QR code library.
                 """
-                image_url_png: Optional[str]
+                image_url_png: str
                 """
                 The image_url_png string used to render QR code
                 """
-                image_url_svg: Optional[str]
+                image_url_svg: str
                 """
                 The image_url_svg string used to render QR code
                 """
 
-            hosted_instructions_url: Optional[str]
+            hosted_instructions_url: str
             """
             The URL to the hosted Swish instructions page, which allows customers to view the QR code.
             """
-            mobile_auth_url: Optional[str]
+            mobile_auth_url: str
             """
             The url for mobile redirect based auth (for internal use only and not typically available in standard API requests).
             """
-            qr_code: Optional[QrCode]
+            qr_code: QrCode
             _inner_class_types = {"qr_code": QrCode}
 
         class VerifyWithMicrodeposits(StripeObject):

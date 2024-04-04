@@ -157,15 +157,15 @@ class Configuration(
         invoice_history: InvoiceHistory
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
-        subscription_pause: SubscriptionPause
         subscription_update: SubscriptionUpdate
+        subscription_pause: SubscriptionPause
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
-            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
+            "subscription_pause": SubscriptionPause,
         }
 
     class LoginPage(StripeObject):
@@ -245,17 +245,17 @@ class Configuration(
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "Configuration.CreateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "Configuration.CreateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
@@ -329,7 +329,7 @@ class Configuration(
         """
 
     class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -474,17 +474,17 @@ class Configuration(
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.ModifyParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "Configuration.ModifyParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "Configuration.ModifyParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class ModifyParamsFeaturesCustomerUpdate(TypedDict):
@@ -546,7 +546,7 @@ class Configuration(
         """
 
     class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
