@@ -18,7 +18,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -38,7 +38,7 @@ class InvoiceUpcomingLinesService(StripeService):
             "Literal['']|List[InvoiceUpcomingLinesService.ListParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         ending_before: NotRequired[str]
         """
@@ -1149,7 +1149,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """

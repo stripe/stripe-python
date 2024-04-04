@@ -3,6 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.entitlements._feature import Feature
 from typing import Dict, List, cast
 from typing_extensions import NotRequired, TypedDict
@@ -43,6 +44,24 @@ class FeatureService(StripeService):
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class UpdateParams(TypedDict):
+        active: NotRequired[bool]
+        """
+        Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        name: NotRequired[str]
+        """
+        The feature's name, for your own purpose, not meant to be displayable to the customer.
         """
 
     def list(
@@ -118,6 +137,48 @@ class FeatureService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/entitlements/features",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: "FeatureService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Feature:
+        """
+        Update a feature's metadata or permanently deactivate it.
+        """
+        return cast(
+            Feature,
+            self._request(
+                "post",
+                "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "FeatureService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Feature:
+        """
+        Update a feature's metadata or permanently deactivate it.
+        """
+        return cast(
+            Feature,
+            await self._request_async(
+                "post",
+                "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

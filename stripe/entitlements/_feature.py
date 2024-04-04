@@ -4,12 +4,16 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
 
 
 class Feature(
-    CreateableAPIResource["Feature"], ListableAPIResource["Feature"]
+    CreateableAPIResource["Feature"],
+    ListableAPIResource["Feature"],
+    UpdateableAPIResource["Feature"],
 ):
     """
     A feature represents a monetizable ability or functionality in your system.
@@ -54,6 +58,24 @@ class Feature(
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired[bool]
+        """
+        Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        name: NotRequired[str]
+        """
+        The feature's name, for your own purpose, not meant to be displayable to the customer.
         """
 
     active: bool
@@ -156,3 +178,37 @@ class Feature(
             )
 
         return result
+
+    @classmethod
+    def modify(
+        cls, id: str, **params: Unpack["Feature.ModifyParams"]
+    ) -> "Feature":
+        """
+        Update a feature's metadata or permanently deactivate it.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Feature",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Feature.ModifyParams"]
+    ) -> "Feature":
+        """
+        Update a feature's metadata or permanently deactivate it.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Feature",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )

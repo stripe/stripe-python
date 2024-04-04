@@ -807,6 +807,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Zip(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class IdBankTransfer(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1083,6 +1105,10 @@ class PaymentMethodConfiguration(
         ]
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+        """
+        zip: NotRequired["PaymentMethodConfiguration.CreateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
         """
 
     class CreateParamsAcssDebit(TypedDict):
@@ -1589,6 +1615,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ListParams(RequestOptions):
         application: NotRequired["Literal['']|str"]
         """
@@ -1787,6 +1827,10 @@ class PaymentMethodConfiguration(
         ]
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+        """
+        zip: NotRequired["PaymentMethodConfiguration.ModifyParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
         """
 
     class ModifyParamsAcssDebit(TypedDict):
@@ -2293,6 +2337,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -2366,6 +2424,7 @@ class PaymentMethodConfiguration(
     sofort: Optional[Sofort]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
+    zip: Optional[Zip]
     id_bank_transfer: Optional[IdBankTransfer]
     netbanking: Optional[Netbanking]
     pay_by_bank: Optional[PayByBank]
@@ -2545,6 +2604,7 @@ class PaymentMethodConfiguration(
         "sofort": Sofort,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
+        "zip": Zip,
         "id_bank_transfer": IdBankTransfer,
         "netbanking": Netbanking,
         "pay_by_bank": PayByBank,

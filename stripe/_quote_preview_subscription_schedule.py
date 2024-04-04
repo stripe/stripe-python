@@ -189,7 +189,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 _inner_class_types = {"discount_end": DiscountEnd}
 
-            discounts: Optional[List[Discount]]
+            discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.
             """
@@ -342,7 +342,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
             """
-            discounts: Optional[List[Discount]]
+            discounts: List[Discount]
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
             """
@@ -448,7 +448,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        discounts: Optional[List[Discount]]
+        discounts: List[Discount]
         """
         The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
         """

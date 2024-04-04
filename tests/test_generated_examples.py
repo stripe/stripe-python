@@ -23369,6 +23369,38 @@ class TestGeneratedExamples(object):
             api_base="https://files.stripe.com",
         )
 
+    @pytest.mark.anyio
+    async def test_tax_forms_pdf_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.tax.Form.pdf_async("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_tax_forms_pdf_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.tax.forms.pdf_async("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
+        )
+
     def test_tax_ids_delete(self, http_client_mock: HTTPClientMock) -> None:
         stripe.TaxId.delete("taxid_123")
         http_client_mock.assert_requested(

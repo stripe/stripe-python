@@ -345,7 +345,7 @@ class Customer(
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired["Literal['']|Customer.CreateParamsShipping"]
         """
@@ -438,11 +438,11 @@ class Customer(
     class CreateParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
@@ -993,7 +993,7 @@ class Customer(
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
+        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired["Literal['']|Customer.ModifyParamsShipping"]
         """
@@ -1078,11 +1078,11 @@ class Customer(
     class ModifyParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):

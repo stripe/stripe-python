@@ -1104,11 +1104,11 @@ class PaymentLink(
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
@@ -1914,11 +1914,11 @@ class PaymentLink(
     class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class ModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
