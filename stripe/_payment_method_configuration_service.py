@@ -223,6 +223,10 @@ class PaymentMethodConfigurationService(StripeService):
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
         """
+        zip: NotRequired["PaymentMethodConfigurationService.CreateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
+        """
 
     class CreateParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
@@ -728,6 +732,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ListParams(TypedDict):
         application: NotRequired["Literal['']|str"]
         """
@@ -956,6 +974,10 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+        """
+        zip: NotRequired["PaymentMethodConfigurationService.UpdateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
         """
 
     class UpdateParamsAcssDebit(TypedDict):
@@ -1457,6 +1479,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsWechatPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsZipDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

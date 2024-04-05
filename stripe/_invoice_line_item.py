@@ -132,7 +132,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             "Literal['']|List[InvoiceLineItem.ModifyParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -187,6 +187,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         ]
         """
         Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsDiscountDiscountEnd(TypedDict):
@@ -367,7 +371,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     If true, discounts will apply to this line item. Always false for prorations.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """

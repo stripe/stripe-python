@@ -1,5 +1,47 @@
 # Changelog
 
+## 8.10.0 - 2024-04-04
+
+* **Add async support to stripe-python.** To use it, add an `_async` suffix to any request-making method.
+
+```diff
+- cus = stripe.Customer.create(...)
++ cus = await stripe.Customer.create_async(...)
+```
+
+See the [README](./README.md#async) for detailed usage instructions. Support is provided out of the box for async requests via the HTTPX (used by default) and aiohttp libraries. For other libraries, you can also provide your own `stripe.HTTPClient` implementation. Please do not hesitate to [open a Github issue](https://github.com/stripe/stripe-python/issues/new/choose) if you have any feedback on this feature.
+* [#1284](https://github.com/stripe/stripe-python/pull/1284) Update generated code
+  * Add support for `subscription_item` on resource `stripe.Discount`
+  * Add support for `promotion_code` on parameter classes `stripe.Invoice.CreateParamsDiscount`, `stripe.Invoice.ModifyParamsDiscount`, `stripe.InvoiceItem.CreateParamsDiscount`, `stripe.InvoiceItem.ModifyParamsDiscount`, `stripe.InvoiceLineItem.ModifyParamsDiscount`, `stripe.Quote.CreateParamsDiscount`, and `stripe.Quote.ModifyParamsDiscount`
+  * Add support for `discounts` on parameter classes `stripe.Invoice.UpcomingLinesParamsSubscriptionItem`, `stripe.Invoice.UpcomingParamsSubscriptionItem`, `stripe.Quote.CreateParamsLineItem`, `stripe.Quote.ModifyParamsLineItem`, `stripe.Subscription.CreateParams`, `stripe.Subscription.CreateParamsAddInvoiceItem`, `stripe.Subscription.CreateParamsItem`, `stripe.Subscription.ModifyParams`, `stripe.Subscription.ModifyParamsAddInvoiceItem`, `stripe.Subscription.ModifyParamsItem`, `stripe.SubscriptionItem.CreateParams`, `stripe.SubscriptionItem.ModifyParams`, `stripe.SubscriptionSchedule.CreateParamsPhase`, `stripe.SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem`, `stripe.SubscriptionSchedule.CreateParamsPhaseItem`, `stripe.SubscriptionSchedule.ModifyParamsPhase`, `stripe.SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem`, and `stripe.SubscriptionSchedule.ModifyParamsPhaseItem`, resources `stripe.Subscription` and `stripe.SubscriptionItem`, and resource classes `stripe.SubscriptionSchedule.Phase.AddInvoiceItem`, `stripe.SubscriptionSchedule.Phase.Item`, and `stripe.SubscriptionSchedule.Phase`
+  * Add support for `zip` on parameter classes `stripe.PaymentMethodConfiguration.CreateParams` and `stripe.PaymentMethodConfiguration.ModifyParams` and resource `stripe.PaymentMethodConfiguration`
+  * Add support for `offline` on resource class `stripe.SetupAttempt.PaymentMethodDetails.CardPresent`
+  * Add support for `card_present` on parameter classes `stripe.SetupIntent.ConfirmParamsPaymentMethodOptions`, `stripe.SetupIntent.CreateParamsPaymentMethodOptions`, and `stripe.SetupIntent.ModifyParamsPaymentMethodOptions` and resource class `stripe.SetupIntent.PaymentMethodOptions`
+  * Add support for `email` on resource `stripe.identity.VerificationReport`, parameter classes `stripe.identity.VerificationSession.CreateParamsOptions` and `stripe.identity.VerificationSession.ModifyParamsOptions`, and resource classes `stripe.identity.VerificationSession.Options` and `stripe.identity.VerificationSession.VerifiedOutputs`
+  * Add support for `phone` on resource `stripe.identity.VerificationReport`, parameter classes `stripe.identity.VerificationSession.CreateParamsOptions` and `stripe.identity.VerificationSession.ModifyParamsOptions`, and resource classes `stripe.identity.VerificationSession.Options` and `stripe.identity.VerificationSession.VerifiedOutputs`
+  * Add support for `verification_flow` on resources `stripe.identity.VerificationReport` and `stripe.identity.VerificationSession` and parameter class `stripe.identity.VerificationSession.CreateParams`
+  * Add support for `provided_details` on parameter classes `stripe.identity.VerificationSession.CreateParams` and `stripe.identity.VerificationSession.ModifyParams` and resource `stripe.identity.VerificationSession`
+  * Add support for `allowed_merchant_countries` on parameter classes `stripe.issuing.Card.CreateParamsSpendingControls`, `stripe.issuing.Card.ModifyParamsSpendingControls`, `stripe.issuing.Cardholder.CreateParamsSpendingControls`, and `stripe.issuing.Cardholder.ModifyParamsSpendingControls` and resource classes `stripe.issuing.Card.SpendingControls` and `stripe.issuing.Cardholder.SpendingControls`
+  * Add support for `blocked_merchant_countries` on parameter classes `stripe.issuing.Card.CreateParamsSpendingControls`, `stripe.issuing.Card.ModifyParamsSpendingControls`, `stripe.issuing.Cardholder.CreateParamsSpendingControls`, and `stripe.issuing.Cardholder.ModifyParamsSpendingControls` and resource classes `stripe.issuing.Card.SpendingControls` and `stripe.issuing.Cardholder.SpendingControls`
+  * Change type of field `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSwish` from `Literal['']|str` to `str` of `reference`
+  * Add support for `verification_flow` on enums `stripe.identity.VerificationReport.type` and `stripe.identity.VerificationSession.type`
+  * Add support for `email_unverified_other` on enum `stripe.identity.VerificationSession.LastError.code`
+  * Add support for `email_verification_declined` on enum `stripe.identity.VerificationSession.LastError.code`
+  * Add support for `phone_unverified_other` on enum `stripe.identity.VerificationSession.LastError.code`
+  * Add support for `phone_verification_declined` on enum `stripe.identity.VerificationSession.LastError.code`
+  * Add support for `mobile_phone_reader` on enums `stripe.terminal.Reader.device_type` and `stripe.terminal.Reader.ListParams.device_type`
+  * Change type of field `stripe.identity.VerificationSession.CreateParams` from `Literal['document', 'id_number']` to `NotRequired[Literal['document', 'id_number']]` of `type`
+  * Change type of fields `stripe.Invoice` and `stripe.InvoiceLineItem` from `Optional[List[ExpandableField[Discount]]]` to `List[ExpandableField[Discount]]` of `discounts`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `data`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `image_url_png`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `image_url_svg`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `hosted_instructions_url`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `mobile_auth_url`
+  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode` of `qr_code`
+* [#1290](https://github.com/stripe/stripe-python/pull/1290) Instructions for async in README.md
+* [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
+* [#1288](https://github.com/stripe/stripe-python/pull/1288) Port async support from beta to the stable channel
+
 ## 8.10.0b1 - 2024-03-28
 * [#1277](https://github.com/stripe/stripe-python/pull/1277) Update generated code for beta
     * Add support for `financial_account_transactions`, `financial_account`, `issuing_card`, and `issuing_cards_list` on `AccountSession.CreateParamsComponents` and `AccountSessionService.CreateParamsComponents`
