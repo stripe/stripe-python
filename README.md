@@ -298,7 +298,7 @@ my_http_client = stripe.HTTPXClient()
 
 # If you want to use httpx to make sync requests, you can disable this
 # behavior.
-my_http_client = stripe.HTTPXClient(allow_sync_requests=True)
+my_http_client = stripe.HTTPXClient(allow_sync_methods=True)
 
 # aiohttp is also available (does not support sync requests)
 my_http_client = stripe.AIOHTTPClient()
