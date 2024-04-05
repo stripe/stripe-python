@@ -1,13 +1,13 @@
 ## 8.10.0 - 2024-04-04
 
-* **Add async support to stripe-python.** To use it, add an `_async` suffix to any request-making method.
+* [#1288](https://github.com/stripe/stripe-python/pull/1288) Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.
 
-```diff
-- cus = stripe.Customer.create(...)
-+ cus = await stripe.Customer.create_async(...)
-```
+    ```diff
+    - cus = stripe.Customer.create(...)
+    + cus = await stripe.Customer.create_async(...)
+    ```
 
-See the [README](./README.md#async) for detailed usage instructions. Support is provided out of the box for async requests via the HTTPX (used by default) and aiohttp libraries. For other libraries, you can also provide your own `stripe.HTTPClient` implementation. Please do not hesitate to [open a Github issue](https://github.com/stripe/stripe-python/issues/new/choose) if you have any feedback on this feature.
+    See the [README](./README.md#async) for detailed usage instructions. Support is provided out of the box for async requests via the HTTPX (used by default) and aiohttp libraries. For other libraries, you can also provide your own `stripe.HTTPClient` implementation. Please do not hesitate to [open a Github issue](https://github.com/stripe/stripe-python/issues/new/choose) if you have any feedback on this feature.
 * [#1284](https://github.com/stripe/stripe-python/pull/1284) Update generated code
   * Add support for `subscription_item` on resource `stripe.Discount`
   * Add support for `promotion_code` on parameter classes `stripe.Invoice.CreateParamsDiscount`, `stripe.Invoice.ModifyParamsDiscount`, `stripe.InvoiceItem.CreateParamsDiscount`, `stripe.InvoiceItem.ModifyParamsDiscount`, `stripe.InvoiceLineItem.ModifyParamsDiscount`, `stripe.Quote.CreateParamsDiscount`, and `stripe.Quote.ModifyParamsDiscount`
@@ -36,9 +36,8 @@ See the [README](./README.md#async) for detailed usage instructions. Support is 
   * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `hosted_instructions_url`
   * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `mobile_auth_url`
   * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode` of `qr_code`
-* [#1290](https://github.com/stripe/stripe-python/pull/1290) Instructions for async in README.md
 * [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
-* [#1288](https://github.com/stripe/stripe-python/pull/1288) Port async support from beta to the stable channel
+
 
 ## 8.9.0 - 2024-03-28
 * [#1276](https://github.com/stripe/stripe-python/pull/1276) Update generated code
