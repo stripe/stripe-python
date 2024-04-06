@@ -62,6 +62,26 @@ class PhysicalBundleService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PhysicalBundleService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PhysicalBundle]:
+        """
+        Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[PhysicalBundle],
+            await self._request_async(
+                "get",
+                "/v1/issuing/physical_bundles",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         physical_bundle: str,
@@ -74,6 +94,29 @@ class PhysicalBundleService(StripeService):
         return cast(
             PhysicalBundle,
             self._request(
+                "get",
+                "/v1/issuing/physical_bundles/{physical_bundle}".format(
+                    physical_bundle=sanitize_id(physical_bundle),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        physical_bundle: str,
+        params: "PhysicalBundleService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PhysicalBundle:
+        """
+        Retrieves a physical bundle object.
+        """
+        return cast(
+            PhysicalBundle,
+            await self._request_async(
                 "get",
                 "/v1/issuing/physical_bundles/{physical_bundle}".format(
                     physical_bundle=sanitize_id(physical_bundle),

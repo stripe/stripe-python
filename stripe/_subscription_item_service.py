@@ -34,6 +34,12 @@ class SubscriptionItemService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionItemService.CreateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -100,6 +106,20 @@ class SubscriptionItemService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPriceData(TypedDict):
@@ -191,6 +211,12 @@ class SubscriptionItemService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionItemService.UpdateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -259,6 +285,20 @@ class SubscriptionItemService(StripeService):
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
+    class UpdateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class UpdateParamsPriceData(TypedDict):
         currency: str
         """
@@ -318,6 +358,27 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
+                "delete",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         item: str,
@@ -330,6 +391,27 @@ class SubscriptionItemService(StripeService):
         return cast(
             SubscriptionItem,
             self._request(
+                "get",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Retrieves the subscription item with the given ID.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
                 "get",
                 "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
                 api_mode="V1",
@@ -360,6 +442,27 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        item: str,
+        params: "SubscriptionItemService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Updates the plan or quantity of an item on a current subscription.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
+                "post",
+                "/v1/subscription_items/{item}".format(item=sanitize_id(item)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "SubscriptionItemService.ListParams",
@@ -380,6 +483,26 @@ class SubscriptionItemService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SubscriptionItemService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[SubscriptionItem]:
+        """
+        Returns a list of your subscription items for a given subscription.
+        """
+        return cast(
+            ListObject[SubscriptionItem],
+            await self._request_async(
+                "get",
+                "/v1/subscription_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SubscriptionItemService.CreateParams",
@@ -391,6 +514,26 @@ class SubscriptionItemService(StripeService):
         return cast(
             SubscriptionItem,
             self._request(
+                "post",
+                "/v1/subscription_items",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SubscriptionItemService.CreateParams",
+        options: RequestOptions = {},
+    ) -> SubscriptionItem:
+        """
+        Adds a new item to an existing subscription. No existing items will be changed or replaced.
+        """
+        return cast(
+            SubscriptionItem,
+            await self._request_async(
                 "post",
                 "/v1/subscription_items",
                 api_mode="V1",

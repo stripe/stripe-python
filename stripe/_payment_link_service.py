@@ -458,11 +458,11 @@ class PaymentLinkService(StripeService):
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
@@ -1268,11 +1268,11 @@ class PaymentLinkService(StripeService):
     class UpdateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class UpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
@@ -1672,6 +1672,26 @@ class PaymentLinkService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PaymentLinkService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PaymentLink]:
+        """
+        Returns a list of your payment links.
+        """
+        return cast(
+            ListObject[PaymentLink],
+            await self._request_async(
+                "get",
+                "/v1/payment_links",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "PaymentLinkService.CreateParams",
@@ -1683,6 +1703,26 @@ class PaymentLinkService(StripeService):
         return cast(
             PaymentLink,
             self._request(
+                "post",
+                "/v1/payment_links",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PaymentLinkService.CreateParams",
+        options: RequestOptions = {},
+    ) -> PaymentLink:
+        """
+        Creates a payment link.
+        """
+        return cast(
+            PaymentLink,
+            await self._request_async(
                 "post",
                 "/v1/payment_links",
                 api_mode="V1",
@@ -1715,6 +1755,29 @@ class PaymentLinkService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        payment_link: str,
+        params: "PaymentLinkService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentLink:
+        """
+        Retrieve a payment link.
+        """
+        return cast(
+            PaymentLink,
+            await self._request_async(
+                "get",
+                "/v1/payment_links/{payment_link}".format(
+                    payment_link=sanitize_id(payment_link),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         payment_link: str,
@@ -1727,6 +1790,29 @@ class PaymentLinkService(StripeService):
         return cast(
             PaymentLink,
             self._request(
+                "post",
+                "/v1/payment_links/{payment_link}".format(
+                    payment_link=sanitize_id(payment_link),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        payment_link: str,
+        params: "PaymentLinkService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentLink:
+        """
+        Updates a payment link.
+        """
+        return cast(
+            PaymentLink,
+            await self._request_async(
                 "post",
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),

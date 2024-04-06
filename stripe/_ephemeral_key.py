@@ -95,6 +95,55 @@ class EphemeralKey(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "EphemeralKey",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def create(cls, **params):
         if params.get("stripe_version") is None:
             raise ValueError(

@@ -97,7 +97,7 @@ class SubscriptionService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -126,6 +126,12 @@ class SubscriptionService(StripeService):
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionService.CreateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -188,7 +194,7 @@ class SubscriptionService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -222,6 +228,12 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List["SubscriptionService.CreateParamsAddInvoiceItemDiscount"]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -239,6 +251,20 @@ class SubscriptionService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class CreateParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
@@ -319,6 +345,20 @@ class SubscriptionService(StripeService):
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class CreateParamsInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -347,6 +387,12 @@ class SubscriptionService(StripeService):
         ]
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionService.CreateParamsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -379,6 +425,20 @@ class SubscriptionService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsItemPriceData(TypedDict):
@@ -896,7 +956,7 @@ class SubscriptionService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         days_until_due: NotRequired[int]
         """
@@ -917,6 +977,12 @@ class SubscriptionService(StripeService):
         description: NotRequired["Literal['']|str"]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionService.UpdateParamsDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -1015,6 +1081,12 @@ class SubscriptionService(StripeService):
         """
 
     class UpdateParamsAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List["SubscriptionService.UpdateParamsAddInvoiceItemDiscount"]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -1032,6 +1104,20 @@ class SubscriptionService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class UpdateParamsAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsAddInvoiceItemPriceData(TypedDict):
@@ -1102,6 +1188,20 @@ class SubscriptionService(StripeService):
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
 
+    class UpdateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class UpdateParamsInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -1139,6 +1239,12 @@ class SubscriptionService(StripeService):
         """
         A flag that, if set to `true`, will delete the specified item.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionService.UpdateParamsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         id: NotRequired[str]
         """
         Subscription item to update.
@@ -1174,6 +1280,20 @@ class SubscriptionService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class UpdateParamsItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsItemPriceData(TypedDict):
@@ -1501,6 +1621,35 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    async def cancel_async(
+        self,
+        subscription_exposed_id: str,
+        params: "SubscriptionService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
+
+        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
+
+        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         subscription_exposed_id: str,
@@ -1513,6 +1662,31 @@ class SubscriptionService(StripeService):
         return cast(
             Subscription,
             self._request(
+                "get",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        subscription_exposed_id: str,
+        params: "SubscriptionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Retrieves the subscription with the given ID.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
                 "get",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
                     subscription_exposed_id=sanitize_id(
@@ -1571,6 +1745,51 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        subscription_exposed_id: str,
+        params: "SubscriptionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Updates an existing subscription to match the specified parameters.
+        When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
+        To preview how the proration is calculated, use the [upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) endpoint.
+
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+
+        Switching prices does not normally change the billing date or generate an immediate charge unless:
+
+
+        The billing interval is changed (for example, from monthly to yearly).
+        The subscription moves from free to paid, or paid to free.
+        A trial starts or ends.
+
+
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date.
+
+        If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
+
+        If you don't want to prorate, set the proration_behavior option to none. With this option, the customer is billed 100 on May 1 and 200 on June 1. Similarly, if you set proration_behavior to none when switching between different billing intervals (for example, from monthly to yearly), we don't generate any credits for the old subscription's unused time. We still reset the billing date and bill immediately for the new subscription.
+
+        Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://stripe.com/docs/rate-limits) instead.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def delete_discount(
         self,
         subscription_exposed_id: str,
@@ -1596,6 +1815,31 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    async def delete_discount_async(
+        self,
+        subscription_exposed_id: str,
+        params: "SubscriptionService.DeleteDiscountParams" = {},
+        options: RequestOptions = {},
+    ) -> Discount:
+        """
+        Removes the currently applied discount on a subscription.
+        """
+        return cast(
+            Discount,
+            await self._request_async(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
+                    subscription_exposed_id=sanitize_id(
+                        subscription_exposed_id
+                    ),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "SubscriptionService.ListParams" = {},
@@ -1607,6 +1851,26 @@ class SubscriptionService(StripeService):
         return cast(
             ListObject[Subscription],
             self._request(
+                "get",
+                "/v1/subscriptions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "SubscriptionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Subscription]:
+        """
+        By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
+        """
+        return cast(
+            ListObject[Subscription],
+            await self._request_async(
                 "get",
                 "/v1/subscriptions",
                 api_mode="V1",
@@ -1642,6 +1906,32 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    async def create_async(
+        self,
+        params: "SubscriptionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
+
+        When you create a subscription with collection_method=charge_automatically, the first invoice is finalized as part of the request.
+        The payment_behavior parameter determines the exact behavior of the initial payment.
+
+        To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
+        Schedules provide the flexibility to model more complex billing configurations that change over time.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "post",
+                "/v1/subscriptions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def search(
         self,
         params: "SubscriptionService.SearchParams",
@@ -1665,6 +1955,29 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    async def search_async(
+        self,
+        params: "SubscriptionService.SearchParams",
+        options: RequestOptions = {},
+    ) -> SearchResultObject[Subscription]:
+        """
+        Search for subscriptions you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            SearchResultObject[Subscription],
+            await self._request_async(
+                "get",
+                "/v1/subscriptions/search",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def resume(
         self,
         subscription: str,
@@ -1677,6 +1990,29 @@ class SubscriptionService(StripeService):
         return cast(
             Subscription,
             self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/resume".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def resume_async(
+        self,
+        subscription: str,
+        params: "SubscriptionService.ResumeParams" = {},
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
                     subscription=sanitize_id(subscription),

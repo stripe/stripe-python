@@ -442,6 +442,10 @@ class CardService(StripeService):
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         """
+        allowed_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
+        """
         blocked_categories: NotRequired[
             List[
                 Literal[
@@ -745,6 +749,10 @@ class CardService(StripeService):
         ]
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        """
+        blocked_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
         """
         spending_limits: NotRequired[
             List["CardService.CreateParamsSpendingControlsSpendingLimit"]
@@ -1485,6 +1493,10 @@ class CardService(StripeService):
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         """
+        allowed_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
+        """
         blocked_categories: NotRequired[
             List[
                 Literal[
@@ -1788,6 +1800,10 @@ class CardService(StripeService):
         ]
         """
         Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        """
+        blocked_merchant_countries: NotRequired[List[str]]
+        """
+        Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
         """
         spending_limits: NotRequired[
             List["CardService.UpdateParamsSpendingControlsSpendingLimit"]
@@ -2137,6 +2153,26 @@ class CardService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "CardService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Card]:
+        """
+        Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
+        return cast(
+            ListObject[Card],
+            await self._request_async(
+                "get",
+                "/v1/issuing/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "CardService.CreateParams", options: RequestOptions = {}
     ) -> Card:
@@ -2146,6 +2182,24 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/issuing/cards",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "CardService.CreateParams", options: RequestOptions = {}
+    ) -> Card:
+        """
+        Creates an Issuing Card object.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/issuing/cards",
                 api_mode="V1",
@@ -2176,6 +2230,27 @@ class CardService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        card: str,
+        params: "CardService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Retrieves an Issuing Card object.
+        """
+        return cast(
+            Card,
+            await self._request_async(
+                "get",
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         card: str,
@@ -2188,6 +2263,27 @@ class CardService(StripeService):
         return cast(
             Card,
             self._request(
+                "post",
+                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        card: str,
+        params: "CardService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
+        return cast(
+            Card,
+            await self._request_async(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
                 api_mode="V1",

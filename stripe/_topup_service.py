@@ -158,6 +158,26 @@ class TopupService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "TopupService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Topup]:
+        """
+        Returns a list of top-ups.
+        """
+        return cast(
+            ListObject[Topup],
+            await self._request_async(
+                "get",
+                "/v1/topups",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "TopupService.CreateParams", options: RequestOptions = {}
     ) -> Topup:
@@ -167,6 +187,24 @@ class TopupService(StripeService):
         return cast(
             Topup,
             self._request(
+                "post",
+                "/v1/topups",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "TopupService.CreateParams", options: RequestOptions = {}
+    ) -> Topup:
+        """
+        Top up the balance of an account
+        """
+        return cast(
+            Topup,
+            await self._request_async(
                 "post",
                 "/v1/topups",
                 api_mode="V1",
@@ -197,6 +235,27 @@ class TopupService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        topup: str,
+        params: "TopupService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Topup:
+        """
+        Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
+        """
+        return cast(
+            Topup,
+            await self._request_async(
+                "get",
+                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         topup: str,
@@ -218,6 +277,27 @@ class TopupService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        topup: str,
+        params: "TopupService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Topup:
+        """
+        Updates the metadata of a top-up. Other top-up details are not editable by design.
+        """
+        return cast(
+            Topup,
+            await self._request_async(
+                "post",
+                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         topup: str,
@@ -230,6 +310,27 @@ class TopupService(StripeService):
         return cast(
             Topup,
             self._request(
+                "post",
+                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        topup: str,
+        params: "TopupService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Topup:
+        """
+        Cancels a top-up. Only pending top-ups can be canceled.
+        """
+        return cast(
+            Topup,
+            await self._request_async(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
                 api_mode="V1",

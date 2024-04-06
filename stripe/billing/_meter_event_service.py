@@ -19,7 +19,7 @@ class MeterEventService(StripeService):
         """
         identifier: NotRequired[str]
         """
-        A unique identifier for the event. If not provided, one will be generated.
+        A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We'll enforce uniqueness within a rolling 24 hour period.
         """
         payload: Dict[str, str]
         """
@@ -41,6 +41,26 @@ class MeterEventService(StripeService):
         return cast(
             MeterEvent,
             self._request(
+                "post",
+                "/v1/billing/meter_events",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "MeterEventService.CreateParams",
+        options: RequestOptions = {},
+    ) -> MeterEvent:
+        """
+        Creates a billing meter event
+        """
+        return cast(
+            MeterEvent,
+            await self._request_async(
                 "post",
                 "/v1/billing/meter_events",
                 api_mode="V1",

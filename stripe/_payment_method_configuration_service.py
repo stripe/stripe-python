@@ -217,6 +217,10 @@ class PaymentMethodConfigurationService(StripeService):
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
         """
+        zip: NotRequired["PaymentMethodConfigurationService.CreateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
+        """
 
     class CreateParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
@@ -708,6 +712,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ListParams(TypedDict):
         application: NotRequired["Literal['']|str"]
         """
@@ -930,6 +948,10 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+        """
+        zip: NotRequired["PaymentMethodConfigurationService.UpdateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
         """
 
     class UpdateParamsAcssDebit(TypedDict):
@@ -1422,6 +1444,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     def list(
         self,
         params: "PaymentMethodConfigurationService.ListParams" = {},
@@ -1442,6 +1478,26 @@ class PaymentMethodConfigurationService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "PaymentMethodConfigurationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[PaymentMethodConfiguration]:
+        """
+        List payment method configurations
+        """
+        return cast(
+            ListObject[PaymentMethodConfiguration],
+            await self._request_async(
+                "get",
+                "/v1/payment_method_configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "PaymentMethodConfigurationService.CreateParams" = {},
@@ -1453,6 +1509,26 @@ class PaymentMethodConfigurationService(StripeService):
         return cast(
             PaymentMethodConfiguration,
             self._request(
+                "post",
+                "/v1/payment_method_configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "PaymentMethodConfigurationService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Creates a payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_configurations",
                 api_mode="V1",
@@ -1485,6 +1561,29 @@ class PaymentMethodConfigurationService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        configuration: str,
+        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Retrieve payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
+                "get",
+                "/v1/payment_method_configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         configuration: str,
@@ -1497,6 +1596,29 @@ class PaymentMethodConfigurationService(StripeService):
         return cast(
             PaymentMethodConfiguration,
             self._request(
+                "post",
+                "/v1/payment_method_configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        configuration: str,
+        params: "PaymentMethodConfigurationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> PaymentMethodConfiguration:
+        """
+        Update payment method configuration
+        """
+        return cast(
+            PaymentMethodConfiguration,
+            await self._request_async(
                 "post",
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),

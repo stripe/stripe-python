@@ -157,15 +157,15 @@ class Configuration(
         invoice_history: InvoiceHistory
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
-        subscription_pause: SubscriptionPause
         subscription_update: SubscriptionUpdate
+        subscription_pause: SubscriptionPause
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
-            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
+            "subscription_pause": SubscriptionPause,
         }
 
     class LoginPage(StripeObject):
@@ -245,17 +245,17 @@ class Configuration(
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "Configuration.CreateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "Configuration.CreateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
@@ -329,7 +329,7 @@ class Configuration(
         """
 
     class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -474,17 +474,17 @@ class Configuration(
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.ModifyParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "Configuration.ModifyParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "Configuration.ModifyParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class ModifyParamsFeaturesCustomerUpdate(TypedDict):
@@ -546,7 +546,7 @@ class Configuration(
         """
 
     class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -660,6 +660,22 @@ class Configuration(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Configuration.CreateParams"]
+    ) -> "Configuration":
+        """
+        Creates a configuration that describes the functionality and behavior of a PortalSession
+        """
+        return cast(
+            "Configuration",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Configuration.ListParams"]
     ) -> ListObject["Configuration"]:
@@ -667,6 +683,27 @@ class Configuration(
         Returns a list of configurations that describe the functionality of the customer portal.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Configuration.ListParams"]
+    ) -> ListObject["Configuration"]:
+        """
+        Returns a list of configurations that describe the functionality of the customer portal.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -698,6 +735,23 @@ class Configuration(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Configuration.ModifyParams"]
+    ) -> "Configuration":
+        """
+        Updates a configuration that describes the functionality of the customer portal.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Configuration",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
     ) -> "Configuration":
@@ -706,6 +760,17 @@ class Configuration(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
+    ) -> "Configuration":
+        """
+        Retrieves a configuration that describes the functionality of the customer portal.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

@@ -66,6 +66,10 @@ class Discount(StripeObject):
     """
     The subscription that this coupon is applied to, if it is applied to a particular subscription.
     """
+    subscription_item: Optional[str]
+    """
+    The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
+    """
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object

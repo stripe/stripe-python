@@ -66,3 +66,26 @@ class MeterEventSummaryService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        id: str,
+        params: "MeterEventSummaryService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[MeterEventSummary]:
+        """
+        Retrieve a list of billing meter event summaries.
+        """
+        return cast(
+            ListObject[MeterEventSummary],
+            await self._request_async(
+                "get",
+                "/v1/billing/meters/{id}/event_summaries".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

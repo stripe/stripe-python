@@ -606,11 +606,11 @@ class SessionService(StripeService):
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
@@ -1519,7 +1519,7 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
-        reference: NotRequired["Literal['']|str"]
+        reference: NotRequired[str]
         """
         The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
         """
@@ -2183,6 +2183,26 @@ class SessionService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SessionService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Session]:
+        """
+        Returns a list of Checkout Sessions.
+        """
+        return cast(
+            ListObject[Session],
+            await self._request_async(
+                "get",
+                "/v1/checkout/sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SessionService.CreateParams" = {},
@@ -2194,6 +2214,26 @@ class SessionService(StripeService):
         return cast(
             Session,
             self._request(
+                "post",
+                "/v1/checkout/sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SessionService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Creates a Session object.
+        """
+        return cast(
+            Session,
+            await self._request_async(
                 "post",
                 "/v1/checkout/sessions",
                 api_mode="V1",
@@ -2226,6 +2266,29 @@ class SessionService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        session: str,
+        params: "SessionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Retrieves a Session object.
+        """
+        return cast(
+            Session,
+            await self._request_async(
+                "get",
+                "/v1/checkout/sessions/{session}".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def expire(
         self,
         session: str,
@@ -2240,6 +2303,31 @@ class SessionService(StripeService):
         return cast(
             Session,
             self._request(
+                "post",
+                "/v1/checkout/sessions/{session}/expire".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def expire_async(
+        self,
+        session: str,
+        params: "SessionService.ExpireParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
+        return cast(
+            Session,
+            await self._request_async(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=sanitize_id(session),

@@ -189,3 +189,23 @@ class AccountSessionService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "AccountSessionService.CreateParams",
+        options: RequestOptions = {},
+    ) -> AccountSession:
+        """
+        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        """
+        return cast(
+            AccountSession,
+            await self._request_async(
+                "post",
+                "/v1/account_sessions",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

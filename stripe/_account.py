@@ -56,7 +56,7 @@ class Account(
         class AnnualRevenue(StripeObject):
             amount: Optional[int]
             """
-            A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             currency: Optional[str]
             """
@@ -70,7 +70,7 @@ class Account(
         class MonthlyEstimatedRevenue(StripeObject):
             amount: int
             """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             currency: str
             """
@@ -1161,7 +1161,7 @@ class Account(
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
         """
         capabilities: NotRequired["Account.CreateParamsCapabilities"]
         """
@@ -1169,7 +1169,7 @@ class Account(
         """
         company: NotRequired["Account.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
         """
         country: NotRequired[str]
         """
@@ -1177,7 +1177,7 @@ class Account(
         """
         default_currency: NotRequired[str]
         """
-        Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
+        Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).
         """
         documents: NotRequired["Account.CreateParamsDocuments"]
         """
@@ -1195,13 +1195,13 @@ class Account(
             "str|Account.CreateParamsBankAccount|Account.CreateParamsCard|Account.CreateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1213,7 +1213,7 @@ class Account(
         """
         tos_acceptance: NotRequired["Account.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
         """
         type: NotRequired[Literal["custom", "express", "standard"]]
         """
@@ -1260,7 +1260,7 @@ class Account(
         """
         mcc: NotRequired[str]
         """
-        [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -1302,7 +1302,7 @@ class Account(
     class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1316,7 +1316,7 @@ class Account(
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1867,11 +1867,11 @@ class Account(
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -1895,7 +1895,7 @@ class Account(
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/docs/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "Account.CreateParamsCompanyOwnershipDeclaration"
@@ -1915,7 +1915,7 @@ class Account(
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -2183,11 +2183,11 @@ class Account(
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -2479,7 +2479,7 @@ class Account(
             "Account.CreateParamsSettingsCardIssuingTosAcceptance"
         ]
         """
-        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://stripe.com/docs/issuing/connect/tos_acceptance).
+        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://docs.stripe.com/issuing/connect/tos_acceptance).
         """
 
     class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
@@ -2543,11 +2543,11 @@ class Account(
     class CreateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
         """
         schedule: NotRequired["Account.CreateParamsSettingsPayoutsSchedule"]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -2557,7 +2557,7 @@ class Account(
     class CreateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired["Literal['minimum']|int"]
         """
-        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/docs/connect/manage-payout-schedule).
+        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
@@ -2679,11 +2679,11 @@ class Account(
         """
         id_number: NotRequired[str]
         """
-        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -2711,7 +2711,7 @@ class Account(
         """
         person_token: NotRequired[str]
         """
-        A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+        A [person token](https://docs.stripe.com/connect/account-tokens), used to securely provide details to the person.
         """
         phone: NotRequired[str]
         """
@@ -3260,11 +3260,11 @@ class Account(
         """
         id_number: NotRequired[str]
         """
-        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -3292,7 +3292,7 @@ class Account(
         """
         person_token: NotRequired[str]
         """
-        A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+        A [person token](https://docs.stripe.com/connect/account-tokens), used to securely provide details to the person.
         """
         phone: NotRequired[str]
         """
@@ -3739,6 +3739,27 @@ class Account(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Account.CreateParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
+        To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
+
+        If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
+        creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
+        You can prefill any information on the account.
+        """
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
@@ -3802,6 +3823,71 @@ class Account(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
@@ -3809,6 +3895,27 @@ class Account(
         Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Account.ListParams"]
+    ) -> ListObject["Account"]:
+        """
+        Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -3869,6 +3976,61 @@ class Account(
         return cast(
             ListObject["Person"],
             self._request(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_persons_async(
+        cls, account: str, **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        return cast(
+            ListObject["Person"],
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def persons_async(
+        account: str, **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        ...
+
+    @overload
+    async def persons_async(
+        self, **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        ...
+
+    @class_method_variant("_cls_persons_async")
+    async def persons_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        return cast(
+            ListObject["Person"],
+            await self._request_async(
                 "get",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(self.get("id"))
@@ -3939,15 +4101,92 @@ class Account(
         )
 
     @classmethod
+    async def _cls_reject_async(
+        cls, account: str, **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reject_async(
+        account: str, **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        ...
+
+    @overload
+    async def reject_async(
+        self, **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        ...
+
+    @class_method_variant("_cls_reject_async")
+    async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(cls, id=None, **params) -> "Account":
         instance = cls(id, **params)
         instance.refresh()
         return instance
 
     @classmethod
+    async def retrieve_async(cls, id=None, **params) -> "Account":
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
+    @classmethod
     def modify(cls, id=None, **params) -> "Account":
         url = cls._build_instance_url(id)
         return cast("Account", cls._static_request("post", url, params=params))
+
+    @classmethod
+    async def modify_async(cls, id=None, **params) -> "Account":
+        url = cls._build_instance_url(id)
+        return cast(
+            "Account",
+            await cls._static_request_async("post", url, params=params),
+        )
 
     @classmethod
     def _build_instance_url(cls, sid):
@@ -3997,6 +4236,28 @@ class Account(
         )
 
     @classmethod
+    async def retrieve_capability_async(
+        cls,
+        account: str,
+        capability: str,
+        **params: Unpack["Account.RetrieveCapabilityParams"]
+    ) -> "Capability":
+        """
+        Retrieves information about the specified Account Capability.
+        """
+        return cast(
+            "Capability",
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify_capability(
         cls,
         account: str,
@@ -4019,6 +4280,28 @@ class Account(
         )
 
     @classmethod
+    async def modify_capability_async(
+        cls,
+        account: str,
+        capability: str,
+        **params: Unpack["Account.ModifyCapabilityParams"]
+    ) -> "Capability":
+        """
+        Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
+        """
+        return cast(
+            "Capability",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=sanitize_id(account),
+                    capability=sanitize_id(capability),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_capabilities(
         cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
@@ -4028,6 +4311,24 @@ class Account(
         return cast(
             ListObject["Capability"],
             cls._static_request(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_capabilities_async(
+        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+    ) -> ListObject["Capability"]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject["Capability"],
+            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
                     account=sanitize_id(account)
@@ -4057,6 +4358,26 @@ class Account(
         )
 
     @classmethod
+    async def create_external_account_async(
+        cls,
+        account: str,
+        **params: Unpack["Account.CreateExternalAccountParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_external_account(
         cls,
         account: str,
@@ -4069,6 +4390,27 @@ class Account(
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
+                "get",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_external_account_async(
+        cls,
+        account: str,
+        id: str,
+        **params: Unpack["Account.RetrieveExternalAccountParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Retrieve a specified external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account), id=sanitize_id(id)
@@ -4101,6 +4443,29 @@ class Account(
         )
 
     @classmethod
+    async def modify_external_account_async(
+        cls,
+        account: str,
+        id: str,
+        **params: Unpack["Account.ModifyExternalAccountParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
+
+        You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def delete_external_account(
         cls,
         account: str,
@@ -4113,6 +4478,27 @@ class Account(
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def delete_external_account_async(
+        cls,
+        account: str,
+        id: str,
+        **params: Unpack["Account.DeleteExternalAccountParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
                     account=sanitize_id(account), id=sanitize_id(id)
@@ -4142,6 +4528,26 @@ class Account(
         )
 
     @classmethod
+    async def list_external_accounts_async(
+        cls,
+        account: str,
+        **params: Unpack["Account.ListExternalAccountsParams"]
+    ) -> ListObject[Union["BankAccount", "Card"]]:
+        """
+        List external accounts for an account.
+        """
+        return cast(
+            ListObject[Union["BankAccount", "Card"]],
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_login_link(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
@@ -4162,6 +4568,26 @@ class Account(
         )
 
     @classmethod
+    async def create_login_link_async(
+        cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
+    ) -> "LoginLink":
+        """
+        Creates a single-use login link for an Express account to access their Stripe dashboard.
+
+        You may only create login links for [Express accounts](https://stripe.com/docs/connect/express-accounts) connected to your platform.
+        """
+        return cast(
+            "LoginLink",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/login_links".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_person(
         cls, account: str, **params: Unpack["Account.CreatePersonParams"]
     ) -> "Person":
@@ -4171,6 +4597,24 @@ class Account(
         return cast(
             "Person",
             cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_person_async(
+        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    ) -> "Person":
+        """
+        Creates a new person.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
                 "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)
@@ -4201,6 +4645,27 @@ class Account(
         )
 
     @classmethod
+    async def retrieve_person_async(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.RetrievePersonParams"]
+    ) -> "Person":
+        """
+        Retrieves an existing person.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify_person(
         cls,
         account: str,
@@ -4213,6 +4678,27 @@ class Account(
         return cast(
             "Person",
             cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_person_async(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.ModifyPersonParams"]
+    ) -> "Person":
+        """
+        Updates an existing person.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account), person=sanitize_id(person)
@@ -4243,6 +4729,27 @@ class Account(
         )
 
     @classmethod
+    async def delete_person_async(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.DeletePersonParams"]
+    ) -> "Person":
+        """
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_persons(
         cls, account: str, **params: Unpack["Account.ListPersonsParams"]
     ) -> ListObject["Person"]:
@@ -4252,6 +4759,24 @@ class Account(
         return cast(
             ListObject["Person"],
             cls._static_request(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_persons_async(
+        cls, account: str, **params: Unpack["Account.ListPersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        return cast(
+            ListObject["Person"],
+            await cls._static_request_async(
                 "get",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)

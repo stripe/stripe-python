@@ -1,4 +1,10 @@
-from stripe._api_requestor import _APIRequestor, StripeStreamResponse
+from stripe._api_requestor import (
+    _APIRequestor,
+)
+from stripe._stripe_response import (
+    StripeStreamResponse,
+    StripeStreamResponseAsync,
+)
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions
 from stripe._base_address import BaseAddress
@@ -30,7 +36,27 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
+        )
+
+    async def _request_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+    ) -> StripeObject:
+        return await self._requestor.request_async(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["stripe_client"],
         )
 
     def _request_stream(
@@ -50,5 +76,25 @@ class StripeService(object):
             options,
             base_address=base_address,
             api_mode=api_mode,
-            _usage=["stripe_client"],
+            usage=["stripe_client"],
+        )
+
+    async def _request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        api_mode: ApiMode,
+    ) -> StripeStreamResponseAsync:
+        return await self._requestor.request_stream_async(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["stripe_client"],
         )

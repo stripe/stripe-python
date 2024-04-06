@@ -126,6 +126,26 @@ class RequestService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "RequestService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Request]:
+        """
+        Lists all ForwardingRequest objects.
+        """
+        return cast(
+            ListObject[Request],
+            await self._request_async(
+                "get",
+                "/v1/forwarding/requests",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "RequestService.CreateParams",
@@ -137,6 +157,26 @@ class RequestService(StripeService):
         return cast(
             Request,
             self._request(
+                "post",
+                "/v1/forwarding/requests",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "RequestService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Request:
+        """
+        Creates a ForwardingRequest object.
+        """
+        return cast(
+            Request,
+            await self._request_async(
                 "post",
                 "/v1/forwarding/requests",
                 api_mode="V1",
@@ -158,6 +198,27 @@ class RequestService(StripeService):
         return cast(
             Request,
             self._request(
+                "get",
+                "/v1/forwarding/requests/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "RequestService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Request:
+        """
+        Retrieves a ForwardingRequest object.
+        """
+        return cast(
+            Request,
+            await self._request_async(
                 "get",
                 "/v1/forwarding/requests/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",

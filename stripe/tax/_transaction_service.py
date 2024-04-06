@@ -137,6 +137,29 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        transaction: str,
+        params: "TransactionService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Retrieves a Tax Transaction object.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
+                "get",
+                "/v1/tax/transactions/{transaction}".format(
+                    transaction=sanitize_id(transaction),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create_from_calculation(
         self,
         params: "TransactionService.CreateFromCalculationParams",
@@ -157,6 +180,26 @@ class TransactionService(StripeService):
             ),
         )
 
+    async def create_from_calculation_async(
+        self,
+        params: "TransactionService.CreateFromCalculationParams",
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Creates a Tax Transaction from a calculation.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
+                "post",
+                "/v1/tax/transactions/create_from_calculation",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create_reversal(
         self,
         params: "TransactionService.CreateReversalParams",
@@ -168,6 +211,26 @@ class TransactionService(StripeService):
         return cast(
             Transaction,
             self._request(
+                "post",
+                "/v1/tax/transactions/create_reversal",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_reversal_async(
+        self,
+        params: "TransactionService.CreateReversalParams",
+        options: RequestOptions = {},
+    ) -> Transaction:
+        """
+        Partially or fully reverses a previously created Transaction.
+        """
+        return cast(
+            Transaction,
+            await self._request_async(
                 "post",
                 "/v1/tax/transactions/create_reversal",
                 api_mode="V1",

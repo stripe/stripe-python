@@ -1899,6 +1899,17 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         instance.refresh()
         return instance
 
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ConfirmationToken.RetrieveParams"]
+    ) -> "ConfirmationToken":
+        """
+        Retrieves an existing ConfirmationToken object
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
     class TestHelpers(APIResourceTestHelpers["ConfirmationToken"]):
         _resource_cls: Type["ConfirmationToken"]
 
@@ -1912,6 +1923,22 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             return cast(
                 "ConfirmationToken",
                 cls._static_request(
+                    "post",
+                    "/v1/test_helpers/confirmation_tokens",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def create_async(
+            cls, **params: Unpack["ConfirmationToken.CreateParams"]
+        ) -> "ConfirmationToken":
+            """
+            Creates a test mode Confirmation Token server side for your integration tests.
+            """
+            return cast(
+                "ConfirmationToken",
+                await cls._static_request_async(
                     "post",
                     "/v1/test_helpers/confirmation_tokens",
                     params=params,

@@ -116,6 +116,26 @@ class FileLinkService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "FileLinkService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FileLink]:
+        """
+        Returns a list of file links.
+        """
+        return cast(
+            ListObject[FileLink],
+            await self._request_async(
+                "get",
+                "/v1/file_links",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "FileLinkService.CreateParams",
@@ -127,6 +147,26 @@ class FileLinkService(StripeService):
         return cast(
             FileLink,
             self._request(
+                "post",
+                "/v1/file_links",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "FileLinkService.CreateParams",
+        options: RequestOptions = {},
+    ) -> FileLink:
+        """
+        Creates a new file link object.
+        """
+        return cast(
+            FileLink,
+            await self._request_async(
                 "post",
                 "/v1/file_links",
                 api_mode="V1",
@@ -157,6 +197,27 @@ class FileLinkService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        link: str,
+        params: "FileLinkService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> FileLink:
+        """
+        Retrieves the file link with the given ID.
+        """
+        return cast(
+            FileLink,
+            await self._request_async(
+                "get",
+                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         link: str,
@@ -169,6 +230,27 @@ class FileLinkService(StripeService):
         return cast(
             FileLink,
             self._request(
+                "post",
+                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        link: str,
+        params: "FileLinkService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> FileLink:
+        """
+        Updates an existing file link object. Expired links can no longer be updated.
+        """
+        return cast(
+            FileLink,
+            await self._request_async(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
                 api_mode="V1",

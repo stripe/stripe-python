@@ -467,6 +467,22 @@ class Transaction(APIResource["Transaction"]):
         )
 
     @classmethod
+    async def create_from_calculation_async(
+        cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
+    ) -> "Transaction":
+        """
+        Creates a Tax Transaction from a calculation.
+        """
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
+                "post",
+                "/v1/tax/transactions/create_from_calculation",
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_reversal(
         cls, **params: Unpack["Transaction.CreateReversalParams"]
     ) -> "Transaction":
@@ -476,6 +492,22 @@ class Transaction(APIResource["Transaction"]):
         return cast(
             "Transaction",
             cls._static_request(
+                "post",
+                "/v1/tax/transactions/create_reversal",
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_reversal_async(
+        cls, **params: Unpack["Transaction.CreateReversalParams"]
+    ) -> "Transaction":
+        """
+        Partially or fully reverses a previously created Transaction.
+        """
+        return cast(
+            "Transaction",
+            await cls._static_request_async(
                 "post",
                 "/v1/tax/transactions/create_reversal",
                 params=params,
@@ -540,6 +572,63 @@ class Transaction(APIResource["Transaction"]):
         )
 
     @classmethod
+    async def _cls_list_line_items_async(
+        cls,
+        transaction: str,
+        **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        return cast(
+            ListObject["TransactionLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/tax/transactions/{transaction}/line_items".format(
+                    transaction=sanitize_id(transaction)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_line_items_async(
+        transaction: str, **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        ...
+
+    @overload
+    async def list_line_items_async(
+        self, **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        ...
+
+    @class_method_variant("_cls_list_line_items_async")
+    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        return cast(
+            ListObject["TransactionLineItem"],
+            await self._request_async(
+                "get",
+                "/v1/tax/transactions/{transaction}/line_items".format(
+                    transaction=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
@@ -548,6 +637,17 @@ class Transaction(APIResource["Transaction"]):
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+    ) -> "Transaction":
+        """
+        Retrieves a Tax Transaction object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

@@ -79,7 +79,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[InvoiceService.CreateParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
+        The coupons and promotion codes to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
         """
         due_date: NotRequired[int]
         """
@@ -187,11 +187,11 @@ class InvoiceService(StripeService):
     class CreateParamsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -202,6 +202,10 @@ class InvoiceService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsFromInvoice(TypedDict):
@@ -802,7 +806,7 @@ class InvoiceService(StripeService):
         """
         coupon: NotRequired[str]
         """
-        The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -822,7 +826,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[InvoiceService.UpcomingParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead.
+        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -1266,6 +1270,12 @@ class InvoiceService(StripeService):
         """
         A flag that, if set to `true`, will delete the specified item.
         """
+        discounts: NotRequired[
+            "Literal['']|List[InvoiceService.UpcomingParamsSubscriptionItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         id: NotRequired[str]
         """
         Subscription item to update.
@@ -1301,6 +1311,20 @@ class InvoiceService(StripeService):
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class UpcomingParamsSubscriptionItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpcomingParamsSubscriptionItemPriceData(TypedDict):
@@ -1492,11 +1516,11 @@ class InvoiceService(StripeService):
     class UpdateParamsCustomField(TypedDict):
         name: str
         """
-        The name of the custom field. This may be up to 30 characters.
+        The name of the custom field. This may be up to 40 characters.
         """
         value: str
         """
-        The value of the custom field. This may be up to 30 characters.
+        The value of the custom field. This may be up to 140 characters.
         """
 
     class UpdateParamsDiscount(TypedDict):
@@ -1507,6 +1531,10 @@ class InvoiceService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsIssuer(TypedDict):
@@ -1957,6 +1985,27 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
+                "delete",
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         invoice: str,
@@ -1969,6 +2018,27 @@ class InvoiceService(StripeService):
         return cast(
             Invoice,
             self._request(
+                "get",
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Retrieves the invoice with the given ID.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "get",
                 "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
                 api_mode="V1",
@@ -2004,6 +2074,32 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+        monetary values, as well as collection_method, become uneditable.
+
+        If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
+        sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+        auto_advance=false.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "InvoiceService.ListParams" = {},
@@ -2024,6 +2120,26 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "InvoiceService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Invoice]:
+        """
+        You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
+        """
+        return cast(
+            ListObject[Invoice],
+            await self._request_async(
+                "get",
+                "/v1/invoices",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "InvoiceService.CreateParams" = {},
@@ -2035,6 +2151,26 @@ class InvoiceService(StripeService):
         return cast(
             Invoice,
             self._request(
+                "post",
+                "/v1/invoices",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "InvoiceService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "post",
                 "/v1/invoices",
                 api_mode="V1",
@@ -2067,6 +2203,29 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def search_async(
+        self,
+        params: "InvoiceService.SearchParams",
+        options: RequestOptions = {},
+    ) -> SearchResultObject[Invoice]:
+        """
+        Search for invoices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            SearchResultObject[Invoice],
+            await self._request_async(
+                "get",
+                "/v1/invoices/search",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def upcoming(
         self,
         params: "InvoiceService.UpcomingParams" = {},
@@ -2077,11 +2236,35 @@ class InvoiceService(StripeService):
 
         Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource.
+        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date value passed in the request.
         """
         return cast(
             Invoice,
             self._request(
+                "get",
+                "/v1/invoices/upcoming",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def upcoming_async(
+        self,
+        params: "InvoiceService.UpcomingParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
+
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+
+        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date value passed in the request.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "get",
                 "/v1/invoices/upcoming",
                 api_mode="V1",
@@ -2103,6 +2286,29 @@ class InvoiceService(StripeService):
         return cast(
             Invoice,
             self._request(
+                "post",
+                "/v1/invoices/{invoice}/finalize".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def finalize_invoice_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.FinalizeInvoiceParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
                     invoice=sanitize_id(invoice),
@@ -2137,6 +2343,29 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def mark_uncollectible_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.MarkUncollectibleParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/mark_uncollectible".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def pay(
         self,
         invoice: str,
@@ -2149,6 +2378,29 @@ class InvoiceService(StripeService):
         return cast(
             Invoice,
             self._request(
+                "post",
+                "/v1/invoices/{invoice}/pay".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pay_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.PayParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
                     invoice=sanitize_id(invoice),
@@ -2185,6 +2437,31 @@ class InvoiceService(StripeService):
             ),
         )
 
+    async def send_invoice_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.SendInvoiceParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+
+        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/send".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def void_invoice(
         self,
         invoice: str,
@@ -2199,6 +2476,31 @@ class InvoiceService(StripeService):
         return cast(
             Invoice,
             self._request(
+                "post",
+                "/v1/invoices/{invoice}/void".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def void_invoice_async(
+        self,
+        invoice: str,
+        params: "InvoiceService.VoidInvoiceParams" = {},
+        options: RequestOptions = {},
+    ) -> Invoice:
+        """
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
                     invoice=sanitize_id(invoice),

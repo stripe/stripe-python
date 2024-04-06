@@ -168,6 +168,35 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             "issued_date": IssuedDate,
         }
 
+    class Email(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "email_unverified_other", "email_verification_declined"
+                ]
+            ]
+            """
+            A short machine-readable string giving the reason for the verification failure.
+            """
+            reason: Optional[str]
+            """
+            A human-readable message giving the reason for the failure. These messages can be shown to your users.
+            """
+
+        email: Optional[str]
+        """
+        Email to be verified.
+        """
+        error: Optional[Error]
+        """
+        Details on the verification error. Present when status is `unverified`.
+        """
+        status: Literal["unverified", "verified"]
+        """
+        Status of this `email` check.
+        """
+        _inner_class_types = {"error": Error}
+
     class IdNumber(StripeObject):
         class Dob(StripeObject):
             day: Optional[int]
@@ -256,6 +285,35 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         document: Optional[Document]
         id_number: Optional[IdNumber]
         _inner_class_types = {"document": Document, "id_number": IdNumber}
+
+    class Phone(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "phone_unverified_other", "phone_verification_declined"
+                ]
+            ]
+            """
+            A short machine-readable string giving the reason for the verification failure.
+            """
+            reason: Optional[str]
+            """
+            A human-readable message giving the reason for the failure. These messages can be shown to your users.
+            """
+
+        error: Optional[Error]
+        """
+        Details on the verification error. Present when status is `unverified`.
+        """
+        phone: Optional[str]
+        """
+        Phone to be verified.
+        """
+        status: Literal["unverified", "verified"]
+        """
+        Status of this `phone` check.
+        """
+        _inner_class_types = {"error": Error}
 
     class Selfie(StripeObject):
         class Error(StripeObject):
@@ -363,6 +421,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Result from a document check
     """
+    email: Optional[Email]
+    """
+    Result from a email check
+    """
     id: str
     """
     Unique identifier for the object.
@@ -380,13 +442,21 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     options: Optional[Options]
+    phone: Optional[Phone]
+    """
+    Result from a phone check
+    """
     selfie: Optional[Selfie]
     """
     Result from a selfie check
     """
-    type: Literal["document", "id_number"]
+    type: Literal["document", "id_number", "verification_flow"]
     """
     Type of report.
+    """
+    verification_flow: Optional[str]
+    """
+    The configuration token of a Verification Flow from the dashboard.
     """
     verification_session: Optional[str]
     """
@@ -415,6 +485,27 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["VerificationReport.ListParams"]
+    ) -> ListObject["VerificationReport"]:
+        """
+        List all verification reports.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["VerificationReport.RetrieveParams"]
     ) -> "VerificationReport":
@@ -425,9 +516,22 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         instance.refresh()
         return instance
 
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["VerificationReport.RetrieveParams"]
+    ) -> "VerificationReport":
+        """
+        Retrieves an existing VerificationReport
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
     _inner_class_types = {
         "document": Document,
+        "email": Email,
         "id_number": IdNumber,
         "options": Options,
+        "phone": Phone,
         "selfie": Selfie,
     }

@@ -968,6 +968,10 @@ class PaymentMethodConfiguration(
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
         """
+        zip: NotRequired["PaymentMethodConfiguration.CreateParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
+        """
 
     class CreateParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
@@ -1459,6 +1463,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ListParams(RequestOptions):
         application: NotRequired["Literal['']|str"]
         """
@@ -1651,6 +1669,10 @@ class PaymentMethodConfiguration(
         ]
         """
         WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+        """
+        zip: NotRequired["PaymentMethodConfiguration.ModifyParamsZip"]
+        """
+        Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
         """
 
     class ModifyParamsAcssDebit(TypedDict):
@@ -2143,6 +2165,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsZip(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsZipDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsZipDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -2233,6 +2269,22 @@ class PaymentMethodConfiguration(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["PaymentMethodConfiguration.CreateParams"]
+    ) -> "PaymentMethodConfiguration":
+        """
+        Creates a payment method configuration
+        """
+        return cast(
+            "PaymentMethodConfiguration",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
@@ -2240,6 +2292,27 @@ class PaymentMethodConfiguration(
         List payment method configurations
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
+    ) -> ListObject["PaymentMethodConfiguration"]:
+        """
+        List payment method configurations
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -2273,6 +2346,25 @@ class PaymentMethodConfiguration(
         )
 
     @classmethod
+    async def modify_async(
+        cls,
+        id: str,
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+    ) -> "PaymentMethodConfiguration":
+        """
+        Update payment method configuration
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PaymentMethodConfiguration",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls,
         id: str,
@@ -2283,6 +2375,19 @@ class PaymentMethodConfiguration(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls,
+        id: str,
+        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
+    ) -> "PaymentMethodConfiguration":
+        """
+        Retrieve payment method configuration
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

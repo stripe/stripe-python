@@ -138,4 +138,20 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             ),
         )
 
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["CustomerSession.CreateParams"]
+    ) -> "CustomerSession":
+        """
+        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        """
+        return cast(
+            "CustomerSession",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {"components": Components}

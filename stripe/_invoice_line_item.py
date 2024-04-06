@@ -121,7 +121,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             "Literal['']|List[InvoiceLineItem.ModifyParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -166,6 +166,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsPeriod(TypedDict):
@@ -319,7 +323,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     If true, discounts will apply to this line item. Always false for prorations.
     """
-    discounts: Optional[List[ExpandableField["Discount"]]]
+    discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """
@@ -407,6 +411,26 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         return cast(
             "InvoiceLineItem",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["InvoiceLineItem.ModifyParams"]
+    ) -> "InvoiceLineItem":
+        """
+        Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
+        so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
+        item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
+        Updating an invoice's line item is only possible before the invoice is finalized.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "InvoiceLineItem",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,

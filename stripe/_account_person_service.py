@@ -71,11 +71,11 @@ class AccountPersonService(StripeService):
         """
         id_number: NotRequired[str]
         """
-        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -103,7 +103,7 @@ class AccountPersonService(StripeService):
         """
         person_token: NotRequired[str]
         """
-        A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+        A [person token](https://docs.stripe.com/connect/account-tokens), used to securely provide details to the person.
         """
         phone: NotRequired[str]
         """
@@ -500,11 +500,11 @@ class AccountPersonService(StripeService):
         """
         id_number: NotRequired[str]
         """
-        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii).
+        The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -532,7 +532,7 @@ class AccountPersonService(StripeService):
         """
         person_token: NotRequired[str]
         """
-        A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+        A [person token](https://docs.stripe.com/connect/account-tokens), used to securely provide details to the person.
         """
         phone: NotRequired[str]
         """
@@ -838,6 +838,31 @@ class AccountPersonService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        account: str,
+        person: str,
+        params: "AccountPersonService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> Person:
+        """
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        """
+        return cast(
+            Person,
+            await self._request_async(
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         account: str,
@@ -851,6 +876,31 @@ class AccountPersonService(StripeService):
         return cast(
             Person,
             self._request(
+                "get",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        account: str,
+        person: str,
+        params: "AccountPersonService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Person:
+        """
+        Retrieves an existing person.
+        """
+        return cast(
+            Person,
+            await self._request_async(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
                     account=sanitize_id(account),
@@ -888,6 +938,31 @@ class AccountPersonService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        account: str,
+        person: str,
+        params: "AccountPersonService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Person:
+        """
+        Updates an existing person.
+        """
+        return cast(
+            Person,
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account),
+                    person=sanitize_id(person),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         account: str,
@@ -911,6 +986,29 @@ class AccountPersonService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        account: str,
+        params: "AccountPersonService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Person]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        return cast(
+            ListObject[Person],
+            await self._request_async(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         account: str,
@@ -923,6 +1021,29 @@ class AccountPersonService(StripeService):
         return cast(
             Person,
             self._request(
+                "post",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        account: str,
+        params: "AccountPersonService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Person:
+        """
+        Creates a new person.
+        """
+        return cast(
+            Person,
+            await self._request_async(
                 "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account),

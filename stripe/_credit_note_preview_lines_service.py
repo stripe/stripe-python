@@ -165,3 +165,23 @@ class CreditNotePreviewLinesService(StripeService):
                 options=options,
             ),
         )
+
+    async def list_async(
+        self,
+        params: "CreditNotePreviewLinesService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[CreditNoteLineItem]:
+        """
+        When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject[CreditNoteLineItem],
+            await self._request_async(
+                "get",
+                "/v1/credit_notes/preview/lines",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

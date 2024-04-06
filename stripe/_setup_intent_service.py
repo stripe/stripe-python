@@ -724,6 +724,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsLink"
         ]
@@ -879,6 +885,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -1800,6 +1809,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsLink"
         ]
@@ -1955,6 +1970,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -2855,6 +2873,12 @@ class SetupIntentService(StripeService):
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsLink"
         ]
@@ -3010,6 +3034,9 @@ class SetupIntentService(StripeService):
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class UpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -3206,6 +3233,26 @@ class SetupIntentService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "SetupIntentService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[SetupIntent]:
+        """
+        Returns a list of SetupIntents.
+        """
+        return cast(
+            ListObject[SetupIntent],
+            await self._request_async(
+                "get",
+                "/v1/setup_intents",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "SetupIntentService.CreateParams" = {},
@@ -3220,6 +3267,29 @@ class SetupIntentService(StripeService):
         return cast(
             SetupIntent,
             self._request(
+                "post",
+                "/v1/setup_intents",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SetupIntentService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        Creates a SetupIntent object.
+
+        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        it to collect any required permissions to charge the payment method later.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
                 "post",
                 "/v1/setup_intents",
                 api_mode="V1",
@@ -3256,6 +3326,33 @@ class SetupIntentService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        intent: str,
+        params: "SetupIntentService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        Retrieves the details of a SetupIntent that has previously been created.
+
+        Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
+
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
+                "get",
+                "/v1/setup_intents/{intent}".format(
+                    intent=sanitize_id(intent)
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         intent: str,
@@ -3268,6 +3365,29 @@ class SetupIntentService(StripeService):
         return cast(
             SetupIntent,
             self._request(
+                "post",
+                "/v1/setup_intents/{intent}".format(
+                    intent=sanitize_id(intent)
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        intent: str,
+        params: "SetupIntentService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        Updates a SetupIntent object.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
@@ -3293,6 +3413,31 @@ class SetupIntentService(StripeService):
         return cast(
             SetupIntent,
             self._request(
+                "post",
+                "/v1/setup_intents/{intent}/cancel".format(
+                    intent=sanitize_id(intent),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        intent: str,
+        params: "SetupIntentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
@@ -3340,6 +3485,42 @@ class SetupIntentService(StripeService):
             ),
         )
 
+    async def confirm_async(
+        self,
+        intent: str,
+        params: "SetupIntentService.ConfirmParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
+                "post",
+                "/v1/setup_intents/{intent}/confirm".format(
+                    intent=sanitize_id(intent),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def verify_microdeposits(
         self,
         intent: str,
@@ -3352,6 +3533,29 @@ class SetupIntentService(StripeService):
         return cast(
             SetupIntent,
             self._request(
+                "post",
+                "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                    intent=sanitize_id(intent),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def verify_microdeposits_async(
+        self,
+        intent: str,
+        params: "SetupIntentService.VerifyMicrodepositsParams" = {},
+        options: RequestOptions = {},
+    ) -> SetupIntent:
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        return cast(
+            SetupIntent,
+            await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),

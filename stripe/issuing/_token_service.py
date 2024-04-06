@@ -94,6 +94,24 @@ class TokenService(StripeService):
             ),
         )
 
+    async def list_async(
+        self, params: "TokenService.ListParams", options: RequestOptions = {}
+    ) -> ListObject[Token]:
+        """
+        Lists all Issuing Token objects for a given card.
+        """
+        return cast(
+            ListObject[Token],
+            await self._request_async(
+                "get",
+                "/v1/issuing/tokens",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         token: str,
@@ -115,6 +133,27 @@ class TokenService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        token: str,
+        params: "TokenService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Token:
+        """
+        Retrieves an Issuing Token object.
+        """
+        return cast(
+            Token,
+            await self._request_async(
+                "get",
+                "/v1/issuing/tokens/{token}".format(token=sanitize_id(token)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         token: str,
@@ -127,6 +166,27 @@ class TokenService(StripeService):
         return cast(
             Token,
             self._request(
+                "post",
+                "/v1/issuing/tokens/{token}".format(token=sanitize_id(token)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        token: str,
+        params: "TokenService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> Token:
+        """
+        Attempts to update the specified Issuing Token object to the status specified.
+        """
+        return cast(
+            Token,
+            await self._request_async(
                 "post",
                 "/v1/issuing/tokens/{token}".format(token=sanitize_id(token)),
                 api_mode="V1",

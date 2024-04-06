@@ -141,6 +141,26 @@ class MeterService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "MeterService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Meter]:
+        """
+        Retrieve a list of billing meters.
+        """
+        return cast(
+            ListObject[Meter],
+            await self._request_async(
+                "get",
+                "/v1/billing/meters",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self, params: "MeterService.CreateParams", options: RequestOptions = {}
     ) -> Meter:
@@ -150,6 +170,24 @@ class MeterService(StripeService):
         return cast(
             Meter,
             self._request(
+                "post",
+                "/v1/billing/meters",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self, params: "MeterService.CreateParams", options: RequestOptions = {}
+    ) -> Meter:
+        """
+        Creates a billing meter
+        """
+        return cast(
+            Meter,
+            await self._request_async(
                 "post",
                 "/v1/billing/meters",
                 api_mode="V1",
@@ -180,6 +218,27 @@ class MeterService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "MeterService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Meter:
+        """
+        Retrieves a billing meter given an ID
+        """
+        return cast(
+            Meter,
+            await self._request_async(
+                "get",
+                "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         id: str,
@@ -192,6 +251,27 @@ class MeterService(StripeService):
         return cast(
             Meter,
             self._request(
+                "post",
+                "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "MeterService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Meter:
+        """
+        Updates a billing meter
+        """
+        return cast(
+            Meter,
+            await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
@@ -224,6 +304,29 @@ class MeterService(StripeService):
             ),
         )
 
+    async def deactivate_async(
+        self,
+        id: str,
+        params: "MeterService.DeactivateParams" = {},
+        options: RequestOptions = {},
+    ) -> Meter:
+        """
+        Deactivates a billing meter
+        """
+        return cast(
+            Meter,
+            await self._request_async(
+                "post",
+                "/v1/billing/meters/{id}/deactivate".format(
+                    id=sanitize_id(id)
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def reactivate(
         self,
         id: str,
@@ -236,6 +339,29 @@ class MeterService(StripeService):
         return cast(
             Meter,
             self._request(
+                "post",
+                "/v1/billing/meters/{id}/reactivate".format(
+                    id=sanitize_id(id)
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reactivate_async(
+        self,
+        id: str,
+        params: "MeterService.ReactivateParams" = {},
+        options: RequestOptions = {},
+    ) -> Meter:
+        """
+        Reactivates a billing meter
+        """
+        return cast(
+            Meter,
+            await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}/reactivate".format(
                     id=sanitize_id(id)

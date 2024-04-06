@@ -75,17 +75,17 @@ class ConfigurationService(StripeService):
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "ConfigurationService.CreateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "ConfigurationService.CreateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
@@ -159,7 +159,7 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -310,17 +310,17 @@ class ConfigurationService(StripeService):
         """
         Information about canceling subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.UpdateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
         subscription_update: NotRequired[
             "ConfigurationService.UpdateParamsFeaturesSubscriptionUpdate"
         ]
         """
         Information about updating subscriptions in the portal.
+        """
+        subscription_pause: NotRequired[
+            "ConfigurationService.UpdateParamsFeaturesSubscriptionPause"
+        ]
+        """
+        Information about pausing subscriptions in the portal.
         """
 
     class UpdateParamsFeaturesCustomerUpdate(TypedDict):
@@ -382,7 +382,7 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[bool]
+        enabled: bool
         """
         Whether the feature is enabled.
         """
@@ -449,6 +449,26 @@ class ConfigurationService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ConfigurationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Configuration]:
+        """
+        Returns a list of configurations that describe the functionality of the customer portal.
+        """
+        return cast(
+            ListObject[Configuration],
+            await self._request_async(
+                "get",
+                "/v1/billing_portal/configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ConfigurationService.CreateParams",
@@ -460,6 +480,26 @@ class ConfigurationService(StripeService):
         return cast(
             Configuration,
             self._request(
+                "post",
+                "/v1/billing_portal/configurations",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "ConfigurationService.CreateParams",
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Creates a configuration that describes the functionality and behavior of a PortalSession
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
                 "post",
                 "/v1/billing_portal/configurations",
                 api_mode="V1",
@@ -492,6 +532,29 @@ class ConfigurationService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        configuration: str,
+        params: "ConfigurationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Retrieves a configuration that describes the functionality of the customer portal.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
+                "get",
+                "/v1/billing_portal/configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         configuration: str,
@@ -504,6 +567,29 @@ class ConfigurationService(StripeService):
         return cast(
             Configuration,
             self._request(
+                "post",
+                "/v1/billing_portal/configurations/{configuration}".format(
+                    configuration=sanitize_id(configuration),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        configuration: str,
+        params: "ConfigurationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Configuration:
+        """
+        Updates a configuration that describes the functionality of the customer portal.
+        """
+        return cast(
+            Configuration,
+            await self._request_async(
                 "post",
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),

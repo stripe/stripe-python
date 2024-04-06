@@ -10,7 +10,16 @@ from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from typing import (
+    AsyncIterator,
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -746,11 +755,48 @@ class Price(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Price.CreateParams"]
+    ) -> "Price":
+        """
+        Creates a new price for an existing product. The price can be recurring or one-time.
+        """
+        return cast(
+            "Price",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Price.ListParams"]) -> ListObject["Price"]:
         """
         Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Price.ListParams"]
+    ) -> ListObject["Price"]:
+        """
+        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -782,6 +828,23 @@ class Price(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Price.ModifyParams"]
+    ) -> "Price":
+        """
+        Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Price",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Price.RetrieveParams"]
     ) -> "Price":
@@ -790,6 +853,17 @@ class Price(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Price.RetrieveParams"]
+    ) -> "Price":
+        """
+        Retrieves the price with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -805,10 +879,30 @@ class Price(
         return cls._search(search_url="/v1/prices/search", *args, **kwargs)
 
     @classmethod
+    async def search_async(
+        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+    ) -> SearchResultObject["Price"]:
+        """
+        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return await cls._search_async(
+            search_url="/v1/prices/search", *args, **kwargs
+        )
+
+    @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> Iterator["Price"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    @classmethod
+    async def search_auto_paging_iter_async(
+        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+    ) -> AsyncIterator["Price"]:
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     _inner_class_types = {
         "currency_options": CurrencyOptions,

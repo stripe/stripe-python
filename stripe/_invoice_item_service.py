@@ -35,7 +35,7 @@ class InvoiceItemService(StripeService):
             "Literal['']|List[InvoiceItemService.CreateParamsDiscount]"
         ]
         """
-        The coupons to redeem into discounts for the invoice item or invoice line item.
+        The coupons and promotion codes to redeem into discounts for the invoice item or invoice line item.
         """
         expand: NotRequired[List[str]]
         """
@@ -100,6 +100,10 @@ class InvoiceItemService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPeriod(TypedDict):
@@ -214,7 +218,7 @@ class InvoiceItemService(StripeService):
             "Literal['']|List[InvoiceItemService.UpdateParamsDiscount]"
         ]
         """
-        The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        The coupons, promotion codes & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
         """
         expand: NotRequired[List[str]]
         """
@@ -271,6 +275,10 @@ class InvoiceItemService(StripeService):
         discount: NotRequired[str]
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsPeriod(TypedDict):
@@ -330,6 +338,29 @@ class InvoiceItemService(StripeService):
             ),
         )
 
+    async def delete_async(
+        self,
+        invoiceitem: str,
+        params: "InvoiceItemService.DeleteParams" = {},
+        options: RequestOptions = {},
+    ) -> InvoiceItem:
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
+        return cast(
+            InvoiceItem,
+            await self._request_async(
+                "delete",
+                "/v1/invoiceitems/{invoiceitem}".format(
+                    invoiceitem=sanitize_id(invoiceitem),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         invoiceitem: str,
@@ -342,6 +373,29 @@ class InvoiceItemService(StripeService):
         return cast(
             InvoiceItem,
             self._request(
+                "get",
+                "/v1/invoiceitems/{invoiceitem}".format(
+                    invoiceitem=sanitize_id(invoiceitem),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        invoiceitem: str,
+        params: "InvoiceItemService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> InvoiceItem:
+        """
+        Retrieves the invoice item with the given ID.
+        """
+        return cast(
+            InvoiceItem,
+            await self._request_async(
                 "get",
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
@@ -376,6 +430,29 @@ class InvoiceItemService(StripeService):
             ),
         )
 
+    async def update_async(
+        self,
+        invoiceitem: str,
+        params: "InvoiceItemService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> InvoiceItem:
+        """
+        Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
+        """
+        return cast(
+            InvoiceItem,
+            await self._request_async(
+                "post",
+                "/v1/invoiceitems/{invoiceitem}".format(
+                    invoiceitem=sanitize_id(invoiceitem),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def list(
         self,
         params: "InvoiceItemService.ListParams" = {},
@@ -396,6 +473,26 @@ class InvoiceItemService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "InvoiceItemService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[InvoiceItem]:
+        """
+        Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
+        """
+        return cast(
+            ListObject[InvoiceItem],
+            await self._request_async(
+                "get",
+                "/v1/invoiceitems",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "InvoiceItemService.CreateParams",
@@ -407,6 +504,26 @@ class InvoiceItemService(StripeService):
         return cast(
             InvoiceItem,
             self._request(
+                "post",
+                "/v1/invoiceitems",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "InvoiceItemService.CreateParams",
+        options: RequestOptions = {},
+    ) -> InvoiceItem:
+        """
+        Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
+        """
+        return cast(
+            InvoiceItem,
+            await self._request_async(
                 "post",
                 "/v1/invoiceitems",
                 api_mode="V1",

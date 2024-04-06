@@ -158,6 +158,10 @@ class QuoteService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class CreateParamsFromQuote(TypedDict):
         is_revision: NotRequired[bool]
@@ -190,6 +194,12 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[QuoteService.CreateParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -205,6 +215,20 @@ class QuoteService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
+        """
+
+    class CreateParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsLineItemPriceData(TypedDict):
@@ -448,6 +472,10 @@ class QuoteService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
 
     class UpdateParamsInvoiceSettings(TypedDict):
         days_until_due: NotRequired[int]
@@ -470,6 +498,12 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[QuoteService.UpdateParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
         id: NotRequired[str]
         """
         The ID of an existing line item on the quote.
@@ -489,6 +523,20 @@ class QuoteService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
+        """
+
+    class UpdateParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class UpdateParamsLineItemPriceData(TypedDict):
@@ -585,6 +633,26 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "QuoteService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Quote]:
+        """
+        Returns a list of your quotes.
+        """
+        return cast(
+            ListObject[Quote],
+            await self._request_async(
+                "get",
+                "/v1/quotes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "QuoteService.CreateParams" = {},
@@ -596,6 +664,26 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "QuoteService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes",
                 api_mode="V1",
@@ -626,6 +714,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def retrieve_async(
+        self,
+        quote: str,
+        params: "QuoteService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Retrieves the quote with the given ID.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         quote: str,
@@ -638,6 +747,27 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        quote: str,
+        params: "QuoteService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        A quote models prices and services for a customer.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -668,6 +798,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def accept_async(
+        self,
+        quote: str,
+        params: "QuoteService.AcceptParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Accepts the specified quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel(
         self,
         quote: str,
@@ -680,6 +831,27 @@ class QuoteService(StripeService):
         return cast(
             Quote,
             self._request(
+                "post",
+                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        quote: str,
+        params: "QuoteService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Cancels the quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
                 api_mode="V1",
@@ -710,6 +882,27 @@ class QuoteService(StripeService):
             ),
         )
 
+    async def finalize_quote_async(
+        self,
+        quote: str,
+        params: "QuoteService.FinalizeQuoteParams" = {},
+        options: RequestOptions = {},
+    ) -> Quote:
+        """
+        Finalizes the quote.
+        """
+        return cast(
+            Quote,
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def pdf(
         self,
         quote: str,
@@ -722,6 +915,27 @@ class QuoteService(StripeService):
         return cast(
             Any,
             self._request_stream(
+                "get",
+                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                api_mode="V1",
+                base_address="files",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pdf_async(
+        self,
+        quote: str,
+        params: "QuoteService.PdfParams" = {},
+        options: RequestOptions = {},
+    ) -> Any:
+        """
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        """
+        return cast(
+            Any,
+            await self._request_stream_async(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
                 api_mode="V1",

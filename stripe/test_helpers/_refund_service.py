@@ -37,3 +37,26 @@ class RefundService(StripeService):
                 options=options,
             ),
         )
+
+    async def expire_async(
+        self,
+        refund: str,
+        params: "RefundService.ExpireParams" = {},
+        options: RequestOptions = {},
+    ) -> Refund:
+        """
+        Expire a refund with a status of requires_action.
+        """
+        return cast(
+            Refund,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/refunds/{refund}/expire".format(
+                    refund=sanitize_id(refund),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

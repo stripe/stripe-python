@@ -84,6 +84,26 @@ class EarlyFraudWarningService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "EarlyFraudWarningService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[EarlyFraudWarning]:
+        """
+        Returns a list of early fraud warnings.
+        """
+        return cast(
+            ListObject[EarlyFraudWarning],
+            await self._request_async(
+                "get",
+                "/v1/radar/early_fraud_warnings",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         early_fraud_warning: str,
@@ -98,6 +118,31 @@ class EarlyFraudWarningService(StripeService):
         return cast(
             EarlyFraudWarning,
             self._request(
+                "get",
+                "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
+                    early_fraud_warning=sanitize_id(early_fraud_warning),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        early_fraud_warning: str,
+        params: "EarlyFraudWarningService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> EarlyFraudWarning:
+        """
+        Retrieves the details of an early fraud warning that has previously been created.
+
+        Please refer to the [early fraud warning](https://stripe.com/docs/api#early_fraud_warning_object) object reference for more details.
+        """
+        return cast(
+            EarlyFraudWarning,
+            await self._request_async(
                 "get",
                 "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
                     early_fraud_warning=sanitize_id(early_fraud_warning),

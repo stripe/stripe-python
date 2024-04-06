@@ -85,3 +85,23 @@ class ReceivedDebitService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "ReceivedDebitService.CreateParams",
+        options: RequestOptions = {},
+    ) -> ReceivedDebit:
+        """
+        Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
+        """
+        return cast(
+            ReceivedDebit,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/received_debits",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

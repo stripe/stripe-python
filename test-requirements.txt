@@ -1,6 +1,16 @@
 # These requirements must be installable on all our supported versions
+
+# This is the last version of httpx compatible with Python 3.6
+httpx == 0.22.0; python_version == "3.6"
+httpx >= 0.24.1; python_version == "3.7"
+httpx >= 0.27.0; python_version >= "3.8"
+aiohttp == 3.8.6; python_version <= "3.7"
+aiohttp == 3.9.2; python_version > "3.7"
+anyio[trio] == 3.6.2
+
 pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
+asyncmock >= 0.4.2
 pytest-xdist >= 1.31.0
 pytest >= 6.0.0
 coverage >= 4.5.3, < 5

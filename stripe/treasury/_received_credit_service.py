@@ -76,6 +76,26 @@ class ReceivedCreditService(StripeService):
             ),
         )
 
+    async def list_async(
+        self,
+        params: "ReceivedCreditService.ListParams",
+        options: RequestOptions = {},
+    ) -> ListObject[ReceivedCredit]:
+        """
+        Returns a list of ReceivedCredits.
+        """
+        return cast(
+            ListObject[ReceivedCredit],
+            await self._request_async(
+                "get",
+                "/v1/treasury/received_credits",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -88,6 +108,29 @@ class ReceivedCreditService(StripeService):
         return cast(
             ReceivedCredit,
             self._request(
+                "get",
+                "/v1/treasury/received_credits/{id}".format(
+                    id=sanitize_id(id)
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "ReceivedCreditService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ReceivedCredit:
+        """
+        Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
+        """
+        return cast(
+            ReceivedCredit,
+            await self._request_async(
                 "get",
                 "/v1/treasury/received_credits/{id}".format(
                     id=sanitize_id(id)

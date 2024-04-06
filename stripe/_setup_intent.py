@@ -527,6 +527,9 @@ class SetupIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class CardPresent(StripeObject):
+            pass
+
         class Link(StripeObject):
             persistent_token: Optional[str]
             """
@@ -591,6 +594,7 @@ class SetupIntent(
 
         acss_debit: Optional[AcssDebit]
         card: Optional[Card]
+        card_present: Optional[CardPresent]
         link: Optional[Link]
         paypal: Optional[Paypal]
         sepa_debit: Optional[SepaDebit]
@@ -598,6 +602,7 @@ class SetupIntent(
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "card": Card,
+            "card_present": CardPresent,
             "link": Link,
             "paypal": Paypal,
             "sepa_debit": SepaDebit,
@@ -1280,6 +1285,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -1433,6 +1444,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -2326,6 +2340,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -2479,6 +2499,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -3341,6 +3364,12 @@ class SetupIntent(
         """
         Configuration for any card setup attempted on this SetupIntent.
         """
+        card_present: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsCardPresent"
+        ]
+        """
+        If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
         link: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsLink"]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
@@ -3494,6 +3523,9 @@ class SetupIntent(
         """
         Specifies the type of mandates supported. Possible values are `india`.
         """
+
+    class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -3866,6 +3898,69 @@ class SetupIntent(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls, intent: str, **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        return cast(
+            "SetupIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/setup_intents/{intent}/cancel".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        intent: str, **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        return cast(
+            "SetupIntent",
+            await self._request_async(
+                "post",
+                "/v1/setup_intents/{intent}/cancel".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_confirm(
         cls, intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
@@ -3973,6 +4068,113 @@ class SetupIntent(
         )
 
     @classmethod
+    async def _cls_confirm_async(
+        cls, intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        return cast(
+            "SetupIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/setup_intents/{intent}/confirm".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_async(
+        intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        ...
+
+    @overload
+    async def confirm_async(
+        self, **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_async")
+    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        return cast(
+            "SetupIntent",
+            await self._request_async(
+                "post",
+                "/v1/setup_intents/{intent}/confirm".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["SetupIntent.CreateParams"]
     ) -> "SetupIntent":
@@ -3992,6 +4194,25 @@ class SetupIntent(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["SetupIntent.CreateParams"]
+    ) -> "SetupIntent":
+        """
+        Creates a SetupIntent object.
+
+        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        it to collect any required permissions to charge the payment method later.
+        """
+        return cast(
+            "SetupIntent",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["SetupIntent.ListParams"]
     ) -> ListObject["SetupIntent"]:
@@ -3999,6 +4220,27 @@ class SetupIntent(
         Returns a list of SetupIntents.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["SetupIntent.ListParams"]
+    ) -> ListObject["SetupIntent"]:
+        """
+        Returns a list of SetupIntents.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -4030,6 +4272,23 @@ class SetupIntent(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
+    ) -> "SetupIntent":
+        """
+        Updates a SetupIntent object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "SetupIntent",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
     ) -> "SetupIntent":
@@ -4042,6 +4301,21 @@ class SetupIntent(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
+    ) -> "SetupIntent":
+        """
+        Retrieves the details of a SetupIntent that has previously been created.
+
+        Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
+
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     @classmethod
@@ -4093,6 +4367,63 @@ class SetupIntent(
         return cast(
             "SetupIntent",
             self._request(
+                "post",
+                "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_verify_microdeposits_async(
+        cls,
+        intent: str,
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        return cast(
+            "SetupIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def verify_microdeposits_async(
+        intent: str, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        ...
+
+    @overload
+    async def verify_microdeposits_async(
+        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        ...
+
+    @class_method_variant("_cls_verify_microdeposits_async")
+    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        return cast(
+            "SetupIntent",
+            await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(self.get("id"))

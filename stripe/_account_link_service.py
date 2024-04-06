@@ -69,3 +69,23 @@ class AccountLinkService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "AccountLinkService.CreateParams",
+        options: RequestOptions = {},
+    ) -> AccountLink:
+        """
+        Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
+        """
+        return cast(
+            AccountLink,
+            await self._request_async(
+                "post",
+                "/v1/account_links",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

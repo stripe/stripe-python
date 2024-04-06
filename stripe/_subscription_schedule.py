@@ -22,9 +22,11 @@ if TYPE_CHECKING:
     from stripe._application import Application
     from stripe._coupon import Coupon
     from stripe._customer import Customer
+    from stripe._discount import Discount as DiscountResource
     from stripe._payment_method import PaymentMethod
     from stripe._plan import Plan
     from stripe._price import Price
+    from stripe._promotion_code import PromotionCode
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
@@ -165,6 +167,24 @@ class SubscriptionSchedule(
 
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
+            class Discount(StripeObject):
+                coupon: Optional[ExpandableField["Coupon"]]
+                """
+                ID of the coupon to create a new discount for.
+                """
+                discount: Optional[ExpandableField["DiscountResource"]]
+                """
+                ID of an existing discount on the object (or one of its ancestors) to reuse.
+                """
+                promotion_code: Optional[ExpandableField["PromotionCode"]]
+                """
+                ID of the promotion code to create a new discount for.
+                """
+
+            discounts: List[Discount]
+            """
+            The stackable discounts that will be applied to the item.
+            """
             price: ExpandableField["Price"]
             """
             ID of the price used to generate the invoice item.
@@ -177,6 +197,7 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
             """
+            _inner_class_types = {"discounts": Discount}
 
         class AutomaticTax(StripeObject):
             class Liability(StripeObject):
@@ -207,6 +228,20 @@ class SubscriptionSchedule(
             reset_billing_cycle_anchor: Optional[bool]
             """
             Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+            """
+
+        class Discount(StripeObject):
+            coupon: Optional[ExpandableField["Coupon"]]
+            """
+            ID of the coupon to create a new discount for.
+            """
+            discount: Optional[ExpandableField["DiscountResource"]]
+            """
+            ID of an existing discount on the object (or one of its ancestors) to reuse.
+            """
+            promotion_code: Optional[ExpandableField["PromotionCode"]]
+            """
+            ID of the promotion code to create a new discount for.
             """
 
         class InvoiceSettings(StripeObject):
@@ -241,9 +276,27 @@ class SubscriptionSchedule(
                 Usage threshold that triggers the subscription to create an invoice
                 """
 
+            class Discount(StripeObject):
+                coupon: Optional[ExpandableField["Coupon"]]
+                """
+                ID of the coupon to create a new discount for.
+                """
+                discount: Optional[ExpandableField["DiscountResource"]]
+                """
+                ID of an existing discount on the object (or one of its ancestors) to reuse.
+                """
+                promotion_code: Optional[ExpandableField["PromotionCode"]]
+                """
+                ID of the promotion code to create a new discount for.
+                """
+
             billing_thresholds: Optional[BillingThresholds]
             """
             Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+            """
+            discounts: List[Discount]
+            """
+            The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
             """
             metadata: Optional[Dict[str, str]]
             """
@@ -265,7 +318,10 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
             """
-            _inner_class_types = {"billing_thresholds": BillingThresholds}
+            _inner_class_types = {
+                "billing_thresholds": BillingThresholds,
+                "discounts": Discount,
+            }
 
         class TransferData(StripeObject):
             amount_percent: Optional[float]
@@ -320,6 +376,10 @@ class SubscriptionSchedule(
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
+        discounts: List[Discount]
+        """
+        The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
+        """
         end_date: int
         """
         The end of this phase of the subscription schedule.
@@ -362,6 +422,7 @@ class SubscriptionSchedule(
             "add_invoice_items": AddInvoiceItem,
             "automatic_tax": AutomaticTax,
             "billing_thresholds": BillingThresholds,
+            "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,
             "transfer_data": TransferData,
@@ -574,7 +635,7 @@ class SubscriptionSchedule(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -591,6 +652,12 @@ class SubscriptionSchedule(
         description: NotRequired["Literal['']|str"]
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionSchedule.CreateParamsPhaseDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
         end_date: NotRequired[int]
         """
@@ -640,6 +707,14 @@ class SubscriptionSchedule(
         """
 
     class CreateParamsPhaseAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemDiscount"
+            ]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -657,6 +732,20 @@ class SubscriptionSchedule(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -715,6 +804,20 @@ class SubscriptionSchedule(
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class CreateParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class CreateParamsPhaseInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -748,6 +851,12 @@ class SubscriptionSchedule(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionSchedule.CreateParamsPhaseItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -779,6 +888,20 @@ class SubscriptionSchedule(
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class CreateParamsPhaseItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class CreateParamsPhaseItemPriceData(TypedDict):
@@ -1136,7 +1259,7 @@ class SubscriptionSchedule(
         """
         coupon: NotRequired[str]
         """
-        The identifier of the coupon to apply to this phase of the subscription schedule.
+        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -1153,6 +1276,12 @@ class SubscriptionSchedule(
         description: NotRequired["Literal['']|str"]
         """
         Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionSchedule.ModifyParamsPhaseDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
         end_date: NotRequired["int|Literal['now']"]
         """
@@ -1206,6 +1335,14 @@ class SubscriptionSchedule(
         """
 
     class ModifyParamsPhaseAddInvoiceItem(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemDiscount"
+            ]
+        ]
+        """
+        The coupons to redeem into discounts for the item.
+        """
         price: NotRequired[str]
         """
         The ID of the price object.
@@ -1223,6 +1360,20 @@ class SubscriptionSchedule(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -1281,6 +1432,20 @@ class SubscriptionSchedule(
         Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
+    class ModifyParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
     class ModifyParamsPhaseInvoiceSettings(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -1314,6 +1479,12 @@ class SubscriptionSchedule(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SubscriptionSchedule.ModifyParamsPhaseItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -1345,6 +1516,20 @@ class SubscriptionSchedule(
         usage_gte: int
         """
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
+    class ModifyParamsPhaseItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
         """
 
     class ModifyParamsPhaseItemPriceData(TypedDict):
@@ -1541,6 +1726,63 @@ class SubscriptionSchedule(
         )
 
     @classmethod
+    async def _cls_cancel_async(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cancel_async(
+        schedule: str, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        ...
+
+    @overload
+    async def cancel_async(
+        self, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        ...
+
+    @class_method_variant("_cls_cancel_async")
+    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(
         cls, **params: Unpack["SubscriptionSchedule.CreateParams"]
     ) -> "SubscriptionSchedule":
@@ -1550,6 +1792,22 @@ class SubscriptionSchedule(
         return cast(
             "SubscriptionSchedule",
             cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["SubscriptionSchedule.CreateParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
                 "post",
                 cls.class_url(),
                 params=params,
@@ -1578,6 +1836,27 @@ class SubscriptionSchedule(
         return result
 
     @classmethod
+    async def list_async(
+        cls, **params: Unpack["SubscriptionSchedule.ListParams"]
+    ) -> ListObject["SubscriptionSchedule"]:
+        """
+        Retrieves the list of your subscription schedules.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
     ) -> "SubscriptionSchedule":
@@ -1588,6 +1867,23 @@ class SubscriptionSchedule(
         return cast(
             "SubscriptionSchedule",
             cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Updates an existing subscription schedule.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
                 "post",
                 url,
                 params=params,
@@ -1652,6 +1948,63 @@ class SubscriptionSchedule(
         )
 
     @classmethod
+    async def _cls_release_async(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def release_async(
+        schedule: str, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        ...
+
+    @overload
+    async def release_async(
+        self, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        ...
+
+    @class_method_variant("_cls_release_async")
+    async def release_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["SubscriptionSchedule.RetrieveParams"]
     ) -> "SubscriptionSchedule":
@@ -1660,6 +2013,17 @@ class SubscriptionSchedule(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["SubscriptionSchedule.RetrieveParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {

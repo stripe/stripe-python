@@ -701,3 +701,23 @@ class ConfirmationTokenService(StripeService):
                 options=options,
             ),
         )
+
+    async def create_async(
+        self,
+        params: "ConfirmationTokenService.CreateParams" = {},
+        options: RequestOptions = {},
+    ) -> ConfirmationToken:
+        """
+        Creates a test mode Confirmation Token server side for your integration tests.
+        """
+        return cast(
+            ConfirmationToken,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/confirmation_tokens",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

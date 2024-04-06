@@ -403,6 +403,22 @@ class Plan(
         )
 
     @classmethod
+    async def create_async(
+        cls, **params: Unpack["Plan.CreateParams"]
+    ) -> "Plan":
+        """
+        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        """
+        return cast(
+            "Plan",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Plan.DeleteParams"]
     ) -> "Plan":
@@ -448,11 +464,81 @@ class Plan(
         )
 
     @classmethod
+    async def _cls_delete_async(
+        cls, sid: str, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
+        return cast(
+            "Plan",
+            await cls._static_request_async(
+                "delete",
+                url,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def delete_async(
+        sid: str, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
+        ...
+
+    @overload
+    async def delete_async(
+        self, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
+        ...
+
+    @class_method_variant("_cls_delete_async")
+    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
+        return await self._request_and_refresh_async(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
     def list(cls, **params: Unpack["Plan.ListParams"]) -> ListObject["Plan"]:
         """
         Returns a list of your plans.
         """
         result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Plan.ListParams"]
+    ) -> ListObject["Plan"]:
+        """
+        Returns a list of your plans.
+        """
+        result = await cls._static_request_async(
             "get",
             cls.class_url(),
             params=params,
@@ -482,6 +568,23 @@ class Plan(
         )
 
     @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Plan.ModifyParams"]
+    ) -> "Plan":
+        """
+        Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Plan",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Plan.RetrieveParams"]
     ) -> "Plan":
@@ -490,6 +593,17 @@ class Plan(
         """
         instance = cls(id, **params)
         instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Plan.RetrieveParams"]
+    ) -> "Plan":
+        """
+        Retrieves the plan with the given ID.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
         return instance
 
     _inner_class_types = {"tiers": Tier, "transform_usage": TransformUsage}
