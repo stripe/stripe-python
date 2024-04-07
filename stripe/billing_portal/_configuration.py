@@ -114,12 +114,6 @@ class Configuration(
             """
             _inner_class_types = {"cancellation_reason": CancellationReason}
 
-        class SubscriptionPause(StripeObject):
-            enabled: bool
-            """
-            Whether the feature is enabled.
-            """
-
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
                 prices: List[str]
@@ -158,14 +152,12 @@ class Configuration(
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
         subscription_update: SubscriptionUpdate
-        subscription_pause: SubscriptionPause
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
             "subscription_update": SubscriptionUpdate,
-            "subscription_pause": SubscriptionPause,
         }
 
     class LoginPage(StripeObject):
@@ -251,12 +243,6 @@ class Configuration(
         """
         Information about updating subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -326,12 +312,6 @@ class Configuration(
         ]
         """
         Which cancellation reasons will be given as options to the customer.
-        """
-
-    class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
         """
 
     class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
@@ -480,12 +460,6 @@ class Configuration(
         """
         Information about updating subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "Configuration.ModifyParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
 
     class ModifyParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -543,12 +517,6 @@ class Configuration(
         ]
         """
         Which cancellation reasons will be given as options to the customer.
-        """
-
-    class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
         """
 
     class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
