@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._product import Product
+from stripe._product_feature_service import ProductFeatureService
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
@@ -11,6 +12,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ProductService(StripeService):
+    def __init__(self, requestor):
+        super().__init__(requestor)
+        self.features = ProductFeatureService(self._requestor)
+
     class CreateParams(TypedDict):
         active: NotRequired[bool]
         """

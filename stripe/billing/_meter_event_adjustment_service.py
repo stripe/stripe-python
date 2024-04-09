@@ -29,7 +29,7 @@ class MeterEventAdjustmentService(StripeService):
     class CreateParamsCancel(TypedDict):
         identifier: str
         """
-        Unique identifier for the event.
+        Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         """
 
     def create(
