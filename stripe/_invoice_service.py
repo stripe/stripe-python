@@ -133,6 +133,12 @@ class InvoiceService(StripeService):
         """
         The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
         """
+        rendering_options: NotRequired[
+            "Literal['']|InvoiceService.CreateParamsRenderingOptions"
+        ]
+        """
+        This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
+        """
         shipping_cost: NotRequired["InvoiceService.CreateParamsShippingCost"]
         """
         Settings for the cost of shipping for this invoice.
@@ -446,6 +452,14 @@ class InvoiceService(StripeService):
         pdf: NotRequired["InvoiceService.CreateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+
+    class CreateParamsRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
 
     class CreateParamsRenderingPdf(TypedDict):
@@ -1448,6 +1462,12 @@ class InvoiceService(StripeService):
         """
         The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
         """
+        rendering_options: NotRequired[
+            "Literal['']|InvoiceService.UpdateParamsRenderingOptions"
+        ]
+        """
+        This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
+        """
         shipping_cost: NotRequired[
             "Literal['']|InvoiceService.UpdateParamsShippingCost"
         ]
@@ -1751,6 +1771,14 @@ class InvoiceService(StripeService):
         pdf: NotRequired["InvoiceService.UpdateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+
+    class UpdateParamsRenderingOptions(TypedDict):
+        amount_tax_display: NotRequired[
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        ]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
 
     class UpdateParamsRenderingPdf(TypedDict):
