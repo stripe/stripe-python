@@ -5,6 +5,7 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -32,9 +33,11 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._price import Price
+    from stripe._product_feature import ProductFeature
     from stripe._tax_code import TaxCode
 
 
+@nested_resource_class_methods("feature")
 class Product(
     CreateableAPIResource["Product"],
     DeletableAPIResource["Product"],
@@ -77,6 +80,16 @@ class Product(
         width: float
         """
         Width, in inches.
+        """
+
+    class CreateFeatureParams(RequestOptions):
+        entitlement_feature: str
+        """
+        The ID of the [Feature](docs/api/entitlements/feature) object attached to this product.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class CreateParams(RequestOptions):
@@ -284,8 +297,29 @@ class Product(
         Width, in inches. Maximum precision is 2 decimal places.
         """
 
+    class DeleteFeatureParams(RequestOptions):
+        pass
+
     class DeleteParams(RequestOptions):
         pass
+
+    class ListFeaturesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
     class ListParams(RequestOptions):
         active: NotRequired[bool]
@@ -432,6 +466,12 @@ class Product(
         width: float
         """
         Width, in inches. Maximum precision is 2 decimal places.
+        """
+
+    class RetrieveFeatureParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
         """
 
     class RetrieveParams(RequestOptions):
@@ -800,6 +840,162 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> AsyncIterator["Product"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    def delete_feature(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.DeleteFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Deletes the feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "delete",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def delete_feature_async(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.DeleteFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Deletes the feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "delete",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_features(
+        cls, product: str, **params: Unpack["Product.ListFeaturesParams"]
+    ) -> ListObject["ProductFeature"]:
+        """
+        Retrieve a list of features for a product
+        """
+        return cast(
+            ListObject["ProductFeature"],
+            cls._static_request(
+                "get",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_features_async(
+        cls, product: str, **params: Unpack["Product.ListFeaturesParams"]
+    ) -> ListObject["ProductFeature"]:
+        """
+        Retrieve a list of features for a product
+        """
+        return cast(
+            ListObject["ProductFeature"],
+            await cls._static_request_async(
+                "get",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_feature(
+        cls, product: str, **params: Unpack["Product.CreateFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Creates a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "post",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_feature_async(
+        cls, product: str, **params: Unpack["Product.CreateFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Creates a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "post",
+                "/v1/products/{product}/features".format(
+                    product=sanitize_id(product)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def retrieve_feature(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.RetrieveFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "get",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_feature_async(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.RetrieveFeatureParams"]
+    ) -> "ProductFeature":
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "get",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "features": Feature,

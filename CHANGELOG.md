@@ -1,3 +1,18 @@
+## 8.11.0 - 2024-04-09
+* [#1295](https://github.com/stripe/stripe-python/pull/1295) Update generated code
+  * Add support for `fees`, `losses`, `requirement_collection` & `stripe_dashboard` on resource class `stripe.Account.Controller`
+  * Add support for `controller` on parameter class `stripe.Account.CreateParams`
+  * Add support for `create_feature`, `delete_feature`, `list_features`, `retrieve_feature` on resource `stripe.Product`
+  * Add support for resource `stripe.ProductFeature`
+  * Add support for `event_name` on parameter class `stripe.billing.MeterEventAdjustment.CreateParams` and resource `stripe.billing.MeterEventAdjustment`
+  * Add support for `cancel` and `type` on resource `stripe.billing.MeterEventAdjustment`
+  * Add support for resource `stripe.entitlements.ActiveEntitlement`
+  * Add support for resource `stripe.entitlements.Feature`
+  * Add support for `none` on enum `stripe.Account.type`
+  
+* [#1299](https://github.com/stripe/stripe-python/pull/1299) Fix README.md
+* [#1292](https://github.com/stripe/stripe-python/pull/1292) Tweak changelog for python async note
+
 ## 8.10.0 - 2024-04-04
 
 * [#1288](https://github.com/stripe/stripe-python/pull/1288) Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.

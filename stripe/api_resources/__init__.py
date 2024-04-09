@@ -22,6 +22,7 @@ if not TYPE_CHECKING:
         billing_portal,
         checkout,
         climate,
+        entitlements,
         financial_connections,
         forwarding,
         identity,
@@ -94,6 +95,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.platform_tax_fee import PlatformTaxFee
     from stripe.api_resources.price import Price
     from stripe.api_resources.product import Product
+    from stripe.api_resources.product_feature import ProductFeature
     from stripe.api_resources.promotion_code import PromotionCode
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.refund import Refund
