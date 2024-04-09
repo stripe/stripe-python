@@ -217,6 +217,7 @@ from stripe import (
     billing_portal as billing_portal,
     checkout as checkout,
     climate as climate,
+    entitlements as entitlements,
     financial_connections as financial_connections,
     forwarding as forwarding,
     identity as identity,
@@ -347,6 +348,9 @@ from stripe._customer_tax_id_service import (
 from stripe._discount import Discount as Discount
 from stripe._dispute import Dispute as Dispute
 from stripe._dispute_service import DisputeService as DisputeService
+from stripe._entitlements_service import (
+    EntitlementsService as EntitlementsService,
+)
 from stripe._ephemeral_key import EphemeralKey as EphemeralKey
 from stripe._ephemeral_key_service import (
     EphemeralKeyService as EphemeralKeyService,
@@ -423,6 +427,10 @@ from stripe._platform_tax_fee import PlatformTaxFee as PlatformTaxFee
 from stripe._price import Price as Price
 from stripe._price_service import PriceService as PriceService
 from stripe._product import Product as Product
+from stripe._product_feature import ProductFeature as ProductFeature
+from stripe._product_feature_service import (
+    ProductFeatureService as ProductFeatureService,
+)
 from stripe._product_service import ProductService as ProductService
 from stripe._promotion_code import PromotionCode as PromotionCode
 from stripe._promotion_code_service import (

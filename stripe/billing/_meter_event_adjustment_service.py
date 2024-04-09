@@ -13,6 +13,10 @@ class MeterEventAdjustmentService(StripeService):
         """
         Specifies which event to cancel.
         """
+        event_name: str
+        """
+        The name of the meter event. Corresponds with the `event_name` field on a meter.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -25,7 +29,7 @@ class MeterEventAdjustmentService(StripeService):
     class CreateParamsCancel(TypedDict):
         identifier: str
         """
-        Unique identifier for the event.
+        Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         """
 
     def create(
