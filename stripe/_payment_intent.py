@@ -3231,12 +3231,6 @@ class PaymentIntent(
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -5372,12 +5366,6 @@ class PaymentIntent(
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
         ares_trans_status: NotRequired[
@@ -7508,12 +7496,6 @@ class PaymentIntent(
         request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
         """
 
     class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
