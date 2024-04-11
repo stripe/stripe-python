@@ -6801,7 +6801,7 @@ class PaymentIntentService(StripeService):
     class DecrementAuthorizationParams(TypedDict):
         amount: int
         """
-        The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount.
+        The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount and greater than the already captured amount.
         """
         application_fee_amount: NotRequired[int]
         """
@@ -10436,7 +10436,7 @@ class PaymentIntentService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentIntent:
         """
-        Perform an decremental authorization on an eligible
+        Perform a decremental authorization on an eligible
         [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
         PaymentIntent's status must be requires_capture and
         [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
@@ -10451,7 +10451,7 @@ class PaymentIntentService(StripeService):
         The PaymentIntent will now be capturable up to the new authorized amount.
 
         Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-        After it's captured, a PaymentIntent can no longer be decremented.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
         """
         return cast(
             PaymentIntent,
@@ -10474,7 +10474,7 @@ class PaymentIntentService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentIntent:
         """
-        Perform an decremental authorization on an eligible
+        Perform a decremental authorization on an eligible
         [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
         PaymentIntent's status must be requires_capture and
         [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
@@ -10489,7 +10489,7 @@ class PaymentIntentService(StripeService):
         The PaymentIntent will now be capturable up to the new authorized amount.
 
         Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-        After it's captured, a PaymentIntent can no longer be decremented.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
         """
         return cast(
             PaymentIntent,

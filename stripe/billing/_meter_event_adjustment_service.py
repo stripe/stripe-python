@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class MeterEventAdjustmentService(StripeService):
     class CreateParams(TypedDict):
-        cancel: "MeterEventAdjustmentService.CreateParamsCancel"
+        cancel: NotRequired["MeterEventAdjustmentService.CreateParamsCancel"]
         """
         Specifies which event to cancel.
         """
@@ -21,13 +21,13 @@ class MeterEventAdjustmentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        type: NotRequired[Literal["cancel"]]
+        type: Literal["cancel"]
         """
-        Specifies whether to cancel a single event or a range of events for a time period.
+        Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
         """
 
     class CreateParamsCancel(TypedDict):
-        identifier: str
+        identifier: NotRequired[str]
         """
         Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         """

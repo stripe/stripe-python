@@ -3,7 +3,12 @@ from typing_extensions import Type
 from unittest.mock import call
 import pytest
 import json
-from mock import AsyncMock
+import sys
+
+if sys.version_info >= (3, 8):
+    from unittest.mock import AsyncMock
+else:
+    from mock import AsyncMock
 
 import stripe
 from stripe import _http_client

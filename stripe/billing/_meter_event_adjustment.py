@@ -3,13 +3,13 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     """
-    A billing meter event adjustment represents the status of a meter event adjustment.
+    A billing meter event adjustment is a resource that allows you to cancel a meter event. For example, you might create a billing meter event adjustment to cancel a meter event that was created in error or attached to the wrong customer.
     """
 
     OBJECT_NAME: ClassVar[
@@ -17,13 +17,13 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     ] = "billing.meter_event_adjustment"
 
     class Cancel(StripeObject):
-        identifier: str
+        identifier: Optional[str]
         """
         Unique identifier for the event.
         """
 
     class CreateParams(RequestOptions):
-        cancel: "MeterEventAdjustment.CreateParamsCancel"
+        cancel: NotRequired["MeterEventAdjustment.CreateParamsCancel"]
         """
         Specifies which event to cancel.
         """
@@ -35,18 +35,21 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        type: NotRequired[Literal["cancel"]]
+        type: Literal["cancel"]
         """
-        Specifies whether to cancel a single event or a range of events for a time period.
+        Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
         """
 
     class CreateParamsCancel(TypedDict):
-        identifier: str
+        identifier: NotRequired[str]
         """
         Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         """
 
-    cancel: Cancel
+    cancel: Optional[Cancel]
+    """
+    Specifies which event to cancel.
+    """
     event_name: str
     """
     The name of the meter event. Corresponds with the `event_name` field on a meter.
@@ -65,7 +68,7 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     """
     type: Literal["cancel"]
     """
-    Specifies whether to cancel a single event or a range of events for a time period.
+    Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
     """
 
     @classmethod
