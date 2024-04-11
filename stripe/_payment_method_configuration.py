@@ -125,6 +125,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class AmazonPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class ApplePay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -828,6 +850,12 @@ class PaymentMethodConfiguration(
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        amazon_pay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsAmazonPay"
+        ]
+        """
+        Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
+        """
         apple_pay: NotRequired[
             "PaymentMethodConfiguration.CreateParamsApplePay"
         ]
@@ -1046,6 +1074,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsAmazonPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsAmazonPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsAmazonPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1534,6 +1576,12 @@ class PaymentMethodConfiguration(
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        amazon_pay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsAmazonPay"
+        ]
+        """
+        Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
+        """
         apple_pay: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsApplePay"
         ]
@@ -1748,6 +1796,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsAmazonPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsAmazonPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsAmazonPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2215,6 +2277,7 @@ class PaymentMethodConfiguration(
     affirm: Optional[Affirm]
     afterpay_clearpay: Optional[AfterpayClearpay]
     alipay: Optional[Alipay]
+    amazon_pay: Optional[AmazonPay]
     apple_pay: Optional[ApplePay]
     application: Optional[str]
     """
@@ -2418,6 +2481,7 @@ class PaymentMethodConfiguration(
         "affirm": Affirm,
         "afterpay_clearpay": AfterpayClearpay,
         "alipay": Alipay,
+        "amazon_pay": AmazonPay,
         "apple_pay": ApplePay,
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,

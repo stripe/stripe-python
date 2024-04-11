@@ -69,6 +69,9 @@ class PaymentMethod(
     class Alipay(StripeObject):
         pass
 
+    class AmazonPay(StripeObject):
+        pass
+
     class AuBecsDebit(StripeObject):
         bsb_number: Optional[str]
         """
@@ -1018,6 +1021,10 @@ class PaymentMethod(
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired["PaymentMethod.CreateParamsAmazonPay"]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired["PaymentMethod.CreateParamsAuBecsDebit"]
         """
         If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
@@ -1166,6 +1173,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -1235,6 +1243,9 @@ class PaymentMethod(
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAmazonPay(TypedDict):
         pass
 
     class CreateParamsAuBecsDebit(TypedDict):
@@ -1623,6 +1634,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -1778,6 +1790,7 @@ class PaymentMethod(
     affirm: Optional[Affirm]
     afterpay_clearpay: Optional[AfterpayClearpay]
     alipay: Optional[Alipay]
+    amazon_pay: Optional[AmazonPay]
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
@@ -1841,6 +1854,7 @@ class PaymentMethod(
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
@@ -2344,6 +2358,7 @@ class PaymentMethod(
         "affirm": Affirm,
         "afterpay_clearpay": AfterpayClearpay,
         "alipay": Alipay,
+        "amazon_pay": AmazonPay,
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,

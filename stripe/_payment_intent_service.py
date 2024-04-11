@@ -245,6 +245,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -428,6 +434,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -501,6 +508,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -849,6 +859,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        amazon_pay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` PaymentMethod, this sub-hash contains details about the Amazon Pay payment method options.
+        """
         au_becs_debit: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsAuBecsDebit"
         ]
@@ -1151,6 +1167,26 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
         """
 
     class ConfirmParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
@@ -2406,6 +2442,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -2589,6 +2631,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -2662,6 +2705,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -3010,6 +3056,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        amazon_pay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` PaymentMethod, this sub-hash contains details about the Amazon Pay payment method options.
+        """
         au_becs_debit: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsAuBecsDebit"
         ]
@@ -3312,6 +3364,26 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
@@ -4591,6 +4663,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -4774,6 +4852,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -4847,6 +4926,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -5195,6 +5277,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        amazon_pay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` PaymentMethod, this sub-hash contains details about the Amazon Pay payment method options.
+        """
         au_becs_debit: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsAuBecsDebit"
         ]
@@ -5497,6 +5585,26 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
         """
 
     class UpdateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
