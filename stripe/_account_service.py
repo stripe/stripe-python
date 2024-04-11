@@ -48,6 +48,10 @@ class AccountService(StripeService):
         """
         Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
         """
+        controller: NotRequired["AccountService.CreateParamsController"]
+        """
+        A hash of configuration describing the account controller's attributes.
+        """
         country: NotRequired[str]
         """
         The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. Available countries include [Stripe's global markets](https://stripe.com/global) as well as countries where [cross-border payouts](https://stripe.com/docs/connect/cross-border-payouts) are supported.
@@ -937,6 +941,44 @@ class AccountService(StripeService):
         front: NotRequired[str]
         """
         The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class CreateParamsController(TypedDict):
+        fees: NotRequired["AccountService.CreateParamsControllerFees"]
+        """
+        A hash of configuration for who pays Stripe fees for product usage on this account.
+        """
+        losses: NotRequired["AccountService.CreateParamsControllerLosses"]
+        """
+        A hash of configuration for products that have negative balance liability, and whether Stripe or a Connect application is responsible for them.
+        """
+        requirement_collection: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating responsibility for collecting updated information when requirements on the account are due or change. Defaults to `stripe`.
+        """
+        stripe_dashboard: NotRequired[
+            "AccountService.CreateParamsControllerStripeDashboard"
+        ]
+        """
+        A hash of configuration for Stripe-hosted dashboards.
+        """
+
+    class CreateParamsControllerFees(TypedDict):
+        payer: NotRequired[Literal["account", "application"]]
+        """
+        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`.
+        """
+
+    class CreateParamsControllerLosses(TypedDict):
+        payments: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+        """
+
+    class CreateParamsControllerStripeDashboard(TypedDict):
+        type: NotRequired[Literal["express", "full", "none"]]
+        """
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
         """
 
     class CreateParamsDocuments(TypedDict):

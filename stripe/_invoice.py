@@ -763,12 +763,6 @@ class Invoice(
         """
         _inner_class_types = {"pdf": Pdf}
 
-    class RenderingOptions(StripeObject):
-        amount_tax_display: Optional[str]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
-        """
-
     class ShippingCost(StripeObject):
         class Tax(StripeObject):
             amount: int
@@ -1086,7 +1080,7 @@ class Invoice(
         Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
         """
         pending_invoice_items_behavior: NotRequired[
-            Literal["exclude", "include", "include_and_require"]
+            Literal["exclude", "include"]
         ]
         """
         How to handle pending invoice items on invoice creation. Defaults to `exclude` if the parameter is omitted.
@@ -1094,12 +1088,6 @@ class Invoice(
         rendering: NotRequired["Invoice.CreateParamsRendering"]
         """
         The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|Invoice.CreateParamsRenderingOptions"
-        ]
-        """
-        This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
         """
         shipping_cost: NotRequired["Invoice.CreateParamsShippingCost"]
         """
@@ -1410,14 +1398,6 @@ class Invoice(
         pdf: NotRequired["Invoice.CreateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
-        """
-
-    class CreateParamsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
 
     class CreateParamsRenderingPdf(TypedDict):
@@ -1790,12 +1770,6 @@ class Invoice(
         """
         The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
         """
-        rendering_options: NotRequired[
-            "Literal['']|Invoice.ModifyParamsRenderingOptions"
-        ]
-        """
-        This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
-        """
         shipping_cost: NotRequired[
             "Literal['']|Invoice.ModifyParamsShippingCost"
         ]
@@ -2097,14 +2071,6 @@ class Invoice(
         pdf: NotRequired["Invoice.ModifyParamsRenderingPdf"]
         """
         Invoice pdf rendering options
-        """
-
-    class ModifyParamsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
 
     class ModifyParamsRenderingPdf(TypedDict):
@@ -3751,10 +3717,6 @@ class Invoice(
     """
     The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
     """
-    rendering_options: Optional[RenderingOptions]
-    """
-    This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
-    """
     shipping_cost: Optional[ShippingCost]
     """
     The details of the cost of shipping, including the ShippingRate applied on the invoice.
@@ -4765,7 +4727,6 @@ class Invoice(
         "last_finalization_error": LastFinalizationError,
         "payment_settings": PaymentSettings,
         "rendering": Rendering,
-        "rendering_options": RenderingOptions,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
         "status_transitions": StatusTransitions,

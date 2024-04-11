@@ -3,41 +3,24 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List
 from typing_extensions import Literal, NotRequired, Unpack
 
 
-class Supplier(ListableAPIResource["Supplier"]):
+class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
     """
-    A supplier of carbon removal.
+    An active entitlement describes access to a feature for a customer.
     """
 
-    OBJECT_NAME: ClassVar[Literal["climate.supplier"]] = "climate.supplier"
-
-    class Location(StripeObject):
-        city: Optional[str]
-        """
-        The city where the supplier is located.
-        """
-        country: str
-        """
-        Two-letter ISO code representing the country where the supplier is located.
-        """
-        latitude: Optional[float]
-        """
-        The geographic latitude where the supplier is located.
-        """
-        longitude: Optional[float]
-        """
-        The geographic longitude where the supplier is located.
-        """
-        region: Optional[str]
-        """
-        The state/county/province/region where the supplier is located.
-        """
+    OBJECT_NAME: ClassVar[
+        Literal["entitlements.active_entitlement"]
+    ] = "entitlements.active_entitlement"
 
     class ListParams(RequestOptions):
+        customer: str
+        """
+        The ID of the customer.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -61,45 +44,33 @@ class Supplier(ListableAPIResource["Supplier"]):
         Specifies which fields in the response should be expanded.
         """
 
+    feature: str
+    """
+    The feature that the customer is entitled to.
+    """
     id: str
     """
     Unique identifier for the object.
-    """
-    info_url: str
-    """
-    Link to a webpage to learn more about the supplier.
     """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    locations: List[Location]
+    lookup_key: str
     """
-    The locations in which this supplier operates.
+    A unique key you provide as your own system identifier. This may be up to 80 characters.
     """
-    name: str
-    """
-    Name of this carbon removal supplier.
-    """
-    object: Literal["climate.supplier"]
+    object: Literal["entitlements.active_entitlement"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    removal_pathway: Literal[
-        "biomass_carbon_removal_and_storage",
-        "direct_air_capture",
-        "enhanced_weathering",
-    ]
-    """
-    The scientific pathway used for carbon removal.
     """
 
     @classmethod
     def list(
-        cls, **params: Unpack["Supplier.ListParams"]
-    ) -> ListObject["Supplier"]:
+        cls, **params: Unpack["ActiveEntitlement.ListParams"]
+    ) -> ListObject["ActiveEntitlement"]:
         """
-        Lists all available Climate supplier objects.
+        Retrieve a list of active entitlements for a customer
         """
         result = cls._static_request(
             "get",
@@ -117,10 +88,10 @@ class Supplier(ListableAPIResource["Supplier"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Supplier.ListParams"]
-    ) -> ListObject["Supplier"]:
+        cls, **params: Unpack["ActiveEntitlement.ListParams"]
+    ) -> ListObject["ActiveEntitlement"]:
         """
-        Lists all available Climate supplier objects.
+        Retrieve a list of active entitlements for a customer
         """
         result = await cls._static_request_async(
             "get",
@@ -138,10 +109,10 @@ class Supplier(ListableAPIResource["Supplier"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Supplier.RetrieveParams"]
-    ) -> "Supplier":
+        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+    ) -> "ActiveEntitlement":
         """
-        Retrieves a Climate supplier object.
+        Retrieve an active entitlement
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -149,13 +120,11 @@ class Supplier(ListableAPIResource["Supplier"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Supplier.RetrieveParams"]
-    ) -> "Supplier":
+        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+    ) -> "ActiveEntitlement":
         """
-        Retrieves a Climate supplier object.
+        Retrieve an active entitlement
         """
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
-
-    _inner_class_types = {"locations": Location}

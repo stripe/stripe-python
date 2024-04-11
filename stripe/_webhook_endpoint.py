@@ -132,6 +132,7 @@ class WebhookEndpoint(
                 "2022-11-15",
                 "2023-08-16",
                 "2023-10-16",
+                "2024-04-10",
             ]
         ]
         """
@@ -374,14 +375,6 @@ class WebhookEndpoint(
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
-                "invoiceitem.updated",
-                "order.created",
-                "recipient.created",
-                "recipient.deleted",
-                "recipient.updated",
-                "sku.created",
-                "sku.deleted",
-                "sku.updated",
             ]
         ]
         """
@@ -660,14 +653,6 @@ class WebhookEndpoint(
                     "treasury.received_credit.failed",
                     "treasury.received_credit.succeeded",
                     "treasury.received_debit.created",
-                    "invoiceitem.updated",
-                    "order.created",
-                    "recipient.created",
-                    "recipient.deleted",
-                    "recipient.updated",
-                    "sku.created",
-                    "sku.deleted",
-                    "sku.updated",
                 ]
             ]
         ]

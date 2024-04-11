@@ -65,7 +65,6 @@ class TaxRateService(StripeService):
                 "rst",
                 "sales_tax",
                 "vat",
-                "service_tax",
             ]
         ]
         """
@@ -173,7 +172,6 @@ class TaxRateService(StripeService):
                 "rst",
                 "sales_tax",
                 "vat",
-                "service_tax",
             ]
         ]
         """
