@@ -107,6 +107,10 @@ class Account(ListableAPIResource["Account"]):
         """
         The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         """
+        next_refresh_available_at: Optional[int]
+        """
+        Time at which the next ownership refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        """
         status: Literal["failed", "pending", "succeeded"]
         """
         The status of the last refresh attempt.

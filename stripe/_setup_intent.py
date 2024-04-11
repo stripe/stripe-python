@@ -568,7 +568,9 @@ class SetupIntent(
                 """
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
-                prefetch: Optional[List[Literal["balances", "transactions"]]]
+                prefetch: Optional[
+                    List[Literal["balances", "ownership", "transactions"]]
+                ]
                 """
                 Data features requested to be retrieved upon account creation.
                 """
@@ -1590,7 +1592,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -2645,7 +2649,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -3669,7 +3675,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
