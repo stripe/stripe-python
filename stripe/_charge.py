@@ -1776,7 +1776,7 @@ class Charge(
         application_fee: NotRequired[int]
         application_fee_amount: NotRequired[int]
         """
-        A fee in cents (or local equivalent) that will be applied to the charge and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees).
+        A fee in cents (or local equivalent) that will be applied to the charge and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collect-fees).
         """
         capture: NotRequired[bool]
         """
@@ -1805,7 +1805,7 @@ class Charge(
         """
         on_behalf_of: NotRequired[str]
         """
-        The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of).
+        The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant).
         """
         radar_options: NotRequired["Charge.CreateParamsRadarOptions"]
         """
@@ -2120,11 +2120,11 @@ class Charge(
     """
     application_fee: Optional[ExpandableField["ApplicationFee"]]
     """
-    The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details.
+    The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
     """
     application_fee_amount: Optional[int]
     """
-    The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details.
+    The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
     """
     authorization_code: Optional[str]
     """
