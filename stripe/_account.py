@@ -589,12 +589,43 @@ class Account(
             Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
             """
 
+        class Fees(StripeObject):
+            payer: Literal[
+                "account",
+                "application",
+                "application_custom",
+                "application_express",
+                "application_unified_accounts_beta",
+            ]
+            """
+            A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account.
+            """
+
+        class Losses(StripeObject):
+            payments: Literal["application", "stripe"]
+            """
+            A value indicating who is liable when this account can't pay back negative balances from payments.
+            """
+
+        class StripeDashboard(StripeObject):
+            type: Literal["express", "full", "none"]
+            """
+            A value indicating the Stripe dashboard this account has access to independent of the Connect application.
+            """
+
         application: Optional[Application]
         dashboard: Optional[Dashboard]
+        fees: Optional[Fees]
         is_controller: Optional[bool]
         """
         `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
         """
+        losses: Optional[Losses]
+        requirement_collection: Optional[Literal["application", "stripe"]]
+        """
+        A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
+        """
+        stripe_dashboard: Optional[StripeDashboard]
         type: Literal["account", "application"]
         """
         The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
@@ -602,6 +633,9 @@ class Account(
         _inner_class_types = {
             "application": Application,
             "dashboard": Dashboard,
+            "fees": Fees,
+            "losses": Losses,
+            "stripe_dashboard": StripeDashboard,
         }
 
     class FutureRequirements(StripeObject):
@@ -2162,6 +2196,24 @@ class Account(
         """
         Properties of the account's dashboard.
         """
+        fees: NotRequired["Account.CreateParamsControllerFees"]
+        """
+        A hash of configuration for who pays Stripe fees for product usage on this account.
+        """
+        losses: NotRequired["Account.CreateParamsControllerLosses"]
+        """
+        A hash of configuration for products that have negative balance liability, and whether Stripe or a Connect application is responsible for them.
+        """
+        requirement_collection: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating responsibility for collecting updated information when requirements on the account are due or change. Defaults to `stripe`.
+        """
+        stripe_dashboard: NotRequired[
+            "Account.CreateParamsControllerStripeDashboard"
+        ]
+        """
+        A hash of configuration for Stripe-hosted dashboards.
+        """
 
     class CreateParamsControllerApplication(TypedDict):
         loss_liable: bool
@@ -2178,6 +2230,24 @@ class Account(
         """
 
     class CreateParamsControllerDashboard(TypedDict):
+        type: NotRequired[Literal["express", "full", "none"]]
+        """
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
+        """
+
+    class CreateParamsControllerFees(TypedDict):
+        payer: NotRequired[Literal["account", "application"]]
+        """
+        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`.
+        """
+
+    class CreateParamsControllerLosses(TypedDict):
+        payments: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+        """
+
+    class CreateParamsControllerStripeDashboard(TypedDict):
         type: NotRequired[Literal["express", "full", "none"]]
         """
         Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
@@ -3876,7 +3946,7 @@ class Account(
     Options for customizing how the account functions within Stripe.
     """
     tos_acceptance: Optional[TosAcceptance]
-    type: Optional[Literal["custom", "express", "standard"]]
+    type: Optional[Literal["custom", "express", "none", "standard"]]
     """
     The Stripe account type. Can be `standard`, `express`, or `custom`.
     """

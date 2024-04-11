@@ -64,6 +64,24 @@ class Reader(
                     Customize the default title for this input
                     """
 
+                class Email(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected email address
+                    """
+
+                class Numeric(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected number
+                    """
+
+                class Phone(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected phone number
+                    """
+
                 class Selection(StripeObject):
                     class Choice(StripeObject):
                         style: Optional[Literal["primary", "secondary"]]
@@ -91,9 +109,45 @@ class Reader(
                     The File ID of a collected signature image
                     """
 
+                class Text(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected text value
+                    """
+
+                class Toggle(StripeObject):
+                    default_value: Optional[Literal["disabled", "enabled"]]
+                    """
+                    The toggle's default value
+                    """
+                    description: Optional[str]
+                    """
+                    The toggle's description text
+                    """
+                    title: Optional[str]
+                    """
+                    The toggle's title text
+                    """
+                    value: Optional[Literal["disabled", "enabled"]]
+                    """
+                    The toggle's collected value
+                    """
+
                 custom_text: Optional[CustomText]
                 """
                 Default text of input being collected.
+                """
+                email: Optional[Email]
+                """
+                Information about a email being collected using a reader
+                """
+                numeric: Optional[Numeric]
+                """
+                Information about a number being collected using a reader
+                """
+                phone: Optional[Phone]
+                """
+                Information about a phone number being collected using a reader
                 """
                 required: Optional[bool]
                 """
@@ -111,6 +165,14 @@ class Reader(
                 """
                 Indicate that this input was skipped by the user.
                 """
+                text: Optional[Text]
+                """
+                Information about text being collected using a reader
+                """
+                toggles: Optional[List[Toggle]]
+                """
+                List of toggles being collected. Values are present if collection is complete.
+                """
                 type: Literal[
                     "email",
                     "numeric",
@@ -124,8 +186,13 @@ class Reader(
                 """
                 _inner_class_types = {
                     "custom_text": CustomText,
+                    "email": Email,
+                    "numeric": Numeric,
+                    "phone": Phone,
                     "selection": Selection,
                     "signature": Signature,
+                    "text": Text,
+                    "toggles": Toggle,
                 }
 
             inputs: List[Input]
@@ -427,7 +494,13 @@ class Reader(
         """
         Options for the `selection` input
         """
-        type: Literal["selection", "signature"]
+        toggles: NotRequired[List["Reader.CollectInputsParamsInputToggle"]]
+        """
+        List of toggles to be displayed and customization for the toggles
+        """
+        type: Literal[
+            "email", "numeric", "phone", "selection", "signature", "text"
+        ]
         """
         The type of input to collect
         """
@@ -464,6 +537,20 @@ class Reader(
         value: str
         """
         The text which will be shown on the button for this choice
+        """
+
+    class CollectInputsParamsInputToggle(TypedDict):
+        default_value: NotRequired[Literal["disabled", "enabled"]]
+        """
+        The default value of the toggle
+        """
+        description: NotRequired[str]
+        """
+        The description which will be displayed for the toggle
+        """
+        title: NotRequired[str]
+        """
+        The title which will be displayed for the toggle
         """
 
     class CollectPaymentMethodParams(RequestOptions):

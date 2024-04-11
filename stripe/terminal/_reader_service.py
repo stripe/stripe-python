@@ -45,7 +45,15 @@ class ReaderService(StripeService):
         """
         Options for the `selection` input
         """
-        type: Literal["selection", "signature"]
+        toggles: NotRequired[
+            List["ReaderService.CollectInputsParamsInputToggle"]
+        ]
+        """
+        List of toggles to be displayed and customization for the toggles
+        """
+        type: Literal[
+            "email", "numeric", "phone", "selection", "signature", "text"
+        ]
         """
         The type of input to collect
         """
@@ -82,6 +90,20 @@ class ReaderService(StripeService):
         value: str
         """
         The text which will be shown on the button for this choice
+        """
+
+    class CollectInputsParamsInputToggle(TypedDict):
+        default_value: NotRequired[Literal["disabled", "enabled"]]
+        """
+        The default value of the toggle
+        """
+        description: NotRequired[str]
+        """
+        The description which will be displayed for the toggle
+        """
+        title: NotRequired[str]
+        """
+        The title which will be displayed for the toggle
         """
 
     class CollectPaymentMethodParams(TypedDict):

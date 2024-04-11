@@ -461,14 +461,6 @@ class Event(ListableAPIResource["Event"]):
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
         "treasury.received_debit.created",
-        "invoiceitem.updated",
-        "order.created",
-        "recipient.created",
-        "recipient.deleted",
-        "recipient.updated",
-        "sku.created",
-        "sku.deleted",
-        "sku.updated",
     ]
     """
     Description of the event (for example, `invoice.created` or `charge.refunded`).

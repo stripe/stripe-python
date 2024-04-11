@@ -799,12 +799,6 @@ class QuotePreviewInvoice(StripeObject):
         """
         _inner_class_types = {"pdf": Pdf}
 
-    class RenderingOptions(StripeObject):
-        amount_tax_display: Optional[str]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
-        """
-
     class ShippingCost(StripeObject):
         class Tax(StripeObject):
             amount: int
@@ -1299,10 +1293,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
     """
-    rendering_options: Optional[RenderingOptions]
-    """
-    This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
-    """
     shipping_cost: Optional[ShippingCost]
     """
     The details of the cost of shipping, including the ShippingRate applied on the invoice.
@@ -1394,7 +1384,6 @@ class QuotePreviewInvoice(StripeObject):
         "last_finalization_error": LastFinalizationError,
         "payment_settings": PaymentSettings,
         "rendering": Rendering,
-        "rendering_options": RenderingOptions,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
         "status_transitions": StatusTransitions,

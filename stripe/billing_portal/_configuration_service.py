@@ -81,12 +81,6 @@ class ConfigurationService(StripeService):
         """
         Information about updating subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.CreateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -156,12 +150,6 @@ class ConfigurationService(StripeService):
         ]
         """
         Which cancellation reasons will be given as options to the customer.
-        """
-
-    class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
         """
 
     class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
@@ -316,12 +304,6 @@ class ConfigurationService(StripeService):
         """
         Information about updating subscriptions in the portal.
         """
-        subscription_pause: NotRequired[
-            "ConfigurationService.UpdateParamsFeaturesSubscriptionPause"
-        ]
-        """
-        Information about pausing subscriptions in the portal.
-        """
 
     class UpdateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
@@ -379,12 +361,6 @@ class ConfigurationService(StripeService):
         ]
         """
         Which cancellation reasons will be given as options to the customer.
-        """
-
-    class UpdateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: bool
-        """
-        Whether the feature is enabled.
         """
 
     class UpdateParamsFeaturesSubscriptionUpdate(TypedDict):

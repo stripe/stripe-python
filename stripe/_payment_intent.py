@@ -707,6 +707,10 @@ class PaymentIntent(
             """
             The timestamp at which the Multibanco voucher expires.
             """
+            hosted_voucher_url: Optional[str]
+            """
+            The URL for the hosted Multibanco voucher page, which allows customers to view a Multibanco voucher.
+            """
             reference: Optional[str]
             """
             Reference number associated with this Multibanco payment.
@@ -5094,12 +5098,6 @@ class PaymentIntent(
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
-        """
 
     class ConfirmParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
         address: NotRequired[
@@ -8110,12 +8108,6 @@ class PaymentIntent(
         request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
         """
 
     class CreateParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
@@ -11184,12 +11176,6 @@ class PaymentIntent(
         request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
-        """
-        request_incremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        This field was released by mistake and will be removed in the next major version
         """
 
     class ModifyParamsPaymentMethodOptionsCardStatementDetails(TypedDict):

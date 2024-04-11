@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
@@ -15,10 +16,20 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
         Literal["billing.meter_event_adjustment"]
     ] = "billing.meter_event_adjustment"
 
+    class Cancel(StripeObject):
+        identifier: str
+        """
+        Unique identifier for the event.
+        """
+
     class CreateParams(RequestOptions):
         cancel: "MeterEventAdjustment.CreateParamsCancel"
         """
         Specifies which event to cancel.
+        """
+        event_name: str
+        """
+        The name of the meter event. Corresponds with the `event_name` field on a meter.
         """
         expand: NotRequired[List[str]]
         """
@@ -32,9 +43,14 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     class CreateParamsCancel(TypedDict):
         identifier: str
         """
-        Unique identifier for the event.
+        Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
         """
 
+    cancel: Cancel
+    event_name: str
+    """
+    The name of the meter event. Corresponds with the `event_name` field on a meter.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -46,6 +62,10 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     status: Literal["complete", "pending"]
     """
     The meter event adjustment's status.
+    """
+    type: Literal["cancel"]
+    """
+    Specifies whether to cancel a single event or a range of events for a time period.
     """
 
     @classmethod
@@ -79,3 +99,5 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
                 params=params,
             ),
         )
+
+    _inner_class_types = {"cancel": Cancel}

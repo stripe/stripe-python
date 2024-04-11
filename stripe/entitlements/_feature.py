@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, cast
 from typing_extensions import Literal, NotRequired, Unpack
 
 
@@ -78,6 +78,12 @@ class Feature(
         The feature's name, for your own purpose, not meant to be displayable to the customer.
         """
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     active: bool
     """
     Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
@@ -94,7 +100,7 @@ class Feature(
     """
     A unique key you provide as your own system identifier. This may be up to 80 characters.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Dict[str, str]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
@@ -212,3 +218,25 @@ class Feature(
                 params=params,
             ),
         )
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["Feature.RetrieveParams"]
+    ) -> "Feature":
+        """
+        Retrieves a feature
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Feature.RetrieveParams"]
+    ) -> "Feature":
+        """
+        Retrieves a feature
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance

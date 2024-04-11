@@ -46,6 +46,12 @@ class FeatureService(StripeService):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
+    class RetrieveParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class UpdateParams(TypedDict):
         active: NotRequired[bool]
         """
@@ -137,6 +143,48 @@ class FeatureService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/entitlements/features",
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        params: "FeatureService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Feature:
+        """
+        Retrieves a feature
+        """
+        return cast(
+            Feature,
+            self._request(
+                "get",
+                "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "FeatureService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Feature:
+        """
+        Retrieves a feature
+        """
+        return cast(
+            Feature,
+            await self._request_async(
+                "get",
+                "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
                 api_mode="V1",
                 base_address="api",
                 params=params,

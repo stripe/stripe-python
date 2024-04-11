@@ -41,6 +41,12 @@ class ProductFeatureService(StripeService):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
+    class RetrieveParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     def delete(
         self,
         product: str,
@@ -80,6 +86,56 @@ class ProductFeatureService(StripeService):
             ProductFeature,
             await self._request_async(
                 "delete",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        product: str,
+        id: str,
+        params: "ProductFeatureService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ProductFeature:
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            ProductFeature,
+            self._request(
+                "get",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product),
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        product: str,
+        id: str,
+        params: "ProductFeatureService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> ProductFeature:
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            ProductFeature,
+            await self._request_async(
+                "get",
                 "/v1/products/{product}/features/{id}".format(
                     product=sanitize_id(product),
                     id=sanitize_id(id),

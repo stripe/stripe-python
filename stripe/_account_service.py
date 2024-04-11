@@ -996,6 +996,24 @@ class AccountService(StripeService):
         """
         Properties of the account's dashboard.
         """
+        fees: NotRequired["AccountService.CreateParamsControllerFees"]
+        """
+        A hash of configuration for who pays Stripe fees for product usage on this account.
+        """
+        losses: NotRequired["AccountService.CreateParamsControllerLosses"]
+        """
+        A hash of configuration for products that have negative balance liability, and whether Stripe or a Connect application is responsible for them.
+        """
+        requirement_collection: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating responsibility for collecting updated information when requirements on the account are due or change. Defaults to `stripe`.
+        """
+        stripe_dashboard: NotRequired[
+            "AccountService.CreateParamsControllerStripeDashboard"
+        ]
+        """
+        A hash of configuration for Stripe-hosted dashboards.
+        """
 
     class CreateParamsControllerApplication(TypedDict):
         loss_liable: bool
@@ -1012,6 +1030,24 @@ class AccountService(StripeService):
         """
 
     class CreateParamsControllerDashboard(TypedDict):
+        type: NotRequired[Literal["express", "full", "none"]]
+        """
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
+        """
+
+    class CreateParamsControllerFees(TypedDict):
+        payer: NotRequired[Literal["account", "application"]]
+        """
+        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`.
+        """
+
+    class CreateParamsControllerLosses(TypedDict):
+        payments: NotRequired[Literal["application", "stripe"]]
+        """
+        A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+        """
+
+    class CreateParamsControllerStripeDashboard(TypedDict):
         type: NotRequired[Literal["express", "full", "none"]]
         """
         Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.

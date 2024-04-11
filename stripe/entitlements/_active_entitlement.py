@@ -38,6 +38,12 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     feature: str
     """
     The feature that the customer is entitled to.
@@ -100,3 +106,25 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
             )
 
         return result
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+    ) -> "ActiveEntitlement":
+        """
+        Retrieve an active entitlement
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+    ) -> "ActiveEntitlement":
+        """
+        Retrieve an active entitlement
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
