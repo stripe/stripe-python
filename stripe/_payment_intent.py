@@ -1564,7 +1564,10 @@ class PaymentIntent(
             """
 
         class RevolutPay(StripeObject):
-            pass
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -3793,6 +3796,14 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
@@ -5966,6 +5977,14 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
@@ -8135,6 +8154,14 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
