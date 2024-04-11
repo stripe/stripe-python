@@ -21,6 +21,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     OBJECT_NAME: ClassVar[Literal["account_session"]] = "account_session"
 
     class Components(StripeObject):
+        class AccountManagement(StripeObject):
+            class Features(StripeObject):
+                external_account_collection: bool
+                """
+                Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class AccountOnboarding(StripeObject):
             class Features(StripeObject):
                 external_account_collection: bool
@@ -38,6 +52,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         class Documents(StripeObject):
             class Features(StripeObject):
                 pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class NotificationBanner(StripeObject):
+            class Features(StripeObject):
+                external_account_collection: bool
+                """
+                Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+                """
 
             enabled: bool
             """
@@ -120,14 +148,18 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        account_management: AccountManagement
         account_onboarding: AccountOnboarding
         documents: Documents
+        notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payments: Payments
         payouts: Payouts
         _inner_class_types = {
+            "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
             "documents": Documents,
+            "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payments": Payments,
             "payouts": Payouts,
@@ -148,6 +180,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponents(TypedDict):
+        account_management: NotRequired[
+            "AccountSession.CreateParamsComponentsAccountManagement"
+        ]
+        """
+        Configuration for the account management embedded component.
+        """
         account_onboarding: NotRequired[
             "AccountSession.CreateParamsComponentsAccountOnboarding"
         ]
@@ -159,6 +197,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
         """
         Configuration for the documents embedded component.
+        """
+        notification_banner: NotRequired[
+            "AccountSession.CreateParamsComponentsNotificationBanner"
+        ]
+        """
+        Configuration for the notification banner embedded component.
         """
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
@@ -173,6 +217,24 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
         """
         Configuration for the payouts embedded component.
+        """
+
+    class CreateParamsComponentsAccountManagement(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAccountManagementFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAccountManagementFeatures(TypedDict):
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
         """
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):
@@ -207,6 +269,24 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
+
+    class CreateParamsComponentsNotificationBanner(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsNotificationBannerFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
 
     class CreateParamsComponentsPaymentDetails(TypedDict):
         enabled: bool
