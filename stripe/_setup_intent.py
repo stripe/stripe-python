@@ -103,6 +103,10 @@ class SetupIntent(
                 "bank_account_unverified",
                 "bank_account_verification_failed",
                 "billing_invalid_mandate",
+                "billing_policy_remote_function_response_invalid",
+                "billing_policy_remote_function_timeout",
+                "billing_policy_remote_function_unexpected_status_code",
+                "billing_policy_remote_function_unreachable",
                 "bitcoin_upgrade_required",
                 "capture_charge_authorization_expired",
                 "capture_unauthorized_payment",
@@ -454,6 +458,9 @@ class SetupIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class AmazonPay(StripeObject):
+            pass
+
         class Card(StripeObject):
             class MandateOptions(StripeObject):
                 amount: int
@@ -564,7 +571,9 @@ class SetupIntent(
                 """
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
-                prefetch: Optional[List[Literal["balances", "transactions"]]]
+                prefetch: Optional[
+                    List[Literal["balances", "ownership", "transactions"]]
+                ]
                 """
                 Data features requested to be retrieved upon account creation.
                 """
@@ -593,6 +602,7 @@ class SetupIntent(
             }
 
         acss_debit: Optional[AcssDebit]
+        amazon_pay: Optional[AmazonPay]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         link: Optional[Link]
@@ -601,6 +611,7 @@ class SetupIntent(
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "amazon_pay": AmazonPay,
             "card": Card,
             "card_present": CardPresent,
             "link": Link,
@@ -726,6 +737,12 @@ class SetupIntent(
         alipay: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataAlipay"]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        amazon_pay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
         """
         au_becs_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataAuBecsDebit"
@@ -882,6 +899,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -953,6 +971,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -1281,6 +1302,12 @@ class SetupIntent(
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -1357,6 +1384,9 @@ class SetupIntent(
         """
         Transaction type of the mandate.
         """
+
+    class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -1586,7 +1616,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -1782,6 +1814,12 @@ class SetupIntent(
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -1937,6 +1975,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -2008,6 +2047,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -2336,6 +2378,12 @@ class SetupIntent(
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -2412,6 +2460,9 @@ class SetupIntent(
         """
         Transaction type of the mandate.
         """
+
+    class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -2641,7 +2692,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -2806,6 +2859,12 @@ class SetupIntent(
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -2961,6 +3020,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -3032,6 +3092,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -3360,6 +3423,12 @@ class SetupIntent(
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -3436,6 +3505,9 @@ class SetupIntent(
         """
         Transaction type of the mandate.
         """
+
+    class ModifyParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -3665,7 +3737,9 @@ class SetupIntent(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """

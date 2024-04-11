@@ -329,6 +329,7 @@ class Session(
                 "au_abn",
                 "au_arn",
                 "bg_uic",
+                "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -362,14 +363,17 @@ class Session(
                 "jp_trn",
                 "ke_pin",
                 "kr_brn",
+                "kz_bin",
                 "li_uid",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
                 "my_sst",
+                "ng_tin",
                 "no_vat",
                 "no_voec",
                 "nz_gst",
+                "om_vat",
                 "pe_ruc",
                 "ph_tin",
                 "ro_tin",
@@ -393,7 +397,7 @@ class Session(
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, or `unknown`
             """
             value: Optional[str]
             """
@@ -584,6 +588,9 @@ class Session(
 
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
             """
+
+        class AmazonPay(StripeObject):
+            pass
 
         class AuBecsDebit(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -925,7 +932,9 @@ class Session(
                 """
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
-                prefetch: Optional[List[Literal["balances", "transactions"]]]
+                prefetch: Optional[
+                    List[Literal["balances", "ownership", "transactions"]]
+                ]
                 """
                 Data features requested to be retrieved upon account creation.
                 """
@@ -957,6 +966,7 @@ class Session(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
@@ -987,6 +997,7 @@ class Session(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
@@ -1665,6 +1676,7 @@ class Session(
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "amazon_pay",
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
@@ -2335,6 +2347,12 @@ class Session(
         """
         contains details about the Alipay payment method options.
         """
+        amazon_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        contains details about the AmazonPay payment method options.
+        """
         au_becs_debit: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsAuBecsDebit"
         ]
@@ -2532,6 +2550,16 @@ class Session(
 
     class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2958,7 +2986,9 @@ class Session(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired[List[Literal["balances", "transactions"]]]
+        prefetch: NotRequired[
+            List[Literal["balances", "ownership", "transactions"]]
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
