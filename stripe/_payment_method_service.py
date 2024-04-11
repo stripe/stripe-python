@@ -39,6 +39,10 @@ class PaymentMethodService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired["PaymentMethodService.CreateParamsAmazonPay"]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "PaymentMethodService.CreateParamsAuBecsDebit"
         ]
@@ -203,6 +207,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -277,6 +282,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAmazonPay(TypedDict):
         pass
 
     class CreateParamsAuBecsDebit(TypedDict):
@@ -685,6 +693,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",

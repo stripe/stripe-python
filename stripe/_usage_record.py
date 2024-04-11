@@ -11,6 +11,8 @@ class UsageRecord(CreateableAPIResource["UsageRecord"]):
     metered billing of subscription prices.
 
     Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
+
+    This is our legacy usage-based billing API. See the [updated usage-based billing docs](https://docs.stripe.com/billing/subscriptions/usage-based).
     """
 
     OBJECT_NAME: ClassVar[Literal["usage_record"]] = "usage_record"

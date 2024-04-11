@@ -278,7 +278,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         pending_verification: List[str]
         """
-        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`.
+        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
@@ -474,7 +474,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         pending_verification: List[str]
         """
-        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`.
+        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 

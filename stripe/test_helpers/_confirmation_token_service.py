@@ -63,6 +63,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -264,6 +270,7 @@ class ConfirmationTokenService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -340,6 +347,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):

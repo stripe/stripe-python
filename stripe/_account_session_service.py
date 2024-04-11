@@ -23,6 +23,12 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponents(TypedDict):
+        account_management: NotRequired[
+            "AccountSessionService.CreateParamsComponentsAccountManagement"
+        ]
+        """
+        Configuration for the account management embedded component.
+        """
         account_onboarding: NotRequired[
             "AccountSessionService.CreateParamsComponentsAccountOnboarding"
         ]
@@ -62,6 +68,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the issuing cards list component.
         """
+        notification_banner: NotRequired[
+            "AccountSessionService.CreateParamsComponentsNotificationBanner"
+        ]
+        """
+        Configuration for the notification banner embedded component.
+        """
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
@@ -81,6 +93,24 @@ class AccountSessionService(StripeService):
         Configuration for the payouts embedded component.
         """
 
+    class CreateParamsComponentsAccountManagement(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsAccountManagementFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAccountManagementFeatures(TypedDict):
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
+
     class CreateParamsComponentsAccountOnboarding(TypedDict):
         enabled: bool
         """
@@ -94,7 +124,10 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
-        pass
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
 
     class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
         enabled: bool
@@ -193,6 +226,24 @@ class AccountSessionService(StripeService):
         cardholder_management: NotRequired[bool]
         """
         Whether to allow cardholder management features.
+        """
+
+    class CreateParamsComponentsNotificationBanner(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsNotificationBannerFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
         """
 
     class CreateParamsComponentsPaymentDetails(TypedDict):
