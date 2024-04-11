@@ -106,6 +106,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Alipay(StripeObject):
             pass
 
+        class AmazonPay(StripeObject):
+            pass
+
         class AuBecsDebit(StripeObject):
             bsb_number: Optional[str]
             """
@@ -1057,6 +1060,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
@@ -1095,6 +1099,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -1142,6 +1147,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
@@ -1272,6 +1278,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        amazon_pay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
         """
         au_becs_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataAuBecsDebit"
@@ -1466,6 +1478,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -1540,6 +1553,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):

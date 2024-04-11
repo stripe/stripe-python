@@ -826,6 +826,7 @@ class Customer(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",

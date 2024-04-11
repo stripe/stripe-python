@@ -132,6 +132,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -333,6 +339,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -409,6 +416,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -759,6 +769,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsCard"
         ]
@@ -845,6 +861,9 @@ class SetupIntentService(StripeService):
         """
         Transaction type of the mandate.
         """
+
+    class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -1365,6 +1384,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -1558,6 +1583,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -1632,6 +1658,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -1982,6 +2011,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsCard"
         ]
@@ -2068,6 +2103,9 @@ class SetupIntentService(StripeService):
         """
         Transaction type of the mandate.
         """
+
+    class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -2567,6 +2605,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataAmazonPay"
+        ]
+        """
+        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        """
         au_becs_debit: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataAuBecsDebit"
         ]
@@ -2760,6 +2804,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -2834,6 +2879,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataAmazonPay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataAuBecsDebit(TypedDict):
@@ -3184,6 +3232,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
         """
+        amazon_pay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsAmazonPay"
+        ]
+        """
+        If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsCard"
         ]
@@ -3270,6 +3324,9 @@ class SetupIntentService(StripeService):
         """
         Transaction type of the mandate.
         """
+
+    class UpdateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[

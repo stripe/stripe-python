@@ -35,6 +35,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        amazon_pay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsAmazonPay"
+        ]
+        """
+        Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
+        """
         apple_pay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsApplePay"
         ]
@@ -279,6 +285,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsAmazonPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsAmazonPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsAmazonPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -791,6 +811,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        amazon_pay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsAmazonPay"
+        ]
+        """
+        Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
+        """
         apple_pay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsApplePay"
         ]
@@ -1031,6 +1057,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsAmazonPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsAmazonPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsAmazonPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
