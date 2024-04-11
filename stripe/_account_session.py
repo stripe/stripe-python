@@ -23,7 +23,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class Components(StripeObject):
         class AccountOnboarding(StripeObject):
             class Features(StripeObject):
-                pass
+                external_account_collection: bool
+                """
+                Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+                """
 
             enabled: bool
             """
@@ -185,7 +188,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
-        pass
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
 
     class CreateParamsComponentsDocuments(TypedDict):
         enabled: bool
