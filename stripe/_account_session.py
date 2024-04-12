@@ -335,10 +335,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
 
     class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
-        external_account_collection: NotRequired[bool]
-        """
-        Whether to allow external accounts to be linked for money transfer.
-        """
         money_movement: NotRequired[bool]
         """
         Whether to allow money movement features.
