@@ -25,9 +25,9 @@ class MeterEventService(StripeService):
         """
         The payload of the event. This must contain a field with the event's numerical value and a field to map the event to a customer.
         """
-        timestamp: int
+        timestamp: NotRequired[int]
         """
-        The time of the event. Measured in seconds since the Unix epoch.
+        The time of the event. Measured in seconds since the Unix epoch. Defaults to current timestamp if not specified.
         """
 
     def create(
