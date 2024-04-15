@@ -11,10 +11,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class RequestService(StripeService):
     class CreateParams(TypedDict):
-        config: str
-        """
-        The Forwarding Config used when making the forwarded request. The config specifes the HTTP method, merchant credentials, connection settings, and supported destination URLs.
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
