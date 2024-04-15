@@ -3,6 +3,7 @@ from collections import namedtuple
 
 import stripe
 from stripe import util
+import pytest
 
 LogTestCase = namedtuple("LogTestCase", "env flag should_output")
 FmtTestCase = namedtuple("FmtTestCase", "props expected")
@@ -153,4 +154,17 @@ class TestUtil(object):
 
     def test_stripe_deprecate_param(self):
         util.stripe_deprecate_param({}, "foo")
-        util.stripe_deprecate_param({"foo"}, "foo")
+        # assert that warnings.warn was called appropriately
+        with pytest.warns(DeprecationWarning):
+            util.stripe_deprecate_param({"foo": True}, "foo")
+
+        util.stripe_deprecate_param({"foo": True}, "bar")
+        util.stripe_deprecate_param({"foo": True}, "")
+
+    def test_stripe_deprecate_param_nested(self):
+        with pytest.warns(DeprecationWarning):
+            util.stripe_deprecate_param({"foo": {"bar": True}}, "foo.bar")
+        with pytest.warns(DeprecationWarning):
+            util.stripe_deprecate_param(
+                {"custom_fields": [{"name": "blah"}]}, "custom_fields.name"
+            )

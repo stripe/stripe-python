@@ -433,3 +433,30 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
+
+def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
+    cur = params
+    # For nested parameters, traverse
+    for i, part in enumerate(parts[:-1]):
+        if type(cur[part]) is list:
+            for item in cur[part]:
+                new_i = i + 1
+                stripe_deprecate_param_inner(item, parts[new_i:])
+        if part not in cur:
+            return
+
+        cur = cur[part]
+
+    final_key = parts[-1]
+    if final_key in cur:
+        warnings.warn(
+            f"The {final_key} parameter is deprecated and will be removed in a future version. "
+            "Please refer to the changelog for more information.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+
+def stripe_deprecate_param(params: Mapping[str, Any], key: str):
+    return stripe_deprecate_param_inner(params, key.split("."))
