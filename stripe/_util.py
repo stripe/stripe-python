@@ -437,7 +437,6 @@ class class_method_variant(object):
 
 def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
     cur = params
-    # For nested parameters, traverse
     for i, part in enumerate(parts[:-1]):
         if type(cur[part]) is list:
             for item in cur[part]:
@@ -448,10 +447,10 @@ def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
 
         cur = cur[part]
 
-    final_key = parts[-1]
-    if final_key in cur:
+    deprecated_param = parts[-1]
+    if deprecated_param in cur:
         warnings.warn(
-            f"The {final_key} parameter is deprecated and will be removed in a future version. "
+            f"The {deprecated_param} parameter is deprecated and will be removed in a future version. "
             "Please refer to the changelog for more information.",
             DeprecationWarning,
             stacklevel=2,
