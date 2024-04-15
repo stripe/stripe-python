@@ -150,3 +150,7 @@ class TestUtil(object):
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
         assert sanitized_id == "cu++%25x+123"
+
+    def test_stripe_deprecate_param(self):
+        util.stripe_deprecate_param({}, "foo")
+        util.stripe_deprecate_param({"foo"}, "foo")
