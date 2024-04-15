@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -49,6 +49,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class Balances(StripeObject):
+            class Features(StripeObject):
+                edit_payout_schedule: bool
+                """
+                Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+                instant_payouts: bool
+                """
+                Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+                standard_payouts: bool
+                """
+                Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Documents(StripeObject):
             class Features(StripeObject):
                 pass
@@ -80,7 +102,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
                 """
-                destination_on_behalf_of_charge_management: Optional[bool]
+                destination_on_behalf_of_charge_management: bool
                 """
                 Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
                 """
@@ -106,7 +128,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow capturing and cancelling payment intents. This is `true` by default.
                 """
-                destination_on_behalf_of_charge_management: Optional[bool]
+                destination_on_behalf_of_charge_management: bool
                 """
                 Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
                 """
@@ -148,21 +170,36 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PayoutsList(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
+        balances: Balances
         documents: Documents
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payments: Payments
         payouts: Payouts
+        payouts_list: PayoutsList
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
+            "balances": Balances,
             "documents": Documents,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payments": Payments,
             "payouts": Payouts,
+            "payouts_list": PayoutsList,
         }
 
     class CreateParams(RequestOptions):
@@ -192,6 +229,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
+        balances: NotRequired["AccountSession.CreateParamsComponentsBalances"]
+        """
+        Configuration for the balances embedded component.
+        """
         documents: NotRequired[
             "AccountSession.CreateParamsComponentsDocuments"
         ]
@@ -217,6 +258,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
         """
         Configuration for the payouts embedded component.
+        """
+        payouts_list: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutsList"
+        ]
+        """
+        Configuration for the payouts list embedded component.
         """
 
     class CreateParamsComponentsAccountManagement(TypedDict):
@@ -253,6 +300,32 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         external_account_collection: NotRequired[bool]
         """
         Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
+
+    class CreateParamsComponentsBalances(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsBalancesFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsBalancesFeatures(TypedDict):
+        edit_payout_schedule: NotRequired[bool]
+        """
+        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        instant_payouts: NotRequired[bool]
+        """
+        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        standard_payouts: NotRequired[bool]
+        """
+        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
 
     class CreateParamsComponentsDocuments(TypedDict):
@@ -373,6 +446,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
+
+    class CreateParamsComponentsPayoutsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
 
     account: str
     """
