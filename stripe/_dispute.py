@@ -176,9 +176,6 @@ class Dispute(
             """
 
         card: Optional[Card]
-        """
-        Card specific dispute details.
-        """
         type: Literal["card"]
         """
         Payment method type.

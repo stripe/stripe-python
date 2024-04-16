@@ -763,6 +763,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Swish(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class UsBankAccount(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1005,6 +1027,10 @@ class PaymentMethodConfiguration(
         sofort: NotRequired["PaymentMethodConfiguration.CreateParamsSofort"]
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+        """
+        swish: NotRequired["PaymentMethodConfiguration.CreateParamsSwish"]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccount"
@@ -1499,6 +1525,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSwishDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
@@ -1727,6 +1767,10 @@ class PaymentMethodConfiguration(
         sofort: NotRequired["PaymentMethodConfiguration.ModifyParamsSofort"]
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+        """
+        swish: NotRequired["PaymentMethodConfiguration.ModifyParamsSwish"]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccount"
@@ -2221,6 +2265,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSwishDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
@@ -2334,6 +2392,7 @@ class PaymentMethodConfiguration(
     revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
+    swish: Optional[Swish]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
     zip: Optional[Zip]
@@ -2510,6 +2569,7 @@ class PaymentMethodConfiguration(
         "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
+        "swish": Swish,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,

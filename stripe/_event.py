@@ -223,6 +223,7 @@ class Event(ListableAPIResource["Event"]):
         "customer.tax_id.updated",
         "customer.updated",
         "customer_cash_balance_transaction.created",
+        "entitlements.active_entitlement_summary.updated",
         "file.created",
         "financial_connections.account.created",
         "financial_connections.account.deactivated",
