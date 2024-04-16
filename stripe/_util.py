@@ -435,27 +435,31 @@ class class_method_variant(object):
         return _wrapper
 
 
-def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
-    cur = params
-    for i, part in enumerate(parts[:-1]):
-        if type(cur[part]) is list:
-            for item in cur[part]:
-                new_i = i + 1
-                stripe_deprecate_param_inner(item, parts[new_i:])
-        if part not in cur:
-            return
+def stripe_deprecate_parameter(key):
+    def stripe_deprecate_param_decorator(original_function):
+        def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
+            cur = params
+            for i, part in enumerate(parts[:-1]):
+                if type(cur[part]) is list:
+                    for item in cur[part]:
+                        new_i = i + 1
+                        stripe_deprecate_param_inner(item, parts[new_i:])
+                if part not in cur:
+                    return
 
-        cur = cur[part]
+                cur = cur[part]
 
-    deprecated_param = parts[-1]
-    if deprecated_param in cur:
-        warnings.warn(
-            f"The {deprecated_param} parameter is deprecated and will be removed in a future version. "
-            "Please refer to the changelog for more information.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
+            deprecated_param = parts[-1]
+            if deprecated_param in cur:
+                warnings.warn(
+                    f"The {deprecated_param} parameter is deprecated and will be removed in a future version. "
+                    "Please refer to the changelog for more information.",
+                    DeprecationWarning,
+                    stacklevel=2,
+                )
 
+        def stripe_deprecate_param(*args, **kwargs):
+            stripe_deprecate_param_inner(kwargs["params"], key.split("."))
+            return original_function(*args, **kwargs)
 
-def stripe_deprecate_param(params: Mapping[str, Any], key: str):
-    return stripe_deprecate_param_inner(params, key.split("."))
+        return stripe_deprecate_param
