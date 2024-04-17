@@ -5004,6 +5004,7 @@ class Quote(
                     quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 
@@ -5056,6 +5057,7 @@ class Quote(
                     quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 
