@@ -249,6 +249,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capital_financing_promotion: NotRequired[
             "AccountSession.CreateParamsComponentsCapitalFinancingPromotion"
         ]
+        capital_overview: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalOverview"
+        ]
+        """
+        Configuration for the capital overview embedded component.
+        """
         documents: NotRequired[
             "AccountSession.CreateParamsComponentsDocuments"
         ]
@@ -393,6 +399,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalOverview(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalOverviewFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsDocuments(TypedDict):

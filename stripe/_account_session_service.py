@@ -44,6 +44,12 @@ class AccountSessionService(StripeService):
         capital_financing_promotion: NotRequired[
             "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotion"
         ]
+        capital_overview: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalOverview"
+        ]
+        """
+        Configuration for the capital overview embedded component.
+        """
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
@@ -192,6 +198,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalOverview(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalOverviewFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsDocuments(TypedDict):
