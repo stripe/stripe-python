@@ -464,4 +464,5 @@ def stripe_deprecate_parameter(key):
             return original_function(params=params, *args, **kwargs)
 
         return stripe_deprecate_param
+
     return stripe_deprecate_param_decorator
