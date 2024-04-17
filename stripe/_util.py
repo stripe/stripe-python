@@ -434,6 +434,7 @@ class class_method_variant(object):
 
         return _wrapper
 
+
 def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
     cur = params
     for i, part in enumerate(parts[:-1]):
@@ -454,6 +455,7 @@ def stripe_deprecate_param_inner(params: Mapping[str, Any], parts: List[str]):
             DeprecationWarning,
             stacklevel=2,
         )
+
 
 def stripe_deprecate_parameter(key):
     def stripe_deprecate_param_decorator(original_function):

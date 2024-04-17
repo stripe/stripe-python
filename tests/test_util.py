@@ -186,7 +186,6 @@ class TestUtil(object):
             warnings.simplefilter("error")
             to_be_decorated_empty_key(params={"foo": True})
 
-
     def test_stripe_deprecate_param_nested(self):
         @util.stripe_deprecate_parameter("foo.bar")
         def to_be_decorated_foo_bar(**params):
