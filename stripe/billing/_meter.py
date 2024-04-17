@@ -36,7 +36,7 @@ class Meter(
     class CustomerMapping(StripeObject):
         event_payload_key: str
         """
-        The key in the usage event payload to use for mapping the event to a customer.
+        The key in the meter event payload to use for mapping the event to a customer.
         """
         type: Literal["by_id"]
         """
@@ -58,7 +58,7 @@ class Meter(
     class ValueSettings(StripeObject):
         event_payload_key: str
         """
-        The key in the usage event payload to use as the value for this meter.
+        The key in the meter event payload to use as the value for this meter.
         """
 
     class CreateParams(RequestOptions):
@@ -76,11 +76,11 @@ class Meter(
         """
         event_name: str
         """
-        The name of the usage event to record usage for. Corresponds with the `event_name` field on usage events.
+        The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
         """
         event_time_window: NotRequired[Literal["day", "hour"]]
         """
-        The time window to pre-aggregate usage events for, if any.
+        The time window to pre-aggregate meter events for, if any.
         """
         expand: NotRequired[List[str]]
         """
@@ -88,7 +88,7 @@ class Meter(
         """
         value_settings: NotRequired["Meter.CreateParamsValueSettings"]
         """
-        Fields that specify how to calculate a usage event's value.
+        Fields that specify how to calculate a meter event's value.
         """
 
     class CreateParamsCustomerMapping(TypedDict):
@@ -126,7 +126,7 @@ class Meter(
         """
         end_time: int
         """
-        The timestamp from when to stop aggregating usage events (exclusive).
+        The timestamp from when to stop aggregating meter events (exclusive).
         """
         ending_before: NotRequired[str]
         """
@@ -142,7 +142,7 @@ class Meter(
         """
         start_time: int
         """
-        The timestamp from when to start aggregating usage events (inclusive).
+        The timestamp from when to start aggregating meter events (inclusive).
         """
         starting_after: NotRequired[str]
         """
@@ -209,11 +209,11 @@ class Meter(
     """
     event_name: str
     """
-    The name of the usage event to record usage for. Corresponds with the `event_name` field on usage events.
+    The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
     """
     event_time_window: Optional[Literal["day", "hour"]]
     """
-    The time window to pre-aggregate usage events for, if any.
+    The time window to pre-aggregate meter events for, if any.
     """
     id: str
     """
