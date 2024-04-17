@@ -1050,6 +1050,18 @@ class Session(
         Indicates whether phone number collection is enabled for the session
         """
 
+    class SavedPaymentMethodOptions(StripeObject):
+        allow_redisplay_filters: Optional[
+            List[Literal["always", "limited", "unspecified"]]
+        ]
+        """
+        Controls which payment methods are eligible to be redisplayed to returning customers. Corresponds to `allow_redisplay` on the payment method.
+        """
+        payment_method_save: Optional[Literal["disabled", "enabled"]]
+        """
+        Enable customers to choose if they wish to save their payment method for future use.
+        """
+
     class ShippingAddressCollection(StripeObject):
         allowed_countries: List[
             Literal[
@@ -1682,6 +1694,12 @@ class Session(
         """
         The ID of the payment method configuration to use with this Checkout session.
         """
+        payment_method_data: NotRequired[
+            "Session.CreateParamsPaymentMethodData"
+        ]
+        """
+        This parameter allows you to set some attributes on the payment method created during a Checkout session.
+        """
         payment_method_options: NotRequired[
             "Session.CreateParamsPaymentMethodOptions"
         ]
@@ -1762,6 +1780,12 @@ class Session(
         The URL to redirect your customer back to after they authenticate or cancel their payment on the
         payment method's app or site. This parameter is required if ui_mode is `embedded`
         and redirect-based payment methods are enabled on the session.
+        """
+        saved_payment_method_options: NotRequired[
+            "Session.CreateParamsSavedPaymentMethodOptions"
+        ]
+        """
+        Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
         """
         setup_intent_data: NotRequired["Session.CreateParamsSetupIntentData"]
         """
@@ -2344,6 +2368,14 @@ class Session(
         account for tax reporting, and the funds from charges will be transferred
         to the destination account. The ID of the resulting transfer will be
         returned on the successful charge's `transfer` field.
+        """
+
+    class CreateParamsPaymentMethodData(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        Allow redisplay will be set on the payment method on confirmation and indicates whether this payment method can be shown again to the customer in a checkout flow. Only set this field if you wish to override the allow_redisplay value determined by Checkout.
         """
 
     class CreateParamsPaymentMethodOptions(TypedDict):
@@ -3050,6 +3082,18 @@ class Session(
         enabled: bool
         """
         Set to `true` to enable phone number collection.
+        """
+
+    class CreateParamsSavedPaymentMethodOptions(TypedDict):
+        allow_redisplay_filters: NotRequired[
+            List[Literal["always", "limited", "unspecified"]]
+        ]
+        """
+        Controls which payment methods are eligible to be redisplayed to returning customers. Corresponds to `allow_redisplay` on the payment method.
+        """
+        payment_method_save: NotRequired[Literal["disabled", "enabled"]]
+        """
+        Enable customers to choose if they wish to save their payment method for future use.
         """
 
     class CreateParamsSetupIntentData(TypedDict):
@@ -3856,6 +3900,10 @@ class Session(
     """
     Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
     """
+    saved_payment_method_options: Optional[SavedPaymentMethodOptions]
+    """
+    Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
+    """
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     """
     The ID of the SetupIntent for Checkout Sessions in `setup` mode.
@@ -4251,6 +4299,7 @@ class Session(
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
         "phone_number_collection": PhoneNumberCollection,
+        "saved_payment_method_options": SavedPaymentMethodOptions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
