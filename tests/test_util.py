@@ -3,6 +3,8 @@ from collections import namedtuple
 
 import stripe
 from stripe import util
+import pytest
+import warnings
 
 LogTestCase = namedtuple("LogTestCase", "env flag should_output")
 FmtTestCase = namedtuple("FmtTestCase", "props expected")
@@ -150,3 +152,53 @@ class TestUtil(object):
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
         assert sanitized_id == "cu++%25x+123"
+
+    def test_stripe_deprecate_parameter(self):
+        @util.stripe_deprecate_parameter("foo")
+        def to_be_decorated(**params):
+            pass
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            to_be_decorated(params={})
+
+        # assert that warnings.warn was called appropriately
+        with pytest.warns(DeprecationWarning):
+            to_be_decorated(params={"foo": True})
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            to_be_decorated(params={})
+
+        @util.stripe_deprecate_parameter("bar")
+        def to_be_decorated_non_existant_key(**params):
+            pass
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            to_be_decorated_non_existant_key(params={"foo": True})
+
+        @util.stripe_deprecate_parameter("")
+        def to_be_decorated_empty_key(**params):
+            pass
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            to_be_decorated_empty_key(params={"foo": True})
+
+    def test_stripe_deprecate_param_nested(self):
+        @util.stripe_deprecate_parameter("foo.bar")
+        def to_be_decorated_foo_bar(**params):
+            pass
+
+        with pytest.warns(DeprecationWarning):
+            to_be_decorated_foo_bar(params={"foo": {"bar": True}})
+
+        @util.stripe_deprecate_parameter("custom_fields.name")
+        def to_be_decorated_custom_fields_name(**params):
+            pass
+
+        with pytest.warns(DeprecationWarning):
+            to_be_decorated_custom_fields_name(
+                params={"custom_fields": [{"name": "blah"}]}
+            )
