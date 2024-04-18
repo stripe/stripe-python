@@ -4831,6 +4831,10 @@ class Invoice(
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
         """
+        subscription_trial_from_plan: NotRequired[bool]
+        """
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        """
 
     class UpcomingLinesParamsAutomaticTax(TypedDict):
         enabled: bool
@@ -6883,6 +6887,10 @@ class Invoice(
         subscription_trial_end: NotRequired["Literal['now']|int"]
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
+        """
+        subscription_trial_from_plan: NotRequired[bool]
+        """
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
         """
 
     class UpcomingParamsAutomaticTax(TypedDict):
