@@ -217,6 +217,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
         """
+        swish: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsSwish"
+        ]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
+        """
         us_bank_account: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsUsBankAccount"
         ]
@@ -724,6 +730,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSwishDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsUsBankAccountDisplayPreference"
@@ -988,6 +1008,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+        """
+        swish: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsSwish"
+        ]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsUsBankAccount"
@@ -1491,6 +1517,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsSofortDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsSwishDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

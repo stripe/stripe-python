@@ -248,6 +248,7 @@ class Form(ListableAPIResource["Form"]):
                     id=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 
@@ -298,6 +299,7 @@ class Form(ListableAPIResource["Form"]):
                     id=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 

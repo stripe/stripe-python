@@ -587,13 +587,13 @@ class Invoice(
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
         you through the setup process.
 
         Successful SetupIntents result in payment credentials that are optimized for future payments.
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
         If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
         We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -601,7 +601,7 @@ class Invoice(
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
         """
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
@@ -4831,6 +4831,10 @@ class Invoice(
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
         """
+        subscription_trial_from_plan: NotRequired[bool]
+        """
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        """
 
     class UpcomingLinesParamsAutomaticTax(TypedDict):
         enabled: bool
@@ -6883,6 +6887,10 @@ class Invoice(
         subscription_trial_end: NotRequired["Literal['now']|int"]
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
+        """
+        subscription_trial_from_plan: NotRequired[bool]
+        """
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
         """
 
     class UpcomingParamsAutomaticTax(TypedDict):

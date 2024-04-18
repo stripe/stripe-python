@@ -42,13 +42,13 @@ class SetupIntent(
 
     Create a SetupIntent when you're ready to collect your customer's payment credentials.
     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-    The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+    The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
     you through the setup process.
 
     Successful SetupIntents result in payment credentials that are optimized for future payments.
     For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-    [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-    to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+    [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+    to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
     If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
     it automatically attaches the resulting payment method to that Customer after successful setup.
     We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -56,7 +56,7 @@ class SetupIntent(
 
     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-    Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+    Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
     """
 
     OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
@@ -315,13 +315,13 @@ class SetupIntent(
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
         you through the setup process.
 
         Successful SetupIntents result in payment credentials that are optimized for future payments.
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
         If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
         We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -329,7 +329,7 @@ class SetupIntent(
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
         """
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
@@ -826,6 +826,12 @@ class SetupIntent(
         alipay: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataAlipay"]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
         amazon_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataAmazonPay"
@@ -2035,6 +2041,12 @@ class SetupIntent(
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -3209,6 +3221,12 @@ class SetupIntent(
         alipay: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataAlipay"]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
         amazon_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataAmazonPay"

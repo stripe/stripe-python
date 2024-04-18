@@ -1,5 +1,17 @@
 # Changelog
 
+## 9.2.0 - 2024-04-16
+* [#1301](https://github.com/stripe/stripe-python/pull/1301) Update generated code
+  * Add support for `balances` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `payouts_list` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `capture_method` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay`, and `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay` and resource class `stripe.PaymentIntent.PaymentMethodOptions.RevolutPay`
+  * Add support for `swish` on parameter classes `stripe.PaymentMethodConfiguration.CreateParams` and `stripe.PaymentMethodConfiguration.ModifyParams` and resource `stripe.PaymentMethodConfiguration`
+  * Add support for resource `stripe.entitlements.ActiveEntitlementSummary`
+  * Remove support for `config` on parameter class `stripe.forwarding.Request.CreateParams` and resource `stripe.forwarding.Request`. This field is no longer used by the Forwarding Request API.
+  * Change type of fields `stripe.AccountSession.Components.PaymentDetails.Features` and `stripe.AccountSession.Components.Payments.Features` from `Optional[bool]` to `bool` of `destination_on_behalf_of_charge_management`
+  * Change type of field `stripe.billing.MeterEvent.CreateParams` from `int` to `NotRequired[int]` of `timestamp`
+  * Add support for `entitlements.active_entitlement_summary.updated` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
+
 ## 9.2.0b1 - 2024-04-11
 * [#1296](https://github.com/stripe/stripe-python/pull/1296) Update generated code for beta
   * Add support for `external_account_collection` on resource class `stripe.AccountSession.Components.AccountOnboarding.Features` and parameter class `stripe.AccountSession.CreateParamsComponentsAccountOnboardingFeatures`
