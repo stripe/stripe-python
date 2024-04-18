@@ -17,7 +17,7 @@ class MeterEventSummaryService(StripeService):
         """
         end_time: int
         """
-        The timestamp from when to stop aggregating usage events (exclusive).
+        The timestamp from when to stop aggregating meter events (exclusive).
         """
         ending_before: NotRequired[str]
         """
@@ -33,7 +33,7 @@ class MeterEventSummaryService(StripeService):
         """
         start_time: int
         """
-        The timestamp from when to start aggregating usage events (inclusive).
+        The timestamp from when to start aggregating meter events (inclusive).
         """
         starting_after: NotRequired[str]
         """

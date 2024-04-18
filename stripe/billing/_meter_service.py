@@ -34,11 +34,11 @@ class MeterService(StripeService):
         """
         event_name: str
         """
-        The name of the usage event to record usage for. Corresponds with the `event_name` field on usage events.
+        The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
         """
         event_time_window: NotRequired[Literal["day", "hour"]]
         """
-        The time window to pre-aggregate usage events for, if any.
+        The time window to pre-aggregate meter events for, if any.
         """
         expand: NotRequired[List[str]]
         """
@@ -46,7 +46,7 @@ class MeterService(StripeService):
         """
         value_settings: NotRequired["MeterService.CreateParamsValueSettings"]
         """
-        Fields that specify how to calculate a usage event's value.
+        Fields that specify how to calculate a meter event's value.
         """
 
     class CreateParamsCustomerMapping(TypedDict):
@@ -62,7 +62,7 @@ class MeterService(StripeService):
     class CreateParamsDefaultAggregation(TypedDict):
         formula: Literal["count", "sum"]
         """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value, or `last` to use the last event's value.
+        Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
         """
 
     class CreateParamsValueSettings(TypedDict):

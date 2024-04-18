@@ -124,9 +124,9 @@ class AuthorizationService(StripeService):
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "us_gallon"]]
+        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
         """
-        The units for `volume_decimal`. One of `us_gallon` or `liter`.
+        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
