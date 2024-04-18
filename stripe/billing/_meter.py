@@ -104,7 +104,7 @@ class Meter(
     class CreateParamsDefaultAggregation(TypedDict):
         formula: Literal["count", "sum"]
         """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value, or `last` to use the last event's value.
+        Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
         """
 
     class CreateParamsValueSettings(TypedDict):
