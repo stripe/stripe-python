@@ -155,4 +155,4 @@ jobs:
       - uses: stripe/openapi/actions/notify-release@master
         if: always()
         with:
-          bot_token: ${{ secrets.SLACK_BOT_TOKEN }}
+          bot_token: ${{ secrets.SLACK_BOT_TOKEN 
