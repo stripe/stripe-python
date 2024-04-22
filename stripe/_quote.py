@@ -1101,6 +1101,12 @@ class Quote(
         """
         For a point-in-time operation, this attribute lets you set or update whether the subscription's billing cycle anchor is reset at the `starts_at` timestamp.
         """
+        cancel_subscription_schedule: NotRequired[
+            "Quote.CreateParamsLineCancelSubscriptionSchedule"
+        ]
+        """
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for metadata modifications.
+        """
         ends_at: NotRequired["Quote.CreateParamsLineEndsAt"]
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
@@ -1434,6 +1440,20 @@ class Quote(
         type: Literal["new_reference", "subscription_schedule"]
         """
         Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class CreateParamsLineCancelSubscriptionSchedule(TypedDict):
+        cancel_at: Literal["line_starts_at"]
+        """
+        Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
+        """
+        invoice_now: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
+        """
+        prorate: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
         """
 
     class CreateParamsLineEndsAt(TypedDict):
@@ -2581,6 +2601,12 @@ class Quote(
         """
         For a point-in-time operation, this attribute lets you set or update whether the subscription's billing cycle anchor is reset at the `starts_at` timestamp.
         """
+        cancel_subscription_schedule: NotRequired[
+            "Quote.ModifyParamsLineCancelSubscriptionSchedule"
+        ]
+        """
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for metadata modifications.
+        """
         ends_at: NotRequired["Quote.ModifyParamsLineEndsAt"]
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
@@ -2918,6 +2944,20 @@ class Quote(
         type: Literal["new_reference", "subscription_schedule"]
         """
         Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class ModifyParamsLineCancelSubscriptionSchedule(TypedDict):
+        cancel_at: Literal["line_starts_at"]
+        """
+        Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
+        """
+        invoice_now: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
+        """
+        prorate: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
         """
 
     class ModifyParamsLineEndsAt(TypedDict):
