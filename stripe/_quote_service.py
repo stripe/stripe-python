@@ -275,7 +275,7 @@ class QuoteService(StripeService):
             "QuoteService.CreateParamsLineCancelSubscriptionSchedule"
         ]
         """
-        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for metadata modifications.
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
         """
         ends_at: NotRequired["QuoteService.CreateParamsLineEndsAt"]
         """
@@ -1737,7 +1737,7 @@ class QuoteService(StripeService):
             "QuoteService.UpdateParamsLineCancelSubscriptionSchedule"
         ]
         """
-        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for metadata modifications.
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
         """
         ends_at: NotRequired["QuoteService.UpdateParamsLineEndsAt"]
         """
