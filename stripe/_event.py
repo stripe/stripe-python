@@ -68,7 +68,7 @@ class Event(ListableAPIResource["Event"]):
             trigger: str
             """
             The trigger name of the automation that triggered this action.
-             Please visit [Revenue and retention automations](https://stripe.com/docs/billing/revenue-recovery/automations#choose-a-trigger) for all possible trigger names.
+             Please visit [Revenue and retention automations](https://stripe.com/docs/billing/automations#choose-a-trigger) for all possible trigger names.
             """
             type: Literal["stripe_send_webhook_custom_event"]
             """
@@ -198,7 +198,7 @@ class Event(ListableAPIResource["Event"]):
     """
     reason: Optional[Reason]
     """
-    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://stripe.com/docs/billing/revenue-recovery/automations) action.
+    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://stripe.com/docs/billing/automations) action.
     """
     request: Optional[Request]
     """
