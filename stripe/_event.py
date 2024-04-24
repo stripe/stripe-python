@@ -31,10 +31,10 @@ class Event(ListableAPIResource["Event"]):
     `Event` objects directly to an endpoint on your server. You can manage
     webhooks in your
     [account settings](https://dashboard.stripe.com/account/webhooks). Learn how
-    to [listen for events](https://stripe.com/docs/webhooks)
+    to [listen for events](https://docs.stripe.com/webhooks)
     so that your integration can automatically trigger reactions.
 
-    When using [Connect](https://stripe.com/docs/connect), you can also receive event notifications
+    When using [Connect](https://docs.stripe.com/connect), you can also receive event notifications
     that occur in connected accounts. For these events, there's an
     additional `account` attribute in the received `Event` object.
 
@@ -68,7 +68,7 @@ class Event(ListableAPIResource["Event"]):
             trigger: str
             """
             The trigger name of the automation that triggered this action.
-             Please visit [Revenue and retention automations](https://stripe.com/docs/billing/automations#choose-a-trigger) for all possible trigger names.
+             Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
             """
             type: Literal["stripe_send_webhook_custom_event"]
             """
@@ -198,7 +198,7 @@ class Event(ListableAPIResource["Event"]):
     """
     reason: Optional[Reason]
     """
-    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://stripe.com/docs/billing/automations) action.
+    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
     """
     request: Optional[Request]
     """
@@ -469,7 +469,7 @@ class Event(ListableAPIResource["Event"]):
     @classmethod
     def list(cls, **params: Unpack["Event.ListParams"]) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         result = cls._static_request(
             "get",
@@ -490,7 +490,7 @@ class Event(ListableAPIResource["Event"]):
         cls, **params: Unpack["Event.ListParams"]
     ) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         result = await cls._static_request_async(
             "get",
