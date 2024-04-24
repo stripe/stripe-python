@@ -66,6 +66,9 @@ class Mandate(APIResource["Mandate"]):
             Transaction type of the mandate.
             """
 
+        class AmazonPay(StripeObject):
+            pass
+
         class AuBecsDebit(StripeObject):
             url: str
             """
@@ -181,6 +184,9 @@ class Mandate(APIResource["Mandate"]):
             Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
             """
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             reference: str
             """
@@ -198,6 +204,7 @@ class Mandate(APIResource["Mandate"]):
             """
 
         acss_debit: Optional[AcssDebit]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
@@ -205,6 +212,7 @@ class Mandate(APIResource["Mandate"]):
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         type: str
         """
@@ -213,6 +221,7 @@ class Mandate(APIResource["Mandate"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "card": Card,
@@ -220,6 +229,7 @@ class Mandate(APIResource["Mandate"]):
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }
