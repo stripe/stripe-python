@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.5.0b1 - 2024-04-25
+* [#1308](https://github.com/stripe/stripe-python/pull/1308) Update generated code for beta
+  * Add support for `payment_method_settings` on parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `cancel_subscription_schedule` on parameter classes `stripe.Quote.CreateParamsLine` and `stripe.Quote.ModifyParamsLine` and resource `stripe.QuoteLine`
+  * Add support for `amazon_pay` on enum `stripe.QuotePreviewInvoice.PaymentSettings.payment_method_types`
+  * Add support for `revolut_pay` on enum `stripe.QuotePreviewInvoice.PaymentSettings.payment_method_types`
+
 ## 9.4.0b1 - 2024-04-18
 * [#1302](https://github.com/stripe/stripe-python/pull/1302) Update generated code for beta
   * Add support for `balances` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
