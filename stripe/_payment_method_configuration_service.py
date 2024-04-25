@@ -159,6 +159,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
         """
+        mobilepay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
+        """
         multibanco: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsMultibanco"
         ]
@@ -604,6 +610,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsMultibanco(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsMultibancoDisplayPreference"
@@ -966,6 +986,12 @@ class PaymentMethodConfigurationService(StripeService):
         link: NotRequired["PaymentMethodConfigurationService.UpdateParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        mobilepay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
         """
         multibanco: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsMultibanco"
@@ -1403,6 +1429,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsLinkDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsMobilepayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
