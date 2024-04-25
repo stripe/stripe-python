@@ -41,6 +41,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class AcssDebit(StripeObject):
             pass
 
+        class AmazonPay(StripeObject):
+            pass
+
         class AuBecsDebit(StripeObject):
             pass
 
@@ -334,6 +337,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Payto(StripeObject):
             pass
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             pass
 
@@ -377,6 +383,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         acss_debit: Optional[AcssDebit]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
@@ -389,6 +396,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         type: str
@@ -398,6 +406,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
@@ -410,6 +419,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,

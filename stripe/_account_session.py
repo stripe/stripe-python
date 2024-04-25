@@ -297,6 +297,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the payment details embedded component.
         """
+        payment_method_settings: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentMethodSettings"
+        ]
+        """
+        Configuration for the payment method settings embedded component.
+        """
         payments: NotRequired["AccountSession.CreateParamsComponentsPayments"]
         """
         Configuration for the payments embedded component.
@@ -551,6 +557,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
+
+    class CreateParamsComponentsPaymentMethodSettings(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentMethodSettingsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool

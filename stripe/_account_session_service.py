@@ -92,6 +92,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the payment details embedded component.
         """
+        payment_method_settings: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPaymentMethodSettings"
+        ]
+        """
+        Configuration for the payment method settings embedded component.
+        """
         payments: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayments"
         ]
@@ -350,6 +356,21 @@ class AccountSessionService(StripeService):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
+
+    class CreateParamsComponentsPaymentMethodSettings(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPaymentMethodSettingsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool
