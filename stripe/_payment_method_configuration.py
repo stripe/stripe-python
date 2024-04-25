@@ -587,6 +587,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Mobilepay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -981,6 +1003,12 @@ class PaymentMethodConfiguration(
         link: NotRequired["PaymentMethodConfiguration.CreateParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        mobilepay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
         """
         name: NotRequired[str]
         """
@@ -1413,6 +1441,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
@@ -1737,6 +1779,12 @@ class PaymentMethodConfiguration(
         link: NotRequired["PaymentMethodConfiguration.ModifyParamsLink"]
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+        """
+        mobilepay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
         """
         name: NotRequired[str]
         """
@@ -2165,6 +2213,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
@@ -2384,6 +2446,7 @@ class PaymentMethodConfiguration(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    mobilepay: Optional[Mobilepay]
     name: str
     """
     The configuration's name.
@@ -2573,6 +2636,7 @@ class PaymentMethodConfiguration(
         "klarna": Klarna,
         "konbini": Konbini,
         "link": Link,
+        "mobilepay": Mobilepay,
         "oxxo": Oxxo,
         "p24": P24,
         "paynow": Paynow,
