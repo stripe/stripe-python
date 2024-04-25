@@ -22,9 +22,9 @@ class AccountLoginLinkService(StripeService):
         options: RequestOptions = {},
     ) -> LoginLink:
         """
-        Creates a single-use login link for an Express account to access their Stripe dashboard.
+        Creates a single-use login link for a connected account to access the Express Dashboard.
 
-        You may only create login links for [Express accounts](https://stripe.com/docs/connect/express-accounts) connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             LoginLink,
@@ -47,9 +47,9 @@ class AccountLoginLinkService(StripeService):
         options: RequestOptions = {},
     ) -> LoginLink:
         """
-        Creates a single-use login link for an Express account to access their Stripe dashboard.
+        Creates a single-use login link for a connected account to access the Express Dashboard.
 
-        You may only create login links for [Express accounts](https://stripe.com/docs/connect/express-accounts) connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             LoginLink,

@@ -74,7 +74,7 @@ class EventService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Event]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         return cast(
             ListObject[Event],
@@ -94,7 +94,7 @@ class EventService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Event]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         return cast(
             ListObject[Event],

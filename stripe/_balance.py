@@ -173,7 +173,7 @@ class Balance(SingletonAPIResource["Balance"]):
     """
     connect_reserved: Optional[List[ConnectReserved]]
     """
-    Funds held due to negative balances on connected Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
+    Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
     """
     instant_available: Optional[List[InstantAvailable]]
     """

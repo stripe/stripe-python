@@ -38,15 +38,22 @@ class AccountService(StripeService):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        The business type. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         capabilities: NotRequired["AccountService.CreateParamsCapabilities"]
         """
-        Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+        Each key of the dictionary represents a capability, and each capability
+        maps to its settings (for example, whether it has been requested or not). Each
+        capability is inactive until you have provided its specific
+        requirements and Stripe has verified them. An account might have some
+        of its requested capabilities be active and some be inactive.
+
+        Required when [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/create#create_account-controller-dashboard-type)
+        is `none`, which includes Custom accounts.
         """
         company: NotRequired["AccountService.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         controller: NotRequired["AccountService.CreateParamsController"]
         """
@@ -66,7 +73,7 @@ class AccountService(StripeService):
         """
         email: NotRequired[str]
         """
-        The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
+        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
         """
         expand: NotRequired[List[str]]
         """
@@ -76,13 +83,13 @@ class AccountService(StripeService):
             "str|AccountService.CreateParamsBankAccount|AccountService.CreateParamsCard|AccountService.CreateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -94,7 +101,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         type: NotRequired[Literal["custom", "express", "standard"]]
         """
@@ -966,7 +973,7 @@ class AccountService(StripeService):
     class CreateParamsControllerFees(TypedDict):
         payer: NotRequired[Literal["account", "application"]]
         """
-        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`.
+        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         """
 
     class CreateParamsControllerLosses(TypedDict):
@@ -1645,15 +1652,22 @@ class AccountService(StripeService):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        The business type. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         capabilities: NotRequired["AccountService.UpdateParamsCapabilities"]
         """
-        Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+        Each key of the dictionary represents a capability, and each capability
+        maps to its settings (for example, whether it has been requested or not). Each
+        capability is inactive until you have provided its specific
+        requirements and Stripe has verified them. An account might have some
+        of its requested capabilities be active and some be inactive.
+
+        Required when [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/create#create_account-controller-dashboard-type)
+        is `none`, which includes Custom accounts.
         """
         company: NotRequired["AccountService.UpdateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         default_currency: NotRequired[str]
         """
@@ -1665,7 +1679,7 @@ class AccountService(StripeService):
         """
         email: NotRequired[str]
         """
-        The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
+        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
         """
         expand: NotRequired[List[str]]
         """
@@ -1675,13 +1689,13 @@ class AccountService(StripeService):
             "Literal['']|str|AccountService.UpdateParamsBankAccount|AccountService.UpdateParamsCard|AccountService.UpdateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1693,7 +1707,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.UpdateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
 
     class UpdateParamsBankAccount(TypedDict):
@@ -3139,9 +3153,11 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
 
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+        Test-mode accounts can be deleted at any time.
+
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balanace_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -3164,9 +3180,11 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
 
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+        Test-mode accounts can be deleted at any time.
+
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balanace_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -3231,12 +3249,16 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+        Updates a [connected account](https://stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
 
-        For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-        some properties can only be changed or updated for Custom accounts.
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is application, which includes Custom accounts, you can update any information on the account.
+
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is stripe, which includes Standard and Express accounts, you can update all information until you create
+        an [Account Link or <a href="/api/account_sessions">Account Session](https://stripe.com/api/account_links) to start Connect onboarding,
+        after which some properties can no longer be updated.
 
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
@@ -3260,12 +3282,16 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+        Updates a [connected account](https://stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
 
-        For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-        some properties can only be changed or updated for Custom accounts.
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is application, which includes Custom accounts, you can update any information on the account.
+
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is stripe, which includes Standard and Express accounts, you can update all information until you create
+        an [Account Link or <a href="/api/account_sessions">Account Session](https://stripe.com/api/account_links) to start Connect onboarding,
+        after which some properties can no longer be updated.
 
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
@@ -3419,9 +3445,9 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
             Account,
@@ -3444,9 +3470,9 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
             Account,

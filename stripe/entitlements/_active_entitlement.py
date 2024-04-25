@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from typing import ClassVar, List
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.entitlements._feature import Feature
 
 
 class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
@@ -44,9 +48,9 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
         Specifies which fields in the response should be expanded.
         """
 
-    feature: str
+    feature: ExpandableField["Feature"]
     """
-    The feature that the customer is entitled to.
+    The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
     """
     id: str
     """

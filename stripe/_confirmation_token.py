@@ -1861,7 +1861,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     expires_at: Optional[int]
     """
-    Time at which this ConfirmationToken expires and can no longer be used to confirm a PaymentIntent or SetupIntent. This is set to null once this ConfirmationToken has been used.
+    Time at which this ConfirmationToken expires and can no longer be used to confirm a PaymentIntent or SetupIntent.
     """
     id: str
     """
