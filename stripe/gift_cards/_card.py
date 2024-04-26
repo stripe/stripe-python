@@ -206,7 +206,7 @@ class Card(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    transactions: ListObject["Transaction"]
+    transactions: Optional[ListObject["Transaction"]]
     """
     Transactions on this gift card.
     """
