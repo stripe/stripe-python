@@ -42,7 +42,7 @@ class CalculationService(StripeService):
             "CalculationService.CreateParamsShipFromDetails"
         ]
         """
-        Details about the address from which the goods are being shippped.
+        Details about the address from which the goods are being shipped.
         """
         shipping_cost: NotRequired[
             "CalculationService.CreateParamsShippingCost"
