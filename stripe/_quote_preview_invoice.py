@@ -1277,11 +1277,11 @@ class QuotePreviewInvoice(StripeObject):
     """
     period_end: int
     """
-    End of the usage period during which invoice items were added to this invoice.
+    End of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](https://stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     """
     period_start: int
     """
-    Start of the usage period during which invoice items were added to this invoice.
+    Start of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](https://stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     """
     post_payment_credit_notes_amount: int
     """
