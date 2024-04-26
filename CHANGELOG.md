@@ -34,8 +34,8 @@
   * Add support for `swish` on parameter classes `stripe.PaymentMethodConfiguration.CreateParams` and `stripe.PaymentMethodConfiguration.ModifyParams` and resource `stripe.PaymentMethodConfiguration`
   * Add support for resource `stripe.entitlements.ActiveEntitlementSummary`
   * Remove support for `config` on parameter class `stripe.forwarding.Request.CreateParams` and resource `stripe.forwarding.Request`. This field is no longer used by the Forwarding Request API.
-  * Change type of fields `stripe.AccountSession.Components.PaymentDetails.Features` and `stripe.AccountSession.Components.Payments.Features` from `Optional[bool]` to `bool` of `destination_on_behalf_of_charge_management`
-  * Change type of field `stripe.billing.MeterEvent.CreateParams` from `int` to `NotRequired[int]` of `timestamp`
+  * Change type of `destination_on_behalf_of_charge_management` on  `stripe.AccountSession.Components.PaymentDetails.Features` and `stripe.AccountSession.Components.Payments.Features` from `Optional[bool]` to `bool`
+  * Change type of `timestamp` on  `stripe.billing.MeterEvent.CreateParams` from `int` to `NotRequired[int]`
   * Add support for `entitlements.active_entitlement_summary.updated` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
 
 ## 9.1.0 - 2024-04-11
@@ -45,11 +45,11 @@
   * Add support for `notification_banner` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
   * Add support for `amazon_pay` on resource classes `stripe.Charge.PaymentMethodDetails`, `stripe.ConfirmationToken.PaymentMethodPreview`, `stripe.PaymentIntent.PaymentMethodOptions`, `stripe.Refund.DestinationDetails`, `stripe.SetupIntent.PaymentMethodOptions`, and `stripe.checkout.Session.PaymentMethodOptions`, parameter classes `stripe.ConfirmationToken.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptions`, `stripe.PaymentIntent.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptions`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptions`, `stripe.PaymentMethod.CreateParams`, `stripe.PaymentMethodConfiguration.CreateParams`, `stripe.PaymentMethodConfiguration.ModifyParams`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptions`, `stripe.SetupIntent.CreateParamsPaymentMethodData`, `stripe.SetupIntent.CreateParamsPaymentMethodOptions`, `stripe.SetupIntent.ModifyParamsPaymentMethodData`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptions`, and `stripe.checkout.Session.CreateParamsPaymentMethodOptions`, and resources `stripe.PaymentMethod` and `stripe.PaymentMethodConfiguration`
   * Add support for `next_refresh_available_at` on resource class `stripe.financial_connections.Account.OwnershipRefresh`
-  * Change type of field `stripe.billing.MeterEventAdjustment` from `Cancel` to `Optional[Cancel]` of `cancel`
-  * Change type of field `stripe.billing.MeterEventAdjustment.Cancel` from `str` to `Optional[str]` of `identifier`
-  * Change type of field `stripe.billing.MeterEventAdjustment.CreateParamsCancel` from `str` to `NotRequired[str]` of `identifier`
-  * Change type of field `stripe.billing.MeterEventAdjustment.CreateParams` from `MeterEventAdjustment.CreateParamsCancel` to `NotRequired[MeterEventAdjustment.CreateParamsCancel]` of `cancel`
-  * Change type of field `stripe.billing.MeterEventAdjustment.CreateParams` from `NotRequired[Literal['cancel']]` to `Literal['cancel']` of `type`
+  * Change type of `cancel` on  `stripe.billing.MeterEventAdjustment` from `Cancel` to `Optional[Cancel]`
+  * Change type of `identifier` on  `stripe.billing.MeterEventAdjustment.Cancel` from `str` to `Optional[str]`
+  * Change type of `identifier` on  `stripe.billing.MeterEventAdjustment.CreateParamsCancel` from `str` to `NotRequired[str]`
+  * Change type of `cancel` on  `stripe.billing.MeterEventAdjustment.CreateParams` from `MeterEventAdjustment.CreateParamsCancel` to `NotRequired[MeterEventAdjustment.CreateParamsCancel]`
+  * Change type of `type` on  `stripe.billing.MeterEventAdjustment.CreateParams` from `NotRequired[Literal['cancel']]` to `Literal['cancel']`
   * Add support for `bh_vat` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `kz_bin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `ng_tin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
@@ -154,21 +154,21 @@
   * Add support for `provided_details` on parameter classes `stripe.identity.VerificationSession.CreateParams` and `stripe.identity.VerificationSession.ModifyParams` and resource `stripe.identity.VerificationSession`
   * Add support for `allowed_merchant_countries` on parameter classes `stripe.issuing.Card.CreateParamsSpendingControls`, `stripe.issuing.Card.ModifyParamsSpendingControls`, `stripe.issuing.Cardholder.CreateParamsSpendingControls`, and `stripe.issuing.Cardholder.ModifyParamsSpendingControls` and resource classes `stripe.issuing.Card.SpendingControls` and `stripe.issuing.Cardholder.SpendingControls`
   * Add support for `blocked_merchant_countries` on parameter classes `stripe.issuing.Card.CreateParamsSpendingControls`, `stripe.issuing.Card.ModifyParamsSpendingControls`, `stripe.issuing.Cardholder.CreateParamsSpendingControls`, and `stripe.issuing.Cardholder.ModifyParamsSpendingControls` and resource classes `stripe.issuing.Card.SpendingControls` and `stripe.issuing.Cardholder.SpendingControls`
-  * Change type of field `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSwish` from `Literal['']|str` to `str` of `reference`
+  * Change type of `reference` on  `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSwish` from `Literal['']|str` to `str`
   * Add support for `verification_flow` on enums `stripe.identity.VerificationReport.type` and `stripe.identity.VerificationSession.type`
   * Add support for `email_unverified_other` on enum `stripe.identity.VerificationSession.LastError.code`
   * Add support for `email_verification_declined` on enum `stripe.identity.VerificationSession.LastError.code`
   * Add support for `phone_unverified_other` on enum `stripe.identity.VerificationSession.LastError.code`
   * Add support for `phone_verification_declined` on enum `stripe.identity.VerificationSession.LastError.code`
   * Add support for `mobile_phone_reader` on enums `stripe.terminal.Reader.device_type` and `stripe.terminal.Reader.ListParams.device_type`
-  * Change type of field `stripe.identity.VerificationSession.CreateParams` from `Literal['document', 'id_number']` to `NotRequired[Literal['document', 'id_number']]` of `type`
-  * Change type of fields `stripe.Invoice` and `stripe.InvoiceLineItem` from `Optional[List[ExpandableField[Discount]]]` to `List[ExpandableField[Discount]]` of `discounts`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `data`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `image_url_png`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str` of `image_url_svg`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `hosted_instructions_url`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str` of `mobile_auth_url`
-  * Change type of field `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode` of `qr_code`
+  * Change type of `type` on  `stripe.identity.VerificationSession.CreateParams` from `Literal['document', 'id_number']` to `NotRequired[Literal['document', 'id_number']]`
+  * Change type of `discounts` on  `stripe.Invoice` and `stripe.InvoiceLineItem` from `Optional[List[ExpandableField[Discount]]]` to `List[ExpandableField[Discount]]`
+  * Change type of `data` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str`
+  * Change type of `image_url_png` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str`
+  * Change type of `image_url_svg` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode.QrCode` from `Optional[str]` to `str`
+  * Change type of `hosted_instructions_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
+  * Change type of `mobile_auth_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
+  * Change type of `qr_code` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode`
 * [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
 
 
