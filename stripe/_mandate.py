@@ -66,6 +66,9 @@ class Mandate(APIResource["Mandate"]):
             Transaction type of the mandate.
             """
 
+        class AmazonPay(StripeObject):
+            pass
+
         class AuBecsDebit(StripeObject):
             url: str
             """
@@ -119,6 +122,9 @@ class Mandate(APIResource["Mandate"]):
             PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
             """
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             reference: str
             """
@@ -136,12 +142,14 @@ class Mandate(APIResource["Mandate"]):
             """
 
         acss_debit: Optional[AcssDebit]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         type: str
         """
@@ -150,12 +158,14 @@ class Mandate(APIResource["Mandate"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "card": Card,
             "cashapp": Cashapp,
             "link": Link,
             "paypal": Paypal,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }

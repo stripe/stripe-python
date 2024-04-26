@@ -18,13 +18,13 @@ class WebhookEndpoint(
     UpdateableAPIResource["WebhookEndpoint"],
 ):
     """
-    You can configure [webhook endpoints](https://stripe.com/docs/webhooks/) via the API to be
+    You can configure [webhook endpoints](https://docs.stripe.com/webhooks/) via the API to be
     notified about events that happen in your Stripe account or connected
     accounts.
 
     Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
 
-    Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
+    Related guide: [Setting up webhooks](https://docs.stripe.com/webhooks/configure)
     """
 
     OBJECT_NAME: ClassVar[Literal["webhook_endpoint"]] = "webhook_endpoint"
@@ -718,7 +718,7 @@ class WebhookEndpoint(
     """
     secret: Optional[str]
     """
-    The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation.
+    The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
     """
     status: str
     """

@@ -13,7 +13,7 @@ class ProductFeatureService(StripeService):
     class CreateParams(TypedDict):
         entitlement_feature: str
         """
-        The ID of the [Feature](docs/api/entitlements/feature) object attached to this product.
+        The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.
         """
         expand: NotRequired[List[str]]
         """
