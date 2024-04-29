@@ -817,6 +817,10 @@ class PaymentIntentService(StripeService):
         """
         Payment method-specific configuration for this PaymentIntent.
         """
+        payment_method_types: NotRequired[List[str]]
+        """
+        The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
         radar_options: NotRequired[
             "PaymentIntentService.ConfirmParamsRadarOptions"
         ]
