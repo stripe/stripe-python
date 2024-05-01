@@ -1769,6 +1769,12 @@ class PaymentIntentService(StripeService):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
@@ -1829,6 +1835,7 @@ class PaymentIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -2178,6 +2185,26 @@ class PaymentIntentService(StripeService):
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class ConfirmParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "PaymentIntentService.ConfirmParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class ConfirmParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
         pass
 
@@ -2419,6 +2446,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        rechnung: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsRechnung"
+        ]
+        """
+        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsRevolutPay"
@@ -3512,6 +3545,12 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsRechnung(TypedDict):
+        risk_correlation_id: NotRequired[str]
+        """
+        A unique identifier that correlates each transaction with the collected risk data.
         """
 
     class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
@@ -4870,6 +4909,12 @@ class PaymentIntentService(StripeService):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataRevolutPay"
         ]
@@ -4930,6 +4975,7 @@ class PaymentIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -5279,6 +5325,26 @@ class PaymentIntentService(StripeService):
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class CreateParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "PaymentIntentService.CreateParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
         pass
 
@@ -5520,6 +5586,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        rechnung: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsRechnung"
+        ]
+        """
+        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsRevolutPay"
@@ -6613,6 +6685,12 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsRechnung(TypedDict):
+        risk_correlation_id: NotRequired[str]
+        """
+        A unique identifier that correlates each transaction with the collected risk data.
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
@@ -8058,6 +8136,12 @@ class PaymentIntentService(StripeService):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataRevolutPay"
         ]
@@ -8118,6 +8202,7 @@ class PaymentIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -8467,6 +8552,26 @@ class PaymentIntentService(StripeService):
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class UpdateParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "PaymentIntentService.UpdateParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class UpdateParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class UpdateParamsPaymentMethodDataRevolutPay(TypedDict):
         pass
 
@@ -8708,6 +8813,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+        """
+        rechnung: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsRechnung"
+        ]
+        """
+        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsRevolutPay"
@@ -9801,6 +9912,12 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsRechnung(TypedDict):
+        risk_correlation_id: NotRequired[str]
+        """
+        A unique identifier that correlates each transaction with the collected risk data.
         """
 
     class UpdateParamsPaymentMethodOptionsRevolutPay(TypedDict):

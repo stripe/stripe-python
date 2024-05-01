@@ -187,6 +187,10 @@ class PaymentMethodService(StripeService):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired["PaymentMethodService.CreateParamsRechnung"]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired["PaymentMethodService.CreateParamsRevolutPay"]
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
@@ -239,6 +243,7 @@ class PaymentMethodService(StripeService):
                 "payto",
                 "pix",
                 "promptpay",
+                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -617,6 +622,26 @@ class PaymentMethodService(StripeService):
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class CreateParamsRechnung(TypedDict):
+        dob: "PaymentMethodService.CreateParamsRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class CreateParamsRevolutPay(TypedDict):
         pass
 
@@ -725,6 +750,7 @@ class PaymentMethodService(StripeService):
                 "payto",
                 "pix",
                 "promptpay",
+                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -777,6 +803,10 @@ class PaymentMethodService(StripeService):
         payto: NotRequired["PaymentMethodService.UpdateParamsPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
+        rechnung: NotRequired["PaymentMethodService.UpdateParamsRechnung"]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"
@@ -868,6 +898,26 @@ class PaymentMethodService(StripeService):
         pay_id: NotRequired[str]
         """
         The PayID alias for the bank account.
+        """
+
+    class UpdateParamsRechnung(TypedDict):
+        dob: "PaymentMethodService.UpdateParamsRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class UpdateParamsRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class UpdateParamsUsBankAccount(TypedDict):
