@@ -1300,6 +1300,9 @@ class Charge(
                 """
 
             card: Optional[Card]
+            """
+            Internal card details
+            """
             _inner_class_types = {"card": Card}
 
         class Multibanco(StripeObject):

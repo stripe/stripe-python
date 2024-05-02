@@ -161,6 +161,36 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         _inner_class_types = {"address": Address, "tax_ids": TaxId}
 
+    class ShipFromDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
+
     class ShippingCost(StripeObject):
         class TaxBreakdown(StripeObject):
             class Jurisdiction(StripeObject):
@@ -370,6 +400,12 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         A list of items the customer is purchasing.
         """
+        ship_from_details: NotRequired[
+            "Calculation.CreateParamsShipFromDetails"
+        ]
+        """
+        Details about the address from which the goods are being shipped.
+        """
         shipping_cost: NotRequired["Calculation.CreateParamsShippingCost"]
         """
         Shipping cost details to be used for the calculation.
@@ -542,6 +578,38 @@ class Calculation(CreateableAPIResource["Calculation"]):
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
         """
 
+    class CreateParamsShipFromDetails(TypedDict):
+        address: "Calculation.CreateParamsShipFromDetailsAddress"
+        """
+        The address from which the goods are being shipped from.
+        """
+
+    class CreateParamsShipFromDetailsAddress(TypedDict):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
     class CreateParamsShippingCost(TypedDict):
         amount: NotRequired[int]
         """
@@ -610,6 +678,10 @@ class Calculation(CreateableAPIResource["Calculation"]):
     object: Literal["tax.calculation"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    ship_from_details: Optional[ShipFromDetails]
+    """
+    The details of the ship from location, such as the address.
     """
     shipping_cost: Optional[ShippingCost]
     """
@@ -780,6 +852,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     _inner_class_types = {
         "customer_details": CustomerDetails,
+        "ship_from_details": ShipFromDetails,
         "shipping_cost": ShippingCost,
         "tax_breakdown": TaxBreakdown,
     }
