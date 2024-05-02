@@ -36,19 +36,19 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             class Features(StripeObject):
                 payment_method_remove: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element allows the removal of a saved payment method.
+                Controls whether the Payment Element displays the option to remove a saved payment method.
                 """
                 payment_method_save: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element offers to save a new payment method.
+                Controls whether the Payment Element displays a checkbox offering to save a new payment method.
                 """
                 payment_method_set_as_default: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element offers to set a payment method as the default.
+                Controls whether the Payment Element displays a checkbox offering to set a saved payment method as the default.
                 """
                 payment_method_update: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element allows the updating of a saved payment method.
+                Controls whether the Payment Element displays the option to update a saved payment method.
                 """
 
             enabled: bool
@@ -140,21 +140,21 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element allows the removal of a saved payment method.
+        Controls whether the Payment Element displays the option to remove a saved payment method.
         """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element offers to save a new payment method.
+        Controls whether the Payment Element displays a checkbox offering to save a new payment method.
         """
         payment_method_set_as_default: NotRequired[
             Literal["disabled", "enabled"]
         ]
         """
-        Controls whether the Payment Element offers to set a payment method as the default.
+        Controls whether the Payment Element displays a checkbox offering to set a saved payment method as the default.
         """
         payment_method_update: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element allows the updating of a saved payment method.
+        Controls whether the Payment Element displays the option to update a saved payment method.
         """
 
     class CreateParamsComponentsPricingTable(TypedDict):

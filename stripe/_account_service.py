@@ -434,6 +434,12 @@ class AccountService(StripeService):
         """
         The promptpay_payments capability.
         """
+        rechnung_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
+        """
         revolut_pay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesRevolutPayPayments"
         ]
@@ -688,6 +694,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2142,6 +2154,12 @@ class AccountService(StripeService):
         """
         The promptpay_payments capability.
         """
+        rechnung_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
+        """
         revolut_pay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesRevolutPayPayments"
         ]
@@ -2396,6 +2414,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

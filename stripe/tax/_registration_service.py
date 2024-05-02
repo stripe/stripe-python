@@ -62,6 +62,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in BG.
         """
+        bh: NotRequired["RegistrationService.CreateParamsCountryOptionsBh"]
+        """
+        Options for the registration in BH.
+        """
         ca: NotRequired["RegistrationService.CreateParamsCountryOptionsCa"]
         """
         Options for the registration in CA.
@@ -98,6 +102,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in EE.
         """
+        eg: NotRequired["RegistrationService.CreateParamsCountryOptionsEg"]
+        """
+        Options for the registration in EG.
+        """
         es: NotRequired["RegistrationService.CreateParamsCountryOptionsEs"]
         """
         Options for the registration in ES.
@@ -113,6 +121,10 @@ class RegistrationService(StripeService):
         gb: NotRequired["RegistrationService.CreateParamsCountryOptionsGb"]
         """
         Options for the registration in GB.
+        """
+        ge: NotRequired["RegistrationService.CreateParamsCountryOptionsGe"]
+        """
+        Options for the registration in GE.
         """
         gr: NotRequired["RegistrationService.CreateParamsCountryOptionsGr"]
         """
@@ -142,9 +154,17 @@ class RegistrationService(StripeService):
         """
         Options for the registration in JP.
         """
+        ke: NotRequired["RegistrationService.CreateParamsCountryOptionsKe"]
+        """
+        Options for the registration in KE.
+        """
         kr: NotRequired["RegistrationService.CreateParamsCountryOptionsKr"]
         """
         Options for the registration in KR.
+        """
+        kz: NotRequired["RegistrationService.CreateParamsCountryOptionsKz"]
+        """
+        Options for the registration in KZ.
         """
         lt: NotRequired["RegistrationService.CreateParamsCountryOptionsLt"]
         """
@@ -170,6 +190,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in MY.
         """
+        ng: NotRequired["RegistrationService.CreateParamsCountryOptionsNg"]
+        """
+        Options for the registration in NG.
+        """
         nl: NotRequired["RegistrationService.CreateParamsCountryOptionsNl"]
         """
         Options for the registration in NL.
@@ -181,6 +205,10 @@ class RegistrationService(StripeService):
         nz: NotRequired["RegistrationService.CreateParamsCountryOptionsNz"]
         """
         Options for the registration in NZ.
+        """
+        om: NotRequired["RegistrationService.CreateParamsCountryOptionsOm"]
+        """
+        Options for the registration in OM.
         """
         pl: NotRequired["RegistrationService.CreateParamsCountryOptionsPl"]
         """
@@ -299,6 +327,12 @@ class RegistrationService(StripeService):
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsBh(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsCa(TypedDict):
@@ -427,6 +461,12 @@ class RegistrationService(StripeService):
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsEg(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsEs(TypedDict):
         standard: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsEsStandard"
@@ -483,6 +523,12 @@ class RegistrationService(StripeService):
 
     class CreateParamsCountryOptionsGb(TypedDict):
         type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGe(TypedDict):
+        type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
         """
@@ -595,7 +641,19 @@ class RegistrationService(StripeService):
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsKe(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsKr(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsKz(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
@@ -685,6 +743,12 @@ class RegistrationService(StripeService):
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsNg(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsNl(TypedDict):
         standard: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsNlStandard"
@@ -710,6 +774,12 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsNz(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsOm(TypedDict):
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.

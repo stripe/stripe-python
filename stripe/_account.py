@@ -294,6 +294,10 @@ class Account(
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
+        rechnung_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
+        """
         revolut_pay_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -1653,6 +1657,12 @@ class Account(
         """
         The promptpay_payments capability.
         """
+        rechnung_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
+        """
         revolut_pay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesRevolutPayPayments"
         ]
@@ -1903,6 +1913,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

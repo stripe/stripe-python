@@ -904,6 +904,24 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Promptpay(StripeObject):
             pass
 
+        class Rechnung(StripeObject):
+            class Dob(StripeObject):
+                day: int
+                """
+                The day of birth, between 1 and 31.
+                """
+                month: int
+                """
+                The month of birth, between 1 and 12.
+                """
+                year: int
+                """
+                The four-digit year of birth.
+                """
+
+            dob: Optional[Dob]
+            _inner_class_types = {"dob": Dob}
+
         class RevolutPay(StripeObject):
             pass
 
@@ -1089,6 +1107,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1127,6 +1146,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -1176,6 +1196,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -1449,6 +1470,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataRevolutPay"
         ]
@@ -1509,6 +1536,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -1854,6 +1882,26 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "ConfirmationToken.CreateParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):

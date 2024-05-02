@@ -241,6 +241,12 @@ class ConfirmationTokenService(StripeService):
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataRevolutPay"
         ]
@@ -301,6 +307,7 @@ class ConfirmationTokenService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -648,6 +655,26 @@ class ConfirmationTokenService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):

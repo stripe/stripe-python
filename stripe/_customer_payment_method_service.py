@@ -65,6 +65,7 @@ class CustomerPaymentMethodService(StripeService):
                 "payto",
                 "pix",
                 "promptpay",
+                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",

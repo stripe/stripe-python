@@ -873,6 +873,24 @@ class PaymentMethod(
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class Rechnung(StripeObject):
+        class Dob(StripeObject):
+            day: int
+            """
+            The day of birth, between 1 and 31.
+            """
+            month: int
+            """
+            The month of birth, between 1 and 12.
+            """
+            year: int
+            """
+            The four-digit year of birth.
+            """
+
+        dob: Optional[Dob]
+        _inner_class_types = {"dob": Dob}
+
     class RevolutPay(StripeObject):
         pass
 
@@ -1198,6 +1216,10 @@ class PaymentMethod(
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired["PaymentMethod.CreateParamsRechnung"]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
@@ -1250,6 +1272,7 @@ class PaymentMethod(
                 "payto",
                 "pix",
                 "promptpay",
+                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -1626,6 +1649,26 @@ class PaymentMethod(
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class CreateParamsRechnung(TypedDict):
+        dob: "PaymentMethod.CreateParamsRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class CreateParamsRevolutPay(TypedDict):
         pass
 
@@ -1734,6 +1777,7 @@ class PaymentMethod(
                 "payto",
                 "pix",
                 "promptpay",
+                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -1780,6 +1824,10 @@ class PaymentMethod(
         payto: NotRequired["PaymentMethod.ModifyParamsPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+        """
+        rechnung: NotRequired["PaymentMethod.ModifyParamsRechnung"]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
@@ -1871,6 +1919,26 @@ class PaymentMethod(
         The PayID alias for the bank account.
         """
 
+    class ModifyParamsRechnung(TypedDict):
+        dob: "PaymentMethod.ModifyParamsRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class ModifyParamsRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
+        """
+
     class ModifyParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -1948,6 +2016,7 @@ class PaymentMethod(
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
     """
+    rechnung: Optional[Rechnung]
     revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
@@ -1986,6 +2055,7 @@ class PaymentMethod(
         "payto",
         "pix",
         "promptpay",
+        "rechnung",
         "revolut_pay",
         "sepa_debit",
         "sofort",
@@ -2495,6 +2565,7 @@ class PaymentMethod(
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,
+        "rechnung": Rechnung,
         "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,

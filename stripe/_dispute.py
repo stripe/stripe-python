@@ -363,12 +363,23 @@ class Dispute(
             The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
             """
 
+        class Paypal(StripeObject):
+            case_id: Optional[str]
+            """
+            The ID of the dispute in PayPal.
+            """
+            reason_code: Optional[str]
+            """
+            The reason for the dispute as defined by PayPal
+            """
+
         card: Optional[Card]
-        type: Literal["card"]
+        paypal: Optional[Paypal]
+        type: Literal["card", "paypal"]
         """
         Payment method type.
         """
-        _inner_class_types = {"card": Card}
+        _inner_class_types = {"card": Card, "paypal": Paypal}
 
     class CloseParams(RequestOptions):
         expand: NotRequired[List[str]]

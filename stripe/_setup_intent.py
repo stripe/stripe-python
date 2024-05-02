@@ -979,6 +979,12 @@ class SetupIntent(
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
@@ -1033,6 +1039,7 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -1376,6 +1383,26 @@ class SetupIntent(
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ConfirmParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "SetupIntent.ConfirmParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class ConfirmParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
@@ -2193,6 +2220,12 @@ class SetupIntent(
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataRevolutPay"
         ]
@@ -2247,6 +2280,7 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -2590,6 +2624,26 @@ class SetupIntent(
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class CreateParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "SetupIntent.CreateParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
@@ -3374,6 +3428,12 @@ class SetupIntent(
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         """
+        rechnung: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataRechnung"
+        ]
+        """
+        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        """
         revolut_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay"
         ]
@@ -3428,6 +3488,7 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -3771,6 +3832,26 @@ class SetupIntent(
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class ModifyParamsPaymentMethodDataRechnung(TypedDict):
+        dob: "SetupIntent.ModifyParamsPaymentMethodDataRechnungDob"
+        """
+        Customer's date of birth
+        """
+
+    class ModifyParamsPaymentMethodDataRechnungDob(TypedDict):
+        day: int
+        """
+        The day of birth, between 1 and 31.
+        """
+        month: int
+        """
+        The month of birth, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of birth.
         """
 
     class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
