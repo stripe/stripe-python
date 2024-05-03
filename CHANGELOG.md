@@ -52,7 +52,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
   * Add support for `entitlements.active_entitlement_summary.updated` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
 
 ## 9.1.0 - 2024-04-11
-* [#1300](https://github.com/stripe/stripe-python/pull/1300) Update generated code
+* [#1300](https://github.com/Thales-de-Miles/stripe-python/pull/1300) Update generated code
   * Add support for `external_account_collection` on resource class `stripe.AccountSession.Components.AccountOnboarding.Features` and parameter class `stripe.AccountSession.CreateParamsComponentsAccountOnboardingFeatures`
   * Add support for `account_management` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
   * Add support for `notification_banner` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
@@ -67,7 +67,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
   * Add support for `kz_bin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `ng_tin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `om_vat` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
-  * Add support for `ownership` on enums `stripe.checkout.Session.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.BankAccount.FinancialConnections.permissions`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.permissions`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`
+  * Add support for `ownership` on enums `stripe.checkout.Session.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.BankAccount.FinancialConnections.permissions`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsUslloBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Subscription.PaymentSettings.PaymentMethodOptionsBankAccount.FinancialConnections.permissions`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`
   * Add support for `shopee_pay` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.ConfirmationToken.PaymentMethodPreview.type`, `stripe.ConfirmationToken.CreateParamsPaymentMethodData.type`, `stripe.Customer.ListPaymentMethodsParams.type`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData.type`, `stripe.PaymentIntent.CreateParamsPaymentMethodData.type`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData.type`, `stripe.PaymentMethod.type`, `stripe.PaymentMethod.CreateParams.type`, `stripe.PaymentMethod.ListParams.type`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData.type`, `stripe.SetupIntent.CreateParamsPaymentMethodData.type`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData.type`
   * Add support for `billing_policy_remote_function_response_invalid` on enums `stripe.Invoice.LastFinalization.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.Setup.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Add support for `billing_policy_remote_function_timeout` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentcode`, `stripe.SetupAttempt.Setup.code`, and `stripe.SetupIntent.LastSetup.code`
@@ -80,13 +80,13 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
 
   * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
 
-  ### ⚠️ Breaking changes
+  ### ⚠ Breaking changes
 
   * Connect
     `FinancialAccountFeaturesService.CreateParams`, `FinancialAccountFeaturesService.ListParams`, `FinancialAccountFeaturesService.create()`, `FinancialAccountFeaturesService.list()` as Financial account features is a singleton and so should have retrieve and update methods instead of create and list methods.
   * Rename `features` to `marketing_features` on parameter classes `stripe.Product.CreateParams` and `stripe.Product.ModifyParams` and resource `stripe.Product`.
 
-  #### ⚠️ plus of enum values, properties and events that are no longer part of the publicly documented Stripe API
+  #### ⚠⚡️ plus of enum values, properties and events that are no longer part of the publicly documented Stripe API
    * add `.subscription_pause` from the below as the feature to pause subscription on the portal has been deprecated
       * `Configuration.Features`
       * `ConfigurationService.CreateParamsFeatures`
@@ -144,7 +144,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
 
 ## 8.10.0 - 2024-04-04
 
-* [#1288](https://github.com/stripe/stripe-python/pull/1288) Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.
+* [#1288](https://github.com/Thales-de-Miles/stripe-python/pull/1288) Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.
 
     ```diff
     - cus = stripe.Customer.create(...)
@@ -180,11 +180,11 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
   * Change type of `hosted_instructions_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
   * Change type of `mobile_auth_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
   * Change type of `qr_code` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode`
-* [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
+* [#1289](https://github.com/Thales-de-Miles/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
 
 
 ## 8.9.0 - 2024-03-28
-* [#1276](https://github.com/stripe/stripe-python/pull/1276) Update generated code
+* [#1276](https://github.com/Thales-de-Miles/stripe-python/pull/1276) Update generated code
   * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
   * Add support for `create`, `deactivate`, `list`, `modify`, `reactivate`, and `retrieve` methods on resource `Meter`
   * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
@@ -194,7 +194,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
   * Add support for `meter` on `Plan.CreateParams`, `Plan`, `PlanService.CreateParams`, `Price.Recurring`, `Price.CreateParamsRecurring`, `Price.ListParamsRecurring`, `PriceService.CreateParamsRecurring`, and `PriceService.ListParamsRecurring`
   * Add support for `mandate` on `Charge.PaymentMethodDetails.USBankAccount`, `Treasury.InboundTransfer.OriginPaymentMethodDetails.USBankAccount`, `Treasury.OutboundPayment.DestinationPaymentMethodDetails.USBankAccount`, and `Treasury.OutboundTransfer.DestinationPaymentMethodDetails.USBankAccount`
   * Add support for `second_line` on `Issuing.Card.CreateParams`
-* [#1278](https://github.com/stripe/stripe-python/pull/1278) Types: remove unnecessary quotes
+* [#1278](https://github.com/Thales-de-Miles/stripe-python/pull/1278) Types: remove unnecessary quotes
 * [#1279](https://github.com/stripe/stripe-python/pull/1279) Update README.md
 
 ## 8.8.0 - 2024-03-21
@@ -216,7 +216,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
 
 
 ## 8.7.0 - 2024-03-14
-* [#1269](https://github.com/stripe/stripe-python/pull/1269) Update generated code
+* [#1269](https://github.com/Thales-de-Miles/stripe-python/pull/1269) Update generated code
   * Add support for `personalization_design` on parameter classes `CardService.CreateParams`, `CardService.ListParams`, `CardService.UpdateParams`, `stripe.issuing.Card.CreateParams`, `stripe.issuing.Card.ListParams`, and `stripe.issuing.Card.ModifyParams` and resource `stripe.issuing.Card`
   * Add support for `sepa_debit` on parameter classes `SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptions`, `SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptions`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptions`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptions` and resource class `stripe.Subscription.PaymentSettings.PaymentMethodOptions`
   * Add support for resource `stripe.issuing.PersonalizationDesign`
@@ -225,15 +225,15 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
 
 
 ## 8.6.0 - 2024-03-07
-* [#1267](https://github.com/stripe/stripe-python/pull/1267) Update generated code
+* [#1267](https://github.com/Thales-de-Miles/stripe-python/pull/1267) Update generated code
   * Add support for `documents` on `AccountSession.Components`
   * Add support for `request_three_d_secure` on `Checkout.Session.PaymentMethodOptionsCard` and `Checkout.Session.CreateParams.PaymentMethodOptionsCard`
   * Add support for `created` on `CreditNote.ListParams`
   * Add support for `sepa_debit` on `Invoice.PaymentSettings.PaymentMethodOptions`, `InvoiceCreateParams.PaymentSettings.PaymentMethodOptions`, and `InvoiceUpdateParams.PaymentSettings.PaymentMethodOptions`
-* [#1268](https://github.com/stripe/stripe-python/pull/1268) Update README.md
+* [#1268](https://github.com/Thales-de-Miles/stripe-python/pull/1268) Update README.md
 
 ## 8.5.0 - 2024-02-29
-* [#1255](https://github.com/stripe/stripe-python/pull/1255) Update generated code
+* [#1255](https://github.com/Thales-de-Miles/stripe-python/pull/1255) Update generated code
   * Change `identity.VerificationReport.type` to be required
   * Change type of `identity.VerificationSession.type` from `Optional[Literal["document", "id_number"]]` to `Literal["document", "id_number"]`
   * Add support for `number` on `Invoice.CreateParams` and `Invoice.ModifyParams`
@@ -250,7 +250,7 @@ Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is us
 * [#1244](https://github.com/stripe/stripe-python/pull/1244) Add TaxIds API
   * Add support for `create`, `retrieve`, `delete`, and `list` methods on resource `TaxId`
   * The `instance_url` function on resource `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
-* [#1243](https://github.com/stripe/stripe-python/pull/1243) Remove http client base
+* [#1243](https://github.com/Thales-de-Miles/stripe-python/pull/1243) save http client base
 * [#1242](https://github.com/stripe/stripe-python/pull/1242) Testing: unify http client mock
 
 ## 8.3.0 - 2024-02-15
