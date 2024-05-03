@@ -1,5 +1,5 @@
 ## 9.5.0 - 2024-05-02
-* [#1317](https://github.com/stripe/stripe-python/pull/1317) Update generated code
+* [#1317](https://github.com/Thales-de-Miles/stripe-python/pull/1317) Update generated code
   * Add support for `paypal` on resource class `stripe.Dispute.PaymentMethodDetails`
   * Add support for `payment_method_types` on parameter class `stripe.PaymentIntent.ConfirmParams`
   * Add support for `ship_from_details` on parameter class `stripe.tax.Calculation.CreateParams` and resources `stripe.tax.Calculation` and `stripe.tax.Transaction`
@@ -7,7 +7,7 @@
   * Add support for `paypal` on enum `stripe.Dispute.PaymentMethodDetails.type`
   * Add support for `shipping_address_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Change type of `metadata` on  `stripe.entitlements.Feature.ModifyParams` from `Dict[str, str]` to `Literal['']|Dict[str, str]`
-* [#1319](https://github.com/stripe/stripe-python/pull/1319) Fix type change entries in Python Changelog
+* [#1319](https://github.com/Thales-de-Miles/stripe-python/pull/1319) Fix type change entries in Python Changelog
 
 ## 9.4.0 - 2024-04-25
 * [#1316](https://github.com/stripe/stripe-python/pull/1316) Update generated code
