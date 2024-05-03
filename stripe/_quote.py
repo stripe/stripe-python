@@ -959,7 +959,7 @@ class Quote(
         """
         lines: NotRequired[List["Quote.CreateParamsLine"]]
         """
-        A list of lines on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -2473,7 +2473,7 @@ class Quote(
         """
         lines: NotRequired[List["Quote.ModifyParamsLine"]]
         """
-        A list of lines on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -3843,7 +3843,7 @@ class Quote(
     """
     lines: Optional[List[str]]
     """
-    A list of lines on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+    A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     """
     livemode: bool
     """
