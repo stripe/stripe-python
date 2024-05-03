@@ -10,7 +10,7 @@
 * [#1319](https://github.com/Thales-de-Miles/stripe-python/pull/1319) Fix type change entries in Python Changelog
 
 ## 9.4.0 - 2024-04-25
-* [#1316](https://github.com/stripe/stripe-python/pull/1316) Update generated code
+* [#1316](https://github.com/Thales-de-Miles/stripe-python/pull/1316) Update generated code
   * Add support for `amazon_pay` on resource classes `stripe.Mandate.PaymentMethodDetails` and `stripe.SetupAttempt.PaymentMethodDetails`
   * Add support for `revolut_pay` on resource classes `stripe.Mandate.PaymentMethodDetails` and `stripe.SetupAttempt.PaymentMethodDetails`
   * Add support for `setup_future_usage` on resource classes `stripe.PaymentIntent.PaymentMethodOptions.AmazonPay`, `stripe.PaymentIntent.PaymentMethodOptions.RevolutPay`, `stripe.checkout.Session.PaymentMethodOptions.AmazonPay`, and `stripe.checkout.Session.PaymentMethodOptions.RevolutPay`
@@ -22,10 +22,12 @@
   * Add support for `amazon_pay` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
   * Add support for `revolut_pay` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
   * Remove support for inadvertently released identity verification features `email` and `phone` on parameter classes `stripe.identity.VerificationSession.CreateParamsOptions` and `stripe.identity.VerificationSession.ModifyParamsOptions`
-* [#1307](https://github.com/stripe/stripe-python/pull/1307) Bump aiohttp from 3.9.2 to 3.9.4
+* [#1307](https://github.com/Thales-de-Miles/stripe-python/pull/1307) Bump aiohttp from 3.9.2 to 3.9.4
 
 ## 9.3.0 - 2024-04-18
-* [#1305](https://github.com/stripe/stripe-python/pull/1305) Update generated code
+* [#1305](https://github.com/Thales-de-Miles logo
+Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is used as a digital payment system. Rather than use traditional currency (USD, YEN, EURO, etc.) individuals may trade in, or even mine Bitcoin. It is a peer-to-peer system, and transactions may take place between users directly. logo
+Bitcoin is a cryptocurrency developed by Satoshi Nakamoto in 2009. Bitcoin is used as a digital payment system. Rather than use traditional currency (USD, YEN, EURO, etc.) individuals may trade in, or even mine Bitcoin. It is a peer-to-peer system, and transactions may take place between users directly./stripe-python/pull/1305) Update generated code
   * Add support for `allow_redisplay` on parameter classes `stripe.ConfirmationToken.CreateParamsPaymentMethodData`, `stripe.Customer.ListPaymentMethodsParams`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData`, `stripe.PaymentIntent.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData`, `stripe.PaymentMethod.CreateParams`, `stripe.PaymentMethod.ModifyParams`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData`, `stripe.SetupIntent.CreateParamsPaymentMethodData`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData`
   * Add support for `schedule_details` on parameter classes `stripe.Invoice.UpcomingLinesParams` and `stripe.Invoice.UpcomingParams`
   * Add support for `subscription_details` on parameter classes `stripe.Invoice.UpcomingLinesParams` and `stripe.Invoice.UpcomingParams`
@@ -35,10 +37,10 @@
   * Add support for `mobilepay` on parameter class `stripe.checkout.Session.CreateParamsPaymentMethodOptions` and resource class `stripe.checkout.Session.PaymentMethodOptions`
   * Add support for `mobilepay` on enum `stripe.checkout.Session.CreateParams.payment_method_types`
   * Add support for `other` on enums `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel.unit`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel.unit`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel.unit`
-* [#1306](https://github.com/stripe/stripe-python/pull/1306) Update `Quote.pdf()` to use the right base address i.e. files.stripe.com instead of api.stripe.com. Fixes [#1303](https://github.com/stripe/stripe-python/issues/1303)
+* [#1306](https://github.com/Thales-de-Miles/stripe-python/pull/1306) Update `Quote.pdf()` to use the right base address i.e. files.stripe.com instead of api.stripe.com. Fixes [#1303](https://github.com/stripe/stripe-python/issues/1303)
 
 ## 9.2.0 - 2024-04-16
-* [#1301](https://github.com/stripe/stripe-python/pull/1301) Update generated code
+* [#1301](https://github.com/Thales-de-Miles/stripe-python/pull/1301) Update generated code
   * Add support for `balances` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
   * Add support for `payouts_list` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
   * Add support for `capture_method` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay`, and `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay` and resource class `stripe.PaymentIntent.PaymentMethodOptions.RevolutPay`
@@ -65,30 +67,31 @@
   * Add support for `kz_bin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `ng_tin` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
   * Add support for `om_vat` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
-  * Add support for `ownership` on enums `stripe.checkout.Session.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.permissions`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.permissions`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`
-  * Add support for `amazon_pay` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.ConfirmationToken.PaymentMethodPreview.type`, `stripe.ConfirmationToken.CreateParamsPaymentMethodData.type`, `stripe.Customer.ListPaymentMethodsParams.type`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData.type`, `stripe.PaymentIntent.CreateParamsPaymentMethodData.type`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData.type`, `stripe.PaymentMethod.type`, `stripe.PaymentMethod.CreateParams.type`, `stripe.PaymentMethod.ListParams.type`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData.type`, `stripe.SetupIntent.CreateParamsPaymentMethodData.type`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData.type`
-  * Add support for `billing_policy_remote_function_response_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
-  * Add support for `billing_policy_remote_function_timeout` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
-  * Add support for `billing_policy_remote_function_unexpected_status_code` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
+  * Add support for `ownership` on enums `stripe.checkout.Session.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.BankAccount.FinancialConnections.permissions`, `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.PaymentMethodOptions.BankAccount.FinancialConnections.prefetch`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.permissions`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections.prefetch`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections.prefetch`
+  * Add support for `shopee_pay` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.ConfirmationToken.PaymentMethodPreview.type`, `stripe.ConfirmationToken.CreateParamsPaymentMethodData.type`, `stripe.Customer.ListPaymentMethodsParams.type`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData.type`, `stripe.PaymentIntent.CreateParamsPaymentMethodData.type`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData.type`, `stripe.PaymentMethod.type`, `stripe.PaymentMethod.CreateParams.type`, `stripe.PaymentMethod.ListParams.type`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData.type`, `stripe.SetupIntent.CreateParamsPaymentMethodData.type`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData.type`
+  * Add support for `billing_policy_remote_function_response_invalid` on enums `stripe.Invoice.LastFinalization.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.Setup.code`, and `stripe.SetupIntent.LastSetupError.code`
+  * Add support for `billing_policy_remote_function_timeout` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentcode`, `stripe.SetupAttempt.Setup.code`, and `stripe.SetupIntent.LastSetup.code`
+  * Add support for `billing_policy_remote_function_unexpected_status_code` on enums `stripe.Invoice.LastFinalizationcode`, `stripe.PaymentIntent.LastPayment.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Add support for `billing_policy_remote_function_unreachable` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
-* [#1297](https://github.com/stripe/stripe-python/pull/1297) Use stdlib AsyncMock when available
+* [#1297](https://github.com/Thales-de-Miles/stripe-python/pull/1297) Use stdlib AsyncMock when available
 
 ## 9.0.0 - 2024-04-10
-* [#1286](https://github.com/stripe/stripe-python/pull/1286)
+* [#1286](https://github.com/Thales-de-Miles/stripe-python/pull/1286)
 
   * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
-  * Remove `FinancialAccountFeaturesService.CreateParams`, `FinancialAccountFeaturesService.ListParams`, `FinancialAccountFeaturesService.create()`, `FinancialAccountFeaturesService.list()` as Financial account features is a singleton and so should have retrieve and update methods instead of create and list methods.
+  * Connect
+    `FinancialAccountFeaturesService.CreateParams`, `FinancialAccountFeaturesService.ListParams`, `FinancialAccountFeaturesService.create()`, `FinancialAccountFeaturesService.list()` as Financial account features is a singleton and so should have retrieve and update methods instead of create and list methods.
   * Rename `features` to `marketing_features` on parameter classes `stripe.Product.CreateParams` and `stripe.Product.ModifyParams` and resource `stripe.Product`.
 
-  #### ⚠️ Removal of enum values, properties and events that are no longer part of the publicly documented Stripe API
-   * Remove `.subscription_pause` from the below as the feature to pause subscription on the portal has been deprecated
+  #### ⚠️ plus of enum values, properties and events that are no longer part of the publicly documented Stripe API
+   * add `.subscription_pause` from the below as the feature to pause subscription on the portal has been deprecated
       * `Configuration.Features`
       * `ConfigurationService.CreateParamsFeatures`
       * `ConfigurationService.UpdateParamsFeatures`
-   * Remove the below deprecated values for `BalanceTransaction.type`
+   * add the below deprecated values for `BalanceTransaction.type`
       * `obligation_inbound`
       * `obligation_payout`
       * `obligation_payout_failure`
@@ -128,11 +131,8 @@
 
 
 ## 8.11.0 - 2024-04-09
-* [#1295](https://github.com/stripe/stripe-python/pull/1295) Update generated code
-  * Add support for `fees`, `losses`, `requirement_collection` & `stripe_dashboard` on resource class `stripe.Account.Controller`
-  * Add support for `controller` on parameter class `stripe.Account.CreateParams`
-  * Add support for `create_feature`, `delete_feature`, `list_features`, `retrieve_feature` on resource `stripe.Product`
-  * Add support for resource `stripe.ProductFeature`
+* [#1295](https://github.com/Thales-de-Miles/stripe-python/pull/1295) Update generated code.
+  
   * Add support for `event_name` on parameter class `stripe.billing.MeterEventAdjustment.CreateParams` and resource `stripe.billing.MeterEventAdjustment`
   * Add support for `cancel` and `type` on resource `stripe.billing.MeterEventAdjustment`
   * Add support for resource `stripe.entitlements.ActiveEntitlement`
