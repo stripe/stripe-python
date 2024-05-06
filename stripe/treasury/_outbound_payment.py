@@ -182,6 +182,31 @@ class OutboundPayment(
         Timestamp describing when an OutboundPayment changed status to `returned`.
         """
 
+    class TrackingDetails(StripeObject):
+        class Ach(StripeObject):
+            trace_id: str
+            """
+            ACH trace ID of the OutboundPayment for payments sent over the `ach` network.
+            """
+
+        class UsDomesticWire(StripeObject):
+            imad: str
+            """
+            IMAD of the OutboundPayment for payments sent over the `us_domestic_wire` network.
+            """
+            omad: Optional[str]
+            """
+            OMAD of the OutboundPayment for payments sent over the `us_domestic_wire` network.
+            """
+
+        ach: Optional[Ach]
+        type: Literal["ach", "us_domestic_wire"]
+        """
+        The US bank account network used to send funds.
+        """
+        us_domestic_wire: Optional[UsDomesticWire]
+        _inner_class_types = {"ach": Ach, "us_domestic_wire": UsDomesticWire}
+
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -467,6 +492,48 @@ class OutboundPayment(
         The return code to be set on the OutboundPayment object.
         """
 
+    class UpdateParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        tracking_details: "OutboundPayment.UpdateParamsTrackingDetails"
+        """
+        Details about network-specific tracking information.
+        """
+
+    class UpdateParamsTrackingDetails(TypedDict):
+        ach: NotRequired["OutboundPayment.UpdateParamsTrackingDetailsAch"]
+        """
+        ACH network tracking details.
+        """
+        type: Literal["ach", "us_domestic_wire"]
+        """
+        The US bank account network used to send funds.
+        """
+        us_domestic_wire: NotRequired[
+            "OutboundPayment.UpdateParamsTrackingDetailsUsDomesticWire"
+        ]
+        """
+        US domestic wire network tracking details.
+        """
+
+    class UpdateParamsTrackingDetailsAch(TypedDict):
+        trace_id: str
+        """
+        ACH trace ID for funds sent over the `ach` network.
+        """
+
+    class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
+        imad: NotRequired[str]
+        """
+        IMAD for funds sent over the `us_domestic_wire` network.
+        """
+        omad: NotRequired[str]
+        """
+        OMAD for funds sent over the `us_domestic_wire` network.
+        """
+
     amount: int
     """
     Amount (in cents) transferred.
@@ -546,6 +613,10 @@ class OutboundPayment(
     Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`.
     """
     status_transitions: StatusTransitions
+    tracking_details: Optional[TrackingDetails]
+    """
+    Details about network-specific tracking information if available.
+    """
     transaction: ExpandableField["Transaction"]
     """
     The Transaction associated with this object.
@@ -1100,6 +1171,116 @@ class OutboundPayment(
                 ),
             )
 
+        @classmethod
+        def _cls_update(
+            cls, id: str, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            return cast(
+                "OutboundPayment",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def update(
+            id: str, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            ...
+
+        @overload
+        def update(
+            self, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            ...
+
+        @class_method_variant("_cls_update")
+        def update(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            return cast(
+                "OutboundPayment",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_update_async(
+            cls, id: str, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            return cast(
+                "OutboundPayment",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                        id=sanitize_id(id)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def update_async(
+            id: str, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            ...
+
+        @overload
+        async def update_async(
+            self, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            ...
+
+        @class_method_variant("_cls_update_async")
+        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["OutboundPayment.UpdateParams"]
+        ) -> "OutboundPayment":
+            """
+            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            """
+            return cast(
+                "OutboundPayment",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                        id=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
@@ -1109,6 +1290,7 @@ class OutboundPayment(
         "end_user_details": EndUserDetails,
         "returned_details": ReturnedDetails,
         "status_transitions": StatusTransitions,
+        "tracking_details": TrackingDetails,
     }
 
 
