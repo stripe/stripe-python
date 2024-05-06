@@ -1014,6 +1014,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+        """
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
