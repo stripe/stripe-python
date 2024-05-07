@@ -192,6 +192,12 @@ class SubscriptionService(StripeService):
         """
         Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
         """
+        pending_invoice_items_behavior: NotRequired[
+            Literal["exclude", "include"]
+        ]
+        """
+        How to handle a customer's pending invoice items if an invoice will be generated. Defaults to `include` if the parameter is omitted.
+        """
         promotion_code: NotRequired[str]
         """
         The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
