@@ -470,7 +470,7 @@ class OutboundPayment(
             "OutboundPayment.ReturnOutboundPaymentParamsReturnedDetails"
         ]
         """
-        Optional hash to set the the return code.
+        Optional hash to set the return code.
         """
 
     class ReturnOutboundPaymentParamsReturnedDetails(TypedDict):
