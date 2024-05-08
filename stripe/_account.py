@@ -2374,13 +2374,13 @@ class Account(
         """
         address_kana: NotRequired["Account.CreateParamsIndividualAddressKana"]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "Account.CreateParamsIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired["Literal['']|Account.CreateParamsIndividualDob"]
         """
@@ -2396,7 +2396,7 @@ class Account(
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """
