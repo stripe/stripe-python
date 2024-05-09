@@ -61,6 +61,12 @@ class DisputeService(StripeService):
         """
         Evidence provided when `reason` is 'merchandise_not_as_described'.
         """
+        no_valid_authorization: NotRequired[
+            "Literal['']|DisputeService.CreateParamsEvidenceNoValidAuthorization"
+        ]
+        """
+        Evidence provided when `reason` is 'no_valid_authorization'.
+        """
         not_received: NotRequired[
             "Literal['']|DisputeService.CreateParamsEvidenceNotReceived"
         ]
@@ -79,6 +85,7 @@ class DisputeService(StripeService):
                 "duplicate",
                 "fraudulent",
                 "merchandise_not_as_described",
+                "no_valid_authorization",
                 "not_received",
                 "other",
                 "service_not_as_described",
@@ -202,6 +209,16 @@ class DisputeService(StripeService):
         returned_at: NotRequired["Literal['']|int"]
         """
         Date when the product was returned or attempted to be returned.
+        """
+
+    class CreateParamsEvidenceNoValidAuthorization(TypedDict):
+        additional_documentation: NotRequired["Literal['']|str"]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+        """
+        explanation: NotRequired["Literal['']|str"]
+        """
+        Explanation of why the cardholder is disputing this transaction.
         """
 
     class CreateParamsEvidenceNotReceived(TypedDict):
@@ -385,6 +402,12 @@ class DisputeService(StripeService):
         """
         Evidence provided when `reason` is 'merchandise_not_as_described'.
         """
+        no_valid_authorization: NotRequired[
+            "Literal['']|DisputeService.UpdateParamsEvidenceNoValidAuthorization"
+        ]
+        """
+        Evidence provided when `reason` is 'no_valid_authorization'.
+        """
         not_received: NotRequired[
             "Literal['']|DisputeService.UpdateParamsEvidenceNotReceived"
         ]
@@ -403,6 +426,7 @@ class DisputeService(StripeService):
                 "duplicate",
                 "fraudulent",
                 "merchandise_not_as_described",
+                "no_valid_authorization",
                 "not_received",
                 "other",
                 "service_not_as_described",
@@ -526,6 +550,16 @@ class DisputeService(StripeService):
         returned_at: NotRequired["Literal['']|int"]
         """
         Date when the product was returned or attempted to be returned.
+        """
+
+    class UpdateParamsEvidenceNoValidAuthorization(TypedDict):
+        additional_documentation: NotRequired["Literal['']|str"]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+        """
+        explanation: NotRequired["Literal['']|str"]
+        """
+        Explanation of why the cardholder is disputing this transaction.
         """
 
     class UpdateParamsEvidenceNotReceived(TypedDict):
