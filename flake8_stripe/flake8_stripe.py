@@ -236,9 +236,15 @@ class AsyncNamingConventions:
 
     def run(self) -> Iterator[Tuple[int, int, str, type]]:
         for node in ast.walk(self.tree):
-            if isinstance(
-                node, ast.AsyncFunctionDef
-            ) and not node.name.endswith("_async"):
+            # ignore anything that isn't an async function declaration
+            if not isinstance(node, ast.AsyncFunctionDef):
+                continue
+
+            # dunders need specific names, so don't worry about them
+            if node.name.startswith("__") and node.name.endswith("__"):
+                continue
+
+            if not node.name.endswith("_async"):
                 yield (
                     node.lineno,
                     node.col_offset,
