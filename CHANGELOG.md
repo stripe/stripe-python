@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.7.0b1 - 2024-05-09
+* [#1321](https://github.com/stripe/stripe-python/pull/1321) Update generated code for beta
+  * No new beta features. Merging changes from the main branch.
+
+
 ## 9.6.0b1 - 2024-05-02
 * [#1318](https://github.com/stripe/stripe-python/pull/1318) Update generated code for beta
   * Add support for `rechnung_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
