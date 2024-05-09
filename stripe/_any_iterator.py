@@ -25,7 +25,7 @@ class AnyIterator(Iterator[T], AsyncIterator[T]):
         self._sync_iterated = True
         return self._iterator.__next__()
 
-    async def __anext__(self) -> T:
+    async def __anext__(self) -> T:  # noqa: ASY100
         if self._sync_iterated:
             raise RuntimeError(
                 "AnyIterator error: cannot mix sync and async iteration"
