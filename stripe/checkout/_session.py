@@ -1097,7 +1097,7 @@ class Session(
         """
         payment_method_save: Optional[Literal["disabled", "enabled"]]
         """
-        Enable customers to choose if they wish to save their payment method for future use.
+        Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
         """
 
     class ShippingAddressCollection(StripeObject):
@@ -3165,7 +3165,7 @@ class Session(
         """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
-        Enable customers to choose if they wish to save their payment method for future use.
+        Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
         """
 
     class CreateParamsSetupIntentData(TypedDict):
