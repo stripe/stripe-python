@@ -1640,6 +1640,10 @@ class Invoice(
         """
         The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
+        preview_mode: NotRequired[Literal["next", "recurring"]]
+        """
+        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
+        """
         schedule: NotRequired[str]
         """
         The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
@@ -3355,6 +3359,10 @@ class Invoice(
         """
         The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
+        preview_mode: NotRequired[Literal["next", "recurring"]]
+        """
+        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
+        """
         schedule: NotRequired[str]
         """
         The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
@@ -4488,6 +4496,10 @@ class Invoice(
         on_behalf_of: NotRequired["Literal['']|str"]
         """
         The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+        """
+        preview_mode: NotRequired[Literal["next", "recurring"]]
+        """
+        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
         """
         schedule: NotRequired[str]
         """

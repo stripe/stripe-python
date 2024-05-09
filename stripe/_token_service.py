@@ -284,13 +284,13 @@ class TokenService(StripeService):
             "TokenService.CreateParamsAccountIndividualAddressKana"
         ]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "TokenService.CreateParamsAccountIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired[
             "Literal['']|TokenService.CreateParamsAccountIndividualDob"
@@ -308,7 +308,7 @@ class TokenService(StripeService):
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """

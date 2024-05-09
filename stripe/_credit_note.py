@@ -1079,7 +1079,7 @@ class CreditNote(
         cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
-        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
             ListObject["CreditNoteLineItem"],
@@ -1097,7 +1097,7 @@ class CreditNote(
         cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
-        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
             ListObject["CreditNoteLineItem"],
