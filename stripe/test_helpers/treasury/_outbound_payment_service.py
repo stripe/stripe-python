@@ -30,7 +30,7 @@ class OutboundPaymentService(StripeService):
             "OutboundPaymentService.ReturnOutboundPaymentParamsReturnedDetails"
         ]
         """
-        Optional hash to set the the return code.
+        Optional hash to set the return code.
         """
 
     class ReturnOutboundPaymentParamsReturnedDetails(TypedDict):
@@ -51,6 +51,96 @@ class OutboundPaymentService(StripeService):
         """
         The return code to be set on the OutboundPayment object.
         """
+
+    class UpdateParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        tracking_details: "OutboundPaymentService.UpdateParamsTrackingDetails"
+        """
+        Details about network-specific tracking information.
+        """
+
+    class UpdateParamsTrackingDetails(TypedDict):
+        ach: NotRequired[
+            "OutboundPaymentService.UpdateParamsTrackingDetailsAch"
+        ]
+        """
+        ACH network tracking details.
+        """
+        type: Literal["ach", "us_domestic_wire"]
+        """
+        The US bank account network used to send funds.
+        """
+        us_domestic_wire: NotRequired[
+            "OutboundPaymentService.UpdateParamsTrackingDetailsUsDomesticWire"
+        ]
+        """
+        US domestic wire network tracking details.
+        """
+
+    class UpdateParamsTrackingDetailsAch(TypedDict):
+        trace_id: str
+        """
+        ACH trace ID for funds sent over the `ach` network.
+        """
+
+    class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
+        imad: NotRequired[str]
+        """
+        IMAD for funds sent over the `us_domestic_wire` network.
+        """
+        omad: NotRequired[str]
+        """
+        OMAD for funds sent over the `us_domestic_wire` network.
+        """
+
+    def update(
+        self,
+        id: str,
+        params: "OutboundPaymentService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+        """
+        return cast(
+            OutboundPayment,
+            self._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
 
     def fail(
         self,

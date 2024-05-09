@@ -52,6 +52,96 @@ class OutboundTransferService(StripeService):
         Reason for the return.
         """
 
+    class UpdateParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        tracking_details: "OutboundTransferService.UpdateParamsTrackingDetails"
+        """
+        Details about network-specific tracking information.
+        """
+
+    class UpdateParamsTrackingDetails(TypedDict):
+        ach: NotRequired[
+            "OutboundTransferService.UpdateParamsTrackingDetailsAch"
+        ]
+        """
+        ACH network tracking details.
+        """
+        type: Literal["ach", "us_domestic_wire"]
+        """
+        The US bank account network used to send funds.
+        """
+        us_domestic_wire: NotRequired[
+            "OutboundTransferService.UpdateParamsTrackingDetailsUsDomesticWire"
+        ]
+        """
+        US domestic wire network tracking details.
+        """
+
+    class UpdateParamsTrackingDetailsAch(TypedDict):
+        trace_id: str
+        """
+        ACH trace ID for funds sent over the `ach` network.
+        """
+
+    class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
+        imad: NotRequired[str]
+        """
+        IMAD for funds sent over the `us_domestic_wire` network.
+        """
+        omad: NotRequired[str]
+        """
+        OMAD for funds sent over the `us_domestic_wire` network.
+        """
+
+    def update(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+        """
+        return cast(
+            OutboundTransfer,
+            self._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        outbound_transfer: str,
+        params: "OutboundTransferService.UpdateParams",
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
+                    outbound_transfer=sanitize_id(outbound_transfer),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def fail(
         self,
         outbound_transfer: str,

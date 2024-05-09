@@ -315,13 +315,13 @@ class Token(CreateableAPIResource["Token"]):
             "Token.CreateParamsAccountIndividualAddressKana"
         ]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "Token.CreateParamsAccountIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired["Literal['']|Token.CreateParamsAccountIndividualDob"]
         """
@@ -337,7 +337,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """
