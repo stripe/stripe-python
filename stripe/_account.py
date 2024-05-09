@@ -946,9 +946,15 @@ class Account(
     class RiskControls(StripeObject):
         class Charges(StripeObject):
             pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
 
         class Payouts(StripeObject):
             pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
 
         charges: Charges
         payouts: Payouts
