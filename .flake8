@@ -4,7 +4,9 @@
 # length, but can go over in some cases.
 # W503 goes against PEP8 rules. It's disabled by default, but must be disabled
 # explicitly when using `ignore`.
-ignore = E501, W503
+# E704 is disabled in the default configuration, but by specifying `ignore`, we wipe that out.
+# ruff formatting creates code that violates it, so we have to disable it manually
+ignore = E501, W503, E704
 per-file-ignores =
     */__init__.py: IMP100, E402, F401
     # we test various import patterns
