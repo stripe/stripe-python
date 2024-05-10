@@ -28,9 +28,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.received_credit"]
-    ] = "treasury.received_credit"
+    OBJECT_NAME: ClassVar[Literal["treasury.received_credit"]] = (
+        "treasury.received_credit"
+    )
 
     class InitiatingPaymentMethodDetails(StripeObject):
         class BillingDetails(StripeObject):
@@ -372,7 +372,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -393,7 +392,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

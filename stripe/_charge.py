@@ -2486,7 +2486,6 @@ class Charge(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2507,7 +2506,6 @@ class Charge(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2632,7 +2630,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"]
+        **params: Unpack["Charge.RetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.
@@ -2653,7 +2651,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"]
+        **params: Unpack["Charge.RetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.

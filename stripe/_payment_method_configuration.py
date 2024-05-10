@@ -33,9 +33,9 @@ class PaymentMethodConfiguration(
     - [Multiple configurations for your Connect accounts](https://stripe.com/docs/connect/multiple-payment-method-configurations)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["payment_method_configuration"]
-    ] = "payment_method_configuration"
+    OBJECT_NAME: ClassVar[Literal["payment_method_configuration"]] = (
+        "payment_method_configuration"
+    )
 
     class AcssDebit(StripeObject):
         class DisplayPreference(StripeObject):
@@ -2517,7 +2517,6 @@ class PaymentMethodConfiguration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2538,7 +2537,6 @@ class PaymentMethodConfiguration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2550,7 +2548,7 @@ class PaymentMethodConfiguration(
     def modify(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -2569,7 +2567,7 @@ class PaymentMethodConfiguration(
     async def modify_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -2588,7 +2586,7 @@ class PaymentMethodConfiguration(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
+        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration
@@ -2601,7 +2599,7 @@ class PaymentMethodConfiguration(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
+        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration

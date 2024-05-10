@@ -4237,7 +4237,9 @@ class PaymentIntent(
         """
 
     class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "PaymentIntent.CreateParamsMandateDataCustomerAcceptance"
+        customer_acceptance: (
+            "PaymentIntent.CreateParamsMandateDataCustomerAcceptance"
+        )
         """
         This hash contains details about the customer acceptance of the Mandate.
         """
@@ -8679,7 +8681,7 @@ class PaymentIntent(
     def _cls_apply_customer_balance(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -8699,7 +8701,7 @@ class PaymentIntent(
     @staticmethod
     def apply_customer_balance(
         intent: str,
-        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -8737,7 +8739,7 @@ class PaymentIntent(
     async def _cls_apply_customer_balance_async(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -8757,7 +8759,7 @@ class PaymentIntent(
     @staticmethod
     async def apply_customer_balance_async(
         intent: str,
-        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -9407,7 +9409,7 @@ class PaymentIntent(
     def _cls_increment_authorization(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -9450,7 +9452,7 @@ class PaymentIntent(
     @staticmethod
     def increment_authorization(
         intent: str,
-        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -9557,7 +9559,7 @@ class PaymentIntent(
     async def _cls_increment_authorization_async(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -9600,7 +9602,7 @@ class PaymentIntent(
     @staticmethod
     async def increment_authorization_async(
         intent: str,
-        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -9716,7 +9718,6 @@ class PaymentIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -9737,7 +9738,6 @@ class PaymentIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -9825,7 +9825,7 @@ class PaymentIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -9845,7 +9845,7 @@ class PaymentIntent(
     @staticmethod
     def verify_microdeposits(
         intent: str,
-        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -9883,7 +9883,7 @@ class PaymentIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
-        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -9903,7 +9903,7 @@ class PaymentIntent(
     @staticmethod
     async def verify_microdeposits_async(
         intent: str,
-        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.

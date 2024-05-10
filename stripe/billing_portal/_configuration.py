@@ -30,9 +30,9 @@ class Configuration(
     A portal configuration describes the functionality and behavior of a portal session.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing_portal.configuration"]
-    ] = "billing_portal.configuration"
+    OBJECT_NAME: ClassVar[Literal["billing_portal.configuration"]] = (
+        "billing_portal.configuration"
+    )
 
     class BusinessProfile(StripeObject):
         headline: Optional[str]
@@ -656,7 +656,6 @@ class Configuration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -677,7 +676,6 @@ class Configuration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

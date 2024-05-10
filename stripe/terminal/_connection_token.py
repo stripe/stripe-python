@@ -13,9 +13,9 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["terminal.connection_token"]
-    ] = "terminal.connection_token"
+    OBJECT_NAME: ClassVar[Literal["terminal.connection_token"]] = (
+        "terminal.connection_token"
+    )
 
     class CreateParams(RequestOptions):
         expand: NotRequired[List[str]]

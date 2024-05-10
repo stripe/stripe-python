@@ -1147,7 +1147,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def _cls_list_source_transactions(
         cls,
         source: str,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack["Source.ListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1204,7 +1204,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     async def _cls_list_source_transactions_async(
         cls,
         source: str,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack["Source.ListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.

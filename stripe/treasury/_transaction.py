@@ -30,9 +30,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.transaction"]
-    ] = "treasury.transaction"
+    OBJECT_NAME: ClassVar[Literal["treasury.transaction"]] = (
+        "treasury.transaction"
+    )
 
     class BalanceImpact(StripeObject):
         cash: int
@@ -285,7 +285,6 @@ class Transaction(ListableAPIResource["Transaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -306,7 +305,6 @@ class Transaction(ListableAPIResource["Transaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

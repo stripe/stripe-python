@@ -21,9 +21,9 @@ class CreditReversal(
     You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.credit_reversal"]
-    ] = "treasury.credit_reversal"
+    OBJECT_NAME: ClassVar[Literal["treasury.credit_reversal"]] = (
+        "treasury.credit_reversal"
+    )
 
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]
@@ -180,7 +180,6 @@ class CreditReversal(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -201,7 +200,6 @@ class CreditReversal(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

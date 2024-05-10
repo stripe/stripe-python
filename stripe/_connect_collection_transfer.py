@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 
 class ConnectCollectionTransfer(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["connect_collection_transfer"]
-    ] = "connect_collection_transfer"
+    OBJECT_NAME: ClassVar[Literal["connect_collection_transfer"]] = (
+        "connect_collection_transfer"
+    )
     amount: int
     """
     Amount transferred, in cents (or local equivalent).

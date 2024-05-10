@@ -824,7 +824,6 @@ class Reader(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -845,7 +844,6 @@ class Reader(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1356,7 +1354,7 @@ class Reader(
         def _cls_present_payment_method(
             cls,
             reader: str,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack["Reader.PresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1413,7 +1411,7 @@ class Reader(
         async def _cls_present_payment_method_async(
             cls,
             reader: str,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack["Reader.PresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
