@@ -97,7 +97,6 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
-
 # services: The end of the section generated from our OpenAPI spec
 
 
