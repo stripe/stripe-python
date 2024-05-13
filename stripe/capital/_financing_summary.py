@@ -13,9 +13,9 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     platforms to read the state of Capital offered to their connected accounts.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["capital.financing_summary"]
-    ] = "capital.financing_summary"
+    OBJECT_NAME: ClassVar[Literal["capital.financing_summary"]] = (
+        "capital.financing_summary"
+    )
 
     class Details(StripeObject):
         class CurrentRepaymentInterval(StripeObject):

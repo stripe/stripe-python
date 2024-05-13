@@ -38,15 +38,13 @@ if TYPE_CHECKING:
 @overload
 def _compute_diff(
     current: Dict[str, Any], previous: Optional[Dict[str, Any]]
-) -> Dict[str, Any]:
-    ...
+) -> Dict[str, Any]: ...
 
 
 @overload
 def _compute_diff(
     current: object, previous: Optional[Dict[str, Any]]
-) -> object:
-    ...
+) -> object: ...
 
 
 def _compute_diff(
@@ -101,7 +99,7 @@ class StripeObject(Dict[str, Any]):
         *,
         _requestor: Optional["_APIRequestor"] = None,
         # TODO: is a more specific type possible here?
-        **params: Any
+        **params: Any,
     ):
         super(StripeObject, self).__init__()
 
@@ -522,7 +520,7 @@ class StripeObject(Dict[str, Any]):
 
     def _to_dict_recursive(self) -> Dict[str, Any]:
         def maybe_to_dict_recursive(
-            value: Optional[Union[StripeObject, Dict[str, Any]]]
+            value: Optional[Union[StripeObject, Dict[str, Any]]],
         ) -> Optional[Dict[str, Any]]:
             if value is None:
                 return None

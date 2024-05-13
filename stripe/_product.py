@@ -779,7 +779,6 @@ class Product(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -800,7 +799,6 @@ class Product(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -907,7 +905,7 @@ class Product(
         cls,
         product: str,
         id: str,
-        **params: Unpack["Product.DeleteFeatureParams"]
+        **params: Unpack["Product.DeleteFeatureParams"],
     ) -> "ProductFeature":
         """
         Deletes the feature attachment to a product
@@ -928,7 +926,7 @@ class Product(
         cls,
         product: str,
         id: str,
-        **params: Unpack["Product.DeleteFeatureParams"]
+        **params: Unpack["Product.DeleteFeatureParams"],
     ) -> "ProductFeature":
         """
         Deletes the feature attachment to a product
@@ -1021,7 +1019,7 @@ class Product(
         cls,
         product: str,
         id: str,
-        **params: Unpack["Product.RetrieveFeatureParams"]
+        **params: Unpack["Product.RetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
         Retrieves a product_feature, which represents a feature attachment to a product
@@ -1042,7 +1040,7 @@ class Product(
         cls,
         product: str,
         id: str,
-        **params: Unpack["Product.RetrieveFeatureParams"]
+        **params: Unpack["Product.RetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
         Retrieves a product_feature, which represents a feature attachment to a product

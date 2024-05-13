@@ -13,9 +13,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     This is an object representing the details of a transaction on a Capital financing object.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["capital.financing_transaction"]
-    ] = "capital.financing_transaction"
+    OBJECT_NAME: ClassVar[Literal["capital.financing_transaction"]] = (
+        "capital.financing_transaction"
+    )
 
     class Details(StripeObject):
         class Transaction(StripeObject):
@@ -171,7 +171,6 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -193,7 +192,6 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

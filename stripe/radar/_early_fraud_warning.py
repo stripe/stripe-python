@@ -26,9 +26,9 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["radar.early_fraud_warning"]
-    ] = "radar.early_fraud_warning"
+    OBJECT_NAME: ClassVar[Literal["radar.early_fraud_warning"]] = (
+        "radar.early_fraud_warning"
+    )
 
     class ListParams(RequestOptions):
         charge: NotRequired[str]
@@ -130,7 +130,6 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -151,7 +150,6 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

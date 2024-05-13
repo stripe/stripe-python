@@ -7,6 +7,7 @@ From:
 To:
   from stripe import AppInfo
 """
+
 from typing_extensions import TYPE_CHECKING
 
 # No deprecation warning is raised here, because it would happen

@@ -1110,7 +1110,9 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsCustomerDetailsShipping(TypedDict):
-        address: "InvoiceService.CreatePreviewParamsCustomerDetailsShippingAddress"
+        address: (
+            "InvoiceService.CreatePreviewParamsCustomerDetailsShippingAddress"
+        )
         """
         Customer shipping address.
         """
@@ -4990,7 +4992,9 @@ class InvoiceService(StripeService):
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "InvoiceService.UpcomingParamsSubscriptionItemPriceDataRecurring"
+        recurring: (
+            "InvoiceService.UpcomingParamsSubscriptionItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -5212,7 +5216,9 @@ class InvoiceService(StripeService):
         """
         The amount, in cents (or local equivalent), of the tax.
         """
-        tax_rate_data: "InvoiceService.UpdateLinesParamsLineTaxAmountTaxRateData"
+        tax_rate_data: (
+            "InvoiceService.UpdateLinesParamsLineTaxAmountTaxRateData"
+        )
         """
         Data to find or create a TaxRate object.
 

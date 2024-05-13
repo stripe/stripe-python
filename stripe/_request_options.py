@@ -45,7 +45,7 @@ def merge_options(
 
 
 def extract_options_from_dict(
-    d: Optional[Mapping[str, Any]]
+    d: Optional[Mapping[str, Any]],
 ) -> Tuple[RequestOptions, Dict[str, Any]]:
     """
     Extracts a RequestOptions object from a dict, and returns a tuple of

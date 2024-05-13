@@ -10,9 +10,9 @@ class AccountOwner(StripeObject):
     Describes an owner of an account.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.account_owner"]
-    ] = "financial_connections.account_owner"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.account_owner"]] = (
+        "financial_connections.account_owner"
+    )
     email: Optional[str]
     """
     The email address of the owner.

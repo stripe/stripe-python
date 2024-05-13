@@ -39,9 +39,9 @@ class Transaction(
     Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["issuing.transaction"]
-    ] = "issuing.transaction"
+    OBJECT_NAME: ClassVar[Literal["issuing.transaction"]] = (
+        "issuing.transaction"
+    )
 
     class AmountDetails(StripeObject):
         atm_fee: Optional[int]
@@ -1399,7 +1399,6 @@ class Transaction(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1420,7 +1419,6 @@ class Transaction(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

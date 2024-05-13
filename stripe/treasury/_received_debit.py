@@ -25,9 +25,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.received_debit"]
-    ] = "treasury.received_debit"
+    OBJECT_NAME: ClassVar[Literal["treasury.received_debit"]] = (
+        "treasury.received_debit"
+    )
 
     class InitiatingPaymentMethodDetails(StripeObject):
         class BillingDetails(StripeObject):
@@ -372,7 +372,6 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -393,7 +392,6 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

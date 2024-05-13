@@ -658,7 +658,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataRechnung(TypedDict):
-        dob: "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnungDob"
+        dob: (
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnungDob"
+        )
         """
         Customer's date of birth
         """

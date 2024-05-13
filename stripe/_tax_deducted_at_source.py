@@ -6,9 +6,9 @@ from typing_extensions import Literal
 
 
 class TaxDeductedAtSource(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["tax_deducted_at_source"]
-    ] = "tax_deducted_at_source"
+    OBJECT_NAME: ClassVar[Literal["tax_deducted_at_source"]] = (
+        "tax_deducted_at_source"
+    )
     id: str
     """
     Unique identifier for the object.

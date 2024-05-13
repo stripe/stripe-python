@@ -26,7 +26,9 @@ class PersonalizationDesignService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        rejection_reasons: "PersonalizationDesignService.RejectParamsRejectionReasons"
+        rejection_reasons: (
+            "PersonalizationDesignService.RejectParamsRejectionReasons"
+        )
         """
         The reason(s) the personalization design was rejected.
         """

@@ -2520,7 +2520,9 @@ class Invoice(
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
         """
-        amendment_start: "Invoice.CreatePreviewParamsScheduleDetailsAmendmentAmendmentStart"
+        amendment_start: (
+            "Invoice.CreatePreviewParamsScheduleDetailsAmendmentAmendmentStart"
+        )
         """
         Details to identify the earliest timestamp where the proposed change should take effect.
         """
@@ -5295,7 +5297,9 @@ class Invoice(
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
         """
-        amendment_start: "Invoice.UpcomingLinesParamsScheduleDetailsAmendmentAmendmentStart"
+        amendment_start: (
+            "Invoice.UpcomingLinesParamsScheduleDetailsAmendmentAmendmentStart"
+        )
         """
         Details to identify the earliest timestamp where the proposed change should take effect.
         """
@@ -6734,7 +6738,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingLinesParamsSubscriptionItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingLinesParamsSubscriptionItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -7344,7 +7350,9 @@ class Invoice(
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
         """
-        amendment_start: "Invoice.UpcomingParamsScheduleDetailsAmendmentAmendmentStart"
+        amendment_start: (
+            "Invoice.UpcomingParamsScheduleDetailsAmendmentAmendmentStart"
+        )
         """
         Details to identify the earliest timestamp where the proposed change should take effect.
         """
@@ -8299,7 +8307,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -8593,7 +8603,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -9499,7 +9511,7 @@ class Invoice(
     def _cls_attach_payment_intent(
         cls,
         invoice: str,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack["Invoice.AttachPaymentIntentParams"],
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -9588,7 +9600,7 @@ class Invoice(
     async def _cls_attach_payment_intent_async(
         cls,
         invoice: str,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack["Invoice.AttachPaymentIntentParams"],
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -9966,7 +9978,6 @@ class Invoice(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -9987,7 +9998,6 @@ class Invoice(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -10902,7 +10912,7 @@ class Invoice(
         cls,
         invoice: str,
         invoice_payment: str,
-        **params: Unpack["Invoice.RetrievePaymentParams"]
+        **params: Unpack["Invoice.RetrievePaymentParams"],
     ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
@@ -10924,7 +10934,7 @@ class Invoice(
         cls,
         invoice: str,
         invoice_payment: str,
-        **params: Unpack["Invoice.RetrievePaymentParams"]
+        **params: Unpack["Invoice.RetrievePaymentParams"],
     ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
