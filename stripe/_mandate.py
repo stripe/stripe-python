@@ -109,9 +109,6 @@ class Mandate(APIResource["Mandate"]):
         class Cashapp(StripeObject):
             pass
 
-        class KrMarket(StripeObject):
-            pass
-
         class Link(StripeObject):
             pass
 
@@ -150,7 +147,6 @@ class Mandate(APIResource["Mandate"]):
         bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
-        kr_market: Optional[KrMarket]
         link: Optional[Link]
         paypal: Optional[Paypal]
         revolut_pay: Optional[RevolutPay]
@@ -167,7 +163,6 @@ class Mandate(APIResource["Mandate"]):
             "bacs_debit": BacsDebit,
             "card": Card,
             "cashapp": Cashapp,
-            "kr_market": KrMarket,
             "link": Link,
             "paypal": Paypal,
             "revolut_pay": RevolutPay,

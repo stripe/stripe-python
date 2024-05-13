@@ -328,9 +328,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Klarna(StripeObject):
             pass
 
-        class KrMarket(StripeObject):
-            pass
-
         class Link(StripeObject):
             pass
 
@@ -393,7 +390,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         cashapp: Optional[Cashapp]
         ideal: Optional[Ideal]
         klarna: Optional[Klarna]
-        kr_market: Optional[KrMarket]
         link: Optional[Link]
         paypal: Optional[Paypal]
         revolut_pay: Optional[RevolutPay]
@@ -416,7 +412,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "cashapp": Cashapp,
             "ideal": Ideal,
             "klarna": Klarna,
-            "kr_market": KrMarket,
             "link": Link,
             "paypal": Paypal,
             "revolut_pay": RevolutPay,

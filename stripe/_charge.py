@@ -1273,9 +1273,6 @@ class Charge(
             """
             _inner_class_types = {"store": Store}
 
-        class KrMarket(StripeObject):
-            pass
-
         class Link(StripeObject):
             country: Optional[str]
             """
@@ -1606,7 +1603,6 @@ class Charge(
         interac_present: Optional[InteracPresent]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
-        kr_market: Optional[KrMarket]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
@@ -1657,7 +1653,6 @@ class Charge(
             "interac_present": InteracPresent,
             "klarna": Klarna,
             "konbini": Konbini,
-            "kr_market": KrMarket,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,

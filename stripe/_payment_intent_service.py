@@ -357,12 +357,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
-        kr_market: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodDataKrMarket"
-        ]
-        """
-        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
-        """
         link: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataLink"
         ]
@@ -465,7 +459,6 @@ class PaymentIntentService(StripeService):
             "ideal",
             "klarna",
             "konbini",
-            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -743,42 +736,6 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataKrMarket(TypedDict):
-        underlying_payment_method: NotRequired[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method that the buyer selected.
-        """
-
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -1019,12 +976,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        kr_market: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsKrMarket"
-        ]
-        """
-        If this is a `kr_market` PaymentMethod, this sub-hash contains details about the KR Market payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsLink"
@@ -1849,18 +1800,6 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
-    class ConfirmParamsPaymentMethodOptionsKrMarket(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-        """
-
     class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -2629,12 +2568,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
-        kr_market: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodDataKrMarket"
-        ]
-        """
-        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
-        """
         link: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataLink"
         ]
@@ -2737,7 +2670,6 @@ class PaymentIntentService(StripeService):
             "ideal",
             "klarna",
             "konbini",
-            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -3015,42 +2947,6 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataKrMarket(TypedDict):
-        underlying_payment_method: NotRequired[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method that the buyer selected.
-        """
-
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -3291,12 +3187,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        kr_market: NotRequired[
-            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsKrMarket"
-        ]
-        """
-        If this is a `kr_market` PaymentMethod, this sub-hash contains details about the KR Market payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsLink"
@@ -4121,18 +4011,6 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
-    class CreateParamsPaymentMethodOptionsKrMarket(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-        """
-
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -4925,12 +4803,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
-        kr_market: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodDataKrMarket"
-        ]
-        """
-        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
-        """
         link: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataLink"
         ]
@@ -5033,7 +4905,6 @@ class PaymentIntentService(StripeService):
             "ideal",
             "klarna",
             "konbini",
-            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -5311,42 +5182,6 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
-    class UpdateParamsPaymentMethodDataKrMarket(TypedDict):
-        underlying_payment_method: NotRequired[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method that the buyer selected.
-        """
-
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -5587,12 +5422,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
-        """
-        kr_market: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsKrMarket"
-        ]
-        """
-        If this is a `kr_market` PaymentMethod, this sub-hash contains details about the KR Market payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsLink"
@@ -6415,18 +6244,6 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-        """
-
-    class UpdateParamsPaymentMethodOptionsKrMarket(TypedDict):
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
         """
 
     class UpdateParamsPaymentMethodOptionsLink(TypedDict):

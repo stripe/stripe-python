@@ -774,42 +774,6 @@ class PaymentMethod(
     class Konbini(StripeObject):
         pass
 
-    class KrMarket(StripeObject):
-        underlying_payment_method: Optional[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method buyer selected to complete the payment.
-        """
-
     class Link(StripeObject):
         email: Optional[str]
         """
@@ -1153,10 +1117,6 @@ class PaymentMethod(
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
-        kr_market: NotRequired["PaymentMethod.CreateParamsKrMarket"]
-        """
-        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
-        """
         link: NotRequired["PaymentMethod.CreateParamsLink"]
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -1239,7 +1199,6 @@ class PaymentMethod(
                 "ideal",
                 "klarna",
                 "konbini",
-                "kr_market",
                 "link",
                 "mobilepay",
                 "oxxo",
@@ -1544,42 +1503,6 @@ class PaymentMethod(
     class CreateParamsKonbini(TypedDict):
         pass
 
-    class CreateParamsKrMarket(TypedDict):
-        underlying_payment_method: NotRequired[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method that the buyer selected.
-        """
-
     class CreateParamsLink(TypedDict):
         pass
 
@@ -1737,7 +1660,6 @@ class PaymentMethod(
                 "ideal",
                 "klarna",
                 "konbini",
-                "kr_market",
                 "link",
                 "mobilepay",
                 "oxxo",
@@ -1779,10 +1701,6 @@ class PaymentMethod(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
-        """
-        kr_market: NotRequired["PaymentMethod.ModifyParamsKrMarket"]
-        """
-        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
         """
         link: NotRequired["PaymentMethod.ModifyParamsLink"]
         """
@@ -1865,42 +1783,6 @@ class PaymentMethod(
         The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
-    class ModifyParamsKrMarket(TypedDict):
-        underlying_payment_method: NotRequired[
-            Literal[
-                "bc",
-                "citi",
-                "hana",
-                "hyundai",
-                "jeju",
-                "jeonbuk",
-                "kakaobank",
-                "kakaopay",
-                "kbank",
-                "kdbbank",
-                "kookmin",
-                "kwangju",
-                "lotte",
-                "mg",
-                "naverpaycard",
-                "naverpaypoint",
-                "nh",
-                "payco",
-                "post",
-                "samsung",
-                "samsungpay",
-                "savingsbank",
-                "shinhan",
-                "shinhyup",
-                "suhyup",
-                "tossbank",
-                "woori",
-            ]
-        ]
-        """
-        Underlying payment method that the buyer selected.
-        """
-
     class ModifyParamsLink(TypedDict):
         pass
 
@@ -1959,7 +1841,6 @@ class PaymentMethod(
     interac_present: Optional[InteracPresent]
     klarna: Optional[Klarna]
     konbini: Optional[Konbini]
-    kr_market: Optional[KrMarket]
     link: Optional[Link]
     livemode: bool
     """
@@ -2011,7 +1892,6 @@ class PaymentMethod(
         "interac_present",
         "klarna",
         "konbini",
-        "kr_market",
         "link",
         "mobilepay",
         "oxxo",
@@ -2517,7 +2397,6 @@ class PaymentMethod(
         "interac_present": InteracPresent,
         "klarna": Klarna,
         "konbini": Konbini,
-        "kr_market": KrMarket,
         "link": Link,
         "mobilepay": Mobilepay,
         "oxxo": Oxxo,
