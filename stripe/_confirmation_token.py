@@ -811,6 +811,42 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Konbini(StripeObject):
             pass
 
+        class KrMarket(StripeObject):
+            underlying_payment_method: Optional[
+                Literal[
+                    "bc",
+                    "citi",
+                    "hana",
+                    "hyundai",
+                    "jeju",
+                    "jeonbuk",
+                    "kakaobank",
+                    "kakaopay",
+                    "kbank",
+                    "kdbbank",
+                    "kookmin",
+                    "kwangju",
+                    "lotte",
+                    "mg",
+                    "naverpaycard",
+                    "naverpaypoint",
+                    "nh",
+                    "payco",
+                    "post",
+                    "samsung",
+                    "samsungpay",
+                    "savingsbank",
+                    "shinhan",
+                    "shinhyup",
+                    "suhyup",
+                    "tossbank",
+                    "woori",
+                ]
+            ]
+            """
+            Underlying payment method buyer selected to complete the payment.
+            """
+
         class Link(StripeObject):
             email: Optional[str]
             """
@@ -1105,6 +1141,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         interac_present: Optional[InteracPresent]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_market: Optional[KrMarket]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
@@ -1144,6 +1181,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "interac_present",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "multibanco",
@@ -1194,6 +1232,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "interac_present": InteracPresent,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_market": KrMarket,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
@@ -1412,6 +1451,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
+        kr_market: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataKrMarket"
+        ]
+        """
+        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
+        """
         link: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataLink"
         ]
@@ -1534,6 +1579,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ideal",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "multibanco",
@@ -1812,6 +1858,42 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataKrMarket(TypedDict):
+        underlying_payment_method: NotRequired[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kakaopay",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "naverpaycard",
+                "naverpaypoint",
+                "nh",
+                "payco",
+                "post",
+                "samsung",
+                "samsungpay",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        Underlying payment method that the buyer selected.
+        """
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
