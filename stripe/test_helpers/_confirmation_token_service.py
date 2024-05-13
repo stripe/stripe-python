@@ -171,6 +171,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
+        kr_market: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataKrMarket"
+        ]
+        """
+        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
+        """
         link: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataLink"
         ]
@@ -273,6 +279,7 @@ class ConfirmationTokenService(StripeService):
             "ideal",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -549,6 +556,42 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataKrMarket(TypedDict):
+        underlying_payment_method: NotRequired[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kakaopay",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "naverpaycard",
+                "naverpaypoint",
+                "nh",
+                "payco",
+                "post",
+                "samsung",
+                "samsungpay",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        Underlying payment method that the buyer selected.
+        """
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass

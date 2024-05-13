@@ -835,6 +835,12 @@ class SetupIntent(
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
+        kr_market: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataKrMarket"
+        ]
+        """
+        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
+        """
         link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataLink"]
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -921,6 +927,7 @@ class SetupIntent(
             "ideal",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -1193,6 +1200,42 @@ class SetupIntent(
 
     class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataKrMarket(TypedDict):
+        underlying_payment_method: NotRequired[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kakaopay",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "naverpaycard",
+                "naverpaypoint",
+                "nh",
+                "payco",
+                "post",
+                "samsung",
+                "samsungpay",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        Underlying payment method that the buyer selected.
+        """
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
@@ -1917,6 +1960,12 @@ class SetupIntent(
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
+        kr_market: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataKrMarket"
+        ]
+        """
+        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
+        """
         link: NotRequired["SetupIntent.CreateParamsPaymentMethodDataLink"]
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -2003,6 +2052,7 @@ class SetupIntent(
             "ideal",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -2275,6 +2325,42 @@ class SetupIntent(
 
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataKrMarket(TypedDict):
+        underlying_payment_method: NotRequired[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kakaopay",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "naverpaycard",
+                "naverpaypoint",
+                "nh",
+                "payco",
+                "post",
+                "samsung",
+                "samsungpay",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        Underlying payment method that the buyer selected.
+        """
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
@@ -2968,6 +3054,12 @@ class SetupIntent(
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
         """
+        kr_market: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataKrMarket"
+        ]
+        """
+        If this is a KrMarket PaymentMethod, this hash contains details about the KrMarket payment method.
+        """
         link: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataLink"]
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -3054,6 +3146,7 @@ class SetupIntent(
             "ideal",
             "klarna",
             "konbini",
+            "kr_market",
             "link",
             "mobilepay",
             "oxxo",
@@ -3326,6 +3419,42 @@ class SetupIntent(
 
     class ModifyParamsPaymentMethodDataKonbini(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodDataKrMarket(TypedDict):
+        underlying_payment_method: NotRequired[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kakaopay",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "naverpaycard",
+                "naverpaypoint",
+                "nh",
+                "payco",
+                "post",
+                "samsung",
+                "samsungpay",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        Underlying payment method that the buyer selected.
+        """
 
     class ModifyParamsPaymentMethodDataLink(TypedDict):
         pass

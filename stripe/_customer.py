@@ -848,6 +848,7 @@ class Customer(
                 "ideal",
                 "klarna",
                 "konbini",
+                "kr_market",
                 "link",
                 "mobilepay",
                 "oxxo",

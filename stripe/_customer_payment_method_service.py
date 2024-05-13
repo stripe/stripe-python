@@ -55,6 +55,7 @@ class CustomerPaymentMethodService(StripeService):
                 "ideal",
                 "klarna",
                 "konbini",
+                "kr_market",
                 "link",
                 "mobilepay",
                 "oxxo",
