@@ -45,9 +45,9 @@ class SubscriptionSchedule(
     Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["subscription_schedule"]
-    ] = "subscription_schedule"
+    OBJECT_NAME: ClassVar[Literal["subscription_schedule"]] = (
+        "subscription_schedule"
+    )
 
     class CurrentPhase(StripeObject):
         end_date: int
@@ -578,7 +578,9 @@ class SubscriptionSchedule(
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
         """
-        amendment_start: "SubscriptionSchedule.AmendParamsAmendmentAmendmentStart"
+        amendment_start: (
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentStart"
+        )
         """
         Details to identify the earliest timestamp where the proposed change should take effect.
         """
@@ -1763,7 +1765,9 @@ class SubscriptionSchedule(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "SubscriptionSchedule.CreateParamsPhaseItemPriceDataRecurring"
+        recurring: (
+            "SubscriptionSchedule.CreateParamsPhaseItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -2559,7 +2563,9 @@ class SubscriptionSchedule(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "SubscriptionSchedule.ModifyParamsPhaseItemPriceDataRecurring"
+        recurring: (
+            "SubscriptionSchedule.ModifyParamsPhaseItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -2740,7 +2746,7 @@ class SubscriptionSchedule(
     def _cls_amend(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack["SubscriptionSchedule.AmendParams"],
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2797,7 +2803,7 @@ class SubscriptionSchedule(
     async def _cls_amend_async(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack["SubscriptionSchedule.AmendParams"],
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2854,7 +2860,7 @@ class SubscriptionSchedule(
     def _cls_cancel(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack["SubscriptionSchedule.CancelParams"],
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -2911,7 +2917,7 @@ class SubscriptionSchedule(
     async def _cls_cancel_async(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack["SubscriptionSchedule.CancelParams"],
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -3009,7 +3015,6 @@ class SubscriptionSchedule(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -3030,7 +3035,6 @@ class SubscriptionSchedule(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -3076,7 +3080,7 @@ class SubscriptionSchedule(
     def _cls_release(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"],
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
@@ -3133,7 +3137,7 @@ class SubscriptionSchedule(
     async def _cls_release_async(
         cls,
         schedule: str,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"],
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.

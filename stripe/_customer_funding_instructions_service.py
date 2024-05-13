@@ -10,7 +10,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class CustomerFundingInstructionsService(StripeService):
     class CreateParams(TypedDict):
-        bank_transfer: "CustomerFundingInstructionsService.CreateParamsBankTransfer"
+        bank_transfer: (
+            "CustomerFundingInstructionsService.CreateParamsBankTransfer"
+        )
         """
         Additional parameters for `bank_transfer` funding types
         """

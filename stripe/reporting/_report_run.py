@@ -33,9 +33,9 @@ class ReportRun(
     data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["reporting.report_run"]
-    ] = "reporting.report_run"
+    OBJECT_NAME: ClassVar[Literal["reporting.report_run"]] = (
+        "reporting.report_run"
+    )
 
     class Parameters(StripeObject):
         columns: Optional[List[str]]
@@ -892,7 +892,6 @@ class ReportRun(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -913,7 +912,6 @@ class ReportRun(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

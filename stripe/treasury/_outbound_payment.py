@@ -33,9 +33,9 @@ class OutboundPayment(
     Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.outbound_payment"]
-    ] = "treasury.outbound_payment"
+    OBJECT_NAME: ClassVar[Literal["treasury.outbound_payment"]] = (
+        "treasury.outbound_payment"
+    )
 
     class DestinationPaymentMethodDetails(StripeObject):
         class BillingDetails(StripeObject):
@@ -777,7 +777,6 @@ class OutboundPayment(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -798,7 +797,6 @@ class OutboundPayment(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1055,7 +1053,7 @@ class OutboundPayment(
         def _cls_return_outbound_payment(
             cls,
             id: str,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1075,7 +1073,7 @@ class OutboundPayment(
         @staticmethod
         def return_outbound_payment(
             id: str,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1085,7 +1083,7 @@ class OutboundPayment(
         @overload
         def return_outbound_payment(
             self,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1095,7 +1093,7 @@ class OutboundPayment(
         @class_method_variant("_cls_return_outbound_payment")
         def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1115,7 +1113,7 @@ class OutboundPayment(
         async def _cls_return_outbound_payment_async(
             cls,
             id: str,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1135,7 +1133,7 @@ class OutboundPayment(
         @staticmethod
         async def return_outbound_payment_async(
             id: str,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1145,7 +1143,7 @@ class OutboundPayment(
         @overload
         async def return_outbound_payment_async(
             self,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -1155,7 +1153,7 @@ class OutboundPayment(
         @class_method_variant("_cls_return_outbound_payment_async")
         async def return_outbound_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.

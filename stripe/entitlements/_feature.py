@@ -20,9 +20,9 @@ class Feature(
     Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["entitlements.feature"]
-    ] = "entitlements.feature"
+    OBJECT_NAME: ClassVar[Literal["entitlements.feature"]] = (
+        "entitlements.feature"
+    )
 
     class CreateParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -156,7 +156,6 @@ class Feature(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -177,7 +176,6 @@ class Feature(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

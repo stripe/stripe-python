@@ -15,9 +15,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     Stripe Capital to a Connect subaccount.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["capital.financing_offer"]
-    ] = "capital.financing_offer"
+    OBJECT_NAME: ClassVar[Literal["capital.financing_offer"]] = (
+        "capital.financing_offer"
+    )
 
     class AcceptedTerms(StripeObject):
         advance_amount: int
@@ -240,7 +240,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -261,7 +260,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -273,7 +271,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -294,7 +292,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     def mark_delivered(
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -335,7 +333,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     async def _cls_mark_delivered_async(
         cls,
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -356,7 +354,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     async def mark_delivered_async(
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to

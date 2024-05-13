@@ -190,7 +190,6 @@ class ListObject(StripeObject, Generic[T]):
     def _get_filters_for_next_page(
         self, params: RequestOptions
     ) -> Mapping[str, Any]:
-
         last_id = getattr(self.data[-1], "id")
         if not last_id:
             raise ValueError(

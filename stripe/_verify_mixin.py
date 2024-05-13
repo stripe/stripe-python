@@ -5,16 +5,14 @@ from stripe._stripe_object import StripeObject
 
 
 class _Verifiable(Protocol):
-    def instance_url(self) -> str:
-        ...
+    def instance_url(self) -> str: ...
 
     def _request(
         self,
         method: str,
         url: str,
         params: Dict[str, Any],
-    ) -> StripeObject:
-        ...
+    ) -> StripeObject: ...
 
 
 class VerifyMixin(object):

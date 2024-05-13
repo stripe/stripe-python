@@ -199,7 +199,9 @@ class InvoiceLineItemService(StripeService):
         """
         The amount, in cents (or local equivalent), of the tax.
         """
-        tax_rate_data: "InvoiceLineItemService.UpdateParamsTaxAmountTaxRateData"
+        tax_rate_data: (
+            "InvoiceLineItemService.UpdateParamsTaxAmountTaxRateData"
+        )
         """
         Data to find or create a TaxRate object.
 

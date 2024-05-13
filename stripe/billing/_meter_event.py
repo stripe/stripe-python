@@ -12,9 +12,9 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
     Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing.meter_event"]
-    ] = "billing.meter_event"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event"]] = (
+        "billing.meter_event"
+    )
 
     class CreateParams(RequestOptions):
         event_name: str

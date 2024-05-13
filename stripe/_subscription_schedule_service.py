@@ -48,7 +48,9 @@ class SubscriptionScheduleService(StripeService):
         """
         Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
         """
-        amendment_start: "SubscriptionScheduleService.AmendParamsAmendmentAmendmentStart"
+        amendment_start: (
+            "SubscriptionScheduleService.AmendParamsAmendmentAmendmentStart"
+        )
         """
         Details to identify the earliest timestamp where the proposed change should take effect.
         """

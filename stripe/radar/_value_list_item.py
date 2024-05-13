@@ -21,9 +21,9 @@ class ValueListItem(
     Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["radar.value_list_item"]
-    ] = "radar.value_list_item"
+    OBJECT_NAME: ClassVar[Literal["radar.value_list_item"]] = (
+        "radar.value_list_item"
+    )
 
     class CreateParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -272,7 +272,6 @@ class ValueListItem(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -293,7 +292,6 @@ class ValueListItem(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

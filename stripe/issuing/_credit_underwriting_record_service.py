@@ -734,7 +734,9 @@ class CreditUnderwritingRecordService(StripeService):
         """
         Date when a decision was made.
         """
-        decision: "CreditUnderwritingRecordService.ReportDecisionParamsDecision"
+        decision: (
+            "CreditUnderwritingRecordService.ReportDecisionParamsDecision"
+        )
         """
         Details about the decision.
         """

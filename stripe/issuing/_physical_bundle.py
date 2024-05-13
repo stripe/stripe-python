@@ -13,9 +13,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     A Physical Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["issuing.physical_bundle"]
-    ] = "issuing.physical_bundle"
+    OBJECT_NAME: ClassVar[Literal["issuing.physical_bundle"]] = (
+        "issuing.physical_bundle"
+    )
 
     class Features(StripeObject):
         card_logo: Literal["optional", "required", "unsupported"]
@@ -102,7 +102,6 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -123,7 +122,6 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

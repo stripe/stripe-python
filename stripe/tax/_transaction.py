@@ -556,7 +556,7 @@ class Transaction(APIResource["Transaction"]):
     def _cls_list_line_items(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack["Transaction.ListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -613,7 +613,7 @@ class Transaction(APIResource["Transaction"]):
     async def _cls_list_line_items_async(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack["Transaction.ListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.

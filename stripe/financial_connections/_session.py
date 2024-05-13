@@ -27,9 +27,9 @@ class Session(CreateableAPIResource["Session"]):
     A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.session"]
-    ] = "financial_connections.session"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.session"]] = (
+        "financial_connections.session"
+    )
 
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]

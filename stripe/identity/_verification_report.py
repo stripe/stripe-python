@@ -23,9 +23,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["identity.verification_report"]
-    ] = "identity.verification_report"
+    OBJECT_NAME: ClassVar[Literal["identity.verification_report"]] = (
+        "identity.verification_report"
+    )
 
     class Document(StripeObject):
         class Address(StripeObject):
@@ -476,7 +476,6 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -497,7 +496,6 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

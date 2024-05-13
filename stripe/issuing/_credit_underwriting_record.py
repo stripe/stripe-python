@@ -18,9 +18,9 @@ class CreditUnderwritingRecord(
     [Follow the guide](https://stripe.com/docs/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["issuing.credit_underwriting_record"]
-    ] = "issuing.credit_underwriting_record"
+    OBJECT_NAME: ClassVar[Literal["issuing.credit_underwriting_record"]] = (
+        "issuing.credit_underwriting_record"
+    )
 
     class Application(StripeObject):
         application_method: Literal["in_person", "mail", "online", "phone"]
@@ -743,11 +743,15 @@ class CreditUnderwritingRecord(
         """
 
     class CreateFromApplicationParams(RequestOptions):
-        application: "CreditUnderwritingRecord.CreateFromApplicationParamsApplication"
+        application: (
+            "CreditUnderwritingRecord.CreateFromApplicationParamsApplication"
+        )
         """
         Details about the application submission.
         """
-        credit_user: "CreditUnderwritingRecord.CreateFromApplicationParamsCreditUser"
+        credit_user: (
+            "CreditUnderwritingRecord.CreateFromApplicationParamsCreditUser"
+        )
         """
         Information about the company or person applying or holding the account.
         """
@@ -795,7 +799,9 @@ class CreditUnderwritingRecord(
         """
         Date when a decision was made.
         """
-        decision: "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecision"
+        decision: (
+            "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecision"
+        )
         """
         Details about the decision.
         """
@@ -1286,7 +1292,7 @@ class CreditUnderwritingRecord(
     def _cls_correct(
         cls,
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1308,7 +1314,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def correct(
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1346,7 +1352,7 @@ class CreditUnderwritingRecord(
     async def _cls_correct_async(
         cls,
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1368,7 +1374,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def correct_async(
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1407,7 +1413,7 @@ class CreditUnderwritingRecord(
         cls,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromApplicationParams"
-        ]
+        ],
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object with information about a credit application submission.
@@ -1426,7 +1432,7 @@ class CreditUnderwritingRecord(
         cls,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromApplicationParams"
-        ]
+        ],
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object with information about a credit application submission.
@@ -1445,7 +1451,7 @@ class CreditUnderwritingRecord(
         cls,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
-        ]
+        ],
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
@@ -1464,7 +1470,7 @@ class CreditUnderwritingRecord(
         cls,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
-        ]
+        ],
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
@@ -1491,7 +1497,6 @@ class CreditUnderwritingRecord(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1512,7 +1517,6 @@ class CreditUnderwritingRecord(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1524,7 +1528,7 @@ class CreditUnderwritingRecord(
     def _cls_report_decision(
         cls,
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1546,7 +1550,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def report_decision(
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1584,7 +1588,7 @@ class CreditUnderwritingRecord(
     async def _cls_report_decision_async(
         cls,
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1606,7 +1610,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def report_decision_async(
         credit_underwriting_record: str,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1644,7 +1648,7 @@ class CreditUnderwritingRecord(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["CreditUnderwritingRecord.RetrieveParams"]
+        **params: Unpack["CreditUnderwritingRecord.RetrieveParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Retrieves a CreditUnderwritingRecord object.
@@ -1657,7 +1661,7 @@ class CreditUnderwritingRecord(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["CreditUnderwritingRecord.RetrieveParams"]
+        **params: Unpack["CreditUnderwritingRecord.RetrieveParams"],
     ) -> "CreditUnderwritingRecord":
         """
         Retrieves a CreditUnderwritingRecord object.

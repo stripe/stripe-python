@@ -1473,7 +1473,7 @@ class Customer(
     def _cls_create_funding_instructions(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1495,7 +1495,7 @@ class Customer(
     @staticmethod
     def create_funding_instructions(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1539,7 +1539,7 @@ class Customer(
     async def _cls_create_funding_instructions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1561,7 +1561,7 @@ class Customer(
     @staticmethod
     async def create_funding_instructions_async(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack["Customer.CreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1820,7 +1820,6 @@ class Customer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1841,7 +1840,6 @@ class Customer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1853,7 +1851,7 @@ class Customer(
     def _cls_list_payment_methods(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack["Customer.ListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1910,7 +1908,7 @@ class Customer(
     async def _cls_list_payment_methods_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack["Customer.ListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2028,7 +2026,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2050,7 +2048,7 @@ class Customer(
     def retrieve_payment_method(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2061,7 +2059,7 @@ class Customer(
     def retrieve_payment_method(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2072,7 +2070,7 @@ class Customer(
     def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2094,7 +2092,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2116,7 +2114,7 @@ class Customer(
     async def retrieve_payment_method_async(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2127,7 +2125,7 @@ class Customer(
     async def retrieve_payment_method_async(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2138,7 +2136,7 @@ class Customer(
     async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack["Customer.RetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2197,7 +2195,7 @@ class Customer(
     def create_balance_transaction(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"]
+        **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
@@ -2217,7 +2215,7 @@ class Customer(
     async def create_balance_transaction_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"]
+        **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
@@ -2238,7 +2236,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
+        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -2260,7 +2258,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
+        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -2282,7 +2280,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
+        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2304,7 +2302,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
+        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2325,7 +2323,7 @@ class Customer(
     def list_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"]
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -2345,7 +2343,7 @@ class Customer(
     async def list_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"]
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -2366,7 +2364,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
+        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -2388,7 +2386,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
+        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -2409,7 +2407,7 @@ class Customer(
     def list_cash_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -2429,7 +2427,7 @@ class Customer(
     async def list_cash_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -2494,7 +2492,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"]
+        **params: Unpack["Customer.RetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2515,7 +2513,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"]
+        **params: Unpack["Customer.RetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2536,7 +2534,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"]
+        **params: Unpack["Customer.ModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2557,7 +2555,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"]
+        **params: Unpack["Customer.ModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2578,7 +2576,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"]
+        **params: Unpack["Customer.DeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2599,7 +2597,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"]
+        **params: Unpack["Customer.DeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2692,7 +2690,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"]
+        **params: Unpack["Customer.RetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2713,7 +2711,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"]
+        **params: Unpack["Customer.RetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2734,7 +2732,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"]
+        **params: Unpack["Customer.DeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2755,7 +2753,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"]
+        **params: Unpack["Customer.DeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2811,7 +2809,7 @@ class Customer(
     def retrieve_cash_balance(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"]
+        **params: Unpack["Customer.RetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2831,7 +2829,7 @@ class Customer(
     async def retrieve_cash_balance_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"]
+        **params: Unpack["Customer.RetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2851,7 +2849,7 @@ class Customer(
     def modify_cash_balance(
         cls,
         customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
+        **params: Unpack["Customer.ModifyCashBalanceParams"],
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2871,7 +2869,7 @@ class Customer(
     async def modify_cash_balance_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
+        **params: Unpack["Customer.ModifyCashBalanceParams"],
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2894,7 +2892,7 @@ class Customer(
         def _cls_fund_cash_balance(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack["Customer.FundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2951,7 +2949,7 @@ class Customer(
         async def _cls_fund_cash_balance_async(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack["Customer.FundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer

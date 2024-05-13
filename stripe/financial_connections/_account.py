@@ -34,9 +34,9 @@ class Account(ListableAPIResource["Account"]):
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.account"]
-    ] = "financial_connections.account"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.account"]] = (
+        "financial_connections.account"
+    )
 
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
@@ -503,7 +503,6 @@ class Account(ListableAPIResource["Account"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -524,7 +523,6 @@ class Account(ListableAPIResource["Account"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -998,7 +996,7 @@ class Account(ListableAPIResource["Account"]):
     def list_inferred_balances(
         cls,
         account: str,
-        **params: Unpack["Account.ListInferredBalancesParams"]
+        **params: Unpack["Account.ListInferredBalancesParams"],
     ) -> ListObject["AccountInferredBalance"]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.
@@ -1018,7 +1016,7 @@ class Account(ListableAPIResource["Account"]):
     async def list_inferred_balances_async(
         cls,
         account: str,
-        **params: Unpack["Account.ListInferredBalancesParams"]
+        **params: Unpack["Account.ListInferredBalancesParams"],
     ) -> ListObject["AccountInferredBalance"]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.
