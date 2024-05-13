@@ -511,9 +511,9 @@ class _APIRequestor(object):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
-                headers[
-                    "Content-Type"
-                ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
+                headers["Content-Type"] = (
+                    "multipart/form-data; boundary=%s" % (generator.boundary,)
+                )
             else:
                 post_data = encoded_body
         else:

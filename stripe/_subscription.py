@@ -2194,7 +2194,7 @@ class Subscription(
     def _cls_cancel(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack["Subscription.CancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -2220,7 +2220,7 @@ class Subscription(
     @staticmethod
     def cancel(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack["Subscription.CancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -2270,7 +2270,7 @@ class Subscription(
     async def _cls_cancel_async(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack["Subscription.CancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -2296,7 +2296,7 @@ class Subscription(
     @staticmethod
     async def cancel_async(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack["Subscription.CancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -2390,7 +2390,7 @@ class Subscription(
     def _cls_delete_discount(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack["Subscription.DeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -2412,7 +2412,7 @@ class Subscription(
     @staticmethod
     def delete_discount(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack["Subscription.DeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -2450,7 +2450,7 @@ class Subscription(
     async def _cls_delete_discount_async(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack["Subscription.DeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -2472,7 +2472,7 @@ class Subscription(
     @staticmethod
     async def delete_discount_async(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack["Subscription.DeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -2519,7 +2519,6 @@ class Subscription(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2540,7 +2539,6 @@ class Subscription(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

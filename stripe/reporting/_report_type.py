@@ -19,9 +19,9 @@ class ReportType(ListableAPIResource["ReportType"]):
     data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["reporting.report_type"]
-    ] = "reporting.report_type"
+    OBJECT_NAME: ClassVar[Literal["reporting.report_type"]] = (
+        "reporting.report_type"
+    )
 
     class ListParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -85,7 +85,6 @@ class ReportType(ListableAPIResource["ReportType"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -106,7 +105,6 @@ class ReportType(ListableAPIResource["ReportType"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

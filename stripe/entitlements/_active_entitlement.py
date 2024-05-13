@@ -16,9 +16,9 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
     An active entitlement describes access to a feature for a customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["entitlements.active_entitlement"]
-    ] = "entitlements.active_entitlement"
+    OBJECT_NAME: ClassVar[Literal["entitlements.active_entitlement"]] = (
+        "entitlements.active_entitlement"
+    )
 
     class ListParams(RequestOptions):
         customer: str
@@ -82,7 +82,6 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -103,7 +102,6 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

@@ -44,9 +44,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["balance_transaction"]
-    ] = "balance_transaction"
+    OBJECT_NAME: ClassVar[Literal["balance_transaction"]] = (
+        "balance_transaction"
+    )
 
     class FeeDetail(StripeObject):
         amount: int
@@ -271,7 +271,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -294,7 +293,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

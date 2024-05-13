@@ -3,5 +3,6 @@
     "ms-python.python",
     "EditorConfig.editorconfig",
     "ms-python.flake8",
+    "charliermarsh.ruff"
   ]
 }

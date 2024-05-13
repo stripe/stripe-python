@@ -6,9 +6,9 @@ from typing_extensions import Literal
 
 
 class CalculationLineItem(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["tax.calculation_line_item"]
-    ] = "tax.calculation_line_item"
+    OBJECT_NAME: ClassVar[Literal["tax.calculation_line_item"]] = (
+        "tax.calculation_line_item"
+    )
 
     class TaxBreakdown(StripeObject):
         class Jurisdiction(StripeObject):

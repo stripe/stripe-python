@@ -33,9 +33,7 @@ def callback():
 <p>Success! Account <code>{stripe_user_id}</code> is connected.</p>
 <p>Click <a href="/deauthorize?stripe_user_id={stripe_user_id}">here</a> to
 disconnect the account.</p>
-""".format(
-        stripe_user_id=resp["stripe_user_id"]
-    )
+""".format(stripe_user_id=resp["stripe_user_id"])
 
 
 @app.route("/deauthorize")
@@ -49,9 +47,7 @@ def deauthorize():
     return """
 <p>Success! Account <code>{stripe_user_id}</code> is disconnected.</p>
 <p>Click <a href="/">here</a> to restart the OAuth flow.</p>
-""".format(
-        stripe_user_id=stripe_user_id
-    )
+""".format(stripe_user_id=stripe_user_id)
 
 
 if __name__ == "__main__":

@@ -14,9 +14,9 @@ class FundingInstructions(StripeObject):
     Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["funding_instructions"]
-    ] = "funding_instructions"
+    OBJECT_NAME: ClassVar[Literal["funding_instructions"]] = (
+        "funding_instructions"
+    )
 
     class BankTransfer(StripeObject):
         class FinancialAddress(StripeObject):

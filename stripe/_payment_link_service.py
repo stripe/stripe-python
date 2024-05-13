@@ -562,7 +562,9 @@ class PaymentLinkService(StripeService):
         """
 
     class CreateParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLinkService.CreateParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLinkService.CreateParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
@@ -1346,7 +1348,9 @@ class PaymentLinkService(StripeService):
         """
 
     class UpdateParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLinkService.UpdateParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLinkService.UpdateParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
