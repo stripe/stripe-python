@@ -4185,7 +4185,6 @@ class Account(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4206,7 +4205,6 @@ class Account(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4503,7 +4501,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.RetrieveCapabilityParams"]
+        **params: Unpack["Account.RetrieveCapabilityParams"],
     ) -> "Capability":
         """
         Retrieves information about the specified Account Capability.
@@ -4525,7 +4523,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.RetrieveCapabilityParams"]
+        **params: Unpack["Account.RetrieveCapabilityParams"],
     ) -> "Capability":
         """
         Retrieves information about the specified Account Capability.
@@ -4547,7 +4545,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.ModifyCapabilityParams"]
+        **params: Unpack["Account.ModifyCapabilityParams"],
     ) -> "Capability":
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
@@ -4569,7 +4567,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.ModifyCapabilityParams"]
+        **params: Unpack["Account.ModifyCapabilityParams"],
     ) -> "Capability":
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
@@ -4626,7 +4624,7 @@ class Account(
     def create_external_account(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"]
+        **params: Unpack["Account.CreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -4646,7 +4644,7 @@ class Account(
     async def create_external_account_async(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"]
+        **params: Unpack["Account.CreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -4667,7 +4665,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.RetrieveExternalAccountParams"]
+        **params: Unpack["Account.RetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Retrieve a specified external account for a given account.
@@ -4688,7 +4686,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.RetrieveExternalAccountParams"]
+        **params: Unpack["Account.RetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Retrieve a specified external account for a given account.
@@ -4709,7 +4707,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.ModifyExternalAccountParams"]
+        **params: Unpack["Account.ModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -4737,7 +4735,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.ModifyExternalAccountParams"]
+        **params: Unpack["Account.ModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -4765,7 +4763,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"]
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -4786,7 +4784,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"]
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -4806,7 +4804,7 @@ class Account(
     def list_external_accounts(
         cls,
         account: str,
-        **params: Unpack["Account.ListExternalAccountsParams"]
+        **params: Unpack["Account.ListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -4826,7 +4824,7 @@ class Account(
     async def list_external_accounts_async(
         cls,
         account: str,
-        **params: Unpack["Account.ListExternalAccountsParams"]
+        **params: Unpack["Account.ListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -4923,7 +4921,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.RetrievePersonParams"]
+        **params: Unpack["Account.RetrievePersonParams"],
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -4944,7 +4942,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.RetrievePersonParams"]
+        **params: Unpack["Account.RetrievePersonParams"],
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -4965,7 +4963,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.ModifyPersonParams"]
+        **params: Unpack["Account.ModifyPersonParams"],
     ) -> "Person":
         """
         Updates an existing person.
@@ -4986,7 +4984,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.ModifyPersonParams"]
+        **params: Unpack["Account.ModifyPersonParams"],
     ) -> "Person":
         """
         Updates an existing person.
@@ -5007,7 +5005,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.DeletePersonParams"]
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -5028,7 +5026,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.DeletePersonParams"]
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.

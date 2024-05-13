@@ -23,9 +23,9 @@ if TYPE_CHECKING:
 
 
 class QuotePreviewSubscriptionSchedule(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["quote_preview_subscription_schedule"]
-    ] = "quote_preview_subscription_schedule"
+    OBJECT_NAME: ClassVar[Literal["quote_preview_subscription_schedule"]] = (
+        "quote_preview_subscription_schedule"
+    )
 
     class AppliesTo(StripeObject):
         new_reference: Optional[str]

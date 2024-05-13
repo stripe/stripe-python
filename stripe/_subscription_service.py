@@ -849,7 +849,9 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsTrialSettings(TypedDict):
-        end_behavior: "SubscriptionService.CreateParamsTrialSettingsEndBehavior"
+        end_behavior: (
+            "SubscriptionService.CreateParamsTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -1833,7 +1835,9 @@ class SubscriptionService(StripeService):
         """
 
     class UpdateParamsTrialSettings(TypedDict):
-        end_behavior: "SubscriptionService.UpdateParamsTrialSettingsEndBehavior"
+        end_behavior: (
+            "SubscriptionService.UpdateParamsTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """

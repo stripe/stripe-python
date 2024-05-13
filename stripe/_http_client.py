@@ -162,9 +162,7 @@ class HTTPClient(object):
         if proxy:
             if isinstance(proxy, str):
                 proxy = {"http": proxy, "https": proxy}
-            if not isinstance(
-                proxy, dict
-            ):  # pyright: ignore[reportUnnecessaryIsInstance]
+            if not isinstance(proxy, dict):  # pyright: ignore[reportUnnecessaryIsInstance]
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
                     "URL or a dict() with string URL under the"
@@ -399,7 +397,7 @@ class HTTPClient(object):
         headers: Optional[Mapping[str, str]],
         post_data: Any = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[str, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
@@ -412,7 +410,7 @@ class HTTPClient(object):
         headers: Optional[Mapping[str, str]],
         post_data: Any = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
@@ -431,7 +429,7 @@ class HTTPClient(object):
         post_data=None,
         max_network_retries: Optional[int] = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
             method,
@@ -451,7 +449,7 @@ class HTTPClient(object):
         post_data=None,
         max_network_retries=None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[AsyncIterable[bytes], int, Any]:
         return await self._request_with_retries_internal_async(
             method,
@@ -473,9 +471,8 @@ class HTTPClient(object):
         is_streaming: Literal[False],
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
-    ) -> Tuple[Any, int, Mapping[str, str]]:
-        ...
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[Any, int, Mapping[str, str]]: ...
 
     @overload
     async def _request_with_retries_internal_async(
@@ -487,9 +484,8 @@ class HTTPClient(object):
         is_streaming: Literal[True],
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
-    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
-        ...
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]: ...
 
     async def _request_with_retries_internal_async(
         self,
@@ -500,7 +496,7 @@ class HTTPClient(object):
         is_streaming: bool,
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Mapping[str, str]]:
         headers = self._add_telemetry_header(headers)
 
@@ -599,7 +595,7 @@ class RequestsClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
         async_fallback_client: Optional[HTTPClient] = None,
-        **kwargs
+        **kwargs,
     ):
         super(RequestsClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -642,8 +638,7 @@ class RequestsClient(HTTPClient):
         headers: Optional[Mapping[str, str]],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[Any, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[Any, int, Mapping[str, str]]: ...
 
     @overload
     def _request_internal(
@@ -653,8 +648,7 @@ class RequestsClient(HTTPClient):
         headers: Optional[Mapping[str, str]],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[bytes, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[bytes, int, Mapping[str, str]]: ...
 
     def _request_internal(
         self,
@@ -832,8 +826,7 @@ class UrlFetchClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[BytesIO, int, Any]:
-        ...
+    ) -> Tuple[BytesIO, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -843,8 +836,7 @@ class UrlFetchClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Any]:
-        ...
+    ) -> Tuple[str, int, Any]: ...
 
     def _request_internal(
         self,
@@ -970,8 +962,7 @@ class PycurlClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[BytesIO, int, Any]:
-        ...
+    ) -> Tuple[BytesIO, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -981,8 +972,7 @@ class PycurlClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[str, int, Mapping[str, str]]: ...
 
     def _request_internal(
         self,
@@ -1149,8 +1139,7 @@ class Urllib2Client(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Any]:
-        ...
+    ) -> Tuple[str, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -1160,8 +1149,7 @@ class Urllib2Client(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[HTTPResponse, int, Any]:
-        ...
+    ) -> Tuple[HTTPResponse, int, Any]: ...
 
     def _request_internal(
         self,
@@ -1227,7 +1215,7 @@ class HTTPXClient(HTTPClient):
         self,
         timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
         allow_sync_methods=False,
-        **kwargs
+        **kwargs,
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 

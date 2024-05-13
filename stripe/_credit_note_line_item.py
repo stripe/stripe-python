@@ -15,9 +15,9 @@ class CreditNoteLineItem(StripeObject):
     The credit note line item object
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["credit_note_line_item"]
-    ] = "credit_note_line_item"
+    OBJECT_NAME: ClassVar[Literal["credit_note_line_item"]] = (
+        "credit_note_line_item"
+    )
 
     class DiscountAmount(StripeObject):
         amount: int

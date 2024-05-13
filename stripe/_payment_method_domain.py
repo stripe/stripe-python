@@ -23,9 +23,9 @@ class PaymentMethodDomain(
     Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["payment_method_domain"]
-    ] = "payment_method_domain"
+    OBJECT_NAME: ClassVar[Literal["payment_method_domain"]] = (
+        "payment_method_domain"
+    )
 
     class ApplePay(StripeObject):
         class StatusDetails(StripeObject):
@@ -243,7 +243,6 @@ class PaymentMethodDomain(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -264,7 +263,6 @@ class PaymentMethodDomain(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -332,7 +330,7 @@ class PaymentMethodDomain(
     def _cls_validate(
         cls,
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -357,7 +355,7 @@ class PaymentMethodDomain(
     @staticmethod
     def validate(
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -410,7 +408,7 @@ class PaymentMethodDomain(
     async def _cls_validate_async(
         cls,
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -435,7 +433,7 @@ class PaymentMethodDomain(
     @staticmethod
     async def validate_async(
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.

@@ -1249,7 +1249,9 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsSubscriptionDataOverride(TypedDict):
-        applies_to: "QuoteService.CreateParamsSubscriptionDataOverrideAppliesTo"
+        applies_to: (
+            "QuoteService.CreateParamsSubscriptionDataOverrideAppliesTo"
+        )
         """
         Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
         """
@@ -2715,7 +2717,9 @@ class QuoteService(StripeService):
         """
 
     class UpdateParamsSubscriptionDataOverride(TypedDict):
-        applies_to: "QuoteService.UpdateParamsSubscriptionDataOverrideAppliesTo"
+        applies_to: (
+            "QuoteService.UpdateParamsSubscriptionDataOverrideAppliesTo"
+        )
         """
         Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
         """

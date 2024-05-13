@@ -21,9 +21,9 @@ class DebitReversal(
     You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.debit_reversal"]
-    ] = "treasury.debit_reversal"
+    OBJECT_NAME: ClassVar[Literal["treasury.debit_reversal"]] = (
+        "treasury.debit_reversal"
+    )
 
     class LinkedFlows(StripeObject):
         issuing_dispute: Optional[str]
@@ -194,7 +194,6 @@ class DebitReversal(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -215,7 +214,6 @@ class DebitReversal(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

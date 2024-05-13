@@ -64,9 +64,9 @@ class QuotePreviewInvoice(StripeObject):
     Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["quote_preview_invoice"]
-    ] = "quote_preview_invoice"
+    OBJECT_NAME: ClassVar[Literal["quote_preview_invoice"]] = (
+        "quote_preview_invoice"
+    )
 
     class AmountsDue(StripeObject):
         amount: int

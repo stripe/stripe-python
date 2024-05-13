@@ -25,9 +25,9 @@ class Transaction(
     A `canceled` transaction has no effect on a gift card's balance.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["gift_cards.transaction"]
-    ] = "gift_cards.transaction"
+    OBJECT_NAME: ClassVar[Literal["gift_cards.transaction"]] = (
+        "gift_cards.transaction"
+    )
 
     class CreatedBy(StripeObject):
         class Checkout(StripeObject):
@@ -495,7 +495,6 @@ class Transaction(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -516,7 +515,6 @@ class Transaction(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

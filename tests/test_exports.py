@@ -23,20 +23,25 @@ def assert_output(code: str, expected: str) -> None:
 
 
 def test_can_import_stripe_object() -> None:
+    # fmt: off
     from stripe.stripe_object import StripeObject as StripeObjectFromStripeStripeObject  # type: ignore
+    # fmt: on
     from stripe import (
         StripeObject as StripeObjectFromStripe,
     )
 
-    assert (
-        stripe.stripe_object.StripeObject is StripeObjectFromStripeStripeObject  # type: ignore
-    )
+    # fmt: off
+    assert stripe.stripe_object.StripeObject is StripeObjectFromStripeStripeObject  # type: ignore
+    # fmt: on
     assert stripe.StripeObject is StripeObjectFromStripeStripeObject
     assert StripeObjectFromStripe is StripeObjectFromStripeStripeObject
 
 
 def test_can_import_request_options() -> None:
+    # fmt: off
     from stripe.request_options import RequestOptions as RequestOptionsStripeRequestOptions  # type: ignore
+    # fmt: on
+
     from stripe import (
         RequestOptions as RequestOptionsFromStripe,
     )
@@ -47,10 +52,13 @@ def test_can_import_request_options() -> None:
 
 def test_can_import_http_client() -> None:
     from stripe.http_client import HTTPClient as HTTPClientFromStripeHTTPClient  # type: ignore
+
+    # fmt: off
     from stripe.http_client import PycurlClient as PycurlClientFromStripeHTTPClient  # type: ignore
     from stripe.http_client import RequestsClient as RequestsClientFromStripeHTTPClient  # type: ignore
     from stripe.http_client import UrlFetchClient as UrlFetchClientFromStripeHTTPClient  # type: ignore
     from stripe.http_client import new_default_http_client as new_default_http_clientFromStripeHTTPClient  # type: ignore
+    # fmt: on
 
     from stripe import (
         HTTPClient as HTTPClientFromStripe,
@@ -81,7 +89,10 @@ def test_can_import_http_client() -> None:
 
 def test_can_import_webhook_members() -> None:
     from stripe.webhook import Webhook as WebhookFromStripeWebhook  # type: ignore
+
+    # fmt: off
     from stripe.webhook import WebhookSignature as WebhookSignatureFromStripeWebhook  # type: ignore
+    # fmt: on
 
     from stripe import (
         Webhook,
@@ -96,7 +107,6 @@ def test_can_import_webhook_members() -> None:
 
 
 def test_can_import_list_search_objects() -> None:
-
     # This import has to be single line, mypy and pyright are producing errors
     # on different lines of multiline import
     # fmt: off
@@ -128,8 +138,11 @@ def test_can_import_misc_resources() -> None:
         ErrorObject as ErrorObjectFromStripe,
         OAuthErrorObject as OAuthErrorObjectFromStripe,
     )
+
+    # fmt: off
     from stripe.api_resources.error_object import ErrorObject as ErrorObjectFromStripeApiResources  # type: ignore
     from stripe.api_resources.error_object import OAuthErrorObject as OAuthErrorObjectFromStripeApiResources  # type: ignore
+    # fmt: on
 
     # FileUpload is an old alias for File, time to hide it
     from stripe.api_resources import FileUpload as FileUploadFromApiResources  # type: ignore
@@ -245,9 +258,11 @@ def test_can_import_app_info() -> None:
 
 
 def test_can_import_stripe_response() -> None:
+    # fmt: off
     from stripe.stripe_response import StripeResponse as StripeResponseFromStripeResponse  # type: ignore
     from stripe.stripe_response import StripeResponseBase as StripeResponseBaseFromStripeResponse  # type: ignore
     from stripe.stripe_response import StripeStreamResponse as StripeStreamResponseFromStripeResponse  # type: ignore
+    # fmt: on
 
     from stripe import (
         StripeResponse as StripeResponseFromStripe,
@@ -288,7 +303,10 @@ def test_can_import_oauth_members() -> None:
 
 
 def test_can_import_util() -> None:
+    # fmt: off
     from stripe.util import convert_to_stripe_object as convert_to_stripe_objectFromStripeUtil  # type: ignore
+    # fmt: on
+
     from stripe import (
         convert_to_stripe_object as convert_to_stripe_objectFromStripe,
     )
@@ -383,7 +401,9 @@ def test_can_import_namespaced_resource() -> None:
 
     # This import has to be single line, mypy and pyright are producing errors
     # on different lines of multiline import
+    # fmt: off
     from stripe.api_resources.tax.calculation import Calculation as CalcFromModule  # type: ignore
+    # fmt: on
 
     assert stripe.tax is TaxPackage
     assert stripe.tax.Calculation is CalculationFromStripe

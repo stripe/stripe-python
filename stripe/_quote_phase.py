@@ -233,7 +233,6 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -254,7 +253,6 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -266,7 +264,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     def _cls_list_line_items(
         cls,
         quote_phase: str,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack["QuotePhase.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -323,7 +321,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     async def _cls_list_line_items_async(
         cls,
         quote_phase: str,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack["QuotePhase.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

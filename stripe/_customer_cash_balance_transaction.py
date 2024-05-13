@@ -20,9 +20,9 @@ class CustomerCashBalanceTransaction(StripeObject):
     to payments, and refunds to the customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["customer_cash_balance_transaction"]
-    ] = "customer_cash_balance_transaction"
+    OBJECT_NAME: ClassVar[Literal["customer_cash_balance_transaction"]] = (
+        "customer_cash_balance_transaction"
+    )
 
     class AdjustedForOverdraft(StripeObject):
         balance_transaction: ExpandableField["BalanceTransaction"]

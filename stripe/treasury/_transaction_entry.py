@@ -31,9 +31,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.transaction_entry"]
-    ] = "treasury.transaction_entry"
+    OBJECT_NAME: ClassVar[Literal["treasury.transaction_entry"]] = (
+        "treasury.transaction_entry"
+    )
 
     class BalanceImpact(StripeObject):
         cash: int
@@ -279,7 +279,6 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -300,7 +299,6 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
