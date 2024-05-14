@@ -338,7 +338,7 @@ class Account(
         """
         twint_payments: Optional[Literal["active", "inactive", "pending"]]
         """
-        The status of the Twint capability of the account, or whether the account can directly process Twint charges.
+        The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
         """
         us_bank_account_ach_payments: Optional[
             Literal["active", "inactive", "pending"]
