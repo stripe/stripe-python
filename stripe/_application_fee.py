@@ -5,6 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
@@ -26,6 +27,20 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
+
+    class FeeSource(StripeObject):
+        charge: Optional[str]
+        """
+        Charge ID that created this application fee.
+        """
+        payout: Optional[str]
+        """
+        Payout ID that created this application fee.
+        """
+        type: Literal["charge", "payout"]
+        """
+        Type of object that created the application fee, either `charge` or `payout`.
+        """
 
     class CreateRefundParams(RequestOptions):
         amount: NotRequired[int]
@@ -170,6 +185,10 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    fee_source: Optional[FeeSource]
+    """
+    Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
     """
     id: str
     """
@@ -597,3 +616,5 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 params=params,
             ),
         )
+
+    _inner_class_types = {"fee_source": FeeSource}
