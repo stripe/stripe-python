@@ -146,7 +146,7 @@ class Product(
         An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
 
         This may be up to 22 characters. The statement description may not include `<`, `>`, `\\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-         It must contain at least one letter.
+         It must contain at least one letter. Only used for subscription payments.
         """
         tax_code: NotRequired[str]
         """
@@ -433,7 +433,7 @@ class Product(
         An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
 
         This may be up to 22 characters. The statement description may not include `<`, `>`, `\\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-         It must contain at least one letter. May only be set if `type=service`.
+         It must contain at least one letter. May only be set if `type=service`. Only used for subscription payments.
         """
         tax_code: NotRequired["Literal['']|str"]
         """
@@ -556,7 +556,7 @@ class Product(
     """
     statement_descriptor: Optional[str]
     """
-    Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used.
+    Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. Only used for subscription payments.
     """
     tax_code: Optional[ExpandableField["TaxCode"]]
     """
