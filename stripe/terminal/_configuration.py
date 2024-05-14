@@ -48,6 +48,12 @@ class Configuration(
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
+    class StripeS700(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image you would like displayed on the reader.
+        """
+
     class Tipping(StripeObject):
         class Aud(StripeObject):
             fixed_amounts: Optional[List[int]]
@@ -299,6 +305,10 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        stripe_s700: NotRequired["Configuration.CreateParamsStripeS700"]
+        """
+        An object containing device type specific settings for Stripe S700 readers
+        """
         tipping: NotRequired["Literal['']|Configuration.CreateParamsTipping"]
         """
         Tipping configurations for readers supporting on-reader tips
@@ -318,6 +328,12 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsStripeS700(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class CreateParamsTipping(TypedDict):
@@ -624,6 +640,12 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        stripe_s700: NotRequired[
+            "Literal['']|Configuration.ModifyParamsStripeS700"
+        ]
+        """
+        An object containing device type specific settings for Stripe S700 readers
+        """
         tipping: NotRequired["Literal['']|Configuration.ModifyParamsTipping"]
         """
         Tipping configurations for readers supporting on-reader tips
@@ -645,6 +667,12 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class ModifyParamsStripeS700(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class ModifyParamsTipping(TypedDict):
@@ -935,6 +963,7 @@ class Configuration(
     String representing the object's type. Objects of the same type share the same value.
     """
     offline: Optional[Offline]
+    stripe_s700: Optional[StripeS700]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     deleted: Optional[Literal[True]]
@@ -1173,6 +1202,7 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepos_e": BbposWiseposE,
         "offline": Offline,
+        "stripe_s700": StripeS700,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
     }

@@ -31,6 +31,10 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        stripe_s700: NotRequired["ConfigurationService.CreateParamsStripeS700"]
+        """
+        An object containing device type specific settings for Stripe S700 readers
+        """
         tipping: NotRequired[
             "Literal['']|ConfigurationService.CreateParamsTipping"
         ]
@@ -54,6 +58,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsStripeS700(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class CreateParamsTipping(TypedDict):
@@ -368,6 +378,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        stripe_s700: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsStripeS700"
+        ]
+        """
+        An object containing device type specific settings for Stripe S700 readers
+        """
         tipping: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsTipping"
         ]
@@ -391,6 +407,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class UpdateParamsStripeS700(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class UpdateParamsTipping(TypedDict):
