@@ -918,6 +918,10 @@ class Charge(
             """
             Defines whether the authorized amount can be over-captured or not
             """
+            preferred_locales: Optional[List[str]]
+            """
+            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
+            """
             read_method: Optional[
                 Literal[
                     "contact_emv",
