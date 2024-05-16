@@ -1655,6 +1655,14 @@ class PaymentIntent(
             }
 
         class CardPresent(StripeObject):
+            class Routing(StripeObject):
+                requested_priority: Optional[
+                    Literal["domestic", "international"]
+                ]
+                """
+                Requested routing priority
+                """
+
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
@@ -1663,6 +1671,8 @@ class PaymentIntent(
             """
             Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
             """
+            routing: Optional[Routing]
+            _inner_class_types = {"routing": Routing}
 
         class Cashapp(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -5216,6 +5226,18 @@ class PaymentIntent(
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
         """
+        routing: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardPresentRouting"
+        ]
+        """
+        Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardPresentRouting(TypedDict):
+        requested_priority: NotRequired[Literal["domestic", "international"]]
+        """
+        Routing requested priority
+        """
 
     class ConfirmParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
         address: NotRequired[
@@ -8317,6 +8339,18 @@ class PaymentIntent(
         request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        """
+        routing: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardPresentRouting"
+        ]
+        """
+        Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardPresentRouting(TypedDict):
+        requested_priority: NotRequired[Literal["domestic", "international"]]
+        """
+        Routing requested priority
         """
 
     class CreateParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
@@ -11476,6 +11510,18 @@ class PaymentIntent(
         request_incremental_authorization_support: NotRequired[bool]
         """
         Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+        """
+        routing: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardPresentRouting"
+        ]
+        """
+        Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardPresentRouting(TypedDict):
+        requested_priority: NotRequired[Literal["domestic", "international"]]
+        """
+        Routing requested priority
         """
 
     class ModifyParamsPaymentMethodOptionsCardStatementDetails(TypedDict):

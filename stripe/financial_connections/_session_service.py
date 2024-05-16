@@ -71,7 +71,7 @@ class SessionService(StripeService):
         """
 
     class CreateParamsFilters(TypedDict):
-        countries: List[str]
+        countries: NotRequired[List[str]]
         """
         List of countries from which to collect accounts.
         """

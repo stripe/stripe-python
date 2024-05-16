@@ -552,6 +552,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Contains information about card networks that can be used to process the payment.
             """
+            preferred_locales: Optional[List[str]]
+            """
+            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
+            """
             read_method: Optional[
                 Literal[
                     "contact_emv",
