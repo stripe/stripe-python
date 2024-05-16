@@ -302,7 +302,7 @@ class PriceService(StripeService):
         """
         lookup_keys: NotRequired[List[str]]
         """
-        Only return the price with these lookup_keys, if any exist.
+        Only return the price with these lookup_keys, if any exist. You can specify up to 10 lookup_keys.
         """
         product: NotRequired[str]
         """
