@@ -11,9 +11,9 @@ class FinancialAccountFeatures(StripeObject):
     Stripe or the platform can control Features via the requested field.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.financial_account_features"]
-    ] = "treasury.financial_account_features"
+    OBJECT_NAME: ClassVar[Literal["treasury.financial_account_features"]] = (
+        "treasury.financial_account_features"
+    )
 
     class CardIssuing(StripeObject):
         class StatusDetail(StripeObject):

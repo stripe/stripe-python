@@ -4425,7 +4425,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingLinesParamsSubscriptionItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingLinesParamsSubscriptionItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -5253,7 +5255,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -5423,7 +5427,9 @@ class Invoice(
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
+        recurring: (
+            "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """
@@ -6203,7 +6209,6 @@ class Invoice(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -6224,7 +6229,6 @@ class Invoice(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

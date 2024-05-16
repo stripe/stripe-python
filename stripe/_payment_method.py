@@ -1919,7 +1919,7 @@ class PaymentMethod(
     def _cls_attach(
         cls,
         payment_method: str,
-        **params: Unpack["PaymentMethod.AttachParams"]
+        **params: Unpack["PaymentMethod.AttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2024,7 +2024,7 @@ class PaymentMethod(
     async def _cls_attach_async(
         cls,
         payment_method: str,
-        **params: Unpack["PaymentMethod.AttachParams"]
+        **params: Unpack["PaymentMethod.AttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2165,7 +2165,7 @@ class PaymentMethod(
     def _cls_detach(
         cls,
         payment_method: str,
-        **params: Unpack["PaymentMethod.DetachParams"]
+        **params: Unpack["PaymentMethod.DetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2222,7 +2222,7 @@ class PaymentMethod(
     async def _cls_detach_async(
         cls,
         payment_method: str,
-        **params: Unpack["PaymentMethod.DetachParams"]
+        **params: Unpack["PaymentMethod.DetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2288,7 +2288,6 @@ class PaymentMethod(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2309,7 +2308,6 @@ class PaymentMethod(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

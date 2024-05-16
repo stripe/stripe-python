@@ -1,33 +1,18 @@
-[tool.black]
+[tool.ruff]
+# same as our black config
 line-length = 79
-target-version = [
-  "py35",
-  "py36",
-  "py37",
-  "py38",
-  "py39",
-  "py310",
-  #   "py311",  # black 21.12b0 doesn't
-  #   "py312",  # support these targets
-]
-exclude = '''
-/(
-    \.eggs/
-  | \.git/
-  | \.tox/
-  | \.venv/
-  | _build/
-  | build/
-  | dist/
-  | venv/
-)
-'''
+extend-exclude = ["build"]
+
+[tool.ruff.format]
+# currently the default value, but opt-out in the future
+docstring-code-format = false
+
 [tool.pyright]
 include = [
   "stripe",
   "tests/test_generated_examples.py",
   "tests/test_exports.py",
-  "tests/test_http_client.py"
+  "tests/test_http_client.py",
 ]
 exclude = ["build", "**/__pycache__"]
 reportMissingTypeArgument = true

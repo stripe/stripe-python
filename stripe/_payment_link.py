@@ -1208,7 +1208,9 @@ class PaymentLink(
         """
 
     class CreateParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
@@ -1517,7 +1519,9 @@ class PaymentLink(
         """
 
     class CreateParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        end_behavior: (
+            "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -1992,7 +1996,9 @@ class PaymentLink(
         """
 
     class ModifyParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
@@ -2287,7 +2293,9 @@ class PaymentLink(
         """
 
     class ModifyParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+        end_behavior: (
+            "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -2501,7 +2509,6 @@ class PaymentLink(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2522,7 +2529,6 @@ class PaymentLink(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2534,7 +2540,7 @@ class PaymentLink(
     def _cls_list_line_items(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack["PaymentLink.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2591,7 +2597,7 @@ class PaymentLink(
     async def _cls_list_line_items_async(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack["PaymentLink.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

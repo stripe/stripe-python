@@ -369,7 +369,7 @@ Run the linter with:
 make lint
 ```
 
-The library uses [Black][black] for code formatting. Code must be formatted
+The library uses [Ruff][ruff] for code formatting. Code must be formatted
 with Black before PRs are submitted, otherwise CI will fail. Run the formatter
 with:
 
@@ -378,7 +378,7 @@ make fmt
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
-[black]: https://github.com/ambv/black
+[ruff]: https://github.com/astral-sh/ruff
 [connect]: https://stripe.com/connect
 [poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock

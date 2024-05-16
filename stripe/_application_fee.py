@@ -228,7 +228,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -249,7 +248,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -502,7 +500,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -523,7 +521,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -544,7 +542,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.ModifyRefundParams"]
+        **params: Unpack["ApplicationFee.ModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -567,7 +565,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.ModifyRefundParams"]
+        **params: Unpack["ApplicationFee.ModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

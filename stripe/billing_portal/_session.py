@@ -35,9 +35,9 @@ class Session(CreateableAPIResource["Session"]):
     Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing_portal.session"]
-    ] = "billing_portal.session"
+    OBJECT_NAME: ClassVar[Literal["billing_portal.session"]] = (
+        "billing_portal.session"
+    )
 
     class Flow(StripeObject):
         class AfterCompletion(StripeObject):

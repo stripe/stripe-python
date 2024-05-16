@@ -31,9 +31,9 @@ class InboundTransfer(
     Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.inbound_transfer"]
-    ] = "treasury.inbound_transfer"
+    OBJECT_NAME: ClassVar[Literal["treasury.inbound_transfer"]] = (
+        "treasury.inbound_transfer"
+    )
 
     class FailureDetails(StripeObject):
         code: Literal[
@@ -358,7 +358,7 @@ class InboundTransfer(
     def _cls_cancel(
         cls,
         inbound_transfer: str,
-        **params: Unpack["InboundTransfer.CancelParams"]
+        **params: Unpack["InboundTransfer.CancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -415,7 +415,7 @@ class InboundTransfer(
     async def _cls_cancel_async(
         cls,
         inbound_transfer: str,
-        **params: Unpack["InboundTransfer.CancelParams"]
+        **params: Unpack["InboundTransfer.CancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -513,7 +513,6 @@ class InboundTransfer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -534,7 +533,6 @@ class InboundTransfer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -681,7 +679,7 @@ class InboundTransfer(
         def _cls_return_inbound_transfer(
             cls,
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -701,7 +699,7 @@ class InboundTransfer(
         @staticmethod
         def return_inbound_transfer(
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -711,7 +709,7 @@ class InboundTransfer(
         @overload
         def return_inbound_transfer(
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -721,7 +719,7 @@ class InboundTransfer(
         @class_method_variant("_cls_return_inbound_transfer")
         def return_inbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -741,7 +739,7 @@ class InboundTransfer(
         async def _cls_return_inbound_transfer_async(
             cls,
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -761,7 +759,7 @@ class InboundTransfer(
         @staticmethod
         async def return_inbound_transfer_async(
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -771,7 +769,7 @@ class InboundTransfer(
         @overload
         async def return_inbound_transfer_async(
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -781,7 +779,7 @@ class InboundTransfer(
         @class_method_variant("_cls_return_inbound_transfer_async")
         async def return_inbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.

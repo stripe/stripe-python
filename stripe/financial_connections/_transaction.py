@@ -13,9 +13,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     A Transaction represents a real transaction that affects a Financial Connections Account balance.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.transaction"]
-    ] = "financial_connections.transaction"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.transaction"]] = (
+        "financial_connections.transaction"
+    )
 
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]
@@ -148,7 +148,6 @@ class Transaction(ListableAPIResource["Transaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -169,7 +168,6 @@ class Transaction(ListableAPIResource["Transaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

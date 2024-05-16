@@ -11,9 +11,9 @@ class MeterEventSummary(StripeObject):
     usage was accrued by a customer for that period.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing.meter_event_summary"]
-    ] = "billing.meter_event_summary"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event_summary"]] = (
+        "billing.meter_event_summary"
+    )
     aggregated_value: float
     """
     Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.

@@ -3578,7 +3578,9 @@ class Session(
         """
 
     class CreateParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "Session.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        end_behavior: (
+            "Session.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -4133,7 +4135,6 @@ class Session(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4154,7 +4155,6 @@ class Session(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

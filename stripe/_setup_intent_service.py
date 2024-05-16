@@ -1189,7 +1189,9 @@ class SetupIntentService(StripeService):
         """
 
     class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "SetupIntentService.CreateParamsMandateDataCustomerAcceptance"
+        customer_acceptance: (
+            "SetupIntentService.CreateParamsMandateDataCustomerAcceptance"
+        )
         """
         This hash contains details about the customer acceptance of the Mandate.
         """

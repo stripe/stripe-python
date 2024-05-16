@@ -1760,7 +1760,9 @@ class SetupIntent(
         """
 
     class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
+        customer_acceptance: (
+            "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
+        )
         """
         This hash contains details about the customer acceptance of the Mandate.
         """
@@ -4318,7 +4320,6 @@ class SetupIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4339,7 +4340,6 @@ class SetupIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4415,7 +4415,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -4472,7 +4472,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.

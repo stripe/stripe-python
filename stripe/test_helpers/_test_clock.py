@@ -21,9 +21,9 @@ class TestClock(
     you can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["test_helpers.test_clock"]
-    ] = "test_helpers.test_clock"
+    OBJECT_NAME: ClassVar[Literal["test_helpers.test_clock"]] = (
+        "test_helpers.test_clock"
+    )
 
     class AdvanceParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -364,7 +364,6 @@ class TestClock(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -385,7 +384,6 @@ class TestClock(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

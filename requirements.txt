@@ -5,7 +5,7 @@ tox == 4.5.0
 #Virtualenv 20.22.0 dropped support for all Python versions smaller or equal to Python 3.6.
 virtualenv<20.22.0
 pyright == 1.1.336
-black == 22.8.0
+ruff == 0.4.4
 flake8
 mypy == 1.7.0
 

@@ -6,9 +6,9 @@ from typing_extensions import Literal
 
 
 class ReserveTransaction(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["reserve_transaction"]
-    ] = "reserve_transaction"
+    OBJECT_NAME: ClassVar[Literal["reserve_transaction"]] = (
+        "reserve_transaction"
+    )
     amount: int
     currency: str
     """

@@ -2407,7 +2407,9 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "PaymentIntentService.CreateParamsMandateDataCustomerAcceptance"
+        customer_acceptance: (
+            "PaymentIntentService.CreateParamsMandateDataCustomerAcceptance"
+        )
         """
         This hash contains details about the customer acceptance of the Mandate.
         """

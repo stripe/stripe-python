@@ -32,9 +32,9 @@ class FinancialAccount(
     FinancialAccounts serve as the source and destination of Treasury's money movement APIs.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["treasury.financial_account"]
-    ] = "treasury.financial_account"
+    OBJECT_NAME: ClassVar[Literal["treasury.financial_account"]] = (
+        "treasury.financial_account"
+    )
 
     class Balance(StripeObject):
         cash: Dict[str, int]
@@ -811,7 +811,6 @@ class FinancialAccount(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -832,7 +831,6 @@ class FinancialAccount(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -900,7 +898,7 @@ class FinancialAccount(
     def _cls_retrieve_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -920,7 +918,7 @@ class FinancialAccount(
     @staticmethod
     def retrieve_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -958,7 +956,7 @@ class FinancialAccount(
     async def _cls_retrieve_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -978,7 +976,7 @@ class FinancialAccount(
     @staticmethod
     async def retrieve_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1016,7 +1014,7 @@ class FinancialAccount(
     def _cls_update_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1036,7 +1034,7 @@ class FinancialAccount(
     @staticmethod
     def update_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1074,7 +1072,7 @@ class FinancialAccount(
     async def _cls_update_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1094,7 +1092,7 @@ class FinancialAccount(
     @staticmethod
     async def update_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.

@@ -740,7 +740,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def _cls_list_line_items(
         cls,
         calculation: str,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -797,7 +797,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     async def _cls_list_line_items_async(
         cls,
         calculation: str,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.

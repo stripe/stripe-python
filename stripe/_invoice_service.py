@@ -782,7 +782,9 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsCustomerDetailsShipping(TypedDict):
-        address: "InvoiceService.CreatePreviewParamsCustomerDetailsShippingAddress"
+        address: (
+            "InvoiceService.CreatePreviewParamsCustomerDetailsShippingAddress"
+        )
         """
         Customer shipping address.
         """
@@ -2862,7 +2864,9 @@ class InvoiceService(StripeService):
         """
         The ID of the product that this price will belong to.
         """
-        recurring: "InvoiceService.UpcomingParamsSubscriptionItemPriceDataRecurring"
+        recurring: (
+            "InvoiceService.UpcomingParamsSubscriptionItemPriceDataRecurring"
+        )
         """
         The recurring components of a price such as `interval` and `interval_count`.
         """

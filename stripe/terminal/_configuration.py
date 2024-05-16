@@ -32,9 +32,9 @@ class Configuration(
     A Configurations object represents how features should be configured for terminal readers.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["terminal.configuration"]
-    ] = "terminal.configuration"
+    OBJECT_NAME: ClassVar[Literal["terminal.configuration"]] = (
+        "terminal.configuration"
+    )
 
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
@@ -1114,7 +1114,6 @@ class Configuration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1135,7 +1134,6 @@ class Configuration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

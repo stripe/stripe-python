@@ -319,7 +319,6 @@ class Transfer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -340,7 +339,6 @@ class Transfer(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -453,7 +451,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.RetrieveReversalParams"]
+        **params: Unpack["Transfer.RetrieveReversalParams"],
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -474,7 +472,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.RetrieveReversalParams"]
+        **params: Unpack["Transfer.RetrieveReversalParams"],
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -495,7 +493,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.ModifyReversalParams"]
+        **params: Unpack["Transfer.ModifyReversalParams"],
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -518,7 +516,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.ModifyReversalParams"]
+        **params: Unpack["Transfer.ModifyReversalParams"],
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
