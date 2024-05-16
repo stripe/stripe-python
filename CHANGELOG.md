@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.8.0b1 - 2024-05-16
+* [#1327](https://github.com/stripe/stripe-python/pull/1327) Update generated code for beta
+
+* [#1330](https://github.com/stripe/stripe-python/pull/1330) (beta) swap from `black` to `ruff` for formatting
+
 ## 9.7.0b1 - 2024-05-09
 * [#1321](https://github.com/stripe/stripe-python/pull/1321) Update generated code for beta
   * No new beta features. Merging changes from the main branch.
