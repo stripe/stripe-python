@@ -1512,7 +1512,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataTwint"
         ]
         """
-        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         """
         type: Literal[
             "acss_debit",

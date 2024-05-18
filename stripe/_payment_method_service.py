@@ -209,7 +209,7 @@ class PaymentMethodService(StripeService):
         """
         twint: NotRequired["PaymentMethodService.CreateParamsTwint"]
         """
-        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         """
         type: NotRequired[
             Literal[
