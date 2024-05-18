@@ -1303,7 +1303,7 @@ class Quote(
     class CreateParamsLineActionAddItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -1421,7 +1421,7 @@ class Quote(
     class CreateParamsLineActionSetItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -2807,7 +2807,7 @@ class Quote(
     class ModifyParamsLineActionAddItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -2925,7 +2925,7 @@ class Quote(
     class ModifyParamsLineActionSetItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
