@@ -268,7 +268,7 @@ class Account(
         """
         mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
-        The status of the MobilepPay capability of the account, or whether the account can directly process MobilePay charges.
+        The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
         """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
