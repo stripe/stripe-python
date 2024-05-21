@@ -1116,11 +1116,11 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired["Invoice.AddLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -2353,13 +2353,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "Invoice.CreatePreviewParamsInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -3188,13 +3188,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "Invoice.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -3726,13 +3726,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "Invoice.CreatePreviewParamsSubscriptionDetailsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -5130,13 +5130,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "Invoice.UpcomingLinesParamsInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -5965,13 +5965,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -6503,13 +6503,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "Invoice.UpcomingLinesParamsSubscriptionDetailsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -6659,13 +6659,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "Invoice.UpcomingLinesParamsSubscriptionItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -7187,11 +7187,11 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired["Invoice.UpcomingParamsInvoiceItemPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -8002,13 +8002,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "Invoice.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -8524,13 +8524,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "Invoice.UpcomingParamsSubscriptionDetailsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -8676,13 +8676,13 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "Invoice.UpcomingParamsSubscriptionItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -8840,11 +8840,11 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired["Invoice.UpdateLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
