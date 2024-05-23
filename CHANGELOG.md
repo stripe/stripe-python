@@ -5,6 +5,12 @@
   * Change type of `refund` on  `stripe.CreditNote.CreateParamsRefund`, `stripe.CreditNote.PreviewParamsRefund`, and `stripe.CreditNote.PreviewLinesParamsRefund` from `str` to `NotRequired[str]`
   * Add support for `terminal_reader_invalid_location_for_payment` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
 
+## 9.8.0 - 2024-05-23
+* [#1332](https://github.com/stripe/stripe-python/pull/1332) Update generated code
+  * Add support for `external_account_collection` on resource classes `stripe.AccountSession.Components.Balances.Features` and `stripe.AccountSession.Components.Payouts.Features` and parameter classes `stripe.AccountSession.CreateParamsComponentsBalancesFeatures` and `stripe.AccountSession.CreateParamsComponentsPayoutsFeatures`
+  * Add support for `payment_method_remove` on resource class `stripe.checkout.Session.SavedPaymentMethodOptions`
+  * Add support for `terminal_reader_invalid_location_for_payment` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
+
 ## 9.8.0b1 - 2024-05-16
 * [#1327](https://github.com/stripe/stripe-python/pull/1327) Update generated code for beta
 
