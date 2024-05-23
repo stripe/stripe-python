@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.9.0b1 - 2024-05-23
+* [#1331](https://github.com/stripe/stripe-python/pull/1331) Update generated code for beta
+  * Change type of `refund` on  `stripe.CreditNote.CreateParamsRefund`, `stripe.CreditNote.PreviewParamsRefund`, and `stripe.CreditNote.PreviewLinesParamsRefund` from `str` to `NotRequired[str]`
+  * Add support for `terminal_reader_invalid_location_for_payment` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+
 ## 9.8.0b1 - 2024-05-16
 * [#1327](https://github.com/stripe/stripe-python/pull/1327) Update generated code for beta
 
