@@ -55,6 +55,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
                 """
+                external_account_collection: bool
+                """
+                Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+                """
                 instant_payouts: bool
                 """
                 Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
@@ -153,6 +157,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 edit_payout_schedule: bool
                 """
                 Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+                external_account_collection: bool
+                """
+                Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
                 """
                 instant_payouts: bool
                 """
@@ -319,6 +327,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
         instant_payouts: NotRequired[bool]
         """
         Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
@@ -437,6 +449,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         edit_payout_schedule: NotRequired[bool]
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
         """
         instant_payouts: NotRequired[bool]
         """

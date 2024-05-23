@@ -302,11 +302,11 @@ class SubscriptionItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired["SubscriptionItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
