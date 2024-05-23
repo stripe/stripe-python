@@ -71,11 +71,11 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired["InvoiceService.AddLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -1324,13 +1324,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "InvoiceService.CreatePreviewParamsInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -1851,7 +1851,7 @@ class InvoiceService(StripeService):
     ):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -1955,7 +1955,7 @@ class InvoiceService(StripeService):
     ):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -2159,13 +2159,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -2513,7 +2513,7 @@ class InvoiceService(StripeService):
     class CreatePreviewParamsScheduleDetailsPhaseItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -2697,13 +2697,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "InvoiceService.CreatePreviewParamsSubscriptionDetailsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -3423,13 +3423,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "InvoiceService.UpcomingParamsInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -3944,7 +3944,7 @@ class InvoiceService(StripeService):
     class UpcomingParamsScheduleDetailsAmendmentItemActionAddTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -4044,7 +4044,7 @@ class InvoiceService(StripeService):
     class UpcomingParamsScheduleDetailsAmendmentItemActionSetTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -4244,13 +4244,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "InvoiceService.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -4582,7 +4582,7 @@ class InvoiceService(StripeService):
     class UpcomingParamsScheduleDetailsPhaseItemTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -4764,13 +4764,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "InvoiceService.UpcomingParamsSubscriptionDetailsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -4914,13 +4914,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "InvoiceService.UpcomingParamsSubscriptionItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -5080,13 +5080,13 @@ class InvoiceService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "InvoiceService.UpdateLinesParamsLinePriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """

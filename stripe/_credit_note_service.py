@@ -145,7 +145,7 @@ class CreditNoteService(StripeService):
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         """
-        refund: str
+        refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to.
         """
@@ -330,7 +330,7 @@ class CreditNoteService(StripeService):
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         """
-        refund: str
+        refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to.
         """

@@ -199,7 +199,7 @@ class SubscriptionItemService(StripeService):
     class CreateParamsTrial(TypedDict):
         converts_to: NotRequired[List[str]]
         """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
         """
         type: Literal["free", "paid"]
         """
@@ -298,13 +298,13 @@ class SubscriptionItemService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "SubscriptionItemService.UpdateParamsPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]

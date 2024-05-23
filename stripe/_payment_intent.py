@@ -261,6 +261,7 @@ class PaymentIntent(
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
                 "terminal_reader_hardware_fault",
+                "terminal_reader_invalid_location_for_payment",
                 "terminal_reader_offline",
                 "terminal_reader_timeout",
                 "testmode_charges_only",
@@ -4126,7 +4127,7 @@ class PaymentIntent(
         """
         twint: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataTwint"]
         """
-        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         """
         type: Literal[
             "acss_debit",
@@ -7240,7 +7241,7 @@ class PaymentIntent(
         """
         twint: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataTwint"]
         """
-        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         """
         type: Literal[
             "acss_debit",
@@ -10411,7 +10412,7 @@ class PaymentIntent(
         """
         twint: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataTwint"]
         """
-        If this is a Twint PaymentMethod, this hash contains details about the Twint payment method.
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         """
         type: Literal[
             "acss_debit",
