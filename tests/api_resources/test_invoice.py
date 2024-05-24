@@ -144,3 +144,7 @@ class TestInvoice(object):
         seen = [item["id"] for item in resource.lines.auto_paging_iter()]
 
         assert seen.__len__() > 0
+
+    def test_can_list_line_items(self):
+        resource = stripe.Invoice.list_lines(TEST_RESOURCE_ID)
+        assert isinstance(resource.data, list)

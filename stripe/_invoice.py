@@ -5,6 +5,7 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -51,6 +52,7 @@ if TYPE_CHECKING:
     from stripe.test_helpers._test_clock import TestClock
 
 
+@nested_resource_class_methods("line")
 class Invoice(
     CreateableAPIResource["Invoice"],
     DeletableAPIResource["Invoice"],
@@ -2579,6 +2581,24 @@ class Invoice(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+
+    class ListLinesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListParams(RequestOptions):
@@ -6882,6 +6902,42 @@ class Invoice(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> AsyncIterator["Invoice"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    def list_lines(
+        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/invoices/{invoice}/lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_lines_async(
+        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/invoices/{invoice}/lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
