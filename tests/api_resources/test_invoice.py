@@ -148,3 +148,4 @@ class TestInvoice(object):
     def test_can_list_line_items(self):
         resource = stripe.Invoice.list_lines(TEST_RESOURCE_ID)
         assert isinstance(resource.data, list)
+        assert isinstance(resource.data[0], stripe.InvoiceLineItem)
