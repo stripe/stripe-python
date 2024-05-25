@@ -1750,6 +1750,7 @@ class PaymentIntentService(StripeService):
                 "en-NZ",
                 "en-PL",
                 "en-PT",
+                "en-RO",
                 "en-SE",
                 "en-US",
                 "es-ES",
@@ -1766,6 +1767,7 @@ class PaymentIntentService(StripeService):
                 "nl-NL",
                 "pl-PL",
                 "pt-PT",
+                "ro-RO",
                 "sv-FI",
                 "sv-SE",
             ]
@@ -3975,6 +3977,7 @@ class PaymentIntentService(StripeService):
                 "en-NZ",
                 "en-PL",
                 "en-PT",
+                "en-RO",
                 "en-SE",
                 "en-US",
                 "es-ES",
@@ -3991,6 +3994,7 @@ class PaymentIntentService(StripeService):
                 "nl-NL",
                 "pl-PL",
                 "pt-PT",
+                "ro-RO",
                 "sv-FI",
                 "sv-SE",
             ]
@@ -6222,6 +6226,7 @@ class PaymentIntentService(StripeService):
                 "en-NZ",
                 "en-PL",
                 "en-PT",
+                "en-RO",
                 "en-SE",
                 "en-US",
                 "es-ES",
@@ -6238,6 +6243,7 @@ class PaymentIntentService(StripeService):
                 "nl-NL",
                 "pl-PL",
                 "pt-PT",
+                "ro-RO",
                 "sv-FI",
                 "sv-SE",
             ]
