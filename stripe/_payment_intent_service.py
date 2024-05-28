@@ -2547,11 +2547,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsAffirm(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[str]
         """
@@ -2571,11 +2571,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         reference: NotRequired[str]
         """
@@ -2610,11 +2610,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
@@ -2710,11 +2710,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         cvc_token: NotRequired[str]
         """
@@ -3041,11 +3041,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsCashapp(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
@@ -3196,11 +3196,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -3297,11 +3297,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         persistent_token: NotRequired[str]
         """
@@ -3323,11 +3323,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -3570,11 +3570,11 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
@@ -5703,11 +5703,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[str]
         """
@@ -5727,11 +5727,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         reference: NotRequired[str]
         """
@@ -5766,11 +5766,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
@@ -5866,11 +5866,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         cvc_token: NotRequired[str]
         """
@@ -6197,11 +6197,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
@@ -6352,11 +6352,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -6453,11 +6453,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         persistent_token: NotRequired[str]
         """
@@ -6479,11 +6479,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6726,11 +6726,11 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
@@ -8946,11 +8946,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsAffirm(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[str]
         """
@@ -8970,11 +8970,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         reference: NotRequired[str]
         """
@@ -9009,11 +9009,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
@@ -9109,11 +9109,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsCard(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         cvc_token: NotRequired[str]
         """
@@ -9440,11 +9440,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsCashapp(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
@@ -9595,11 +9595,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -9696,11 +9696,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         persistent_token: NotRequired[str]
         """
@@ -9722,11 +9722,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -9969,11 +9969,11 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
-        Controls when the funds will be captured from the customer's account.
+        Controls when the funds are captured from the customer's account.
 
-        If provided, this parameter will override the top level behavior of `capture_method` when finalizing the payment with this payment method type.
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
