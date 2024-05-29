@@ -4,7 +4,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List
 from typing_extensions import Literal, NotRequired, Unpack
 
 
@@ -63,7 +63,7 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         Specifies which fields in the response should be expanded.
         """
 
-    features: Optional[Features]
+    features: Features
     id: str
     """
     Unique identifier for the object.
