@@ -1020,7 +1020,7 @@ class InvoiceService(StripeService):
         """
         subscription: NotRequired[str]
         """
-        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
+        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_details.items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_details.items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
         """
         subscription_details: NotRequired[
             "InvoiceService.CreatePreviewParamsSubscriptionDetails"
@@ -3065,7 +3065,7 @@ class InvoiceService(StripeService):
         """
         subscription: NotRequired[str]
         """
-        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
+        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_details.items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_details.items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
         """
         subscription_billing_cycle_anchor: NotRequired[
             "Literal['now', 'unchanged']|int"
