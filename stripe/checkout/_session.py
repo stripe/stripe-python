@@ -3466,7 +3466,7 @@ class Session(
             "Session.CreateParamsShippingOptionShippingRateData"
         ]
         """
-        Parameters to be passed to Shipping Rate creation for this shipping option
+        Parameters to be passed to Shipping Rate creation for this shipping option.
         """
 
     class CreateParamsShippingOptionShippingRateData(TypedDict):
