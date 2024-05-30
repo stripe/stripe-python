@@ -448,6 +448,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["SessionService.CreateParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -474,6 +478,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -484,6 +492,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1926,7 +1938,7 @@ class SessionService(StripeService):
             "SessionService.CreateParamsShippingOptionShippingRateData"
         ]
         """
-        Parameters to be passed to Shipping Rate creation for this shipping option
+        Parameters to be passed to Shipping Rate creation for this shipping option.
         """
 
     class CreateParamsShippingOptionShippingRateData(TypedDict):

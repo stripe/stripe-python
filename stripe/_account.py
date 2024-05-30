@@ -707,6 +707,7 @@ class Account(
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
@@ -855,6 +856,7 @@ class Account(
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
@@ -1264,7 +1266,7 @@ class Account(
         """
         tos_acceptance: NotRequired["Account.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
         """
         type: NotRequired[Literal["custom", "express", "standard"]]
         """

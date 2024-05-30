@@ -119,6 +119,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
@@ -267,6 +268,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
