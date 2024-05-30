@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.10.0b1 - 2024-05-30
+* [#1334](https://github.com/stripe/stripe-python/pull/1334) Update generated code for beta
+  * Add support for `en-RO` on enums `stripe.Order.CreateParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale` and `stripe.Order.ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale`
+  * Add support for `ro-RO` on enums `stripe.Order.CreateParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale` and `stripe.Order.ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale`
+
 ## 9.9.0b1 - 2024-05-23
 * [#1331](https://github.com/stripe/stripe-python/pull/1331) Update generated code for beta
   * Change type of `refund` on  `stripe.CreditNote.CreateParamsRefund`, `stripe.CreditNote.PreviewParamsRefund`, and `stripe.CreditNote.PreviewLinesParamsRefund` from `str` to `NotRequired[str]`
