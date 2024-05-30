@@ -175,6 +175,10 @@ class Session(
                 The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
                 """
 
+            default_value: Optional[str]
+            """
+            The value that will pre-fill on the payment page.
+            """
             options: List[Option]
             """
             The options available for the customer to select. Up to 200 options allowed.
@@ -196,6 +200,10 @@ class Session(
             """
 
         class Numeric(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -210,6 +218,10 @@ class Session(
             """
 
         class Text(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -1969,6 +1981,10 @@ class Session(
         """
 
     class CreateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["Session.CreateParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -1995,6 +2011,10 @@ class Session(
         """
 
     class CreateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -2005,6 +2025,10 @@ class Session(
         """
 
     class CreateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -3442,7 +3466,7 @@ class Session(
             "Session.CreateParamsShippingOptionShippingRateData"
         ]
         """
-        Parameters to be passed to Shipping Rate creation for this shipping option
+        Parameters to be passed to Shipping Rate creation for this shipping option.
         """
 
     class CreateParamsShippingOptionShippingRateData(TypedDict):
