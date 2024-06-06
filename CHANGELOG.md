@@ -1,3 +1,8 @@
+## 9.10.0 - 2024-06-06
+* [#1340](https://github.com/stripe/stripe-python/pull/1340) Update generated code
+  * Add support for `gb_bank_transfer_payments`, `jp_bank_transfer_payments`, `mx_bank_transfer_payments`, `sepa_bank_transfer_payments`, `us_bank_transfer_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
+  * Add support for `swish` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
+
 ## 9.9.0 - 2024-05-30
 * [#1335](https://github.com/stripe/stripe-python/pull/1335) Add method to list invoice line items
   * Add methods `list_lines()` and `list_lines_async()` on the class `Invoice` to list the invoice line items
