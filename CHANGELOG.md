@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.11.0b1 - 2024-06-06
+* [#1339](https://github.com/stripe/stripe-python/pull/1339) Update generated code for beta
+  * Add support for `twint` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptions`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptions`, and `stripe.PaymentIntent.ModifyParamsPaymentMethodOptions` and resource class `stripe.PaymentIntent.PaymentMethodOptions`
+  * Add support for `swish` on enum `stripe.QuotePreviewInvoice.PaymentSettings.payment_method_types`
+
 ## 9.10.0b1 - 2024-05-30
 * [#1334](https://github.com/stripe/stripe-python/pull/1334) Update generated code for beta
   * Add support for `en-RO` on enums `stripe.Order.CreateParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale` and `stripe.Order.ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna.preferred_locale`
