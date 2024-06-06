@@ -269,7 +269,7 @@ class OrderService(StripeService):
         options: RequestOptions = {},
     ) -> Order:
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -295,7 +295,7 @@ class OrderService(StripeService):
         options: RequestOptions = {},
     ) -> Order:
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
