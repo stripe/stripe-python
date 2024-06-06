@@ -193,13 +193,13 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
                 "IssuingDisputeResource",
                 "Transaction",
                 "Payout",
+                "PlatformTaxFee",
                 "Refund",
                 "ReserveTransaction",
                 "TaxDeductedAtSource",
                 "Topup",
                 "Transfer",
                 "Reversal",
-                "PlatformTaxFee",
             ]
         ]
     ]
