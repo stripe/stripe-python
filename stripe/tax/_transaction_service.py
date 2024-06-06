@@ -166,7 +166,7 @@ class TransactionService(StripeService):
         options: RequestOptions = {},
     ) -> Transaction:
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             Transaction,
@@ -186,7 +186,7 @@ class TransactionService(StripeService):
         options: RequestOptions = {},
     ) -> Transaction:
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             Transaction,

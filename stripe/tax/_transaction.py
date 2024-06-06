@@ -493,7 +493,7 @@ class Transaction(APIResource["Transaction"]):
         cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             "Transaction",
@@ -509,7 +509,7 @@ class Transaction(APIResource["Transaction"]):
         cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             "Transaction",

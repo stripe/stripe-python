@@ -3959,7 +3959,7 @@ class Session(
     """
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     """
-    The ID of the PaymentIntent for Checkout Sessions in `payment` mode.
+    The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
     """
     payment_link: Optional[ExpandableField["PaymentLink"]]
     """
@@ -4008,7 +4008,7 @@ class Session(
     """
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     """
-    The ID of the SetupIntent for Checkout Sessions in `setup` mode.
+    The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
     """
     shipping_address_collection: Optional[ShippingAddressCollection]
     """
