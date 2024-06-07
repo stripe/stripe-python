@@ -47,7 +47,7 @@ class ShippingRateService(StripeService):
         """
         type: NotRequired[Literal["fixed_amount"]]
         """
-        The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
+        The type of calculation to use on the shipping rate.
         """
 
     class CreateParamsDeliveryEstimate(TypedDict):
