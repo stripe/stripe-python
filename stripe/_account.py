@@ -282,6 +282,10 @@ class Account(
         """
         The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
         """
+        multibanco_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Multibanco payments capability of the account, or whether the account can directly process Multibanco charges.
+        """
         mx_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -1601,6 +1605,12 @@ class Account(
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
         mx_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesMxBankTransferPayments"
         ]
@@ -1863,6 +1873,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMultibancoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

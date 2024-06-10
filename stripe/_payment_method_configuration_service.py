@@ -165,6 +165,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
         """
+        multibanco: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
+        """
         name: NotRequired[str]
         """
         Configuration name.
@@ -618,6 +624,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsOxxoDisplayPreference"
@@ -972,6 +992,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
         """
         name: NotRequired[str]
         """
@@ -1417,6 +1443,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsMultibancoDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

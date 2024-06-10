@@ -187,6 +187,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -275,6 +281,7 @@ class ConfirmationTokenService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -554,6 +561,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):

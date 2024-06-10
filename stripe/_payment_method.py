@@ -967,6 +967,9 @@ class PaymentMethod(
     class Mobilepay(StripeObject):
         pass
 
+    class Multibanco(StripeObject):
+        pass
+
     class Oxxo(StripeObject):
         pass
 
@@ -1309,6 +1312,10 @@ class PaymentMethod(
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired["PaymentMethod.CreateParamsMultibanco"]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1381,6 +1388,7 @@ class PaymentMethod(
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -1689,6 +1697,9 @@ class PaymentMethod(
     class CreateParamsMobilepay(TypedDict):
         pass
 
+    class CreateParamsMultibanco(TypedDict):
+        pass
+
     class CreateParamsOxxo(TypedDict):
         pass
 
@@ -1842,6 +1853,7 @@ class PaymentMethod(
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -2031,6 +2043,7 @@ class PaymentMethod(
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     mobilepay: Optional[Mobilepay]
+    multibanco: Optional[Multibanco]
     object: Literal["payment_method"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -2074,6 +2087,7 @@ class PaymentMethod(
         "konbini",
         "link",
         "mobilepay",
+        "multibanco",
         "oxxo",
         "p24",
         "paynow",
@@ -2577,6 +2591,7 @@ class PaymentMethod(
         "konbini": Konbini,
         "link": Link,
         "mobilepay": Mobilepay,
+        "multibanco": Multibanco,
         "oxxo": Oxxo,
         "p24": P24,
         "paynow": Paynow,

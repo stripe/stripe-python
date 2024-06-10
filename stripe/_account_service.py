@@ -406,6 +406,12 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
         mx_bank_transfer_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesMxBankTransferPayments"
         ]
@@ -672,6 +678,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMultibancoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2068,6 +2080,12 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
         mx_bank_transfer_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesMxBankTransferPayments"
         ]
@@ -2334,6 +2352,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesMobilepayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesMultibancoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

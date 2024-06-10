@@ -993,6 +993,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Mobilepay(StripeObject):
             pass
 
+        class Multibanco(StripeObject):
+            pass
+
         class Oxxo(StripeObject):
             pass
 
@@ -1225,6 +1228,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         konbini: Optional[Konbini]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
+        multibanco: Optional[Multibanco]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         paynow: Optional[Paynow]
@@ -1260,6 +1264,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -1306,6 +1311,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "konbini": Konbini,
             "link": Link,
             "mobilepay": Mobilepay,
+            "multibanco": Multibanco,
             "oxxo": Oxxo,
             "p24": P24,
             "paynow": Paynow,
@@ -1534,6 +1540,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1618,6 +1630,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -1895,6 +1908,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):

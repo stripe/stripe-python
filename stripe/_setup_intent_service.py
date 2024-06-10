@@ -256,6 +256,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -344,6 +350,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -623,6 +630,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -1376,6 +1386,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1460,6 +1476,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -1737,6 +1754,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -2467,6 +2487,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -2551,6 +2577,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -2828,6 +2855,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):

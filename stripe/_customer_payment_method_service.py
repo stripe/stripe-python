@@ -57,6 +57,7 @@ class CustomerPaymentMethodService(StripeService):
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
