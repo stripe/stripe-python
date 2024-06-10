@@ -25,11 +25,11 @@ class SubscriptionService(StripeService):
         """
         invoice_now: NotRequired[bool]
         """
-        Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+        Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
         """
         prorate: NotRequired[bool]
         """
-        Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+        Will generate a proration invoice item that credits remaining unused time until the subscription period end. Defaults to `false`.
         """
 
     class CancelParamsCancellationDetails(TypedDict):
