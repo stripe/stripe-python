@@ -471,7 +471,7 @@ class QuoteLine(StripeObject):
     """
     billing_cycle_anchor: Optional[Literal["automatic", "line_starts_at"]]
     """
-    For a point-in-time operation, this attribute lets you set or update whether the subscription's billing cycle anchor is reset at the `starts_at` timestamp.
+    For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
     """
     cancel_subscription_schedule: Optional[CancelSubscriptionSchedule]
     """
