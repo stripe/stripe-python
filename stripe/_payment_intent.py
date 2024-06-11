@@ -1674,6 +1674,16 @@ class PaymentIntent(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
             """
 
+        class Twint(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 permissions: Optional[
@@ -1798,6 +1808,7 @@ class PaymentIntent(
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
+        twint: Optional[Twint]
         us_bank_account: Optional[UsBankAccount]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -1837,6 +1848,7 @@ class PaymentIntent(
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
+            "twint": Twint,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -2336,6 +2348,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2369,6 +2385,7 @@ class PaymentIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2715,6 +2732,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -2953,6 +2973,12 @@ class PaymentIntent(
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
@@ -3986,6 +4012,18 @@ class PaymentIntent(
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsTwint(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -4567,6 +4605,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -4600,6 +4642,7 @@ class PaymentIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -4946,6 +4989,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -5184,6 +5230,12 @@ class PaymentIntent(
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
@@ -6217,6 +6269,18 @@ class PaymentIntent(
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsTwint(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -6792,6 +6856,10 @@ class PaymentIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -6825,6 +6893,7 @@ class PaymentIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -7171,6 +7240,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -7409,6 +7481,12 @@ class PaymentIntent(
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
@@ -8431,6 +8509,18 @@ class PaymentIntent(
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsTwint(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.

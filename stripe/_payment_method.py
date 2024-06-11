@@ -1083,6 +1083,9 @@ class PaymentMethod(
     class Swish(StripeObject):
         pass
 
+    class Twint(StripeObject):
+        pass
+
     class UsBankAccount(StripeObject):
         class Networks(StripeObject):
             preferred: Optional[str]
@@ -1364,6 +1367,10 @@ class PaymentMethod(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentMethod.CreateParamsTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: NotRequired[
             Literal[
                 "acss_debit",
@@ -1399,6 +1406,7 @@ class PaymentMethod(
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -1774,6 +1782,9 @@ class PaymentMethod(
     class CreateParamsSwish(TypedDict):
         pass
 
+    class CreateParamsTwint(TypedDict):
+        pass
+
     class CreateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -1864,6 +1875,7 @@ class PaymentMethod(
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -2062,6 +2074,7 @@ class PaymentMethod(
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
+    twint: Optional[Twint]
     type: Literal[
         "acss_debit",
         "affirm",
@@ -2098,6 +2111,7 @@ class PaymentMethod(
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -2603,6 +2617,7 @@ class PaymentMethod(
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "swish": Swish,
+        "twint": Twint,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,

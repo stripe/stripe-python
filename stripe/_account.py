@@ -352,6 +352,10 @@ class Account(
         """
         The status of the banking capability, or whether the account can have bank accounts.
         """
+        twint_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
+        """
         us_bank_account_ach_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -1691,6 +1695,12 @@ class Account(
         """
         The treasury capability.
         """
+        twint_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
+        """
         us_bank_account_ach_payments: NotRequired[
             "Account.CreateParamsCapabilitiesUsBankAccountAchPayments"
         ]
@@ -1963,6 +1973,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTwintPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

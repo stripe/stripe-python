@@ -1103,6 +1103,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Swish(StripeObject):
             pass
 
+        class Twint(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             class Networks(StripeObject):
                 preferred: Optional[str]
@@ -1239,6 +1242,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
+        twint: Optional[Twint]
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1275,6 +1279,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1322,6 +1327,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
+            "twint": Twint,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -1608,6 +1614,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataTwint"
+        ]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1641,6 +1653,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1985,6 +1998,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):

@@ -199,6 +199,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentMethodService.CreateParamsTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: NotRequired[
             Literal[
                 "acss_debit",
@@ -234,6 +238,7 @@ class PaymentMethodService(StripeService):
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -611,6 +616,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsSwish(TypedDict):
         pass
 
+    class CreateParamsTwint(TypedDict):
+        pass
+
     class CreateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -701,6 +709,7 @@ class PaymentMethodService(StripeService):
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
