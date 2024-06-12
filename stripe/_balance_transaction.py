@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     )
     from stripe._dispute import Dispute as DisputeResource
     from stripe._payout import Payout
-    from stripe._platform_tax_fee import PlatformTaxFee
     from stripe._refund import Refund
     from stripe._reserve_transaction import ReserveTransaction
     from stripe._reversal import Reversal
@@ -193,7 +192,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
                 "IssuingDisputeResource",
                 "Transaction",
                 "Payout",
-                "PlatformTaxFee",
                 "Refund",
                 "ReserveTransaction",
                 "TaxDeductedAtSource",

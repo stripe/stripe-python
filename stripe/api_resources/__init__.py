@@ -92,7 +92,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.payout import Payout
     from stripe.api_resources.person import Person
     from stripe.api_resources.plan import Plan
-    from stripe.api_resources.platform_tax_fee import PlatformTaxFee
     from stripe.api_resources.price import Price
     from stripe.api_resources.product import Product
     from stripe.api_resources.product_feature import ProductFeature
