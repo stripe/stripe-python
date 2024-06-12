@@ -179,43 +179,28 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
 
 class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
     def test_should_retry_on_codes(self):
-        one_xx = list(range(100, 104))
-        two_xx = list(range(200, 209))
-        three_xx = list(range(300, 308))
-        four_xx = list(range(400, 431))
-
         client = _http_client.new_default_http_client()
-        codes = one_xx + two_xx + three_xx + four_xx
-        codes.remove(409)
+
+        no_retry_codes = {
+            *range(100, 104),
+            *range(200, 209),
+            *range(300, 308),
+            *range(400, 431),
+        } - {409, 429}
 
         # These status codes should not be retried by default.
-        for code in codes:
-            assert (
-                client._should_retry(
-                    (None, code, None), None, 0, max_network_retries=1
-                )
-                is False
+        for code in no_retry_codes:
+            assert not client._should_retry(
+                (None, code, None), None, 0, max_network_retries=1
             )
 
+        retry_codes = [409, 429, 500, 503]
+
         # These status codes should be retried by default.
-        assert (
-            client._should_retry(
+        for code in retry_codes:
+            assert client._should_retry(
                 (None, 409, None), None, 0, max_network_retries=1
             )
-            is True
-        )
-        assert (
-            client._should_retry(
-                (None, 500, None), None, 0, max_network_retries=1
-            )
-            is True
-        )
-        assert (
-            client._should_retry(
-                (None, 503, None), None, 0, max_network_retries=1
-            )
-            is True
-        )
 
     def test_should_retry_on_error(self, mocker):
         client = _http_client.new_default_http_client()

@@ -184,9 +184,9 @@ class HTTPClient(object):
         num_retries: int,
         max_network_retries: Optional[int],
     ):
-        max_network_retries = (
-            max_network_retries if max_network_retries is not None else 0
-        )
+        if max_network_retries is None:
+            max_network_retries = stripe.max_network_retries
+
         if num_retries >= max_network_retries:
             return False
 
@@ -211,7 +211,7 @@ class HTTPClient(object):
                 return True
 
         # Retry on conflict errors.
-        if status_code == 409:
+        if status_code == 409 or status_code == 429:
             return True
 
         # Retry on 500, 503, and other internal errors.

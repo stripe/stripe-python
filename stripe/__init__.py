@@ -38,7 +38,7 @@ proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
 app_info: Optional[AppInfo] = None
 enable_telemetry: bool = True
-max_network_retries: int = 0
+max_network_retries: int = 2
 ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
