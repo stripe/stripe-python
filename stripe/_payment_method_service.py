@@ -145,6 +145,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired["PaymentMethodService.CreateParamsMultibanco"]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired["PaymentMethodService.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -195,6 +199,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["PaymentMethodService.CreateParamsTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: NotRequired[
             Literal[
                 "acss_debit",
@@ -219,6 +227,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -229,6 +238,7 @@ class PaymentMethodService(StripeService):
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -529,6 +539,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsMobilepay(TypedDict):
         pass
 
+    class CreateParamsMultibanco(TypedDict):
+        pass
+
     class CreateParamsOxxo(TypedDict):
         pass
 
@@ -601,6 +614,9 @@ class PaymentMethodService(StripeService):
         """
 
     class CreateParamsSwish(TypedDict):
+        pass
+
+    class CreateParamsTwint(TypedDict):
         pass
 
     class CreateParamsUsBankAccount(TypedDict):
@@ -682,6 +698,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -692,6 +709,7 @@ class PaymentMethodService(StripeService):
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",

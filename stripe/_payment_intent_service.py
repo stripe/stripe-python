@@ -373,6 +373,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -439,6 +445,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataTwint"
+        ]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -461,6 +473,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -471,6 +484,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -742,6 +756,9 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -814,6 +831,9 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -989,6 +1009,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
+        multibanco: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsOxxo"
         ]
@@ -1048,6 +1074,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccount"
@@ -1860,6 +1892,18 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsMultibanco(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -2058,6 +2102,18 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsTwint(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2600,6 +2656,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -2666,6 +2728,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataTwint"
+        ]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -2688,6 +2756,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -2698,6 +2767,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2969,6 +3039,9 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -3041,6 +3114,9 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -3216,6 +3292,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
+        multibanco: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsOxxo"
         ]
@@ -3275,6 +3357,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsUsBankAccount"
@@ -4087,6 +4175,18 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsMultibanco(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -4285,6 +4385,18 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsTwint(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4849,6 +4961,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -4915,6 +5033,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataTwint"
+        ]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -4937,6 +5061,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -4947,6 +5072,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -5218,6 +5344,9 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -5290,6 +5419,9 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -5465,6 +5597,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
         """
+        multibanco: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsOxxo"
         ]
@@ -5524,6 +5662,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+        """
+        twint: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsTwint"
+        ]
+        """
+        If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
         """
         us_bank_account: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsUsBankAccount"
@@ -6336,6 +6480,18 @@ class PaymentIntentService(StripeService):
         If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsMultibanco(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
     class UpdateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -6534,6 +6690,18 @@ class PaymentIntentService(StripeService):
         """
         The order ID displayed in the Swish app after the payment is authorized.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsTwint(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.

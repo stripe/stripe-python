@@ -406,6 +406,12 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
         mx_bank_transfer_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesMxBankTransferPayments"
         ]
@@ -489,6 +495,12 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        twint_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
         """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesUsBankAccountAchPayments"
@@ -677,6 +689,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesMultibancoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesMxBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -756,6 +774,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTwintPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2068,6 +2092,12 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
         mx_bank_transfer_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesMxBankTransferPayments"
         ]
@@ -2151,6 +2181,12 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        twint_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
         """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesUsBankAccountAchPayments"
@@ -2339,6 +2375,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesMultibancoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesMxBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2418,6 +2460,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTwintPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
