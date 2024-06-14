@@ -1088,7 +1088,7 @@ class Order(
         """
         ID of the product this price belongs to.
 
-        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
+        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -2312,7 +2312,7 @@ class Order(
         """
         ID of the product this price belongs to.
 
-        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
+        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
