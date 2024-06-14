@@ -1034,6 +1034,12 @@ class PaymentLinkService(StripeService):
         """
         When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
         """
+        tax_id_collection: NotRequired[
+            "PaymentLinkService.UpdateParamsTaxIdCollection"
+        ]
+        """
+        Controls tax ID collection during checkout.
+        """
 
     class UpdateParamsAfterCompletion(TypedDict):
         hosted_confirmation: NotRequired[
@@ -1654,6 +1660,12 @@ class PaymentLinkService(StripeService):
         missing_payment_method: Literal["cancel", "create_invoice", "pause"]
         """
         Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        """
+
+    class UpdateParamsTaxIdCollection(TypedDict):
+        enabled: bool
+        """
+        Set to `true` to enable tax ID collection.
         """
 
     def list(
