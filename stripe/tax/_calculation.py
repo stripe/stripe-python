@@ -745,7 +745,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -764,7 +764,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -773,7 +773,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -782,7 +782,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -802,7 +802,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -821,7 +821,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -830,7 +830,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -839,7 +839,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
