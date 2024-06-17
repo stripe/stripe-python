@@ -1,3 +1,8 @@
+## 9.12.0 - 2024-06-17
+* [#1348](https://github.com/stripe/stripe-python/pull/1348) Update generated code
+  * Add support for `tax_id_collection` on parameter class `stripe.PaymentLink.ModifyParams`
+  * Add support for `mobilepay` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+
 ## 9.11.0 - 2024-06-13
 * [#1342](https://github.com/stripe/stripe-python/pull/1342) Update generated code
   * Add support for `multibanco_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
