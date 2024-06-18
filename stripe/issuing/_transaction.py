@@ -160,21 +160,21 @@ class Transaction(
             _inner_class_types = {"segments": Segment}
 
         class Fuel(StripeObject):
+            quantity_decimal: Optional[str]
+            """
+            The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+            """
             type: str
             """
             The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
             """
             unit: str
             """
-            The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+            The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
             """
             unit_cost_decimal: str
             """
             The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-            """
-            volume_decimal: Optional[str]
-            """
-            The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
             """
 
         class Lodging(StripeObject):
@@ -690,6 +690,10 @@ class Transaction(
         """
 
     class CreateForceCaptureParamsPurchaseDetailsFuel(TypedDict):
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
         type: NotRequired[
             Literal[
                 "diesel",
@@ -702,17 +706,24 @@ class Transaction(
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
         """
-        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        """
-        volume_decimal: NotRequired[str]
-        """
-        The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
         """
 
     class CreateForceCaptureParamsPurchaseDetailsLodging(TypedDict):
@@ -1181,6 +1192,10 @@ class Transaction(
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetailsFuel(TypedDict):
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
         type: NotRequired[
             Literal[
                 "diesel",
@@ -1193,17 +1208,24 @@ class Transaction(
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
         """
-        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        """
-        volume_decimal: NotRequired[str]
-        """
-        The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetailsLodging(TypedDict):
