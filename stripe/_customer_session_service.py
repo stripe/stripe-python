@@ -73,12 +73,6 @@ class CustomerSessionService(StripeService):
 
         If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
         """
-        payment_method_set_as_default: NotRequired[
-            Literal["disabled", "enabled"]
-        ]
-        """
-        Controls whether the Payment Element displays a checkbox offering to set a saved payment method as the default.
-        """
         payment_method_update: NotRequired[Literal["disabled", "enabled"]]
         """
         Controls whether the Payment Element displays the option to update a saved payment method.
