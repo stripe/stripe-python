@@ -711,7 +711,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         cls, **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             "Calculation",
@@ -727,7 +727,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         cls, **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             "Calculation",
