@@ -423,7 +423,6 @@ from stripe._payout_service import PayoutService as PayoutService
 from stripe._person import Person as Person
 from stripe._plan import Plan as Plan
 from stripe._plan_service import PlanService as PlanService
-from stripe._platform_tax_fee import PlatformTaxFee as PlatformTaxFee
 from stripe._price import Price as Price
 from stripe._price_service import PriceService as PriceService
 from stripe._product import Product as Product

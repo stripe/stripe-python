@@ -375,6 +375,12 @@ class TransactionService(StripeService):
         """
 
     class CreateForceCaptureParamsPurchaseDetails(TypedDict):
+        fleet: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleet"
+        ]
+        """
+        Fleet-specific information for transactions using Fleet cards.
+        """
         flight: NotRequired[
             "TransactionService.CreateForceCaptureParamsPurchaseDetailsFlight"
         ]
@@ -404,6 +410,110 @@ class TransactionService(StripeService):
         reference: NotRequired[str]
         """
         A merchant-specific order number.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleet(TypedDict):
+        cardholder_prompt_data: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData"
+        ]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: NotRequired[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
+        """
+        reported_breakdown: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdown"
+        ]
+        """
+        More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: NotRequired[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData(
+        TypedDict,
+    ):
+        driver_id: NotRequired[str]
+        """
+        Driver ID.
+        """
+        odometer: NotRequired[int]
+        """
+        Odometer reading.
+        """
+        unspecified_id: NotRequired[str]
+        """
+        An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+        """
+        user_id: NotRequired[str]
+        """
+        User ID.
+        """
+        vehicle_number: NotRequired[str]
+        """
+        Vehicle number.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdown(
+        TypedDict,
+    ):
+        fuel: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel"
+        ]
+        """
+        Breakdown of fuel portion of the purchase.
+        """
+        non_fuel: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel"
+        ]
+        """
+        Breakdown of non-fuel portion of the purchase.
+        """
+        tax: NotRequired[
+            "TransactionService.CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownTax"
+        ]
+        """
+        Information about tax included in this transaction.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel(
+        TypedDict,
+    ):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel(
+        TypedDict,
+    ):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+        """
+
+    class CreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownTax(
+        TypedDict,
+    ):
+        local_amount_decimal: NotRequired[str]
+        """
+        Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+        national_amount_decimal: NotRequired[str]
+        """
+        Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
         """
 
     class CreateForceCaptureParamsPurchaseDetailsFlight(TypedDict):
@@ -459,6 +569,14 @@ class TransactionService(StripeService):
         """
 
     class CreateForceCaptureParamsPurchaseDetailsFuel(TypedDict):
+        industry_product_code: NotRequired[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
         type: NotRequired[
             Literal[
                 "diesel",
@@ -471,17 +589,24 @@ class TransactionService(StripeService):
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
         """
-        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        """
-        volume_decimal: NotRequired[str]
-        """
-        The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
         """
 
     class CreateForceCaptureParamsPurchaseDetailsLodging(TypedDict):
@@ -866,6 +991,12 @@ class TransactionService(StripeService):
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetails(TypedDict):
+        fleet: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleet"
+        ]
+        """
+        Fleet-specific information for transactions using Fleet cards.
+        """
         flight: NotRequired[
             "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFlight"
         ]
@@ -895,6 +1026,110 @@ class TransactionService(StripeService):
         reference: NotRequired[str]
         """
         A merchant-specific order number.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleet(TypedDict):
+        cardholder_prompt_data: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleetCardholderPromptData"
+        ]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: NotRequired[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
+        """
+        reported_breakdown: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdown"
+        ]
+        """
+        More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: NotRequired[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleetCardholderPromptData(
+        TypedDict,
+    ):
+        driver_id: NotRequired[str]
+        """
+        Driver ID.
+        """
+        odometer: NotRequired[int]
+        """
+        Odometer reading.
+        """
+        unspecified_id: NotRequired[str]
+        """
+        An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+        """
+        user_id: NotRequired[str]
+        """
+        User ID.
+        """
+        vehicle_number: NotRequired[str]
+        """
+        Vehicle number.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdown(
+        TypedDict,
+    ):
+        fuel: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownFuel"
+        ]
+        """
+        Breakdown of fuel portion of the purchase.
+        """
+        non_fuel: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownNonFuel"
+        ]
+        """
+        Breakdown of non-fuel portion of the purchase.
+        """
+        tax: NotRequired[
+            "TransactionService.CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownTax"
+        ]
+        """
+        Information about tax included in this transaction.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownFuel(
+        TypedDict,
+    ):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownNonFuel(
+        TypedDict,
+    ):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+        """
+
+    class CreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownTax(
+        TypedDict,
+    ):
+        local_amount_decimal: NotRequired[str]
+        """
+        Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+        national_amount_decimal: NotRequired[str]
+        """
+        Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetailsFlight(TypedDict):
@@ -950,6 +1185,14 @@ class TransactionService(StripeService):
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetailsFuel(TypedDict):
+        industry_product_code: NotRequired[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
         type: NotRequired[
             Literal[
                 "diesel",
@@ -962,17 +1205,24 @@ class TransactionService(StripeService):
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
         """
-        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        """
-        volume_decimal: NotRequired[str]
-        """
-        The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
         """
 
     class CreateUnlinkedRefundParamsPurchaseDetailsLodging(TypedDict):

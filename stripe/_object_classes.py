@@ -83,7 +83,6 @@ OBJECT_CLASSES = {
     stripe.Payout.OBJECT_NAME: stripe.Payout,
     stripe.Person.OBJECT_NAME: stripe.Person,
     stripe.Plan.OBJECT_NAME: stripe.Plan,
-    stripe.PlatformTaxFee.OBJECT_NAME: stripe.PlatformTaxFee,
     stripe.Price.OBJECT_NAME: stripe.Price,
     stripe.Product.OBJECT_NAME: stripe.Product,
     stripe.ProductFeature.OBJECT_NAME: stripe.ProductFeature,
