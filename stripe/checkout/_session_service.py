@@ -344,7 +344,7 @@ class SessionService(StripeService):
             "SessionService.CreateParamsTaxIdCollection"
         ]
         """
-        Controls tax ID collection settings for the session.
+        Controls tax ID collection during checkout.
         """
         ui_mode: NotRequired[Literal["embedded", "hosted"]]
         """
@@ -2174,7 +2174,7 @@ class SessionService(StripeService):
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to true to enable Tax ID collection.
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     class ExpireParams(TypedDict):

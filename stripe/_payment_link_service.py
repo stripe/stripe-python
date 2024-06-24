@@ -888,7 +888,7 @@ class PaymentLinkService(StripeService):
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to `true` to enable tax ID collection.
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -1666,7 +1666,7 @@ class PaymentLinkService(StripeService):
     class UpdateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to `true` to enable tax ID collection.
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     def list(

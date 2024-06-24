@@ -52,6 +52,144 @@ class Authorization(
         The amount of cash requested by the cardholder.
         """
 
+    class Fleet(StripeObject):
+        class CardholderPromptData(StripeObject):
+            alphanumeric_id: Optional[str]
+            """
+            [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
+            """
+            driver_id: Optional[str]
+            """
+            Driver ID.
+            """
+            odometer: Optional[int]
+            """
+            Odometer reading.
+            """
+            unspecified_id: Optional[str]
+            """
+            An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+            """
+            user_id: Optional[str]
+            """
+            User ID.
+            """
+            vehicle_number: Optional[str]
+            """
+            Vehicle number.
+            """
+
+        class ReportedBreakdown(StripeObject):
+            class Fuel(StripeObject):
+                gross_amount_decimal: Optional[str]
+                """
+                Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
+                """
+
+            class NonFuel(StripeObject):
+                gross_amount_decimal: Optional[str]
+                """
+                Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+                """
+
+            class Tax(StripeObject):
+                local_amount_decimal: Optional[str]
+                """
+                Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
+                """
+                national_amount_decimal: Optional[str]
+                """
+                Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
+                """
+
+            fuel: Optional[Fuel]
+            """
+            Breakdown of fuel portion of the purchase.
+            """
+            non_fuel: Optional[NonFuel]
+            """
+            Breakdown of non-fuel portion of the purchase.
+            """
+            tax: Optional[Tax]
+            """
+            Information about tax included in this transaction.
+            """
+            _inner_class_types = {
+                "fuel": Fuel,
+                "non_fuel": NonFuel,
+                "tax": Tax,
+            }
+
+        cardholder_prompt_data: Optional[CardholderPromptData]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: Optional[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase.
+        """
+        reported_breakdown: Optional[ReportedBreakdown]
+        """
+        More information about the total amount. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: Optional[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service.
+        """
+        _inner_class_types = {
+            "cardholder_prompt_data": CardholderPromptData,
+            "reported_breakdown": ReportedBreakdown,
+        }
+
+    class Fuel(StripeObject):
+        industry_product_code: Optional[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: Optional[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
+        type: Optional[
+            Literal[
+                "diesel",
+                "other",
+                "unleaded_plus",
+                "unleaded_regular",
+                "unleaded_super",
+            ]
+        ]
+        """
+        The type of fuel that was purchased.
+        """
+        unit: Optional[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
+        """
+        The units for `quantity_decimal`.
+        """
+        unit_cost_decimal: Optional[str]
+        """
+        The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+        """
+
     class MerchantData(StripeObject):
         category: str
         """
@@ -199,11 +337,16 @@ class Authorization(
         reason: Literal[
             "account_disabled",
             "card_active",
+            "card_canceled",
+            "card_expired",
             "card_inactive",
+            "cardholder_blocked",
             "cardholder_inactive",
             "cardholder_verification_required",
+            "insecure_authorization_method",
             "insufficient_funds",
             "not_allowed",
+            "pin_blocked",
             "spending_controls",
             "suspected_fraud",
             "verification_failed",
@@ -328,6 +471,10 @@ class Authorization(
         """
 
     class CaptureParamsPurchaseDetails(TypedDict):
+        fleet: NotRequired["Authorization.CaptureParamsPurchaseDetailsFleet"]
+        """
+        Fleet-specific information for transactions using Fleet cards.
+        """
         flight: NotRequired["Authorization.CaptureParamsPurchaseDetailsFlight"]
         """
         Information about the flight that was purchased with this transaction.
@@ -351,6 +498,100 @@ class Authorization(
         reference: NotRequired[str]
         """
         A merchant-specific order number.
+        """
+
+    class CaptureParamsPurchaseDetailsFleet(TypedDict):
+        cardholder_prompt_data: NotRequired[
+            "Authorization.CaptureParamsPurchaseDetailsFleetCardholderPromptData"
+        ]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: NotRequired[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
+        """
+        reported_breakdown: NotRequired[
+            "Authorization.CaptureParamsPurchaseDetailsFleetReportedBreakdown"
+        ]
+        """
+        More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: NotRequired[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
+        """
+
+    class CaptureParamsPurchaseDetailsFleetCardholderPromptData(TypedDict):
+        driver_id: NotRequired[str]
+        """
+        Driver ID.
+        """
+        odometer: NotRequired[int]
+        """
+        Odometer reading.
+        """
+        unspecified_id: NotRequired[str]
+        """
+        An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+        """
+        user_id: NotRequired[str]
+        """
+        User ID.
+        """
+        vehicle_number: NotRequired[str]
+        """
+        Vehicle number.
+        """
+
+    class CaptureParamsPurchaseDetailsFleetReportedBreakdown(TypedDict):
+        fuel: NotRequired[
+            "Authorization.CaptureParamsPurchaseDetailsFleetReportedBreakdownFuel"
+        ]
+        """
+        Breakdown of fuel portion of the purchase.
+        """
+        non_fuel: NotRequired[
+            "Authorization.CaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel"
+        ]
+        """
+        Breakdown of non-fuel portion of the purchase.
+        """
+        tax: NotRequired[
+            "Authorization.CaptureParamsPurchaseDetailsFleetReportedBreakdownTax"
+        ]
+        """
+        Information about tax included in this transaction.
+        """
+
+    class CaptureParamsPurchaseDetailsFleetReportedBreakdownFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+        """
+
+    class CaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+        """
+
+    class CaptureParamsPurchaseDetailsFleetReportedBreakdownTax(TypedDict):
+        local_amount_decimal: NotRequired[str]
+        """
+        Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+        national_amount_decimal: NotRequired[str]
+        """
+        Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
         """
 
     class CaptureParamsPurchaseDetailsFlight(TypedDict):
@@ -404,6 +645,14 @@ class Authorization(
         """
 
     class CaptureParamsPurchaseDetailsFuel(TypedDict):
+        industry_product_code: NotRequired[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
         type: NotRequired[
             Literal[
                 "diesel",
@@ -416,17 +665,24 @@ class Authorization(
         """
         The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
         """
-        unit: NotRequired[Literal["liter", "other", "us_gallon"]]
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
         """
-        The units for `volume_decimal`. One of `liter`, `us_gallon`, or `other`.
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
         """
         unit_cost_decimal: NotRequired[str]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        """
-        volume_decimal: NotRequired[str]
-        """
-        The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
         """
 
     class CaptureParamsPurchaseDetailsLodging(TypedDict):
@@ -472,6 +728,14 @@ class Authorization(
         """
         Specifies which fields in the response should be expanded.
         """
+        fleet: NotRequired["Authorization.CreateParamsFleet"]
+        """
+        Fleet-specific information for authorizations using Fleet cards.
+        """
+        fuel: NotRequired["Authorization.CreateParamsFuel"]
+        """
+        Information about fuel that was purchased with this transaction.
+        """
         is_amount_controllable: NotRequired[bool]
         """
         If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
@@ -503,6 +767,139 @@ class Authorization(
         cashback_amount: NotRequired[int]
         """
         The amount of cash requested by the cardholder.
+        """
+
+    class CreateParamsFleet(TypedDict):
+        cardholder_prompt_data: NotRequired[
+            "Authorization.CreateParamsFleetCardholderPromptData"
+        ]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: NotRequired[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
+        """
+        reported_breakdown: NotRequired[
+            "Authorization.CreateParamsFleetReportedBreakdown"
+        ]
+        """
+        More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: NotRequired[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
+        """
+
+    class CreateParamsFleetCardholderPromptData(TypedDict):
+        driver_id: NotRequired[str]
+        """
+        Driver ID.
+        """
+        odometer: NotRequired[int]
+        """
+        Odometer reading.
+        """
+        unspecified_id: NotRequired[str]
+        """
+        An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+        """
+        user_id: NotRequired[str]
+        """
+        User ID.
+        """
+        vehicle_number: NotRequired[str]
+        """
+        Vehicle number.
+        """
+
+    class CreateParamsFleetReportedBreakdown(TypedDict):
+        fuel: NotRequired[
+            "Authorization.CreateParamsFleetReportedBreakdownFuel"
+        ]
+        """
+        Breakdown of fuel portion of the purchase.
+        """
+        non_fuel: NotRequired[
+            "Authorization.CreateParamsFleetReportedBreakdownNonFuel"
+        ]
+        """
+        Breakdown of non-fuel portion of the purchase.
+        """
+        tax: NotRequired["Authorization.CreateParamsFleetReportedBreakdownTax"]
+        """
+        Information about tax included in this transaction.
+        """
+
+    class CreateParamsFleetReportedBreakdownFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+        """
+
+    class CreateParamsFleetReportedBreakdownNonFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+        """
+
+    class CreateParamsFleetReportedBreakdownTax(TypedDict):
+        local_amount_decimal: NotRequired[str]
+        """
+        Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+        national_amount_decimal: NotRequired[str]
+        """
+        Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+
+    class CreateParamsFuel(TypedDict):
+        industry_product_code: NotRequired[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
+        type: NotRequired[
+            Literal[
+                "diesel",
+                "other",
+                "unleaded_plus",
+                "unleaded_regular",
+                "unleaded_super",
+            ]
+        ]
+        """
+        The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
+        """
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
+        """
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
+        """
+        unit_cost_decimal: NotRequired[str]
+        """
+        The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
         """
 
     class CreateParamsMerchantData(TypedDict):
@@ -916,6 +1313,159 @@ class Authorization(
         Specifies which fields in the response should be expanded.
         """
 
+    class FinalizeAmountParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        final_amount: int
+        """
+        The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        fleet: NotRequired["Authorization.FinalizeAmountParamsFleet"]
+        """
+        Fleet-specific information for authorizations using Fleet cards.
+        """
+        fuel: NotRequired["Authorization.FinalizeAmountParamsFuel"]
+        """
+        Information about fuel that was purchased with this transaction.
+        """
+
+    class FinalizeAmountParamsFleet(TypedDict):
+        cardholder_prompt_data: NotRequired[
+            "Authorization.FinalizeAmountParamsFleetCardholderPromptData"
+        ]
+        """
+        Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
+        """
+        purchase_type: NotRequired[
+            Literal[
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+            ]
+        ]
+        """
+        The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
+        """
+        reported_breakdown: NotRequired[
+            "Authorization.FinalizeAmountParamsFleetReportedBreakdown"
+        ]
+        """
+        More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
+        """
+        service_type: NotRequired[
+            Literal["full_service", "non_fuel_transaction", "self_service"]
+        ]
+        """
+        The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
+        """
+
+    class FinalizeAmountParamsFleetCardholderPromptData(TypedDict):
+        driver_id: NotRequired[str]
+        """
+        Driver ID.
+        """
+        odometer: NotRequired[int]
+        """
+        Odometer reading.
+        """
+        unspecified_id: NotRequired[str]
+        """
+        An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
+        """
+        user_id: NotRequired[str]
+        """
+        User ID.
+        """
+        vehicle_number: NotRequired[str]
+        """
+        Vehicle number.
+        """
+
+    class FinalizeAmountParamsFleetReportedBreakdown(TypedDict):
+        fuel: NotRequired[
+            "Authorization.FinalizeAmountParamsFleetReportedBreakdownFuel"
+        ]
+        """
+        Breakdown of fuel portion of the purchase.
+        """
+        non_fuel: NotRequired[
+            "Authorization.FinalizeAmountParamsFleetReportedBreakdownNonFuel"
+        ]
+        """
+        Breakdown of non-fuel portion of the purchase.
+        """
+        tax: NotRequired[
+            "Authorization.FinalizeAmountParamsFleetReportedBreakdownTax"
+        ]
+        """
+        Information about tax included in this transaction.
+        """
+
+    class FinalizeAmountParamsFleetReportedBreakdownFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+        """
+
+    class FinalizeAmountParamsFleetReportedBreakdownNonFuel(TypedDict):
+        gross_amount_decimal: NotRequired[str]
+        """
+        Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+        """
+
+    class FinalizeAmountParamsFleetReportedBreakdownTax(TypedDict):
+        local_amount_decimal: NotRequired[str]
+        """
+        Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+        national_amount_decimal: NotRequired[str]
+        """
+        Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
+        """
+
+    class FinalizeAmountParamsFuel(TypedDict):
+        industry_product_code: NotRequired[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: NotRequired[str]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
+        type: NotRequired[
+            Literal[
+                "diesel",
+                "other",
+                "unleaded_plus",
+                "unleaded_regular",
+                "unleaded_super",
+            ]
+        ]
+        """
+        The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
+        """
+        unit: NotRequired[
+            Literal[
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+            ]
+        ]
+        """
+        The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
+        """
+        unit_cost_decimal: NotRequired[str]
+        """
+        The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+        """
+
     class IncrementParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -1045,6 +1595,14 @@ class Authorization(
     currency: str
     """
     The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    fleet: Optional[Fleet]
+    """
+    Fleet-specific information for authorizations using Fleet cards.
+    """
+    fuel: Optional[Fuel]
+    """
+    Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
     """
     id: str
     """
@@ -1709,6 +2267,122 @@ class Authorization(
             )
 
         @classmethod
+        def _cls_finalize_amount(
+            cls,
+            authorization: str,
+            **params: Unpack["Authorization.FinalizeAmountParams"],
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
+                        authorization=sanitize_id(authorization)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def finalize_amount(
+            authorization: str,
+            **params: Unpack["Authorization.FinalizeAmountParams"],
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            ...
+
+        @overload
+        def finalize_amount(
+            self, **params: Unpack["Authorization.FinalizeAmountParams"]
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            ...
+
+        @class_method_variant("_cls_finalize_amount")
+        def finalize_amount(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.FinalizeAmountParams"]
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
+                        authorization=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_finalize_amount_async(
+            cls,
+            authorization: str,
+            **params: Unpack["Authorization.FinalizeAmountParams"],
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            return cast(
+                "Authorization",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
+                        authorization=sanitize_id(authorization)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def finalize_amount_async(
+            authorization: str,
+            **params: Unpack["Authorization.FinalizeAmountParams"],
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            ...
+
+        @overload
+        async def finalize_amount_async(
+            self, **params: Unpack["Authorization.FinalizeAmountParams"]
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            ...
+
+        @class_method_variant("_cls_finalize_amount_async")
+        async def finalize_amount_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.FinalizeAmountParams"]
+        ) -> "Authorization":
+            """
+            Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+            """
+            return cast(
+                "Authorization",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
+                        authorization=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_increment(
             cls,
             authorization: str,
@@ -1944,6 +2618,8 @@ class Authorization(
 
     _inner_class_types = {
         "amount_details": AmountDetails,
+        "fleet": Fleet,
+        "fuel": Fuel,
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "pending_request": PendingRequest,
