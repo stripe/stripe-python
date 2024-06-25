@@ -31,6 +31,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reboot_window: NotRequired[
+            "ConfigurationService.CreateParamsRebootWindow"
+        ]
+        """
+        Reboot time settings for readers that support customized reboot time configuration.
+        """
         stripe_s700: NotRequired["ConfigurationService.CreateParamsStripeS700"]
         """
         An object containing device type specific settings for Stripe S700 readers
@@ -58,6 +64,16 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsRebootWindow(TypedDict):
+        end_hour: int
+        """
+        Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
+        """
+        start_hour: int
+        """
+        Integer between 0 to 23 that represents the start hour of the reboot time window.
         """
 
     class CreateParamsStripeS700(TypedDict):
@@ -378,6 +394,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reboot_window: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsRebootWindow"
+        ]
+        """
+        Reboot time settings for readers that support customized reboot time configuration.
+        """
         stripe_s700: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsStripeS700"
         ]
@@ -407,6 +429,16 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class UpdateParamsRebootWindow(TypedDict):
+        end_hour: int
+        """
+        Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
+        """
+        start_hour: int
+        """
+        Integer between 0 to 23 that represents the start hour of the reboot time window.
         """
 
     class UpdateParamsStripeS700(TypedDict):

@@ -48,6 +48,16 @@ class Configuration(
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
+    class RebootWindow(StripeObject):
+        end_hour: int
+        """
+        Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
+        """
+        start_hour: int
+        """
+        Integer between 0 to 23 that represents the start hour of the reboot time window.
+        """
+
     class StripeS700(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
@@ -305,6 +315,10 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        reboot_window: NotRequired["Configuration.CreateParamsRebootWindow"]
+        """
+        Reboot time settings for readers that support customized reboot time configuration.
+        """
         stripe_s700: NotRequired["Configuration.CreateParamsStripeS700"]
         """
         An object containing device type specific settings for Stripe S700 readers
@@ -328,6 +342,16 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsRebootWindow(TypedDict):
+        end_hour: int
+        """
+        Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
+        """
+        start_hour: int
+        """
+        Integer between 0 to 23 that represents the start hour of the reboot time window.
         """
 
     class CreateParamsStripeS700(TypedDict):
@@ -640,6 +664,12 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        reboot_window: NotRequired[
+            "Literal['']|Configuration.ModifyParamsRebootWindow"
+        ]
+        """
+        Reboot time settings for readers that support customized reboot time configuration.
+        """
         stripe_s700: NotRequired[
             "Literal['']|Configuration.ModifyParamsStripeS700"
         ]
@@ -667,6 +697,16 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class ModifyParamsRebootWindow(TypedDict):
+        end_hour: int
+        """
+        Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
+        """
+        start_hour: int
+        """
+        Integer between 0 to 23 that represents the start hour of the reboot time window.
         """
 
     class ModifyParamsStripeS700(TypedDict):
@@ -963,6 +1003,7 @@ class Configuration(
     String representing the object's type. Objects of the same type share the same value.
     """
     offline: Optional[Offline]
+    reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
@@ -1200,6 +1241,7 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepos_e": BbposWiseposE,
         "offline": Offline,
+        "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
