@@ -32,6 +32,10 @@ class CreditNoteService(StripeService):
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
+        email_type: NotRequired[Literal["credit_note", "none"]]
+        """
+        Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -202,6 +206,10 @@ class CreditNoteService(StripeService):
         effective_at: NotRequired[int]
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+        """
+        email_type: NotRequired[Literal["credit_note", "none"]]
+        """
+        Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
         """
         expand: NotRequired[List[str]]
         """
