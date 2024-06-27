@@ -35,7 +35,7 @@ class MarginService(StripeService):
     class ListParams(TypedDict):
         active: NotRequired[bool]
         """
-        Only return margins that are active or inactive, i.e., pass false to list all inactive margins.
+        Only return margins that are active or inactive. For example, pass `true` to only list active margins.
         """
         ending_before: NotRequired[str]
         """
