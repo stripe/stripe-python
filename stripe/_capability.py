@@ -160,7 +160,7 @@ class Capability(UpdateableAPIResource["Capability"]):
             ]
         ]
         """
-        This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account.
+        This is typed as an enum for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is null because fields in `future_requirements` will never disable the account.
         """
         errors: List[Error]
         """

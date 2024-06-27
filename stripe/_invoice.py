@@ -649,6 +649,15 @@ class Invoice(
 
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
+                    class Filters(StripeObject):
+                        account_subcategories: Optional[
+                            List[Literal["checking", "savings"]]
+                        ]
+                        """
+                        The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+
+                    filters: Optional[Filters]
                     permissions: Optional[
                         List[
                             Literal[
@@ -668,6 +677,7 @@ class Invoice(
                     """
                     Data features requested to be retrieved upon account creation.
                     """
+                    _inner_class_types = {"filters": Filters}
 
                 financial_connections: Optional[FinancialConnections]
                 verification_method: Optional[
@@ -1393,6 +1403,12 @@ class Invoice(
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -1408,6 +1424,16 @@ class Invoice(
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class CreateParamsRendering(TypedDict):
@@ -3062,6 +3088,12 @@ class Invoice(
     class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -3077,6 +3109,16 @@ class Invoice(
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class ModifyParamsRendering(TypedDict):
