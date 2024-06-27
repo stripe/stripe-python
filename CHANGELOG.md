@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.2.0b1 - 2024-06-27
+* [#1349](https://github.com/stripe/stripe-python/pull/1349) Update generated code for beta
+  * Add support for `filters` on resource class `stripe.QuotePreviewInvoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections`
+  * Remove support for `payment_method_set_as_default` on resource class `stripe.CustomerSession.Components.PaymentElement.Features` and parameter class `stripe.CustomerSession.CreateParamsComponentsPaymentElementFeatures`
+  * Add support for `ch_uid` on enums `stripe.Order.TaxDetails.TaxId.type`, `stripe.Order.CreateParamsTaxDetailsTaxId.type`, `stripe.Order.ModifyParamsTaxDetailsTaxId.type`, and `stripe.QuotePreviewInvoice.CustomerTaxId.type`
+
 ## 10.1.0 - 2024-06-27
 * [#1353](https://github.com/stripe/stripe-python/pull/1353) Update generated code
   * Add support for `email_type` on parameter classes `stripe.CreditNote.CreateParams`, `stripe.CreditNote.PreviewLinesParams`, and `stripe.CreditNote.PreviewParams`
