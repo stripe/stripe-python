@@ -1184,6 +1184,12 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         manual_entry: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
         ]
@@ -1216,6 +1222,16 @@ class SetupIntentService(StripeService):
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
@@ -2461,6 +2477,12 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         manual_entry: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
         ]
@@ -2493,6 +2515,16 @@ class SetupIntentService(StripeService):
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
@@ -3715,6 +3747,12 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         manual_entry: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
         ]
@@ -3747,6 +3785,16 @@ class SetupIntentService(StripeService):
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(

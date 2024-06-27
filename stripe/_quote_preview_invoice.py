@@ -672,6 +672,15 @@ class QuotePreviewInvoice(StripeObject):
 
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
+                    class Filters(StripeObject):
+                        account_subcategories: Optional[
+                            List[Literal["checking", "savings"]]
+                        ]
+                        """
+                        The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+
+                    filters: Optional[Filters]
                     permissions: Optional[
                         List[
                             Literal[
@@ -698,6 +707,7 @@ class QuotePreviewInvoice(StripeObject):
                     """
                     Data features requested to be retrieved upon account creation.
                     """
+                    _inner_class_types = {"filters": Filters}
 
                 financial_connections: Optional[FinancialConnections]
                 verification_method: Optional[

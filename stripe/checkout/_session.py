@@ -971,12 +971,21 @@ class Session(
 
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
+                class Filters(StripeObject):
+                    account_subcategories: Optional[
+                        List[Literal["checking", "savings"]]
+                    ]
+                    """
+                    The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                    """
+
                 class ManualEntry(StripeObject):
                     mode: Optional[Literal["automatic", "custom"]]
                     """
                     Settings for configuring manual entry of account details.
                     """
 
+                filters: Optional[Filters]
                 manual_entry: Optional[ManualEntry]
                 permissions: Optional[
                     List[
@@ -1008,7 +1017,10 @@ class Session(
                 """
                 For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
                 """
-                _inner_class_types = {"manual_entry": ManualEntry}
+                _inner_class_types = {
+                    "filters": Filters,
+                    "manual_entry": ManualEntry,
+                }
 
             financial_connections: Optional[FinancialConnections]
             setup_future_usage: Optional[
