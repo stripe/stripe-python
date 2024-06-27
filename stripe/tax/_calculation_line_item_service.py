@@ -35,7 +35,7 @@ class CalculationLineItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CalculationLineItem]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject[CalculationLineItem],
@@ -58,7 +58,7 @@ class CalculationLineItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CalculationLineItem]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject[CalculationLineItem],

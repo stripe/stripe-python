@@ -789,6 +789,8 @@ class PaymentLink(
                     "klarna",
                     "konbini",
                     "link",
+                    "mobilepay",
+                    "multibanco",
                     "oxxo",
                     "p24",
                     "paynow",
@@ -798,8 +800,10 @@ class PaymentLink(
                     "sepa_debit",
                     "sofort",
                     "swish",
+                    "twint",
                     "us_bank_account",
                     "wechat_pay",
+                    "zip",
                 ]
             ]
         ]
@@ -1535,7 +1539,7 @@ class PaymentLink(
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to `true` to enable tax ID collection.
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -1667,7 +1671,7 @@ class PaymentLink(
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -1689,6 +1693,12 @@ class PaymentLink(
         ]
         """
         When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
+        """
+        tax_id_collection: NotRequired[
+            "PaymentLink.ModifyParamsTaxIdCollection"
+        ]
+        """
+        Controls tax ID collection during checkout.
         """
 
     class ModifyParamsAfterCompletion(TypedDict):
@@ -2306,6 +2316,12 @@ class PaymentLink(
         Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
+    class ModifyParamsTaxIdCollection(TypedDict):
+        enabled: bool
+        """
+        Enable tax ID collection during checkout. Defaults to `false`.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -2416,6 +2432,8 @@ class PaymentLink(
                 "klarna",
                 "konbini",
                 "link",
+                "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -2425,8 +2443,10 @@ class PaymentLink(
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
+                "zip",
             ]
         ]
     ]

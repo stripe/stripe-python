@@ -35,7 +35,7 @@ class MarginService(StripeService):
     class ListParams(TypedDict):
         active: NotRequired[bool]
         """
-        Only return margins that are active or inactive, i.e., pass false to list all inactive margins.
+        Only return margins that are active or inactive. For example, pass `true` to only list active margins.
         """
         ending_before: NotRequired[str]
         """
@@ -124,7 +124,7 @@ class MarginService(StripeService):
         options: RequestOptions = {},
     ) -> Margin:
         """
-        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount. A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
         """
         return cast(
             Margin,
@@ -144,7 +144,7 @@ class MarginService(StripeService):
         options: RequestOptions = {},
     ) -> Margin:
         """
-        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount. A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
         """
         return cast(
             Margin,

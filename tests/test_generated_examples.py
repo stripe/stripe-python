@@ -26173,7 +26173,7 @@ class TestGeneratedExamples(object):
                     "type": "diesel",
                     "unit": "liter",
                     "unit_cost_decimal": "3.5",
-                    "volume_decimal": "10",
+                    "quantity_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
@@ -26191,7 +26191,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_capture_post_service(
@@ -26232,7 +26232,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
@@ -26252,7 +26252,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -26284,7 +26284,7 @@ class TestGeneratedExamples(object):
                     "type": "diesel",
                     "unit": "liter",
                     "unit_cost_decimal": "3.5",
-                    "volume_decimal": "10",
+                    "quantity_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
@@ -26302,7 +26302,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -26344,7 +26344,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
@@ -26364,7 +26364,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_expire_post(
@@ -27267,7 +27267,7 @@ class TestGeneratedExamples(object):
                     "type": "diesel",
                     "unit": "liter",
                     "unit_cost_decimal": "3.5",
-                    "volume_decimal": "10",
+                    "quantity_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
@@ -27285,7 +27285,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_force_capture_post_service(
@@ -27336,7 +27336,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
@@ -27356,7 +27356,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27399,7 +27399,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
@@ -27418,7 +27418,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27470,7 +27470,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
@@ -27490,7 +27490,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post(
@@ -27531,7 +27531,7 @@ class TestGeneratedExamples(object):
                     "type": "diesel",
                     "unit": "liter",
                     "unit_cost_decimal": "3.5",
-                    "volume_decimal": "10",
+                    "quantity_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
@@ -27549,7 +27549,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post_service(
@@ -27600,7 +27600,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
@@ -27620,7 +27620,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27662,7 +27662,7 @@ class TestGeneratedExamples(object):
                     "type": "diesel",
                     "unit": "liter",
                     "unit_cost_decimal": "3.5",
-                    "volume_decimal": "10",
+                    "quantity_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
@@ -27680,7 +27680,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27732,7 +27732,7 @@ class TestGeneratedExamples(object):
                         "type": "diesel",
                         "unit": "liter",
                         "unit_cost_decimal": "3.5",
-                        "volume_decimal": "10",
+                        "quantity_decimal": "10",
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
@@ -27752,7 +27752,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][volume_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_refund_post(

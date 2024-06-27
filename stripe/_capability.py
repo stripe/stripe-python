@@ -145,9 +145,22 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
-        disabled_reason: Optional[str]
+        disabled_reason: Optional[
+            Literal[
+                "other",
+                "paused.inactivity",
+                "pending.onboarding",
+                "pending.review",
+                "platform_disabled",
+                "platform_paused",
+                "rejected.inactivity",
+                "rejected.other",
+                "rejected.unsupported_business",
+                "requirements.fields_needed",
+            ]
+        ]
         """
-        This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account.
+        This is typed as an enum for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is null because fields in `future_requirements` will never disable the account.
         """
         errors: List[Error]
         """
@@ -294,13 +307,22 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         Fields that need to be collected to keep the capability enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled.
         """
-        disabled_reason: Optional[str]
+        disabled_reason: Optional[
+            Literal[
+                "other",
+                "paused.inactivity",
+                "pending.onboarding",
+                "pending.review",
+                "platform_disabled",
+                "platform_paused",
+                "rejected.inactivity",
+                "rejected.other",
+                "rejected.unsupported_business",
+                "requirements.fields_needed",
+            ]
+        ]
         """
-        If the capability is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `requirements.fields_needed`, `pending.onboarding`, `pending.review`, `rejected.other`, `platform_paused`, `rejected.inactivty`, or `rejected.unsupported_business`.
-
-        `rejected.unsupported_business` means that the account's business is not supported by the capability. For example, payment methods may restrict the businesses they support in their terms of service, such as in [Afterpay Clearpay's terms of service](https://stripe.com/afterpay-clearpay/legal#restricted-businesses).
-
-        `rejected.inactivity` means that the capability has been paused for inactivity. This disabled reason currently only applies to the Issuing capability. See [Issuing: Managing Inactive Connects](https://support.stripe.com/questions/issuing-managing-inactive-connect-accounts) for more details.
+        Description of why the capability is disabled. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
         """
         errors: List[Error]
         """

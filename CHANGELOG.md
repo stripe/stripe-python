@@ -1,5 +1,46 @@
 # Changelog
 
+## 10.1.0 - 2024-06-27
+* [#1353](https://github.com/stripe/stripe-python/pull/1353) Update generated code
+  * Add support for `email_type` on parameter classes `stripe.CreditNote.CreateParams`, `stripe.CreditNote.PreviewLinesParams`, and `stripe.CreditNote.PreviewParams`
+  * Add support for `filters` on parameter classes `stripe.Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections` and resource classes `stripe.Invoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections`, `stripe.PaymentIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections`, `stripe.SetupIntent.PaymentMethodOptions.UsBankAccount.FinancialConnections`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections`, and `stripe.checkout.Session.PaymentMethodOptions.UsBankAccount.FinancialConnections`
+  * Add support for `account_subcategories` on parameter class `stripe.financial_connections.Session.CreateParamsFilters` and resource class `stripe.financial_connections.Session.Filters`
+  * Add support for `reboot_window` on parameter classes `stripe.terminal.Configuration.CreateParams` and `stripe.terminal.Configuration.ModifyParams` and resource `stripe.terminal.Configuration`
+  * Add support for `day` on enum `stripe.billing.Meter.ListEventSummariesParams.value_grouping_window`
+  * Add support for `multibanco` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+  * Add support for `twint` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+  * Add support for `zip` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+
+## 10.0.0 - 2024-06-24
+* [#1350](https://github.com/stripe/stripe-python/pull/1350) Update generated code
+  
+  This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
+  
+  ### ⚠️ Breaking changes
+  
+    * Remove the unused resource `PlatformTaxFee`
+    * Rename `volume_decimal` to `quantity_decimal` on parameter classes `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel` and resource class `stripe.issuing.Transaction.PurchaseDetails.Fuel`
+    
+  ### Additions
+  
+  * Add support for `fleet` on parameter classes `stripe.issuing.Authorization.CaptureParamsPurchaseDetails`, `stripe.issuing.Authorization.CreateParams`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetails`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetails`, resource `stripe.issuing.Authorization`, and resource class `stripe.issuing.Transaction.PurchaseDetails`
+  * Add support for new values `platform_disabled`, `paused.inactivity` and `other` on enums `Capability.Requirements.disabled_reason` and `Capability.FutureRequirements.disabled_reason` 
+  * Add support for `industry_product_code` on parameter classes `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel` and resource class `stripe.issuing.Transaction.PurchaseDetails.Fuel`
+  * Add support for `quantity_decimal` on parameter classes `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel` and resource class `stripe.issuing.Transaction.PurchaseDetails.Fuel`
+  * Add support for `fuel` on parameter class `stripe.issuing.Authorization.CreateParams` and resource `stripe.issuing.Authorization`
+  * Add support for `_cls_finalize_amount` on resource `stripe.issuing.Authorization`
+  * Add support for `finalize_amount` on resource `stripe.issuing.Authorization`
+  * Change type of `disabled_reason` on  `stripe.Capability.FutureRequirements` and `stripe.Capability.Requirements` from `str` to `Literal['other', 'paused.inactivity', 'pending.onboarding', 'pending.review', 'platform_disabled', 'platform_paused', 'rejected.inactivity', 'rejected.other', 'rejected.unsupported_business', 'requirements.fields_needed']`
+  * Add support for `ch_uid` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.CreatePreviewParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
+  * Add support for `card_canceled`, `card_expired`,  `cardholder_blocked`, `insecure_authorization_method` and `pin_blocked`  on enum `stripe.issuing.Authorization.RequestHistory.reason`
+  * Add support for `charging_minute`, `imperial_gallon`, `kilogram`,  `kilowatt_hour`, `pound`, on enums `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel.unit`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel.unit`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel.unit`
+  * Add support for `2024-06-20` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
+
+## 9.12.0 - 2024-06-17
+* [#1348](https://github.com/stripe/stripe-python/pull/1348) Update generated code
+  * Add support for `tax_id_collection` on parameter class `stripe.PaymentLink.ModifyParams`
+  * Add support for `mobilepay` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+
 ## 9.12.0b1 - 2024-06-13
 * [#1343](https://github.com/stripe/stripe-python/pull/1343) Update generated code for beta
   * Add support for `de_stn` on enums `stripe.Order.TaxDetails.TaxId.type`, `stripe.Order.CreateParamsTaxDetailsTaxId.type`, `stripe.Order.ModifyParamsTaxDetailsTaxId.type`, and `stripe.QuotePreviewInvoice.CustomerTaxId.type`
