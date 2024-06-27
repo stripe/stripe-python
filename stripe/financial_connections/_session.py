@@ -46,6 +46,20 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class Filters(StripeObject):
+        account_subcategories: Optional[
+            List[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ]
+            ]
+        ]
+        """
+        Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
+        """
         countries: Optional[List[str]]
         """
         List of countries from which to filter accounts.
@@ -98,6 +112,20 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class CreateParamsFilters(TypedDict):
+        account_subcategories: NotRequired[
+            List[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ]
+            ]
+        ]
+        """
+        Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
+        """
         countries: NotRequired[List[str]]
         """
         List of countries from which to collect accounts.

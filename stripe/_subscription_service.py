@@ -680,6 +680,12 @@ class SubscriptionService(StripeService):
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -695,6 +701,16 @@ class SubscriptionService(StripeService):
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class CreateParamsPendingInvoiceItemInterval(TypedDict):
@@ -1549,6 +1565,12 @@ class SubscriptionService(StripeService):
     class UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -1564,6 +1586,16 @@ class SubscriptionService(StripeService):
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class UpdateParamsPendingInvoiceItemInterval(TypedDict):

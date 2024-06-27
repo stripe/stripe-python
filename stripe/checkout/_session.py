@@ -967,6 +967,15 @@ class Session(
 
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
+                class Filters(StripeObject):
+                    account_subcategories: Optional[
+                        List[Literal["checking", "savings"]]
+                    ]
+                    """
+                    The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                    """
+
+                filters: Optional[Filters]
                 permissions: Optional[
                     List[
                         Literal[
@@ -990,6 +999,7 @@ class Session(
                 """
                 For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
                 """
+                _inner_class_types = {"filters": Filters}
 
             financial_connections: Optional[FinancialConnections]
             setup_future_usage: Optional[
