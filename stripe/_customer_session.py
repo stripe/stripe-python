@@ -19,8 +19,8 @@ if TYPE_CHECKING:
 
 class CustomerSession(CreateableAPIResource["CustomerSession"]):
     """
-    A customer session allows you to grant client access to Stripe's frontend SDKs (like StripeJs)
-    control over a customer.
+    A Customer Session allows you to grant Stripe's frontend SDKs (like Stripe.js) client-side access
+    control over a Customer.
     """
 
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
@@ -36,28 +36,28 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             class Features(StripeObject):
                 payment_method_remove: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element displays the option to remove a saved payment method."
+                Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
 
                 Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
                 """
                 payment_method_save: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element displays a checkbox offering to save a new payment method.
+                Controls whether the Payment Element displays a checkbox offering to save a new payment method. This parameter defaults to `disabled`.
 
                 If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
                 """
                 payment_method_update: Literal["disabled", "enabled"]
                 """
-                Controls whether the Payment Element displays the option to update a saved payment method.
+                Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
                 """
 
             enabled: bool
             """
-            Whether the payment element is enabled.
+            Whether the Payment Element is enabled.
             """
             features: Optional[Features]
             """
-            This hash defines whether the payment element supports certain features.
+            This hash defines whether the Payment Element supports certain features.
             """
             _inner_class_types = {"features": Features}
 
@@ -73,7 +73,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         payment_element: Optional[PaymentElement]
         """
-        This hash contains whether the payment element is enabled and the features it supports.
+        This hash contains whether the Payment Element is enabled and the features it supports.
         """
         pricing_table: PricingTable
         """
@@ -92,7 +92,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         customer: str
         """
-        The ID of an existing customer for which to create the customer session.
+        The ID of an existing customer for which to create the Customer Session.
         """
         expand: NotRequired[List[str]]
         """
@@ -110,7 +110,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             "CustomerSession.CreateParamsComponentsPaymentElement"
         ]
         """
-        Configuration for the payment element.
+        Configuration for the Payment Element.
         """
         pricing_table: NotRequired[
             "CustomerSession.CreateParamsComponentsPricingTable"
@@ -128,31 +128,31 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParamsComponentsPaymentElement(TypedDict):
         enabled: bool
         """
-        Whether the payment element is enabled.
+        Whether the Payment Element is enabled.
         """
         features: NotRequired[
             "CustomerSession.CreateParamsComponentsPaymentElementFeatures"
         ]
         """
-        This hash defines whether the payment element supports certain features.
+        This hash defines whether the Payment Element supports certain features.
         """
 
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays the option to remove a saved payment method."
+        Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
 
         Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
         """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays a checkbox offering to save a new payment method.
+        Controls whether the Payment Element displays a checkbox offering to save a new payment method. This parameter defaults to `disabled`.
 
         If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
         """
         payment_method_update: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays the option to update a saved payment method.
+        Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
         """
 
     class CreateParamsComponentsPricingTable(TypedDict):
@@ -163,13 +163,13 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
     client_secret: str
     """
-    The client secret of this customer session. Used on the client to set up secure access to the given `customer`.
+    The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
 
     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret.
     """
     components: Optional[Components]
     """
-    Configuration for the components supported by this customer session.
+    Configuration for the components supported by this Customer Session.
     """
     created: int
     """
@@ -177,11 +177,11 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     """
     customer: ExpandableField["Customer"]
     """
-    The customer the customer session was created for.
+    The Customer the Customer Session was created for.
     """
     expires_at: int
     """
-    The timestamp at which this customer session will expire.
+    The timestamp at which this Customer Session will expire.
     """
     livemode: bool
     """
@@ -197,7 +197,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         cls, **params: Unpack["CustomerSession.CreateParams"]
     ) -> "CustomerSession":
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             "CustomerSession",
@@ -213,7 +213,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         cls, **params: Unpack["CustomerSession.CreateParams"]
     ) -> "CustomerSession":
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             "CustomerSession",

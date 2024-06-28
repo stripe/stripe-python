@@ -15,7 +15,7 @@ class CustomerSessionService(StripeService):
         """
         customer: str
         """
-        The ID of an existing customer for which to create the customer session.
+        The ID of an existing customer for which to create the Customer Session.
         """
         expand: NotRequired[List[str]]
         """
@@ -33,7 +33,7 @@ class CustomerSessionService(StripeService):
             "CustomerSessionService.CreateParamsComponentsPaymentElement"
         ]
         """
-        Configuration for the payment element.
+        Configuration for the Payment Element.
         """
         pricing_table: NotRequired[
             "CustomerSessionService.CreateParamsComponentsPricingTable"
@@ -51,31 +51,31 @@ class CustomerSessionService(StripeService):
     class CreateParamsComponentsPaymentElement(TypedDict):
         enabled: bool
         """
-        Whether the payment element is enabled.
+        Whether the Payment Element is enabled.
         """
         features: NotRequired[
             "CustomerSessionService.CreateParamsComponentsPaymentElementFeatures"
         ]
         """
-        This hash defines whether the payment element supports certain features.
+        This hash defines whether the Payment Element supports certain features.
         """
 
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays the option to remove a saved payment method."
+        Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
 
         Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
         """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays a checkbox offering to save a new payment method.
+        Controls whether the Payment Element displays a checkbox offering to save a new payment method. This parameter defaults to `disabled`.
 
         If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
         """
         payment_method_update: NotRequired[Literal["disabled", "enabled"]]
         """
-        Controls whether the Payment Element displays the option to update a saved payment method.
+        Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
         """
 
     class CreateParamsComponentsPricingTable(TypedDict):
@@ -90,7 +90,7 @@ class CustomerSessionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerSession:
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             CustomerSession,
@@ -110,7 +110,7 @@ class CustomerSessionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerSession:
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             CustomerSession,
