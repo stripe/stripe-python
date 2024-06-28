@@ -15,7 +15,7 @@ class CustomerSessionService(StripeService):
         """
         customer: str
         """
-        The ID of an existing customer for which to create the customer session.
+        The ID of an existing customer for which to create the Customer Session.
         """
         expand: NotRequired[List[str]]
         """
@@ -54,7 +54,7 @@ class CustomerSessionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerSession:
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             CustomerSession,
@@ -74,7 +74,7 @@ class CustomerSessionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerSession:
         """
-        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
         return cast(
             CustomerSession,
