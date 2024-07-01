@@ -146,6 +146,7 @@ class PaymentIntent(
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -2126,6 +2127,10 @@ class PaymentIntent(
                     ]
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                    """
+                    institution: Optional[str]
+                    """
+                    The institution to use to filter for possible accounts to link.
                     """
 
                 class ManualEntry(StripeObject):
@@ -6106,6 +6111,10 @@ class PaymentIntent(
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
         TypedDict,
@@ -9255,6 +9264,10 @@ class PaymentIntent(
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
@@ -12462,6 +12475,10 @@ class PaymentIntent(
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(

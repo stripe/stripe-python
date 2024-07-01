@@ -781,6 +781,10 @@ class InvoiceService(StripeService):
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class CreateParamsRendering(TypedDict):
         amount_tax_display: NotRequired[
@@ -5771,6 +5775,10 @@ class InvoiceService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class UpdateParamsRendering(TypedDict):
