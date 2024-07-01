@@ -60,6 +60,7 @@ OBJECT_CLASSES = {
     stripe.financial_connections.AccountInferredBalance.OBJECT_NAME: stripe.financial_connections.AccountInferredBalance,
     stripe.financial_connections.AccountOwner.OBJECT_NAME: stripe.financial_connections.AccountOwner,
     stripe.financial_connections.AccountOwnership.OBJECT_NAME: stripe.financial_connections.AccountOwnership,
+    stripe.financial_connections.Institution.OBJECT_NAME: stripe.financial_connections.Institution,
     stripe.financial_connections.Session.OBJECT_NAME: stripe.financial_connections.Session,
     stripe.financial_connections.Transaction.OBJECT_NAME: stripe.financial_connections.Transaction,
     stripe.forwarding.Request.OBJECT_NAME: stripe.forwarding.Request,

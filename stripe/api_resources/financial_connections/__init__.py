@@ -26,6 +26,9 @@ if not TYPE_CHECKING:
     from stripe.api_resources.financial_connections.account_ownership import (
         AccountOwnership,
     )
+    from stripe.api_resources.financial_connections.institution import (
+        Institution,
+    )
     from stripe.api_resources.financial_connections.session import Session
     from stripe.api_resources.financial_connections.transaction import (
         Transaction,

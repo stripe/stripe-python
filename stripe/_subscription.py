@@ -276,6 +276,10 @@ class Subscription(
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
                         """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
+                        """
 
                     filters: Optional[Filters]
                     permissions: Optional[
@@ -1295,6 +1299,10 @@ class Subscription(
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class CreateParamsPendingInvoiceItemInterval(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -2240,6 +2248,10 @@ class Subscription(
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class ModifyParamsPendingInvoiceItemInterval(TypedDict):

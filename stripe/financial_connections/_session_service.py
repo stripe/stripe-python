@@ -89,6 +89,10 @@ class SessionService(StripeService):
         """
         List of countries from which to collect accounts.
         """
+        institution: NotRequired[str]
+        """
+        Stripe ID of the institution with which the customer should be directed to log in.
+        """
 
     class CreateParamsLimits(TypedDict):
         accounts: int

@@ -978,6 +978,10 @@ class Session(
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
                     """
+                    institution: Optional[str]
+                    """
+                    The institution to use to filter for possible accounts to link.
+                    """
 
                 class ManualEntry(StripeObject):
                     mode: Optional[Literal["automatic", "custom"]]
