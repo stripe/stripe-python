@@ -81,10 +81,6 @@ class CustomerSessionService(StripeService):
 
         When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
         """
-        payment_method_update: NotRequired[Literal["disabled", "enabled"]]
-        """
-        Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
-        """
 
     class CreateParamsComponentsPricingTable(TypedDict):
         enabled: bool

@@ -54,10 +54,6 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
                 When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
                 """
-                payment_method_update: Literal["disabled", "enabled"]
-                """
-                Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
-                """
 
             enabled: bool
             """
@@ -165,10 +161,6 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         When using PaymentIntents and the customer checks the save checkbox, this field determines the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value used to confirm the PaymentIntent.
 
         When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
-        """
-        payment_method_update: NotRequired[Literal["disabled", "enabled"]]
-        """
-        Controls whether the Payment Element displays the option to update a saved payment method. This parameter defaults to `disabled`.
         """
 
     class CreateParamsComponentsPricingTable(TypedDict):
