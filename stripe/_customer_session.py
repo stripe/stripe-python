@@ -34,6 +34,22 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
         class PaymentElement(StripeObject):
             class Features(StripeObject):
+                payment_method_allow_redisplay_filters: List[
+                    Literal["always", "limited", "unspecified"]
+                ]
+                """
+                A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+
+                If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+                """
+                payment_method_redisplay: Literal["disabled", "enabled"]
+                """
+                Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
+                """
+                payment_method_redisplay_limit: Optional[int]
+                """
+                Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `10`.
+                """
                 payment_method_remove: Literal["disabled", "enabled"]
                 """
                 Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
@@ -142,6 +158,22 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
 
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
+        payment_method_allow_redisplay_filters: NotRequired[
+            List[Literal["always", "limited", "unspecified"]]
+        ]
+        """
+        A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+
+        If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+        """
+        payment_method_redisplay: NotRequired[Literal["disabled", "enabled"]]
+        """
+        Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
+        """
+        payment_method_redisplay_limit: NotRequired[int]
+        """
+        Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `10`.
+        """
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
         Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
