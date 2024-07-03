@@ -20,7 +20,7 @@ class MeterEventSummary(StripeObject):
     """
     end_time: int
     """
-    End timestamp for this event summary (inclusive).
+    End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
     """
     id: str
     """
@@ -40,5 +40,5 @@ class MeterEventSummary(StripeObject):
     """
     start_time: int
     """
-    Start timestamp for this event summary (inclusive).
+    Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
     """
