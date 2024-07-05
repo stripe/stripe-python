@@ -10,6 +10,12 @@
   * Add support for `financial_connections_institution_unavailable` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.QuotePreviewInvoice.LastFinalizationError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Add support for `payment_intent_fx_quote_invalid` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
 
+## 10.2.0 - 2024-07-05
+* [#1354](https://github.com/stripe/stripe-python/pull/1354) Update generated code
+  * Add support for `_cls_add_lines`, `_cls_remove_lines`, `_cls_update_lines`, `add_lines`, `remove_lines`, `update_lines` on resource `stripe.Invoice`
+  * Add support for `posted_at` on parameter class `stripe.tax.Transaction.CreateFromCalculationParams` and resource `stripe.tax.Transaction`
+  * Add support for `payment_intent_fx_quote_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
+
 ## 10.2.0b1 - 2024-06-27
 * [#1349](https://github.com/stripe/stripe-python/pull/1349) Update generated code for beta
   * Add support for `filters` on resource class `stripe.QuotePreviewInvoice.PaymentSettings.PaymentMethodOptions.UsBankAccount.FinancialConnections`
