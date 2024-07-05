@@ -418,6 +418,7 @@ class Invoice(
                 "parameters_exclusive",
                 "payment_intent_action_required",
                 "payment_intent_authentication_failure",
+                "payment_intent_fx_quote_invalid",
                 "payment_intent_incompatible_payment_method",
                 "payment_intent_invalid_parameter",
                 "payment_intent_konbini_rejected_confirmation_number",
@@ -1004,6 +1005,215 @@ class Invoice(
         destination: ExpandableField["Account"]
         """
         The account where funds from the payment will be transferred to upon payment success.
+        """
+
+    class AddLinesParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        invoice_metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        lines: List["Invoice.AddLinesParamsLine"]
+        """
+        The line items to add.
+        """
+
+    class AddLinesParamsLine(TypedDict):
+        amount: NotRequired[int]
+        """
+        The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
+        """
+        description: NotRequired[str]
+        """
+        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
+        """
+        discountable: NotRequired[bool]
+        """
+        Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Invoice.AddLinesParamsLineDiscount]"
+        ]
+        """
+        The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        """
+        invoice_item: NotRequired[str]
+        """
+        ID of an unassigned invoice item to assign to this invoice. If not provided, a new item will be created.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired["Invoice.AddLinesParamsLinePeriod"]
+        """
+        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
+        """
+        price: NotRequired[str]
+        """
+        The ID of the price object. One of `price` or `price_data` is required.
+        """
+        price_data: NotRequired["Invoice.AddLinesParamsLinePriceData"]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        """
+        quantity: NotRequired[int]
+        """
+        Non-negative integer. The quantity of units for the line item.
+        """
+        tax_amounts: NotRequired[
+            "Literal['']|List[Invoice.AddLinesParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
+        """
+
+    class AddLinesParamsLineDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class AddLinesParamsLinePeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
+    class AddLinesParamsLinePriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired[str]
+        """
+        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        """
+        product_data: NotRequired[
+            "Invoice.AddLinesParamsLinePriceDataProductData"
+        ]
+        """
+        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        """
+        tax_behavior: NotRequired[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired[int]
+        """
+        A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+        """
+        unit_amount_decimal: NotRequired[str]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class AddLinesParamsLinePriceDataProductData(TypedDict):
+        description: NotRequired[str]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        images: NotRequired[List[str]]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        tax_code: NotRequired[str]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+
+    class AddLinesParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate_data: "Invoice.AddLinesParamsLineTaxAmountTaxRateData"
+        """
+        Data to find or create a TaxRate object.
+
+        Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class AddLinesParamsLineTaxAmountTaxRateData(TypedDict):
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        description: NotRequired[str]
+        """
+        An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+        """
+        display_name: str
+        """
+        The display name of the tax rate, which will be shown to users.
+        """
+        inclusive: bool
+        """
+        This specifies if the tax rate is inclusive or exclusive.
+        """
+        jurisdiction: NotRequired[str]
+        """
+        The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        percentage: float
+        """
+        The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
+        """
+        state: NotRequired[str]
+        """
+        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+        """
+        tax_type: NotRequired[
+            Literal[
+                "amusement_tax",
+                "communications_tax",
+                "gst",
+                "hst",
+                "igst",
+                "jct",
+                "lease_tax",
+                "pst",
+                "qst",
+                "rst",
+                "sales_tax",
+                "vat",
+            ]
+        ]
+        """
+        The high-level tax type, such as `vat` or `sales_tax`.
         """
 
     class CreateParams(RequestOptions):
@@ -3342,6 +3552,30 @@ class Invoice(
         A payment source to be charged. The source must be the ID of a source belonging to the customer associated with the invoice being paid.
         """
 
+    class RemoveLinesParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        invoice_metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        lines: List["Invoice.RemoveLinesParamsLine"]
+        """
+        The line items to remove.
+        """
+
+    class RemoveLinesParamsLine(TypedDict):
+        behavior: Literal["delete", "unassign"]
+        """
+        Either `delete` or `unassign`. Deleted line items are permanently deleted. Unassigned line items can be reassigned to an invoice.
+        """
+        id: str
+        """
+        ID of an existing line item to remove from this invoice.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -5640,6 +5874,215 @@ class Invoice(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class UpdateLinesParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        invoice_metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+        """
+        lines: List["Invoice.UpdateLinesParamsLine"]
+        """
+        The line items to update.
+        """
+
+    class UpdateLinesParamsLine(TypedDict):
+        amount: NotRequired[int]
+        """
+        The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
+        """
+        description: NotRequired[str]
+        """
+        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
+        """
+        discountable: NotRequired[bool]
+        """
+        Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Invoice.UpdateLinesParamsLineDiscount]"
+        ]
+        """
+        The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        """
+        id: str
+        """
+        ID of an existing line item on the invoice.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+        """
+        period: NotRequired["Invoice.UpdateLinesParamsLinePeriod"]
+        """
+        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
+        """
+        price: NotRequired[str]
+        """
+        The ID of the price object. One of `price` or `price_data` is required.
+        """
+        price_data: NotRequired["Invoice.UpdateLinesParamsLinePriceData"]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        """
+        quantity: NotRequired[int]
+        """
+        Non-negative integer. The quantity of units for the line item.
+        """
+        tax_amounts: NotRequired[
+            "Literal['']|List[Invoice.UpdateLinesParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
+        """
+
+    class UpdateLinesParamsLineDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class UpdateLinesParamsLinePeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
+    class UpdateLinesParamsLinePriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired[str]
+        """
+        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        """
+        product_data: NotRequired[
+            "Invoice.UpdateLinesParamsLinePriceDataProductData"
+        ]
+        """
+        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        """
+        tax_behavior: NotRequired[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired[int]
+        """
+        A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+        """
+        unit_amount_decimal: NotRequired[str]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class UpdateLinesParamsLinePriceDataProductData(TypedDict):
+        description: NotRequired[str]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        images: NotRequired[List[str]]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        tax_code: NotRequired[str]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+
+    class UpdateLinesParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate_data: "Invoice.UpdateLinesParamsLineTaxAmountTaxRateData"
+        """
+        Data to find or create a TaxRate object.
+
+        Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class UpdateLinesParamsLineTaxAmountTaxRateData(TypedDict):
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        description: NotRequired[str]
+        """
+        An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+        """
+        display_name: str
+        """
+        The display name of the tax rate, which will be shown to users.
+        """
+        inclusive: bool
+        """
+        This specifies if the tax rate is inclusive or exclusive.
+        """
+        jurisdiction: NotRequired[str]
+        """
+        The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        percentage: float
+        """
+        The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
+        """
+        state: NotRequired[str]
+        """
+        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+        """
+        tax_type: NotRequired[
+            Literal[
+                "amusement_tax",
+                "communications_tax",
+                "gst",
+                "hst",
+                "igst",
+                "jct",
+                "lease_tax",
+                "pst",
+                "qst",
+                "rst",
+                "sales_tax",
+                "vat",
+            ]
+        ]
+        """
+        The high-level tax type, such as `vat` or `sales_tax`.
+        """
+
     class VoidInvoiceParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -5987,6 +6430,116 @@ class Invoice(
     """
     Always true for a deleted object
     """
+
+    @classmethod
+    def _cls_add_lines(
+        cls, invoice: str, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/add_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def add_lines(
+        invoice: str, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    def add_lines(
+        self, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_add_lines")
+    def add_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/add_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_add_lines_async(
+        cls, invoice: str, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await cls._static_request_async(
+                "post",
+                "/v1/invoices/{invoice}/add_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def add_lines_async(
+        invoice: str, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    async def add_lines_async(
+        self, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_add_lines_async")
+    async def add_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AddLinesParams"]
+    ) -> "Invoice":
+        """
+        Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/add_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def create(cls, **params: Unpack["Invoice.CreateParams"]) -> "Invoice":
@@ -6569,6 +7122,116 @@ class Invoice(
         )
 
     @classmethod
+    def _cls_remove_lines(
+        cls, invoice: str, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/remove_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def remove_lines(
+        invoice: str, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    def remove_lines(
+        self, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_remove_lines")
+    def remove_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/remove_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_remove_lines_async(
+        cls, invoice: str, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await cls._static_request_async(
+                "post",
+                "/v1/invoices/{invoice}/remove_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def remove_lines_async(
+        invoice: str, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    async def remove_lines_async(
+        self, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_remove_lines_async")
+    async def remove_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.RemoveLinesParams"]
+    ) -> "Invoice":
+        """
+        Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/remove_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Invoice.RetrieveParams"]
     ) -> "Invoice":
@@ -6786,6 +7449,116 @@ class Invoice(
             await cls._static_request_async(
                 "get",
                 "/v1/invoices/upcoming/lines",
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_update_lines(
+        cls, invoice: str, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/update_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def update_lines(
+        invoice: str, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    def update_lines(
+        self, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_update_lines")
+    def update_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/update_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_update_lines_async(
+        cls, invoice: str, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await cls._static_request_async(
+                "post",
+                "/v1/invoices/{invoice}/update_lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def update_lines_async(
+        invoice: str, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @overload
+    async def update_lines_async(
+        self, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        ...
+
+    @class_method_variant("_cls_update_lines_async")
+    async def update_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.UpdateLinesParams"]
+    ) -> "Invoice":
+        """
+        Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/update_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
                 params=params,
             ),
         )

@@ -1395,7 +1395,7 @@ class Customer(
     """
     next_invoice_sequence: Optional[int]
     """
-    The suffix of the customer's next invoice number (for example, 0001).
+    The suffix of the customer's next invoice number (for example, 0001). When the account uses account level sequencing, this parameter is ignored in API requests and the field omitted in API responses.
     """
     object: Literal["customer"]
     """
