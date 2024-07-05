@@ -88,7 +88,7 @@ class AccountService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["inferred_balances", "transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features to which you would like to subscribe.
         """
@@ -98,7 +98,7 @@ class AccountService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["inferred_balances", "transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features from which you would like to unsubscribe.
         """

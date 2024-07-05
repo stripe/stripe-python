@@ -19,6 +19,12 @@ from stripe.financial_connections._account_ownership import (
 from stripe.financial_connections._account_service import (
     AccountService as AccountService,
 )
+from stripe.financial_connections._institution import (
+    Institution as Institution,
+)
+from stripe.financial_connections._institution_service import (
+    InstitutionService as InstitutionService,
+)
 from stripe.financial_connections._session import Session as Session
 from stripe.financial_connections._session_service import (
     SessionService as SessionService,

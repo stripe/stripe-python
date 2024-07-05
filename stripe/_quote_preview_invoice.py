@@ -388,6 +388,7 @@ class QuotePreviewInvoice(StripeObject):
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -440,6 +441,7 @@ class QuotePreviewInvoice(StripeObject):
                 "parameters_exclusive",
                 "payment_intent_action_required",
                 "payment_intent_authentication_failure",
+                "payment_intent_fx_quote_invalid",
                 "payment_intent_incompatible_payment_method",
                 "payment_intent_invalid_parameter",
                 "payment_intent_konbini_rejected_confirmation_number",
@@ -678,6 +680,10 @@ class QuotePreviewInvoice(StripeObject):
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
                         """
 
                     filters: Optional[Filters]

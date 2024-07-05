@@ -64,6 +64,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         List of countries from which to filter accounts.
         """
+        institution: Optional[str]
+        """
+        Stripe ID of the institution with which the customer should be directed to log in.
+        """
 
     class Limits(StripeObject):
         accounts: int
@@ -163,6 +167,10 @@ class Session(CreateableAPIResource["Session"]):
         countries: NotRequired[List[str]]
         """
         List of countries from which to collect accounts.
+        """
+        institution: NotRequired[str]
+        """
+        Stripe ID of the institution with which the customer should be directed to log in.
         """
 
     class CreateParamsLimits(TypedDict):

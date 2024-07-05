@@ -260,7 +260,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["inferred_balances", "transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features to which you would like to subscribe.
         """
@@ -270,7 +270,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["inferred_balances", "transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features from which you would like to unsubscribe.
         """
@@ -367,7 +367,9 @@ class Account(ListableAPIResource["Account"]):
 
     If `category` is `investment` or `other`, this will be `other`.
     """
-    subscriptions: Optional[List[Literal["inferred_balances", "transactions"]]]
+    subscriptions: Optional[
+        List[Literal["balance", "inferred_balances", "transactions"]]
+    ]
     """
     The list of data refresh subscriptions requested on this account.
     """

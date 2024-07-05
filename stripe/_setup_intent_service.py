@@ -1233,6 +1233,10 @@ class SetupIntentService(StripeService):
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
         TypedDict,
@@ -2526,6 +2530,10 @@ class SetupIntentService(StripeService):
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
         TypedDict,
@@ -3795,6 +3803,10 @@ class SetupIntentService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(

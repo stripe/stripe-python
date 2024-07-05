@@ -406,6 +406,7 @@ class Invoice(
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -458,6 +459,7 @@ class Invoice(
                 "parameters_exclusive",
                 "payment_intent_action_required",
                 "payment_intent_authentication_failure",
+                "payment_intent_fx_quote_invalid",
                 "payment_intent_incompatible_payment_method",
                 "payment_intent_invalid_parameter",
                 "payment_intent_konbini_rejected_confirmation_number",
@@ -696,6 +698,10 @@ class Invoice(
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
                         """
 
                     filters: Optional[Filters]
@@ -1831,6 +1837,10 @@ class Invoice(
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class CreateParamsRendering(TypedDict):
@@ -4480,6 +4490,10 @@ class Invoice(
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class ModifyParamsRendering(TypedDict):
@@ -8866,7 +8880,7 @@ class Invoice(
         """
         invoice_metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For `type=recurring` line items, the incoming metadata specified on the request is directly used to set this value, in contrast to `type=invoiceitem` line items, where any existing metadata on the invoice line is merged with the incoming data.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
         """
         lines: List["Invoice.UpdateLinesParamsLine"]
         """
@@ -8902,7 +8916,7 @@ class Invoice(
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For `type=recurring` line items, the incoming metadata specified on the request is directly used to set this value, in contrast to `type=invoiceitem` line items, where any existing metadata on the invoice line is merged with the incoming data.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
         """
         period: NotRequired["Invoice.UpdateLinesParamsLinePeriod"]
         """

@@ -833,6 +833,10 @@ class SubscriptionService(StripeService):
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class CreateParamsPendingInvoiceItemInterval(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -1834,6 +1838,10 @@ class SubscriptionService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+        """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
         """
 
     class UpdateParamsPendingInvoiceItemInterval(TypedDict):
