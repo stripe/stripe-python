@@ -62,6 +62,57 @@ class Card(
             State, county, province, or region.
             """
 
+        class AddressValidation(StripeObject):
+            class NormalizedAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            mode: Literal[
+                "disabled",
+                "normalization_only",
+                "validation_and_normalization",
+            ]
+            """
+            The address validation capabilities to use.
+            """
+            normalized_address: Optional[NormalizedAddress]
+            """
+            The normalized shipping address.
+            """
+            result: Optional[
+                Literal[
+                    "indeterminate",
+                    "likely_deliverable",
+                    "likely_undeliverable",
+                ]
+            ]
+            """
+            The validation result for the shipping address.
+            """
+            _inner_class_types = {"normalized_address": NormalizedAddress}
+
         class Customs(StripeObject):
             eori_number: Optional[str]
             """
@@ -69,6 +120,10 @@ class Card(
             """
 
         address: Address
+        address_validation: Optional[AddressValidation]
+        """
+        Address validation details for the shipment.
+        """
         carrier: Optional[Literal["dhl", "fedex", "royal_mail", "usps"]]
         """
         The delivery company that shipped a card.
@@ -122,7 +177,11 @@ class Card(
         """
         Packaging options.
         """
-        _inner_class_types = {"address": Address, "customs": Customs}
+        _inner_class_types = {
+            "address": Address,
+            "address_validation": AddressValidation,
+            "customs": Customs,
+        }
 
     class SpendingControls(StripeObject):
         class SpendingLimit(StripeObject):
@@ -1181,6 +1240,12 @@ class Card(
         """
         The address that the card is shipped to.
         """
+        address_validation: NotRequired[
+            "Card.CreateParamsShippingAddressValidation"
+        ]
+        """
+        Address validation settings.
+        """
         customs: NotRequired["Card.CreateParamsShippingCustoms"]
         """
         Customs information for the shipment.
@@ -1230,6 +1295,14 @@ class Card(
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsShippingAddressValidation(TypedDict):
+        mode: Literal[
+            "disabled", "normalization_only", "validation_and_normalization"
+        ]
+        """
+        The address validation capabilities to use.
         """
 
     class CreateParamsShippingCustoms(TypedDict):
@@ -2278,6 +2351,10 @@ class Card(
         """
         The desired new PIN for this card.
         """
+        shipping: NotRequired["Card.ModifyParamsShipping"]
+        """
+        Updated shipping information for the card.
+        """
         spending_controls: NotRequired["Card.ModifyParamsSpendingControls"]
         """
         Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
@@ -2291,6 +2368,82 @@ class Card(
         encrypted_number: NotRequired[str]
         """
         The card's desired new PIN, encrypted under Stripe's public key.
+        """
+
+    class ModifyParamsShipping(TypedDict):
+        address: "Card.ModifyParamsShippingAddress"
+        """
+        The address that the card is shipped to.
+        """
+        address_validation: NotRequired[
+            "Card.ModifyParamsShippingAddressValidation"
+        ]
+        """
+        Address validation settings.
+        """
+        customs: NotRequired["Card.ModifyParamsShippingCustoms"]
+        """
+        Customs information for the shipment.
+        """
+        name: str
+        """
+        The name printed on the shipping label when shipping the card.
+        """
+        phone_number: NotRequired[str]
+        """
+        Phone number of the recipient of the shipment.
+        """
+        require_signature: NotRequired[bool]
+        """
+        Whether a signature is required for card delivery.
+        """
+        service: NotRequired[Literal["express", "priority", "standard"]]
+        """
+        Shipment service.
+        """
+        type: NotRequired[Literal["bulk", "individual"]]
+        """
+        Packaging options.
+        """
+
+    class ModifyParamsShippingAddress(TypedDict):
+        city: str
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: str
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired[str]
+        """
+        State, county, province, or region.
+        """
+
+    class ModifyParamsShippingAddressValidation(TypedDict):
+        mode: Literal[
+            "disabled", "normalization_only", "validation_and_normalization"
+        ]
+        """
+        The address validation capabilities to use.
+        """
+
+    class ModifyParamsShippingCustoms(TypedDict):
+        eori_number: NotRequired[str]
+        """
+        The Economic Operators Registration and Identification (EORI) number to use for Customs. Required for bulk shipments to Europe.
         """
 
     class ModifyParamsSpendingControls(TypedDict):
