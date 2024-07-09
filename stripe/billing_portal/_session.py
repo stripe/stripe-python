@@ -32,7 +32,7 @@ class Session(CreateableAPIResource["Session"]):
     Create sessions on-demand when customers intend to manage their subscriptions
     and billing details.
 
-    Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
+    Related guide: [Customer management](https://stripe.com/customer-management)
     """
 
     OBJECT_NAME: ClassVar[Literal["billing_portal.session"]] = (
