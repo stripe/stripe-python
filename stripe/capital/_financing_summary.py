@@ -21,7 +21,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         class CurrentRepaymentInterval(StripeObject):
             due_at: int
             """
-            The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account will be debited.
+            The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
             Given in seconds since unix epoch.
             """
             paid_amount: Optional[int]
