@@ -1,5 +1,15 @@
 # Changelog
 
+## 10.4.0b1 - 2024-07-11
+* [#1356](https://github.com/stripe/stripe-python/pull/1356) Update generated code for beta
+  * Change type of `payment_element` on  `stripe.CustomerSession.Components` from `Optional[PaymentElement]` to `PaymentElement`
+  * Add support for `not_qualified` on enum `stripe.Dispute.EvidenceDetails.EnhancedEligibility.VisaCompellingEvidence3.status`
+  * Remove support for `billing_policy_remote_function_response_invalid` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+  * Remove support for `billing_policy_remote_function_timeout` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+  * Remove support for `billing_policy_remote_function_unexpected_status_code` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+  * Remove support for `billing_policy_remote_function_unreachable` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+  * Remove support for `payment_intent_fx_quote_invalid` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+
 ## 10.3.0b1 - 2024-07-05
 * [#1355](https://github.com/stripe/stripe-python/pull/1355) Update generated code for beta
   * ⚠️ Remove support for `payment_method_update` on resource class `stripe.CustomerSession.Components.PaymentElement.Features` and parameter class `stripe.CustomerSession.CreateParamsComponentsPaymentElementFeatures`. Users are expected to completely migrate from using payment_method_update.
