@@ -319,6 +319,7 @@ class Dispute(
                 """
                 status: Literal[
                     "accepted",
+                    "not_qualified",
                     "partner_rejected",
                     "qualified",
                     "requires_action",

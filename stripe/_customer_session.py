@@ -91,7 +91,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         This hash contains whether the buy button is enabled.
         """
-        payment_element: Optional[PaymentElement]
+        payment_element: PaymentElement
         """
         This hash contains whether the Payment Element is enabled and the features it supports.
         """
