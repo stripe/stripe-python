@@ -80,6 +80,12 @@ class CardService(StripeService):
         """
         The address that the card is shipped to.
         """
+        address_validation: NotRequired[
+            "CardService.CreateParamsShippingAddressValidation"
+        ]
+        """
+        Address validation settings.
+        """
         customs: NotRequired["CardService.CreateParamsShippingCustoms"]
         """
         Customs information for the shipment.
@@ -129,6 +135,14 @@ class CardService(StripeService):
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsShippingAddressValidation(TypedDict):
+        mode: Literal[
+            "disabled", "normalization_only", "validation_and_normalization"
+        ]
+        """
+        The address validation capabilities to use.
         """
 
     class CreateParamsShippingCustoms(TypedDict):
@@ -1171,6 +1185,10 @@ class CardService(StripeService):
         """
         The desired new PIN for this card.
         """
+        shipping: NotRequired["CardService.UpdateParamsShipping"]
+        """
+        Updated shipping information for the card.
+        """
         spending_controls: NotRequired[
             "CardService.UpdateParamsSpendingControls"
         ]
@@ -1186,6 +1204,82 @@ class CardService(StripeService):
         encrypted_number: NotRequired[str]
         """
         The card's desired new PIN, encrypted under Stripe's public key.
+        """
+
+    class UpdateParamsShipping(TypedDict):
+        address: "CardService.UpdateParamsShippingAddress"
+        """
+        The address that the card is shipped to.
+        """
+        address_validation: NotRequired[
+            "CardService.UpdateParamsShippingAddressValidation"
+        ]
+        """
+        Address validation settings.
+        """
+        customs: NotRequired["CardService.UpdateParamsShippingCustoms"]
+        """
+        Customs information for the shipment.
+        """
+        name: str
+        """
+        The name printed on the shipping label when shipping the card.
+        """
+        phone_number: NotRequired[str]
+        """
+        Phone number of the recipient of the shipment.
+        """
+        require_signature: NotRequired[bool]
+        """
+        Whether a signature is required for card delivery.
+        """
+        service: NotRequired[Literal["express", "priority", "standard"]]
+        """
+        Shipment service.
+        """
+        type: NotRequired[Literal["bulk", "individual"]]
+        """
+        Packaging options.
+        """
+
+    class UpdateParamsShippingAddress(TypedDict):
+        city: str
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: str
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired[str]
+        """
+        State, county, province, or region.
+        """
+
+    class UpdateParamsShippingAddressValidation(TypedDict):
+        mode: Literal[
+            "disabled", "normalization_only", "validation_and_normalization"
+        ]
+        """
+        The address validation capabilities to use.
+        """
+
+    class UpdateParamsShippingCustoms(TypedDict):
+        eori_number: NotRequired[str]
+        """
+        The Economic Operators Registration and Identification (EORI) number to use for Customs. Required for bulk shipments to Europe.
         """
 
     class UpdateParamsSpendingControls(TypedDict):
