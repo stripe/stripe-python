@@ -496,7 +496,7 @@ class SubscriptionService(StripeService):
             Literal["off", "on_subscription"]
         ]
         """
-        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off` if unspecified.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -1381,7 +1381,7 @@ class SubscriptionService(StripeService):
             Literal["off", "on_subscription"]
         ]
         """
-        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off` if unspecified.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
