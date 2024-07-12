@@ -17,6 +17,7 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
+    from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
 
 
@@ -1278,6 +1279,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
+        """
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
