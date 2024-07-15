@@ -1025,6 +1025,16 @@ class Account(
             A CSS hex color value representing the secondary branding color for this account
             """
 
+        class Capital(StripeObject):
+            payout_destination: Optional[Dict[str, str]]
+            """
+            Per-currency mapping of user-selected destination accounts used to pay out loans.
+            """
+            payout_destination_selector: Optional[Dict[str, List[str]]]
+            """
+            Per-currency mapping of all destination accounts eligible to receive loan payouts.
+            """
+
         class CardIssuing(StripeObject):
             class TosAcceptance(StripeObject):
                 date: Optional[int]
@@ -1169,6 +1179,7 @@ class Account(
 
         bacs_debit_payments: Optional[BacsDebitPayments]
         branding: Branding
+        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1181,6 +1192,7 @@ class Account(
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
             "branding": Branding,
+            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
@@ -2796,6 +2808,10 @@ class Account(
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
         """
+        capital: NotRequired["Account.CreateParamsSettingsCapital"]
+        """
+        Settings specific to the account's use of the Capital product.
+        """
         card_issuing: NotRequired["Account.CreateParamsSettingsCardIssuing"]
         """
         Settings specific to the account's use of the Card Issuing product.
@@ -2843,6 +2859,16 @@ class Account(
         secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
+        """
+
+    class CreateParamsSettingsCapital(TypedDict):
+        payout_destination: NotRequired[Dict[str, str]]
+        """
+        Per-currency mapping of user-selected destination accounts used to pay out loans.
+        """
+        payout_destination_selector: NotRequired[Dict[str, List[str]]]
+        """
+        Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
         """
 
     class CreateParamsSettingsCardIssuing(TypedDict):
