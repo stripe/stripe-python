@@ -123,6 +123,7 @@ OBJECT_CLASSES = {
     stripe.Subscription.OBJECT_NAME: stripe.Subscription,
     stripe.SubscriptionItem.OBJECT_NAME: stripe.SubscriptionItem,
     stripe.SubscriptionSchedule.OBJECT_NAME: stripe.SubscriptionSchedule,
+    stripe.tax.Association.OBJECT_NAME: stripe.tax.Association,
     stripe.tax.Calculation.OBJECT_NAME: stripe.tax.Calculation,
     stripe.tax.CalculationLineItem.OBJECT_NAME: stripe.tax.CalculationLineItem,
     stripe.tax.Form.OBJECT_NAME: stripe.tax.Form,
