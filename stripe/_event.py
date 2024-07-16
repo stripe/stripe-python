@@ -511,7 +511,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -522,7 +522,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
