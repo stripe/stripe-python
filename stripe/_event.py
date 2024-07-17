@@ -329,6 +329,7 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.closed",
         "issuing_dispute.created",
         "issuing_dispute.funds_reinstated",
+        "issuing_dispute.funds_rescinded",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
         "issuing_personalization_design.activated",
