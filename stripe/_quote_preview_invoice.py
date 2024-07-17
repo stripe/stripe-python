@@ -788,6 +788,7 @@ class QuotePreviewInvoice(StripeObject):
                     "ideal",
                     "konbini",
                     "link",
+                    "multibanco",
                     "p24",
                     "paynow",
                     "paypal",
