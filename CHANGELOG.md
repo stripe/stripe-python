@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.4.0 - 2024-07-18
+* [#1362](https://github.com/stripe/stripe-python/pull/1362) Update generated code
+  * Add support for `customer` on resource class `stripe.ConfirmationToken.PaymentMethodPreview`
+  * Add support for `issuing_dispute.funds_rescinded` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
+  * Add support for `multibanco` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
+  * Add support for `stripe_s700` on enums `stripe.terminal.Reader.device_type` and `stripe.terminal.Reader.ListParams.device_type`
+* [#1360](https://github.com/stripe/stripe-python/pull/1360) Update changelog
+
 ## 10.4.0b1 - 2024-07-11
 * [#1356](https://github.com/stripe/stripe-python/pull/1356) Update generated code for beta
   * Change type of `payment_element` on  `stripe.CustomerSession.Components` from `Optional[PaymentElement]` to `PaymentElement`

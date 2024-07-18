@@ -710,7 +710,7 @@ class Refund(
         cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         """
-        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
         result = cls._static_request(
             "get",
@@ -730,7 +730,7 @@ class Refund(
         cls, **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         """
-        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
         result = await cls._static_request_async(
             "get",
