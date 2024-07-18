@@ -50,6 +50,7 @@ class ReaderService(StripeService):
                 "mobile_phone_reader",
                 "simulated_wisepos_e",
                 "stripe_m2",
+                "stripe_s700",
                 "verifone_P400",
             ]
         ]
