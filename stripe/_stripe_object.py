@@ -171,7 +171,7 @@ class StripeObject(Dict[str, Any]):
                     k = self._field_remappings[k]
                 return self[k]
             except KeyError as err:
-                raise AttributeError(*err.args)
+                raise AttributeError(*err.args) from err
 
         def __delattr__(self, k):
             if k[0] == "_" or k in self.__dict__:
