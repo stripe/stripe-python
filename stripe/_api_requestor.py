@@ -72,9 +72,11 @@ class _APIRequestor(object):
 
     def __init__(
         self,
-        options: RequestorOptions = RequestorOptions(),
+        options: Optional[RequestorOptions] = None,
         client: Optional[HTTPClient] = None,
     ):
+        if options is None:
+            options = RequestorOptions()
         self._options = options
         self._client = client
 
