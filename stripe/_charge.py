@@ -355,7 +355,10 @@ class Charge(
             """
 
         class Blik(StripeObject):
-            pass
+            buyer_id: Optional[str]
+            """
+            A unique and immutable identifier assigned by BLIK to every buyer.
+            """
 
         class Boleto(StripeObject):
             tax_id: str
