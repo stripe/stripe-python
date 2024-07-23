@@ -253,7 +253,10 @@ class Charge(
             """
 
         class Affirm(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Affirm transaction ID associated with this payment.
+            """
 
         class AfterpayClearpay(StripeObject):
             order_id: Optional[str]
