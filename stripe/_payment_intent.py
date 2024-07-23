@@ -12887,7 +12887,7 @@ class PaymentIntent(
     """
     latest_charge: Optional[ExpandableField["Charge"]]
     """
-    The latest charge created by this PaymentIntent.
+    ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     """
     livemode: bool
     """
