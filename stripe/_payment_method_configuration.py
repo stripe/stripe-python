@@ -829,6 +829,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Twint(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class UsBankAccount(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1087,6 +1109,10 @@ class PaymentMethodConfiguration(
         swish: NotRequired["PaymentMethodConfiguration.CreateParamsSwish"]
         """
         Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
+        """
+        twint: NotRequired["PaymentMethodConfiguration.CreateParamsTwint"]
+        """
+        Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccount"
@@ -1623,6 +1649,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsTwint(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsTwintDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsTwintDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
@@ -1879,6 +1919,10 @@ class PaymentMethodConfiguration(
         swish: NotRequired["PaymentMethodConfiguration.ModifyParamsSwish"]
         """
         Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
+        """
+        twint: NotRequired["PaymentMethodConfiguration.ModifyParamsTwint"]
+        """
+        Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccount"
@@ -2415,6 +2459,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsTwint(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsTwintDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsTwintDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
@@ -2531,6 +2589,7 @@ class PaymentMethodConfiguration(
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
+    twint: Optional[Twint]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
     zip: Optional[Zip]
@@ -2708,6 +2767,7 @@ class PaymentMethodConfiguration(
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "swish": Swish,
+        "twint": Twint,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,
