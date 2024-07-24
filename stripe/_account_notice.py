@@ -144,6 +144,9 @@ class AccountNotice(
     """
     reason: Literal[
         "issuing.account_closed_for_inactivity",
+        "issuing.account_closed_for_not_providing_business_model_clarification",
+        "issuing.account_closed_for_not_providing_url_clarification",
+        "issuing.account_closed_for_not_providing_use_case_clarification",
         "issuing.account_closed_for_terms_of_service_violation",
         "issuing.application_rejected_for_failure_to_verify",
         "issuing.credit_application_rejected",
