@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -17,6 +17,48 @@ class InvoicePayment(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice_payment"]] = "invoice_payment"
+
+    class Payment(StripeObject):
+        class OutOfBandPayment(StripeObject):
+            amount: int
+            """
+            Amount paid on this out of band payment, in cents (or local equivalent)
+            """
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            money_movement_type: str
+            """
+            The type of money movement for this out of band payment record.
+            """
+            paid_at: Optional[int]
+            """
+            The timestamp when this out of band payment was paid.
+            """
+            payment_reference: Optional[str]
+            """
+            The reference for this out of band payment record.
+            """
+
+        charge: Optional[ExpandableField["Charge"]]
+        """
+        ID of the successful charge for this payment when `type` is `charge`.
+        """
+        out_of_band_payment: Optional[OutOfBandPayment]
+        payment_intent: Optional[ExpandableField["PaymentIntent"]]
+        """
+        ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
+        """
+        type: Literal["charge", "out_of_band_payment", "payment_intent"]
+        """
+        Type of payment object associated with this invoice payment.
+        """
+        _inner_class_types = {"out_of_band_payment": OutOfBandPayment}
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[int]
@@ -39,10 +81,6 @@ class InvoicePayment(StripeObject):
     amount_requested: int
     """
     Amount intended to be paid toward this invoice, in cents (or local equivalent)
-    """
-    charge: Optional[ExpandableField["Charge"]]
-    """
-    ID of the successful charge for this payment. This field is null when the payment is `open` or `canceled`.
     """
     created: int
     """
@@ -72,13 +110,13 @@ class InvoicePayment(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    """
-    ID of the PaymentIntent associated with this payment. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
-    """
+    payment: Payment
     status: str
     """
     The status of the payment, one of `open`, `paid`, or `canceled`.
     """
     status_transitions: StatusTransitions
-    _inner_class_types = {"status_transitions": StatusTransitions}
+    _inner_class_types = {
+        "payment": Payment,
+        "status_transitions": StatusTransitions,
+    }
