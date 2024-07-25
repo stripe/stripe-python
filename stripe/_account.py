@@ -61,7 +61,7 @@ class Account(
         class AnnualRevenue(StripeObject):
             amount: Optional[int]
             """
-            A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
             """
             currency: Optional[str]
             """
@@ -75,7 +75,7 @@ class Account(
         class MonthlyEstimatedRevenue(StripeObject):
             amount: int
             """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
             """
             currency: str
             """
@@ -118,7 +118,7 @@ class Account(
         """
         mcc: Optional[str]
         """
-        [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
         name: Optional[str]
@@ -1351,7 +1351,7 @@ class Account(
         """
         mcc: NotRequired[str]
         """
-        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -1393,7 +1393,7 @@ class Account(
     class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1407,7 +1407,7 @@ class Account(
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -2042,11 +2042,11 @@ class Account(
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -2070,7 +2070,7 @@ class Account(
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "Account.CreateParamsCompanyOwnershipDeclaration"
@@ -2090,7 +2090,7 @@ class Account(
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -2396,11 +2396,11 @@ class Account(
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -2692,7 +2692,7 @@ class Account(
             "Account.CreateParamsSettingsCardIssuingTosAcceptance"
         ]
         """
-        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://docs.stripe.com/issuing/connect/tos_acceptance).
+        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://stripe.com/issuing/connect/tos_acceptance).
         """
 
     class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
@@ -2756,11 +2756,11 @@ class Account(
     class CreateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/connect/account-balances).
         """
         schedule: NotRequired["Account.CreateParamsSettingsPayoutsSchedule"]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -2770,7 +2770,7 @@ class Account(
     class CreateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired["Literal['minimum']|int"]
         """
-        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/connect/manage-payout-schedule).
         """
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """

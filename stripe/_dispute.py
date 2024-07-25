@@ -170,6 +170,10 @@ class Dispute(
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            case_type: Literal["chargeback", "inquiry"]
+            """
+            The type of dispute opened. Different case types may have varying fees and financial impact.
+            """
             network_reason_code: Optional[str]
             """
             The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
