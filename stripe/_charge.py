@@ -703,10 +703,6 @@ class Charge(
             """
             The authorized amount.
             """
-            authorization_code: Optional[str]
-            """
-            Authorization code on the charge.
-            """
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
