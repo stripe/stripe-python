@@ -253,7 +253,10 @@ class Charge(
             """
 
         class Affirm(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Affirm transaction ID associated with this payment.
+            """
 
         class AfterpayClearpay(StripeObject):
             order_id: Optional[str]
@@ -355,7 +358,10 @@ class Charge(
             """
 
         class Blik(StripeObject):
-            pass
+            buyer_id: Optional[str]
+            """
+            A unique and immutable identifier assigned by BLIK to every buyer.
+            """
 
         class Boleto(StripeObject):
             tax_id: str
@@ -703,6 +709,10 @@ class Charge(
             """
             The authorized amount.
             """
+            authorization_code: Optional[str]
+            """
+            Authorization code on the charge.
+            """
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -856,6 +866,10 @@ class Charge(
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            brand_product: Optional[str]
+            """
+            The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
+            """
             capture_before: Optional[int]
             """
             When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
@@ -917,6 +931,13 @@ class Charge(
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            network_transaction_id: Optional[str]
+            """
+            This is used by the financial networks to identify a transaction.
+            Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+            The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
+            This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
             """
             offline: Optional[Offline]
             """
@@ -1231,6 +1252,13 @@ class Charge(
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            network_transaction_id: Optional[str]
+            """
+            This is used by the financial networks to identify a transaction.
+            Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+            The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
+            This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
             """
             preferred_locales: Optional[List[str]]
             """
@@ -3569,7 +3597,7 @@ class Charge(
     billing_details: BillingDetails
     calculated_statement_descriptor: Optional[str]
     """
-    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined.
+    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This only works for card payments.
     """
     captured: bool
     """

@@ -217,6 +217,7 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.refund.updated",
         "application_fee.refunded",
         "balance.available",
+        "billing.alert.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
@@ -308,6 +309,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.finalization_failed",
         "invoice.finalized",
         "invoice.marked_uncollectible",
+        "invoice.overdue",
         "invoice.paid",
         "invoice.payment.overpaid",
         "invoice.payment_action_required",
@@ -317,6 +319,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.upcoming",
         "invoice.updated",
         "invoice.voided",
+        "invoice.will_be_due",
         "invoiceitem.created",
         "invoiceitem.deleted",
         "issuing_authorization.created",
@@ -329,6 +332,7 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.closed",
         "issuing_dispute.created",
         "issuing_dispute.funds_reinstated",
+        "issuing_dispute.funds_rescinded",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
         "issuing_personalization_design.activated",
@@ -511,7 +515,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -522,7 +526,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

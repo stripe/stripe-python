@@ -6,6 +6,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
+from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
@@ -32,7 +33,9 @@ if TYPE_CHECKING:
 
 
 class Session(
-    CreateableAPIResource["Session"], ListableAPIResource["Session"]
+    CreateableAPIResource["Session"],
+    ListableAPIResource["Session"],
+    UpdateableAPIResource["Session"],
 ):
     """
     A Checkout Session represents your customer's session as they pay for
@@ -3801,6 +3804,16 @@ class Session(
         Customer's email address.
         """
 
+    class ModifyParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -4378,6 +4391,40 @@ class Session(
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=sanitize_id(self.get("id"))
                 ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def modify(
+        cls, id: str, **params: Unpack["Session.ModifyParams"]
+    ) -> "Session":
+        """
+        Updates a Session object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["Session.ModifyParams"]
+    ) -> "Session":
+        """
+        Updates a Session object.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "Session",
+            await cls._static_request_async(
+                "post",
+                url,
                 params=params,
             ),
         )

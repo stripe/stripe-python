@@ -17,6 +17,7 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
+    from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
 
 
@@ -268,6 +269,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
                         """
+                        brand_product: Optional[str]
+                        """
+                        The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
+                        """
                         capture_before: Optional[int]
                         """
                         When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
@@ -329,6 +334,13 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         network: Optional[str]
                         """
                         Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                        """
+                        network_transaction_id: Optional[str]
+                        """
+                        This is used by the financial networks to identify a transaction.
+                        Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+                        The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
+                        This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
                         """
                         offline: Optional[Offline]
                         """
@@ -687,6 +699,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            brand_product: Optional[str]
+            """
+            The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
             """
             cardholder_name: Optional[str]
             """
@@ -1278,6 +1294,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
+        """
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]

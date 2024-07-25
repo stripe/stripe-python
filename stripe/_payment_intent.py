@@ -76,6 +76,20 @@ class PaymentIntent(
         tip: Optional[Tip]
         _inner_class_types = {"tip": Tip}
 
+    class AsyncWorkflows(StripeObject):
+        class Inputs(StripeObject):
+            class Tax(StripeObject):
+                calculation: str
+                """
+                The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+                """
+
+            tax: Optional[Tax]
+            _inner_class_types = {"tax": Tax}
+
+        inputs: Optional[Inputs]
+        _inner_class_types = {"inputs": Inputs}
+
     class AutomaticPaymentMethods(StripeObject):
         allow_redirects: Optional[Literal["always", "never"]]
         """
@@ -2445,6 +2459,12 @@ class PaymentIntent(
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
+        async_workflows: NotRequired[
+            "PaymentIntent.CaptureParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -2475,6 +2495,24 @@ class PaymentIntent(
         """
         The parameters that you can use to automatically create a transfer after the payment
         is captured. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class CaptureParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired["PaymentIntent.CaptureParamsAsyncWorkflowsInputs"]
+        """
+        Arguments passed in automations
+        """
+
+    class CaptureParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired["PaymentIntent.CaptureParamsAsyncWorkflowsInputsTax"]
+        """
+        Tax arguments for automations
+        """
+
+    class CaptureParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class CaptureParamsPaymentDetails(TypedDict):
@@ -3143,6 +3181,12 @@ class PaymentIntent(
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
+        async_workflows: NotRequired[
+            "PaymentIntent.ConfirmParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
+        """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
         ]
@@ -3237,6 +3281,24 @@ class PaymentIntent(
         use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+        """
+
+    class ConfirmParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired["PaymentIntent.ConfirmParamsAsyncWorkflowsInputs"]
+        """
+        Arguments passed in automations
+        """
+
+    class ConfirmParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired["PaymentIntent.ConfirmParamsAsyncWorkflowsInputsTax"]
+        """
+        Tax arguments for automations
+        """
+
+    class ConfirmParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class ConfirmParamsMandateData(TypedDict):
@@ -6229,6 +6291,12 @@ class PaymentIntent(
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
+        async_workflows: NotRequired[
+            "PaymentIntent.CreateParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
+        """
         automatic_payment_methods: NotRequired[
             "PaymentIntent.CreateParamsAutomaticPaymentMethods"
         ]
@@ -6383,6 +6451,24 @@ class PaymentIntent(
         use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+        """
+
+    class CreateParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired["PaymentIntent.CreateParamsAsyncWorkflowsInputs"]
+        """
+        Arguments passed in automations
+        """
+
+    class CreateParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired["PaymentIntent.CreateParamsAsyncWorkflowsInputsTax"]
+        """
+        Tax arguments for automations
+        """
+
+    class CreateParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class CreateParamsAutomaticPaymentMethods(TypedDict):
@@ -9402,6 +9488,12 @@ class PaymentIntent(
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
+        async_workflows: NotRequired[
+            "PaymentIntent.DecrementAuthorizationParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
+        """
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
@@ -9422,6 +9514,28 @@ class PaymentIntent(
         Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
 
+    class DecrementAuthorizationParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired[
+            "PaymentIntent.DecrementAuthorizationParamsAsyncWorkflowsInputs"
+        ]
+        """
+        Arguments passed in automations
+        """
+
+    class DecrementAuthorizationParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired[
+            "PaymentIntent.DecrementAuthorizationParamsAsyncWorkflowsInputsTax"
+        ]
+        """
+        Tax arguments for automations
+        """
+
+    class DecrementAuthorizationParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+        """
+
     class DecrementAuthorizationParamsTransferData(TypedDict):
         amount: NotRequired[int]
         """
@@ -9436,6 +9550,12 @@ class PaymentIntent(
         application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+        async_workflows: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
         """
         description: NotRequired[str]
         """
@@ -9459,6 +9579,28 @@ class PaymentIntent(
         """
         The parameters used to automatically create a transfer after the payment is captured.
         Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class IncrementAuthorizationParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAsyncWorkflowsInputs"
+        ]
+        """
+        Arguments passed in automations
+        """
+
+    class IncrementAuthorizationParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAsyncWorkflowsInputsTax"
+        ]
+        """
+        Tax arguments for automations
+        """
+
+    class IncrementAuthorizationParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
@@ -9519,6 +9661,12 @@ class PaymentIntent(
         application_fee_amount: NotRequired["Literal['']|int"]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+        async_workflows: NotRequired[
+            "PaymentIntent.ModifyParamsAsyncWorkflows"
+        ]
+        """
+        Automations to be run during the PaymentIntent lifecycle
         """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
@@ -9621,6 +9769,24 @@ class PaymentIntent(
         transfer_group: NotRequired[str]
         """
         A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class ModifyParamsAsyncWorkflows(TypedDict):
+        inputs: NotRequired["PaymentIntent.ModifyParamsAsyncWorkflowsInputs"]
+        """
+        Arguments passed in automations
+        """
+
+    class ModifyParamsAsyncWorkflowsInputs(TypedDict):
+        tax: NotRequired["PaymentIntent.ModifyParamsAsyncWorkflowsInputsTax"]
+        """
+        Tax arguments for automations
+        """
+
+    class ModifyParamsAsyncWorkflowsInputsTax(TypedDict):
+        calculation: Union[Literal[""], str]
+        """
+        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class ModifyParamsMandateData(TypedDict):
@@ -12648,6 +12814,7 @@ class PaymentIntent(
     """
     The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
+    async_workflows: Optional[AsyncWorkflows]
     automatic_payment_methods: Optional[AutomaticPaymentMethods]
     """
     Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
@@ -12720,7 +12887,7 @@ class PaymentIntent(
     """
     latest_charge: Optional[ExpandableField["Charge"]]
     """
-    The latest charge created by this PaymentIntent.
+    ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     """
     livemode: bool
     """
@@ -14364,6 +14531,7 @@ class PaymentIntent(
 
     _inner_class_types = {
         "amount_details": AmountDetails,
+        "async_workflows": AsyncWorkflows,
         "automatic_payment_methods": AutomaticPaymentMethods,
         "last_payment_error": LastPaymentError,
         "next_action": NextAction,

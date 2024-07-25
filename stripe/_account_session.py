@@ -200,6 +200,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class TaxRegistrations(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TaxSettings(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
         balances: Balances
@@ -210,6 +232,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payments: Payments
         payouts: Payouts
         payouts_list: PayoutsList
+        tax_registrations: TaxRegistrations
+        tax_settings: TaxSettings
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
@@ -221,6 +245,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payments": Payments,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
+            "tax_registrations": TaxRegistrations,
+            "tax_settings": TaxSettings,
         }
 
     class CreateParams(RequestOptions):

@@ -788,6 +788,7 @@ class QuotePreviewInvoice(StripeObject):
                     "ideal",
                     "konbini",
                     "link",
+                    "multibanco",
                     "p24",
                     "paynow",
                     "paypal",
@@ -1340,9 +1341,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
-    """
-    The subscription that this invoice was prepared for, if any.
-    """
     subscription_details: Optional[SubscriptionDetails]
     """
     Details about the subscription that created this invoice.

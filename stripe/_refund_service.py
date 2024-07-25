@@ -137,7 +137,7 @@ class RefundService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Refund]:
         """
-        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
         return cast(
             ListObject[Refund],
@@ -157,7 +157,7 @@ class RefundService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Refund]:
         """
-        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+        Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
         return cast(
             ListObject[Refund],
