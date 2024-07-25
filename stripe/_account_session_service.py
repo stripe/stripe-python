@@ -77,6 +77,18 @@ class AccountSessionService(StripeService):
         """
         Configuration for the payouts list embedded component.
         """
+        tax_registrations: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxRegistrations"
+        ]
+        """
+        Configuration for the tax registrations embedded component.
+        """
+        tax_settings: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxSettings"
+        ]
+        """
+        Configuration for the tax settings embedded component.
+        """
 
     class CreateParamsComponentsAccountManagement(TypedDict):
         enabled: bool
@@ -280,6 +292,36 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsTaxRegistrations(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxRegistrationsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsTaxRegistrationsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsTaxSettings(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxSettingsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsTaxSettingsFeatures(TypedDict):
         pass
 
     def create(
