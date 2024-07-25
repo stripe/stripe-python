@@ -2261,6 +2261,16 @@ class SessionService(StripeService):
         Specifies which fields in the response should be expanded.
         """
 
+    class UpdateParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
     def list(
         self,
         params: "SessionService.ListParams" = {},
@@ -2377,6 +2387,52 @@ class SessionService(StripeService):
             Session,
             await self._request_async(
                 "get",
+                "/v1/checkout/sessions/{session}".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        session: str,
+        params: "SessionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Updates a Session object.
+        """
+        return cast(
+            Session,
+            self._request(
+                "post",
+                "/v1/checkout/sessions/{session}".format(
+                    session=sanitize_id(session),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        session: str,
+        params: "SessionService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> Session:
+        """
+        Updates a Session object.
+        """
+        return cast(
+            Session,
+            await self._request_async(
+                "post",
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
