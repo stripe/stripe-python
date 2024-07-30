@@ -166,6 +166,31 @@ class SubscriptionSchedule(
             "transfer_data": TransferData,
         }
 
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
+
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
             class Discount(StripeObject):
@@ -2699,6 +2724,10 @@ class SubscriptionSchedule(
     """
     Unique identifier for the object.
     """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription schedule.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -3215,6 +3244,7 @@ class SubscriptionSchedule(
     _inner_class_types = {
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "phases": Phase,
         "prebilling": Prebilling,
     }
