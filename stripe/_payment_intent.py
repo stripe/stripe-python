@@ -9709,9 +9709,6 @@ class PaymentIntent(
         Provides industry-specific information about the charge.
         """
         payment_method: NotRequired[str]
-        """
-        ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-        """
         payment_method_configuration: NotRequired[str]
         """
         The ID of the payment method configuration to use with this PaymentIntent.
