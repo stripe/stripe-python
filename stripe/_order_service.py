@@ -486,9 +486,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -558,9 +560,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
@@ -576,9 +580,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
@@ -620,9 +626,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
@@ -680,9 +688,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
@@ -753,9 +763,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
@@ -779,9 +791,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
@@ -795,9 +809,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
@@ -807,9 +823,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         tos_shown_and_accepted: NotRequired[bool]
         """
@@ -869,9 +887,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         subsellers: NotRequired[List[str]]
         """
@@ -893,9 +913,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
@@ -918,9 +940,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
@@ -938,9 +962,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentSettingsTransferData(TypedDict):
@@ -1721,9 +1747,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -1793,9 +1821,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
@@ -1811,9 +1841,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
@@ -1855,9 +1887,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
@@ -1915,9 +1949,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
@@ -1988,9 +2024,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
@@ -2014,9 +2052,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
@@ -2030,9 +2070,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
@@ -2042,9 +2084,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         tos_shown_and_accepted: NotRequired[bool]
         """
@@ -2104,9 +2148,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
         subsellers: NotRequired[List[str]]
         """
@@ -2128,9 +2174,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
@@ -2153,9 +2201,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
@@ -2173,9 +2223,11 @@ class OrderService(StripeService):
 
         Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
+        If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+
         When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
-        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class UpdateParamsPaymentSettingsTransferData(TypedDict):
