@@ -1340,6 +1340,52 @@ class Invoice(
         The ID of the PaymentIntent to attach to the invoice.
         """
 
+    class AttachPaymentParams(RequestOptions):
+        amount_requested: NotRequired[int]
+        """
+        The portion of the `amount` on the PaymentIntent or out of band payment to apply to this invoice. It defaults to the entire amount.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        out_of_band_payment: NotRequired[
+            "Invoice.AttachPaymentParamsOutOfBandPayment"
+        ]
+        """
+        The out of band payment to attach to the invoice.
+        """
+        payment_intent: NotRequired[str]
+        """
+        The ID of the PaymentIntent to attach to the invoice.
+        """
+
+    class AttachPaymentParamsOutOfBandPayment(TypedDict):
+        amount: int
+        """
+        The amount that was paid out of band.
+        """
+        currency: str
+        """
+        The currency that was paid out of band.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        money_movement_type: str
+        """
+        The type of money movement for this out of band payment record.
+        """
+        paid_at: NotRequired[int]
+        """
+        The timestamp when this out of band payment was paid.
+        """
+        payment_reference: NotRequired[str]
+        """
+        The reference for this out of band payment record.
+        """
+
     class CreateParams(RequestOptions):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -9582,6 +9628,212 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/add_lines".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_attach_payment(
+        cls, invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def attach_payment(
+        invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        ...
+
+    @overload
+    def attach_payment(
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_payment")
+    def attach_payment(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_attach_payment_async(
+        cls, invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        return cast(
+            "Invoice",
+            await cls._static_request_async(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def attach_payment_async(
+        invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        ...
+
+    @overload
+    async def attach_payment_async(
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_payment_async")
+    async def attach_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
                     invoice=sanitize_id(self.get("id"))
                 ),
                 params=params,
