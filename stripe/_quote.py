@@ -366,6 +366,16 @@ class Quote(
 
         class Stale(StripeObject):
             class LastReason(StripeObject):
+                class LinesInvalid(StripeObject):
+                    invalid_at: int
+                    """
+                    The timestamp at which the lines were marked as invalid.
+                    """
+                    lines: List[str]
+                    """
+                    The list of lines that became invalid at the given timestamp.
+                    """
+
                 class SubscriptionChanged(StripeObject):
                     previous_subscription: Optional["Subscription"]
                     """
@@ -383,6 +393,10 @@ class Quote(
                 line_invalid: Optional[str]
                 """
                 The ID of the line that is invalid if the stale reason type is `line_invalid`.
+                """
+                lines_invalid: Optional[List[LinesInvalid]]
+                """
+                The IDs of the lines that are invalid if the stale reason type is `lines_invalid`.
                 """
                 marked_stale: Optional[str]
                 """
@@ -413,6 +427,7 @@ class Quote(
                         "accept_failed_validations",
                         "bill_on_acceptance_invalid",
                         "line_invalid",
+                        "lines_invalid",
                         "marked_stale",
                         "subscription_canceled",
                         "subscription_changed",
@@ -426,6 +441,7 @@ class Quote(
                 The reason the quote was marked as stale.
                 """
                 _inner_class_types = {
+                    "lines_invalid": LinesInvalid,
                     "subscription_changed": SubscriptionChanged,
                     "subscription_schedule_changed": SubscriptionScheduleChanged,
                 }
