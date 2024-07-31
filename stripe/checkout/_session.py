@@ -3995,7 +3995,7 @@ class Session(
     """
     currency_conversion: Optional[CurrencyConversion]
     """
-    Currency conversion details for automatic currency conversion sessions
+    Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions
     """
     custom_fields: List[CustomField]
     """

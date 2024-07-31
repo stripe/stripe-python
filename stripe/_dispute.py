@@ -295,16 +295,6 @@ class Dispute(
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):
             class VisaCompellingEvidence3(StripeObject):
-                partner_rejected_details: Optional[
-                    Literal[
-                        "fraudulent_prior_transaction",
-                        "other",
-                        "visa_internal_error",
-                    ]
-                ]
-                """
-                Rejection reason for evidence submitted as Visa Compelling Evidence 3.0 to Visa and rejected by Visa.
-                """
                 required_actions: List[
                     Literal[
                         "missing_customer_identifiers",
