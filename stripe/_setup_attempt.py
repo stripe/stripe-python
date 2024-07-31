@@ -460,6 +460,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "charge_already_refunded",
                 "charge_disputed",
                 "charge_exceeds_source_limit",
+                "charge_exceeds_transaction_limit",
                 "charge_expired_for_capture",
                 "charge_invalid_parameter",
                 "charge_not_refundable",
