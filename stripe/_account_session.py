@@ -276,6 +276,18 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
+        app_install: NotRequired[
+            "AccountSession.CreateParamsComponentsAppInstall"
+        ]
+        """
+        Configuration for the app install component.
+        """
+        app_viewport: NotRequired[
+            "AccountSession.CreateParamsComponentsAppViewport"
+        ]
+        """
+        Configuration for the app viewport component.
+        """
         balances: NotRequired["AccountSession.CreateParamsComponentsBalances"]
         """
         Configuration for the balances embedded component.
@@ -398,6 +410,42 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         external_account_collection: NotRequired[bool]
         """
         Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
+
+    class CreateParamsComponentsAppInstall(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAppInstallFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAppInstallFeatures(TypedDict):
+        allowed_apps: NotRequired["Literal['']|List[str]"]
+        """
+        List of apps allowed to be enabled for this account session.
+        """
+
+    class CreateParamsComponentsAppViewport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAppViewportFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAppViewportFeatures(TypedDict):
+        allowed_apps: NotRequired["Literal['']|List[str]"]
+        """
+        List of apps allowed to be enabled for this account session.
         """
 
     class CreateParamsComponentsBalances(TypedDict):

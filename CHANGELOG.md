@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.6.0 - 2024-08-01
+* [#1369](https://github.com/stripe/stripe-python/pull/1369) Update generated code
+  * Add support for resource `stripe.billing.Alert`
+  * ⚠️ Remove support for `authorization_code` on resource class `stripe.Charge.PaymentMethodDetails.Card`. This was accidentally released last week.
+  * Add support for `billing.alert.triggered` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
+  * Add support for `charge_exceeds_transaction_limit` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
+
 ## 10.6.0b1 - 2024-07-25
 * [#1361](https://github.com/stripe/stripe-python/pull/1361) Update generated code for beta
   * Add support for `capital` on parameter class `stripe.Account.CreateParamsSettings` and resource class `stripe.Account.Settings`

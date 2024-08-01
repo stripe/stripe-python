@@ -163,6 +163,31 @@ class Subscription(
         issuer: Issuer
         _inner_class_types = {"issuer": Issuer}
 
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
+
     class PauseCollection(StripeObject):
         behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
         """
@@ -628,7 +653,7 @@ class Subscription(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
@@ -1576,7 +1601,7 @@ class Subscription(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
@@ -2447,6 +2472,10 @@ class Subscription(
     """
     List of subscription items, each with an attached price.
     """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription.
+    """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
     The most recent invoice this subscription has generated.
@@ -3155,6 +3184,7 @@ class Subscription(
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "pause_collection": PauseCollection,
         "payment_settings": PaymentSettings,
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
