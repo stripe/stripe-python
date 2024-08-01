@@ -653,7 +653,7 @@ class Subscription(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
@@ -1601,7 +1601,7 @@ class Subscription(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
