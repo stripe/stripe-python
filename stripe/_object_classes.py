@@ -20,6 +20,8 @@ OBJECT_CLASSES = {
     stripe.BankAccount.OBJECT_NAME: stripe.BankAccount,
     stripe.billing_portal.Configuration.OBJECT_NAME: stripe.billing_portal.Configuration,
     stripe.billing_portal.Session.OBJECT_NAME: stripe.billing_portal.Session,
+    stripe.billing.Alert.OBJECT_NAME: stripe.billing.Alert,
+    stripe.billing.AlertTriggered.OBJECT_NAME: stripe.billing.AlertTriggered,
     stripe.billing.Meter.OBJECT_NAME: stripe.billing.Meter,
     stripe.billing.MeterEvent.OBJECT_NAME: stripe.billing.MeterEvent,
     stripe.billing.MeterEventAdjustment.OBJECT_NAME: stripe.billing.MeterEventAdjustment,

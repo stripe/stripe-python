@@ -277,7 +277,7 @@ class SubscriptionItem(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         payment_behavior: NotRequired[
             Literal[

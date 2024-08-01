@@ -113,6 +113,7 @@ class SetupIntent(
                 "charge_already_refunded",
                 "charge_disputed",
                 "charge_exceeds_source_limit",
+                "charge_exceeds_transaction_limit",
                 "charge_expired_for_capture",
                 "charge_invalid_parameter",
                 "charge_not_refundable",
@@ -2904,7 +2905,7 @@ class SetupIntent(
         """
         payment_method: NotRequired[str]
         """
-        ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+        ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string.
         """
         payment_method_configuration: NotRequired[str]
         """
@@ -4000,7 +4001,7 @@ class SetupIntent(
     """
     payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
-    ID of the payment method used with this SetupIntent.
+    ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.corp.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails

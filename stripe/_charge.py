@@ -703,10 +703,6 @@ class Charge(
             """
             The authorized amount.
             """
-            authorization_code: Optional[str]
-            """
-            Authorization code on the charge.
-            """
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -2182,7 +2178,7 @@ class Charge(
     billing_details: BillingDetails
     calculated_statement_descriptor: Optional[str]
     """
-    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined.
+    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This only works for card payments.
     """
     captured: bool
     """

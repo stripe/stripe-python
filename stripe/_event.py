@@ -166,6 +166,7 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.refund.updated",
         "application_fee.refunded",
         "balance.available",
+        "billing.alert.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
