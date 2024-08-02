@@ -243,6 +243,10 @@ class VerificationSession(
         """
         Details provided about the user being verified. These details may be shown to the user.
         """
+        related_customer: NotRequired[str]
+        """
+        Token referencing a Customer resource.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
@@ -315,6 +319,7 @@ class VerificationSession(
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
+        related_customer: NotRequired[str]
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -465,6 +470,10 @@ class VerificationSession(
     redaction: Optional[Redaction]
     """
     Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
+    """
+    related_customer: Optional[str]
+    """
+    Token referencing a Customer resource.
     """
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """
