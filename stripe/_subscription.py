@@ -636,7 +636,7 @@ class Subscription(
         """
         promotion_code: NotRequired[str]
         """
-        The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1451,7 +1451,7 @@ class Subscription(
         """
         promotion_code: NotRequired[str]
         """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
