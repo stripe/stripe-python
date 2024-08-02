@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.tax._calculation import Calculation
 from stripe.tax._calculation_line_item_service import (
     CalculationLineItemService,
@@ -269,6 +270,58 @@ class CalculationService(StripeService):
         """
         The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
         """
+
+    class RetrieveParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    def retrieve(
+        self,
+        calculation: str,
+        params: "CalculationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Calculation:
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        return cast(
+            Calculation,
+            self._request(
+                "get",
+                "/v1/tax/calculations/{calculation}".format(
+                    calculation=sanitize_id(calculation),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        calculation: str,
+        params: "CalculationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Calculation:
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        return cast(
+            Calculation,
+            await self._request_async(
+                "get",
+                "/v1/tax/calculations/{calculation}".format(
+                    calculation=sanitize_id(calculation),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
 
     def create(
         self,
