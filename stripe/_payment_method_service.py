@@ -189,7 +189,7 @@ class PaymentMethodService(StripeService):
         """
         rechnung: NotRequired["PaymentMethodService.CreateParamsRechnung"]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired["PaymentMethodService.CreateParamsRevolutPay"]
         """
@@ -806,7 +806,7 @@ class PaymentMethodService(StripeService):
         """
         rechnung: NotRequired["PaymentMethodService.UpdateParamsRechnung"]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"

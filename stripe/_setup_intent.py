@@ -999,7 +999,7 @@ class SetupIntent(
             "SetupIntent.ConfirmParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay"
@@ -2263,7 +2263,7 @@ class SetupIntent(
             "SetupIntent.CreateParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataRevolutPay"
@@ -3492,7 +3492,7 @@ class SetupIntent(
             "SetupIntent.ModifyParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay"

@@ -2115,10 +2115,7 @@ class PaymentIntent(
             """
 
         class Rechnung(StripeObject):
-            risk_correlation_id: Optional[str]
-            """
-            A unique identifier that correlates each transaction with the collected risk data.
-            """
+            pass
 
         class RevolutPay(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -4268,7 +4265,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataRevolutPay"
@@ -4940,7 +4937,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRechnung"
         ]
         """
-        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
+        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay"
@@ -6118,10 +6115,7 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsRechnung(TypedDict):
-        risk_correlation_id: NotRequired[str]
-        """
-        A unique identifier that correlates each transaction with the collected risk data.
-        """
+        pass
 
     class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -7525,7 +7519,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataRevolutPay"
@@ -8197,7 +8191,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRechnung"
         ]
         """
-        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
+        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay"
@@ -9375,10 +9369,7 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsRechnung(TypedDict):
-        risk_correlation_id: NotRequired[str]
-        """
-        A unique identifier that correlates each transaction with the collected risk data.
-        """
+        pass
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -10892,7 +10883,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataRevolutPay"
@@ -11564,7 +11555,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRechnung"
         ]
         """
-        If this is a `Rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
+        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay"
@@ -12742,10 +12733,7 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsRechnung(TypedDict):
-        risk_correlation_id: NotRequired[str]
-        """
-        A unique identifier that correlates each transaction with the collected risk data.
-        """
+        pass
 
     class ModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]

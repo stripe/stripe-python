@@ -1694,7 +1694,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataRechnung"
         ]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataRevolutPay"

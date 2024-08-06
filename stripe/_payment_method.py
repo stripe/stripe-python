@@ -1427,7 +1427,7 @@ class PaymentMethod(
         """
         rechnung: NotRequired["PaymentMethod.CreateParamsRechnung"]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
         """
@@ -2036,7 +2036,7 @@ class PaymentMethod(
         """
         rechnung: NotRequired["PaymentMethod.ModifyParamsRechnung"]
         """
-        If this is a Rechnung PaymentMethod, this hash contains details about the Rechnung payment method.
+        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
