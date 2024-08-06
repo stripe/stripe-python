@@ -232,7 +232,7 @@ class ChargeService(StripeService):
         """
         transfer_group: NotRequired[str]
         """
-        Only return charges for this transfer group.
+        Only return charges for this transfer group, limited to 100.
         """
 
     class ListParamsCreated(TypedDict):
