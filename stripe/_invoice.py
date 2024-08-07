@@ -430,6 +430,7 @@ class Invoice(
                 "invalid_cvc",
                 "invalid_expiry_month",
                 "invalid_expiry_year",
+                "invalid_mandate_reference_prefix_format",
                 "invalid_number",
                 "invalid_source_usage",
                 "invalid_tax_location",
