@@ -245,6 +245,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 """
                 Time at which the payment was collected while offline
                 """
+                type: Optional[Literal["deferred"]]
+                """
+                The method used to process this payment method offline. Only deferred is allowed.
+                """
 
             generated_card: Optional[ExpandableField["PaymentMethod"]]
             """
