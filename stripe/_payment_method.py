@@ -180,6 +180,10 @@ class PaymentMethod(
                         """
                         Time at which the payment was collected while offline
                         """
+                        type: Optional[Literal["deferred"]]
+                        """
+                        The method used to process this payment method offline. Only deferred is allowed.
+                        """
 
                     class Receipt(StripeObject):
                         account_type: Optional[
@@ -660,6 +664,10 @@ class PaymentMethod(
             stored_at: Optional[int]
             """
             Time at which the payment was collected while offline
+            """
+            type: Optional[Literal["deferred"]]
+            """
+            The method used to process this payment method offline. Only deferred is allowed.
             """
 
         brand: Optional[str]
