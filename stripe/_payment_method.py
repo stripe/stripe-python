@@ -180,6 +180,10 @@ class PaymentMethod(
                         """
                         Time at which the payment was collected while offline
                         """
+                        type: Optional[Literal["deferred"]]
+                        """
+                        The method used to process this payment method offline. Only deferred is allowed.
+                        """
 
                     class Receipt(StripeObject):
                         account_type: Optional[
@@ -656,6 +660,16 @@ class PaymentMethod(
             The preferred network for the card.
             """
 
+        class Offline(StripeObject):
+            stored_at: Optional[int]
+            """
+            Time at which the payment was collected while offline
+            """
+            type: Optional[Literal["deferred"]]
+            """
+            The method used to process this payment method offline. Only deferred is allowed.
+            """
+
         brand: Optional[str]
         """
         Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -710,6 +724,10 @@ class PaymentMethod(
         """
         Contains information about card networks that can be used to process the payment.
         """
+        offline: Optional[Offline]
+        """
+        Details about payment methods collected offline.
+        """
         preferred_locales: Optional[List[str]]
         """
         EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
@@ -726,7 +744,7 @@ class PaymentMethod(
         """
         How card details were read in this transaction.
         """
-        _inner_class_types = {"networks": Networks}
+        _inner_class_types = {"networks": Networks, "offline": Offline}
 
     class Cashapp(StripeObject):
         buyer_id: Optional[str]

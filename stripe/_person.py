@@ -38,7 +38,10 @@ class Person(UpdateableAPIResource["Person"]):
             The user agent of the browser from which the legal guardian accepted the service agreement.
             """
 
-        account: Account
+        account: Optional[Account]
+        """
+        Details on the legal guardian's acceptance of the main Stripe service agreement.
+        """
         _inner_class_types = {"account": Account}
 
     class Address(StripeObject):

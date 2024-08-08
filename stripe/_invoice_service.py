@@ -555,13 +555,13 @@ class InvoiceService(StripeService):
     class CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan(
         TypedDict,
     ):
-        count: int
+        count: NotRequired[int]
         """
-        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
         """
-        interval: Literal["month"]
+        interval: NotRequired[Literal["month"]]
         """
-        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
         type: Literal["fixed_count"]
@@ -1685,7 +1685,7 @@ class InvoiceService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancel_now: NotRequired[bool]
         """
@@ -2099,7 +2099,7 @@ class InvoiceService(StripeService):
         """
         subscription_cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
         """
         subscription_cancel_now: NotRequired[bool]
         """
@@ -2887,7 +2887,7 @@ class InvoiceService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancel_now: NotRequired[bool]
         """
@@ -3661,13 +3661,13 @@ class InvoiceService(StripeService):
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan(
         TypedDict,
     ):
-        count: int
+        count: NotRequired[int]
         """
-        For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
         """
-        interval: Literal["month"]
+        interval: NotRequired[Literal["month"]]
         """
-        For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
         type: Literal["fixed_count"]

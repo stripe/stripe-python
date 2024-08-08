@@ -805,6 +805,10 @@ class Charge(
                 """
                 Time at which the payment was collected while offline
                 """
+                type: Optional[Literal["deferred"]]
+                """
+                The method used to process this payment method offline. Only deferred is allowed.
+                """
 
             class Receipt(StripeObject):
                 account_type: Optional[
@@ -1788,11 +1792,11 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CaptureParamsTransferData"]
         """
@@ -1866,11 +1870,11 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CreateParamsTransferData"]
         """
@@ -1986,7 +1990,7 @@ class Charge(
         """
         transfer_group: NotRequired[str]
         """
-        Only return charges for this transfer group.
+        Only return charges for this transfer group, limited to 100.
         """
 
     class ListParamsCreated(TypedDict):
@@ -2178,7 +2182,7 @@ class Charge(
     billing_details: BillingDetails
     calculated_statement_descriptor: Optional[str]
     """
-    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This only works for card payments.
+    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This value only exists for card payments.
     """
     captured: bool
     """
@@ -2309,11 +2313,11 @@ class Charge(
     """
     statement_descriptor: Optional[str]
     """
-    For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+    For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
     """
     statement_descriptor_suffix: Optional[str]
     """
-    Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
     """
     status: Literal["failed", "pending", "succeeded"]
     """

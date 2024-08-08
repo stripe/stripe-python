@@ -87,7 +87,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -194,7 +194,7 @@ class SubscriptionService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -585,6 +585,7 @@ class SubscriptionService(StripeService):
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -960,7 +961,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
@@ -1067,7 +1068,7 @@ class SubscriptionService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1470,6 +1471,7 @@ class SubscriptionService(StripeService):
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
