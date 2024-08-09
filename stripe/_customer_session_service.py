@@ -75,7 +75,7 @@ class CustomerSessionService(StripeService):
         """
         payment_method_redisplay_limit: NotRequired[int]
         """
-        Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `10`.
+        Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`.
         """
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
