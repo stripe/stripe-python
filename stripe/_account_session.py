@@ -75,6 +75,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class CapitalFinancing(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancingApplication(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class CapitalFinancingPromotion(StripeObject):
             class Features(StripeObject):
                 pass
@@ -225,6 +247,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
         balances: Balances
+        capital_financing: Optional[CapitalFinancing]
+        capital_financing_application: Optional[CapitalFinancingApplication]
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
         documents: Documents
         notification_banner: NotificationBanner
@@ -238,6 +262,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
             "balances": Balances,
+            "capital_financing": CapitalFinancing,
+            "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_promotion": CapitalFinancingPromotion,
             "documents": Documents,
             "notification_banner": NotificationBanner,
