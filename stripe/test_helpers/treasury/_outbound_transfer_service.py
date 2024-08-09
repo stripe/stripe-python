@@ -87,6 +87,10 @@ class OutboundTransferService(StripeService):
         """
 
     class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
+        chips: NotRequired[str]
+        """
+        CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
+        """
         imad: NotRequired[str]
         """
         IMAD for funds sent over the `us_domestic_wire` network.
