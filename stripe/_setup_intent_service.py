@@ -808,6 +808,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsCard"
         ]
@@ -896,6 +902,17 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
@@ -2106,6 +2123,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsCard"
         ]
@@ -2194,6 +2217,17 @@ class SetupIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
@@ -3381,6 +3415,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsCard"
         ]
@@ -3469,6 +3509,17 @@ class SetupIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodOptionsCard(TypedDict):

@@ -466,6 +466,13 @@ class SetupIntent(
         class AmazonPay(StripeObject):
             pass
 
+        class BacsDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Card(StripeObject):
             class MandateOptions(StripeObject):
                 amount: int
@@ -707,6 +714,7 @@ class SetupIntent(
 
         acss_debit: Optional[AcssDebit]
         amazon_pay: Optional[AmazonPay]
+        bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         link: Optional[Link]
@@ -717,6 +725,7 @@ class SetupIntent(
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "amazon_pay": AmazonPay,
+            "bacs_debit": BacsDebit,
             "card": Card,
             "card_present": CardPresent,
             "link": Link,
@@ -1484,6 +1493,12 @@ class SetupIntent(
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -1568,6 +1583,17 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
@@ -2748,6 +2774,12 @@ class SetupIntent(
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -2830,6 +2862,17 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
@@ -3977,6 +4020,12 @@ class SetupIntent(
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
         """
+        bacs_debit: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
+        """
         card: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsCard"]
         """
         Configuration for any card setup attempted on this SetupIntent.
@@ -4059,6 +4108,17 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodOptionsCard(TypedDict):
