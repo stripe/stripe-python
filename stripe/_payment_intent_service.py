@@ -1260,6 +1260,12 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -1274,6 +1280,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -3636,6 +3645,12 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -3650,6 +3665,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -6034,6 +6052,12 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -6048,6 +6072,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
