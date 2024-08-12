@@ -36,7 +36,7 @@ class SessionService(StripeService):
         """
         cancel_url: NotRequired[str]
         """
-        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
+        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         """
         client_reference_id: NotRequired[str]
         """
@@ -294,7 +294,7 @@ class SessionService(StripeService):
         return_url: NotRequired[str]
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the
-        payment method's app or site. This parameter is required if ui_mode is `embedded`
+        payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
         and redirect-based payment methods are enabled on the session.
         """
         saved_payment_method_options: NotRequired[
@@ -337,7 +337,7 @@ class SessionService(StripeService):
         """
         The URL to which Stripe should send customers when payment or setup
         is complete.
-        This parameter is not allowed if ui_mode is `embedded`. If you'd like to use
+        This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
         information from the successful Checkout Session on your page, read the
         guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
         """
@@ -347,7 +347,7 @@ class SessionService(StripeService):
         """
         Controls tax ID collection during checkout.
         """
-        ui_mode: NotRequired[Literal["embedded", "hosted"]]
+        ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
         """

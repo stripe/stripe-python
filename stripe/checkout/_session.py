@@ -1735,7 +1735,7 @@ class Session(
         """
         cancel_url: NotRequired[str]
         """
-        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
+        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         """
         client_reference_id: NotRequired[str]
         """
@@ -1987,7 +1987,7 @@ class Session(
         return_url: NotRequired[str]
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the
-        payment method's app or site. This parameter is required if ui_mode is `embedded`
+        payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
         and redirect-based payment methods are enabled on the session.
         """
         saved_payment_method_options: NotRequired[
@@ -2026,7 +2026,7 @@ class Session(
         """
         The URL to which Stripe should send customers when payment or setup
         is complete.
-        This parameter is not allowed if ui_mode is `embedded`. If you'd like to use
+        This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
         information from the successful Checkout Session on your page, read the
         guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
         """
@@ -2034,7 +2034,7 @@ class Session(
         """
         Controls tax ID collection during checkout.
         """
-        ui_mode: NotRequired[Literal["embedded", "hosted"]]
+        ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
         """
@@ -4121,7 +4121,7 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    Client secret to be used when initializing Stripe.js embedded checkout.
+    The client secret of the Session. Use this with [initCustomCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
     """
     consent: Optional[Consent]
     """
@@ -4299,7 +4299,7 @@ class Session(
     """
     return_url: Optional[str]
     """
-    Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+    Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
     """
     saved_payment_method_options: Optional[SavedPaymentMethodOptions]
     """
@@ -4349,7 +4349,7 @@ class Session(
     """
     Tax and discount details for the computed total amount.
     """
-    ui_mode: Optional[Literal["embedded", "hosted"]]
+    ui_mode: Optional[Literal["custom", "embedded", "hosted"]]
     """
     The UI mode of the Session. Defaults to `hosted`.
     """
