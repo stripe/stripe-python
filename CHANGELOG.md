@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.8.0b1 - 2024-08-12
+* [#1372](https://github.com/stripe/stripe-python/pull/1372) Update generated code for beta
+  * Add support for `capital_financing` on resource class `stripe.AccountSession.Components`
+  * Add support for `payto` on parameter class `stripe.checkout.Session.CreateParamsPaymentMethodOptions` and resource class `stripe.checkout.Session.PaymentMethodOptions`
+  * ⚠️  Remove support for `risk_correlation_id` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsRechnung`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsRechnung`, and `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsRechnung` and resource class `stripe.PaymentIntent.PaymentMethodOptions.Rechnung`
+  * Add support for `custom` on enums `stripe.checkout.Session.ui_mode` and `stripe.checkout.Session.CreateParams.ui_mode`
+  * Add support for `payto` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+  * Add support for `invalid_mandate_reference_prefix_format` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+
 ## 10.7.0 - 2024-08-08
 * [#1371](https://github.com/stripe/stripe-python/pull/1371) Update generated code
   * Add support for `type` on resource classes `stripe.Charge.PaymentMethodDetails.CardPresent.Offline`, `stripe.ConfirmationToken.PaymentMethodPreview.Card.GeneratedFrom.PaymentMethodDetails.CardPresent.Offline`, `stripe.PaymentMethod.Card.GeneratedFrom.PaymentMethodDetails.CardPresent.Offline`, and `stripe.SetupAttempt.PaymentMethodDetails.CardPresent.Offline`
