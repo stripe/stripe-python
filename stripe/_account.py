@@ -2270,7 +2270,7 @@ class Account(
             "Account.CreateParamsDocumentsBankAccountOwnershipVerification"
         ]
         """
-        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a voided check.
+        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         """
         company_license: NotRequired[
             "Account.CreateParamsDocumentsCompanyLicense"
@@ -3405,7 +3405,7 @@ class Account(
             "Account.ModifyExternalAccountParamsDocumentsBankAccountOwnershipVerification"
         ]
         """
-        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the bank account that displays the last 4 digits of the account number, either a statement or a voided check.
+        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the bank account that displays the last 4 digits of the account number, either a statement or a check.
         """
 
     class ModifyExternalAccountParamsDocumentsBankAccountOwnershipVerification(
