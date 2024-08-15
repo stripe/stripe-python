@@ -18,6 +18,12 @@ from stripe.issuing._credit_underwriting_record_service import (
 )
 from stripe.issuing._dispute import Dispute as Dispute
 from stripe.issuing._dispute_service import DisputeService as DisputeService
+from stripe.issuing._dispute_settlement_detail import (
+    DisputeSettlementDetail as DisputeSettlementDetail,
+)
+from stripe.issuing._dispute_settlement_detail_service import (
+    DisputeSettlementDetailService as DisputeSettlementDetailService,
+)
 from stripe.issuing._personalization_design import (
     PersonalizationDesign as PersonalizationDesign,
 )
