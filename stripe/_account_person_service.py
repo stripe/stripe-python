@@ -15,7 +15,7 @@ class AccountPersonService(StripeService):
             "AccountPersonService.CreateParamsAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["AccountPersonService.CreateParamsAddress"]
         """
@@ -444,7 +444,7 @@ class AccountPersonService(StripeService):
             "AccountPersonService.UpdateParamsAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["AccountPersonService.UpdateParamsAddress"]
         """
