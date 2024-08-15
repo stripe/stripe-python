@@ -225,6 +225,14 @@ class PaymentMethod(
                         An indication of various EMV functions performed during the transaction.
                         """
 
+                    class Wallet(StripeObject):
+                        type: Literal[
+                            "apple_pay", "google_pay", "samsung_pay", "unknown"
+                        ]
+                        """
+                        The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+                        """
+
                     amount_authorized: Optional[int]
                     """
                     The authorized amount
@@ -331,9 +339,11 @@ class PaymentMethod(
                     """
                     A collection of fields required to be displayed on receipts. Only required for EMV transactions.
                     """
+                    wallet: Optional[Wallet]
                     _inner_class_types = {
                         "offline": Offline,
                         "receipt": Receipt,
+                        "wallet": Wallet,
                     }
 
                 card_present: Optional[CardPresent]
@@ -667,6 +677,12 @@ class PaymentMethod(
             The method used to process this payment method offline. Only deferred is allowed.
             """
 
+        class Wallet(StripeObject):
+            type: Literal["apple_pay", "google_pay", "samsung_pay", "unknown"]
+            """
+            The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+            """
+
         brand: Optional[str]
         """
         Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -741,7 +757,12 @@ class PaymentMethod(
         """
         How card details were read in this transaction.
         """
-        _inner_class_types = {"networks": Networks, "offline": Offline}
+        wallet: Optional[Wallet]
+        _inner_class_types = {
+            "networks": Networks,
+            "offline": Offline,
+            "wallet": Wallet,
+        }
 
     class Cashapp(StripeObject):
         buyer_id: Optional[str]

@@ -276,6 +276,12 @@ class SessionService(StripeService):
         prioritize the most relevant payment methods based on the customer's location and
         other characteristics.
         """
+        permissions: NotRequired["SessionService.CreateParamsPermissions"]
+        """
+        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+
+        For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        """
         phone_number_collection: NotRequired[
             "SessionService.CreateParamsPhoneNumberCollection"
         ]
@@ -1822,6 +1828,22 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPermissions(TypedDict):
+        update: NotRequired["SessionService.CreateParamsPermissionsUpdate"]
+        """
+        Permissions for updating the Checkout Session.
+        """
+
+    class CreateParamsPermissionsUpdate(TypedDict):
+        shipping_details: NotRequired[Literal["client_only", "server_only"]]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        """
+
     class CreateParamsPhoneNumberCollection(TypedDict):
         enabled: bool
         """
@@ -2416,6 +2438,12 @@ class SessionService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        collected_information: NotRequired[
+            "SessionService.UpdateParamsCollectedInformation"
+        ]
+        """
+        Information about the customer collected within the Checkout Session.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -2423,6 +2451,177 @@ class SessionService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        shipping_options: NotRequired[
+            "Literal['']|List[SessionService.UpdateParamsShippingOption]"
+        ]
+        """
+        The shipping rate options to apply to this Session. Up to a maximum of 5.
+        """
+
+    class UpdateParamsCollectedInformation(TypedDict):
+        shipping_details: NotRequired[
+            "SessionService.UpdateParamsCollectedInformationShippingDetails"
+        ]
+        """
+        The shipping details to apply to this Session.
+        """
+
+    class UpdateParamsCollectedInformationShippingDetails(TypedDict):
+        address: "SessionService.UpdateParamsCollectedInformationShippingDetailsAddress"
+        """
+        The address of the customer
+        """
+        name: str
+        """
+        The name of customer
+        """
+
+    class UpdateParamsCollectedInformationShippingDetailsAddress(TypedDict):
+        city: NotRequired[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired[str]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired[str]
+        """
+        State, county, province, or region.
+        """
+
+    class UpdateParamsShippingOption(TypedDict):
+        shipping_rate: NotRequired[str]
+        """
+        The ID of the Shipping Rate to use for this shipping option.
+        """
+        shipping_rate_data: NotRequired[
+            "SessionService.UpdateParamsShippingOptionShippingRateData"
+        ]
+        """
+        Parameters to be passed to Shipping Rate creation for this shipping option.
+        """
+
+    class UpdateParamsShippingOptionShippingRateData(TypedDict):
+        delivery_estimate: NotRequired[
+            "SessionService.UpdateParamsShippingOptionShippingRateDataDeliveryEstimate"
+        ]
+        """
+        The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        display_name: str
+        """
+        The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        fixed_amount: NotRequired[
+            "SessionService.UpdateParamsShippingOptionShippingRateDataFixedAmount"
+        ]
+        """
+        Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        tax_behavior: NotRequired[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+        tax_code: NotRequired[str]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        """
+        type: NotRequired[Literal["fixed_amount"]]
+        """
+        The type of calculation to use on the shipping rate.
+        """
+
+    class UpdateParamsShippingOptionShippingRateDataDeliveryEstimate(
+        TypedDict
+    ):
+        maximum: NotRequired[
+            "SessionService.UpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum"
+        ]
+        """
+        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+        """
+        minimum: NotRequired[
+            "SessionService.UpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum"
+        ]
+        """
+        The lower bound of the estimated range. If empty, represents no lower bound.
+        """
+
+    class UpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class UpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class UpdateParamsShippingOptionShippingRateDataFixedAmount(TypedDict):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        currency_options: NotRequired[
+            Dict[
+                str,
+                "SessionService.UpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions",
+            ]
+        ]
+        """
+        Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+
+    class UpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions(
+        TypedDict,
+    ):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        tax_behavior: NotRequired[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         """
 
     def list(

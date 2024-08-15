@@ -3030,7 +3030,7 @@ class Account(
             "Account.CreatePersonParamsAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["Account.CreatePersonParamsAddress"]
         """
@@ -3611,7 +3611,7 @@ class Account(
             "Account.ModifyPersonParamsAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["Account.ModifyPersonParamsAddress"]
         """

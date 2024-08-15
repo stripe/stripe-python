@@ -862,6 +862,14 @@ class Charge(
                 An indication of various EMV functions performed during the transaction.
                 """
 
+            class Wallet(StripeObject):
+                type: Literal[
+                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                ]
+                """
+                The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+                """
+
             amount_authorized: Optional[int]
             """
             The authorized amount
@@ -968,7 +976,12 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
-            _inner_class_types = {"offline": Offline, "receipt": Receipt}
+            wallet: Optional[Wallet]
+            _inner_class_types = {
+                "offline": Offline,
+                "receipt": Receipt,
+                "wallet": Wallet,
+            }
 
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
