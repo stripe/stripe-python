@@ -1,3 +1,12 @@
+## 10.8.0 - 2024-08-15
+* [#1373](https://github.com/stripe/stripe-python/pull/1373) Update generated code
+  * Add support for `authorization_code` on resource class `stripe.Charge.PaymentMethodDetails.Card`
+  * Add support for `wallet` on resource classes `stripe.Charge.PaymentMethodDetails.CardPresent`, `stripe.ConfirmationToken.PaymentMethodPreview.Card.GeneratedFrom.PaymentMethodDetails.CardPresent`, `stripe.ConfirmationToken.PaymentMethodPreview.CardPresent`, `stripe.PaymentMethod.Card.GeneratedFrom.PaymentMethodDetails.CardPresent`, and `stripe.PaymentMethod.CardPresent`
+  * Add support for `mandate_options` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit`, and `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit` and resource class `stripe.PaymentIntent.PaymentMethodOptions.BacsDebit`
+  * Add support for `bacs_debit` on parameter classes `stripe.SetupIntent.ConfirmParamsPaymentMethodOptions`, `stripe.SetupIntent.CreateParamsPaymentMethodOptions`, and `stripe.SetupIntent.ModifyParamsPaymentMethodOptions` and resource class `stripe.SetupIntent.PaymentMethodOptions`
+  * Add support for `chips` on resource classes `stripe.treasury.OutboundPayment.TrackingDetails.UsDomesticWire` and `stripe.treasury.OutboundTransfer.TrackingDetails.UsDomesticWire` and parameter classes `stripe.treasury.OutboundPayment.UpdateParamsTrackingDetailsUsDomesticWire` and `stripe.treasury.OutboundTransfer.UpdateParamsTrackingDetailsUsDomesticWire`
+  * Change type of `imad` on  `stripe.treasury.OutboundPayment.TrackingDetails.UsDomesticWire` and `stripe.treasury.OutboundTransfer.TrackingDetails.UsDomesticWire` from `str` to `Optional[str]`
+
 ## 10.7.0 - 2024-08-08
 * [#1371](https://github.com/stripe/stripe-python/pull/1371) Update generated code
   * Add support for `type` on resource classes `stripe.Charge.PaymentMethodDetails.CardPresent.Offline`, `stripe.ConfirmationToken.PaymentMethodPreview.Card.GeneratedFrom.PaymentMethodDetails.CardPresent.Offline`, `stripe.PaymentMethod.Card.GeneratedFrom.PaymentMethodDetails.CardPresent.Offline`, and `stripe.SetupAttempt.PaymentMethodDetails.CardPresent.Offline`
