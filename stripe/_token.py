@@ -703,7 +703,7 @@ class Token(CreateableAPIResource["Token"]):
             "Token.CreateParamsPersonAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["Token.CreateParamsPersonAddress"]
         """

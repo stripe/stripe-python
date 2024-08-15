@@ -862,6 +862,14 @@ class Charge(
                 An indication of various EMV functions performed during the transaction.
                 """
 
+            class Wallet(StripeObject):
+                type: Literal[
+                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                ]
+                """
+                The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+                """
+
             amount_authorized: Optional[int]
             """
             The authorized amount
@@ -938,10 +946,7 @@ class Charge(
             """
             network_transaction_id: Optional[str]
             """
-            This is used by the financial networks to identify a transaction.
-            Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
-            The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
-            This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
             """
             offline: Optional[Offline]
             """
@@ -971,7 +976,12 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
-            _inner_class_types = {"offline": Offline, "receipt": Receipt}
+            wallet: Optional[Wallet]
+            _inner_class_types = {
+                "offline": Offline,
+                "receipt": Receipt,
+                "wallet": Wallet,
+            }
 
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
@@ -1259,10 +1269,7 @@ class Charge(
             """
             network_transaction_id: Optional[str]
             """
-            This is used by the financial networks to identify a transaction.
-            Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
-            The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
-            This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
             """
             preferred_locales: Optional[List[str]]
             """
@@ -1915,7 +1922,7 @@ class Charge(
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CaptureParamsTransferData"]
         """
@@ -2642,7 +2649,7 @@ class Charge(
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CreateParamsTransferData"]
         """
@@ -3728,7 +3735,7 @@ class Charge(
     """
     source_transfer: Optional[ExpandableField["Transfer"]]
     """
-    The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     """
     statement_descriptor: Optional[str]
     """
@@ -3736,7 +3743,7 @@ class Charge(
     """
     statement_descriptor_suffix: Optional[str]
     """
-    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
+    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
     """
     status: Literal["failed", "pending", "succeeded"]
     """

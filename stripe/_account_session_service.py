@@ -53,9 +53,24 @@ class AccountSessionService(StripeService):
         """
         Configuration for the balances embedded component.
         """
+        capital_financing: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalFinancing"
+        ]
+        """
+        Configuration for the capital financing embedded component.
+        """
+        capital_financing_application: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalFinancingApplication"
+        ]
+        """
+        Configuration for the capital financing application embedded component.
+        """
         capital_financing_promotion: NotRequired[
             "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotion"
         ]
+        """
+        Configuration for the capital financing promotion embedded component.
+        """
         capital_overview: NotRequired[
             "AccountSessionService.CreateParamsComponentsCapitalOverview"
         ]
@@ -242,6 +257,36 @@ class AccountSessionService(StripeService):
         """
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
+
+    class CreateParamsComponentsCapitalFinancing(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalFinancingFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingApplication(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsCapitalFinancingApplicationFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingApplicationFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalFinancingFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
         enabled: bool
