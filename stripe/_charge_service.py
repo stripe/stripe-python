@@ -38,7 +38,7 @@ class ChargeService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["ChargeService.CaptureParamsTransferData"]
         """
@@ -116,7 +116,7 @@ class ChargeService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["ChargeService.CreateParamsTransferData"]
         """

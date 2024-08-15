@@ -190,7 +190,11 @@ class OutboundPayment(
             """
 
         class UsDomesticWire(StripeObject):
-            imad: str
+            chips: Optional[str]
+            """
+            CHIPS System Sequence Number (SSN) of the OutboundPayment for payments sent over the `us_domestic_wire` network.
+            """
+            imad: Optional[str]
             """
             IMAD of the OutboundPayment for payments sent over the `us_domestic_wire` network.
             """
@@ -525,6 +529,10 @@ class OutboundPayment(
         """
 
     class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
+        chips: NotRequired[str]
+        """
+        CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
+        """
         imad: NotRequired[str]
         """
         IMAD for funds sent over the `us_domestic_wire` network.

@@ -72,7 +72,7 @@ class PaymentIntentService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_data: NotRequired[
             "PaymentIntentService.CaptureParamsTransferData"
@@ -1260,6 +1260,12 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -1274,6 +1280,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -2431,7 +2440,7 @@ class PaymentIntentService(StripeService):
 
         Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
         """
         description: NotRequired[str]
         """
@@ -2529,7 +2538,7 @@ class PaymentIntentService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_data: NotRequired[
             "PaymentIntentService.CreateParamsTransferData"
@@ -3636,6 +3645,12 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -3650,6 +3665,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -4917,7 +4935,7 @@ class PaymentIntentService(StripeService):
 
         Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
         """
         description: NotRequired[str]
         """
@@ -4987,7 +5005,7 @@ class PaymentIntentService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_data: NotRequired[
             "PaymentIntentService.UpdateParamsTransferData"
@@ -6034,6 +6052,12 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
@@ -6048,6 +6072,9 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+
+    class UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
