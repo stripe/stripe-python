@@ -116,10 +116,10 @@ def _now_ms():
 
 
 def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
-    if urlfetch:
-        impl = UrlFetchClient
-    elif requests:
+    if requests:
         impl = RequestsClient
+    elif urlfetch:
+        impl = UrlFetchClient
     elif pycurl:
         impl = PycurlClient
     else:
