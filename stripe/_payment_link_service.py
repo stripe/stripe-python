@@ -555,7 +555,7 @@ class PaymentLinkService(StripeService):
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_group: NotRequired[str]
         """
@@ -1355,7 +1355,7 @@ class PaymentLinkService(StripeService):
         """
         statement_descriptor_suffix: NotRequired["Literal['']|str"]
         """
-        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_group: NotRequired["Literal['']|str"]
         """
