@@ -1765,6 +1765,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1886,6 +1892,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -2167,6 +2174,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
@@ -2452,6 +2462,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
         """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMobilepay"
@@ -3426,6 +3442,20 @@ class PaymentIntentService(StripeService):
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5074,6 +5104,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -5195,6 +5231,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -5476,6 +5513,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
@@ -5761,6 +5801,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
         """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMobilepay"
@@ -6735,6 +6781,20 @@ class PaymentIntentService(StripeService):
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -8523,6 +8583,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -8644,6 +8710,7 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -8925,6 +8992,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
@@ -9210,6 +9280,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+        """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
         """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMobilepay"
@@ -10184,6 +10260,20 @@ class PaymentIntentService(StripeService):
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

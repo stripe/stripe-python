@@ -855,6 +855,7 @@ class Customer(
                 "klarna",
                 "konbini",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",

@@ -404,6 +404,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesMobilepayPayments"
         ]
@@ -700,6 +706,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesLinkPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMbWayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2210,6 +2222,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesMobilepayPayments"
         ]
@@ -2506,6 +2524,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesLinkPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesMbWayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

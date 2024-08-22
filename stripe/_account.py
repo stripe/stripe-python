@@ -278,6 +278,10 @@ class Account(
         """
         The status of the link_payments capability of the account, or whether the account can directly process Link charges.
         """
+        mb_way_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the MB WAY payments capability of the account, or whether the account can directly process MB WAY charges.
+        """
         mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
@@ -1681,6 +1685,12 @@ class Account(
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesMobilepayPayments"
         ]
@@ -1973,6 +1983,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesLinkPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMbWayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

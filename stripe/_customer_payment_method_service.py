@@ -56,6 +56,7 @@ class CustomerPaymentMethodService(StripeService):
                 "klarna",
                 "konbini",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",
