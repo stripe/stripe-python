@@ -137,6 +137,10 @@ class PaymentMethodService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["PaymentMethodService.CreateParamsMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -234,6 +238,7 @@ class PaymentMethodService(StripeService):
                 "klarna",
                 "konbini",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",
@@ -546,6 +551,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsLink(TypedDict):
         pass
 
+    class CreateParamsMbWay(TypedDict):
+        pass
+
     class CreateParamsMobilepay(TypedDict):
         pass
 
@@ -741,6 +749,7 @@ class PaymentMethodService(StripeService):
                 "klarna",
                 "konbini",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",

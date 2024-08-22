@@ -953,6 +953,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1056,6 +1060,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -1333,6 +1338,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
@@ -2234,6 +2242,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.CreateParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -2337,6 +2349,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -2614,6 +2627,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
@@ -3480,6 +3496,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3583,6 +3603,7 @@ class SetupIntent(
             "klarna",
             "konbini",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
@@ -3860,6 +3881,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataMobilepay(TypedDict):

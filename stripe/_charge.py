@@ -1327,6 +1327,9 @@ class Charge(
             You could use this attribute to get a sense of international fees.
             """
 
+        class MbWay(StripeObject):
+            pass
+
         class Mobilepay(StripeObject):
             class Card(StripeObject):
                 brand: Optional[str]
@@ -1753,6 +1756,7 @@ class Charge(
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
         link: Optional[Link]
+        mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         oxxo: Optional[Oxxo]
@@ -1806,6 +1810,7 @@ class Charge(
             "klarna": Klarna,
             "konbini": Konbini,
             "link": Link,
+            "mb_way": MbWay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "oxxo": Oxxo,
@@ -1918,7 +1923,9 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+        For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+
+        For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
@@ -2645,7 +2652,9 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+        For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+
+        For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
@@ -3739,7 +3748,9 @@ class Charge(
     """
     statement_descriptor: Optional[str]
     """
-    For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+    For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+
+    For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
     """
     statement_descriptor_suffix: Optional[str]
     """

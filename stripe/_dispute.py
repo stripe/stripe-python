@@ -308,12 +308,7 @@ class Dispute(
                 List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
                 """
                 status: Literal[
-                    "accepted",
-                    "not_qualified",
-                    "partner_rejected",
-                    "qualified",
-                    "requires_action",
-                    "submitted",
+                    "not_qualified", "qualified", "requires_action"
                 ]
                 """
                 Visa Compelling Evidence 3.0 eligibility status.
