@@ -2015,6 +2015,7 @@ class Session(
                     "klarna",
                     "konbini",
                     "link",
+                    "mb_way",
                     "mobilepay",
                     "multibanco",
                     "oxxo",
