@@ -391,6 +391,10 @@ class CreditUnderwritingRecord(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        regulatory_reporting_file: NotRequired[str]
+        """
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions). Optional if previously provided and no changes are needed.
+        """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecord.CorrectParamsUnderwritingException"
         ]
@@ -813,6 +817,10 @@ class CreditUnderwritingRecord(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        regulatory_reporting_file: NotRequired[str]
+        """
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+        """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecord.CreateFromProactiveReviewParamsUnderwritingException"
         ]
@@ -1102,6 +1110,10 @@ class CreditUnderwritingRecord(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        regulatory_reporting_file: NotRequired[str]
+        """
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+        """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecord.ReportDecisionParamsUnderwritingException"
         ]
@@ -1282,6 +1294,10 @@ class CreditUnderwritingRecord(
     object: Literal["issuing.credit_underwriting_record"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    regulatory_reporting_file: Optional[str]
+    """
+    File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
     """
     underwriting_exception: Optional[UnderwritingException]
     """

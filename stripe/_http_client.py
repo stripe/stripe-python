@@ -39,10 +39,12 @@ from typing_extensions import (
     Never,
 )
 
-# - Requests is the preferred HTTP library
-# - Google App Engine has urlfetch
-# - Use Pycurl if it's there (at least it verifies SSL certs)
-# - Fall back to urllib2 with a warning if needed
+
+# The precedence of HTTP libraries is
+# - Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
+# - Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
+# - Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
+# - urllib2 with a warning (basically always present, fallback if needed)
 try:
     import urllib.request as urllibrequest
     import urllib.error as urlliberror
@@ -713,7 +715,7 @@ class RequestsClient(HTTPClient):
 
         return content, status_code, result.headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         # Catch SSL error first as it belongs to ConnectionError,
         # but we don't want to retry
         if isinstance(e, self.requests.exceptions.SSLError):
@@ -764,7 +766,7 @@ class RequestsClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def close(self):
         if getattr(self._thread_local, "session", None) is not None:
@@ -869,7 +871,7 @@ class UrlFetchClient(HTTPClient):
 
         return content, result.status_code, result.headers
 
-    def _handle_request_error(self, e, url) -> NoReturn:
+    def _handle_request_error(self, e: Exception, url: str) -> NoReturn:
         if isinstance(e, self.urlfetch.InvalidURLError):
             msg = (
                 "The Stripe library attempted to fetch an "
@@ -892,7 +894,7 @@ class UrlFetchClient(HTTPClient):
             )
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise APIConnectionError(msg)
+        raise APIConnectionError(msg) from e
 
     def close(self):
         pass
@@ -1046,7 +1048,7 @@ class PycurlClient(HTTPClient):
 
         return rcontent, rcode, headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         if e.args[0] in [
             self.pycurl.E_COULDNT_CONNECT,
             self.pycurl.E_COULDNT_RESOLVE_HOST,
@@ -1079,7 +1081,7 @@ class PycurlClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def _get_proxy(self, url) -> Optional[ParseResult]:
         if self._parsed_proxy:
@@ -1194,13 +1196,13 @@ class Urllib2Client(HTTPClient):
         lh = dict((k.lower(), v) for k, v in iter(dict(headers).items()))
         return rcontent, rcode, lh
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. "
             "If this problem persists, let us know at support@stripe.com."
         )
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise APIConnectionError(msg)
+        raise APIConnectionError(msg) from e
 
     def close(self):
         pass
@@ -1307,7 +1309,7 @@ class HTTPXClient(HTTPClient):
         response_headers = response.headers
         return content, status_code, response_headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. If this "
             "problem persists, let us know at support@stripe.com."
@@ -1316,7 +1318,7 @@ class HTTPXClient(HTTPClient):
         should_retry = True
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -1446,7 +1448,7 @@ class AIOHTTPClient(HTTPClient):
 
         return (await content.read()), status_code, response_headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. If this "
             "problem persists, let us know at support@stripe.com."
@@ -1455,7 +1457,7 @@ class AIOHTTPClient(HTTPClient):
         should_retry = True
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         raise NotImplementedError(
