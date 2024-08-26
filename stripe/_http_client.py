@@ -39,10 +39,12 @@ from typing_extensions import (
     Never,
 )
 
-# - Requests is the preferred HTTP library
-# - Google App Engine has urlfetch
-# - Use Pycurl if it's there (at least it verifies SSL certs)
-# - Fall back to urllib2 with a warning if needed
+
+# The precedence of HTTP libraries is
+# - Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
+# - Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
+# - Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
+# - urllib2 with a warning (basically always present, fallback if needed)
 try:
     import urllib.request as urllibrequest
     import urllib.error as urlliberror
