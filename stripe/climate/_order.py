@@ -266,7 +266,7 @@ class Order(
         cls, order: str, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -286,7 +286,7 @@ class Order(
     @staticmethod
     def cancel(order: str, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -296,7 +296,7 @@ class Order(
     @overload
     def cancel(self, **params: Unpack["Order.CancelParams"]) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -308,7 +308,7 @@ class Order(
         self, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -329,7 +329,7 @@ class Order(
         cls, order: str, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -351,7 +351,7 @@ class Order(
         order: str, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -363,7 +363,7 @@ class Order(
         self, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -375,7 +375,7 @@ class Order(
         self, **params: Unpack["Order.CancelParams"]
     ) -> "Order":
         """
-        Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+        Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
@@ -435,7 +435,6 @@ class Order(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -457,7 +456,6 @@ class Order(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

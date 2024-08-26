@@ -41,6 +41,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class AcssDebit(StripeObject):
             pass
 
+        class AmazonPay(StripeObject):
+            pass
+
         class AuBecsDebit(StripeObject):
             pass
 
@@ -242,6 +245,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 """
                 Time at which the payment was collected while offline
                 """
+                type: Optional[Literal["deferred"]]
+                """
+                The method used to process this payment method offline. Only deferred is allowed.
+                """
 
             generated_card: Optional[ExpandableField["PaymentMethod"]]
             """
@@ -331,6 +338,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Paypal(StripeObject):
             pass
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             pass
 
@@ -374,6 +384,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         acss_debit: Optional[AcssDebit]
+        amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
@@ -385,6 +396,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         type: str
@@ -394,6 +406,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
@@ -405,6 +418,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "link": Link,
             "paypal": Paypal,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,
@@ -440,10 +454,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "bank_account_unverified",
                 "bank_account_verification_failed",
                 "billing_invalid_mandate",
-                "billing_policy_remote_function_response_invalid",
-                "billing_policy_remote_function_timeout",
-                "billing_policy_remote_function_unexpected_status_code",
-                "billing_policy_remote_function_unreachable",
                 "bitcoin_upgrade_required",
                 "capture_charge_authorization_expired",
                 "capture_unauthorized_payment",
@@ -454,6 +464,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "charge_already_refunded",
                 "charge_disputed",
                 "charge_exceeds_source_limit",
+                "charge_exceeds_transaction_limit",
                 "charge_expired_for_capture",
                 "charge_invalid_parameter",
                 "charge_not_refundable",
@@ -491,6 +502,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "invalid_cvc",
                 "invalid_expiry_month",
                 "invalid_expiry_year",
+                "invalid_mandate_reference_prefix_format",
                 "invalid_number",
                 "invalid_source_usage",
                 "invalid_tax_location",
@@ -568,6 +580,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -578,6 +591,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
                 "terminal_reader_hardware_fault",
+                "terminal_reader_invalid_location_for_payment",
                 "terminal_reader_offline",
                 "terminal_reader_timeout",
                 "testmode_charges_only",
@@ -647,13 +661,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
         you through the setup process.
 
         Successful SetupIntents result in payment credentials that are optimized for future payments.
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
         If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
         We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -661,7 +675,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
         """
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
@@ -798,7 +812,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -819,7 +832,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

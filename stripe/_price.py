@@ -262,7 +262,7 @@ class Price(
         """
         unit_amount: NotRequired[int]
         """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount` or `custom_unit_amount` is required, unless `billing_scheme=tiered`.
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount`, `unit_amount_decimal`, or `custom_unit_amount` is required, unless `billing_scheme=tiered`.
         """
         unit_amount_decimal: NotRequired[str]
         """
@@ -472,7 +472,7 @@ class Price(
         """
         lookup_keys: NotRequired[List[str]]
         """
-        Only return the price with these lookup_keys, if any exist.
+        Only return the price with these lookup_keys, if any exist. You can specify up to 10 lookup_keys.
         """
         product: NotRequired[str]
         """
@@ -781,7 +781,6 @@ class Price(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -802,7 +801,6 @@ class Price(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

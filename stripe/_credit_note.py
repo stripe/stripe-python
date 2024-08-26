@@ -167,6 +167,10 @@ class CreditNote(
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
+        email_type: NotRequired[Literal["credit_note", "none"]]
+        """
+        Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -368,6 +372,10 @@ class CreditNote(
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
         """
+        email_type: NotRequired[Literal["credit_note", "none"]]
+        """
+        Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -500,6 +508,10 @@ class CreditNote(
         effective_at: NotRequired[int]
         """
         The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+        """
+        email_type: NotRequired[Literal["credit_note", "none"]]
+        """
+        Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
         """
         expand: NotRequired[List[str]]
         """
@@ -819,7 +831,6 @@ class CreditNote(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -840,7 +851,6 @@ class CreditNote(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1079,7 +1089,7 @@ class CreditNote(
         cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
-        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
             ListObject["CreditNoteLineItem"],
@@ -1097,7 +1107,7 @@ class CreditNote(
         cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
-        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
             ListObject["CreditNoteLineItem"],

@@ -164,9 +164,7 @@ class HTTPClient(object):
         if proxy:
             if isinstance(proxy, str):
                 proxy = {"http": proxy, "https": proxy}
-            if not isinstance(
-                proxy, dict
-            ):  # pyright: ignore[reportUnnecessaryIsInstance]
+            if not isinstance(proxy, dict):  # pyright: ignore[reportUnnecessaryIsInstance]
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
                     "URL or a dict() with string URL under the"
@@ -401,7 +399,7 @@ class HTTPClient(object):
         headers: Optional[Mapping[str, str]],
         post_data: Any = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[str, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
@@ -414,7 +412,7 @@ class HTTPClient(object):
         headers: Optional[Mapping[str, str]],
         post_data: Any = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Mapping[str, str]]:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
@@ -433,7 +431,7 @@ class HTTPClient(object):
         post_data=None,
         max_network_retries: Optional[int] = None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
             method,
@@ -453,7 +451,7 @@ class HTTPClient(object):
         post_data=None,
         max_network_retries=None,
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[AsyncIterable[bytes], int, Any]:
         return await self._request_with_retries_internal_async(
             method,
@@ -475,9 +473,8 @@ class HTTPClient(object):
         is_streaming: Literal[False],
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
-    ) -> Tuple[Any, int, Mapping[str, str]]:
-        ...
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[Any, int, Mapping[str, str]]: ...
 
     @overload
     async def _request_with_retries_internal_async(
@@ -489,9 +486,8 @@ class HTTPClient(object):
         is_streaming: Literal[True],
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
-    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]:
-        ...
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[AsyncIterable[bytes], int, Mapping[str, str]]: ...
 
     async def _request_with_retries_internal_async(
         self,
@@ -502,7 +498,7 @@ class HTTPClient(object):
         is_streaming: bool,
         max_network_retries: Optional[int],
         *,
-        _usage: Optional[List[str]] = None
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[Any, int, Mapping[str, str]]:
         headers = self._add_telemetry_header(headers)
 
@@ -601,7 +597,7 @@ class RequestsClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
         async_fallback_client: Optional[HTTPClient] = None,
-        **kwargs
+        **kwargs,
     ):
         super(RequestsClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -644,8 +640,7 @@ class RequestsClient(HTTPClient):
         headers: Optional[Mapping[str, str]],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[Any, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[Any, int, Mapping[str, str]]: ...
 
     @overload
     def _request_internal(
@@ -655,8 +650,7 @@ class RequestsClient(HTTPClient):
         headers: Optional[Mapping[str, str]],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[bytes, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[bytes, int, Mapping[str, str]]: ...
 
     def _request_internal(
         self,
@@ -721,7 +715,7 @@ class RequestsClient(HTTPClient):
 
         return content, status_code, result.headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         # Catch SSL error first as it belongs to ConnectionError,
         # but we don't want to retry
         if isinstance(e, self.requests.exceptions.SSLError):
@@ -772,7 +766,7 @@ class RequestsClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def close(self):
         if getattr(self._thread_local, "session", None) is not None:
@@ -834,8 +828,7 @@ class UrlFetchClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[BytesIO, int, Any]:
-        ...
+    ) -> Tuple[BytesIO, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -845,8 +838,7 @@ class UrlFetchClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Any]:
-        ...
+    ) -> Tuple[str, int, Any]: ...
 
     def _request_internal(
         self,
@@ -879,7 +871,7 @@ class UrlFetchClient(HTTPClient):
 
         return content, result.status_code, result.headers
 
-    def _handle_request_error(self, e, url) -> NoReturn:
+    def _handle_request_error(self, e: Exception, url: str) -> NoReturn:
         if isinstance(e, self.urlfetch.InvalidURLError):
             msg = (
                 "The Stripe library attempted to fetch an "
@@ -902,7 +894,7 @@ class UrlFetchClient(HTTPClient):
             )
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise APIConnectionError(msg)
+        raise APIConnectionError(msg) from e
 
     def close(self):
         pass
@@ -972,8 +964,7 @@ class PycurlClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[BytesIO, int, Any]:
-        ...
+    ) -> Tuple[BytesIO, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -983,8 +974,7 @@ class PycurlClient(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Mapping[str, str]]:
-        ...
+    ) -> Tuple[str, int, Mapping[str, str]]: ...
 
     def _request_internal(
         self,
@@ -1058,7 +1048,7 @@ class PycurlClient(HTTPClient):
 
         return rcontent, rcode, headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         if e.args[0] in [
             self.pycurl.E_COULDNT_CONNECT,
             self.pycurl.E_COULDNT_RESOLVE_HOST,
@@ -1091,7 +1081,7 @@ class PycurlClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def _get_proxy(self, url) -> Optional[ParseResult]:
         if self._parsed_proxy:
@@ -1151,8 +1141,7 @@ class Urllib2Client(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[False],
-    ) -> Tuple[str, int, Any]:
-        ...
+    ) -> Tuple[str, int, Any]: ...
 
     @overload
     def _request_internal(
@@ -1162,8 +1151,7 @@ class Urllib2Client(HTTPClient):
         headers: Mapping[str, str],
         post_data,
         is_streaming: Literal[True],
-    ) -> Tuple[HTTPResponse, int, Any]:
-        ...
+    ) -> Tuple[HTTPResponse, int, Any]: ...
 
     def _request_internal(
         self,
@@ -1208,13 +1196,13 @@ class Urllib2Client(HTTPClient):
         lh = dict((k.lower(), v) for k, v in iter(dict(headers).items()))
         return rcontent, rcode, lh
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. "
             "If this problem persists, let us know at support@stripe.com."
         )
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise APIConnectionError(msg)
+        raise APIConnectionError(msg) from e
 
     def close(self):
         pass
@@ -1229,7 +1217,7 @@ class HTTPXClient(HTTPClient):
         self,
         timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
         allow_sync_methods=False,
-        **kwargs
+        **kwargs,
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
@@ -1321,7 +1309,7 @@ class HTTPXClient(HTTPClient):
         response_headers = response.headers
         return content, status_code, response_headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. If this "
             "problem persists, let us know at support@stripe.com."
@@ -1330,7 +1318,7 @@ class HTTPXClient(HTTPClient):
         should_retry = True
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -1460,7 +1448,7 @@ class AIOHTTPClient(HTTPClient):
 
         return (await content.read()), status_code, response_headers
 
-    def _handle_request_error(self, e) -> NoReturn:
+    def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (
             "Unexpected error communicating with Stripe. If this "
             "problem persists, let us know at support@stripe.com."
@@ -1469,7 +1457,7 @@ class AIOHTTPClient(HTTPClient):
         should_retry = True
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry) from e
 
     def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         raise NotImplementedError(

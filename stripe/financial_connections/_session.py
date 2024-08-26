@@ -27,9 +27,9 @@ class Session(CreateableAPIResource["Session"]):
     A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.session"]
-    ] = "financial_connections.session"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.session"]] = (
+        "financial_connections.session"
+    )
 
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
@@ -46,6 +46,20 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class Filters(StripeObject):
+        account_subcategories: Optional[
+            List[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ]
+            ]
+        ]
+        """
+        Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
+        """
         countries: Optional[List[str]]
         """
         List of countries from which to filter accounts.
@@ -98,7 +112,21 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class CreateParamsFilters(TypedDict):
-        countries: List[str]
+        account_subcategories: NotRequired[
+            List[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ]
+            ]
+        ]
+        """
+        Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
+        """
+        countries: NotRequired[List[str]]
         """
         List of countries from which to collect accounts.
         """

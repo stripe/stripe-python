@@ -42,13 +42,13 @@ class SetupIntent(
 
     Create a SetupIntent when you're ready to collect your customer's payment credentials.
     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-    The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+    The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
     you through the setup process.
 
     Successful SetupIntents result in payment credentials that are optimized for future payments.
     For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-    [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-    to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+    [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+    to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
     If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
     it automatically attaches the resulting payment method to that Customer after successful setup.
     We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -56,7 +56,7 @@ class SetupIntent(
 
     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-    Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+    Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
     """
 
     OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
@@ -103,10 +103,6 @@ class SetupIntent(
                 "bank_account_unverified",
                 "bank_account_verification_failed",
                 "billing_invalid_mandate",
-                "billing_policy_remote_function_response_invalid",
-                "billing_policy_remote_function_timeout",
-                "billing_policy_remote_function_unexpected_status_code",
-                "billing_policy_remote_function_unreachable",
                 "bitcoin_upgrade_required",
                 "capture_charge_authorization_expired",
                 "capture_unauthorized_payment",
@@ -117,6 +113,7 @@ class SetupIntent(
                 "charge_already_refunded",
                 "charge_disputed",
                 "charge_exceeds_source_limit",
+                "charge_exceeds_transaction_limit",
                 "charge_expired_for_capture",
                 "charge_invalid_parameter",
                 "charge_not_refundable",
@@ -154,6 +151,7 @@ class SetupIntent(
                 "invalid_cvc",
                 "invalid_expiry_month",
                 "invalid_expiry_year",
+                "invalid_mandate_reference_prefix_format",
                 "invalid_number",
                 "invalid_source_usage",
                 "invalid_tax_location",
@@ -231,6 +229,7 @@ class SetupIntent(
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",
@@ -241,6 +240,7 @@ class SetupIntent(
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
                 "terminal_reader_hardware_fault",
+                "terminal_reader_invalid_location_for_payment",
                 "terminal_reader_offline",
                 "terminal_reader_timeout",
                 "testmode_charges_only",
@@ -310,13 +310,13 @@ class SetupIntent(
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
-        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
         you through the setup process.
 
         Successful SetupIntents result in payment credentials that are optimized for future payments.
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
-        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
-        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
         If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
         We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
@@ -324,7 +324,7 @@ class SetupIntent(
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
 
-        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
         """
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
@@ -461,6 +461,13 @@ class SetupIntent(
         class AmazonPay(StripeObject):
             pass
 
+        class BacsDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Card(StripeObject):
             class MandateOptions(StripeObject):
                 amount: int
@@ -515,6 +522,7 @@ class SetupIntent(
                     "diners",
                     "discover",
                     "eftpos_au",
+                    "girocard",
                     "interac",
                     "jcb",
                     "mastercard",
@@ -558,6 +566,15 @@ class SetupIntent(
 
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
+                class Filters(StripeObject):
+                    account_subcategories: Optional[
+                        List[Literal["checking", "savings"]]
+                    ]
+                    """
+                    The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                    """
+
+                filters: Optional[Filters]
                 permissions: Optional[
                     List[
                         Literal[
@@ -581,6 +598,7 @@ class SetupIntent(
                 """
                 For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
                 """
+                _inner_class_types = {"filters": Filters}
 
             class MandateOptions(StripeObject):
                 collection_method: Optional[Literal["paper"]]
@@ -603,6 +621,7 @@ class SetupIntent(
 
         acss_debit: Optional[AcssDebit]
         amazon_pay: Optional[AmazonPay]
+        bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         link: Optional[Link]
@@ -612,6 +631,7 @@ class SetupIntent(
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "amazon_pay": AmazonPay,
+            "bacs_debit": BacsDebit,
             "card": Card,
             "card_present": CardPresent,
             "link": Link,
@@ -738,6 +758,12 @@ class SetupIntent(
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -842,6 +868,12 @@ class SetupIntent(
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -894,6 +926,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -916,6 +952,7 @@ class SetupIntent(
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -926,6 +963,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1193,6 +1231,9 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -1267,6 +1308,9 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -1307,6 +1351,12 @@ class SetupIntent(
         ]
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
+        bacs_debit: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
         """
         card: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsCard"]
         """
@@ -1388,6 +1438,17 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
@@ -1408,6 +1469,7 @@ class SetupIntent(
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -1606,6 +1668,12 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -1625,6 +1693,16 @@ class SetupIntent(
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -1753,7 +1831,9 @@ class SetupIntent(
         """
 
     class CreateParamsMandateData(TypedDict):
-        customer_acceptance: "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
+        customer_acceptance: (
+            "SetupIntent.CreateParamsMandateDataCustomerAcceptance"
+        )
         """
         This hash contains details about the customer acceptance of the Mandate.
         """
@@ -1813,6 +1893,12 @@ class SetupIntent(
         alipay: NotRequired["SetupIntent.CreateParamsPaymentMethodDataAlipay"]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
         amazon_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataAmazonPay"
@@ -1918,6 +2004,12 @@ class SetupIntent(
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired["SetupIntent.CreateParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1970,6 +2062,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.CreateParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -1992,6 +2088,7 @@ class SetupIntent(
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -2002,6 +2099,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -2269,6 +2367,9 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -2343,6 +2444,9 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -2383,6 +2487,12 @@ class SetupIntent(
         ]
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
+        bacs_debit: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
         """
         card: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsCard"]
         """
@@ -2464,6 +2574,17 @@ class SetupIntent(
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
@@ -2484,6 +2605,7 @@ class SetupIntent(
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -2682,6 +2804,12 @@ class SetupIntent(
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -2701,6 +2829,16 @@ class SetupIntent(
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -2814,7 +2952,7 @@ class SetupIntent(
         """
         payment_method: NotRequired[str]
         """
-        ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+        ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string.
         """
         payment_method_configuration: NotRequired[str]
         """
@@ -2858,6 +2996,12 @@ class SetupIntent(
         alipay: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataAlipay"]
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
+        """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
         amazon_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataAmazonPay"
@@ -2963,6 +3107,12 @@ class SetupIntent(
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -3015,6 +3165,10 @@ class SetupIntent(
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataTwint"]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -3037,6 +3191,7 @@ class SetupIntent(
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -3047,6 +3202,7 @@ class SetupIntent(
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -3314,6 +3470,9 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -3388,6 +3547,9 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataSwish(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataTwint(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -3428,6 +3590,12 @@ class SetupIntent(
         ]
         """
         If this is a `amazon_pay` SetupIntent, this sub-hash contains details about the AmazonPay payment method options.
+        """
+        bacs_debit: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsBacsDebit"
+        ]
+        """
+        If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
         """
         card: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsCard"]
         """
@@ -3509,6 +3677,17 @@ class SetupIntent(
     class ModifyParamsPaymentMethodOptionsAmazonPay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+
+    class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
@@ -3529,6 +3708,7 @@ class SetupIntent(
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -3727,6 +3907,12 @@ class SetupIntent(
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -3746,6 +3932,16 @@ class SetupIntent(
         return_url: NotRequired[str]
         """
         For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
+
+    class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -3870,7 +4066,7 @@ class SetupIntent(
     """
     payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
-    ID of the payment method used with this SetupIntent.
+    ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails
@@ -3915,7 +4111,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -3936,7 +4132,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -3947,7 +4143,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -3958,7 +4154,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -3978,7 +4174,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -3999,7 +4195,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4010,7 +4206,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4021,7 +4217,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -4299,7 +4495,6 @@ class SetupIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4320,7 +4515,6 @@ class SetupIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4396,7 +4590,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -4453,7 +4647,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.

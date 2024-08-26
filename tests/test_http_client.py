@@ -467,9 +467,9 @@ class RequestsVerify(object):
 
 
 class TestRequestsClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT: Type[
+    REQUEST_CLIENT: Type[_http_client.RequestsClient] = (
         _http_client.RequestsClient
-    ] = _http_client.RequestsClient
+    )
 
     @pytest.fixture
     def session(self, mocker, request_mocks):
@@ -834,9 +834,9 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
 
 
 class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT: Type[
+    REQUEST_CLIENT: Type[_http_client.Urllib2Client] = (
         _http_client.Urllib2Client
-    ] = _http_client.Urllib2Client
+    )
 
     request_object: Any
 
@@ -1254,7 +1254,6 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
     async def test_request_async(
         self, request_mock, mock_response, check_call_async
     ):
-
         mock_response(request_mock, '{"foo": "baz"}', 200)
 
         for method in VALID_API_METHODS:
@@ -1549,9 +1548,9 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
 
 
 class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT: Type[
+    REQUEST_CLIENT: Type[_http_client.AIOHTTPClient] = (
         _http_client.AIOHTTPClient
-    ] = _http_client.AIOHTTPClient
+    )
 
     @pytest.fixture
     def mock_response(self, mocker, request_mock):
@@ -1559,9 +1558,11 @@ class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
             class Content:
                 def __aiter__(self):
                     async def chunk():
-                        yield bytes(body, "utf-8") if isinstance(
-                            body, str
-                        ) else body
+                        yield (
+                            bytes(body, "utf-8")
+                            if isinstance(body, str)
+                            else body
+                        )
 
                     return chunk()
 
@@ -1683,7 +1684,6 @@ class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
     async def test_request_async(
         self, request_mock, mock_response, check_call_async
     ):
-
         mock_response(request_mock, '{"foo": "baz"}', 200)
 
         for method in VALID_API_METHODS:

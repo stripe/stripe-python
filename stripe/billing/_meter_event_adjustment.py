@@ -12,9 +12,9 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     A billing meter event adjustment is a resource that allows you to cancel a meter event. For example, you might create a billing meter event adjustment to cancel a meter event that was created in error or attached to the wrong customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing.meter_event_adjustment"]
-    ] = "billing.meter_event_adjustment"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event_adjustment"]] = (
+        "billing.meter_event_adjustment"
+    )
 
     class Cancel(StripeObject):
         identifier: Optional[str]

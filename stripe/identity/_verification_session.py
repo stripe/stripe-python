@@ -40,9 +40,9 @@ class VerificationSession(
     Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["identity.verification_session"]
-    ] = "identity.verification_session"
+    OBJECT_NAME: ClassVar[Literal["identity.verification_session"]] = (
+        "identity.verification_session"
+    )
 
     class LastError(StripeObject):
         code: Optional[
@@ -243,17 +243,21 @@ class VerificationSession(
         """
         Details provided about the user being verified. These details may be shown to the user.
         """
+        related_customer: NotRequired[str]
+        """
+        Token referencing a Customer resource.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
         """
         type: NotRequired[Literal["document", "id_number"]]
         """
-        The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+        The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
         """
         verification_flow: NotRequired[str]
         """
-        The ID of a Verification Flow from the Dashboard.
+        The ID of a Verification Flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
         """
 
     class CreateParamsOptions(TypedDict):
@@ -262,18 +266,6 @@ class VerificationSession(
         ]
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
-        """
-        email: NotRequired[
-            "Literal['']|VerificationSession.CreateParamsOptionsEmail"
-        ]
-        """
-        Options that apply to the email check.
-        """
-        phone: NotRequired[
-            "Literal['']|VerificationSession.CreateParamsOptionsPhone"
-        ]
-        """
-        Options that apply to the phone check.
         """
 
     class CreateParamsOptionsDocument(TypedDict):
@@ -294,18 +286,6 @@ class VerificationSession(
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
-        """
-
-    class CreateParamsOptionsEmail(TypedDict):
-        require_verification: NotRequired[bool]
-        """
-        Request one time password verification of `provided_details.email`.
-        """
-
-    class CreateParamsOptionsPhone(TypedDict):
-        require_verification: NotRequired[bool]
-        """
-        Request one time password verification of `provided_details.phone`.
         """
 
     class CreateParamsProvidedDetails(TypedDict):
@@ -339,6 +319,7 @@ class VerificationSession(
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
+        related_customer: NotRequired[str]
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -399,18 +380,6 @@ class VerificationSession(
         """
         Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
         """
-        email: NotRequired[
-            "Literal['']|VerificationSession.ModifyParamsOptionsEmail"
-        ]
-        """
-        Options that apply to the email check.
-        """
-        phone: NotRequired[
-            "Literal['']|VerificationSession.ModifyParamsOptionsPhone"
-        ]
-        """
-        Options that apply to the phone check.
-        """
 
     class ModifyParamsOptionsDocument(TypedDict):
         allowed_types: NotRequired[
@@ -430,18 +399,6 @@ class VerificationSession(
         require_matching_selfie: NotRequired[bool]
         """
         Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
-        """
-
-    class ModifyParamsOptionsEmail(TypedDict):
-        require_verification: NotRequired[bool]
-        """
-        Request one time password verification of `provided_details.email`.
-        """
-
-    class ModifyParamsOptionsPhone(TypedDict):
-        require_verification: NotRequired[bool]
-        """
-        Request one time password verification of `provided_details.phone`.
         """
 
     class ModifyParamsProvidedDetails(TypedDict):
@@ -513,6 +470,10 @@ class VerificationSession(
     redaction: Optional[Redaction]
     """
     Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
+    """
+    related_customer: Optional[str]
+    """
+    Token referencing a Customer resource.
     """
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """
@@ -718,7 +679,6 @@ class VerificationSession(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -739,7 +699,6 @@ class VerificationSession(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

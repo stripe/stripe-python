@@ -253,7 +253,10 @@ class Charge(
             """
 
         class Affirm(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Affirm transaction ID associated with this payment.
+            """
 
         class AfterpayClearpay(StripeObject):
             order_id: Optional[str]
@@ -355,7 +358,10 @@ class Charge(
             """
 
         class Blik(StripeObject):
-            pass
+            buyer_id: Optional[str]
+            """
+            A unique and immutable identifier assigned by BLIK to every buyer.
+            """
 
         class Boleto(StripeObject):
             tax_id: str
@@ -697,6 +703,10 @@ class Charge(
             """
             The authorized amount.
             """
+            authorization_code: Optional[str]
+            """
+            Authorization code on the charge.
+            """
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -799,6 +809,10 @@ class Charge(
                 """
                 Time at which the payment was collected while offline
                 """
+                type: Optional[Literal["deferred"]]
+                """
+                The method used to process this payment method offline. Only deferred is allowed.
+                """
 
             class Receipt(StripeObject):
                 account_type: Optional[
@@ -840,6 +854,14 @@ class Charge(
                 An indication of various EMV functions performed during the transaction.
                 """
 
+            class Wallet(StripeObject):
+                type: Literal[
+                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                ]
+                """
+                The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+                """
+
             amount_authorized: Optional[int]
             """
             The authorized amount
@@ -847,6 +869,10 @@ class Charge(
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            brand_product: Optional[str]
+            """
+            The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
             """
             capture_before: Optional[int]
             """
@@ -910,6 +936,10 @@ class Charge(
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            network_transaction_id: Optional[str]
+            """
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            """
             offline: Optional[Offline]
             """
             Details about payments collected offline.
@@ -917,6 +947,10 @@ class Charge(
             overcapture_supported: bool
             """
             Defines whether the authorized amount can be over-captured or not
+            """
+            preferred_locales: Optional[List[str]]
+            """
+            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
             """
             read_method: Optional[
                 Literal[
@@ -934,7 +968,12 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
-            _inner_class_types = {"offline": Offline, "receipt": Receipt}
+            wallet: Optional[Wallet]
+            _inner_class_types = {
+                "offline": Offline,
+                "receipt": Receipt,
+                "wallet": Wallet,
+            }
 
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
@@ -1220,6 +1259,10 @@ class Charge(
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            network_transaction_id: Optional[str]
+            """
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            """
             preferred_locales: Optional[List[str]]
             """
             EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
@@ -1251,7 +1294,7 @@ class Charge(
             preferred_locale: Optional[str]
             """
             Preferred language of the Klarna authorization page that the customer is redirected to.
-            Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
+            Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
             """
 
         class Konbini(StripeObject):
@@ -1300,6 +1343,9 @@ class Charge(
                 """
 
             card: Optional[Card]
+            """
+            Internal card details
+            """
             _inner_class_types = {"card": Card}
 
         class Multibanco(StripeObject):
@@ -1522,6 +1568,9 @@ class Charge(
             The last four digits of the Swish account phone number
             """
 
+        class Twint(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
             """
@@ -1611,6 +1660,7 @@ class Charge(
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
         swish: Optional[Swish]
+        twint: Optional[Twint]
         type: str
         """
         The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
@@ -1661,6 +1711,7 @@ class Charge(
             "sofort": Sofort,
             "stripe_account": StripeAccount,
             "swish": Swish,
+            "twint": Twint,
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
@@ -1752,11 +1803,11 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CaptureParamsTransferData"]
         """
@@ -1830,11 +1881,11 @@ class Charge(
         """
         statement_descriptor: NotRequired[str]
         """
-        For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
         """
         transfer_data: NotRequired["Charge.CreateParamsTransferData"]
         """
@@ -1950,7 +2001,7 @@ class Charge(
         """
         transfer_group: NotRequired[str]
         """
-        Only return charges for this transfer group.
+        Only return charges for this transfer group, limited to 100.
         """
 
     class ListParamsCreated(TypedDict):
@@ -2142,7 +2193,7 @@ class Charge(
     billing_details: BillingDetails
     calculated_statement_descriptor: Optional[str]
     """
-    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined.
+    The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This value only exists for card payments.
     """
     captured: bool
     """
@@ -2269,15 +2320,15 @@ class Charge(
     """
     source_transfer: Optional[ExpandableField["Transfer"]]
     """
-    The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     """
     statement_descriptor: Optional[str]
     """
-    For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers' statements. Must contain at least one letter, maximum 22 characters.
+    For a non-card charge, text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors). This value overrides the account's default statement descriptor. For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
     """
     statement_descriptor_suffix: Optional[str]
     """
-    Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
     """
     status: Literal["failed", "pending", "succeeded"]
     """
@@ -2483,7 +2534,6 @@ class Charge(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2504,7 +2554,6 @@ class Charge(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2629,7 +2678,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"]
+        **params: Unpack["Charge.RetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.
@@ -2650,7 +2699,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"]
+        **params: Unpack["Charge.RetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.

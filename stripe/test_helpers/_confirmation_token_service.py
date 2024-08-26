@@ -63,6 +63,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
         """
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
         amazon_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -181,6 +187,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
         """
+        multibanco: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataMultibanco"
+        ]
+        """
+        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -247,6 +259,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         """
+        twint: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataTwint"
+        ]
+        """
+        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
+        """
         type: Literal[
             "acss_debit",
             "affirm",
@@ -269,6 +287,7 @@ class ConfirmationTokenService(StripeService):
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -279,6 +298,7 @@ class ConfirmationTokenService(StripeService):
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -550,6 +570,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMultibanco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -622,6 +645,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataTwint(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):

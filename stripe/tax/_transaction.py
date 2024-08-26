@@ -72,11 +72,13 @@ class Transaction(APIResource["Transaction"]):
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "ch_uid",
                 "ch_vat",
                 "cl_tin",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -130,7 +132,7 @@ class Transaction(APIResource["Transaction"]):
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
             """
             value: str
             """
@@ -166,6 +168,36 @@ class Transaction(APIResource["Transaction"]):
         """
         The `id` of the reversed `Transaction` object.
         """
+
+    class ShipFromDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
 
     class ShippingCost(StripeObject):
         class TaxBreakdown(StripeObject):
@@ -296,6 +328,10 @@ class Transaction(APIResource["Transaction"]):
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        posted_at: NotRequired[int]
+        """
+        The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability reports. The timestamp must fall within the `tax_date` and the current time, unless the `tax_date` is scheduled in advance. Defaults to the current time.
         """
         reference: str
         """
@@ -433,6 +469,10 @@ class Transaction(APIResource["Transaction"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    posted_at: int
+    """
+    The Unix timestamp representing when the tax liability is assumed or reduced.
+    """
     reference: str
     """
     A custom unique identifier, such as 'myOrder_123'.
@@ -440,6 +480,10 @@ class Transaction(APIResource["Transaction"]):
     reversal: Optional[Reversal]
     """
     If `type=reversal`, contains information about what was reversed.
+    """
+    ship_from_details: Optional[ShipFromDetails]
+    """
+    The details of the ship from location, such as the address.
     """
     shipping_cost: Optional[ShippingCost]
     """
@@ -459,7 +503,7 @@ class Transaction(APIResource["Transaction"]):
         cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             "Transaction",
@@ -475,7 +519,7 @@ class Transaction(APIResource["Transaction"]):
         cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
         """
-        Creates a Tax Transaction from a calculation.
+        Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
             "Transaction",
@@ -522,7 +566,7 @@ class Transaction(APIResource["Transaction"]):
     def _cls_list_line_items(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack["Transaction.ListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -579,7 +623,7 @@ class Transaction(APIResource["Transaction"]):
     async def _cls_list_line_items_async(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack["Transaction.ListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -657,5 +701,6 @@ class Transaction(APIResource["Transaction"]):
     _inner_class_types = {
         "customer_details": CustomerDetails,
         "reversal": Reversal,
+        "ship_from_details": ShipFromDetails,
         "shipping_cost": ShippingCost,
     }

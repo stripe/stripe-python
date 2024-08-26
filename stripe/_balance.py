@@ -77,6 +77,32 @@ class Balance(SingletonAPIResource["Balance"]):
         _inner_class_types = {"source_types": SourceTypes}
 
     class InstantAvailable(StripeObject):
+        class NetAvailable(StripeObject):
+            class SourceTypes(StripeObject):
+                bank_account: Optional[int]
+                """
+                Amount for bank account.
+                """
+                card: Optional[int]
+                """
+                Amount for card.
+                """
+                fpx: Optional[int]
+                """
+                Amount for FPX.
+                """
+
+            amount: int
+            """
+            Net balance amount, subtracting fees from platform-set pricing.
+            """
+            destination: str
+            """
+            ID of the external account for this net balance (not expandable).
+            """
+            source_types: Optional[SourceTypes]
+            _inner_class_types = {"source_types": SourceTypes}
+
         class SourceTypes(StripeObject):
             bank_account: Optional[int]
             """
@@ -99,8 +125,15 @@ class Balance(SingletonAPIResource["Balance"]):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
+        net_available: Optional[List[NetAvailable]]
+        """
+        Breakdown of balance by destination.
+        """
         source_types: Optional[SourceTypes]
-        _inner_class_types = {"source_types": SourceTypes}
+        _inner_class_types = {
+            "net_available": NetAvailable,
+            "source_types": SourceTypes,
+        }
 
     class Issuing(StripeObject):
         class Available(StripeObject):
@@ -173,7 +206,7 @@ class Balance(SingletonAPIResource["Balance"]):
     """
     connect_reserved: Optional[List[ConnectReserved]]
     """
-    Funds held due to negative balances on connected Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
+    Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
     """
     instant_available: Optional[List[InstantAvailable]]
     """

@@ -4,7 +4,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List
 from typing_extensions import Literal, NotRequired, Unpack
 
 
@@ -13,9 +13,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     A Physical Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["issuing.physical_bundle"]
-    ] = "issuing.physical_bundle"
+    OBJECT_NAME: ClassVar[Literal["issuing.physical_bundle"]] = (
+        "issuing.physical_bundle"
+    )
 
     class Features(StripeObject):
         card_logo: Literal["optional", "required", "unsupported"]
@@ -63,7 +63,7 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         Specifies which fields in the response should be expanded.
         """
 
-    features: Optional[Features]
+    features: Features
     id: str
     """
     Unique identifier for the object.
@@ -102,7 +102,6 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -123,7 +122,6 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

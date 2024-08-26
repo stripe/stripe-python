@@ -170,20 +170,39 @@ class Dispute(
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            case_type: Literal["chargeback", "inquiry"]
+            """
+            The type of dispute opened. Different case types may have varying fees and financial impact.
+            """
             network_reason_code: Optional[str]
             """
             The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
             """
 
+        class Klarna(StripeObject):
+            reason_code: Optional[str]
+            """
+            The reason for the dispute as defined by Klarna
+            """
+
+        class Paypal(StripeObject):
+            case_id: Optional[str]
+            """
+            The ID of the dispute in PayPal.
+            """
+            reason_code: Optional[str]
+            """
+            The reason for the dispute as defined by PayPal
+            """
+
         card: Optional[Card]
-        """
-        Card specific dispute details.
-        """
-        type: Literal["card"]
+        klarna: Optional[Klarna]
+        paypal: Optional[Paypal]
+        type: Literal["card", "klarna", "paypal"]
         """
         Payment method type.
         """
-        _inner_class_types = {"card": Card}
+        _inner_class_types = {"card": Card, "klarna": Klarna, "paypal": Paypal}
 
     class CloseParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -197,6 +216,9 @@ class Dispute(
         Only return disputes associated to the charge specified by this charge ID.
         """
         created: NotRequired["Dispute.ListParamsCreated|int"]
+        """
+        Only return disputes that were created during the given date interval.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -575,7 +597,6 @@ class Dispute(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -596,7 +617,6 @@ class Dispute(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

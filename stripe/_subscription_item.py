@@ -277,7 +277,7 @@ class SubscriptionItem(
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         payment_behavior: NotRequired[
             Literal[
@@ -302,11 +302,11 @@ class SubscriptionItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired["SubscriptionItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -595,7 +595,6 @@ class SubscriptionItem(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -616,7 +615,6 @@ class SubscriptionItem(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -684,7 +682,7 @@ class SubscriptionItem(
     def create_usage_record(
         cls,
         subscription_item: str,
-        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
+        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"],
     ) -> "UsageRecord":
         """
         Creates a usage record for a specified subscription item and date, and fills it with a quantity.
@@ -710,7 +708,7 @@ class SubscriptionItem(
     async def create_usage_record_async(
         cls,
         subscription_item: str,
-        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
+        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"],
     ) -> "UsageRecord":
         """
         Creates a usage record for a specified subscription item and date, and fills it with a quantity.
@@ -736,7 +734,7 @@ class SubscriptionItem(
     def list_usage_record_summaries(
         cls,
         subscription_item: str,
-        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
+        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"],
     ) -> ListObject["UsageRecordSummary"]:
         """
         For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
@@ -758,7 +756,7 @@ class SubscriptionItem(
     async def list_usage_record_summaries_async(
         cls,
         subscription_item: str,
-        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
+        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"],
     ) -> ListObject["UsageRecordSummary"]:
         """
         For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).

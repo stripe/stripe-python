@@ -11,16 +11,16 @@ class MeterEventSummary(StripeObject):
     usage was accrued by a customer for that period.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing.meter_event_summary"]
-    ] = "billing.meter_event_summary"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event_summary"]] = (
+        "billing.meter_event_summary"
+    )
     aggregated_value: float
     """
-    Aggregated value of all the events within start_time (inclusive) and end_time (inclusive). The aggregation strategy is defined on meter via `default_aggregation``.
+    Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.
     """
     end_time: int
     """
-    End timestamp for this usage summary (inclusive).
+    End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
     """
     id: str
     """
@@ -32,7 +32,7 @@ class MeterEventSummary(StripeObject):
     """
     meter: str
     """
-    The meter associated with this usage summary.
+    The meter associated with this event summary.
     """
     object: Literal["billing.meter_event_summary"]
     """
@@ -40,5 +40,5 @@ class MeterEventSummary(StripeObject):
     """
     start_time: int
     """
-    Start timestamp for this usage summary (inclusive).
+    Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
     """

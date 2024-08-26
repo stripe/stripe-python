@@ -12,9 +12,9 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
     Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["billing.meter_event"]
-    ] = "billing.meter_event"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event"]] = (
+        "billing.meter_event"
+    )
 
     class CreateParams(RequestOptions):
         event_name: str
@@ -31,11 +31,11 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
         """
         payload: Dict[str, str]
         """
-        The payload of the event. This must contain a field with the event's numerical value and a field to map the event to a customer.
+        The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides).
         """
-        timestamp: int
+        timestamp: NotRequired[int]
         """
-        The time of the event. Measured in seconds since the Unix epoch.
+        The time of the event. Measured in seconds since the Unix epoch. Must be within the past 35 calendar days or up to 5 minutes in the future. Defaults to current timestamp if not specified.
         """
 
     created: int
@@ -60,7 +60,7 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
     """
     payload: Dict[str, str]
     """
-    The payload of the event.
+    The payload of the event. This contains the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://stripe.com/docs/billing/subscriptions/usage-based/recording-usage#payload-key-overrides).
     """
     timestamp: int
     """

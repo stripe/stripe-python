@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.tax._calculation import Calculation
 from stripe.tax._calculation_line_item_service import (
     CalculationLineItemService,
@@ -37,6 +38,12 @@ class CalculationService(StripeService):
         line_items: List["CalculationService.CreateParamsLineItem"]
         """
         A list of items the customer is purchasing.
+        """
+        ship_from_details: NotRequired[
+            "CalculationService.CreateParamsShipFromDetails"
+        ]
+        """
+        Details about the address from which the goods are being shipped.
         """
         shipping_cost: NotRequired[
             "CalculationService.CreateParamsShippingCost"
@@ -121,11 +128,13 @@ class CalculationService(StripeService):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "ch_uid",
             "ch_vat",
             "cl_tin",
             "cn_tin",
             "co_nit",
             "cr_tin",
+            "de_stn",
             "do_rcn",
             "ec_ruc",
             "eg_tin",
@@ -178,7 +187,7 @@ class CalculationService(StripeService):
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
@@ -188,9 +197,7 @@ class CalculationService(StripeService):
     class CreateParamsLineItem(TypedDict):
         amount: int
         """
-        A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
-        The minimum amount is $0.0 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts).
-        The amount value supports up to twelve digits (e.g., a value of 999999999999 for a USD charge of $9,999,999,999.99).
+        A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         product: NotRequired[str]
@@ -214,6 +221,38 @@ class CalculationService(StripeService):
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
         """
 
+    class CreateParamsShipFromDetails(TypedDict):
+        address: "CalculationService.CreateParamsShipFromDetailsAddress"
+        """
+        The address from which the goods are being shipped from.
+        """
+
+    class CreateParamsShipFromDetailsAddress(TypedDict):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
     class CreateParamsShippingCost(TypedDict):
         amount: NotRequired[int]
         """
@@ -232,13 +271,65 @@ class CalculationService(StripeService):
         The [tax code](https://stripe.com/docs/tax/tax-categories) used to calculate tax on shipping. If not provided, the default shipping tax code from your [Tax Settings](https://stripe.com/settings/tax) is used.
         """
 
+    class RetrieveParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    def retrieve(
+        self,
+        calculation: str,
+        params: "CalculationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Calculation:
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        return cast(
+            Calculation,
+            self._request(
+                "get",
+                "/v1/tax/calculations/{calculation}".format(
+                    calculation=sanitize_id(calculation),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        calculation: str,
+        params: "CalculationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> Calculation:
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        return cast(
+            Calculation,
+            await self._request_async(
+                "get",
+                "/v1/tax/calculations/{calculation}".format(
+                    calculation=sanitize_id(calculation),
+                ),
+                api_mode="V1",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "CalculationService.CreateParams",
         options: RequestOptions = {},
     ) -> Calculation:
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             Calculation,
@@ -258,7 +349,7 @@ class CalculationService(StripeService):
         options: RequestOptions = {},
     ) -> Calculation:
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             Calculation,

@@ -25,11 +25,11 @@ class SubscriptionService(StripeService):
         """
         invoice_now: NotRequired[bool]
         """
-        Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+        Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
         """
         prorate: NotRequired[bool]
         """
-        Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+        Will generate a proration invoice item that credits remaining unused time until the subscription period end. Defaults to `false`.
         """
 
     class CancelParamsCancellationDetails(TypedDict):
@@ -87,7 +87,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -153,7 +153,7 @@ class SubscriptionService(StripeService):
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
@@ -194,7 +194,7 @@ class SubscriptionService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -236,13 +236,13 @@ class SubscriptionService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "SubscriptionService.CreateParamsAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -487,7 +487,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'p24', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -496,7 +496,7 @@ class SubscriptionService(StripeService):
             Literal["off", "on_subscription"]
         ]
         """
-        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off` if unspecified.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -585,6 +585,7 @@ class SubscriptionService(StripeService):
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -680,6 +681,12 @@ class SubscriptionService(StripeService):
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -695,6 +702,16 @@ class SubscriptionService(StripeService):
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class CreateParamsPendingInvoiceItemInterval(TypedDict):
@@ -718,7 +735,9 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsTrialSettings(TypedDict):
-        end_behavior: "SubscriptionService.CreateParamsTrialSettingsEndBehavior"
+        end_behavior: (
+            "SubscriptionService.CreateParamsTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -942,7 +961,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
@@ -1006,7 +1025,7 @@ class SubscriptionService(StripeService):
         """
         off_session: NotRequired[bool]
         """
-        Indicates if a customer is on or off-session while an invoice payment is attempted.
+        Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).
         """
         on_behalf_of: NotRequired["Literal['']|str"]
         """
@@ -1049,7 +1068,7 @@ class SubscriptionService(StripeService):
         """
         promotion_code: NotRequired[str]
         """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription.
+        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1091,13 +1110,13 @@ class SubscriptionService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "SubscriptionService.UpdateParamsAddInvoiceItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -1261,13 +1280,13 @@ class SubscriptionService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         """
         price_data: NotRequired[
             "SubscriptionService.UpdateParamsItemPriceData"
         ]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -1354,7 +1373,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'p24', 'paynow', 'paypal', 'promptpay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -1363,7 +1382,7 @@ class SubscriptionService(StripeService):
             Literal["off", "on_subscription"]
         ]
         """
-        Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+        Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off` if unspecified.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -1452,6 +1471,7 @@ class SubscriptionService(StripeService):
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -1547,6 +1567,12 @@ class SubscriptionService(StripeService):
     class UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
+        filters: NotRequired[
+            "SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+        ]
+        """
+        Provide filters for the linked accounts that the customer can select for the payment method.
+        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -1562,6 +1588,16 @@ class SubscriptionService(StripeService):
         ]
         """
         List of data features that you would like to retrieve upon account creation.
+        """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+        TypedDict,
+    ):
+        account_subcategories: NotRequired[
+            List[Literal["checking", "savings"]]
+        ]
+        """
+        The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
 
     class UpdateParamsPendingInvoiceItemInterval(TypedDict):
@@ -1585,7 +1621,9 @@ class SubscriptionService(StripeService):
         """
 
     class UpdateParamsTrialSettings(TypedDict):
-        end_behavior: "SubscriptionService.UpdateParamsTrialSettingsEndBehavior"
+        end_behavior: (
+            "SubscriptionService.UpdateParamsTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -1713,7 +1751,7 @@ class SubscriptionService(StripeService):
         """
         Updates an existing subscription to match the specified parameters.
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
-        To preview how the proration is calculated, use the [upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) endpoint.
+        To preview how the proration is calculated, use the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
 
         By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
 
@@ -1721,11 +1759,11 @@ class SubscriptionService(StripeService):
 
 
         The billing interval is changed (for example, from monthly to yearly).
-        The subscription moves from free to paid, or paid to free.
+        The subscription moves from free to paid.
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date.
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 
@@ -1758,7 +1796,7 @@ class SubscriptionService(StripeService):
         """
         Updates an existing subscription to match the specified parameters.
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
-        To preview how the proration is calculated, use the [upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) endpoint.
+        To preview how the proration is calculated, use the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
 
         By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
 
@@ -1766,11 +1804,11 @@ class SubscriptionService(StripeService):
 
 
         The billing interval is changed (for example, from monthly to yearly).
-        The subscription moves from free to paid, or paid to free.
+        The subscription moves from free to paid.
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date.
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 

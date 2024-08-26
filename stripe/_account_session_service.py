@@ -35,6 +35,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the account onboarding embedded component.
         """
+        balances: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalances"
+        ]
+        """
+        Configuration for the balances embedded component.
+        """
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
@@ -64,6 +70,24 @@ class AccountSessionService(StripeService):
         ]
         """
         Configuration for the payouts embedded component.
+        """
+        payouts_list: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutsList"
+        ]
+        """
+        Configuration for the payouts list embedded component.
+        """
+        tax_registrations: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxRegistrations"
+        ]
+        """
+        Configuration for the tax registrations embedded component.
+        """
+        tax_settings: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxSettings"
+        ]
+        """
+        Configuration for the tax settings embedded component.
         """
 
     class CreateParamsComponentsAccountManagement(TypedDict):
@@ -100,6 +124,36 @@ class AccountSessionService(StripeService):
         external_account_collection: NotRequired[bool]
         """
         Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
+
+    class CreateParamsComponentsBalances(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalancesFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsBalancesFeatures(TypedDict):
+        edit_payout_schedule: NotRequired[bool]
+        """
+        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
+        instant_payouts: NotRequired[bool]
+        """
+        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        standard_payouts: NotRequired[bool]
+        """
+        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
 
     class CreateParamsComponentsDocuments(TypedDict):
@@ -212,6 +266,10 @@ class AccountSessionService(StripeService):
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        """
         instant_payouts: NotRequired[bool]
         """
         Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
@@ -220,6 +278,51 @@ class AccountSessionService(StripeService):
         """
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
+
+    class CreateParamsComponentsPayoutsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsTaxRegistrations(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxRegistrationsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsTaxRegistrationsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsTaxSettings(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsTaxSettingsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsTaxSettingsFeatures(TypedDict):
+        pass
 
     def create(
         self,

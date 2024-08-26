@@ -33,9 +33,9 @@ class PersonalizationDesign(
     A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["issuing.personalization_design"]
-    ] = "issuing.personalization_design"
+    OBJECT_NAME: ClassVar[Literal["issuing.personalization_design"]] = (
+        "issuing.personalization_design"
+    )
 
     class CarrierText(StripeObject):
         footer_body: Optional[str]
@@ -429,7 +429,6 @@ class PersonalizationDesign(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -450,7 +449,6 @@ class PersonalizationDesign(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -521,7 +519,7 @@ class PersonalizationDesign(
         def _cls_activate(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.ActivateParams"]
+            **params: Unpack["PersonalizationDesign.ActivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -543,7 +541,7 @@ class PersonalizationDesign(
         @staticmethod
         def activate(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.ActivateParams"]
+            **params: Unpack["PersonalizationDesign.ActivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -583,7 +581,7 @@ class PersonalizationDesign(
         async def _cls_activate_async(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.ActivateParams"]
+            **params: Unpack["PersonalizationDesign.ActivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -605,7 +603,7 @@ class PersonalizationDesign(
         @staticmethod
         async def activate_async(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.ActivateParams"]
+            **params: Unpack["PersonalizationDesign.ActivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -645,7 +643,7 @@ class PersonalizationDesign(
         def _cls_deactivate(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -667,7 +665,7 @@ class PersonalizationDesign(
         @staticmethod
         def deactivate(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -707,7 +705,7 @@ class PersonalizationDesign(
         async def _cls_deactivate_async(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -729,7 +727,7 @@ class PersonalizationDesign(
         @staticmethod
         async def deactivate_async(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+            **params: Unpack["PersonalizationDesign.DeactivateParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to inactive.
@@ -769,7 +767,7 @@ class PersonalizationDesign(
         def _cls_reject(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.RejectParams"]
+            **params: Unpack["PersonalizationDesign.RejectParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -791,7 +789,7 @@ class PersonalizationDesign(
         @staticmethod
         def reject(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.RejectParams"]
+            **params: Unpack["PersonalizationDesign.RejectParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -831,7 +829,7 @@ class PersonalizationDesign(
         async def _cls_reject_async(
             cls,
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.RejectParams"]
+            **params: Unpack["PersonalizationDesign.RejectParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -853,7 +851,7 @@ class PersonalizationDesign(
         @staticmethod
         async def reject_async(
             personalization_design: str,
-            **params: Unpack["PersonalizationDesign.RejectParams"]
+            **params: Unpack["PersonalizationDesign.RejectParams"],
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.

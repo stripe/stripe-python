@@ -56,7 +56,7 @@ class ErrorObject(StripeObject):
         partial=False,
         last_response=None,
         requestor,
-        api_mode: ApiMode
+        api_mode: ApiMode,
     ) -> None:
         # Unlike most other API resources, the API will omit attributes in
         # error objects when they have a null value. We manually set default

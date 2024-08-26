@@ -81,6 +81,12 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class Bh(StripeObject):
+            type: Literal["standard"]
+            """
+            Type of registration in `country`.
+            """
+
         class Ca(StripeObject):
             class ProvinceStandard(StripeObject):
                 province: str
@@ -183,6 +189,12 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class Eg(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Es(StripeObject):
             class Standard(StripeObject):
                 place_of_supply_scheme: Literal["small_seller", "standard"]
@@ -227,6 +239,12 @@ class Registration(
 
         class Gb(StripeObject):
             type: Literal["standard"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Ge(StripeObject):
+            type: Literal["simplified"]
             """
             Type of registration in `country`.
             """
@@ -319,7 +337,19 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Ke(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Kr(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Kz(StripeObject):
             type: Literal["simplified"]
             """
             Type of registration in `country`.
@@ -393,6 +423,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Ng(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Nl(StripeObject):
             class Standard(StripeObject):
                 place_of_supply_scheme: Literal["small_seller", "standard"]
@@ -414,6 +450,12 @@ class Registration(
             """
 
         class Nz(StripeObject):
+            type: Literal["standard"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Om(StripeObject):
             type: Literal["standard"]
             """
             Type of registration in `country`.
@@ -577,6 +619,7 @@ class Registration(
         au: Optional[Au]
         be: Optional[Be]
         bg: Optional[Bg]
+        bh: Optional[Bh]
         ca: Optional[Ca]
         ch: Optional[Ch]
         cl: Optional[Cl]
@@ -586,10 +629,12 @@ class Registration(
         de: Optional[De]
         dk: Optional[Dk]
         ee: Optional[Ee]
+        eg: Optional[Eg]
         es: Optional[Es]
         fi: Optional[Fi]
         fr: Optional[Fr]
         gb: Optional[Gb]
+        ge: Optional[Ge]
         gr: Optional[Gr]
         hr: Optional[Hr]
         hu: Optional[Hu]
@@ -598,16 +643,20 @@ class Registration(
         is_: Optional[Is]
         it: Optional[It]
         jp: Optional[Jp]
+        ke: Optional[Ke]
         kr: Optional[Kr]
+        kz: Optional[Kz]
         lt: Optional[Lt]
         lu: Optional[Lu]
         lv: Optional[Lv]
         mt: Optional[Mt]
         mx: Optional[Mx]
         my: Optional[My]
+        ng: Optional[Ng]
         nl: Optional[Nl]
         no: Optional[No]
         nz: Optional[Nz]
+        om: Optional[Om]
         pl: Optional[Pl]
         pt: Optional[Pt]
         ro: Optional[Ro]
@@ -627,6 +676,7 @@ class Registration(
             "au": Au,
             "be": Be,
             "bg": Bg,
+            "bh": Bh,
             "ca": Ca,
             "ch": Ch,
             "cl": Cl,
@@ -636,10 +686,12 @@ class Registration(
             "de": De,
             "dk": Dk,
             "ee": Ee,
+            "eg": Eg,
             "es": Es,
             "fi": Fi,
             "fr": Fr,
             "gb": Gb,
+            "ge": Ge,
             "gr": Gr,
             "hr": Hr,
             "hu": Hu,
@@ -648,16 +700,20 @@ class Registration(
             "is": Is,
             "it": It,
             "jp": Jp,
+            "ke": Ke,
             "kr": Kr,
+            "kz": Kz,
             "lt": Lt,
             "lu": Lu,
             "lv": Lv,
             "mt": Mt,
             "mx": Mx,
             "my": My,
+            "ng": Ng,
             "nl": Nl,
             "no": No,
             "nz": Nz,
+            "om": Om,
             "pl": Pl,
             "pt": Pt,
             "ro": Ro,
@@ -722,6 +778,10 @@ class Registration(
         """
         Options for the registration in BG.
         """
+        bh: NotRequired["Registration.CreateParamsCountryOptionsBh"]
+        """
+        Options for the registration in BH.
+        """
         ca: NotRequired["Registration.CreateParamsCountryOptionsCa"]
         """
         Options for the registration in CA.
@@ -758,6 +818,10 @@ class Registration(
         """
         Options for the registration in EE.
         """
+        eg: NotRequired["Registration.CreateParamsCountryOptionsEg"]
+        """
+        Options for the registration in EG.
+        """
         es: NotRequired["Registration.CreateParamsCountryOptionsEs"]
         """
         Options for the registration in ES.
@@ -773,6 +837,10 @@ class Registration(
         gb: NotRequired["Registration.CreateParamsCountryOptionsGb"]
         """
         Options for the registration in GB.
+        """
+        ge: NotRequired["Registration.CreateParamsCountryOptionsGe"]
+        """
+        Options for the registration in GE.
         """
         gr: NotRequired["Registration.CreateParamsCountryOptionsGr"]
         """
@@ -802,9 +870,17 @@ class Registration(
         """
         Options for the registration in JP.
         """
+        ke: NotRequired["Registration.CreateParamsCountryOptionsKe"]
+        """
+        Options for the registration in KE.
+        """
         kr: NotRequired["Registration.CreateParamsCountryOptionsKr"]
         """
         Options for the registration in KR.
+        """
+        kz: NotRequired["Registration.CreateParamsCountryOptionsKz"]
+        """
+        Options for the registration in KZ.
         """
         lt: NotRequired["Registration.CreateParamsCountryOptionsLt"]
         """
@@ -830,6 +906,10 @@ class Registration(
         """
         Options for the registration in MY.
         """
+        ng: NotRequired["Registration.CreateParamsCountryOptionsNg"]
+        """
+        Options for the registration in NG.
+        """
         nl: NotRequired["Registration.CreateParamsCountryOptionsNl"]
         """
         Options for the registration in NL.
@@ -841,6 +921,10 @@ class Registration(
         nz: NotRequired["Registration.CreateParamsCountryOptionsNz"]
         """
         Options for the registration in NZ.
+        """
+        om: NotRequired["Registration.CreateParamsCountryOptionsOm"]
+        """
+        Options for the registration in OM.
         """
         pl: NotRequired["Registration.CreateParamsCountryOptionsPl"]
         """
@@ -959,6 +1043,12 @@ class Registration(
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsBh(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsCa(TypedDict):
@@ -1087,6 +1177,12 @@ class Registration(
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsEg(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsEs(TypedDict):
         standard: NotRequired[
             "Registration.CreateParamsCountryOptionsEsStandard"
@@ -1143,6 +1239,12 @@ class Registration(
 
     class CreateParamsCountryOptionsGb(TypedDict):
         type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGe(TypedDict):
+        type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
         """
@@ -1255,7 +1357,19 @@ class Registration(
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsKe(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsKr(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsKz(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
@@ -1345,6 +1459,12 @@ class Registration(
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsNg(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsNl(TypedDict):
         standard: NotRequired[
             "Registration.CreateParamsCountryOptionsNlStandard"
@@ -1370,6 +1490,12 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsNz(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsOm(TypedDict):
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
@@ -1679,7 +1805,6 @@ class Registration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1700,7 +1825,6 @@ class Registration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

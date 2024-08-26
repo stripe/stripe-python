@@ -11,6 +11,12 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class CustomerPaymentMethodService(StripeService):
     class ListParams(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -51,6 +57,7 @@ class CustomerPaymentMethodService(StripeService):
                 "konbini",
                 "link",
                 "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -61,6 +68,7 @@ class CustomerPaymentMethodService(StripeService):
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",

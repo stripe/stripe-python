@@ -212,8 +212,7 @@ def convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     *,
     api_mode: ApiMode = "V1",
-) -> "StripeObject":
-    ...
+) -> "StripeObject": ...
 
 
 @overload
@@ -226,8 +225,7 @@ def convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     *,
     api_mode: ApiMode = "V1",
-) -> List["StripeObject"]:
-    ...
+) -> List["StripeObject"]: ...
 
 
 def convert_to_stripe_object(
@@ -263,8 +261,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
-) -> "StripeObject":
-    ...
+) -> "StripeObject": ...
 
 
 @overload
@@ -275,8 +272,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
-) -> List["StripeObject"]:
-    ...
+) -> List["StripeObject"]: ...
 
 
 def _convert_to_stripe_object(
@@ -368,17 +364,15 @@ def convert_to_dict(obj):
 @overload
 def populate_headers(
     idempotency_key: str,
-) -> Dict[str, str]:
-    ...
+) -> Dict[str, str]: ...
 
 
 @overload
-def populate_headers(idempotency_key: None) -> None:
-    ...
+def populate_headers(idempotency_key: None) -> None: ...
 
 
 def populate_headers(
-    idempotency_key: Union[str, None]
+    idempotency_key: Union[str, None],
 ) -> Union[Dict[str, str], None]:
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}

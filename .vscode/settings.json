@@ -4,19 +4,33 @@
 
   "editor.renderWhitespace": "all",
   "files.exclude": {
-    "**/*.pyc": { "when": "$(basename).py" },
-    "**/__pycache__": true
+    "**/*.pyc": true,
+    "**/__pycache__": true,
+    ".pytest_cache": true,
+    ".mypy_cache": true,
+    ".ruff_cache": true,
+    ".tox": true,
+    "*.egg-info": true,
+    "venv": true
   },
+  // uses default venv name from Makefile
+  "python.defaultInterpreterPath": "./venv/bin/python",
 
   // Formatting
   "editor.formatOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    }
+  },
 
   // Tests
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
 
   "python.terminal.activateEnvironment": true,
-  "python.defaultInterpreterPath": "~/venv/bin/python3",
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.typeCheckingMode": "basic",
+  "ruff.lint.enable": false // in favor of flake8
 }

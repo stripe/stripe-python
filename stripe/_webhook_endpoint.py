@@ -18,13 +18,13 @@ class WebhookEndpoint(
     UpdateableAPIResource["WebhookEndpoint"],
 ):
     """
-    You can configure [webhook endpoints](https://stripe.com/docs/webhooks/) via the API to be
+    You can configure [webhook endpoints](https://docs.stripe.com/webhooks/) via the API to be
     notified about events that happen in your Stripe account or connected
     accounts.
 
     Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
 
-    Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
+    Related guide: [Setting up webhooks](https://docs.stripe.com/webhooks/configure)
     """
 
     OBJECT_NAME: ClassVar[Literal["webhook_endpoint"]] = "webhook_endpoint"
@@ -133,6 +133,7 @@ class WebhookEndpoint(
                 "2023-08-16",
                 "2023-10-16",
                 "2024-04-10",
+                "2024-06-20",
             ]
         ]
         """
@@ -159,6 +160,7 @@ class WebhookEndpoint(
                 "application_fee.refund.updated",
                 "application_fee.refunded",
                 "balance.available",
+                "billing.alert.triggered",
                 "billing_portal.configuration.created",
                 "billing_portal.configuration.updated",
                 "billing_portal.session.created",
@@ -216,6 +218,7 @@ class WebhookEndpoint(
                 "customer.tax_id.updated",
                 "customer.updated",
                 "customer_cash_balance_transaction.created",
+                "entitlements.active_entitlement_summary.updated",
                 "file.created",
                 "financial_connections.account.created",
                 "financial_connections.account.deactivated",
@@ -235,6 +238,7 @@ class WebhookEndpoint(
                 "invoice.finalization_failed",
                 "invoice.finalized",
                 "invoice.marked_uncollectible",
+                "invoice.overdue",
                 "invoice.paid",
                 "invoice.payment_action_required",
                 "invoice.payment_failed",
@@ -243,6 +247,7 @@ class WebhookEndpoint(
                 "invoice.upcoming",
                 "invoice.updated",
                 "invoice.voided",
+                "invoice.will_be_due",
                 "invoiceitem.created",
                 "invoiceitem.deleted",
                 "issuing_authorization.created",
@@ -255,8 +260,13 @@ class WebhookEndpoint(
                 "issuing_dispute.closed",
                 "issuing_dispute.created",
                 "issuing_dispute.funds_reinstated",
+                "issuing_dispute.funds_rescinded",
                 "issuing_dispute.submitted",
                 "issuing_dispute.updated",
+                "issuing_personalization_design.activated",
+                "issuing_personalization_design.deactivated",
+                "issuing_personalization_design.rejected",
+                "issuing_personalization_design.updated",
                 "issuing_token.created",
                 "issuing_token.updated",
                 "issuing_transaction.created",
@@ -365,12 +375,14 @@ class WebhookEndpoint(
                 "treasury.outbound_payment.failed",
                 "treasury.outbound_payment.posted",
                 "treasury.outbound_payment.returned",
+                "treasury.outbound_payment.tracking_details_updated",
                 "treasury.outbound_transfer.canceled",
                 "treasury.outbound_transfer.created",
                 "treasury.outbound_transfer.expected_arrival_date_updated",
                 "treasury.outbound_transfer.failed",
                 "treasury.outbound_transfer.posted",
                 "treasury.outbound_transfer.returned",
+                "treasury.outbound_transfer.tracking_details_updated",
                 "treasury.received_credit.created",
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
@@ -437,6 +449,7 @@ class WebhookEndpoint(
                     "application_fee.refund.updated",
                     "application_fee.refunded",
                     "balance.available",
+                    "billing.alert.triggered",
                     "billing_portal.configuration.created",
                     "billing_portal.configuration.updated",
                     "billing_portal.session.created",
@@ -494,6 +507,7 @@ class WebhookEndpoint(
                     "customer.tax_id.updated",
                     "customer.updated",
                     "customer_cash_balance_transaction.created",
+                    "entitlements.active_entitlement_summary.updated",
                     "file.created",
                     "financial_connections.account.created",
                     "financial_connections.account.deactivated",
@@ -513,6 +527,7 @@ class WebhookEndpoint(
                     "invoice.finalization_failed",
                     "invoice.finalized",
                     "invoice.marked_uncollectible",
+                    "invoice.overdue",
                     "invoice.paid",
                     "invoice.payment_action_required",
                     "invoice.payment_failed",
@@ -521,6 +536,7 @@ class WebhookEndpoint(
                     "invoice.upcoming",
                     "invoice.updated",
                     "invoice.voided",
+                    "invoice.will_be_due",
                     "invoiceitem.created",
                     "invoiceitem.deleted",
                     "issuing_authorization.created",
@@ -533,8 +549,13 @@ class WebhookEndpoint(
                     "issuing_dispute.closed",
                     "issuing_dispute.created",
                     "issuing_dispute.funds_reinstated",
+                    "issuing_dispute.funds_rescinded",
                     "issuing_dispute.submitted",
                     "issuing_dispute.updated",
+                    "issuing_personalization_design.activated",
+                    "issuing_personalization_design.deactivated",
+                    "issuing_personalization_design.rejected",
+                    "issuing_personalization_design.updated",
                     "issuing_token.created",
                     "issuing_token.updated",
                     "issuing_transaction.created",
@@ -643,12 +664,14 @@ class WebhookEndpoint(
                     "treasury.outbound_payment.failed",
                     "treasury.outbound_payment.posted",
                     "treasury.outbound_payment.returned",
+                    "treasury.outbound_payment.tracking_details_updated",
                     "treasury.outbound_transfer.canceled",
                     "treasury.outbound_transfer.created",
                     "treasury.outbound_transfer.expected_arrival_date_updated",
                     "treasury.outbound_transfer.failed",
                     "treasury.outbound_transfer.posted",
                     "treasury.outbound_transfer.returned",
+                    "treasury.outbound_transfer.tracking_details_updated",
                     "treasury.received_credit.created",
                     "treasury.received_credit.failed",
                     "treasury.received_credit.succeeded",
@@ -716,7 +739,7 @@ class WebhookEndpoint(
     """
     secret: Optional[str]
     """
-    The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation.
+    The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
     """
     status: str
     """
@@ -874,7 +897,6 @@ class WebhookEndpoint(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -895,7 +917,6 @@ class WebhookEndpoint(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

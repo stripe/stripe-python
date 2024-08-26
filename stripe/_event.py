@@ -31,10 +31,10 @@ class Event(ListableAPIResource["Event"]):
     `Event` objects directly to an endpoint on your server. You can manage
     webhooks in your
     [account settings](https://dashboard.stripe.com/account/webhooks). Learn how
-    to [listen for events](https://stripe.com/docs/webhooks)
+    to [listen for events](https://docs.stripe.com/webhooks)
     so that your integration can automatically trigger reactions.
 
-    When using [Connect](https://stripe.com/docs/connect), you can also receive event notifications
+    When using [Connect](https://docs.stripe.com/connect), you can also receive event notifications
     that occur in connected accounts. For these events, there's an
     additional `account` attribute in the received `Event` object.
 
@@ -166,6 +166,7 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.refund.updated",
         "application_fee.refunded",
         "balance.available",
+        "billing.alert.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
@@ -223,6 +224,7 @@ class Event(ListableAPIResource["Event"]):
         "customer.tax_id.updated",
         "customer.updated",
         "customer_cash_balance_transaction.created",
+        "entitlements.active_entitlement_summary.updated",
         "file.created",
         "financial_connections.account.created",
         "financial_connections.account.deactivated",
@@ -242,6 +244,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.finalization_failed",
         "invoice.finalized",
         "invoice.marked_uncollectible",
+        "invoice.overdue",
         "invoice.paid",
         "invoice.payment_action_required",
         "invoice.payment_failed",
@@ -250,6 +253,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.upcoming",
         "invoice.updated",
         "invoice.voided",
+        "invoice.will_be_due",
         "invoiceitem.created",
         "invoiceitem.deleted",
         "issuing_authorization.created",
@@ -262,8 +266,13 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.closed",
         "issuing_dispute.created",
         "issuing_dispute.funds_reinstated",
+        "issuing_dispute.funds_rescinded",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_personalization_design.activated",
+        "issuing_personalization_design.deactivated",
+        "issuing_personalization_design.rejected",
+        "issuing_personalization_design.updated",
         "issuing_token.created",
         "issuing_token.updated",
         "issuing_transaction.created",
@@ -372,12 +381,14 @@ class Event(ListableAPIResource["Event"]):
         "treasury.outbound_payment.failed",
         "treasury.outbound_payment.posted",
         "treasury.outbound_payment.returned",
+        "treasury.outbound_payment.tracking_details_updated",
         "treasury.outbound_transfer.canceled",
         "treasury.outbound_transfer.created",
         "treasury.outbound_transfer.expected_arrival_date_updated",
         "treasury.outbound_transfer.failed",
         "treasury.outbound_transfer.posted",
         "treasury.outbound_transfer.returned",
+        "treasury.outbound_transfer.tracking_details_updated",
         "treasury.received_credit.created",
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
@@ -390,7 +401,7 @@ class Event(ListableAPIResource["Event"]):
     @classmethod
     def list(cls, **params: Unpack["Event.ListParams"]) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         result = cls._static_request(
             "get",
@@ -398,7 +409,6 @@ class Event(ListableAPIResource["Event"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -411,7 +421,7 @@ class Event(ListableAPIResource["Event"]):
         cls, **params: Unpack["Event.ListParams"]
     ) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         result = await cls._static_request_async(
             "get",
@@ -419,7 +429,6 @@ class Event(ListableAPIResource["Event"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -432,7 +441,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -443,7 +452,7 @@ class Event(ListableAPIResource["Event"]):
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
         """
-        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

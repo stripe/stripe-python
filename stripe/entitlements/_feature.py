@@ -20,9 +20,9 @@ class Feature(
     Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["entitlements.feature"]
-    ] = "entitlements.feature"
+    OBJECT_NAME: ClassVar[Literal["entitlements.feature"]] = (
+        "entitlements.feature"
+    )
 
     class CreateParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -43,6 +43,10 @@ class Feature(
         """
 
     class ListParams(RequestOptions):
+        archived: NotRequired[bool]
+        """
+        If set, filter results to only include features with the given archive status.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -54,6 +58,10 @@ class Feature(
         limit: NotRequired[int]
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        lookup_key: NotRequired[str]
+        """
+        If set, filter results to only include features with the given lookup_key.
         """
         starting_after: NotRequired[str]
         """
@@ -69,7 +77,7 @@ class Feature(
         """
         Specifies which fields in the response should be expanded.
         """
-        metadata: NotRequired[Dict[str, str]]
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
@@ -156,7 +164,6 @@ class Feature(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -177,7 +184,6 @@ class Feature(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

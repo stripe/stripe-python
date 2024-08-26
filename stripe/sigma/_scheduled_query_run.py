@@ -19,9 +19,9 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     retrieve the query results.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["scheduled_query_run"]
-    ] = "scheduled_query_run"
+    OBJECT_NAME: ClassVar[Literal["scheduled_query_run"]] = (
+        "scheduled_query_run"
+    )
 
     class Error(StripeObject):
         message: str
@@ -108,7 +108,6 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -129,7 +128,6 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

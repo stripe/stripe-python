@@ -322,11 +322,11 @@ class PaymentLink(
         """
         statement_descriptor: Optional[str]
         """
-        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        For a non-card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge.
         """
         statement_descriptor_suffix: Optional[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        For a card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge. Concatenated with the account's statement descriptor prefix to form the complete statement descriptor.
         """
         transfer_group: Optional[str]
         """
@@ -789,6 +789,8 @@ class PaymentLink(
                     "klarna",
                     "konbini",
                     "link",
+                    "mobilepay",
+                    "multibanco",
                     "oxxo",
                     "p24",
                     "paynow",
@@ -798,8 +800,10 @@ class PaymentLink(
                     "sepa_debit",
                     "sofort",
                     "swish",
+                    "twint",
                     "us_bank_account",
                     "wechat_pay",
+                    "zip",
                 ]
             ]
         ]
@@ -1190,11 +1194,11 @@ class PaymentLink(
         """
         statement_descriptor: NotRequired[str]
         """
-        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        Text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors) for a non-card charge. This value overrides the account's default statement descriptor. Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
         """
         statement_descriptor_suffix: NotRequired[str]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_group: NotRequired[str]
         """
@@ -1208,7 +1212,9 @@ class PaymentLink(
         """
 
     class CreateParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
@@ -1517,7 +1523,9 @@ class PaymentLink(
         """
 
     class CreateParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        end_behavior: (
+            "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -1531,7 +1539,7 @@ class PaymentLink(
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
         """
-        Set to `true` to enable tax ID collection.
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -1663,7 +1671,7 @@ class PaymentLink(
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -1685,6 +1693,12 @@ class PaymentLink(
         ]
         """
         When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
+        """
+        tax_id_collection: NotRequired[
+            "PaymentLink.ModifyParamsTaxIdCollection"
+        ]
+        """
+        Controls tax ID collection during checkout.
         """
 
     class ModifyParamsAfterCompletion(TypedDict):
@@ -1980,11 +1994,11 @@ class PaymentLink(
         """
         statement_descriptor: NotRequired["Literal['']|str"]
         """
-        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        Text that appears on the customer's statement as the [statement descriptor](https://docs.stripe.com/get-started/account/statement-descriptors) for a non-card charge. This value overrides the account's default statement descriptor. Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
         """
         statement_descriptor_suffix: NotRequired["Literal['']|str"]
         """
-        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.corp.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         """
         transfer_group: NotRequired["Literal['']|str"]
         """
@@ -1992,7 +2006,9 @@ class PaymentLink(
         """
 
     class ModifyParamsRestrictions(TypedDict):
-        completed_sessions: "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        completed_sessions: (
+            "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        )
         """
         Configuration for the `completed_sessions` restriction type.
         """
@@ -2287,7 +2303,9 @@ class PaymentLink(
         """
 
     class ModifyParamsSubscriptionDataTrialSettings(TypedDict):
-        end_behavior: "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+        end_behavior: (
+            "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+        )
         """
         Defines how the subscription should behave when the user's free trial ends.
         """
@@ -2296,6 +2314,12 @@ class PaymentLink(
         missing_payment_method: Literal["cancel", "create_invoice", "pause"]
         """
         Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+        """
+
+    class ModifyParamsTaxIdCollection(TypedDict):
+        enabled: bool
+        """
+        Enable tax ID collection during checkout. Defaults to `false`.
         """
 
     class RetrieveParams(RequestOptions):
@@ -2408,6 +2432,8 @@ class PaymentLink(
                 "klarna",
                 "konbini",
                 "link",
+                "mobilepay",
+                "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
@@ -2417,8 +2443,10 @@ class PaymentLink(
                 "sepa_debit",
                 "sofort",
                 "swish",
+                "twint",
                 "us_bank_account",
                 "wechat_pay",
+                "zip",
             ]
         ]
     ]
@@ -2501,7 +2529,6 @@ class PaymentLink(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2522,7 +2549,6 @@ class PaymentLink(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2534,7 +2560,7 @@ class PaymentLink(
     def _cls_list_line_items(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack["PaymentLink.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2591,7 +2617,7 @@ class PaymentLink(
     async def _cls_list_line_items_async(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack["PaymentLink.ListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

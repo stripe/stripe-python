@@ -17,6 +17,7 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe._application_fee import ApplicationFee
     from stripe._balance_transaction import BalanceTransaction
     from stripe._bank_account import BankAccount
     from stripe._card import Card
@@ -183,6 +184,14 @@ class Payout(
     amount: int
     """
     The amount (in cents (or local equivalent)) that transfers to your bank account or debit card.
+    """
+    application_fee: Optional[ExpandableField["ApplicationFee"]]
+    """
+    The application fee (if any) for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
+    """
+    application_fee_amount: Optional[int]
+    """
+    The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
     """
     arrival_date: int
     """
@@ -436,7 +445,6 @@ class Payout(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -457,7 +465,6 @@ class Payout(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

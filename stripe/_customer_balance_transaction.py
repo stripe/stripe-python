@@ -22,9 +22,9 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["customer_balance_transaction"]
-    ] = "customer_balance_transaction"
+    OBJECT_NAME: ClassVar[Literal["customer_balance_transaction"]] = (
+        "customer_balance_transaction"
+    )
     amount: int
     """
     The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.

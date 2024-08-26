@@ -16,10 +16,9 @@ class Person(UpdateableAPIResource["Person"]):
     """
     This is an object representing a person associated with a Stripe account.
 
-    A platform cannot access a Standard or Express account's persons after the account starts onboarding, such as after generating an account link for the account.
-    See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform prefilling and account onboarding steps.
+    A platform cannot access a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
 
-    Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/handling-api-verification#person-information)
+    See the [Standard onboarding](https://stripe.com/connect/standard-accounts) or [Express onboarding](https://stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://stripe.com/connect/handling-api-verification#person-information).
     """
 
     OBJECT_NAME: ClassVar[Literal["person"]] = "person"
@@ -39,7 +38,10 @@ class Person(UpdateableAPIResource["Person"]):
             The user agent of the browser from which the legal guardian accepted the service agreement.
             """
 
-        account: Account
+        account: Optional[Account]
+        """
+        Details on the legal guardian's acceptance of the main Stripe service agreement.
+        """
         _inner_class_types = {"account": Account}
 
     class Address(StripeObject):
@@ -243,6 +245,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
@@ -439,6 +442,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.

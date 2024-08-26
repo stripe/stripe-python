@@ -224,3 +224,30 @@ class BanPublicMethodsChecker:
                         msg,
                         type(self),
                     )
+
+
+class AsyncNamingConventions:
+    name = __name__
+    version = "0.1.0"
+
+    def __init__(self, tree: ast.AST, filename: str):
+        self.tree = tree
+        self.filename = filename
+
+    def run(self) -> Iterator[Tuple[int, int, str, type]]:
+        for node in ast.walk(self.tree):
+            # ignore anything that isn't an async function declaration
+            if not isinstance(node, ast.AsyncFunctionDef):
+                continue
+
+            # dunders need specific names, so don't worry about them
+            if node.name.startswith("__") and node.name.endswith("__"):
+                continue
+
+            if not node.name.endswith("_async"):
+                yield (
+                    node.lineno,
+                    node.col_offset,
+                    "ASY100 Async methods must be named X_async",
+                    type(self),
+                )

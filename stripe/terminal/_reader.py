@@ -271,6 +271,7 @@ class Reader(
                 "mobile_phone_reader",
                 "simulated_wisepos_e",
                 "stripe_m2",
+                "stripe_s700",
                 "verifone_P400",
             ]
         ]
@@ -531,10 +532,11 @@ class Reader(
         "mobile_phone_reader",
         "simulated_wisepos_e",
         "stripe_m2",
+        "stripe_s700",
         "verifone_P400",
     ]
     """
-    Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+    Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
     """
     id: str
     """
@@ -570,7 +572,7 @@ class Reader(
     """
     status: Optional[Literal["offline", "online"]]
     """
-    The networking status of the reader.
+    The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
     """
     deleted: Optional[Literal[True]]
     """
@@ -824,7 +826,6 @@ class Reader(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -845,7 +846,6 @@ class Reader(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1356,7 +1356,7 @@ class Reader(
         def _cls_present_payment_method(
             cls,
             reader: str,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack["Reader.PresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1413,7 +1413,7 @@ class Reader(
         async def _cls_present_payment_method_async(
             cls,
             reader: str,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack["Reader.PresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.

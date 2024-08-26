@@ -193,7 +193,7 @@ class AccountExternalAccountService(StripeService):
             "AccountExternalAccountService.UpdateParamsDocumentsBankAccountOwnershipVerification"
         ]
         """
-        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the bank account that displays the last 4 digits of the account number, either a statement or a voided check.
+        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the bank account that displays the last 4 digits of the account number, either a statement or a check.
         """
 
     class UpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
@@ -310,9 +310,14 @@ class AccountExternalAccountService(StripeService):
         options: RequestOptions = {},
     ) -> Union[BankAccount, Card]:
         """
-        Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
+        Updates the metadata, account holder name, account holder type of a bank account belonging to
+        a connected account and optionally sets it as the default for its currency. Other bank account
+        details are not editable by design.
 
-        You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+
+        You can re-enable a disabled bank account by performing an update call without providing any
+        arguments or changes.
         """
         return cast(
             Union[BankAccount, Card],
@@ -337,9 +342,14 @@ class AccountExternalAccountService(StripeService):
         options: RequestOptions = {},
     ) -> Union[BankAccount, Card]:
         """
-        Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
+        Updates the metadata, account holder name, account holder type of a bank account belonging to
+        a connected account and optionally sets it as the default for its currency. Other bank account
+        details are not editable by design.
 
-        You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+
+        You can re-enable a disabled bank account by performing an update call without providing any
+        arguments or changes.
         """
         return cast(
             Union[BankAccount, Card],

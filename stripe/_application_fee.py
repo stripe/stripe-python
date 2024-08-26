@@ -5,6 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
@@ -26,6 +27,20 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
+
+    class FeeSource(StripeObject):
+        charge: Optional[str]
+        """
+        Charge ID that created this application fee.
+        """
+        payout: Optional[str]
+        """
+        Payout ID that created this application fee.
+        """
+        type: Literal["charge", "payout"]
+        """
+        Type of object that created the application fee, either `charge` or `payout`.
+        """
 
     class CreateRefundParams(RequestOptions):
         amount: NotRequired[int]
@@ -171,6 +186,10 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    fee_source: Optional[FeeSource]
+    """
+    Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -209,7 +228,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -230,7 +248,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -483,7 +500,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -504,7 +521,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -525,7 +542,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.ModifyRefundParams"]
+        **params: Unpack["ApplicationFee.ModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -548,7 +565,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
-        **params: Unpack["ApplicationFee.ModifyRefundParams"]
+        **params: Unpack["ApplicationFee.ModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -597,3 +614,5 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
                 params=params,
             ),
         )
+
+    _inner_class_types = {"fee_source": FeeSource}

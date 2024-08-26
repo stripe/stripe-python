@@ -29,9 +29,9 @@ class Account(ListableAPIResource["Account"]):
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.account"]
-    ] = "financial_connections.account"
+    OBJECT_NAME: ClassVar[Literal["financial_connections.account"]] = (
+        "financial_connections.account"
+    )
 
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
@@ -51,7 +51,7 @@ class Account(ListableAPIResource["Account"]):
         class Cash(StripeObject):
             available: Optional[Dict[str, int]]
             """
-            The funds available to the account holder. Typically this is the current balance less any holds.
+            The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
 
             Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
 
@@ -76,7 +76,7 @@ class Account(ListableAPIResource["Account"]):
         credit: Optional[Credit]
         current: Dict[str, int]
         """
-        The balances owed to (or by) the account holder.
+        The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
 
         Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
 
@@ -458,7 +458,6 @@ class Account(ListableAPIResource["Account"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -479,7 +478,6 @@ class Account(ListableAPIResource["Account"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

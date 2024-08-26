@@ -1501,7 +1501,6 @@ class Quote(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1522,7 +1521,6 @@ class Quote(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -1534,7 +1532,7 @@ class Quote(
     def _cls_list_computed_upfront_line_items(
         cls,
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1554,7 +1552,7 @@ class Quote(
     @staticmethod
     def list_computed_upfront_line_items(
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1592,7 +1590,7 @@ class Quote(
     async def _cls_list_computed_upfront_line_items_async(
         cls,
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1612,7 +1610,7 @@ class Quote(
     @staticmethod
     async def list_computed_upfront_line_items_async(
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1793,7 +1791,7 @@ class Quote(
     @classmethod
     def _cls_pdf(cls, quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,
@@ -1809,14 +1807,14 @@ class Quote(
     @staticmethod
     def pdf(quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
     @overload
     def pdf(self, **params: Unpack["Quote.PdfParams"]) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
@@ -1825,7 +1823,7 @@ class Quote(
         self, **params: Unpack["Quote.PdfParams"]
     ) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,
@@ -1835,6 +1833,7 @@ class Quote(
                     quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 
@@ -1843,7 +1842,7 @@ class Quote(
         cls, quote: str, **params: Unpack["Quote.PdfParams"]
     ) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,
@@ -1861,14 +1860,14 @@ class Quote(
         quote: str, **params: Unpack["Quote.PdfParams"]
     ) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
     @overload
     async def pdf_async(self, **params: Unpack["Quote.PdfParams"]) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
@@ -1877,7 +1876,7 @@ class Quote(
         self, **params: Unpack["Quote.PdfParams"]
     ) -> Any:
         """
-        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+        Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         return cast(
             Any,
@@ -1887,6 +1886,7 @@ class Quote(
                     quote=sanitize_id(self.get("id"))
                 ),
                 params=params,
+                base_address="files",
             ),
         )
 

@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     )
     from stripe._dispute import Dispute as DisputeResource
     from stripe._payout import Payout
-    from stripe._platform_tax_fee import PlatformTaxFee
     from stripe._refund import Refund
     from stripe._reserve_transaction import ReserveTransaction
     from stripe._reversal import Reversal
@@ -44,9 +43,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["balance_transaction"]
-    ] = "balance_transaction"
+    OBJECT_NAME: ClassVar[Literal["balance_transaction"]] = (
+        "balance_transaction"
+    )
 
     class FeeDetail(StripeObject):
         amount: int
@@ -193,7 +192,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
                 "IssuingDisputeResource",
                 "Transaction",
                 "Payout",
-                "PlatformTaxFee",
                 "Refund",
                 "ReserveTransaction",
                 "TaxDeductedAtSource",
@@ -271,7 +269,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -294,7 +291,6 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

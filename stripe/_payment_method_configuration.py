@@ -33,9 +33,9 @@ class PaymentMethodConfiguration(
     - [Multiple configurations for your Connect accounts](https://stripe.com/docs/connect/multiple-payment-method-configurations)
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["payment_method_configuration"]
-    ] = "payment_method_configuration"
+    OBJECT_NAME: ClassVar[Literal["payment_method_configuration"]] = (
+        "payment_method_configuration"
+    )
 
     class AcssDebit(StripeObject):
         class DisplayPreference(StripeObject):
@@ -587,6 +587,50 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Mobilepay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Multibanco(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -742,6 +786,50 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class Sofort(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Swish(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Twint(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -960,6 +1048,18 @@ class PaymentMethodConfiguration(
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
         """
+        mobilepay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
+        """
         name: NotRequired[str]
         """
         Configuration name.
@@ -1005,6 +1105,14 @@ class PaymentMethodConfiguration(
         sofort: NotRequired["PaymentMethodConfiguration.CreateParamsSofort"]
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+        """
+        swish: NotRequired["PaymentMethodConfiguration.CreateParamsSwish"]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
+        """
+        twint: NotRequired["PaymentMethodConfiguration.CreateParamsTwint"]
+        """
+        Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccount"
@@ -1387,6 +1495,34 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
@@ -1499,6 +1635,34 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSwishDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsTwint(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsTwintDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsTwintDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
@@ -1546,9 +1710,21 @@ class PaymentMethodConfiguration(
         """
         The Connect application to filter by.
         """
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ModifyParams(RequestOptions):
@@ -1686,6 +1862,18 @@ class PaymentMethodConfiguration(
         """
         [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
         """
+        mobilepay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMobilepay"
+        ]
+        """
+        MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
+        """
+        multibanco: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMultibanco"
+        ]
+        """
+        Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
+        """
         name: NotRequired[str]
         """
         Configuration name.
@@ -1727,6 +1915,14 @@ class PaymentMethodConfiguration(
         sofort: NotRequired["PaymentMethodConfiguration.ModifyParamsSofort"]
         """
         Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+        """
+        swish: NotRequired["PaymentMethodConfiguration.ModifyParamsSwish"]
+        """
+        Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
+        """
+        twint: NotRequired["PaymentMethodConfiguration.ModifyParamsTwint"]
+        """
+        Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
         """
         us_bank_account: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccount"
@@ -2109,6 +2305,34 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsMobilepay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMobilepayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsMobilepayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsMultibanco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsMultibancoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
@@ -2221,6 +2445,34 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsSwish(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSwishDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSwishDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsTwint(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsTwintDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsTwintDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
@@ -2314,6 +2566,8 @@ class PaymentMethodConfiguration(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    mobilepay: Optional[Mobilepay]
+    multibanco: Optional[Multibanco]
     name: str
     """
     The configuration's name.
@@ -2334,6 +2588,8 @@ class PaymentMethodConfiguration(
     revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
+    swish: Optional[Swish]
+    twint: Optional[Twint]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
     zip: Optional[Zip]
@@ -2383,7 +2639,6 @@ class PaymentMethodConfiguration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2404,7 +2659,6 @@ class PaymentMethodConfiguration(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2416,7 +2670,7 @@ class PaymentMethodConfiguration(
     def modify(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -2435,7 +2689,7 @@ class PaymentMethodConfiguration(
     async def modify_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -2454,7 +2708,7 @@ class PaymentMethodConfiguration(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
+        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration
@@ -2467,7 +2721,7 @@ class PaymentMethodConfiguration(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
+        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration
@@ -2502,6 +2756,8 @@ class PaymentMethodConfiguration(
         "klarna": Klarna,
         "konbini": Konbini,
         "link": Link,
+        "mobilepay": Mobilepay,
+        "multibanco": Multibanco,
         "oxxo": Oxxo,
         "p24": P24,
         "paynow": Paynow,
@@ -2510,6 +2766,8 @@ class PaymentMethodConfiguration(
         "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
+        "swish": Swish,
+        "twint": Twint,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,

@@ -141,6 +141,16 @@ class Dispute(
             Date when the product was returned or attempted to be returned.
             """
 
+        class NoValidAuthorization(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+
         class NotReceived(StripeObject):
             additional_documentation: Optional[ExpandableField["File"]]
             """
@@ -207,6 +217,7 @@ class Dispute(
         duplicate: Optional[Duplicate]
         fraudulent: Optional[Fraudulent]
         merchandise_not_as_described: Optional[MerchandiseNotAsDescribed]
+        no_valid_authorization: Optional[NoValidAuthorization]
         not_received: Optional[NotReceived]
         other: Optional[Other]
         reason: Literal[
@@ -214,6 +225,7 @@ class Dispute(
             "duplicate",
             "fraudulent",
             "merchandise_not_as_described",
+            "no_valid_authorization",
             "not_received",
             "other",
             "service_not_as_described",
@@ -227,6 +239,7 @@ class Dispute(
             "duplicate": Duplicate,
             "fraudulent": Fraudulent,
             "merchandise_not_as_described": MerchandiseNotAsDescribed,
+            "no_valid_authorization": NoValidAuthorization,
             "not_received": NotReceived,
             "other": Other,
             "service_not_as_described": ServiceNotAsDescribed,
@@ -293,6 +306,12 @@ class Dispute(
         """
         Evidence provided when `reason` is 'merchandise_not_as_described'.
         """
+        no_valid_authorization: NotRequired[
+            "Literal['']|Dispute.CreateParamsEvidenceNoValidAuthorization"
+        ]
+        """
+        Evidence provided when `reason` is 'no_valid_authorization'.
+        """
         not_received: NotRequired[
             "Literal['']|Dispute.CreateParamsEvidenceNotReceived"
         ]
@@ -309,6 +328,7 @@ class Dispute(
                 "duplicate",
                 "fraudulent",
                 "merchandise_not_as_described",
+                "no_valid_authorization",
                 "not_received",
                 "other",
                 "service_not_as_described",
@@ -432,6 +452,16 @@ class Dispute(
         returned_at: NotRequired["Literal['']|int"]
         """
         Date when the product was returned or attempted to be returned.
+        """
+
+    class CreateParamsEvidenceNoValidAuthorization(TypedDict):
+        additional_documentation: NotRequired["Literal['']|str"]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+        """
+        explanation: NotRequired["Literal['']|str"]
+        """
+        Explanation of why the cardholder is disputing this transaction.
         """
 
     class CreateParamsEvidenceNotReceived(TypedDict):
@@ -599,6 +629,12 @@ class Dispute(
         """
         Evidence provided when `reason` is 'merchandise_not_as_described'.
         """
+        no_valid_authorization: NotRequired[
+            "Literal['']|Dispute.ModifyParamsEvidenceNoValidAuthorization"
+        ]
+        """
+        Evidence provided when `reason` is 'no_valid_authorization'.
+        """
         not_received: NotRequired[
             "Literal['']|Dispute.ModifyParamsEvidenceNotReceived"
         ]
@@ -615,6 +651,7 @@ class Dispute(
                 "duplicate",
                 "fraudulent",
                 "merchandise_not_as_described",
+                "no_valid_authorization",
                 "not_received",
                 "other",
                 "service_not_as_described",
@@ -740,6 +777,16 @@ class Dispute(
         Date when the product was returned or attempted to be returned.
         """
 
+    class ModifyParamsEvidenceNoValidAuthorization(TypedDict):
+        additional_documentation: NotRequired["Literal['']|str"]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+        """
+        explanation: NotRequired["Literal['']|str"]
+        """
+        Explanation of why the cardholder is disputing this transaction.
+        """
+
     class ModifyParamsEvidenceNotReceived(TypedDict):
         additional_documentation: NotRequired["Literal['']|str"]
         """
@@ -847,6 +894,33 @@ class Dispute(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    loss_reason: Optional[
+        Literal[
+            "cardholder_authentication_issuer_liability",
+            "eci5_token_transaction_with_tavv",
+            "excess_disputes_in_timeframe",
+            "has_not_met_the_minimum_dispute_amount_requirements",
+            "invalid_duplicate_dispute",
+            "invalid_incorrect_amount_dispute",
+            "invalid_no_authorization",
+            "invalid_use_of_disputes",
+            "merchandise_delivered_or_shipped",
+            "merchandise_or_service_as_described",
+            "not_cancelled",
+            "other",
+            "refund_issued",
+            "submitted_beyond_allowable_time_limit",
+            "transaction_3ds_required",
+            "transaction_approved_after_prior_fraud_dispute",
+            "transaction_authorized",
+            "transaction_electronically_read",
+            "transaction_qualifies_for_visa_easy_payment_service",
+            "transaction_unattended",
+        ]
+    ]
+    """
+    The enum that describes the dispute loss outcome. If the dispute is not lost, this field will be absent. New enum values may be added in the future, so be sure to handle unknown values.
+    """
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -911,7 +985,6 @@ class Dispute(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -932,7 +1005,6 @@ class Dispute(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

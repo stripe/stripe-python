@@ -60,7 +60,7 @@ class TokenService(StripeService):
         """
         tos_shown_and_accepted: NotRequired[bool]
         """
-        Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](https://docs.stripe.com/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
+        Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](https://stripe.com/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
         """
 
     class CreateParamsAccountCompany(TypedDict):
@@ -82,11 +82,11 @@ class TokenService(StripeService):
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -110,7 +110,7 @@ class TokenService(StripeService):
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "TokenService.CreateParamsAccountCompanyOwnershipDeclaration"
@@ -134,7 +134,7 @@ class TokenService(StripeService):
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -284,13 +284,13 @@ class TokenService(StripeService):
             "TokenService.CreateParamsAccountIndividualAddressKana"
         ]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "TokenService.CreateParamsAccountIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired[
             "Literal['']|TokenService.CreateParamsAccountIndividualDob"
@@ -308,7 +308,7 @@ class TokenService(StripeService):
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """
@@ -324,11 +324,11 @@ class TokenService(StripeService):
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -598,7 +598,7 @@ class TokenService(StripeService):
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class CreateParamsCard(TypedDict):
@@ -674,7 +674,7 @@ class TokenService(StripeService):
             "TokenService.CreateParamsPersonAdditionalTosAcceptances"
         ]
         """
-        Details on the legal guardian's acceptance of the required Stripe agreements.
+        Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
         """
         address: NotRequired["TokenService.CreateParamsPersonAddress"]
         """
@@ -1094,7 +1094,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,
@@ -1115,7 +1115,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,

@@ -38,15 +38,22 @@ class AccountService(StripeService):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        The business type. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         capabilities: NotRequired["AccountService.CreateParamsCapabilities"]
         """
-        Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+        Each key of the dictionary represents a capability, and each capability
+        maps to its settings (for example, whether it has been requested or not). Each
+        capability is inactive until you have provided its specific
+        requirements and Stripe has verified them. An account might have some
+        of its requested capabilities be active and some be inactive.
+
+        Required when [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/create#create_account-controller-dashboard-type)
+        is `none`, which includes Custom accounts.
         """
         company: NotRequired["AccountService.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         controller: NotRequired["AccountService.CreateParamsController"]
         """
@@ -66,7 +73,7 @@ class AccountService(StripeService):
         """
         email: NotRequired[str]
         """
-        The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
+        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
         """
         expand: NotRequired[List[str]]
         """
@@ -76,13 +83,13 @@ class AccountService(StripeService):
             "str|AccountService.CreateParamsBankAccount|AccountService.CreateParamsCard|AccountService.CreateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -94,7 +101,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
         """
         type: NotRequired[Literal["custom", "express", "standard"]]
         """
@@ -141,7 +148,7 @@ class AccountService(StripeService):
         """
         mcc: NotRequired[str]
         """
-        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -183,7 +190,7 @@ class AccountService(StripeService):
     class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -197,7 +204,7 @@ class AccountService(StripeService):
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -327,6 +334,12 @@ class AccountService(StripeService):
         """
         The fpx_payments capability.
         """
+        gb_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesGbBankTransferPayments"
+        ]
+        """
+        The gb_bank_transfer_payments capability.
+        """
         giropay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesGiropayPayments"
         ]
@@ -356,6 +369,12 @@ class AccountService(StripeService):
         ]
         """
         The jcb_payments capability.
+        """
+        jp_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesJpBankTransferPayments"
+        ]
+        """
+        The jp_bank_transfer_payments capability.
         """
         klarna_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesKlarnaPayments"
@@ -387,6 +406,18 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
+        mx_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMxBankTransferPayments"
+        ]
+        """
+        The mx_bank_transfer_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -416,6 +447,12 @@ class AccountService(StripeService):
         ]
         """
         The revolut_pay_payments capability.
+        """
+        sepa_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesSepaBankTransferPayments"
+        ]
+        """
+        The sepa_bank_transfer_payments capability.
         """
         sepa_debit_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesSepaDebitPayments"
@@ -459,11 +496,23 @@ class AccountService(StripeService):
         """
         The treasury capability.
         """
+        twint_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
+        """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesUsBankAccountAchPayments"
         ]
         """
         The us_bank_account_ach_payments capability.
+        """
+        us_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesUsBankTransferPayments"
+        ]
+        """
+        The us_bank_transfer_payments capability.
         """
         zip_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesZipPayments"
@@ -568,6 +617,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesGbBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesGiropayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -593,6 +648,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesJcbPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesJpBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -628,6 +689,18 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesMultibancoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesMxBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -653,6 +726,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesRevolutPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -700,7 +779,19 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesTwintPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesUsBankAccountAchPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesUsBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -756,11 +847,11 @@ class AccountService(StripeService):
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -784,7 +875,7 @@ class AccountService(StripeService):
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "AccountService.CreateParamsCompanyOwnershipDeclaration"
@@ -804,7 +895,7 @@ class AccountService(StripeService):
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -966,7 +1057,7 @@ class AccountService(StripeService):
     class CreateParamsControllerFees(TypedDict):
         payer: NotRequired[Literal["account", "application"]]
         """
-        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`.
+        A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         """
 
     class CreateParamsControllerLosses(TypedDict):
@@ -986,7 +1077,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsDocumentsBankAccountOwnershipVerification"
         ]
         """
-        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a voided check.
+        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         """
         company_license: NotRequired[
             "AccountService.CreateParamsDocumentsCompanyLicense"
@@ -1076,13 +1167,13 @@ class AccountService(StripeService):
             "AccountService.CreateParamsIndividualAddressKana"
         ]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "AccountService.CreateParamsIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired[
             "Literal['']|AccountService.CreateParamsIndividualDob"
@@ -1100,7 +1191,7 @@ class AccountService(StripeService):
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """
@@ -1116,11 +1207,11 @@ class AccountService(StripeService):
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -1420,7 +1511,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsSettingsCardIssuingTosAcceptance"
         ]
         """
-        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://docs.stripe.com/issuing/connect/tos_acceptance).
+        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://stripe.com/issuing/connect/tos_acceptance).
         """
 
     class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
@@ -1470,27 +1561,27 @@ class AccountService(StripeService):
     class CreateParamsSettingsPayments(TypedDict):
         statement_descriptor: NotRequired[str]
         """
-        The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
+        The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
         """
         statement_descriptor_kana: NotRequired[str]
         """
-        The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only).
+        The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
         """
         statement_descriptor_kanji: NotRequired[str]
         """
-        The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only).
+        The Kanji variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
         """
 
     class CreateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/connect/account-balances).
         """
         schedule: NotRequired[
             "AccountService.CreateParamsSettingsPayoutsSchedule"
         ]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -1500,7 +1591,7 @@ class AccountService(StripeService):
     class CreateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired["Literal['minimum']|int"]
         """
-        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/connect/manage-payout-schedule).
         """
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
@@ -1645,15 +1736,22 @@ class AccountService(StripeService):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        The business type. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         capabilities: NotRequired["AccountService.UpdateParamsCapabilities"]
         """
-        Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+        Each key of the dictionary represents a capability, and each capability
+        maps to its settings (for example, whether it has been requested or not). Each
+        capability is inactive until you have provided its specific
+        requirements and Stripe has verified them. An account might have some
+        of its requested capabilities be active and some be inactive.
+
+        Required when [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/create#create_account-controller-dashboard-type)
+        is `none`, which includes Custom accounts.
         """
         company: NotRequired["AccountService.UpdateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         default_currency: NotRequired[str]
         """
@@ -1665,7 +1763,7 @@ class AccountService(StripeService):
         """
         email: NotRequired[str]
         """
-        The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent.
+        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
         """
         expand: NotRequired[List[str]]
         """
@@ -1675,13 +1773,13 @@ class AccountService(StripeService):
             "Literal['']|str|AccountService.UpdateParamsBankAccount|AccountService.UpdateParamsCard|AccountService.UpdateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1693,7 +1791,7 @@ class AccountService(StripeService):
         """
         tos_acceptance: NotRequired["AccountService.UpdateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance) This property can only be updated for Custom accounts.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
         """
 
     class UpdateParamsBankAccount(TypedDict):
@@ -1736,7 +1834,7 @@ class AccountService(StripeService):
         """
         mcc: NotRequired[str]
         """
-        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.UpdateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -1778,7 +1876,7 @@ class AccountService(StripeService):
     class UpdateParamsBusinessProfileAnnualRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1792,7 +1890,7 @@ class AccountService(StripeService):
     class UpdateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1922,6 +2020,12 @@ class AccountService(StripeService):
         """
         The fpx_payments capability.
         """
+        gb_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesGbBankTransferPayments"
+        ]
+        """
+        The gb_bank_transfer_payments capability.
+        """
         giropay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesGiropayPayments"
         ]
@@ -1951,6 +2055,12 @@ class AccountService(StripeService):
         ]
         """
         The jcb_payments capability.
+        """
+        jp_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesJpBankTransferPayments"
+        ]
+        """
+        The jp_bank_transfer_payments capability.
         """
         klarna_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesKlarnaPayments"
@@ -1982,6 +2092,18 @@ class AccountService(StripeService):
         """
         The mobilepay_payments capability.
         """
+        multibanco_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMultibancoPayments"
+        ]
+        """
+        The multibanco_payments capability.
+        """
+        mx_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMxBankTransferPayments"
+        ]
+        """
+        The mx_bank_transfer_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesOxxoPayments"
         ]
@@ -2011,6 +2133,12 @@ class AccountService(StripeService):
         ]
         """
         The revolut_pay_payments capability.
+        """
+        sepa_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesSepaBankTransferPayments"
+        ]
+        """
+        The sepa_bank_transfer_payments capability.
         """
         sepa_debit_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesSepaDebitPayments"
@@ -2054,11 +2182,23 @@ class AccountService(StripeService):
         """
         The treasury capability.
         """
+        twint_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTwintPayments"
+        ]
+        """
+        The twint_payments capability.
+        """
         us_bank_account_ach_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesUsBankAccountAchPayments"
         ]
         """
         The us_bank_account_ach_payments capability.
+        """
+        us_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesUsBankTransferPayments"
+        ]
+        """
+        The us_bank_transfer_payments capability.
         """
         zip_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesZipPayments"
@@ -2163,6 +2303,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesGbBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesGiropayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2188,6 +2334,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesJcbPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesJpBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2223,6 +2375,18 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesMultibancoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesMxBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2248,6 +2412,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesRevolutPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2295,7 +2465,19 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesTwintPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesUsBankAccountAchPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesUsBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2351,11 +2533,11 @@ class AccountService(StripeService):
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -2379,7 +2561,7 @@ class AccountService(StripeService):
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "AccountService.UpdateParamsCompanyOwnershipDeclaration"
@@ -2399,7 +2581,7 @@ class AccountService(StripeService):
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -2543,7 +2725,7 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsDocumentsBankAccountOwnershipVerification"
         ]
         """
-        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a voided check.
+        One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         """
         company_license: NotRequired[
             "AccountService.UpdateParamsDocumentsCompanyLicense"
@@ -2633,13 +2815,13 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsIndividualAddressKana"
         ]
         """
-        The Kana variation of the the individual's primary address (Japan only).
+        The Kana variation of the individual's primary address (Japan only).
         """
         address_kanji: NotRequired[
             "AccountService.UpdateParamsIndividualAddressKanji"
         ]
         """
-        The Kanji variation of the the individual's primary address (Japan only).
+        The Kanji variation of the individual's primary address (Japan only).
         """
         dob: NotRequired[
             "Literal['']|AccountService.UpdateParamsIndividualDob"
@@ -2657,7 +2839,7 @@ class AccountService(StripeService):
         """
         first_name_kana: NotRequired[str]
         """
-        The Kana variation of the the individual's first name (Japan only).
+        The Kana variation of the individual's first name (Japan only).
         """
         first_name_kanji: NotRequired[str]
         """
@@ -2673,11 +2855,11 @@ class AccountService(StripeService):
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -2981,7 +3163,7 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsSettingsCardIssuingTosAcceptance"
         ]
         """
-        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://docs.stripe.com/issuing/connect/tos_acceptance).
+        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://stripe.com/issuing/connect/tos_acceptance).
         """
 
     class UpdateParamsSettingsCardIssuingTosAcceptance(TypedDict):
@@ -3037,27 +3219,27 @@ class AccountService(StripeService):
     class UpdateParamsSettingsPayments(TypedDict):
         statement_descriptor: NotRequired[str]
         """
-        The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
+        The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
         """
         statement_descriptor_kana: NotRequired[str]
         """
-        The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only).
+        The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
         """
         statement_descriptor_kanji: NotRequired[str]
         """
-        The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only).
+        The Kanji variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
         """
 
     class UpdateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/connect/account-balances).
         """
         schedule: NotRequired[
             "AccountService.UpdateParamsSettingsPayoutsSchedule"
         ]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -3067,7 +3249,7 @@ class AccountService(StripeService):
     class UpdateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired["Literal['minimum']|int"]
         """
-        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/connect/manage-payout-schedule).
         """
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
@@ -3139,9 +3321,11 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
 
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+        Test-mode accounts can be deleted at any time.
+
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -3164,9 +3348,11 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
 
-        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+        Test-mode accounts can be deleted at any time.
+
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -3231,12 +3417,16 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+        Updates a [connected account](https://stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
 
-        For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-        some properties can only be changed or updated for Custom accounts.
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is application, which includes Custom accounts, you can update any information on the account.
+
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is stripe, which includes Standard and Express accounts, you can update all information until you create
+        an [Account Link or <a href="/api/account_sessions">Account Session](https://stripe.com/api/account_links) to start Connect onboarding,
+        after which some properties can no longer be updated.
 
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
@@ -3260,12 +3450,16 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+        Updates a [connected account](https://stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
 
-        For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-        account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-        some properties can only be changed or updated for Custom accounts.
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is application, which includes Custom accounts, you can update any information on the account.
+
+        For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+        is stripe, which includes Standard and Express accounts, you can update all information until you create
+        an [Account Link or <a href="/api/account_sessions">Account Session](https://stripe.com/api/account_links) to start Connect onboarding,
+        after which some properties can no longer be updated.
 
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
@@ -3419,9 +3613,9 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
             Account,
@@ -3444,9 +3638,9 @@ class AccountService(StripeService):
         options: RequestOptions = {},
     ) -> Account:
         """
-        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
             Account,

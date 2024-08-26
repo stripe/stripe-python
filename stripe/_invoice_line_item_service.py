@@ -53,7 +53,7 @@ class InvoiceLineItemService(StripeService):
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
         """
         period: NotRequired["InvoiceLineItemService.UpdateParamsPeriod"]
         """
@@ -61,11 +61,11 @@ class InvoiceLineItemService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the price object.
+        The ID of the price object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired["InvoiceLineItemService.UpdateParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         """
         quantity: NotRequired[int]
         """
@@ -163,7 +163,9 @@ class InvoiceLineItemService(StripeService):
         """
         The amount, in cents (or local equivalent), of the tax.
         """
-        tax_rate_data: "InvoiceLineItemService.UpdateParamsTaxAmountTaxRateData"
+        tax_rate_data: (
+            "InvoiceLineItemService.UpdateParamsTaxAmountTaxRateData"
+        )
         """
         Data to find or create a TaxRate object.
 

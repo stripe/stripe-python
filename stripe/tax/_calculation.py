@@ -72,11 +72,13 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "ch_uid",
                 "ch_vat",
                 "cl_tin",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -130,7 +132,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
             """
             value: str
             """
@@ -160,6 +162,36 @@ class Calculation(CreateableAPIResource["Calculation"]):
         The taxability override used for taxation.
         """
         _inner_class_types = {"address": Address, "tax_ids": TaxId}
+
+    class ShipFromDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
 
     class ShippingCost(StripeObject):
         class TaxBreakdown(StripeObject):
@@ -370,6 +402,12 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         A list of items the customer is purchasing.
         """
+        ship_from_details: NotRequired[
+            "Calculation.CreateParamsShipFromDetails"
+        ]
+        """
+        Details about the address from which the goods are being shipped.
+        """
         shipping_cost: NotRequired["Calculation.CreateParamsShippingCost"]
         """
         Shipping cost details to be used for the calculation.
@@ -449,11 +487,13 @@ class Calculation(CreateableAPIResource["Calculation"]):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "ch_uid",
             "ch_vat",
             "cl_tin",
             "cn_tin",
             "co_nit",
             "cr_tin",
+            "de_stn",
             "do_rcn",
             "ec_ruc",
             "eg_tin",
@@ -506,7 +546,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
@@ -516,9 +556,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     class CreateParamsLineItem(TypedDict):
         amount: int
         """
-        A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
-        The minimum amount is $0.0 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts).
-        The amount value supports up to twelve digits (e.g., a value of 999999999999 for a USD charge of $9,999,999,999.99).
+        A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         """
         product: NotRequired[str]
@@ -540,6 +578,38 @@ class Calculation(CreateableAPIResource["Calculation"]):
         tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
+        """
+
+    class CreateParamsShipFromDetails(TypedDict):
+        address: "Calculation.CreateParamsShipFromDetailsAddress"
+        """
+        The address from which the goods are being shipped from.
+        """
+
+    class CreateParamsShipFromDetailsAddress(TypedDict):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -578,9 +648,15 @@ class Calculation(CreateableAPIResource["Calculation"]):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     amount_total: int
     """
-    Total after taxes.
+    Total amount after taxes in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     currency: str
     """
@@ -611,6 +687,10 @@ class Calculation(CreateableAPIResource["Calculation"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    ship_from_details: Optional[ShipFromDetails]
+    """
+    The details of the ship from location, such as the address.
+    """
     shipping_cost: Optional[ShippingCost]
     """
     The shipping cost details for the calculation.
@@ -637,7 +717,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         cls, **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             "Calculation",
@@ -653,7 +733,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         cls, **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
         """
-        Calculates tax based on input and returns a Tax Calculation object.
+        Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
             "Calculation",
@@ -668,10 +748,10 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def _cls_list_line_items(
         cls,
         calculation: str,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -690,7 +770,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -699,7 +779,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -708,7 +788,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -725,10 +805,10 @@ class Calculation(CreateableAPIResource["Calculation"]):
     async def _cls_list_line_items_async(
         cls,
         calculation: str,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack["Calculation.ListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -747,7 +827,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         calculation: str, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -756,7 +836,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         ...
 
@@ -765,7 +845,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self, **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
-        Retrieves the line items of a persisted tax calculation as a collection.
+        Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
         return cast(
             ListObject["CalculationLineItem"],
@@ -778,8 +858,31 @@ class Calculation(CreateableAPIResource["Calculation"]):
             ),
         )
 
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["Calculation.RetrieveParams"]
+    ) -> "Calculation":
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["Calculation.RetrieveParams"]
+    ) -> "Calculation":
+        """
+        Retrieves a Tax Calculation object, if the calculation hasn't expired.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
     _inner_class_types = {
         "customer_details": CustomerDetails,
+        "ship_from_details": ShipFromDetails,
         "shipping_cost": ShippingCost,
         "tax_breakdown": TaxBreakdown,
     }

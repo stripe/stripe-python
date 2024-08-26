@@ -6,9 +6,9 @@ from typing_extensions import Literal
 
 
 class TransactionLineItem(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["tax.transaction_line_item"]
-    ] = "tax.transaction_line_item"
+    OBJECT_NAME: ClassVar[Literal["tax.transaction_line_item"]] = (
+        "tax.transaction_line_item"
+    )
 
     class Reversal(StripeObject):
         original_line_item: str

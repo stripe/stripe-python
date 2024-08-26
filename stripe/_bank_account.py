@@ -25,11 +25,11 @@ class BankAccount(
     """
     These bank accounts are payment methods on `Customer` objects.
 
-    On the other hand [External Accounts](https://stripe.com/docs/api#external_accounts) are transfer
-    destinations on `Account` objects for [Custom accounts](https://stripe.com/docs/connect/custom-accounts).
+    On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
+    destinations on `Account` objects for connected accounts.
     They can be bank accounts or debit cards as well, and are documented in the links above.
 
-    Related guide: [Bank debits and transfers](https://stripe.com/docs/payments/bank-debits-transfers)
+    Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
     """
 
     OBJECT_NAME: ClassVar[Literal["bank_account"]] = "bank_account"
@@ -125,6 +125,7 @@ class BankAccount(
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.
@@ -247,6 +248,7 @@ class BankAccount(
                 "verification_missing_executives",
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
+                "verification_requires_additional_proof_of_registration",
             ]
             """
             The code for the type of error.

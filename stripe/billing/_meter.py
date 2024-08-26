@@ -36,7 +36,7 @@ class Meter(
     class CustomerMapping(StripeObject):
         event_payload_key: str
         """
-        The key in the usage event payload to use for mapping the event to a customer.
+        The key in the meter event payload to use for mapping the event to a customer.
         """
         type: Literal["by_id"]
         """
@@ -58,7 +58,7 @@ class Meter(
     class ValueSettings(StripeObject):
         event_payload_key: str
         """
-        The key in the usage event payload to use as the value for this meter.
+        The key in the meter event payload to use as the value for this meter.
         """
 
     class CreateParams(RequestOptions):
@@ -76,11 +76,11 @@ class Meter(
         """
         event_name: str
         """
-        The name of the usage event to record usage for. Corresponds with the `event_name` field on usage events.
+        The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
         """
         event_time_window: NotRequired[Literal["day", "hour"]]
         """
-        The time window to pre-aggregate usage events for, if any.
+        The time window to pre-aggregate meter events for, if any.
         """
         expand: NotRequired[List[str]]
         """
@@ -88,7 +88,7 @@ class Meter(
         """
         value_settings: NotRequired["Meter.CreateParamsValueSettings"]
         """
-        Fields that specify how to calculate a usage event's value.
+        Fields that specify how to calculate a meter event's value.
         """
 
     class CreateParamsCustomerMapping(TypedDict):
@@ -104,7 +104,7 @@ class Meter(
     class CreateParamsDefaultAggregation(TypedDict):
         formula: Literal["count", "sum"]
         """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value, or `last` to use the last event's value.
+        Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
         """
 
     class CreateParamsValueSettings(TypedDict):
@@ -126,7 +126,7 @@ class Meter(
         """
         end_time: int
         """
-        The timestamp from when to stop aggregating usage events (exclusive).
+        The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
         """
         ending_before: NotRequired[str]
         """
@@ -142,15 +142,15 @@ class Meter(
         """
         start_time: int
         """
-        The timestamp from when to start aggregating usage events (inclusive).
+        The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
         """
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        value_grouping_window: NotRequired[Literal["hour"]]
+        value_grouping_window: NotRequired[Literal["day", "hour"]]
         """
-        Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range.
+        Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC).
         """
 
     class ListParams(RequestOptions):
@@ -209,11 +209,11 @@ class Meter(
     """
     event_name: str
     """
-    The name of the usage event to record usage for. Corresponds with the `event_name` field on usage events.
+    The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
     """
     event_time_window: Optional[Literal["day", "hour"]]
     """
-    The time window to pre-aggregate usage events for, if any.
+    The time window to pre-aggregate meter events for, if any.
     """
     id: str
     """
@@ -389,7 +389,6 @@ class Meter(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -410,7 +409,6 @@ class Meter(
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

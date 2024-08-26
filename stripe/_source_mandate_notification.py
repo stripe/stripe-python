@@ -15,9 +15,9 @@ class SourceMandateNotification(StripeObject):
     deliver an email to the customer.
     """
 
-    OBJECT_NAME: ClassVar[
-        Literal["source_mandate_notification"]
-    ] = "source_mandate_notification"
+    OBJECT_NAME: ClassVar[Literal["source_mandate_notification"]] = (
+        "source_mandate_notification"
+    )
 
     class AcssDebit(StripeObject):
         statement_descriptor: Optional[str]
