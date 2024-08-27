@@ -2072,10 +2072,6 @@ class PaymentMethod(
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         """
-        rechnung: NotRequired["PaymentMethod.ModifyParamsRechnung"]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
-        """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
         If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -2164,26 +2160,6 @@ class PaymentMethod(
         pay_id: NotRequired[str]
         """
         The PayID alias for the bank account.
-        """
-
-    class ModifyParamsRechnung(TypedDict):
-        dob: "PaymentMethod.ModifyParamsRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class ModifyParamsRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class ModifyParamsUsBankAccount(TypedDict):
