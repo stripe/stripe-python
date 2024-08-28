@@ -50,7 +50,6 @@ class InvoicePaymentService(StripeService):
                 "/v1/invoices/{invoice}/payments".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -73,7 +72,6 @@ class InvoicePaymentService(StripeService):
                 "/v1/invoices/{invoice}/payments".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -98,7 +96,6 @@ class InvoicePaymentService(StripeService):
                     invoice=sanitize_id(invoice),
                     invoice_payment=sanitize_id(invoice_payment),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -123,7 +120,6 @@ class InvoicePaymentService(StripeService):
                     invoice=sanitize_id(invoice),
                     invoice_payment=sanitize_id(invoice_payment),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

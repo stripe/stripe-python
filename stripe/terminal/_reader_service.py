@@ -664,7 +664,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -687,7 +686,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -710,7 +708,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -733,7 +730,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -756,7 +752,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -779,7 +774,6 @@ class ReaderService(StripeService):
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

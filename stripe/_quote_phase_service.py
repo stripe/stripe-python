@@ -56,7 +56,6 @@ class QuotePhaseService(StripeService):
             self._request(
                 "get",
                 "/v1/quote_phases",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -76,7 +75,6 @@ class QuotePhaseService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/quote_phases",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -99,7 +97,6 @@ class QuotePhaseService(StripeService):
                 "/v1/quote_phases/{quote_phase}".format(
                     quote_phase=sanitize_id(quote_phase),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +119,6 @@ class QuotePhaseService(StripeService):
                 "/v1/quote_phases/{quote_phase}".format(
                     quote_phase=sanitize_id(quote_phase),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

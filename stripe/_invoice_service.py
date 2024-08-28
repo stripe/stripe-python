@@ -6396,7 +6396,6 @@ class InvoiceService(StripeService):
                 "/v1/invoices/{invoice}/attach_payment".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -6431,7 +6430,6 @@ class InvoiceService(StripeService):
                 "/v1/invoices/{invoice}/attach_payment".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -6462,7 +6460,6 @@ class InvoiceService(StripeService):
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -6493,7 +6490,6 @@ class InvoiceService(StripeService):
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

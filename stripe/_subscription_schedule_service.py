@@ -2324,7 +2324,6 @@ class SubscriptionScheduleService(StripeService):
                 "/v1/subscription_schedules/{schedule}/amend".format(
                     schedule=sanitize_id(schedule),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2347,7 +2346,6 @@ class SubscriptionScheduleService(StripeService):
                 "/v1/subscription_schedules/{schedule}/amend".format(
                     schedule=sanitize_id(schedule),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

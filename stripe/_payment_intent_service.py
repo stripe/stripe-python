@@ -11389,7 +11389,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -11427,7 +11426,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

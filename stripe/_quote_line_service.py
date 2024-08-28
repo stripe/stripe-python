@@ -42,7 +42,6 @@ class QuoteLineService(StripeService):
             self._request(
                 "get",
                 "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -63,7 +62,6 @@ class QuoteLineService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

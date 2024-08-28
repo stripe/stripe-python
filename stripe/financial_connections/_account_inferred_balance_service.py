@@ -46,7 +46,6 @@ class AccountInferredBalanceService(StripeService):
                 "/v1/financial_connections/accounts/{account}/inferred_balances".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -69,7 +68,6 @@ class AccountInferredBalanceService(StripeService):
                 "/v1/financial_connections/accounts/{account}/inferred_balances".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

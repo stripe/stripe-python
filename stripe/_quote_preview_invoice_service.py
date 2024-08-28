@@ -44,7 +44,6 @@ class QuotePreviewInvoiceService(StripeService):
                 "/v1/quotes/{quote}/preview_invoices".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class QuotePreviewInvoiceService(StripeService):
                 "/v1/quotes/{quote}/preview_invoices".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

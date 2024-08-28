@@ -31,7 +31,6 @@ class ReaderCollectedDataService(StripeService):
                 "/v1/terminal/reader_collected_data/{reader_collected_data}".format(
                     reader_collected_data=sanitize_id(reader_collected_data),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -54,7 +53,6 @@ class ReaderCollectedDataService(StripeService):
                 "/v1/terminal/reader_collected_data/{reader_collected_data}".format(
                     reader_collected_data=sanitize_id(reader_collected_data),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

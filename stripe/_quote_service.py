@@ -2734,7 +2734,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_draft".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2757,7 +2756,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_draft".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2780,7 +2778,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_stale".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2803,7 +2800,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_stale".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2826,7 +2822,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/reestimate".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2849,7 +2844,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/reestimate".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2914,7 +2908,6 @@ class QuoteService(StripeService):
                     quote=sanitize_id(quote),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2939,7 +2932,6 @@ class QuoteService(StripeService):
                     quote=sanitize_id(quote),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
