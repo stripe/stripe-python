@@ -416,9 +416,7 @@ class TestStripeObject(object):
     async def test_request_async_succeeds(self, http_client_mock):
         http_client_mock.stub_request("get", "/foo")
         obj = stripe.stripe_object.StripeObject("id", "key")
-        await obj._request_async(
-            "get", "/foo", base_address="api"
-        )
+        await obj._request_async("get", "/foo", base_address="api")
         http_client_mock.assert_requested(
             api_key="key",
             stripe_account=None,
