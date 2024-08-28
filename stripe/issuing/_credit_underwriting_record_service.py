@@ -43,7 +43,7 @@ class CreditUnderwritingRecordService(StripeService):
         """
         regulatory_reporting_file: NotRequired[str]
         """
-        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions). Optional if previously provided and no changes are needed.
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions). Optional if previously provided and no changes are needed.
         """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecordService.CorrectParamsUnderwritingException"
@@ -463,7 +463,7 @@ class CreditUnderwritingRecordService(StripeService):
         """
         regulatory_reporting_file: NotRequired[str]
         """
-        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions).
         """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecordService.CreateFromProactiveReviewParamsUnderwritingException"
@@ -758,7 +758,7 @@ class CreditUnderwritingRecordService(StripeService):
         """
         regulatory_reporting_file: NotRequired[str]
         """
-        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+        File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions).
         """
         underwriting_exception: NotRequired[
             "CreditUnderwritingRecordService.ReportDecisionParamsUnderwritingException"
