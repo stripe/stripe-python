@@ -813,10 +813,6 @@ class PaymentMethodService(StripeService):
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         """
-        rechnung: NotRequired["PaymentMethodService.UpdateParamsRechnung"]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
-        """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"
         ]
@@ -907,26 +903,6 @@ class PaymentMethodService(StripeService):
         pay_id: NotRequired[str]
         """
         The PayID alias for the bank account.
-        """
-
-    class UpdateParamsRechnung(TypedDict):
-        dob: "PaymentMethodService.UpdateParamsRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class UpdateParamsRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class UpdateParamsUsBankAccount(TypedDict):

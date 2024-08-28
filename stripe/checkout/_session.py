@@ -157,6 +157,14 @@ class Session(
             """
             _inner_class_types = {"address": Address}
 
+        email: Optional[str]
+        """
+        Customer's email for this Checkout Session
+        """
+        phone: Optional[str]
+        """
+        Customer's phone number for this Checkout Session
+        """
         shipping_details: Optional[ShippingDetails]
         """
         Shipping information for this Checkout Session.
@@ -2007,6 +2015,7 @@ class Session(
                     "klarna",
                     "konbini",
                     "link",
+                    "mb_way",
                     "mobilepay",
                     "multibanco",
                     "oxxo",
