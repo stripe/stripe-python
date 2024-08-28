@@ -5,6 +5,7 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
@@ -24,6 +25,16 @@ class TestClock(
     OBJECT_NAME: ClassVar[Literal["test_helpers.test_clock"]] = (
         "test_helpers.test_clock"
     )
+
+    class StatusDetails(StripeObject):
+        class Advancing(StripeObject):
+            target_frozen_time: int
+            """
+            The `frozen_time` that the Test Clock is advancing towards.
+            """
+
+        advancing: Optional[Advancing]
+        _inner_class_types = {"advancing": Advancing}
 
     class AdvanceParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -108,6 +119,7 @@ class TestClock(
     """
     The status of the Test Clock.
     """
+    status_details: Optional[StatusDetails]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -412,3 +424,5 @@ class TestClock(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"status_details": StatusDetails}
