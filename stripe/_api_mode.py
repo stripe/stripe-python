@@ -1,4 +1,4 @@
 from typing_extensions import Literal
 
 
-ApiMode = Literal["V1", "V1FILES"]
+ApiMode = Literal["V1"]

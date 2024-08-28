@@ -9,6 +9,7 @@ class RequestOptions(TypedDict):
     stripe_account: NotRequired["str|None"]
     max_network_retries: NotRequired["int|None"]
     idempotency_key: NotRequired["str|None"]
+    content_type: NotRequired["str|None"]
     headers: NotRequired["Mapping[str, str]|None"]
 
 
@@ -27,6 +28,7 @@ def merge_options(
             "stripe_version": requestor.stripe_version,
             "max_network_retries": requestor.max_network_retries,
             "idempotency_key": None,
+            "content_type": None,
             "headers": None,
         }
 
@@ -40,6 +42,7 @@ def merge_options(
         if request.get("max_network_retries") is not None
         else requestor.max_network_retries,
         "idempotency_key": request.get("idempotency_key"),
+        "content_type": request.get("content_type"),
         "headers": request.get("headers"),
     }
 
@@ -61,6 +64,7 @@ def extract_options_from_dict(
         "stripe_account",
         "max_network_retries",
         "idempotency_key",
+        "content_type",
         "headers",
     ]:
         if key in d_copy:

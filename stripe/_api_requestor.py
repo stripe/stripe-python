@@ -509,7 +509,10 @@ class _APIRequestor(object):
                 abs_url = urlunsplit((scheme, netloc, path, query, fragment))
             post_data = None
         elif method == "post":
-            if api_mode == "V1FILES":
+            if (
+                options is not None
+                and options.get("content_type") == "multipart/form-data"
+            ):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
