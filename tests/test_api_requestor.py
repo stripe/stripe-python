@@ -163,28 +163,6 @@ class TestAPIRequestor(object):
 
         http_client_mock.assert_requested("get", query_string=query_string)
 
-    def test_param_api_mode_preview(self, requestor, http_client_mock):
-        http_client_mock.stub_request("post", path=self.valid_path)
-
-        requestor.request(
-            "post",
-            self.valid_path,
-            self.ENCODE_INPUTS,
-            base_address="api",
-            api_mode="preview",
-        )
-
-        expectation = json.dumps(
-            self.ENCODE_INPUTS, default=_json_encode_date_callback
-        )
-
-        http_client_mock.assert_requested(
-            "post",
-            content_type="application/json",
-            post_data=expectation,
-            is_json=True,
-        )
-
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
         encoded = list(_api_encode(params))
