@@ -144,7 +144,6 @@ class RefundService(StripeService):
             self._request(
                 "get",
                 "/v1/refunds",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -164,7 +163,6 @@ class RefundService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/refunds",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -194,7 +192,6 @@ class RefundService(StripeService):
             self._request(
                 "post",
                 "/v1/refunds",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -224,7 +221,6 @@ class RefundService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/refunds",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -245,7 +241,6 @@ class RefundService(StripeService):
             self._request(
                 "get",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -266,7 +261,6 @@ class RefundService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -289,7 +283,6 @@ class RefundService(StripeService):
             self._request(
                 "post",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -312,7 +305,6 @@ class RefundService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -337,7 +329,6 @@ class RefundService(StripeService):
                 "/v1/refunds/{refund}/cancel".format(
                     refund=sanitize_id(refund),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -362,7 +353,6 @@ class RefundService(StripeService):
                 "/v1/refunds/{refund}/cancel".format(
                     refund=sanitize_id(refund),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

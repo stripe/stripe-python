@@ -3334,7 +3334,6 @@ class AccountService(StripeService):
             self._request(
                 "delete",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3361,7 +3360,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "delete",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3382,7 +3380,6 @@ class AccountService(StripeService):
             self._request(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3403,7 +3400,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3436,7 +3432,6 @@ class AccountService(StripeService):
             self._request(
                 "post",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3469,7 +3464,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3489,7 +3483,6 @@ class AccountService(StripeService):
             self._request(
                 "get",
                 "/v1/account",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3509,7 +3502,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/account",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3529,7 +3521,6 @@ class AccountService(StripeService):
             self._request(
                 "get",
                 "/v1/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3549,7 +3540,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3574,7 +3564,6 @@ class AccountService(StripeService):
             self._request(
                 "post",
                 "/v1/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3599,7 +3588,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3624,7 +3612,6 @@ class AccountService(StripeService):
                 "/v1/accounts/{account}/reject".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3649,7 +3636,6 @@ class AccountService(StripeService):
                 "/v1/accounts/{account}/reject".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

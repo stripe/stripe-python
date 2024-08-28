@@ -85,7 +85,6 @@ class SettingsService(StripeService):
             self._request(
                 "get",
                 "/v1/tax/settings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -105,7 +104,6 @@ class SettingsService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax/settings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -125,7 +123,6 @@ class SettingsService(StripeService):
             self._request(
                 "post",
                 "/v1/tax/settings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -145,7 +142,6 @@ class SettingsService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/tax/settings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

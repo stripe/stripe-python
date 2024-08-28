@@ -555,7 +555,6 @@ class SourceService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -580,7 +579,6 @@ class SourceService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -601,7 +599,6 @@ class SourceService(StripeService):
             self._request(
                 "get",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -622,7 +619,6 @@ class SourceService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -645,7 +641,6 @@ class SourceService(StripeService):
             self._request(
                 "post",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -668,7 +663,6 @@ class SourceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/sources/{source}".format(source=sanitize_id(source)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -688,7 +682,6 @@ class SourceService(StripeService):
             self._request(
                 "post",
                 "/v1/sources",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -708,7 +701,6 @@ class SourceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/sources",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -731,7 +723,6 @@ class SourceService(StripeService):
                 "/v1/sources/{source}/verify".format(
                     source=sanitize_id(source),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -754,7 +745,6 @@ class SourceService(StripeService):
                 "/v1/sources/{source}/verify".format(
                     source=sanitize_id(source),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

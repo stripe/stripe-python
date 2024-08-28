@@ -108,7 +108,6 @@ class AccountService(StripeService):
             self._request(
                 "get",
                 "/v1/financial_connections/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -128,7 +127,6 @@ class AccountService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +149,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -174,7 +171,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +193,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -220,7 +215,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -243,7 +237,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/refresh".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -266,7 +259,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/refresh".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -289,7 +281,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -312,7 +303,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -335,7 +325,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -358,7 +347,6 @@ class AccountService(StripeService):
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

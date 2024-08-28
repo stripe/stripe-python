@@ -382,7 +382,6 @@ class StripeObject(Dict[str, Any]):
         params: Optional[Dict[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ) -> "StripeObject":
         return StripeObject._request(
             self,
@@ -390,7 +389,6 @@ class StripeObject(Dict[str, Any]):
             url,
             params=params,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     def _request(
@@ -401,7 +399,6 @@ class StripeObject(Dict[str, Any]):
         usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> "StripeObject":
         if params is None:
             params = self._retrieve_params
@@ -414,7 +411,6 @@ class StripeObject(Dict[str, Any]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=usage,
         )
 
@@ -426,7 +422,6 @@ class StripeObject(Dict[str, Any]):
         usage: Optional[List[str]] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> "StripeObject":
         if params is None:
             params = self._retrieve_params
@@ -439,7 +434,6 @@ class StripeObject(Dict[str, Any]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=usage,
         )
 
@@ -450,7 +444,6 @@ class StripeObject(Dict[str, Any]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ) -> StripeStreamResponse:
         if params is None:
             params = self._retrieve_params
@@ -462,7 +455,6 @@ class StripeObject(Dict[str, Any]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     async def _request_stream_async(
@@ -472,7 +464,6 @@ class StripeObject(Dict[str, Any]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ) -> StripeStreamResponseAsync:
         if params is None:
             params = self._retrieve_params
@@ -484,7 +475,6 @@ class StripeObject(Dict[str, Any]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     def __repr__(self) -> str:

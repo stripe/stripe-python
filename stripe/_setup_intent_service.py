@@ -3471,7 +3471,6 @@ class SetupIntentService(StripeService):
             self._request(
                 "get",
                 "/v1/setup_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3491,7 +3490,6 @@ class SetupIntentService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/setup_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3514,7 +3512,6 @@ class SetupIntentService(StripeService):
             self._request(
                 "post",
                 "/v1/setup_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3537,7 +3534,6 @@ class SetupIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/setup_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3564,7 +3560,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3591,7 +3586,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3614,7 +3608,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3637,7 +3630,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}".format(
                     intent=sanitize_id(intent)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3662,7 +3654,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3687,7 +3678,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3723,7 +3713,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3759,7 +3748,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3782,7 +3770,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -3805,7 +3792,6 @@ class SetupIntentService(StripeService):
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

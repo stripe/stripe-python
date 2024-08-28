@@ -333,7 +333,6 @@ class OAuth(object):
                 params=params,
                 options=options,
                 base_address="connect",
-                api_mode="V1",
             ),
         )
 
@@ -352,6 +351,5 @@ class OAuth(object):
                 params=params,
                 options=options,
                 base_address="connect",
-                api_mode="V1",
             ),
         )

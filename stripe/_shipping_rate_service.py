@@ -231,7 +231,6 @@ class ShippingRateService(StripeService):
             self._request(
                 "get",
                 "/v1/shipping_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -251,7 +250,6 @@ class ShippingRateService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/shipping_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -271,7 +269,6 @@ class ShippingRateService(StripeService):
             self._request(
                 "post",
                 "/v1/shipping_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -291,7 +288,6 @@ class ShippingRateService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/shipping_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -314,7 +310,6 @@ class ShippingRateService(StripeService):
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -337,7 +332,6 @@ class ShippingRateService(StripeService):
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -360,7 +354,6 @@ class ShippingRateService(StripeService):
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -383,7 +376,6 @@ class ShippingRateService(StripeService):
                 "/v1/shipping_rates/{shipping_rate_token}".format(
                     shipping_rate_token=sanitize_id(shipping_rate_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

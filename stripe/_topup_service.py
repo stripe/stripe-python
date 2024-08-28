@@ -151,7 +151,6 @@ class TopupService(StripeService):
             self._request(
                 "get",
                 "/v1/topups",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -171,7 +170,6 @@ class TopupService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/topups",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -189,7 +187,6 @@ class TopupService(StripeService):
             self._request(
                 "post",
                 "/v1/topups",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -207,7 +204,6 @@ class TopupService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/topups",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +224,6 @@ class TopupService(StripeService):
             self._request(
                 "get",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -249,7 +244,6 @@ class TopupService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -270,7 +264,6 @@ class TopupService(StripeService):
             self._request(
                 "post",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -291,7 +284,6 @@ class TopupService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -312,7 +304,6 @@ class TopupService(StripeService):
             self._request(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -333,7 +324,6 @@ class TopupService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

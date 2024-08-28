@@ -418,7 +418,6 @@ class ConfigurationService(StripeService):
             self._request(
                 "get",
                 "/v1/billing_portal/configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -438,7 +437,6 @@ class ConfigurationService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing_portal/configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -458,7 +456,6 @@ class ConfigurationService(StripeService):
             self._request(
                 "post",
                 "/v1/billing_portal/configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -478,7 +475,6 @@ class ConfigurationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing_portal/configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -501,7 +497,6 @@ class ConfigurationService(StripeService):
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -524,7 +519,6 @@ class ConfigurationService(StripeService):
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -547,7 +541,6 @@ class ConfigurationService(StripeService):
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -570,7 +563,6 @@ class ConfigurationService(StripeService):
                 "/v1/billing_portal/configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

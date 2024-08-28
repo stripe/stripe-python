@@ -191,7 +191,6 @@ class TaxRateService(StripeService):
             self._request(
                 "get",
                 "/v1/tax_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +210,6 @@ class TaxRateService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -231,7 +229,6 @@ class TaxRateService(StripeService):
             self._request(
                 "post",
                 "/v1/tax_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -251,7 +248,6 @@ class TaxRateService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/tax_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -274,7 +270,6 @@ class TaxRateService(StripeService):
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -297,7 +292,6 @@ class TaxRateService(StripeService):
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -320,7 +314,6 @@ class TaxRateService(StripeService):
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -343,7 +336,6 @@ class TaxRateService(StripeService):
                 "/v1/tax_rates/{tax_rate}".format(
                     tax_rate=sanitize_id(tax_rate),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

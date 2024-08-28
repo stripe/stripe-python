@@ -218,7 +218,6 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
                 cls.class_url(),
                 params=params,
                 base_address="files",
-                api_mode="V1",
             ),
         )
 
@@ -240,7 +239,6 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
                 cls.class_url(),
                 params=params,
                 base_address="files",
-                api_mode="V1",
             ),
         )
 

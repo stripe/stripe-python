@@ -158,9 +158,7 @@ class TestAPIRequestor(object):
             "get", query_string=query_string, rbody="{}", rcode=200
         )
 
-        requestor.request(
-            "get", "", self.ENCODE_INPUTS, base_address="api", api_mode="V1"
-        )
+        requestor.request("get", "", self.ENCODE_INPUTS, base_address="api")
 
         http_client_mock.assert_requested("get", query_string=query_string)
 
@@ -219,9 +217,7 @@ class TestAPIRequestor(object):
                 rcode=200,
             )
 
-            requestor.request(
-                "get", url, params, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", url, params, base_address="api")
 
             http_client_mock.assert_requested("get", abs_url=expected)
 
@@ -232,7 +228,7 @@ class TestAPIRequestor(object):
             )
 
             resp = requestor.request(
-                meth, self.valid_path, {}, base_address="api", api_mode="V1"
+                meth, self.valid_path, {}, base_address="api"
             )
 
             if meth == "post":
@@ -256,7 +252,7 @@ class TestAPIRequestor(object):
             )
 
             resp = await requestor.request_async(
-                meth, self.valid_path, {}, base_address="api", api_mode="V1"
+                meth, self.valid_path, {}, base_address="api"
             )
 
             if meth == "post":
@@ -291,7 +287,6 @@ class TestAPIRequestor(object):
                 self.valid_path,
                 {},
                 base_address="api",
-                api_mode="V1",
             )
 
             if meth == "post":
@@ -320,7 +315,6 @@ class TestAPIRequestor(object):
                 self.valid_path,
                 {},
                 base_address="api",
-                api_mode="V1",
             )
 
             if meth == "post":
@@ -361,7 +355,6 @@ class TestAPIRequestor(object):
                 self.valid_path,
                 params,
                 base_address="api",
-                api_mode="V1",
             )
             assert isinstance(resp, StripeObject)
 
@@ -408,7 +401,6 @@ class TestAPIRequestor(object):
                 self.valid_path,
                 params,
                 base_address="api",
-                api_mode="V1",
             )
             assert isinstance(resp, StripeStreamResponse)
 
@@ -435,7 +427,6 @@ class TestAPIRequestor(object):
             {},
             options=request_options,
             base_address="api",
-            api_mode="V1",
         )
         http_client_mock.assert_requested("get", extra_headers={"foo": "bar"})
 
@@ -449,7 +440,6 @@ class TestAPIRequestor(object):
             self.valid_path,
             options=request_options,
             base_address="api",
-            api_mode="V1",
         )
         http_client_mock.assert_requested(
             "get",
@@ -470,7 +460,6 @@ class TestAPIRequestor(object):
             {},
             options=request_options,
             base_address="api",
-            api_mode="V1",
         )
         http_client_mock.assert_requested(
             "get",
@@ -485,9 +474,7 @@ class TestAPIRequestor(object):
             "get", path=self.valid_path, rbody="{}", rcode=200
         )
 
-        requestor.request(
-            "get", self.valid_path, {}, base_address="api", api_mode="V1"
-        )
+        requestor.request("get", self.valid_path, {}, base_address="api")
 
         http_client_mock.assert_requested("get", api_key=key)
         assert requestor.api_key == key
@@ -502,9 +489,7 @@ class TestAPIRequestor(object):
             "get", path=self.valid_path, rbody="{}", rcode=200
         )
 
-        requestor.request(
-            "get", self.valid_path, {}, base_address="api", api_mode="V1"
-        )
+        requestor.request("get", self.valid_path, {}, base_address="api")
 
         http_client_mock.assert_requested(
             "get",
@@ -545,9 +530,7 @@ class TestAPIRequestor(object):
             http_client_mock.stub_request(
                 "get", path=self.valid_path, rbody="{}", rcode=200
             )
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
             ua = "Stripe/v1 PythonBindings/%s" % (stripe.VERSION,)
             ua += " MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)"
@@ -582,9 +565,7 @@ class TestAPIRequestor(object):
 
         mocker.patch("platform.platform", side_effect=fail)
 
-        requestor.request(
-            "get", self.valid_path, {}, {}, base_address="api", api_mode="V1"
-        )
+        requestor.request("get", self.valid_path, {}, {}, base_address="api")
 
         last_call = http_client_mock.get_last_call()
         last_call.assert_method("get")
@@ -607,7 +588,6 @@ class TestAPIRequestor(object):
             {},
             options=request_options,
             base_address="api",
-            api_mode="V1",
         )
 
         http_client_mock.assert_requested(
@@ -621,9 +601,7 @@ class TestAPIRequestor(object):
         http_client_mock.stub_request(
             meth, path=self.valid_path, rbody="{}", rcode=200
         )
-        requestor.request(
-            meth, self.valid_path, {}, base_address="api", api_mode="V1"
-        )
+        requestor.request(meth, self.valid_path, {}, base_address="api")
 
         http_client_mock.assert_requested(
             meth, idempotency_key=AnyUUID4Matcher(), post_data=""
@@ -633,9 +611,7 @@ class TestAPIRequestor(object):
         stripe.api_key = None
 
         with pytest.raises(stripe.error.AuthenticationError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_request_error_404(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -643,9 +619,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.InvalidRequestError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_request_error_400(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -653,9 +627,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.InvalidRequestError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_idempotency_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -666,9 +638,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.IdempotencyError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_authentication_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -676,9 +646,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.AuthenticationError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_permissions_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -686,9 +654,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.PermissionError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_card_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -699,9 +665,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.CardError) as excinfo:
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
         assert excinfo.value.code == "invalid_expiry_year"
 
     def test_rate_limit_error(self, requestor, http_client_mock):
@@ -710,9 +674,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.RateLimitError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_old_rate_limit_error(self, requestor, http_client_mock):
         """
@@ -726,9 +688,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.RateLimitError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_server_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -736,9 +696,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.APIError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_json(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -746,13 +704,11 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.error.APIError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_method(self, requestor):
         with pytest.raises(stripe.error.APIConnectionError):
-            requestor.request("foo", "bar", base_address="api", api_mode="V1")
+            requestor.request("foo", "bar", base_address="api")
 
     def test_oauth_invalid_requestor_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -763,9 +719,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidRequestError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_client_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -776,9 +730,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidClientError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_invalid_grant_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -789,9 +741,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
-            requestor.request(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
-            )
+            requestor.request("get", self.valid_path, {}, base_address="api")
 
     def test_extract_error_from_stream_request_for_bytes(
         self, requestor, http_client_mock
@@ -805,7 +755,7 @@ class TestAPIRequestor(object):
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request_stream(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
+                "get", self.valid_path, {}, base_address="api"
             )
 
     def test_extract_error_from_stream_request_for_response(
@@ -824,7 +774,7 @@ class TestAPIRequestor(object):
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request_stream(
-                "get", self.valid_path, {}, base_address="api", api_mode="V1"
+                "get", self.valid_path, {}, base_address="api"
             )
 
     def test_raw_request_with_file_param(self, requestor, http_client_mock):
@@ -842,7 +792,6 @@ class TestAPIRequestor(object):
             params,
             supplied_headers,
             base_address="api",
-            api_mode="V1",
         )
         assert supplied_headers["Content-Type"] == "multipart/form-data"
 

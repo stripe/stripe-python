@@ -1685,7 +1685,6 @@ class PaymentLinkService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1705,7 +1704,6 @@ class PaymentLinkService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1725,7 +1723,6 @@ class PaymentLinkService(StripeService):
             self._request(
                 "post",
                 "/v1/payment_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1745,7 +1742,6 @@ class PaymentLinkService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1768,7 +1764,6 @@ class PaymentLinkService(StripeService):
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1791,7 +1786,6 @@ class PaymentLinkService(StripeService):
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1814,7 +1808,6 @@ class PaymentLinkService(StripeService):
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1837,7 +1830,6 @@ class PaymentLinkService(StripeService):
                 "/v1/payment_links/{payment_link}".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

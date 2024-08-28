@@ -91,7 +91,6 @@ class FeatureService(StripeService):
             self._request(
                 "get",
                 "/v1/entitlements/features",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -111,7 +110,6 @@ class FeatureService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/entitlements/features",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -131,7 +129,6 @@ class FeatureService(StripeService):
             self._request(
                 "post",
                 "/v1/entitlements/features",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +148,6 @@ class FeatureService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/entitlements/features",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +168,6 @@ class FeatureService(StripeService):
             self._request(
                 "get",
                 "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -193,7 +188,6 @@ class FeatureService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -214,7 +208,6 @@ class FeatureService(StripeService):
             self._request(
                 "post",
                 "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -235,7 +228,6 @@ class FeatureService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/entitlements/features/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

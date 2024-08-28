@@ -163,7 +163,6 @@ class PayoutService(StripeService):
             self._request(
                 "get",
                 "/v1/payouts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +182,6 @@ class PayoutService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payouts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -207,7 +205,6 @@ class PayoutService(StripeService):
             self._request(
                 "post",
                 "/v1/payouts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -231,7 +228,6 @@ class PayoutService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payouts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -252,7 +248,6 @@ class PayoutService(StripeService):
             self._request(
                 "get",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -273,7 +268,6 @@ class PayoutService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -294,7 +288,6 @@ class PayoutService(StripeService):
             self._request(
                 "post",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -315,7 +308,6 @@ class PayoutService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -338,7 +330,6 @@ class PayoutService(StripeService):
                 "/v1/payouts/{payout}/cancel".format(
                     payout=sanitize_id(payout),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -361,7 +352,6 @@ class PayoutService(StripeService):
                 "/v1/payouts/{payout}/cancel".format(
                     payout=sanitize_id(payout),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -386,7 +376,6 @@ class PayoutService(StripeService):
                 "/v1/payouts/{payout}/reverse".format(
                     payout=sanitize_id(payout),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -411,7 +400,6 @@ class PayoutService(StripeService):
                 "/v1/payouts/{payout}/reverse".format(
                     payout=sanitize_id(payout),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

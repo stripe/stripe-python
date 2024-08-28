@@ -69,7 +69,6 @@ class ReceivedCreditService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/received_credits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -89,7 +88,6 @@ class ReceivedCreditService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/received_credits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -112,7 +110,6 @@ class ReceivedCreditService(StripeService):
                 "/v1/treasury/received_credits/{id}".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -135,7 +132,6 @@ class ReceivedCreditService(StripeService):
                 "/v1/treasury/received_credits/{id}".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

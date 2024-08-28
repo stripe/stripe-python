@@ -79,7 +79,6 @@ class ReceivedDebitService(StripeService):
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -99,7 +98,6 @@ class ReceivedDebitService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -44,7 +44,6 @@ class SourceTransactionService(StripeService):
                 "/v1/sources/{source}/source_transactions".format(
                     source=sanitize_id(source),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class SourceTransactionService(StripeService):
                 "/v1/sources/{source}/source_transactions".format(
                     source=sanitize_id(source),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -51,7 +51,6 @@ class EphemeralKeyService(StripeService):
             self._request(
                 "delete",
                 "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -72,7 +71,6 @@ class EphemeralKeyService(StripeService):
             await self._request_async(
                 "delete",
                 "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -92,7 +90,6 @@ class EphemeralKeyService(StripeService):
             self._request(
                 "post",
                 "/v1/ephemeral_keys",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -112,7 +109,6 @@ class EphemeralKeyService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/ephemeral_keys",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -80,7 +80,6 @@ class TransferReversalService(StripeService):
             self._request(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +100,6 @@ class TransferReversalService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -126,7 +124,6 @@ class TransferReversalService(StripeService):
             self._request(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +148,6 @@ class TransferReversalService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -176,7 +172,6 @@ class TransferReversalService(StripeService):
                     transfer=sanitize_id(transfer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -201,7 +196,6 @@ class TransferReversalService(StripeService):
                     transfer=sanitize_id(transfer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +222,6 @@ class TransferReversalService(StripeService):
                     transfer=sanitize_id(transfer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -255,7 +248,6 @@ class TransferReversalService(StripeService):
                     transfer=sanitize_id(transfer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

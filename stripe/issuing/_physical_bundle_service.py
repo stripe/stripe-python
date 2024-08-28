@@ -55,7 +55,6 @@ class PhysicalBundleService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/physical_bundles",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -75,7 +74,6 @@ class PhysicalBundleService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/physical_bundles",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -98,7 +96,6 @@ class PhysicalBundleService(StripeService):
                 "/v1/issuing/physical_bundles/{physical_bundle}".format(
                     physical_bundle=sanitize_id(physical_bundle),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -121,7 +118,6 @@ class PhysicalBundleService(StripeService):
                 "/v1/issuing/physical_bundles/{physical_bundle}".format(
                     physical_bundle=sanitize_id(physical_bundle),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

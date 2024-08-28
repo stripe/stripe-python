@@ -63,7 +63,6 @@ class ReaderService(StripeService):
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -86,7 +85,6 @@ class ReaderService(StripeService):
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
                     reader=sanitize_id(reader),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

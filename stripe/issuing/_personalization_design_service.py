@@ -205,7 +205,6 @@ class PersonalizationDesignService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/personalization_designs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -225,7 +224,6 @@ class PersonalizationDesignService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/personalization_designs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -245,7 +243,6 @@ class PersonalizationDesignService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/personalization_designs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -265,7 +262,6 @@ class PersonalizationDesignService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/personalization_designs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -288,7 +284,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -311,7 +306,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -334,7 +328,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -357,7 +350,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/issuing/personalization_designs/{personalization_design}".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

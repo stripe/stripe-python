@@ -60,7 +60,6 @@ class MeterEventSummaryService(StripeService):
                 "/v1/billing/meters/{id}/event_summaries".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -83,7 +82,6 @@ class MeterEventSummaryService(StripeService):
                 "/v1/billing/meters/{id}/event_summaries".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

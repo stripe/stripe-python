@@ -97,7 +97,6 @@ class SessionService(StripeService):
                 "/v1/financial_connections/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -120,7 +119,6 @@ class SessionService(StripeService):
                 "/v1/financial_connections/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -140,7 +138,6 @@ class SessionService(StripeService):
             self._request(
                 "post",
                 "/v1/financial_connections/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +157,6 @@ class SessionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/financial_connections/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

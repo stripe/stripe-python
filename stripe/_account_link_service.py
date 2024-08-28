@@ -63,7 +63,6 @@ class AccountLinkService(StripeService):
             self._request(
                 "post",
                 "/v1/account_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -83,7 +82,6 @@ class AccountLinkService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/account_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -1683,7 +1683,6 @@ class PaymentMethodConfigurationService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_method_configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1703,7 +1702,6 @@ class PaymentMethodConfigurationService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_method_configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1723,7 +1721,6 @@ class PaymentMethodConfigurationService(StripeService):
             self._request(
                 "post",
                 "/v1/payment_method_configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1743,7 +1740,6 @@ class PaymentMethodConfigurationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_method_configurations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1766,7 +1762,6 @@ class PaymentMethodConfigurationService(StripeService):
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1789,7 +1784,6 @@ class PaymentMethodConfigurationService(StripeService):
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1812,7 +1806,6 @@ class PaymentMethodConfigurationService(StripeService):
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1835,7 +1828,6 @@ class PaymentMethodConfigurationService(StripeService):
                 "/v1/payment_method_configurations/{configuration}".format(
                     configuration=sanitize_id(configuration),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

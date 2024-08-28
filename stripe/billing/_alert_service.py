@@ -117,7 +117,6 @@ class AlertService(StripeService):
             self._request(
                 "get",
                 "/v1/billing/alerts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -137,7 +136,6 @@ class AlertService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing/alerts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +153,6 @@ class AlertService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/alerts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -173,7 +170,6 @@ class AlertService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -194,7 +190,6 @@ class AlertService(StripeService):
             self._request(
                 "get",
                 "/v1/billing/alerts/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -215,7 +210,6 @@ class AlertService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing/alerts/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -236,7 +230,6 @@ class AlertService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/alerts/{id}/activate".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -257,7 +250,6 @@ class AlertService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts/{id}/activate".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -278,7 +270,6 @@ class AlertService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/alerts/{id}/archive".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -299,7 +290,6 @@ class AlertService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts/{id}/archive".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -322,7 +312,6 @@ class AlertService(StripeService):
                 "/v1/billing/alerts/{id}/deactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -345,7 +334,6 @@ class AlertService(StripeService):
                 "/v1/billing/alerts/{id}/deactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

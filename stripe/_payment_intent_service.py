@@ -7214,7 +7214,6 @@ class PaymentIntentService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7234,7 +7233,6 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7263,7 +7261,6 @@ class PaymentIntentService(StripeService):
             self._request(
                 "post",
                 "/v1/payment_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7292,7 +7289,6 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7319,7 +7315,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7346,7 +7341,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7375,7 +7369,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7404,7 +7397,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7427,7 +7419,6 @@ class PaymentIntentService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_intents/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7450,7 +7441,6 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_intents/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7473,7 +7463,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7496,7 +7485,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7523,7 +7511,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7550,7 +7537,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/cancel".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7577,7 +7563,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/capture".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7604,7 +7589,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/capture".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7648,7 +7632,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7692,7 +7675,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/confirm".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7738,7 +7720,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/increment_authorization".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7784,7 +7765,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/increment_authorization".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7807,7 +7787,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -7830,7 +7809,6 @@ class PaymentIntentService(StripeService):
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
                     intent=sanitize_id(intent),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

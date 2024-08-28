@@ -61,7 +61,6 @@ class ApplePayDomainService(StripeService):
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -84,7 +83,6 @@ class ApplePayDomainService(StripeService):
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -107,7 +105,6 @@ class ApplePayDomainService(StripeService):
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -130,7 +127,6 @@ class ApplePayDomainService(StripeService):
                 "/v1/apple_pay/domains/{domain}".format(
                     domain=sanitize_id(domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -150,7 +146,6 @@ class ApplePayDomainService(StripeService):
             self._request(
                 "get",
                 "/v1/apple_pay/domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -170,7 +165,6 @@ class ApplePayDomainService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/apple_pay/domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -190,7 +184,6 @@ class ApplePayDomainService(StripeService):
             self._request(
                 "post",
                 "/v1/apple_pay/domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -210,7 +203,6 @@ class ApplePayDomainService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/apple_pay/domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

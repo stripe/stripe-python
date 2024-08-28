@@ -79,7 +79,6 @@ class CustomerFundingInstructionsService(StripeService):
                 "/v1/customers/{customer}/funding_instructions".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -104,7 +103,6 @@ class CustomerFundingInstructionsService(StripeService):
                 "/v1/customers/{customer}/funding_instructions".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

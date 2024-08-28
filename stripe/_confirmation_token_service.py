@@ -31,7 +31,6 @@ class ConfirmationTokenService(StripeService):
                 "/v1/confirmation_tokens/{confirmation_token}".format(
                     confirmation_token=sanitize_id(confirmation_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -54,7 +53,6 @@ class ConfirmationTokenService(StripeService):
                 "/v1/confirmation_tokens/{confirmation_token}".format(
                     confirmation_token=sanitize_id(confirmation_token),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
