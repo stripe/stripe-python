@@ -698,7 +698,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -721,7 +720,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -744,7 +742,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -767,7 +764,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -790,7 +786,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -813,7 +808,6 @@ class WebhookEndpointService(StripeService):
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
                     webhook_endpoint=sanitize_id(webhook_endpoint),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -833,7 +827,6 @@ class WebhookEndpointService(StripeService):
             self._request(
                 "get",
                 "/v1/webhook_endpoints",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -853,7 +846,6 @@ class WebhookEndpointService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/webhook_endpoints",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -873,7 +865,6 @@ class WebhookEndpointService(StripeService):
             self._request(
                 "post",
                 "/v1/webhook_endpoints",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -893,7 +884,6 @@ class WebhookEndpointService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/webhook_endpoints",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

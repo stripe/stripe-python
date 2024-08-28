@@ -44,7 +44,6 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -1656,7 +1656,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1685,7 +1684,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1710,7 +1708,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1735,7 +1732,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1780,7 +1776,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1825,7 +1820,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1850,7 +1844,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1875,7 +1868,6 @@ class SubscriptionService(StripeService):
                         subscription_exposed_id
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1895,7 +1887,6 @@ class SubscriptionService(StripeService):
             self._request(
                 "get",
                 "/v1/subscriptions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1915,7 +1906,6 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1941,7 +1931,6 @@ class SubscriptionService(StripeService):
             self._request(
                 "post",
                 "/v1/subscriptions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1967,7 +1956,6 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/subscriptions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1990,7 +1978,6 @@ class SubscriptionService(StripeService):
             self._request(
                 "get",
                 "/v1/subscriptions/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2013,7 +2000,6 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2036,7 +2022,6 @@ class SubscriptionService(StripeService):
                 "/v1/subscriptions/{subscription}/resume".format(
                     subscription=sanitize_id(subscription),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2059,7 +2044,6 @@ class SubscriptionService(StripeService):
                 "/v1/subscriptions/{subscription}/resume".format(
                     subscription=sanitize_id(subscription),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

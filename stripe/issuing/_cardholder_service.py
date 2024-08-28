@@ -2321,7 +2321,6 @@ class CardholderService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/cardholders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2341,7 +2340,6 @@ class CardholderService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/cardholders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2361,7 +2359,6 @@ class CardholderService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/cardholders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2381,7 +2378,6 @@ class CardholderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/cardholders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2404,7 +2400,6 @@ class CardholderService(StripeService):
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2427,7 +2422,6 @@ class CardholderService(StripeService):
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2450,7 +2444,6 @@ class CardholderService(StripeService):
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2473,7 +2466,6 @@ class CardholderService(StripeService):
                 "/v1/issuing/cardholders/{cardholder}".format(
                     cardholder=sanitize_id(cardholder),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

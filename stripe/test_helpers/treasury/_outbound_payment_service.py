@@ -116,7 +116,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -139,7 +138,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -162,7 +160,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -185,7 +182,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -208,7 +204,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -231,7 +226,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -254,7 +248,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -277,7 +270,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

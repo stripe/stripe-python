@@ -75,7 +75,6 @@ class ReviewService(StripeService):
             self._request(
                 "get",
                 "/v1/reviews",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -95,7 +94,6 @@ class ReviewService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/reviews",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -116,7 +114,6 @@ class ReviewService(StripeService):
             self._request(
                 "get",
                 "/v1/reviews/{review}".format(review=sanitize_id(review)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -137,7 +134,6 @@ class ReviewService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/reviews/{review}".format(review=sanitize_id(review)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +156,6 @@ class ReviewService(StripeService):
                 "/v1/reviews/{review}/approve".format(
                     review=sanitize_id(review),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +178,6 @@ class ReviewService(StripeService):
                 "/v1/reviews/{review}/approve".format(
                     review=sanitize_id(review),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

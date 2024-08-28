@@ -241,7 +241,6 @@ class InvoiceLineItemService(StripeService):
                 "/v1/invoices/{invoice}/lines".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -264,7 +263,6 @@ class InvoiceLineItemService(StripeService):
                 "/v1/invoices/{invoice}/lines".format(
                     invoice=sanitize_id(invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -292,7 +290,6 @@ class InvoiceLineItemService(StripeService):
                     invoice=sanitize_id(invoice),
                     line_item_id=sanitize_id(line_item_id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -320,7 +317,6 @@ class InvoiceLineItemService(StripeService):
                     invoice=sanitize_id(invoice),
                     line_item_id=sanitize_id(line_item_id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

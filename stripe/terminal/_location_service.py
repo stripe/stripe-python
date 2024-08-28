@@ -149,7 +149,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +171,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -195,7 +193,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -218,7 +215,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -241,7 +237,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -264,7 +259,6 @@ class LocationService(StripeService):
                 "/v1/terminal/locations/{location}".format(
                     location=sanitize_id(location),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -284,7 +278,6 @@ class LocationService(StripeService):
             self._request(
                 "get",
                 "/v1/terminal/locations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -304,7 +297,6 @@ class LocationService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/terminal/locations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -325,7 +317,6 @@ class LocationService(StripeService):
             self._request(
                 "post",
                 "/v1/terminal/locations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -346,7 +337,6 @@ class LocationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/terminal/locations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

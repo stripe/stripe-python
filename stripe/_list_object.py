@@ -48,7 +48,6 @@ class ListObject(StripeObject, Generic[T]):
                 self._get_url_for_list(),
                 params=params,
                 base_address="api",
-                api_mode="V1",
             ),
         )
 
@@ -60,7 +59,6 @@ class ListObject(StripeObject, Generic[T]):
                 self._get_url_for_list(),
                 params=params,
                 base_address="api",
-                api_mode="V1",
             ),
         )
 
@@ -77,7 +75,6 @@ class ListObject(StripeObject, Generic[T]):
                 url,
                 params=params,
                 base_address="api",
-                api_mode="V1",
             ),
         )
 
@@ -96,7 +93,6 @@ class ListObject(StripeObject, Generic[T]):
                 url,
                 params=params,
                 base_address="api",
-                api_mode="V1",
             ),
         )
 

@@ -84,7 +84,6 @@ class APIResource(StripeObject, Generic[T]):
             url,
             params=params,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
         if type(self) is type(obj):
@@ -100,7 +99,6 @@ class APIResource(StripeObject, Generic[T]):
         params=None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ) -> StripeObject:
         obj = await StripeObject._request_async(
             self,
@@ -108,11 +106,10 @@ class APIResource(StripeObject, Generic[T]):
             url,
             params=params,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
         if type(self) is type(obj):
-            self._refresh_from(values=obj, api_mode=api_mode)
+            self._refresh_from(values=obj, api_mode="V1")
             return self
         else:
             return obj
@@ -133,7 +130,6 @@ class APIResource(StripeObject, Generic[T]):
             url,
             params=params,
             base_address=base_address,
-            api_mode=api_mode,
             usage=usage,
         )
 
@@ -156,7 +152,6 @@ class APIResource(StripeObject, Generic[T]):
             url,
             params=params,
             base_address=base_address,
-            api_mode=api_mode,
             usage=usage,
         )
 
@@ -171,7 +166,6 @@ class APIResource(StripeObject, Generic[T]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
         return _APIRequestor._global_instance().request(
@@ -180,7 +174,6 @@ class APIResource(StripeObject, Generic[T]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     @classmethod
@@ -191,7 +184,6 @@ class APIResource(StripeObject, Generic[T]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
         return await _APIRequestor._global_instance().request_async(
@@ -200,7 +192,6 @@ class APIResource(StripeObject, Generic[T]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     @classmethod
@@ -211,7 +202,6 @@ class APIResource(StripeObject, Generic[T]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
         return _APIRequestor._global_instance().request_stream(
@@ -220,7 +210,6 @@ class APIResource(StripeObject, Generic[T]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )
 
     @classmethod
@@ -231,7 +220,6 @@ class APIResource(StripeObject, Generic[T]):
         params: Optional[Mapping[str, Any]] = None,
         *,
         base_address: BaseAddress = "api",
-        api_mode: ApiMode = "V1",
     ):
         request_options, request_params = extract_options_from_dict(params)
         return await _APIRequestor._global_instance().request_stream_async(
@@ -240,5 +228,4 @@ class APIResource(StripeObject, Generic[T]):
             params=request_params,
             options=request_options,
             base_address=base_address,
-            api_mode=api_mode,
         )

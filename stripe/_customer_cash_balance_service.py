@@ -51,7 +51,6 @@ class CustomerCashBalanceService(StripeService):
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -74,7 +73,6 @@ class CustomerCashBalanceService(StripeService):
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -97,7 +95,6 @@ class CustomerCashBalanceService(StripeService):
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -120,7 +117,6 @@ class CustomerCashBalanceService(StripeService):
                 "/v1/customers/{customer}/cash_balance".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

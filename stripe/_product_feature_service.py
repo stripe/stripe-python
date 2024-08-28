@@ -65,7 +65,6 @@ class ProductFeatureService(StripeService):
                     product=sanitize_id(product),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +89,6 @@ class ProductFeatureService(StripeService):
                     product=sanitize_id(product),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -115,7 +113,6 @@ class ProductFeatureService(StripeService):
                     product=sanitize_id(product),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -140,7 +137,6 @@ class ProductFeatureService(StripeService):
                     product=sanitize_id(product),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -163,7 +159,6 @@ class ProductFeatureService(StripeService):
                 "/v1/products/{product}/features".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -186,7 +181,6 @@ class ProductFeatureService(StripeService):
                 "/v1/products/{product}/features".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -209,7 +203,6 @@ class ProductFeatureService(StripeService):
                 "/v1/products/{product}/features".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -232,7 +225,6 @@ class ProductFeatureService(StripeService):
                 "/v1/products/{product}/features".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

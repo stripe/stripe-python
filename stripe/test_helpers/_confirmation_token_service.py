@@ -731,7 +731,6 @@ class ConfirmationTokenService(StripeService):
             self._request(
                 "post",
                 "/v1/test_helpers/confirmation_tokens",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -751,7 +750,6 @@ class ConfirmationTokenService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/confirmation_tokens",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

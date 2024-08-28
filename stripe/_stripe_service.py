@@ -8,7 +8,6 @@ from stripe._stripe_response import (
 from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions
 from stripe._base_address import BaseAddress
-from stripe._api_mode import ApiMode
 
 from typing import Any, Mapping, Optional
 
@@ -27,7 +26,6 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> StripeObject:
         return self._requestor.request(
             method,
@@ -35,7 +33,6 @@ class StripeService(object):
             params,
             options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=["stripe_client"],
         )
 
@@ -47,7 +44,6 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> StripeObject:
         return await self._requestor.request_async(
             method,
@@ -55,7 +51,6 @@ class StripeService(object):
             params,
             options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=["stripe_client"],
         )
 
@@ -67,7 +62,6 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> StripeStreamResponse:
         return self._requestor.request_stream(
             method,
@@ -75,7 +69,6 @@ class StripeService(object):
             params,
             options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=["stripe_client"],
         )
 
@@ -87,7 +80,6 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
-        api_mode: ApiMode,
     ) -> StripeStreamResponseAsync:
         return await self._requestor.request_stream_async(
             method,
@@ -95,6 +87,5 @@ class StripeService(object):
             params,
             options,
             base_address=base_address,
-            api_mode=api_mode,
             usage=["stripe_client"],
         )

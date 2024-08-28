@@ -31,7 +31,6 @@ class RefundService(StripeService):
                 "/v1/test_helpers/refunds/{refund}/expire".format(
                     refund=sanitize_id(refund),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -54,7 +53,6 @@ class RefundService(StripeService):
                 "/v1/test_helpers/refunds/{refund}/expire".format(
                     refund=sanitize_id(refund),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

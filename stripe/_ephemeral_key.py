@@ -157,5 +157,4 @@ class EphemeralKey(
             url,
             params=params,
             base_address="api",
-            api_mode="V1",
         )

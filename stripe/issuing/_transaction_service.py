@@ -91,7 +91,6 @@ class TransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -111,7 +110,6 @@ class TransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -134,7 +132,6 @@ class TransactionService(StripeService):
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -157,7 +154,6 @@ class TransactionService(StripeService):
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -180,7 +176,6 @@ class TransactionService(StripeService):
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -203,7 +198,6 @@ class TransactionService(StripeService):
                 "/v1/issuing/transactions/{transaction}".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

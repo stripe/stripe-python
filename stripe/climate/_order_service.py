@@ -112,7 +112,6 @@ class OrderService(StripeService):
             self._request(
                 "get",
                 "/v1/climate/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -133,7 +132,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/climate/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -152,7 +150,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/climate/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -171,7 +168,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/climate/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -192,7 +188,6 @@ class OrderService(StripeService):
             self._request(
                 "get",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -213,7 +208,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -234,7 +228,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -255,7 +248,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -281,7 +273,6 @@ class OrderService(StripeService):
                 "/v1/climate/orders/{order}/cancel".format(
                     order=sanitize_id(order),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -307,7 +298,6 @@ class OrderService(StripeService):
                 "/v1/climate/orders/{order}/cancel".format(
                     order=sanitize_id(order),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

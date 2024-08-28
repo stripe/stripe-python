@@ -35,7 +35,6 @@ class ReportTypeService(StripeService):
             self._request(
                 "get",
                 "/v1/reporting/report_types",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -55,7 +54,6 @@ class ReportTypeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/reporting/report_types",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -78,7 +76,6 @@ class ReportTypeService(StripeService):
                 "/v1/reporting/report_types/{report_type}".format(
                     report_type=sanitize_id(report_type),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +98,6 @@ class ReportTypeService(StripeService):
                 "/v1/reporting/report_types/{report_type}".format(
                     report_type=sanitize_id(report_type),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

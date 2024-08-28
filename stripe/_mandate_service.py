@@ -29,7 +29,6 @@ class MandateService(StripeService):
             self._request(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -50,7 +49,6 @@ class MandateService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

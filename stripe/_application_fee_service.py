@@ -78,7 +78,6 @@ class ApplicationFeeService(StripeService):
             self._request(
                 "get",
                 "/v1/application_fees",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -98,7 +97,6 @@ class ApplicationFeeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/application_fees",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -119,7 +117,6 @@ class ApplicationFeeService(StripeService):
             self._request(
                 "get",
                 "/v1/application_fees/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -140,7 +137,6 @@ class ApplicationFeeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/application_fees/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

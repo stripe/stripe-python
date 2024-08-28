@@ -136,7 +136,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -159,7 +158,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -182,7 +180,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -205,7 +202,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +224,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -251,7 +246,6 @@ class ValueListService(StripeService):
                 "/v1/radar/value_lists/{value_list}".format(
                     value_list=sanitize_id(value_list),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -271,7 +265,6 @@ class ValueListService(StripeService):
             self._request(
                 "get",
                 "/v1/radar/value_lists",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -291,7 +284,6 @@ class ValueListService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/radar/value_lists",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -311,7 +303,6 @@ class ValueListService(StripeService):
             self._request(
                 "post",
                 "/v1/radar/value_lists",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -331,7 +322,6 @@ class ValueListService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/radar/value_lists",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
