@@ -209,6 +209,8 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        params["content_type"] = "multipart/form-data"
+
         return cast(
             "File",
             cls._static_request(
@@ -216,7 +218,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
                 cls.class_url(),
                 params=params,
                 base_address="files",
-                api_mode="V1FILES",
+                api_mode="V1",
             ),
         )
 
@@ -229,6 +231,8 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        params["content_type"] = "multipart/form-data"
+
         return cast(
             "File",
             await cls._static_request_async(
@@ -236,7 +240,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
                 cls.class_url(),
                 params=params,
                 base_address="files",
-                api_mode="V1FILES",
+                api_mode="V1",
             ),
         )
 
