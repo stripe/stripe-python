@@ -85,7 +85,6 @@ class PaymentMethodDomainService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_method_domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -105,7 +104,6 @@ class PaymentMethodDomainService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_method_domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -125,7 +123,6 @@ class PaymentMethodDomainService(StripeService):
             self._request(
                 "post",
                 "/v1/payment_method_domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -145,7 +142,6 @@ class PaymentMethodDomainService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_method_domains",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -168,7 +164,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -191,7 +186,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -214,7 +208,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -237,7 +230,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -265,7 +257,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -293,7 +284,6 @@ class PaymentMethodDomainService(StripeService):
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
                     payment_method_domain=sanitize_id(payment_method_domain),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -71,7 +71,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -94,7 +93,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -117,7 +115,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -140,7 +137,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -163,7 +159,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -186,7 +181,6 @@ class InboundTransferService(StripeService):
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

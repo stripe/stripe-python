@@ -132,7 +132,6 @@ class SecretService(StripeService):
             self._request(
                 "get",
                 "/v1/apps/secrets",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -150,7 +149,6 @@ class SecretService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/apps/secrets",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -170,7 +168,6 @@ class SecretService(StripeService):
             self._request(
                 "post",
                 "/v1/apps/secrets",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -190,7 +187,6 @@ class SecretService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/apps/secrets",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -208,7 +204,6 @@ class SecretService(StripeService):
             self._request(
                 "get",
                 "/v1/apps/secrets/find",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -226,7 +221,6 @@ class SecretService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/apps/secrets/find",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -246,7 +240,6 @@ class SecretService(StripeService):
             self._request(
                 "post",
                 "/v1/apps/secrets/delete",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -266,7 +259,6 @@ class SecretService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/apps/secrets/delete",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

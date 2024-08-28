@@ -77,7 +77,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -100,7 +99,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -123,7 +121,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -146,7 +143,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -166,7 +162,6 @@ class TestClockService(StripeService):
             self._request(
                 "get",
                 "/v1/test_helpers/test_clocks",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -186,7 +181,6 @@ class TestClockService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/test_helpers/test_clocks",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -206,7 +200,6 @@ class TestClockService(StripeService):
             self._request(
                 "post",
                 "/v1/test_helpers/test_clocks",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -226,7 +219,6 @@ class TestClockService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/test_clocks",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -249,7 +241,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -272,7 +263,6 @@ class TestClockService(StripeService):
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
                     test_clock=sanitize_id(test_clock),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

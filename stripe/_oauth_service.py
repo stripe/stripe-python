@@ -78,7 +78,6 @@ class OAuthService(StripeService):
                 params=params,
                 options=options,
                 base_address="connect",
-                api_mode="V1",
             ),
         )
 
@@ -96,6 +95,5 @@ class OAuthService(StripeService):
                 params=params,
                 options=options,
                 base_address="connect",
-                api_mode="V1",
             ),
         )

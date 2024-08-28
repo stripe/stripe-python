@@ -432,7 +432,6 @@ class FinancialAccountService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/financial_accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -452,7 +451,6 @@ class FinancialAccountService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/financial_accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -472,7 +470,6 @@ class FinancialAccountService(StripeService):
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -492,7 +489,6 @@ class FinancialAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -515,7 +511,6 @@ class FinancialAccountService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -538,7 +533,6 @@ class FinancialAccountService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -561,7 +555,6 @@ class FinancialAccountService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -584,7 +577,6 @@ class FinancialAccountService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

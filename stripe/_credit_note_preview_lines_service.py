@@ -179,7 +179,6 @@ class CreditNotePreviewLinesService(StripeService):
             self._request(
                 "get",
                 "/v1/credit_notes/preview/lines",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -199,7 +198,6 @@ class CreditNotePreviewLinesService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/credit_notes/preview/lines",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

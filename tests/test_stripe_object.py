@@ -405,7 +405,7 @@ class TestStripeObject(object):
             path="/foo",
         )
 
-        obj._request("get", "/foo", base_address="api", api_mode="V1")
+        obj._request("get", "/foo", base_address="api")
 
         http_client_mock.assert_requested(
             api_key="key",
@@ -416,9 +416,7 @@ class TestStripeObject(object):
     async def test_request_async_succeeds(self, http_client_mock):
         http_client_mock.stub_request("get", "/foo")
         obj = stripe.stripe_object.StripeObject("id", "key")
-        await obj._request_async(
-            "get", "/foo", base_address="api", api_mode="V1"
-        )
+        await obj._request_async("get", "/foo", base_address="api")
         http_client_mock.assert_requested(
             api_key="key",
             stripe_account=None,
@@ -448,7 +446,7 @@ class TestStripeObject(object):
         )
 
         obj.api_key = "key2"
-        obj._request("get", "/foo", base_address="api", api_mode="V1")
+        obj._request("get", "/foo", base_address="api")
 
         assert "api_key" not in obj.items()
 

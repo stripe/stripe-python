@@ -77,7 +77,6 @@ class EarlyFraudWarningService(StripeService):
             self._request(
                 "get",
                 "/v1/radar/early_fraud_warnings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -97,7 +96,6 @@ class EarlyFraudWarningService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/radar/early_fraud_warnings",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +120,6 @@ class EarlyFraudWarningService(StripeService):
                 "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
                     early_fraud_warning=sanitize_id(early_fraud_warning),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -147,7 +144,6 @@ class EarlyFraudWarningService(StripeService):
                 "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
                     early_fraud_warning=sanitize_id(early_fraud_warning),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

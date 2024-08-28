@@ -54,5 +54,4 @@ class UsageRecord(CreateableAPIResource["UsageRecord"]):
             url,
             params=params,
             base_address="api",
-            api_mode="V1",
         )

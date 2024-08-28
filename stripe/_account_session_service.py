@@ -587,7 +587,6 @@ class AccountSessionService(StripeService):
             self._request(
                 "post",
                 "/v1/account_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -607,7 +606,6 @@ class AccountSessionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/account_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

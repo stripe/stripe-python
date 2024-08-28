@@ -49,7 +49,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -72,7 +71,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -95,7 +93,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -118,7 +115,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -141,7 +137,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -164,7 +159,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -187,7 +181,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -210,7 +203,6 @@ class CardService(StripeService):
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
                     card=sanitize_id(card),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

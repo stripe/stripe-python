@@ -294,7 +294,6 @@ class CalculationService(StripeService):
                 "/v1/tax/calculations/{calculation}".format(
                     calculation=sanitize_id(calculation),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -317,7 +316,6 @@ class CalculationService(StripeService):
                 "/v1/tax/calculations/{calculation}".format(
                     calculation=sanitize_id(calculation),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -337,7 +335,6 @@ class CalculationService(StripeService):
             self._request(
                 "post",
                 "/v1/tax/calculations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -357,7 +354,6 @@ class CalculationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/tax/calculations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -516,7 +516,6 @@ class PriceService(StripeService):
             self._request(
                 "get",
                 "/v1/prices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -536,7 +535,6 @@ class PriceService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/prices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -554,7 +552,6 @@ class PriceService(StripeService):
             self._request(
                 "post",
                 "/v1/prices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -572,7 +569,6 @@ class PriceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/prices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -593,7 +589,6 @@ class PriceService(StripeService):
             self._request(
                 "get",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -614,7 +609,6 @@ class PriceService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -635,7 +629,6 @@ class PriceService(StripeService):
             self._request(
                 "post",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -656,7 +649,6 @@ class PriceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/prices/{price}".format(price=sanitize_id(price)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -677,7 +669,6 @@ class PriceService(StripeService):
             self._request(
                 "get",
                 "/v1/prices/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -698,7 +689,6 @@ class PriceService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/prices/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

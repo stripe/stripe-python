@@ -176,7 +176,6 @@ class TaxIdService(StripeService):
             self._request(
                 "delete",
                 "/v1/tax_ids/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +196,6 @@ class TaxIdService(StripeService):
             await self._request_async(
                 "delete",
                 "/v1/tax_ids/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -218,7 +216,6 @@ class TaxIdService(StripeService):
             self._request(
                 "get",
                 "/v1/tax_ids/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -239,7 +236,6 @@ class TaxIdService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax_ids/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -259,7 +255,6 @@ class TaxIdService(StripeService):
             self._request(
                 "get",
                 "/v1/tax_ids",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -279,7 +274,6 @@ class TaxIdService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax_ids",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -297,7 +291,6 @@ class TaxIdService(StripeService):
             self._request(
                 "post",
                 "/v1/tax_ids",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -315,7 +308,6 @@ class TaxIdService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/tax_ids",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

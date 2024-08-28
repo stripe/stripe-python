@@ -47,7 +47,6 @@ class ExchangeRateService(StripeService):
             self._request(
                 "get",
                 "/v1/exchange_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class ExchangeRateService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/exchange_rates",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class ExchangeRateService(StripeService):
                 "/v1/exchange_rates/{rate_id}".format(
                     rate_id=sanitize_id(rate_id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class ExchangeRateService(StripeService):
                 "/v1/exchange_rates/{rate_id}".format(
                     rate_id=sanitize_id(rate_id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

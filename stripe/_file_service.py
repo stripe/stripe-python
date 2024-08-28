@@ -136,7 +136,6 @@ class FileService(StripeService):
             self._request(
                 "get",
                 "/v1/files",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -156,7 +155,6 @@ class FileService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/files",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -171,12 +169,12 @@ class FileService(StripeService):
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        options["content_type"] = "multipart/form-data"
         return cast(
             File,
             self._request(
                 "post",
                 "/v1/files",
-                api_mode="V1FILES",
                 base_address="files",
                 params=params,
                 options=options,
@@ -191,12 +189,12 @@ class FileService(StripeService):
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        options["content_type"] = "multipart/form-data"
         return cast(
             File,
             await self._request_async(
                 "post",
                 "/v1/files",
-                api_mode="V1FILES",
                 base_address="files",
                 params=params,
                 options=options,
@@ -217,7 +215,6 @@ class FileService(StripeService):
             self._request(
                 "get",
                 "/v1/files/{file}".format(file=sanitize_id(file)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -238,7 +235,6 @@ class FileService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/files/{file}".format(file=sanitize_id(file)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

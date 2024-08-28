@@ -44,7 +44,6 @@ class SessionLineItemService(StripeService):
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class SessionLineItemService(StripeService):
                 "/v1/checkout/sessions/{session}/line_items".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

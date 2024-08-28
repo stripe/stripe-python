@@ -87,7 +87,6 @@ class BalanceTransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/balance_transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -109,7 +108,6 @@ class BalanceTransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/balance_transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -132,7 +130,6 @@ class BalanceTransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/balance_transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +152,6 @@ class BalanceTransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/balance_transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

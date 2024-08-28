@@ -47,7 +47,6 @@ class CountrySpecService(StripeService):
             self._request(
                 "get",
                 "/v1/country_specs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class CountrySpecService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/country_specs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class CountrySpecService(StripeService):
                 "/v1/country_specs/{country}".format(
                     country=sanitize_id(country),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class CountrySpecService(StripeService):
                 "/v1/country_specs/{country}".format(
                     country=sanitize_id(country),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

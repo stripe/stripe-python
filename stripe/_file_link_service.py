@@ -109,7 +109,6 @@ class FileLinkService(StripeService):
             self._request(
                 "get",
                 "/v1/file_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -129,7 +128,6 @@ class FileLinkService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/file_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -149,7 +147,6 @@ class FileLinkService(StripeService):
             self._request(
                 "post",
                 "/v1/file_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -169,7 +166,6 @@ class FileLinkService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/file_links",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -190,7 +186,6 @@ class FileLinkService(StripeService):
             self._request(
                 "get",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +206,6 @@ class FileLinkService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -232,7 +226,6 @@ class FileLinkService(StripeService):
             self._request(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -253,7 +246,6 @@ class FileLinkService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

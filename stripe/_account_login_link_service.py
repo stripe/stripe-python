@@ -33,7 +33,6 @@ class AccountLoginLinkService(StripeService):
                 "/v1/accounts/{account}/login_links".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -58,7 +57,6 @@ class AccountLoginLinkService(StripeService):
                 "/v1/accounts/{account}/login_links".format(
                     account=sanitize_id(account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -55,7 +55,6 @@ class ReceivedDebitService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/received_debits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -75,7 +74,6 @@ class ReceivedDebitService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/received_debits",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -96,7 +94,6 @@ class ReceivedDebitService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -117,7 +114,6 @@ class ReceivedDebitService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

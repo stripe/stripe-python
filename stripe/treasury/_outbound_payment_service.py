@@ -265,7 +265,6 @@ class OutboundPaymentService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/outbound_payments",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -285,7 +284,6 @@ class OutboundPaymentService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/outbound_payments",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -305,7 +303,6 @@ class OutboundPaymentService(StripeService):
             self._request(
                 "post",
                 "/v1/treasury/outbound_payments",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -325,7 +322,6 @@ class OutboundPaymentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_payments",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -348,7 +344,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/treasury/outbound_payments/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -371,7 +366,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/treasury/outbound_payments/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -394,7 +388,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -417,7 +410,6 @@ class OutboundPaymentService(StripeService):
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

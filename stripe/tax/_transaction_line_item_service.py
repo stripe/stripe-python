@@ -44,7 +44,6 @@ class TransactionLineItemService(StripeService):
                 "/v1/tax/transactions/{transaction}/line_items".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class TransactionLineItemService(StripeService):
                 "/v1/tax/transactions/{transaction}/line_items".format(
                     transaction=sanitize_id(transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

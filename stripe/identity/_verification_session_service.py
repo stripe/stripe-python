@@ -234,7 +234,6 @@ class VerificationSessionService(StripeService):
             self._request(
                 "get",
                 "/v1/identity/verification_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -254,7 +253,6 @@ class VerificationSessionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/identity/verification_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -280,7 +278,6 @@ class VerificationSessionService(StripeService):
             self._request(
                 "post",
                 "/v1/identity/verification_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -306,7 +303,6 @@ class VerificationSessionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/identity/verification_sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -332,7 +328,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -358,7 +353,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -384,7 +378,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -410,7 +403,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -435,7 +427,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}/cancel".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -460,7 +451,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}/cancel".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -501,7 +491,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}/redact".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -542,7 +531,6 @@ class VerificationSessionService(StripeService):
                 "/v1/identity/verification_sessions/{session}/redact".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

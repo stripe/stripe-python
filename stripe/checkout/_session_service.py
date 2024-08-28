@@ -2640,7 +2640,6 @@ class SessionService(StripeService):
             self._request(
                 "get",
                 "/v1/checkout/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2660,7 +2659,6 @@ class SessionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/checkout/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2680,7 +2678,6 @@ class SessionService(StripeService):
             self._request(
                 "post",
                 "/v1/checkout/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2700,7 +2697,6 @@ class SessionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2723,7 +2719,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2746,7 +2741,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2769,7 +2763,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2792,7 +2785,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2817,7 +2809,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2842,7 +2833,6 @@ class SessionService(StripeService):
                 "/v1/checkout/sessions/{session}/expire".format(
                     session=sanitize_id(session),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -69,7 +69,6 @@ class SetupAttemptService(StripeService):
             self._request(
                 "get",
                 "/v1/setup_attempts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -89,7 +88,6 @@ class SetupAttemptService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/setup_attempts",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

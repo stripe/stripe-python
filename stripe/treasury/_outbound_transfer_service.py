@@ -141,7 +141,6 @@ class OutboundTransferService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/outbound_transfers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -161,7 +160,6 @@ class OutboundTransferService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/outbound_transfers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -181,7 +179,6 @@ class OutboundTransferService(StripeService):
             self._request(
                 "post",
                 "/v1/treasury/outbound_transfers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -201,7 +198,6 @@ class OutboundTransferService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -224,7 +220,6 @@ class OutboundTransferService(StripeService):
                 "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -247,7 +242,6 @@ class OutboundTransferService(StripeService):
                 "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -270,7 +264,6 @@ class OutboundTransferService(StripeService):
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -293,7 +286,6 @@ class OutboundTransferService(StripeService):
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
                     outbound_transfer=sanitize_id(outbound_transfer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -758,7 +758,6 @@ class ReportRunService(StripeService):
             self._request(
                 "get",
                 "/v1/reporting/report_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -778,7 +777,6 @@ class ReportRunService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/reporting/report_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -798,7 +796,6 @@ class ReportRunService(StripeService):
             self._request(
                 "post",
                 "/v1/reporting/report_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -818,7 +815,6 @@ class ReportRunService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/reporting/report_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -841,7 +837,6 @@ class ReportRunService(StripeService):
                 "/v1/reporting/report_runs/{report_run}".format(
                     report_run=sanitize_id(report_run),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -864,7 +859,6 @@ class ReportRunService(StripeService):
                 "/v1/reporting/report_runs/{report_run}".format(
                     report_run=sanitize_id(report_run),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

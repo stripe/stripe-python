@@ -44,7 +44,6 @@ class CreditNoteLineItemService(StripeService):
                 "/v1/credit_notes/{credit_note}/lines".format(
                     credit_note=sanitize_id(credit_note),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class CreditNoteLineItemService(StripeService):
                 "/v1/credit_notes/{credit_note}/lines".format(
                     credit_note=sanitize_id(credit_note),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -49,7 +49,6 @@ class SubscriptionItemUsageRecordService(StripeService):
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
                     subscription_item=sanitize_id(subscription_item),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -78,7 +77,6 @@ class SubscriptionItemUsageRecordService(StripeService):
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
                     subscription_item=sanitize_id(subscription_item),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
