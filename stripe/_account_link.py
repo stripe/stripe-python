@@ -49,7 +49,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         """
 
     class CreateParamsCollectionOptions(TypedDict):
-        fields: Literal["currently_due", "eventually_due"]
+        fields: NotRequired[Literal["currently_due", "eventually_due"]]
         """
         Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify `collection_options`, the default value is `currently_due`.
         """

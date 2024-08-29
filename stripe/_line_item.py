@@ -88,7 +88,7 @@ class LineItem(StripeObject):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    description: str
+    description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name.
     """
