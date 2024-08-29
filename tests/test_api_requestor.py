@@ -8,7 +8,6 @@ import pytest
 
 import stripe
 from stripe import util
-from stripe._encode import _json_encode_date_callback
 from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
