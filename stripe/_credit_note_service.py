@@ -388,7 +388,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "get",
                 "/v1/credit_notes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -408,7 +407,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/credit_notes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -441,7 +439,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "post",
                 "/v1/credit_notes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -474,7 +471,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/credit_notes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -495,7 +491,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "get",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -516,7 +511,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -537,7 +531,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "post",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -558,7 +551,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -578,7 +570,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "get",
                 "/v1/credit_notes/preview",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -598,7 +589,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/credit_notes/preview",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -619,7 +609,6 @@ class CreditNoteService(StripeService):
             self._request(
                 "post",
                 "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -640,7 +629,6 @@ class CreditNoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -46,7 +46,6 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
                 "/v1/quotes/{quote}/preview_subscription_schedules".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -69,7 +68,6 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
                 "/v1/quotes/{quote}/preview_subscription_schedules".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -47,7 +47,6 @@ class TaxCodeService(StripeService):
             self._request(
                 "get",
                 "/v1/tax_codes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class TaxCodeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax_codes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -88,7 +86,6 @@ class TaxCodeService(StripeService):
             self._request(
                 "get",
                 "/v1/tax_codes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -109,7 +106,6 @@ class TaxCodeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax_codes/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

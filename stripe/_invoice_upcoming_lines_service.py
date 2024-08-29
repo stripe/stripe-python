@@ -2056,7 +2056,6 @@ class InvoiceUpcomingLinesService(StripeService):
             self._request(
                 "get",
                 "/v1/invoices/upcoming/lines",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2076,7 +2075,6 @@ class InvoiceUpcomingLinesService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/invoices/upcoming/lines",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

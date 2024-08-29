@@ -83,7 +83,6 @@ class AccountNoticeService(StripeService):
             self._request(
                 "get",
                 "/v1/account_notices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -103,7 +102,6 @@ class AccountNoticeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/account_notices",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -126,7 +124,6 @@ class AccountNoticeService(StripeService):
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -149,7 +146,6 @@ class AccountNoticeService(StripeService):
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +168,6 @@ class AccountNoticeService(StripeService):
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -195,7 +190,6 @@ class AccountNoticeService(StripeService):
                 "/v1/account_notices/{account_notice}".format(
                     account_notice=sanitize_id(account_notice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

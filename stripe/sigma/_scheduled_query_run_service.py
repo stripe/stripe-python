@@ -47,7 +47,6 @@ class ScheduledQueryRunService(StripeService):
             self._request(
                 "get",
                 "/v1/sigma/scheduled_query_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class ScheduledQueryRunService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/sigma/scheduled_query_runs",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class ScheduledQueryRunService(StripeService):
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
                     scheduled_query_run=sanitize_id(scheduled_query_run),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class ScheduledQueryRunService(StripeService):
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
                     scheduled_query_run=sanitize_id(scheduled_query_run),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

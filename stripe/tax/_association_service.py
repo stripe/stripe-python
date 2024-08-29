@@ -31,7 +31,6 @@ class AssociationService(StripeService):
             self._request(
                 "get",
                 "/v1/tax/associations/find",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -51,7 +50,6 @@ class AssociationService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax/associations/find",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

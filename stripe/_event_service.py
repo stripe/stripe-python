@@ -81,7 +81,6 @@ class EventService(StripeService):
             self._request(
                 "get",
                 "/v1/events",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +100,6 @@ class EventService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/events",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +120,6 @@ class EventService(StripeService):
             self._request(
                 "get",
                 "/v1/events/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -143,7 +140,6 @@ class EventService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/events/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

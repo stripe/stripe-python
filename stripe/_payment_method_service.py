@@ -928,7 +928,6 @@ class PaymentMethodService(StripeService):
             self._request(
                 "get",
                 "/v1/payment_methods",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -948,7 +947,6 @@ class PaymentMethodService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_methods",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -970,7 +968,6 @@ class PaymentMethodService(StripeService):
             self._request(
                 "post",
                 "/v1/payment_methods",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -992,7 +989,6 @@ class PaymentMethodService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_methods",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1015,7 +1011,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1038,7 +1033,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1061,7 +1055,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1084,7 +1077,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1119,7 +1111,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}/attach".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1154,7 +1145,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}/attach".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1177,7 +1167,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}/detach".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1200,7 +1189,6 @@ class PaymentMethodService(StripeService):
                 "/v1/payment_methods/{payment_method}/detach".format(
                     payment_method=sanitize_id(payment_method),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -1059,7 +1059,6 @@ class TokenService(StripeService):
             self._request(
                 "get",
                 "/v1/tokens/{token}".format(token=sanitize_id(token)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1080,7 +1079,6 @@ class TokenService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tokens/{token}".format(token=sanitize_id(token)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1101,7 +1099,6 @@ class TokenService(StripeService):
             self._request(
                 "post",
                 "/v1/tokens",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1122,7 +1119,6 @@ class TokenService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/tokens",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

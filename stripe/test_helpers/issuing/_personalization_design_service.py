@@ -84,7 +84,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -107,7 +106,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -130,7 +128,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -153,7 +150,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -176,7 +172,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -199,7 +194,6 @@ class PersonalizationDesignService(StripeService):
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                     personalization_design=sanitize_id(personalization_design),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

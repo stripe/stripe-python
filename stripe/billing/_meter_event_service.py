@@ -43,7 +43,6 @@ class MeterEventService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/meter_events",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -63,7 +62,6 @@ class MeterEventService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/meter_events",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

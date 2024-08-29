@@ -64,7 +64,6 @@ class FinancingTransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/capital/financing_transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -85,7 +84,6 @@ class FinancingTransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/capital/financing_transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -108,7 +106,6 @@ class FinancingTransactionService(StripeService):
                 "/v1/capital/financing_transactions/{financing_transaction}".format(
                     financing_transaction=sanitize_id(financing_transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -131,7 +128,6 @@ class FinancingTransactionService(StripeService):
                 "/v1/capital/financing_transactions/{financing_transaction}".format(
                     financing_transaction=sanitize_id(financing_transaction),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

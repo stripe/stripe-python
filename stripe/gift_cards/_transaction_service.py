@@ -135,7 +135,6 @@ class TransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/gift_cards/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +154,6 @@ class TransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/gift_cards/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -175,7 +173,6 @@ class TransactionService(StripeService):
             self._request(
                 "post",
                 "/v1/gift_cards/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -195,7 +192,6 @@ class TransactionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -216,7 +212,6 @@ class TransactionService(StripeService):
             self._request(
                 "get",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -237,7 +232,6 @@ class TransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -258,7 +252,6 @@ class TransactionService(StripeService):
             self._request(
                 "post",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -279,7 +272,6 @@ class TransactionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/gift_cards/transactions/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -302,7 +294,6 @@ class TransactionService(StripeService):
                 "/v1/gift_cards/transactions/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -325,7 +316,6 @@ class TransactionService(StripeService):
                 "/v1/gift_cards/transactions/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -348,7 +338,6 @@ class TransactionService(StripeService):
                 "/v1/gift_cards/transactions/{id}/confirm".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -371,7 +360,6 @@ class TransactionService(StripeService):
                 "/v1/gift_cards/transactions/{id}/confirm".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

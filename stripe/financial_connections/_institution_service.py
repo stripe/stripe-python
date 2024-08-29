@@ -47,7 +47,6 @@ class InstitutionService(StripeService):
             self._request(
                 "get",
                 "/v1/financial_connections/institutions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class InstitutionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/financial_connections/institutions",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class InstitutionService(StripeService):
                 "/v1/financial_connections/institutions/{institution}".format(
                     institution=sanitize_id(institution),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class InstitutionService(StripeService):
                 "/v1/financial_connections/institutions/{institution}".format(
                     institution=sanitize_id(institution),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

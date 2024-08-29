@@ -73,7 +73,6 @@ class CreditReversalService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/credit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -93,7 +92,6 @@ class CreditReversalService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/credit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +111,6 @@ class CreditReversalService(StripeService):
             self._request(
                 "post",
                 "/v1/treasury/credit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -133,7 +130,6 @@ class CreditReversalService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/credit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -156,7 +152,6 @@ class CreditReversalService(StripeService):
                 "/v1/treasury/credit_reversals/{credit_reversal}".format(
                     credit_reversal=sanitize_id(credit_reversal),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -179,7 +174,6 @@ class CreditReversalService(StripeService):
                 "/v1/treasury/credit_reversals/{credit_reversal}".format(
                     credit_reversal=sanitize_id(credit_reversal),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

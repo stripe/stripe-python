@@ -2510,7 +2510,6 @@ class OrderService(StripeService):
             self._request(
                 "get",
                 "/v1/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2530,7 +2529,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2548,7 +2546,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2566,7 +2563,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2587,7 +2583,6 @@ class OrderService(StripeService):
             self._request(
                 "get",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2608,7 +2603,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2629,7 +2623,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2650,7 +2643,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2671,7 +2663,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2692,7 +2683,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2713,7 +2703,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2734,7 +2723,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2755,7 +2743,6 @@ class OrderService(StripeService):
             self._request(
                 "post",
                 "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2776,7 +2763,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders/{id}/submit".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

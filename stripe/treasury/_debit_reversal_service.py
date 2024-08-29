@@ -77,7 +77,6 @@ class DebitReversalService(StripeService):
             self._request(
                 "get",
                 "/v1/treasury/debit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -97,7 +96,6 @@ class DebitReversalService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/treasury/debit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -117,7 +115,6 @@ class DebitReversalService(StripeService):
             self._request(
                 "post",
                 "/v1/treasury/debit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -137,7 +134,6 @@ class DebitReversalService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/debit_reversals",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +156,6 @@ class DebitReversalService(StripeService):
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
                     debit_reversal=sanitize_id(debit_reversal),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +178,6 @@ class DebitReversalService(StripeService):
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
                     debit_reversal=sanitize_id(debit_reversal),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

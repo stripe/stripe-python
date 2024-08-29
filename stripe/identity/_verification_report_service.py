@@ -81,7 +81,6 @@ class VerificationReportService(StripeService):
             self._request(
                 "get",
                 "/v1/identity/verification_reports",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +100,6 @@ class VerificationReportService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/identity/verification_reports",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -124,7 +122,6 @@ class VerificationReportService(StripeService):
                 "/v1/identity/verification_reports/{report}".format(
                     report=sanitize_id(report),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -147,7 +144,6 @@ class VerificationReportService(StripeService):
                 "/v1/identity/verification_reports/{report}".format(
                     report=sanitize_id(report),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

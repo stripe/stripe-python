@@ -44,7 +44,6 @@ class QuotePhaseLineItemService(StripeService):
                 "/v1/quote_phases/{quote_phase}/line_items".format(
                     quote_phase=sanitize_id(quote_phase),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class QuotePhaseLineItemService(StripeService):
                 "/v1/quote_phases/{quote_phase}/line_items".format(
                     quote_phase=sanitize_id(quote_phase),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

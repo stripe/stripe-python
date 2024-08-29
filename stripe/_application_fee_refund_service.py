@@ -76,7 +76,6 @@ class ApplicationFeeRefundService(StripeService):
                     fee=sanitize_id(fee),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +100,6 @@ class ApplicationFeeRefundService(StripeService):
                     fee=sanitize_id(fee),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -128,7 +126,6 @@ class ApplicationFeeRefundService(StripeService):
                     fee=sanitize_id(fee),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +152,6 @@ class ApplicationFeeRefundService(StripeService):
                     fee=sanitize_id(fee),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -176,7 +172,6 @@ class ApplicationFeeRefundService(StripeService):
             self._request(
                 "get",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +192,6 @@ class ApplicationFeeRefundService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -226,7 +220,6 @@ class ApplicationFeeRefundService(StripeService):
             self._request(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -255,7 +248,6 @@ class ApplicationFeeRefundService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

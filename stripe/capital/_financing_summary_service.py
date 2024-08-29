@@ -27,7 +27,6 @@ class FinancingSummaryService(StripeService):
             self._request(
                 "get",
                 "/v1/capital/financing_summary",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -47,7 +46,6 @@ class FinancingSummaryService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/capital/financing_summary",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

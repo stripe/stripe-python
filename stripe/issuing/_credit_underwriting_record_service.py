@@ -913,7 +913,6 @@ class CreditUnderwritingRecordService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/credit_underwriting_records",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -933,7 +932,6 @@ class CreditUnderwritingRecordService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/credit_underwriting_records",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -958,7 +956,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -983,7 +980,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1008,7 +1004,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1033,7 +1028,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1058,7 +1052,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1083,7 +1076,6 @@ class CreditUnderwritingRecordService(StripeService):
                         credit_underwriting_record
                     ),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1103,7 +1095,6 @@ class CreditUnderwritingRecordService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_application",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1123,7 +1114,6 @@ class CreditUnderwritingRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_application",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1143,7 +1133,6 @@ class CreditUnderwritingRecordService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1163,7 +1152,6 @@ class CreditUnderwritingRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -115,7 +115,6 @@ class AuthorizationService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/authorizations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -135,7 +134,6 @@ class AuthorizationService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/authorizations",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -158,7 +156,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -181,7 +178,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -204,7 +200,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -227,7 +222,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -251,7 +245,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}/approve".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -275,7 +268,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}/approve".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -299,7 +291,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}/decline".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -323,7 +314,6 @@ class AuthorizationService(StripeService):
                 "/v1/issuing/authorizations/{authorization}/decline".format(
                     authorization=sanitize_id(authorization),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

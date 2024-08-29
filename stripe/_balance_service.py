@@ -28,7 +28,6 @@ class BalanceService(StripeService):
             self._request(
                 "get",
                 "/v1/balance",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -49,7 +48,6 @@ class BalanceService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/balance",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

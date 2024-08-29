@@ -96,7 +96,6 @@ class FinancingOfferService(StripeService):
             self._request(
                 "get",
                 "/v1/capital/financing_offers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -116,7 +115,6 @@ class FinancingOfferService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/capital/financing_offers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -139,7 +137,6 @@ class FinancingOfferService(StripeService):
                 "/v1/capital/financing_offers/{financing_offer}".format(
                     financing_offer=sanitize_id(financing_offer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -162,7 +159,6 @@ class FinancingOfferService(StripeService):
                 "/v1/capital/financing_offers/{financing_offer}".format(
                     financing_offer=sanitize_id(financing_offer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -186,7 +182,6 @@ class FinancingOfferService(StripeService):
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
                     financing_offer=sanitize_id(financing_offer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -210,7 +205,6 @@ class FinancingOfferService(StripeService):
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
                     financing_offer=sanitize_id(financing_offer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

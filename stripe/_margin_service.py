@@ -91,7 +91,6 @@ class MarginService(StripeService):
             self._request(
                 "get",
                 "/v1/billing/margins",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -111,7 +110,6 @@ class MarginService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing/margins",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -131,7 +129,6 @@ class MarginService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/margins",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +148,6 @@ class MarginService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/margins",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -174,7 +170,6 @@ class MarginService(StripeService):
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +192,6 @@ class MarginService(StripeService):
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -220,7 +214,6 @@ class MarginService(StripeService):
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -243,7 +236,6 @@ class MarginService(StripeService):
                 "/v1/billing/margins/{margin}".format(
                     margin=sanitize_id(margin),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

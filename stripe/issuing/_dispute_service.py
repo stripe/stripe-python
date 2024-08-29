@@ -641,7 +641,6 @@ class DisputeService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/disputes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -661,7 +660,6 @@ class DisputeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/disputes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -681,7 +679,6 @@ class DisputeService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/disputes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -701,7 +698,6 @@ class DisputeService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/disputes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -724,7 +720,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -747,7 +742,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -770,7 +764,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -793,7 +786,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -816,7 +808,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}/submit".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -839,7 +830,6 @@ class DisputeService(StripeService):
                 "/v1/issuing/disputes/{dispute}/submit".format(
                     dispute=sanitize_id(dispute),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

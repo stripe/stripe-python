@@ -403,7 +403,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -426,7 +425,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -449,7 +447,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -472,7 +469,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -495,7 +491,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -518,7 +513,6 @@ class InvoiceItemService(StripeService):
                 "/v1/invoiceitems/{invoiceitem}".format(
                     invoiceitem=sanitize_id(invoiceitem),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -538,7 +532,6 @@ class InvoiceItemService(StripeService):
             self._request(
                 "get",
                 "/v1/invoiceitems",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -558,7 +551,6 @@ class InvoiceItemService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/invoiceitems",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -578,7 +570,6 @@ class InvoiceItemService(StripeService):
             self._request(
                 "post",
                 "/v1/invoiceitems",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -598,7 +589,6 @@ class InvoiceItemService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/invoiceitems",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -47,7 +47,6 @@ class ProductService(StripeService):
             self._request(
                 "get",
                 "/v1/climate/products",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class ProductService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/climate/products",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class ProductService(StripeService):
                 "/v1/climate/products/{product}".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class ProductService(StripeService):
                 "/v1/climate/products/{product}".format(
                     product=sanitize_id(product),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -69,7 +69,6 @@ class FormService(StripeService):
             self._request(
                 "get",
                 "/v1/tax/forms",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -87,7 +86,6 @@ class FormService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax/forms",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -108,7 +106,6 @@ class FormService(StripeService):
             self._request(
                 "get",
                 "/v1/tax/forms/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -129,7 +126,6 @@ class FormService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax/forms/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -150,7 +146,6 @@ class FormService(StripeService):
             self._request_stream(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="files",
                 params=params,
                 options=options,
@@ -171,7 +166,6 @@ class FormService(StripeService):
             await self._request_stream_async(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="files",
                 params=params,
                 options=options,

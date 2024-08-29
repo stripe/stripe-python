@@ -51,7 +51,6 @@ class ActiveEntitlementService(StripeService):
             self._request(
                 "get",
                 "/v1/entitlements/active_entitlements",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -71,7 +70,6 @@ class ActiveEntitlementService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/entitlements/active_entitlements",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -94,7 +92,6 @@ class ActiveEntitlementService(StripeService):
                 "/v1/entitlements/active_entitlements/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -117,7 +114,6 @@ class ActiveEntitlementService(StripeService):
                 "/v1/entitlements/active_entitlements/{id}".format(
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

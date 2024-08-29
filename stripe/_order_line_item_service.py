@@ -42,7 +42,6 @@ class OrderLineItemService(StripeService):
             self._request(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -63,7 +62,6 @@ class OrderLineItemService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

@@ -44,7 +44,6 @@ class PaymentLinkLineItemService(StripeService):
                 "/v1/payment_links/{payment_link}/line_items".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class PaymentLinkLineItemService(StripeService):
                 "/v1/payment_links/{payment_link}/line_items".format(
                     payment_link=sanitize_id(payment_link),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

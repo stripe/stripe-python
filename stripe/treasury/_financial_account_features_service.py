@@ -179,7 +179,6 @@ class FinancialAccountFeaturesService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -202,7 +201,6 @@ class FinancialAccountFeaturesService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -225,7 +223,6 @@ class FinancialAccountFeaturesService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -248,7 +245,6 @@ class FinancialAccountFeaturesService(StripeService):
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
                     financial_account=sanitize_id(financial_account),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

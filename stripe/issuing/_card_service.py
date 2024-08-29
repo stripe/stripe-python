@@ -2240,7 +2240,6 @@ class CardService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/cards",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2260,7 +2259,6 @@ class CardService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/cards",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2278,7 +2276,6 @@ class CardService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/cards",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2296,7 +2293,6 @@ class CardService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/cards",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2317,7 +2313,6 @@ class CardService(StripeService):
             self._request(
                 "get",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2338,7 +2333,6 @@ class CardService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2359,7 +2353,6 @@ class CardService(StripeService):
             self._request(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2380,7 +2373,6 @@ class CardService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

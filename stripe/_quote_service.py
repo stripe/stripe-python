@@ -2455,7 +2455,6 @@ class QuoteService(StripeService):
             self._request(
                 "get",
                 "/v1/quotes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2475,7 +2474,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/quotes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2495,7 +2493,6 @@ class QuoteService(StripeService):
             self._request(
                 "post",
                 "/v1/quotes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2515,7 +2512,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/quotes",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2536,7 +2532,6 @@ class QuoteService(StripeService):
             self._request(
                 "get",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2557,7 +2552,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2578,7 +2572,6 @@ class QuoteService(StripeService):
             self._request(
                 "post",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2599,7 +2592,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2620,7 +2612,6 @@ class QuoteService(StripeService):
             self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2641,7 +2632,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2662,7 +2652,6 @@ class QuoteService(StripeService):
             self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2683,7 +2672,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2704,7 +2692,6 @@ class QuoteService(StripeService):
             self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2725,7 +2712,6 @@ class QuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2748,7 +2734,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_draft".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2771,7 +2756,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_draft".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2794,7 +2778,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_stale".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2817,7 +2800,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/mark_stale".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2840,7 +2822,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/reestimate".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2863,7 +2844,6 @@ class QuoteService(StripeService):
                 "/v1/quotes/{quote}/reestimate".format(
                     quote=sanitize_id(quote),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2884,7 +2864,6 @@ class QuoteService(StripeService):
             self._request_stream(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="files",
                 params=params,
                 options=options,
@@ -2905,7 +2884,6 @@ class QuoteService(StripeService):
             await self._request_stream_async(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
-                api_mode="V1",
                 base_address="files",
                 params=params,
                 options=options,
@@ -2930,7 +2908,6 @@ class QuoteService(StripeService):
                     quote=sanitize_id(quote),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -2955,7 +2932,6 @@ class QuoteService(StripeService):
                     quote=sanitize_id(quote),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

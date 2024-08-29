@@ -144,7 +144,6 @@ class CustomerTaxIdService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -169,7 +168,6 @@ class CustomerTaxIdService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -194,7 +192,6 @@ class CustomerTaxIdService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -219,7 +216,6 @@ class CustomerTaxIdService(StripeService):
                     customer=sanitize_id(customer),
                     id=sanitize_id(id),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -242,7 +238,6 @@ class CustomerTaxIdService(StripeService):
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -265,7 +260,6 @@ class CustomerTaxIdService(StripeService):
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -288,7 +282,6 @@ class CustomerTaxIdService(StripeService):
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -311,7 +304,6 @@ class CustomerTaxIdService(StripeService):
                 "/v1/customers/{customer}/tax_ids".format(
                     customer=sanitize_id(customer),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

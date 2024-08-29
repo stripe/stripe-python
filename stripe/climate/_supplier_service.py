@@ -47,7 +47,6 @@ class SupplierService(StripeService):
             self._request(
                 "get",
                 "/v1/climate/suppliers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -67,7 +66,6 @@ class SupplierService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/climate/suppliers",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,6 @@ class SupplierService(StripeService):
                 "/v1/climate/suppliers/{supplier}".format(
                     supplier=sanitize_id(supplier),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +110,6 @@ class SupplierService(StripeService):
                 "/v1/climate/suppliers/{supplier}".format(
                     supplier=sanitize_id(supplier),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

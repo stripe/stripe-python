@@ -134,7 +134,6 @@ class MeterService(StripeService):
             self._request(
                 "get",
                 "/v1/billing/meters",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -154,7 +153,6 @@ class MeterService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing/meters",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +170,6 @@ class MeterService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/meters",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -190,7 +187,6 @@ class MeterService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/meters",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +207,6 @@ class MeterService(StripeService):
             self._request(
                 "get",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -232,7 +227,6 @@ class MeterService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -253,7 +247,6 @@ class MeterService(StripeService):
             self._request(
                 "post",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -274,7 +267,6 @@ class MeterService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -297,7 +289,6 @@ class MeterService(StripeService):
                 "/v1/billing/meters/{id}/deactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -320,7 +311,6 @@ class MeterService(StripeService):
                 "/v1/billing/meters/{id}/deactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -343,7 +333,6 @@ class MeterService(StripeService):
                 "/v1/billing/meters/{id}/reactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -366,7 +355,6 @@ class MeterService(StripeService):
                 "/v1/billing/meters/{id}/reactivate".format(
                     id=sanitize_id(id)
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,

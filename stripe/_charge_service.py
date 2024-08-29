@@ -1700,7 +1700,6 @@ class ChargeService(StripeService):
             self._request(
                 "get",
                 "/v1/charges",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1720,7 +1719,6 @@ class ChargeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/charges",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1742,7 +1740,6 @@ class ChargeService(StripeService):
             self._request(
                 "post",
                 "/v1/charges",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1764,7 +1761,6 @@ class ChargeService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/charges",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1785,7 +1781,6 @@ class ChargeService(StripeService):
             self._request(
                 "get",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1806,7 +1801,6 @@ class ChargeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1827,7 +1821,6 @@ class ChargeService(StripeService):
             self._request(
                 "post",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1848,7 +1841,6 @@ class ChargeService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1871,7 +1863,6 @@ class ChargeService(StripeService):
             self._request(
                 "get",
                 "/v1/charges/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1894,7 +1885,6 @@ class ChargeService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/charges/search",
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1921,7 +1911,6 @@ class ChargeService(StripeService):
                 "/v1/charges/{charge}/capture".format(
                     charge=sanitize_id(charge),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
@@ -1948,7 +1937,6 @@ class ChargeService(StripeService):
                 "/v1/charges/{charge}/capture".format(
                     charge=sanitize_id(charge),
                 ),
-                api_mode="V1",
                 base_address="api",
                 params=params,
                 options=options,
