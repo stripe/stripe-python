@@ -1871,7 +1871,7 @@ class Invoice(
             List["Invoice.CreatePreviewParamsInvoiceItem"]
         ]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["Invoice.CreatePreviewParamsIssuer"]
         """
@@ -3647,7 +3647,7 @@ class Invoice(
             List["Invoice.UpcomingLinesParamsInvoiceItem"]
         ]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["Invoice.UpcomingLinesParamsIssuer"]
         """
@@ -4794,7 +4794,7 @@ class Invoice(
         """
         invoice_items: NotRequired[List["Invoice.UpcomingParamsInvoiceItem"]]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["Invoice.UpcomingParamsIssuer"]
         """
