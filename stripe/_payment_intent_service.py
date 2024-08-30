@@ -7630,6 +7630,9 @@ class PaymentIntentService(StripeService):
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+        There is a variable upper limit on how many times a PaymentIntent can be confirmed.
+        After this limit is reached, any further calls to this endpoint will
+        transition the PaymentIntent to the canceled state.
         """
         return cast(
             PaymentIntent,
@@ -7673,6 +7676,9 @@ class PaymentIntentService(StripeService):
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+        There is a variable upper limit on how many times a PaymentIntent can be confirmed.
+        After this limit is reached, any further calls to this endpoint will
+        transition the PaymentIntent to the canceled state.
         """
         return cast(
             PaymentIntent,
