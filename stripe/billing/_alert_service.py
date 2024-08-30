@@ -23,7 +23,7 @@ class AlertService(StripeService):
         """
 
     class CreateParams(TypedDict):
-        alert_type: Literal["usage_threshold"]
+        alert_type: Literal["spend_threshold", "usage_threshold"]
         """
         The type of alert to create.
         """
@@ -34,6 +34,12 @@ class AlertService(StripeService):
         filter: NotRequired["AlertService.CreateParamsFilter"]
         """
         Filters to limit the scope of an alert.
+        """
+        spend_threshold_config: NotRequired[
+            "AlertService.CreateParamsSpendThresholdConfig"
+        ]
+        """
+        The configuration of the spend threshold.
         """
         title: str
         """
@@ -50,6 +56,24 @@ class AlertService(StripeService):
         customer: NotRequired[str]
         """
         Limit the scope to this alert only to this customer.
+        """
+
+    class CreateParamsSpendThresholdConfig(TypedDict):
+        aggregation: Literal["subscription", "subscription_item"]
+        """
+        Whether the spend should be aggregated across items in a subscription or whether each subscription item is considered alone.
+        """
+        currency: str
+        """
+        Currency for which this spend alert is configured. This alert will only trigger for subscriptions matching this currency.
+        """
+        gte: int
+        """
+        Defines at which value the alert will fire.
+        """
+        recurrence: Literal["one_time"]
+        """
+        Whether the alert should only fire only once, or once per billing cycle.
         """
 
     class CreateParamsUsageThresholdConfig(TypedDict):
@@ -73,7 +97,7 @@ class AlertService(StripeService):
         """
 
     class ListParams(TypedDict):
-        alert_type: NotRequired[Literal["usage_threshold"]]
+        alert_type: NotRequired[Literal["spend_threshold", "usage_threshold"]]
         """
         Filter results to only include this type of alert.
         """

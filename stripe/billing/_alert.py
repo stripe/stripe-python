@@ -34,6 +34,24 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         Limit the scope of the alert to this customer ID
         """
 
+    class SpendThresholdConfig(StripeObject):
+        aggregation: Literal["subscription", "subscription_item"]
+        """
+        Defines if the alert will fire on spend aggregated across a subscription, or on individual subscription items.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        gte: int
+        """
+        The value at which this alert will trigger.
+        """
+        recurrence: Literal["one_time"]
+        """
+        Defines how the alert will behave.
+        """
+
     class UsageThresholdConfig(StripeObject):
         gte: int
         """
@@ -61,7 +79,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
 
     class CreateParams(RequestOptions):
-        alert_type: Literal["usage_threshold"]
+        alert_type: Literal["spend_threshold", "usage_threshold"]
         """
         The type of alert to create.
         """
@@ -72,6 +90,12 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         filter: NotRequired["Alert.CreateParamsFilter"]
         """
         Filters to limit the scope of an alert.
+        """
+        spend_threshold_config: NotRequired[
+            "Alert.CreateParamsSpendThresholdConfig"
+        ]
+        """
+        The configuration of the spend threshold.
         """
         title: str
         """
@@ -88,6 +112,24 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         customer: NotRequired[str]
         """
         Limit the scope to this alert only to this customer.
+        """
+
+    class CreateParamsSpendThresholdConfig(TypedDict):
+        aggregation: Literal["subscription", "subscription_item"]
+        """
+        Whether the spend should be aggregated across items in a subscription or whether each subscription item is considered alone.
+        """
+        currency: str
+        """
+        Currency for which this spend alert is configured. This alert will only trigger for subscriptions matching this currency.
+        """
+        gte: int
+        """
+        Defines at which value the alert will fire.
+        """
+        recurrence: Literal["one_time"]
+        """
+        Whether the alert should only fire only once, or once per billing cycle.
         """
 
     class CreateParamsUsageThresholdConfig(TypedDict):
@@ -111,7 +153,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
 
     class ListParams(RequestOptions):
-        alert_type: NotRequired[Literal["usage_threshold"]]
+        alert_type: NotRequired[Literal["spend_threshold", "usage_threshold"]]
         """
         Filter results to only include this type of alert.
         """
@@ -142,7 +184,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         Specifies which fields in the response should be expanded.
         """
 
-    alert_type: Literal["usage_threshold"]
+    alert_type: Literal["spend_threshold", "usage_threshold"]
     """
     Defines the type of the alert.
     """
@@ -161,6 +203,10 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     object: Literal["billing.alert"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    spend_threshold_config: Optional[SpendThresholdConfig]
+    """
+    Encapsulates configuration of the spend to monitoring spend on a [Subscription](https://stripe.com/docs/api/subscriptions/object) or [Subscription item](https://stripe.com/docs/api/subscription_items/object).
     """
     status: Optional[Literal["active", "archived", "inactive"]]
     """
@@ -581,5 +627,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     _inner_class_types = {
         "filter": Filter,
+        "spend_threshold_config": SpendThresholdConfig,
         "usage_threshold_config": UsageThresholdConfig,
     }

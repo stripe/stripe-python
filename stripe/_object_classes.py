@@ -24,6 +24,7 @@ OBJECT_CLASSES = {
     stripe.billing.Alert.OBJECT_NAME: stripe.billing.Alert,
     stripe.billing.AlertTriggered.OBJECT_NAME: stripe.billing.AlertTriggered,
     stripe.billing.Meter.OBJECT_NAME: stripe.billing.Meter,
+    stripe.billing.MeterErrorReport.OBJECT_NAME: stripe.billing.MeterErrorReport,
     stripe.billing.MeterEvent.OBJECT_NAME: stripe.billing.MeterEvent,
     stripe.billing.MeterEventAdjustment.OBJECT_NAME: stripe.billing.MeterEventAdjustment,
     stripe.billing.MeterEventSummary.OBJECT_NAME: stripe.billing.MeterEventSummary,
