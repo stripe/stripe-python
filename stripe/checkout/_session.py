@@ -1886,7 +1886,7 @@ class Session(
             Literal["always", "if_required", "never"]
         ]
         """
-        This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
+        This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
         """
         return_url: NotRequired[str]
         """
@@ -4109,7 +4109,7 @@ class Session(
     """
     redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
     """
-    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
+    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
     """
     return_url: Optional[str]
     """
