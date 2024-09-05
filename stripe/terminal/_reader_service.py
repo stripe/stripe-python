@@ -125,7 +125,7 @@ class ReaderService(StripeService):
         """
 
     class ProcessSetupIntentParams(TypedDict):
-        customer_consent_collected: bool
+        customer_consent_collected: NotRequired[bool]
         """
         Customer Consent Collected
         """

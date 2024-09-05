@@ -265,7 +265,7 @@ class Transfer(
     """
     source_transaction: Optional[ExpandableField["Charge"]]
     """
-    ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance.
+    ID of the charge that was used to fund the transfer. If null, the transfer was funded from the available balance.
     """
     source_type: Optional[str]
     """
