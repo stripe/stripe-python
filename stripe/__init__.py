@@ -55,9 +55,6 @@ from stripe._webhook import (
     Webhook as Webhook,
     WebhookSignature as WebhookSignature,
 )
-from stripe._raw_request import raw_request as raw_request  # noqa
-from stripe._raw_request import raw_request_async as raw_request_async  # noqa
-from stripe._raw_request import deserialize as deserialize  # noqa
 
 from stripe._preview import preview as preview  # noqa
 

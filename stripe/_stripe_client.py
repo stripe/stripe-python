@@ -19,10 +19,16 @@ from stripe._http_client import (
     new_http_client_async_fallback,
 )
 from stripe._api_version import _ApiVersion
+from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 
-from typing import Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
+
+from stripe._raw_request import raw_request as _raw_request  # noqa
+from stripe._raw_request import raw_request_async as _raw_request_async  # noqa
+from stripe._raw_request import deserialize as _deserialize  # noqa
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -280,3 +286,21 @@ class StripeClient(object):
         )
 
         return event
+
+    def raw_request(self, method_: str, url_: str, **params):
+        return _raw_request(method_, url_, **params)
+
+    async def raw_request_async(self, method_: str, url_: str, **params):
+        return await _raw_request_async(method_, url_, **params)
+
+    def deserialize(
+        self,
+        resp: Union[StripeResponse, Dict[str, Any]],
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None,
+    ) -> StripeObject:
+        return _deserialize(
+            resp, api_key, stripe_version, stripe_account, params
+        )

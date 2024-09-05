@@ -13,6 +13,8 @@ from queue import Queue
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 
+from stripe._stripe_client import StripeClient
+
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
@@ -361,10 +363,11 @@ class TestIntegration(object):
 
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        resp = await stripe.raw_request_async(
+        client = StripeClient("sk_test")
+        resp = await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
-        cus = stripe.deserialize(resp.data)
+        cus = client.deserialize(resp.data)
 
         reqs = MockServerRequestHandler.get_requests(1)
         req = reqs[0]
@@ -400,7 +403,8 @@ class TestIntegration(object):
 
         exception = None
         try:
-            await stripe.raw_request_async(
+            client = StripeClient("sk_test")
+            await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
         except stripe.APIConnectionError as e:
@@ -428,7 +432,8 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        await stripe.raw_request_async(
+        client = StripeClient("sk_test")
+        await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
 
@@ -455,7 +460,8 @@ class TestIntegration(object):
 
         exception = None
         try:
-            await stripe.raw_request_async(
+            client = StripeClient("sk_test")
+            await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
         except stripe.AuthenticationError as e:

@@ -1,4 +1,5 @@
-from stripe import raw_request, raw_request_async
+from stripe._raw_request import raw_request as raw_request
+from stripe._raw_request import raw_request_async as raw_request_async
 
 
 class Preview(object):
