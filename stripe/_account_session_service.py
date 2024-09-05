@@ -143,6 +143,9 @@ class AccountSessionService(StripeService):
         """
         Configuration for the payouts list embedded component.
         """
+        recipients: NotRequired[
+            "AccountSessionService.CreateParamsComponentsRecipients"
+        ]
         tax_registrations: NotRequired[
             "AccountSessionService.CreateParamsComponentsTaxRegistrations"
         ]
@@ -542,6 +545,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsRecipients(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsRecipientsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsRecipientsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):
