@@ -19,6 +19,11 @@
   * Add support for `mb_way` on enum `stripe.checkout.Session.CreateParams.payment_method_types`
   * Add support for `terminal_reader_collected_data_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.QuotePreviewInvoice.LastFinalizationError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
 
+## 10.10.0 - 2024-09-05
+* [#1376](https://github.com/stripe/stripe-python/pull/1376) Update generated code
+  * Add support for `subscription` on parameter class `stripe.billing.Alert.CreateParamsFilter`
+  * Change type of `customer_consent_collected` on  `stripe.terminal.Reader.ProcessSetupIntentParams` from `bool` to `NotRequired[bool]`
+
 ## 10.9.0 - 2024-08-29
 * [#1385](https://github.com/stripe/stripe-python/pull/1385) Generate SDK for OpenAPI spec version 1230
   * Add support for `status_details` on resource `stripe.test_helpers.TestClock`
