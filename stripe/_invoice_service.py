@@ -1060,7 +1060,7 @@ class InvoiceService(StripeService):
             List["InvoiceService.CreatePreviewParamsInvoiceItem"]
         ]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["InvoiceService.CreatePreviewParamsIssuer"]
         """
@@ -3108,7 +3108,7 @@ class InvoiceService(StripeService):
             List["InvoiceService.UpcomingParamsInvoiceItem"]
         ]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["InvoiceService.UpcomingParamsIssuer"]
         """
