@@ -218,6 +218,7 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.refunded",
         "balance.available",
         "billing.alert.triggered",
+        "billing.meter_error_report.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
