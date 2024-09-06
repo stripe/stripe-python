@@ -52,7 +52,7 @@ class InvoiceUpcomingLinesService(StripeService):
             List["InvoiceUpcomingLinesService.ListParamsInvoiceItem"]
         ]
         """
-        List of invoice items to add or update in the upcoming invoice preview.
+        List of invoice items to add or update in the upcoming invoice preview (up to 250).
         """
         issuer: NotRequired["InvoiceUpcomingLinesService.ListParamsIssuer"]
         """

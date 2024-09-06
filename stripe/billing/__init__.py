@@ -4,6 +4,9 @@ from stripe.billing._alert import Alert as Alert
 from stripe.billing._alert_service import AlertService as AlertService
 from stripe.billing._alert_triggered import AlertTriggered as AlertTriggered
 from stripe.billing._meter import Meter as Meter
+from stripe.billing._meter_error_report import (
+    MeterErrorReport as MeterErrorReport,
+)
 from stripe.billing._meter_event import MeterEvent as MeterEvent
 from stripe.billing._meter_event_adjustment import (
     MeterEventAdjustment as MeterEventAdjustment,

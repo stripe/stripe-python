@@ -51,6 +51,14 @@ class AlertService(StripeService):
         """
         Limit the scope to this alert only to this customer.
         """
+        subscription: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription.
+        """
+        subscription_item: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription item.
+        """
 
     class CreateParamsUsageThresholdConfig(TypedDict):
         gte: int
