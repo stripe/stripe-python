@@ -943,7 +943,7 @@ class Quote(
         """
         discounts: NotRequired["Literal['']|List[Quote.CreateParamsDiscount]"]
         """
-        The discounts applied to the quote. You can only set up to one discount.
+        The discounts applied to the quote.
         """
         expand: NotRequired[List[str]]
         """
@@ -2237,7 +2237,7 @@ class Quote(
         """
         discounts: NotRequired["Literal['']|List[Quote.ModifyParamsDiscount]"]
         """
-        The discounts applied to the quote. You can only set up to one discount.
+        The discounts applied to the quote.
         """
         expand: NotRequired[List[str]]
         """
