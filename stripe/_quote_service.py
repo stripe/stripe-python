@@ -70,7 +70,7 @@ class QuoteService(StripeService):
             "Literal['']|List[QuoteService.CreateParamsDiscount]"
         ]
         """
-        The discounts applied to the quote. You can only set up to one discount.
+        The discounts applied to the quote.
         """
         expand: NotRequired[List[str]]
         """
@@ -392,7 +392,7 @@ class QuoteService(StripeService):
             "Literal['']|List[QuoteService.UpdateParamsDiscount]"
         ]
         """
-        The discounts applied to the quote. You can only set up to one discount.
+        The discounts applied to the quote.
         """
         expand: NotRequired[List[str]]
         """
