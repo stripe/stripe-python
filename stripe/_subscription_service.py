@@ -771,9 +771,15 @@ class SubscriptionService(StripeService):
         current_period_end: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodEnd|int"
         ]
+        """
+        Only return subscriptions whose current_period_end falls within the given date interval.
+        """
         current_period_start: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodStart|int"
         ]
+        """
+        Only return subscriptions whose current_period_start falls within the given date interval.
+        """
         customer: NotRequired[str]
         """
         The ID of the customer whose subscriptions will be retrieved.
