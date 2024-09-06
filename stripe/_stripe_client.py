@@ -152,7 +152,7 @@ class StripeClient(object):
             **base_addresses,
         }
 
-        requestor_options = RequestorOptions(
+        self._requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
             stripe_version=stripe_version or _ApiVersion.CURRENT,
@@ -170,7 +170,7 @@ class StripeClient(object):
             )
 
         self._requestor = _APIRequestor(
-            options=requestor_options,
+            options=self._requestor_options,
             client=http_client,
         )
 
@@ -296,11 +296,12 @@ class StripeClient(object):
     def deserialize(
         self,
         resp: Union[StripeResponse, Dict[str, Any]],
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
         params: Optional[Dict[str, Any]] = None,
     ) -> StripeObject:
         return _deserialize(
-            resp, api_key, stripe_version, stripe_account, params
+            resp,
+            self._requestor_options.api_key,
+            self._requestor_options.stripe_version,
+            self._requestor_options.stripe_account,
+            params,
         )
