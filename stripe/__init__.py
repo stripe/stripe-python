@@ -56,8 +56,6 @@ from stripe._webhook import (
     WebhookSignature as WebhookSignature,
 )
 
-from stripe._preview import preview as preview  # noqa
-
 # StripeClient
 from stripe._stripe_client import StripeClient as StripeClient  # noqa
 
