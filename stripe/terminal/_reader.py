@@ -762,7 +762,7 @@ class Reader(
         """
 
     class ProcessSetupIntentParams(RequestOptions):
-        customer_consent_collected: bool
+        customer_consent_collected: NotRequired[bool]
         """
         Customer Consent Collected
         """

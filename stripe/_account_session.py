@@ -404,6 +404,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the payouts list embedded component.
         """
+        recipients: NotRequired[
+            "AccountSession.CreateParamsComponentsRecipients"
+        ]
         tax_registrations: NotRequired[
             "AccountSession.CreateParamsComponentsTaxRegistrations"
         ]
@@ -803,6 +806,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsRecipients(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsRecipientsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsRecipientsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):

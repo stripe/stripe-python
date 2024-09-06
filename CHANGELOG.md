@@ -1,5 +1,24 @@
 # Changelog
 
+## 10.11.0b1 - 2024-09-05
+* [#1387](https://github.com/stripe/stripe-python/pull/1387) Update generated code for beta
+  * Add support for `recipients` on parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for resource `stripe.billing.MeterErrorReport`
+  * Add support for `business_name` on resource class `stripe.checkout.Session.CollectedInformation`
+  * Add support for `tax_ids` on resource class `stripe.checkout.Session.CollectedInformation`
+  * Add support for `billing.meter_error_report.triggered` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
+  * Add support for `mb_way` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+* [#1386](https://github.com/stripe/stripe-python/pull/1386) Merge from master 
+* [#1384](https://github.com/stripe/stripe-python/pull/1384) Merge from master after the changes to not pass api_mode from individual methods
+* [#1380](https://github.com/stripe/stripe-python/pull/1380) Update generated code for beta
+  * Add support for `email` on resource class `stripe.checkout.Session.CollectedInformation`
+  * Add support for `phone` on resource class `stripe.checkout.Session.CollectedInformation`
+  * Add support for `regulatory_reporting_file` on parameter classes `stripe.issuing.CreditUnderwritingRecord.CorrectParams`, `stripe.issuing.CreditUnderwritingRecord.CreateFromProactiveReviewParams`, and `stripe.issuing.CreditUnderwritingRecord.ReportDecisionParams` and resource `stripe.issuing.CreditUnderwritingRecord`
+  * Add support for resource `stripe.terminal.ReaderCollectedData`
+  * Remove support for `rechnung` on parameter class `stripe.PaymentMethod.ModifyParams`
+  * Add support for `mb_way` on enum `stripe.checkout.Session.CreateParams.payment_method_types`
+  * Add support for `terminal_reader_collected_data_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.QuotePreviewInvoice.LastFinalizationError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
+
 ## 10.9.0 - 2024-08-29
 * [#1385](https://github.com/stripe/stripe-python/pull/1385) Generate SDK for OpenAPI spec version 1230
   * Add support for `status_details` on resource `stripe.test_helpers.TestClock`
