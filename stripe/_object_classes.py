@@ -76,6 +76,7 @@ OBJECT_CLASSES = {
     stripe.InvoiceItem.OBJECT_NAME: stripe.InvoiceItem,
     stripe.InvoiceLineItem.OBJECT_NAME: stripe.InvoiceLineItem,
     stripe.InvoicePayment.OBJECT_NAME: stripe.InvoicePayment,
+    stripe.InvoiceRenderingTemplate.OBJECT_NAME: stripe.InvoiceRenderingTemplate,
     stripe.issuing.Authorization.OBJECT_NAME: stripe.issuing.Authorization,
     stripe.issuing.Card.OBJECT_NAME: stripe.issuing.Card,
     stripe.issuing.Cardholder.OBJECT_NAME: stripe.issuing.Cardholder,

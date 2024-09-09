@@ -412,6 +412,12 @@ from stripe._invoice_payment import InvoicePayment as InvoicePayment
 from stripe._invoice_payment_service import (
     InvoicePaymentService as InvoicePaymentService,
 )
+from stripe._invoice_rendering_template import (
+    InvoiceRenderingTemplate as InvoiceRenderingTemplate,
+)
+from stripe._invoice_rendering_template_service import (
+    InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
+)
 from stripe._invoice_service import InvoiceService as InvoiceService
 from stripe._invoice_upcoming_lines_service import (
     InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
