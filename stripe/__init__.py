@@ -382,6 +382,12 @@ from stripe._invoice_line_item import InvoiceLineItem as InvoiceLineItem
 from stripe._invoice_line_item_service import (
     InvoiceLineItemService as InvoiceLineItemService,
 )
+from stripe._invoice_rendering_template import (
+    InvoiceRenderingTemplate as InvoiceRenderingTemplate,
+)
+from stripe._invoice_rendering_template_service import (
+    InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
+)
 from stripe._invoice_service import InvoiceService as InvoiceService
 from stripe._invoice_upcoming_lines_service import (
     InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
