@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
-from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from stripe._tax_rate import TaxRate
 
 
-class QuotePhase(ListableAPIResource["QuotePhase"]):
+class QuotePhase(APIResource["QuotePhase"]):
     """
     A quote phase describes the line items, coupons, and trialing status of a subscription for a predefined time period.
     """
@@ -124,28 +124,6 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        quote: str
-        """
-        The ID of the quote whose phases will be retrieved.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -219,46 +197,6 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     """
     When the trial ends within the phase.
     """
-
-    @classmethod
-    def list(
-        cls, **params: Unpack["QuotePhase.ListParams"]
-    ) -> ListObject["QuotePhase"]:
-        """
-        Returns a list of quote phases.
-        """
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["QuotePhase.ListParams"]
-    ) -> ListObject["QuotePhase"]:
-        """
-        Returns a list of quote phases.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
 
     @classmethod
     def _cls_list_line_items(
