@@ -9,6 +9,7 @@ import aiohttp
 
 import stripe
 import pytest
+from conftest import MOCK_API_KEY
 from queue import Queue
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
@@ -363,7 +364,7 @@ class TestIntegration(object):
 
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        client = StripeClient("sk_test")
+        client = StripeClient(MOCK_API_KEY)
         resp = await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
@@ -403,7 +404,7 @@ class TestIntegration(object):
 
         exception = None
         try:
-            client = StripeClient("sk_test")
+            client = StripeClient(MOCK_API_KEY)
             await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
@@ -432,7 +433,7 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        client = StripeClient("sk_test")
+        client = StripeClient(MOCK_API_KEY)
         await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
@@ -460,7 +461,7 @@ class TestIntegration(object):
 
         exception = None
         try:
-            client = StripeClient("sk_test")
+            client = StripeClient(MOCK_API_KEY)
             await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
