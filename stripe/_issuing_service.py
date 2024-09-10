@@ -8,6 +8,9 @@ from stripe.issuing._credit_underwriting_record_service import (
     CreditUnderwritingRecordService,
 )
 from stripe.issuing._dispute_service import DisputeService
+from stripe.issuing._dispute_settlement_detail_service import (
+    DisputeSettlementDetailService,
+)
 from stripe.issuing._personalization_design_service import (
     PersonalizationDesignService,
 )
@@ -26,6 +29,9 @@ class IssuingService(StripeService):
             self._requestor,
         )
         self.disputes = DisputeService(self._requestor)
+        self.dispute_settlement_details = DisputeSettlementDetailService(
+            self._requestor,
+        )
         self.personalization_designs = PersonalizationDesignService(
             self._requestor,
         )
