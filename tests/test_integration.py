@@ -9,7 +9,6 @@ import aiohttp
 
 import stripe
 import pytest
-from conftest import MOCK_API_KEY
 from queue import Queue
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
@@ -362,9 +361,12 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
-
-        client = StripeClient(MOCK_API_KEY)
+        client = StripeClient(
+            "sk_test_123",
+            base_addresses={
+                "api": "http://localhost:%s" % self.mock_server_port
+            },
+        )
         resp = await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
@@ -386,7 +388,6 @@ class TestIntegration(object):
                 return super().do_request(n)
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
         # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
         # so we set only the read timeout specifically.
         hc = stripe.default_http_client
@@ -400,11 +401,17 @@ class TestIntegration(object):
             expected_message = "A ServerTimeoutError was raised"
         else:
             raise ValueError(f"Unknown http client: {hc.name}")
-        stripe.max_network_retries = 0
 
         exception = None
         try:
-            client = StripeClient(MOCK_API_KEY)
+            client = StripeClient(
+                "sk_test_123",
+                http_client=hc,
+                base_addresses={
+                    "api": "http://localhost:%s" % self.mock_server_port
+                },
+                max_network_retries=0,
+            )
             await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
@@ -431,9 +438,14 @@ class TestIntegration(object):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        client = StripeClient(MOCK_API_KEY)
+        client = StripeClient(
+            "sk_test_123",
+            base_addresses={
+                "api": "http://localhost:%s" % self.mock_server_port
+            },
+            max_network_retries=stripe.max_network_retries,
+        )
         await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
@@ -457,11 +469,15 @@ class TestIntegration(object):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
         exception = None
         try:
-            client = StripeClient(MOCK_API_KEY)
+            client = StripeClient(
+                "sk_test_123",
+                base_addresses={
+                    "api": "http://localhost:%s" % self.mock_server_port
+                },
+            )
             await client.raw_request_async(
                 "post", "/v1/customers", description="My test customer"
             )
