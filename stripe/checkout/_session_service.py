@@ -2237,6 +2237,10 @@ class SessionService(StripeService):
         """
         Enable tax ID collection during checkout. Defaults to `false`.
         """
+        required: NotRequired[Literal["if_supported", "never"]]
+        """
+        Describes whether a tax ID is required during checkout. Defaults to `never`.
+        """
 
     class ExpireParams(TypedDict):
         expand: NotRequired[List[str]]
