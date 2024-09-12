@@ -674,6 +674,14 @@ class InvoiceService(StripeService):
         """
         Invoice pdf rendering options
         """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
+        """
 
     class CreateParamsRenderingPdf(TypedDict):
         page_size: NotRequired[Literal["a4", "auto", "letter"]]
@@ -3781,6 +3789,14 @@ class InvoiceService(StripeService):
         pdf: NotRequired["InvoiceService.UpdateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
         """
 
     class UpdateParamsRenderingPdf(TypedDict):

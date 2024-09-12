@@ -78,6 +78,9 @@ if not TYPE_CHECKING:
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_item import InvoiceItem
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.invoice_rendering_template import (
+        InvoiceRenderingTemplate,
+    )
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.list_object import ListObject
     from stripe.api_resources.login_link import LoginLink

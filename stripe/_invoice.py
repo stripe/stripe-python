@@ -791,6 +791,14 @@ class Invoice(
         """
         Invoice pdf rendering options
         """
+        template: Optional[str]
+        """
+        ID of the rendering template that the invoice is formatted by.
+        """
+        template_version: Optional[int]
+        """
+        Version of the rendering template that the invoice is using.
+        """
         _inner_class_types = {"pdf": Pdf}
 
     class ShippingCost(StripeObject):
@@ -1655,6 +1663,14 @@ class Invoice(
         pdf: NotRequired["Invoice.CreateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
         """
 
     class CreateParamsRenderingPdf(TypedDict):
@@ -3341,6 +3357,14 @@ class Invoice(
         pdf: NotRequired["Invoice.ModifyParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
         """
 
     class ModifyParamsRenderingPdf(TypedDict):

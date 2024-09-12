@@ -386,11 +386,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
     """
-    tax_amounts: Optional[List[TaxAmount]]
+    tax_amounts: List[TaxAmount]
     """
     The amount of tax calculated per tax rate for this line item
     """
-    tax_rates: Optional[List["TaxRate"]]
+    tax_rates: List["TaxRate"]
     """
     The tax rates which apply to the line item.
     """
