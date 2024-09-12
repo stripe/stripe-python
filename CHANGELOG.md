@@ -1,3 +1,13 @@
+## 10.11.0 - 2024-09-12
+* [#1391](https://github.com/stripe/stripe-python/pull/1391) Update generated code
+  * Add support for `template` on parameter classes `stripe.Customer.CreateParamsInvoiceSettingsRenderingOptions`, `stripe.Customer.ModifyParamsInvoiceSettingsRenderingOptions`, `stripe.Invoice.CreateParamsRendering`, and `stripe.Invoice.ModifyParamsRendering` and resource classes `stripe.Customer.InvoiceSettings.RenderingOptions` and `stripe.Invoice.Rendering`
+  * Add support for resource `stripe.InvoiceRenderingTemplate`
+  * Add support for `required` on parameter classes `stripe.PaymentLink.CreateParamsTaxIdCollection`, `stripe.PaymentLink.ModifyParamsTaxIdCollection`, and `stripe.checkout.Session.CreateParamsTaxIdCollection` and resource classes `stripe.PaymentLink.TaxIdCollection` and `stripe.checkout.Session.TaxIdCollection`
+  * Add support for `submitted` on enum `stripe.issuing.Card.Shipping.status`
+  * Change type of `tax_amounts` on  `stripe.InvoiceLineItem` from `Optional[List[TaxAmount]]` to `List[TaxAmount]`
+  * Change type of `tax_rates` on  `stripe.InvoiceLineItem` from `Optional[List[TaxRate]]` to `List[TaxRate]`
+  * Change type of `status_details` on  `stripe.test_helpers.TestClock` from `Optional[StatusDetails]` to `StatusDetails`
+
 ## 10.10.0 - 2024-09-05
 * [#1376](https://github.com/stripe/stripe-python/pull/1376) Update generated code
   * Add support for `subscription` on parameter class `stripe.billing.Alert.CreateParamsFilter`
