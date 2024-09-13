@@ -412,6 +412,12 @@ from stripe._invoice_payment import InvoicePayment as InvoicePayment
 from stripe._invoice_payment_service import (
     InvoicePaymentService as InvoicePaymentService,
 )
+from stripe._invoice_rendering_template import (
+    InvoiceRenderingTemplate as InvoiceRenderingTemplate,
+)
+from stripe._invoice_rendering_template_service import (
+    InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
+)
 from stripe._invoice_service import InvoiceService as InvoiceService
 from stripe._invoice_upcoming_lines_service import (
     InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
@@ -482,9 +488,6 @@ from stripe._quote_line_item_service import (
 )
 from stripe._quote_line_service import QuoteLineService as QuoteLineService
 from stripe._quote_phase import QuotePhase as QuotePhase
-from stripe._quote_phase_line_item_service import (
-    QuotePhaseLineItemService as QuotePhaseLineItemService,
-)
 from stripe._quote_phase_service import QuotePhaseService as QuotePhaseService
 from stripe._quote_preview_invoice import (
     QuotePreviewInvoice as QuotePreviewInvoice,

@@ -253,6 +253,7 @@ class SessionService(StripeService):
                     "payto",
                     "pix",
                     "promptpay",
+                    "rechnung",
                     "revolut_pay",
                     "sepa_debit",
                     "sofort",
@@ -2354,6 +2355,10 @@ class SessionService(StripeService):
         enabled: bool
         """
         Enable tax ID collection during checkout. Defaults to `false`.
+        """
+        required: NotRequired[Literal["if_supported", "never"]]
+        """
+        Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
     class ExpireParams(TypedDict):

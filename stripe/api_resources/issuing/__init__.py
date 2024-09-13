@@ -23,9 +23,13 @@ if not TYPE_CHECKING:
         CreditUnderwritingRecord,
     )
     from stripe.api_resources.issuing.dispute import Dispute
+    from stripe.api_resources.issuing.dispute_settlement_detail import (
+        DisputeSettlementDetail,
+    )
     from stripe.api_resources.issuing.personalization_design import (
         PersonalizationDesign,
     )
     from stripe.api_resources.issuing.physical_bundle import PhysicalBundle
+    from stripe.api_resources.issuing.settlement import Settlement
     from stripe.api_resources.issuing.token import Token
     from stripe.api_resources.issuing.transaction import Transaction
