@@ -1542,10 +1542,6 @@ class Session(
         """
         Indicates whether tax ID collection is enabled for the session
         """
-        required: Literal["if_supported", "never"]
-        """
-        Indicates whether a tax ID is required on the payment page
-        """
 
     class TotalDetails(StripeObject):
         class Breakdown(StripeObject):
@@ -3794,10 +3790,6 @@ class Session(
         enabled: bool
         """
         Enable tax ID collection during checkout. Defaults to `false`.
-        """
-        required: NotRequired[Literal["if_supported", "never"]]
-        """
-        Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
     class ExpireParams(RequestOptions):

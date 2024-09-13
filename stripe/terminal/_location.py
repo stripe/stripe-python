@@ -63,7 +63,7 @@ class Location(
         """
         display_name: str
         """
-        A name for the location. Maximum length is 1000 characters.
+        A name for the location.
         """
         expand: NotRequired[List[str]]
         """
