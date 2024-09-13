@@ -666,7 +666,6 @@ class PaymentLink(
         """
         Indicates whether tax ID collection is enabled for the session.
         """
-        required: Literal["if_supported", "never"]
 
     class TransferData(StripeObject):
         amount: Optional[int]
@@ -1546,10 +1545,6 @@ class PaymentLink(
         """
         Enable tax ID collection during checkout. Defaults to `false`.
         """
-        required: NotRequired[Literal["if_supported", "never"]]
-        """
-        Describes whether a tax ID is required during checkout. Defaults to `never`.
-        """
 
     class CreateParamsTransferData(TypedDict):
         amount: NotRequired[int]
@@ -2331,10 +2326,6 @@ class PaymentLink(
         enabled: bool
         """
         Enable tax ID collection during checkout. Defaults to `false`.
-        """
-        required: NotRequired[Literal["if_supported", "never"]]
-        """
-        Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
     class RetrieveParams(RequestOptions):

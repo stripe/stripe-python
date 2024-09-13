@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     from stripe.issuing._card import Card
     from stripe.issuing._cardholder import Cardholder
     from stripe.issuing._dispute import Dispute
-    from stripe.issuing._settlement import Settlement
     from stripe.issuing._token import Token
 
 
@@ -1592,10 +1591,6 @@ class Transaction(
         """
         A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         """
-        settlement: NotRequired[str]
-        """
-        Only return transactions that are associated with the given settlement.
-        """
         starting_after: NotRequired[str]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -1718,7 +1713,6 @@ class Transaction(
     """
     Additional purchase information that is optionally provided by the merchant.
     """
-    settlement: Optional[ExpandableField["Settlement"]]
     token: Optional[ExpandableField["Token"]]
     """
     [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
