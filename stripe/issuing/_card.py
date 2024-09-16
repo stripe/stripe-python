@@ -160,6 +160,7 @@ class Card(
                 "pending",
                 "returned",
                 "shipped",
+                "submitted",
             ]
         ]
         """

@@ -615,6 +615,14 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow money movement features.
         """
+        send_money: NotRequired[bool]
+        """
+        Whether to allow sending money.
+        """
+        transfer_balance: NotRequired[bool]
+        """
+        Whether to allow transferring balance.
+        """
 
     class CreateParamsComponentsFinancialAccountTransactions(TypedDict):
         enabled: bool
