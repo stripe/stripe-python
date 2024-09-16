@@ -21,7 +21,7 @@ class LocationService(StripeService):
         """
         display_name: str
         """
-        A name for the location.
+        A name for the location. Maximum length is 1000 characters.
         """
         expand: NotRequired[List[str]]
         """

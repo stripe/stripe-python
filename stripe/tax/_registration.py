@@ -582,12 +582,34 @@ class Registration(
                 A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
                 """
 
+            class StateSalesTax(StripeObject):
+                class Election(StripeObject):
+                    jurisdiction: Optional[str]
+                    """
+                    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
+                    """
+                    type: Literal[
+                        "local_use_tax",
+                        "simplified_sellers_use_tax",
+                        "single_local_use_tax",
+                    ]
+                    """
+                    The type of the election for the state sales tax registration.
+                    """
+
+                elections: Optional[List[Election]]
+                """
+                Elections for the state sales tax registration.
+                """
+                _inner_class_types = {"elections": Election}
+
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
             state: str
             """
             Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
+            state_sales_tax: Optional[StateSalesTax]
             type: Literal[
                 "local_amusement_tax",
                 "local_lease_tax",
@@ -600,6 +622,7 @@ class Registration(
             _inner_class_types = {
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,
+                "state_sales_tax": StateSalesTax,
             }
 
         class Vn(StripeObject):
@@ -1650,6 +1673,12 @@ class Registration(
         """
         Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
+        state_sales_tax: NotRequired[
+            "Registration.CreateParamsCountryOptionsUsStateSalesTax"
+        ]
+        """
+        Options for the state sales tax registration.
+        """
         type: Literal[
             "local_amusement_tax",
             "local_lease_tax",
@@ -1670,6 +1699,28 @@ class Registration(
         jurisdiction: str
         """
         A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
+        """
+
+    class CreateParamsCountryOptionsUsStateSalesTax(TypedDict):
+        elections: List[
+            "Registration.CreateParamsCountryOptionsUsStateSalesTaxElection"
+        ]
+        """
+        Elections for the state sales tax registration.
+        """
+
+    class CreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
+        jurisdiction: NotRequired[str]
+        """
+        A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
+        """
+        type: Literal[
+            "local_use_tax",
+            "simplified_sellers_use_tax",
+            "single_local_use_tax",
+        ]
+        """
+        The type of the election for the state sales tax registration.
         """
 
     class CreateParamsCountryOptionsVn(TypedDict):

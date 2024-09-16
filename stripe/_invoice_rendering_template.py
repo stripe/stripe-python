@@ -11,6 +11,11 @@ from typing_extensions import Literal, NotRequired, Unpack
 class InvoiceRenderingTemplate(
     ListableAPIResource["InvoiceRenderingTemplate"]
 ):
+    """
+    Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
+    can be created from within the Dashboard, and they can be used over the API when creating invoices.
+    """
+
     OBJECT_NAME: ClassVar[Literal["invoice_rendering_template"]] = (
         "invoice_rendering_template"
     )

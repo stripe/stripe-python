@@ -119,7 +119,7 @@ class TestClock(
     """
     The status of the Test Clock.
     """
-    status_details: Optional[StatusDetails]
+    status_details: StatusDetails
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
