@@ -6165,6 +6165,10 @@ class Invoice(
     Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     """
     automatic_tax: AutomaticTax
+    automatically_finalizes_at: Optional[int]
+    """
+    The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
+    """
     billing_reason: Optional[
         Literal[
             "automatic_pending_invoice_item_invoice",
