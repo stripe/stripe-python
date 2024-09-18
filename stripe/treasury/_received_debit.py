@@ -267,7 +267,11 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     failure_code: Optional[
         Literal[
-            "account_closed", "account_frozen", "insufficient_funds", "other"
+            "account_closed",
+            "account_frozen",
+            "insufficient_funds",
+            "international_transaction",
+            "other",
         ]
     ]
     """
