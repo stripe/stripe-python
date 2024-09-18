@@ -107,7 +107,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.promotion_code import PromotionCode
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.quote_line import QuoteLine
-    from stripe.api_resources.quote_phase import QuotePhase
     from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
     from stripe.api_resources.quote_preview_subscription_schedule import (
         QuotePreviewSubscriptionSchedule,

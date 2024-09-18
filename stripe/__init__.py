@@ -487,8 +487,6 @@ from stripe._quote_line_item_service import (
     QuoteLineItemService as QuoteLineItemService,
 )
 from stripe._quote_line_service import QuoteLineService as QuoteLineService
-from stripe._quote_phase import QuotePhase as QuotePhase
-from stripe._quote_phase_service import QuotePhaseService as QuotePhaseService
 from stripe._quote_preview_invoice import (
     QuotePreviewInvoice as QuotePreviewInvoice,
 )
