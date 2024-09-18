@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.13.0b1 - 2024-09-18
+* [#1395](https://github.com/stripe/stripe-python/pull/1395) Update generated code for beta
+  * Add support for `send_money` on parameter class `stripe.AccountSession.CreateParamsComponentsFinancialAccountFeatures`
+  * Add support for `transfer_balance` on parameter class `stripe.AccountSession.CreateParamsComponentsFinancialAccountFeatures`
+  * Add support for `automatically_finalizes_at` on resource `stripe.QuotePreviewInvoice`
+  * Remove support for resource `stripe.QuotePhase`
+  * Add support for `rechnung` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
+  * Add support for `terminal_reader_invalid_location_for_activation` on enum `stripe.QuotePreviewInvoice.LastFinalizationError.code`
+
 ## 10.12.0 - 2024-09-18
 * [#1394](https://github.com/stripe/stripe-python/pull/1394) Update generated code
   * Add support for `international_transaction` on enum `stripe.treasury.ReceivedDebit.failure_code`
