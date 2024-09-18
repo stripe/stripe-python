@@ -1126,6 +1126,10 @@ class QuotePreviewInvoice(StripeObject):
     Whether an attempt has been made to pay the invoice. An invoice is not attempted until 1 hour after the `invoice.created` webhook, for example, so you might not want to display that invoice as unpaid to your users.
     """
     automatic_tax: AutomaticTax
+    automatically_finalizes_at: Optional[int]
+    """
+    The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
+    """
     billing_reason: Optional[
         Literal[
             "automatic_pending_invoice_item_invoice",
