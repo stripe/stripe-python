@@ -339,6 +339,12 @@ class Dispute(
         _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
     class PaymentMethodDetails(StripeObject):
+        class AmazonPay(StripeObject):
+            dispute_type: Optional[Literal["chargeback", "claim"]]
+            """
+            The AmazonPay dispute type, chargeback or claim
+            """
+
         class Card(StripeObject):
             brand: str
             """
@@ -369,14 +375,20 @@ class Dispute(
             The reason for the dispute as defined by PayPal
             """
 
+        amazon_pay: Optional[AmazonPay]
         card: Optional[Card]
         klarna: Optional[Klarna]
         paypal: Optional[Paypal]
-        type: Literal["card", "klarna", "paypal"]
+        type: Literal["amazon_pay", "card", "klarna", "paypal"]
         """
         Payment method type.
         """
-        _inner_class_types = {"card": Card, "klarna": Klarna, "paypal": Paypal}
+        _inner_class_types = {
+            "amazon_pay": AmazonPay,
+            "card": Card,
+            "klarna": Klarna,
+            "paypal": Paypal,
+        }
 
     class CloseParams(RequestOptions):
         expand: NotRequired[List[str]]

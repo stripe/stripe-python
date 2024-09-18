@@ -107,7 +107,6 @@ OBJECT_CLASSES = {
     stripe.PromotionCode.OBJECT_NAME: stripe.PromotionCode,
     stripe.Quote.OBJECT_NAME: stripe.Quote,
     stripe.QuoteLine.OBJECT_NAME: stripe.QuoteLine,
-    stripe.QuotePhase.OBJECT_NAME: stripe.QuotePhase,
     stripe.QuotePreviewInvoice.OBJECT_NAME: stripe.QuotePreviewInvoice,
     stripe.QuotePreviewSubscriptionSchedule.OBJECT_NAME: stripe.QuotePreviewSubscriptionSchedule,
     stripe.radar.EarlyFraudWarning.OBJECT_NAME: stripe.radar.EarlyFraudWarning,

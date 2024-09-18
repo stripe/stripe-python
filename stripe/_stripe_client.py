@@ -83,7 +83,6 @@ from stripe._price_service import PriceService
 from stripe._product_service import ProductService
 from stripe._promotion_code_service import PromotionCodeService
 from stripe._quote_service import QuoteService
-from stripe._quote_phase_service import QuotePhaseService
 from stripe._radar_service import RadarService
 from stripe._refund_service import RefundService
 from stripe._reporting_service import ReportingService
@@ -239,7 +238,6 @@ class StripeClient(object):
         self.products = ProductService(self._requestor)
         self.promotion_codes = PromotionCodeService(self._requestor)
         self.quotes = QuoteService(self._requestor)
-        self.quote_phases = QuotePhaseService(self._requestor)
         self.radar = RadarService(self._requestor)
         self.refunds = RefundService(self._requestor)
         self.reporting = ReportingService(self._requestor)
