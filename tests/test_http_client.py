@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 from typing_extensions import Type
 from unittest.mock import call
 import pytest
@@ -96,11 +96,13 @@ class TestNewHttpClientAsyncFallback(StripeClientTestCase):
 class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
     from contextlib import contextmanager
 
-    def assert_sleep_times(self, client, expected):
-        until = len(expected)
-        actual = list(
-            map(lambda i: client._sleep_time_seconds(i + 1), range(until))
-        )
+    def assert_sleep_times(
+        self, client: _http_client.HTTPClient, expected: List[float]
+    ):
+        # the sleep duration for a request after N retries
+        actual = [
+            client._sleep_time_seconds(i + 1) for i in range(len(expected))
+        ]
         assert expected == actual
 
     @contextmanager
@@ -128,7 +130,7 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         client = _http_client.new_default_http_client()
         client._add_jitter_time = lambda sleep_seconds: sleep_seconds
         max_delay = _http_client.HTTPClient.MAX_DELAY
-        expected = [0.5, 1.0, max_delay, max_delay, max_delay]
+        expected = [0.5, 1.0, 2.0, 4.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
 
     def test_retry_after_header(self):
@@ -1090,7 +1092,7 @@ class TestAPIEncode(StripeClientTestCase):
     def test_encode_dict(self):
         body = {"foo": {"dob": {"month": 1}, "name": "bat"}}
 
-        values = [t for t in _api_encode(body)]
+        values = [t for t in _api_encode(body, "V1")]
 
         assert ("foo[dob][month]", 1) in values
         assert ("foo[name]", "bat") in values
@@ -1098,10 +1100,18 @@ class TestAPIEncode(StripeClientTestCase):
     def test_encode_array(self):
         body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
 
-        values = [t for t in _api_encode(body)]
+        values = [t for t in _api_encode(body, "V1")]
 
         assert ("foo[0][dob][month]", 1) in values
         assert ("foo[0][name]", "bat") in values
+
+    def test_encode_v2_array(self):
+        body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
+
+        values = [t for t in _api_encode(body, "V2")]
+
+        assert ("foo[dob][month]", 1) in values
+        assert ("foo[name]", "bat") in values
 
 
 class TestHTTPXClient(StripeClientTestCase, ClientTestBase):

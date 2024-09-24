@@ -1286,6 +1286,23 @@ class Charge(
             _inner_class_types = {"receipt": Receipt}
 
         class Klarna(StripeObject):
+            class PayerDetails(StripeObject):
+                class Address(StripeObject):
+                    country: Optional[str]
+                    """
+                    The payer address country
+                    """
+
+                address: Optional[Address]
+                """
+                The payer's address
+                """
+                _inner_class_types = {"address": Address}
+
+            payer_details: Optional[PayerDetails]
+            """
+            The payer details for this transaction.
+            """
             payment_method_category: Optional[str]
             """
             The Klarna payment method used for this transaction.
@@ -1296,6 +1313,7 @@ class Charge(
             Preferred language of the Klarna authorization page that the customer is redirected to.
             Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
             """
+            _inner_class_types = {"payer_details": PayerDetails}
 
         class Konbini(StripeObject):
             class Store(StripeObject):

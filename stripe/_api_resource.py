@@ -99,6 +99,7 @@ class APIResource(StripeObject, Generic[T]):
         params=None,
         *,
         base_address: BaseAddress = "api",
+        api_mode: ApiMode = "V1",
     ) -> StripeObject:
         obj = await StripeObject._request_async(
             self,
@@ -109,7 +110,7 @@ class APIResource(StripeObject, Generic[T]):
         )
 
         if type(self) is type(obj):
-            self._refresh_from(values=obj, api_mode="V1")
+            self._refresh_from(values=obj, api_mode=api_mode)
             return self
         else:
             return obj

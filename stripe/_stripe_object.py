@@ -81,8 +81,6 @@ class StripeObject(Dict[str, Any]):
     class _ReprJSONEncoder(json.JSONEncoder):
         def default(self, o: Any) -> Any:
             if isinstance(o, datetime.datetime):
-                # pyright complains that _encode_datetime is "private", but it's
-                # private to outsiders, not to stripe_object
                 return _encode_datetime(o)
             return super(StripeObject._ReprJSONEncoder, self).default(o)
 

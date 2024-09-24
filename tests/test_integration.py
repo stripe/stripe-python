@@ -101,7 +101,6 @@ class TestIntegration(object):
         stripe._default_proxy = None
         stripe.enable_telemetry = False
         stripe.max_network_retries = 3
-        stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
         stripe.upload_api_base = orig_attrs["api_base"]
