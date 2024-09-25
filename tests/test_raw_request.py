@@ -120,7 +120,6 @@ class TestRawRequest(object):
         http_client_mock.assert_requested(
             "get",
             path=self.GET_REL_URL_V2,
-            stripe_version=stripe.preview_api_version,
         )
 
     def test_preview_request_overridden_api_version(self, http_client_mock):

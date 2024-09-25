@@ -36,7 +36,6 @@ connect_api_base: str = DEFAULT_CONNECT_API_BASE
 upload_api_base: str = DEFAULT_UPLOAD_API_BASE
 meter_events_api_base: str = DEFAULT_METER_EVENTS_API_BASE
 api_version: str = _ApiVersion.CURRENT
-preview_api_version: str = _ApiVersion.PREVIEW
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
