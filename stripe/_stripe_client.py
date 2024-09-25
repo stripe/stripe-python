@@ -152,7 +152,7 @@ class StripeClient(object):
             **base_addresses,
         }
 
-        self._requestor_options = RequestorOptions(
+        requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
             stripe_context=stripe_context,
@@ -171,7 +171,7 @@ class StripeClient(object):
             )
 
         self._requestor = _APIRequestor(
-            options=self._requestor_options,
+            options=requestor_options,
             client=http_client,
         )
 
