@@ -12,6 +12,7 @@ from stripe import (
 
 from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
+from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
 from stripe._http_client import (
@@ -20,11 +21,14 @@ from stripe._http_client import (
     new_http_client_async_fallback,
 )
 from stripe._api_version import _ApiVersion
+from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
+from stripe._util import _convert_to_stripe_object
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2._event import ThinEvent
 
-from typing import Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -148,7 +152,7 @@ class StripeClient(object):
             **base_addresses,
         }
 
-        requestor_options = RequestorOptions(
+        self._requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
             stripe_context=stripe_context,
@@ -167,7 +171,7 @@ class StripeClient(object):
             )
 
         self._requestor = _APIRequestor(
-            options=requestor_options,
+            options=self._requestor_options,
             client=http_client,
         )
 
@@ -276,7 +280,7 @@ class StripeClient(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        return ThinEvent(payload)
+        return json.loads(payload)
 
     def parse_snapshot_event(
         self,
@@ -298,3 +302,62 @@ class StripeClient(object):
         )
 
         return event
+
+    def raw_request(self, method_: str, url_: str, **params):
+        params = params.copy()
+        options, params = extract_options_from_dict(params)
+        api_mode = params.pop("api_mode", None)
+        base_address = params.pop("base", "api")
+
+        stripe_context = params.pop("stripe_context", None)
+
+        # stripe-context goes *here* and not in api_requestor. Properties
+        # go on api_requestor when you want them to persist onto requests
+        # made when you call instance methods on APIResources that come from
+        # the first request. No need for that here, as we aren't deserializing APIResources
+        if stripe_context is not None:
+            options["headers"] = options.get("headers", {})
+            assert isinstance(options["headers"], dict)
+            options["headers"].update({"Stripe-Context": stripe_context})
+
+        rbody, rcode, rheaders = self._requestor.request_raw(
+            method_,
+            url_,
+            params=params,
+            options=options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["raw_request"],
+        )
+
+        return self._requestor._interpret_response(rbody, rcode, rheaders)
+
+    async def raw_request_async(self, method_: str, url_: str, **params):
+        params = params.copy()
+        options, params = extract_options_from_dict(params)
+        api_mode = params.pop("api_mode", None)
+        base_address = params.pop("base", "api")
+
+        rbody, rcode, rheaders = await self._requestor.request_raw_async(
+            method_,
+            url_,
+            params=params,
+            options=options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["raw_request"],
+        )
+
+        return self._requestor._interpret_response(rbody, rcode, rheaders)
+
+    def deserialize(
+        self,
+        resp: Union[StripeResponse, Dict[str, Any]],
+        params: Optional[Dict[str, Any]] = None,
+    ) -> StripeObject:
+        return _convert_to_stripe_object(
+            resp=resp,
+            params=params,
+            requestor=self._requestor,
+            api_mode="V1",
+        )
