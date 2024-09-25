@@ -17,7 +17,9 @@ class PromotionCodeService(StripeService):
         """
         code: NotRequired[str]
         """
-        The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. If left blank, we will generate one automatically.
+        The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+
+        If left blank, we will generate one automatically.
         """
         coupon: str
         """
