@@ -123,23 +123,6 @@ class OutboundTransfer(
             "us_bank_account": UsBankAccount,
         }
 
-    class NetworkDetails(StripeObject):
-        class Ach(StripeObject):
-            addenda: Optional[str]
-            """
-            ACH Addenda record
-            """
-
-        ach: Optional[Ach]
-        """
-        Details about an ACH transaction.
-        """
-        type: Literal["ach"]
-        """
-        The type of flow that originated the OutboundTransfer.
-        """
-        _inner_class_types = {"ach": Ach}
-
     class ReturnedDetails(StripeObject):
         code: Literal[
             "account_closed",
@@ -249,12 +232,6 @@ class OutboundTransfer(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        network_details: NotRequired[
-            "OutboundTransfer.CreateParamsNetworkDetails"
-        ]
-        """
-        Details about the network used for the OutboundTransfer.
-        """
         statement_descriptor: NotRequired[str]
         """
         Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
@@ -272,22 +249,6 @@ class OutboundTransfer(
         network: NotRequired[Literal["ach", "us_domestic_wire"]]
         """
         Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
-        """
-
-    class CreateParamsNetworkDetails(TypedDict):
-        ach: NotRequired["OutboundTransfer.CreateParamsNetworkDetailsAch"]
-        """
-        Optional fields for `ach`.
-        """
-        type: Literal["ach"]
-        """
-        The type of flow that originated the OutboundTransfer.
-        """
-
-    class CreateParamsNetworkDetailsAch(TypedDict):
-        addenda: NotRequired[str]
-        """
-        Addenda record data associated with this OutboundTransfer.
         """
 
     class FailParams(RequestOptions):
@@ -461,10 +422,6 @@ class OutboundTransfer(
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    """
-    network_details: Optional[NetworkDetails]
-    """
-    Details about the network used for the OutboundTransfer.
     """
     object: Literal["treasury.outbound_transfer"]
     """
@@ -1179,7 +1136,6 @@ class OutboundTransfer(
 
     _inner_class_types = {
         "destination_payment_method_details": DestinationPaymentMethodDetails,
-        "network_details": NetworkDetails,
         "returned_details": ReturnedDetails,
         "status_transitions": StatusTransitions,
         "tracking_details": TrackingDetails,

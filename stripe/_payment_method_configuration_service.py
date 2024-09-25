@@ -199,12 +199,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
         """
-        payto: NotRequired[
-            "PaymentMethodConfigurationService.CreateParamsPayto"
-        ]
-        """
-        PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
-        """
         promptpay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPromptpay"
         ]
@@ -706,20 +700,6 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
-    class CreateParamsPayto(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfigurationService.CreateParamsPaytoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPaytoDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
     class CreateParamsPromptpay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPromptpayDisplayPreference"
@@ -1062,12 +1042,6 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-        """
-        payto: NotRequired[
-            "PaymentMethodConfigurationService.UpdateParamsPayto"
-        ]
-        """
-        PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
         """
         promptpay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPromptpay"
@@ -1565,20 +1539,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class UpdateParamsPayto(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfigurationService.UpdateParamsPaytoDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class UpdateParamsPaytoDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

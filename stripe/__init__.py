@@ -36,7 +36,6 @@ connect_api_base: str = DEFAULT_CONNECT_API_BASE
 upload_api_base: str = DEFAULT_UPLOAD_API_BASE
 meter_events_api_base: str = DEFAULT_METER_EVENTS_API_BASE
 api_version: str = _ApiVersion.CURRENT
-preview_api_version: str = _ApiVersion.PREVIEW
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
@@ -125,18 +124,6 @@ def set_app_info(
         "url": url,
         "version": version,
     }
-
-
-# Add a beta version to the API version.
-def add_beta_version(
-    beta_name: str,
-    beta_version: str,
-):
-    if stripe.api_version.find(f"; {beta_name}=") != -1:
-        raise Exception(
-            f"Stripe version header {stripe.api_version} already contains entry for beta {beta_name}"
-        )
-    stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
 
 
 # Infrastructure types
@@ -273,14 +260,12 @@ from stripe import (
     apps as apps,
     billing as billing,
     billing_portal as billing_portal,
-    capital as capital,
     checkout as checkout,
     climate as climate,
     entitlements as entitlements,
     events as events,
     financial_connections as financial_connections,
     forwarding as forwarding,
-    gift_cards as gift_cards,
     identity as identity,
     issuing as issuing,
     radar as radar,
@@ -305,10 +290,6 @@ from stripe._account_link_service import (
 )
 from stripe._account_login_link_service import (
     AccountLoginLinkService as AccountLoginLinkService,
-)
-from stripe._account_notice import AccountNotice as AccountNotice
-from stripe._account_notice_service import (
-    AccountNoticeService as AccountNoticeService,
 )
 from stripe._account_person_service import (
     AccountPersonService as AccountPersonService,
@@ -348,7 +329,6 @@ from stripe._billing_portal_service import (
 )
 from stripe._billing_service import BillingService as BillingService
 from stripe._capability import Capability as Capability
-from stripe._capital_service import CapitalService as CapitalService
 from stripe._card import Card as Card
 from stripe._cash_balance import CashBalance as CashBalance
 from stripe._charge import Charge as Charge
@@ -442,7 +422,6 @@ from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )
-from stripe._gift_cards_service import GiftCardsService as GiftCardsService
 from stripe._identity_service import IdentityService as IdentityService
 from stripe._invoice import Invoice as Invoice
 from stripe._invoice_item import InvoiceItem as InvoiceItem
@@ -516,27 +495,8 @@ from stripe._quote import Quote as Quote
 from stripe._quote_computed_upfront_line_items_service import (
     QuoteComputedUpfrontLineItemsService as QuoteComputedUpfrontLineItemsService,
 )
-from stripe._quote_line import QuoteLine as QuoteLine
 from stripe._quote_line_item_service import (
     QuoteLineItemService as QuoteLineItemService,
-)
-from stripe._quote_line_service import QuoteLineService as QuoteLineService
-from stripe._quote_phase import QuotePhase as QuotePhase
-from stripe._quote_phase_line_item_service import (
-    QuotePhaseLineItemService as QuotePhaseLineItemService,
-)
-from stripe._quote_phase_service import QuotePhaseService as QuotePhaseService
-from stripe._quote_preview_invoice import (
-    QuotePreviewInvoice as QuotePreviewInvoice,
-)
-from stripe._quote_preview_invoice_service import (
-    QuotePreviewInvoiceService as QuotePreviewInvoiceService,
-)
-from stripe._quote_preview_subscription_schedule import (
-    QuotePreviewSubscriptionSchedule as QuotePreviewSubscriptionSchedule,
-)
-from stripe._quote_preview_subscription_schedule_service import (
-    QuotePreviewSubscriptionScheduleService as QuotePreviewSubscriptionScheduleService,
 )
 from stripe._quote_service import QuoteService as QuoteService
 from stripe._radar_service import RadarService as RadarService

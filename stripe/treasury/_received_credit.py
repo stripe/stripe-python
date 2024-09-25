@@ -180,23 +180,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         """
         _inner_class_types = {"source_flow_details": SourceFlowDetails}
 
-    class NetworkDetails(StripeObject):
-        class Ach(StripeObject):
-            addenda: Optional[str]
-            """
-            ACH Addenda record
-            """
-
-        ach: Optional[Ach]
-        """
-        Details about an ACH transaction.
-        """
-        type: Literal["ach"]
-        """
-        The type of flow that originated the ReceivedCredit.
-        """
-        _inner_class_types = {"ach": Ach}
-
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
         """
@@ -246,12 +229,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         """
         Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         """
-        network_details: NotRequired[
-            "ReceivedCredit.CreateParamsNetworkDetails"
-        ]
-        """
-        Details about the network used for the ReceivedCredit.
-        """
 
     class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
         type: Literal["us_bank_account"]
@@ -277,22 +254,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         routing_number: NotRequired[str]
         """
         The bank account's routing number.
-        """
-
-    class CreateParamsNetworkDetails(TypedDict):
-        ach: NotRequired["ReceivedCredit.CreateParamsNetworkDetailsAch"]
-        """
-        Optional fields for `ach`.
-        """
-        type: Literal["ach"]
-        """
-        The type of flow that originated the ReceivedCredit.
-        """
-
-    class CreateParamsNetworkDetailsAch(TypedDict):
-        addenda: NotRequired[str]
-        """
-        ACH Addenda record
         """
 
     class ListParams(RequestOptions):
@@ -382,10 +343,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     network: Literal["ach", "card", "stripe", "us_domestic_wire"]
     """
     The rails used to send the funds.
-    """
-    network_details: Optional[NetworkDetails]
-    """
-    Details specific to the money movement rails.
     """
     object: Literal["treasury.received_credit"]
     """
@@ -508,7 +465,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     _inner_class_types = {
         "initiating_payment_method_details": InitiatingPaymentMethodDetails,
         "linked_flows": LinkedFlows,
-        "network_details": NetworkDetails,
         "reversal_details": ReversalDetails,
     }
 

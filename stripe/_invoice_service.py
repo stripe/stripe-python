@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._invoice import Invoice
 from stripe._invoice_line_item_service import InvoiceLineItemService
-from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._invoice_upcoming_lines_service import InvoiceUpcomingLinesService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
@@ -16,7 +15,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class InvoiceService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.payments = InvoicePaymentService(self._requestor)
         self.line_items = InvoiceLineItemService(self._requestor)
         self.upcoming_lines = InvoiceUpcomingLinesService(self._requestor)
 
@@ -56,10 +54,6 @@ class InvoiceService(StripeService):
         invoice_item: NotRequired[str]
         """
         ID of an unassigned invoice item to assign to this invoice. If not provided, a new item will be created.
-        """
-        margins: NotRequired["Literal['']|List[str]"]
-        """
-        The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -101,41 +95,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.AddLinesParamsLineDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class AddLinesParamsLineDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.AddLinesParamsLineDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class AddLinesParamsLineDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class AddLinesParamsLinePeriod(TypedDict):
@@ -265,76 +227,10 @@ class InvoiceService(StripeService):
         The high-level tax type, such as `vat` or `sales_tax`.
         """
 
-    class AttachPaymentIntentParams(TypedDict):
-        amount_requested: NotRequired[int]
-        """
-        The portion of the PaymentIntent's `amount` that should be applied to thisinvoice. Defaults to the entire amount.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        payment_intent: str
-        """
-        The ID of the PaymentIntent to attach to the invoice.
-        """
-
-    class AttachPaymentParams(TypedDict):
-        amount_requested: NotRequired[int]
-        """
-        The portion of the `amount` on the PaymentIntent or out of band payment to apply to this invoice. It defaults to the entire amount.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        out_of_band_payment: NotRequired[
-            "InvoiceService.AttachPaymentParamsOutOfBandPayment"
-        ]
-        """
-        The out of band payment to attach to the invoice.
-        """
-        payment_intent: NotRequired[str]
-        """
-        The ID of the PaymentIntent to attach to the invoice.
-        """
-
-    class AttachPaymentParamsOutOfBandPayment(TypedDict):
-        amount: int
-        """
-        The amount that was paid out of band.
-        """
-        currency: str
-        """
-        The currency that was paid out of band.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        money_movement_type: str
-        """
-        The type of money movement for this out of band payment record.
-        """
-        paid_at: NotRequired[int]
-        """
-        The timestamp when this out of band payment was paid.
-        """
-        payment_reference: NotRequired[str]
-        """
-        The reference for this out of band payment record.
-        """
-
     class CreateParams(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
         The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
-        """
-        amounts_due: NotRequired[
-            "Literal['']|List[InvoiceService.CreateParamsAmountsDue]"
-        ]
-        """
-        List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
         """
         application_fee_amount: NotRequired[int]
         """
@@ -371,10 +267,6 @@ class InvoiceService(StripeService):
         days_until_due: NotRequired[int]
         """
         The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
-        """
-        default_margins: NotRequired[List[str]]
-        """
-        The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
         """
         default_payment_method: NotRequired[str]
         """
@@ -473,24 +365,6 @@ class InvoiceService(StripeService):
         If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge.
         """
 
-    class CreateParamsAmountsDue(TypedDict):
-        amount: int
-        """
-        The amount in cents (or local equivalent).
-        """
-        days_until_due: NotRequired[int]
-        """
-        Number of days from when invoice is finalized until the payment is due.
-        """
-        description: str
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        due_date: NotRequired[int]
-        """
-        Date on which a payment plan's payment is due.
-        """
-
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
@@ -532,41 +406,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreateParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreateParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.CreateParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreateParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsFromInvoice(TypedDict):
@@ -805,14 +647,7 @@ class InvoiceService(StripeService):
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -826,10 +661,6 @@ class InvoiceService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
-        """
-        institution: NotRequired[str]
-        """
-        ID of the institution to use to filter for selectable accounts.
         """
 
     class CreateParamsRendering(TypedDict):
@@ -1325,41 +1156,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsInvoiceItem(TypedDict):
@@ -1445,41 +1244,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsInvoiceItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsInvoiceItemDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsInvoiceItemPeriod(TypedDict):
@@ -1527,18 +1294,6 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsScheduleDetails(TypedDict):
-        amendments: NotRequired[
-            List["InvoiceService.CreatePreviewParamsScheduleDetailsAmendment"]
-        ]
-        """
-        Changes to apply to the phases of the subscription schedule, in the order provided.
-        """
-        billing_behavior: NotRequired[
-            Literal["prorate_on_next_phase", "prorate_up_front"]
-        ]
-        """
-        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-        """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -1549,550 +1304,11 @@ class InvoiceService(StripeService):
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
         """
-        prebilling: NotRequired[
-            "Literal['']|List[InvoiceService.CreatePreviewParamsScheduleDetailsPrebilling]"
-        ]
-        """
-        Provide any time periods to bill in advance.
-        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendment(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentEnd"
-        ]
-        """
-        Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
-        """
-        amendment_start: "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentStart"
-        """
-        Details to identify the earliest timestamp where the proposed change should take effect.
-        """
-        billing_cycle_anchor: NotRequired[
-            Literal["amendment_start", "automatic"]
-        ]
-        """
-        For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
-        """
-        discount_actions: NotRequired[
-            List[
-                "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentDiscountAction"
-            ]
-        ]
-        """
-        Changes to the coupons being redeemed or discounts being applied during the amendment time span.
-        """
-        item_actions: NotRequired[
-            List[
-                "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemAction"
-            ]
-        ]
-        """
-        Changes to the subscription items during the amendment time span.
-        """
-        metadata_actions: NotRequired[
-            List[
-                "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentMetadataAction"
-            ]
-        ]
-        """
-        Instructions for how to modify phase metadata
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
-        """
-        set_pause_collection: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection"
-        ]
-        """
-        Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
-        """
-        set_schedule_end: NotRequired[
-            Literal["amendment_end", "amendment_start"]
-        ]
-        """
-        Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
-        """
-        trial_settings: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentTrialSettings"
-        ]
-        """
-        Settings related to subscription trials.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentEnd(TypedDict):
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDiscountEnd"
-        ]
-        """
-        Use the `end` time of a given discount.
-        """
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDuration"
-        ]
-        """
-        Time span for the amendment starting from the `amendment_start`.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
-        """
-        type: Literal[
-            "discount_end",
-            "duration",
-            "schedule_end",
-            "timestamp",
-            "trial_end",
-            "trial_start",
-            "upcoming_invoice",
-        ]
-        """
-        Select one of three ways to pass the `amendment_end`.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDiscountEnd(
-        TypedDict,
-    ):
-        discount: str
-        """
-        The ID of a specific discount.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentStart(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd"
-        ]
-        """
-        Details of another amendment in the same array, immediately after which this amendment should begin.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd"
-        ]
-        """
-        Use the `end` time of a given discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the amendment to start.
-        """
-        type: Literal[
-            "amendment_end",
-            "discount_end",
-            "now",
-            "schedule_end",
-            "timestamp",
-            "trial_end",
-            "trial_start",
-            "upcoming_invoice",
-        ]
-        """
-        Select one of three ways to pass the `amendment_start`.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd(
-        TypedDict,
-    ):
-        index: int
-        """
-        The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd(
-        TypedDict,
-    ):
-        discount: str
-        """
-        The ID of a specific discount.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentDiscountAction(TypedDict):
-        add: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd"
-        ]
-        """
-        Details of the discount to add.
-        """
-        remove: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentDiscountActionRemove"
-        ]
-        """
-        Details of the discount to remove.
-        """
-        set: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet"
-        ]
-        """
-        Details of the discount to replace the existing discounts with.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Determines the type of discount action.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        The coupon code to redeem.
-        """
-        discount: NotRequired[str]
-        """
-        An ID of an existing discount for a coupon that was already redeemed.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        index: NotRequired[int]
-        """
-        The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to redeem.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd(
-        TypedDict,
-    ):
-        type: Literal["amendment_end"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentDiscountActionRemove(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        The coupon code to remove from the `discounts` array.
-        """
-        discount: NotRequired[str]
-        """
-        The ID of a discount to remove from the `discounts` array.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to remove from the `discounts` array.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        The coupon code to replace the `discounts` array with.
-        """
-        discount: NotRequired[str]
-        """
-        An ID of an existing discount to replace the `discounts` array with.
-        """
-        promotion_code: NotRequired[str]
-        """
-        An ID of an existing promotion code to replace the `discounts` array with.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemAction(TypedDict):
-        add: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionAdd"
-        ]
-        """
-        Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
-        """
-        remove: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionRemove"
-        ]
-        """
-        Details of the subscription item to remove.
-        """
-        set: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionSet"
-        ]
-        """
-        Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Determines the type of item action.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionAdd(TypedDict):
-        discounts: NotRequired[
-            List[
-                "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount"
-            ]
-        ]
-        """
-        The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        price: str
-        """
-        The ID of the price object.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired[List[str]]
-        """
-        The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
-        """
-        trial: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionAddTrial"
-        ]
-        """
-        Options that configure the trial on the subscription item.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionAddTrial(
-        TypedDict,
-    ):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionRemove(
-        TypedDict,
-    ):
-        price: str
-        """
-        ID of a price to remove.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionSet(TypedDict):
-        discounts: NotRequired[
-            List[
-                "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount"
-            ]
-        ]
-        """
-        If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
-        """
-        price: str
-        """
-        The ID of the price object.
-        """
-        quantity: NotRequired[int]
-        """
-        If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
-        """
-        tax_rates: NotRequired[List[str]]
-        """
-        If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
-        """
-        trial: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial"
-        ]
-        """
-        If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial(
-        TypedDict,
-    ):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentMetadataAction(TypedDict):
-        add: NotRequired[Dict[str, str]]
-        """
-        Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
-        """
-        remove: NotRequired[List[str]]
-        """
-        Keys to remove from schedule phase metadata.
-        """
-        set: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Select one of three ways to update phase-level `metadata` on subscription schedules.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection(
-        TypedDict,
-    ):
-        set: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentSetPauseCollectionSet"
-        ]
-        """
-        Details of the pause_collection behavior to apply to the amendment.
-        """
-        type: Literal["remove", "set"]
-        """
-        Determines the type of the pause_collection amendment.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentSetPauseCollectionSet(
-        TypedDict,
-    ):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-        """
-        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentTrialSettings(TypedDict):
-        end_behavior: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior"
-        ]
-        """
-        Defines how the subscription should behave when a trial ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior(
-        TypedDict,
-    ):
-        prorate_up_front: NotRequired[Literal["defer", "include"]]
-        """
-        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
@@ -2184,12 +1400,6 @@ class InvoiceService(StripeService):
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
-        pause_collection: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhasePauseCollection"
-        ]
-        """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
-        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
@@ -2210,19 +1420,9 @@ class InvoiceService(StripeService):
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_continuation: NotRequired[Literal["continue", "none"]]
-        """
-        Specify trial behavior when crossing phase boundaries
-        """
         trial_end: NotRequired["int|Literal['now']"]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
-        """
-        trial_settings: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseTrialSettings"
-        ]
-        """
-        Settings related to subscription trials.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
@@ -2264,45 +1464,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
@@ -2374,45 +1538,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd(
-        TypedDict
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -2482,12 +1610,6 @@ class InvoiceService(StripeService):
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
-        trial: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseItemTrial"
-        ]
-        """
-        Options that configure the trial on the subscription item.
-        """
 
     class CreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds(
         TypedDict,
@@ -2506,45 +1628,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseItemPriceData(TypedDict):
@@ -2587,22 +1673,6 @@ class InvoiceService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
-    class CreatePreviewParamsScheduleDetailsPhaseItemTrial(TypedDict):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhasePauseCollection(TypedDict):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-        """
-        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        """
-
     class CreatePreviewParamsScheduleDetailsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[float]
         """
@@ -2611,76 +1681,6 @@ class InvoiceService(StripeService):
         destination: str
         """
         ID of an existing, connected Stripe account.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseTrialSettings(TypedDict):
-        end_behavior: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseTrialSettingsEndBehavior"
-        ]
-        """
-        Defines how the subscription should behave when a trial ends.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseTrialSettingsEndBehavior(
-        TypedDict,
-    ):
-        prorate_up_front: NotRequired[Literal["defer", "include"]]
-        """
-        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPrebilling(TypedDict):
-        bill_until: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPrebillingBillUntil"
-        ]
-        """
-        The end of the prebilled time period.
-        """
-        iterations: NotRequired[int]
-        """
-        This is used to determine the number of billing cycles to prebill.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPrebillingBillUntil(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPrebillingBillUntilAmendmentEnd"
-        ]
-        """
-        End the prebilled period when a specified amendment ends.
-        """
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration"
-        ]
-        """
-        Time span for prebilling, starting from `bill_from`.
-        """
-        timestamp: NotRequired[int]
-        """
-        End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
-        """
-        type: Literal["amendment_end", "duration", "schedule_end", "timestamp"]
-        """
-        Select one of several ways to pass the `bill_until` value.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPrebillingBillUntilAmendmentEnd(
-        TypedDict,
-    ):
-        index: int
-        """
-        The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsSubscriptionDetails(TypedDict):
@@ -2709,12 +1709,6 @@ class InvoiceService(StripeService):
         ]
         """
         A list of up to 20 subscription items, each with an attached price.
-        """
-        prebilling: NotRequired[
-            "InvoiceService.CreatePreviewParamsSubscriptionDetailsPrebilling"
-        ]
-        """
-        The pre-billing to apply to the subscription as a preview.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -2808,45 +1802,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.CreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class CreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.CreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class CreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreatePreviewParamsSubscriptionDetailsItemPriceData(TypedDict):
@@ -2887,12 +1845,6 @@ class InvoiceService(StripeService):
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class CreatePreviewParamsSubscriptionDetailsPrebilling(TypedDict):
-        iterations: int
-        """
-        This is used to determine the number of billing cycles to prebill.
         """
 
     class DeleteParams(TypedDict):
@@ -3178,12 +2130,6 @@ class InvoiceService(StripeService):
         """
         A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
         """
-        subscription_prebilling: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionPrebilling"
-        ]
-        """
-        The pre-billing to apply to the subscription as a preview. This field has been deprecated and will be removed in a future API version. Use `subscription_details.prebilling` instead.
-        """
         subscription_proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
@@ -3429,41 +2375,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsInvoiceItem(TypedDict):
@@ -3547,41 +2461,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsInvoiceItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsInvoiceItemDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsInvoiceItemPeriod(TypedDict):
@@ -3629,18 +2511,6 @@ class InvoiceService(StripeService):
         """
 
     class UpcomingParamsScheduleDetails(TypedDict):
-        amendments: NotRequired[
-            List["InvoiceService.UpcomingParamsScheduleDetailsAmendment"]
-        ]
-        """
-        Changes to apply to the phases of the subscription schedule, in the order provided.
-        """
-        billing_behavior: NotRequired[
-            Literal["prorate_on_next_phase", "prorate_up_front"]
-        ]
-        """
-        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
-        """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -3651,538 +2521,11 @@ class InvoiceService(StripeService):
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
         """
-        prebilling: NotRequired[
-            "Literal['']|List[InvoiceService.UpcomingParamsScheduleDetailsPrebilling]"
-        ]
-        """
-        Provide any time periods to bill in advance.
-        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
         In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendment(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentEnd"
-        ]
-        """
-        Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
-        """
-        amendment_start: "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentStart"
-        """
-        Details to identify the earliest timestamp where the proposed change should take effect.
-        """
-        billing_cycle_anchor: NotRequired[
-            Literal["amendment_start", "automatic"]
-        ]
-        """
-        For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
-        """
-        discount_actions: NotRequired[
-            List[
-                "InvoiceService.UpcomingParamsScheduleDetailsAmendmentDiscountAction"
-            ]
-        ]
-        """
-        Changes to the coupons being redeemed or discounts being applied during the amendment time span.
-        """
-        item_actions: NotRequired[
-            List[
-                "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemAction"
-            ]
-        ]
-        """
-        Changes to the subscription items during the amendment time span.
-        """
-        metadata_actions: NotRequired[
-            List[
-                "InvoiceService.UpcomingParamsScheduleDetailsAmendmentMetadataAction"
-            ]
-        ]
-        """
-        Instructions for how to modify phase metadata
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
-        """
-        set_pause_collection: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentSetPauseCollection"
-        ]
-        """
-        Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
-        """
-        set_schedule_end: NotRequired[
-            Literal["amendment_end", "amendment_start"]
-        ]
-        """
-        Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
-        """
-        trial_settings: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentTrialSettings"
-        ]
-        """
-        Settings related to subscription trials.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentEnd(TypedDict):
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentEndDiscountEnd"
-        ]
-        """
-        Use the `end` time of a given discount.
-        """
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentEndDuration"
-        ]
-        """
-        Time span for the amendment starting from the `amendment_start`.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
-        """
-        type: Literal[
-            "discount_end",
-            "duration",
-            "schedule_end",
-            "timestamp",
-            "trial_end",
-            "trial_start",
-            "upcoming_invoice",
-        ]
-        """
-        Select one of three ways to pass the `amendment_end`.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentEndDiscountEnd(
-        TypedDict,
-    ):
-        discount: str
-        """
-        The ID of a specific discount.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentEndDuration(
-        TypedDict
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentStart(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd"
-        ]
-        """
-        Details of another amendment in the same array, immediately after which this amendment should begin.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd"
-        ]
-        """
-        Use the `end` time of a given discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the amendment to start.
-        """
-        type: Literal[
-            "amendment_end",
-            "discount_end",
-            "now",
-            "schedule_end",
-            "timestamp",
-            "trial_end",
-            "trial_start",
-            "upcoming_invoice",
-        ]
-        """
-        Select one of three ways to pass the `amendment_start`.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd(
-        TypedDict,
-    ):
-        index: int
-        """
-        The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd(
-        TypedDict,
-    ):
-        discount: str
-        """
-        The ID of a specific discount.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentDiscountAction(TypedDict):
-        add: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentDiscountActionAdd"
-        ]
-        """
-        Details of the discount to add.
-        """
-        remove: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentDiscountActionRemove"
-        ]
-        """
-        Details of the discount to remove.
-        """
-        set: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentDiscountActionSet"
-        ]
-        """
-        Details of the discount to replace the existing discounts with.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Determines the type of discount action.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentDiscountActionAdd(TypedDict):
-        coupon: NotRequired[str]
-        """
-        The coupon code to redeem.
-        """
-        discount: NotRequired[str]
-        """
-        An ID of an existing discount for a coupon that was already redeemed.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        index: NotRequired[int]
-        """
-        The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to redeem.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd(
-        TypedDict,
-    ):
-        type: Literal["amendment_end"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentDiscountActionRemove(
-        TypedDict
-    ):
-        coupon: NotRequired[str]
-        """
-        The coupon code to remove from the `discounts` array.
-        """
-        discount: NotRequired[str]
-        """
-        The ID of a discount to remove from the `discounts` array.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to remove from the `discounts` array.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentDiscountActionSet(TypedDict):
-        coupon: NotRequired[str]
-        """
-        The coupon code to replace the `discounts` array with.
-        """
-        discount: NotRequired[str]
-        """
-        An ID of an existing discount to replace the `discounts` array with.
-        """
-        promotion_code: NotRequired[str]
-        """
-        An ID of an existing promotion code to replace the `discounts` array with.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemAction(TypedDict):
-        add: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionAdd"
-        ]
-        """
-        Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
-        """
-        remove: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionRemove"
-        ]
-        """
-        Details of the subscription item to remove.
-        """
-        set: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionSet"
-        ]
-        """
-        Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Determines the type of item action.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionAdd(TypedDict):
-        discounts: NotRequired[
-            List[
-                "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscount"
-            ]
-        ]
-        """
-        The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        price: str
-        """
-        The ID of the price object.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired[List[str]]
-        """
-        The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
-        """
-        trial: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionAddTrial"
-        ]
-        """
-        Options that configure the trial on the subscription item.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscount(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionAddTrial(TypedDict):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionRemove(TypedDict):
-        price: str
-        """
-        ID of a price to remove.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionSet(TypedDict):
-        discounts: NotRequired[
-            List[
-                "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscount"
-            ]
-        ]
-        """
-        If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
-        """
-        price: str
-        """
-        The ID of the price object.
-        """
-        quantity: NotRequired[int]
-        """
-        If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
-        """
-        tax_rates: NotRequired[List[str]]
-        """
-        If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
-        """
-        trial: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionSetTrial"
-        ]
-        """
-        If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscount(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentItemActionSetTrial(TypedDict):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentMetadataAction(TypedDict):
-        add: NotRequired[Dict[str, str]]
-        """
-        Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
-        """
-        remove: NotRequired[List[str]]
-        """
-        Keys to remove from schedule phase metadata.
-        """
-        set: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
-        """
-        type: Literal["add", "remove", "set"]
-        """
-        Select one of three ways to update phase-level `metadata` on subscription schedules.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentSetPauseCollection(TypedDict):
-        set: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentSetPauseCollectionSet"
-        ]
-        """
-        Details of the pause_collection behavior to apply to the amendment.
-        """
-        type: Literal["remove", "set"]
-        """
-        Determines the type of the pause_collection amendment.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentSetPauseCollectionSet(
-        TypedDict,
-    ):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-        """
-        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentTrialSettings(TypedDict):
-        end_behavior: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsAmendmentTrialSettingsEndBehavior"
-        ]
-        """
-        Defines how the subscription should behave when a trial ends.
-        """
-
-    class UpcomingParamsScheduleDetailsAmendmentTrialSettingsEndBehavior(
-        TypedDict,
-    ):
-        prorate_up_front: NotRequired[Literal["defer", "include"]]
-        """
-        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         """
 
     class UpcomingParamsScheduleDetailsPhase(TypedDict):
@@ -4272,12 +2615,6 @@ class InvoiceService(StripeService):
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
-        pause_collection: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhasePauseCollection"
-        ]
-        """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
-        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
@@ -4298,19 +2635,9 @@ class InvoiceService(StripeService):
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_continuation: NotRequired[Literal["continue", "none"]]
-        """
-        Specify trial behavior when crossing phase boundaries
-        """
         trial_end: NotRequired["int|Literal['now']"]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
-        """
-        trial_settings: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseTrialSettings"
-        ]
-        """
-        Settings related to subscription trials.
         """
 
     class UpcomingParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
@@ -4350,45 +2677,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEnd(
-        TypedDict,
-    ):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsScheduleDetailsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -4456,43 +2747,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -4560,12 +2817,6 @@ class InvoiceService(StripeService):
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
-        trial: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseItemTrial"
-        ]
-        """
-        Options that configure the trial on the subscription item.
-        """
 
     class UpcomingParamsScheduleDetailsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
@@ -4582,43 +2833,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsScheduleDetailsPhaseItemPriceData(TypedDict):
@@ -4659,22 +2876,6 @@ class InvoiceService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
-    class UpcomingParamsScheduleDetailsPhaseItemTrial(TypedDict):
-        converts_to: NotRequired[List[str]]
-        """
-        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
-        """
-        type: Literal["free", "paid"]
-        """
-        Determines the type of trial for this item.
-        """
-
-    class UpcomingParamsScheduleDetailsPhasePauseCollection(TypedDict):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-        """
-        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        """
-
     class UpcomingParamsScheduleDetailsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[float]
         """
@@ -4683,74 +2884,6 @@ class InvoiceService(StripeService):
         destination: str
         """
         ID of an existing, connected Stripe account.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseTrialSettings(TypedDict):
-        end_behavior: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPhaseTrialSettingsEndBehavior"
-        ]
-        """
-        Defines how the subscription should behave when a trial ends.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseTrialSettingsEndBehavior(
-        TypedDict
-    ):
-        prorate_up_front: NotRequired[Literal["defer", "include"]]
-        """
-        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
-        """
-
-    class UpcomingParamsScheduleDetailsPrebilling(TypedDict):
-        bill_until: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPrebillingBillUntil"
-        ]
-        """
-        The end of the prebilled time period.
-        """
-        iterations: NotRequired[int]
-        """
-        This is used to determine the number of billing cycles to prebill.
-        """
-
-    class UpcomingParamsScheduleDetailsPrebillingBillUntil(TypedDict):
-        amendment_end: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPrebillingBillUntilAmendmentEnd"
-        ]
-        """
-        End the prebilled period when a specified amendment ends.
-        """
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsScheduleDetailsPrebillingBillUntilDuration"
-        ]
-        """
-        Time span for prebilling, starting from `bill_from`.
-        """
-        timestamp: NotRequired[int]
-        """
-        End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
-        """
-        type: Literal["amendment_end", "duration", "schedule_end", "timestamp"]
-        """
-        Select one of several ways to pass the `bill_until` value.
-        """
-
-    class UpcomingParamsScheduleDetailsPrebillingBillUntilAmendmentEnd(
-        TypedDict,
-    ):
-        index: int
-        """
-        The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
-        """
-
-    class UpcomingParamsScheduleDetailsPrebillingBillUntilDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsSubscriptionDetails(TypedDict):
@@ -4779,12 +2912,6 @@ class InvoiceService(StripeService):
         ]
         """
         A list of up to 20 subscription items, each with an attached price.
-        """
-        prebilling: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionDetailsPrebilling"
-        ]
-        """
-        The pre-billing to apply to the subscription as a preview.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -4876,43 +3003,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionDetailsItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionDetailsItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemDiscountDiscountEndDuration(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsSubscriptionDetailsItemPriceData(TypedDict):
@@ -4951,12 +3044,6 @@ class InvoiceService(StripeService):
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingParamsSubscriptionDetailsPrebilling(TypedDict):
-        iterations: int
-        """
-        This is used to determine the number of billing cycles to prebill.
         """
 
     class UpcomingParamsSubscriptionItem(TypedDict):
@@ -5026,41 +3113,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionItemDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsSubscriptionItemDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpcomingParamsSubscriptionItemDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpcomingParamsSubscriptionItemDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpcomingParamsSubscriptionItemPriceData(TypedDict):
@@ -5103,12 +3158,6 @@ class InvoiceService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
-    class UpcomingParamsSubscriptionPrebilling(TypedDict):
-        iterations: int
-        """
-        This is used to determine the number of billing cycles to prebill.
-        """
-
     class UpdateLinesParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -5145,10 +3194,6 @@ class InvoiceService(StripeService):
         id: str
         """
         ID of an existing line item on the invoice.
-        """
-        margins: NotRequired["Literal['']|List[str]"]
-        """
-        The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -5192,41 +3237,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpdateLinesParamsLineDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpdateLinesParamsLineDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpdateLinesParamsLineDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpdateLinesParamsLineDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpdateLinesParamsLinePeriod(TypedDict):
@@ -5363,12 +3376,6 @@ class InvoiceService(StripeService):
         """
         The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
         """
-        amounts_due: NotRequired[
-            "Literal['']|List[InvoiceService.UpdateParamsAmountsDue]"
-        ]
-        """
-        List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
-        """
         application_fee_amount: NotRequired[int]
         """
         A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
@@ -5396,10 +3403,6 @@ class InvoiceService(StripeService):
         days_until_due: NotRequired[int]
         """
         The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
-        """
-        default_margins: NotRequired["Literal['']|List[str]"]
-        """
-        The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
         """
         default_payment_method: NotRequired[str]
         """
@@ -5488,24 +3491,6 @@ class InvoiceService(StripeService):
         If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value.
         """
 
-    class UpdateParamsAmountsDue(TypedDict):
-        amount: int
-        """
-        The amount in cents (or local equivalent).
-        """
-        days_until_due: NotRequired[int]
-        """
-        Number of days from when invoice is finalized until the payment is due.
-        """
-        description: str
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        due_date: NotRequired[int]
-        """
-        Date on which a payment plan's payment is due.
-        """
-
     class UpdateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
@@ -5547,41 +3532,9 @@ class InvoiceService(StripeService):
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
-        discount_end: NotRequired[
-            "InvoiceService.UpdateParamsDiscountDiscountEnd"
-        ]
-        """
-        Details to determine how long the discount should be applied for.
-        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
-        """
-
-    class UpdateParamsDiscountDiscountEnd(TypedDict):
-        duration: NotRequired[
-            "InvoiceService.UpdateParamsDiscountDiscountEndDuration"
-        ]
-        """
-        Time span for the redeemed discount.
-        """
-        timestamp: NotRequired[int]
-        """
-        A precise Unix timestamp for the discount to end. Must be in the future.
-        """
-        type: Literal["duration", "timestamp"]
-        """
-        The type of calculation made to determine when the discount ends.
-        """
-
-    class UpdateParamsDiscountDiscountEndDuration(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class UpdateParamsIssuer(TypedDict):
@@ -5810,14 +3763,7 @@ class InvoiceService(StripeService):
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -5831,10 +3777,6 @@ class InvoiceService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
-        """
-        institution: NotRequired[str]
-        """
-        ID of the institution to use to filter for selectable accounts.
         """
 
     class UpdateParamsRendering(TypedDict):
@@ -6376,134 +4318,6 @@ class InvoiceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/add_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def attach_payment(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentParams" = {},
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
-
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
-        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it's attached, it's
-        credited to the invoice immediately.
-
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
-        """
-        return cast(
-            Invoice,
-            self._request(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def attach_payment_async(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentParams" = {},
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
-
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
-        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it's attached, it's
-        credited to the invoice immediately.
-
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
-        """
-        return cast(
-            Invoice,
-            await self._request_async(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def attach_payment_intent(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentIntentParams",
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-        When the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it is attached, it is
-        credited to the invoice immediately.
-
-        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-        """
-        return cast(
-            Invoice,
-            self._request(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def attach_payment_intent_async(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentIntentParams",
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-        When the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it is attached, it is
-        credited to the invoice immediately.
-
-        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-        """
-        return cast(
-            Invoice,
-            await self._request_async(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment_intent".format(
                     invoice=sanitize_id(invoice),
                 ),
                 base_address="api",

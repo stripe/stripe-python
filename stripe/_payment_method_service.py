@@ -137,10 +137,6 @@ class PaymentMethodService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired["PaymentMethodService.CreateParamsMbWay"]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -173,10 +169,6 @@ class PaymentMethodService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired["PaymentMethodService.CreateParamsPayto"]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired["PaymentMethodService.CreateParamsPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -190,10 +182,6 @@ class PaymentMethodService(StripeService):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired["PaymentMethodService.CreateParamsRechnung"]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired["PaymentMethodService.CreateParamsRevolutPay"]
         """
@@ -238,17 +226,14 @@ class PaymentMethodService(StripeService):
                 "klarna",
                 "konbini",
                 "link",
-                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
                 "paypal",
-                "payto",
                 "pix",
                 "promptpay",
-                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -551,9 +536,6 @@ class PaymentMethodService(StripeService):
     class CreateParamsLink(TypedDict):
         pass
 
-    class CreateParamsMbWay(TypedDict):
-        pass
-
     class CreateParamsMobilepay(TypedDict):
         pass
 
@@ -604,20 +586,6 @@ class PaymentMethodService(StripeService):
     class CreateParamsPaypal(TypedDict):
         pass
 
-    class CreateParamsPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class CreateParamsPix(TypedDict):
         pass
 
@@ -628,26 +596,6 @@ class PaymentMethodService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsRechnung(TypedDict):
-        dob: "PaymentMethodService.CreateParamsRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class CreateParamsRevolutPay(TypedDict):
@@ -749,17 +697,14 @@ class PaymentMethodService(StripeService):
                 "klarna",
                 "konbini",
                 "link",
-                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "oxxo",
                 "p24",
                 "paynow",
                 "paypal",
-                "payto",
                 "pix",
                 "promptpay",
-                "rechnung",
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
@@ -808,10 +753,6 @@ class PaymentMethodService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        payto: NotRequired["PaymentMethodService.UpdateParamsPayto"]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"
@@ -890,20 +831,6 @@ class PaymentMethodService(StripeService):
 
     class UpdateParamsLink(TypedDict):
         pass
-
-    class UpdateParamsPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
 
     class UpdateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]

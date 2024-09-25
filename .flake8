@@ -17,7 +17,6 @@ per-file-ignores =
 
     # IMP101: Do not import stripe
     # breaking circular dependencies in overrides
-    stripe/tax/_form.py: IMP101
     stripe/_file.py: IMP101
     stripe/_account.py: IMP101
     stripe/_person.py: IMP101

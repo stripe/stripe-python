@@ -1060,9 +1060,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
 
-        class MbWay(StripeObject):
-            pass
-
         class Mobilepay(StripeObject):
             pass
 
@@ -1111,10 +1108,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             pass
 
         class Paypal(StripeObject):
-            fingerprint: Optional[str]
-            """
-            Uniquely identifies this particular PayPal account. You can use this attribute to check whether two PayPal accounts are the same.
-            """
             payer_email: Optional[str]
             """
             Owner's email. Values are provided by PayPal directly
@@ -1124,49 +1117,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
             """
-            verified_email: Optional[str]
-            """
-            Owner's verified email. Values are verified or provided by PayPal directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-            """
-
-        class Payto(StripeObject):
-            bsb_number: Optional[str]
-            """
-            Bank-State-Branch number of the bank account.
-            """
-            last4: Optional[str]
-            """
-            Last four digits of the bank account number.
-            """
-            pay_id: Optional[str]
-            """
-            The PayID alias for the bank account.
-            """
 
         class Pix(StripeObject):
             pass
 
         class Promptpay(StripeObject):
             pass
-
-        class Rechnung(StripeObject):
-            class Dob(StripeObject):
-                day: int
-                """
-                The day of birth, between 1 and 31.
-                """
-                month: int
-                """
-                The month of birth, between 1 and 12.
-                """
-                year: int
-                """
-                The four-digit year of birth.
-                """
-
-            dob: Optional[Dob]
-            _inner_class_types = {"dob": Dob}
 
         class RevolutPay(StripeObject):
             pass
@@ -1273,10 +1229,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Account holder type: individual or company.
             """
-            account_number: Optional[str]
-            """
-            Account number of the bank account.
-            """
             account_type: Optional[Literal["checking", "savings"]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
@@ -1352,17 +1304,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
         link: Optional[Link]
-        mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
-        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
-        rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1392,17 +1341,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -1443,17 +1389,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna": Klarna,
             "konbini": Konbini,
             "link": Link,
-            "mb_way": MbWay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "oxxo": Oxxo,
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
-            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
-            "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -1667,12 +1610,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired[
-            "ConfirmationToken.CreateParamsPaymentMethodDataMbWay"
-        ]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1711,12 +1648,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired[
-            "ConfirmationToken.CreateParamsPaymentMethodDataPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired["ConfirmationToken.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1732,12 +1663,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired[
-            "ConfirmationToken.CreateParamsPaymentMethodDataRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataRevolutPay"
@@ -1790,17 +1715,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -2072,9 +1994,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataMbWay(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -2125,20 +2044,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -2149,26 +2054,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodDataRechnung(TypedDict):
-        dob: "ConfirmationToken.CreateParamsPaymentMethodDataRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):

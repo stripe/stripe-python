@@ -127,20 +127,6 @@ class Price(
         The starting unit amount which can be updated by the customer.
         """
 
-    class MigrateTo(StripeObject):
-        behavior: Literal["at_cycle_end"]
-        """
-        The behavior controlling at what point in the subscription lifecycle to migrate the price
-        """
-        effective_after: int
-        """
-        The unix timestamp after at which subscriptions will start to migrate to the new price.
-        """
-        price: str
-        """
-        The id of the price being migrated to
-        """
-
     class Recurring(StripeObject):
         aggregate_usage: Optional[
             Literal["last_during_period", "last_ever", "max", "sum"]
@@ -560,10 +546,6 @@ class Price(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        migrate_to: NotRequired["Literal['']|Price.ModifyParamsMigrateTo"]
-        """
-        If specified, subscriptions using this price will be updated to use the new referenced price.
-        """
         nickname: NotRequired[str]
         """
         A brief description of the price, hidden from customers.
@@ -645,20 +627,6 @@ class Price(
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
         """
 
-    class ModifyParamsMigrateTo(TypedDict):
-        behavior: Literal["at_cycle_end"]
-        """
-        The behavior controlling the point in the subscription lifecycle after which to migrate the price. Currently must be `at_cycle_end`.
-        """
-        effective_after: NotRequired[int]
-        """
-        The time after which subscriptions should start using the new price.
-        """
-        price: str
-        """
-        The ID of the price object.
-        """
-
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -722,10 +690,6 @@ class Price(
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    """
-    migrate_to: Optional[MigrateTo]
-    """
-    Subscriptions using this price will be migrated to use the new referenced price.
     """
     nickname: Optional[str]
     """
@@ -941,7 +905,6 @@ class Price(
     _inner_class_types = {
         "currency_options": CurrencyOptions,
         "custom_unit_amount": CustomUnitAmount,
-        "migrate_to": MigrateTo,
         "recurring": Recurring,
         "tiers": Tier,
         "transform_quantity": TransformQuantity,

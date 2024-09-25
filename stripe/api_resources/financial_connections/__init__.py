@@ -17,17 +17,11 @@ warn(
 )
 if not TYPE_CHECKING:
     from stripe.api_resources.financial_connections.account import Account
-    from stripe.api_resources.financial_connections.account_inferred_balance import (
-        AccountInferredBalance,
-    )
     from stripe.api_resources.financial_connections.account_owner import (
         AccountOwner,
     )
     from stripe.api_resources.financial_connections.account_ownership import (
         AccountOwnership,
-    )
-    from stripe.api_resources.financial_connections.institution import (
-        Institution,
     )
     from stripe.api_resources.financial_connections.session import Session
     from stripe.api_resources.financial_connections.transaction import (

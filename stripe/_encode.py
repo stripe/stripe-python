@@ -5,12 +5,6 @@ from collections import OrderedDict
 from typing import Generator, Optional, Tuple, Any
 
 
-def _json_encode_date_callback(value):
-    if isinstance(value, datetime.datetime):
-        return _encode_datetime(value)
-    return value
-
-
 def _encode_datetime(dttime: datetime.datetime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
         utc_timestamp = calendar.timegm(dttime.utctimetuple())

@@ -529,7 +529,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ):
         """
-        Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
+        Mechanism for issuing an API call
         """
         request_options = merge_options(self._options, options)
 

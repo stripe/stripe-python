@@ -6,7 +6,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -54,12 +54,6 @@ class PaymentIntentService(StripeService):
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        async_workflows: NotRequired[
-            "PaymentIntentService.CaptureParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -71,12 +65,6 @@ class PaymentIntentService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        payment_details: NotRequired[
-            "Literal['']|PaymentIntentService.CaptureParamsPaymentDetails"
-        ]
-        """
-        Provides industry-specific information about the charge.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -96,691 +84,6 @@ class PaymentIntentService(StripeService):
         is captured. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
 
-    class CaptureParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.CaptureParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class CaptureParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.CaptureParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class CaptureParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
-        """
-
-    class CaptureParamsPaymentDetails(TypedDict):
-        car_rental: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRental"
-        ]
-        """
-        Car rental details for this PaymentIntent.
-        """
-        event_details: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsEventDetails"
-        ]
-        """
-        Event details for this PaymentIntent
-        """
-        flight: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsFlight"
-        ]
-        """
-        Flight reservation details for this PaymentIntent
-        """
-        lodging: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsLodging"
-        ]
-        """
-        Lodging reservation details for this PaymentIntent
-        """
-        subscription: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsSubscription"
-        ]
-        """
-        Subscription details for this PaymentIntent
-        """
-
-    class CaptureParamsPaymentDetailsCarRental(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: str
-        """
-        The booking number associated with the car rental.
-        """
-        car_class_code: NotRequired[str]
-        """
-        Class code of the car.
-        """
-        car_make: NotRequired[str]
-        """
-        Make of the car.
-        """
-        car_model: NotRequired[str]
-        """
-        Model of the car.
-        """
-        company: NotRequired[str]
-        """
-        The name of the rental car company.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the car rental company.
-        """
-        days_rented: int
-        """
-        Number of days the car is being rented.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        drivers: NotRequired[
-            List[
-                "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalDriver"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "extra_mileage",
-                    "gas",
-                    "late_return",
-                    "one_way_service",
-                    "parking_violation",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep nor cancel their booking.
-        """
-        pickup_address: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalPickupAddress"
-        ]
-        """
-        Car pick-up address.
-        """
-        pickup_at: int
-        """
-        Car pick-up time. Measured in seconds since the Unix epoch.
-        """
-        rate_amount: NotRequired[int]
-        """
-        Rental rate.
-        """
-        rate_interval: NotRequired[Literal["day", "month", "week"]]
-        """
-        The frequency at which the rate amount is applied. One of `day`, `week` or `month`
-        """
-        renter_name: NotRequired[str]
-        """
-        The name of the person or entity renting the car.
-        """
-        return_address: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalReturnAddress"
-        ]
-        """
-        Car return address.
-        """
-        return_at: int
-        """
-        Car return time. Measured in seconds since the Unix epoch.
-        """
-        tax_exempt: NotRequired[bool]
-        """
-        Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsCarRentalDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalDriver(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the car reservation.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CaptureParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CaptureParamsPaymentDetailsEventDetails(TypedDict):
-        access_controlled_venue: NotRequired[bool]
-        """
-        Indicates if the tickets are digitally checked when entering the venue.
-        """
-        address: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsEventDetailsAddress"
-        ]
-        """
-        The event location's address.
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsEventDetailsAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        company: NotRequired[str]
-        """
-        The name of the company
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsEventDetailsDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Event end time. Measured in seconds since the Unix epoch.
-        """
-        genre: NotRequired[str]
-        """
-        Type of the event entertainment (concert, sports event etc)
-        """
-        name: str
-        """
-        The name of the event.
-        """
-        starts_at: NotRequired[int]
-        """
-        Event start time. Measured in seconds since the Unix epoch.
-        """
-
-    class CaptureParamsPaymentDetailsEventDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CaptureParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CaptureParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CaptureParamsPaymentDetailsFlight(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsFlightAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        agency_number: NotRequired[str]
-        """
-        The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsFlightDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        passenger_name: NotRequired[str]
-        """
-        The name of the person or entity on the reservation.
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.CaptureParamsPaymentDetailsFlightPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation.
-        """
-        segments: List[
-            "PaymentIntentService.CaptureParamsPaymentDetailsFlightSegment"
-        ]
-        """
-        The individual flight segments associated with the trip.
-        """
-        ticket_number: NotRequired[str]
-        """
-        The ticket number associated with the travel reservation.
-        """
-
-    class CaptureParamsPaymentDetailsFlightAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CaptureParamsPaymentDetailsFlightDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsFlightDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CaptureParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CaptureParamsPaymentDetailsFlightPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the flight reservation.
-        """
-
-    class CaptureParamsPaymentDetailsFlightSegment(TypedDict):
-        amount: NotRequired[int]
-        """
-        The flight segment amount.
-        """
-        arrival_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the arrival airport.
-        """
-        arrives_at: NotRequired[int]
-        """
-        The arrival time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
-        """
-        departs_at: int
-        """
-        The departure time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        departure_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the departure airport.
-        """
-        flight_number: NotRequired[str]
-        """
-        The flight number associated with the segment
-        """
-        service_class: NotRequired[
-            Literal["business", "economy", "first", "premium_economy"]
-        ]
-        """
-        The fare class for the segment.
-        """
-
-    class CaptureParamsPaymentDetailsLodging(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsLodgingAddress"
-        ]
-        """
-        The lodging location's address.
-        """
-        adults: NotRequired[int]
-        """
-        The number of adults on the booking
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsLodgingAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: NotRequired[str]
-        """
-        The booking number associated with the lodging reservation.
-        """
-        category: NotRequired[Literal["hotel", "vacation_rental"]]
-        """
-        The lodging category
-        """
-        checkin_at: int
-        """
-        Loding check-in time. Measured in seconds since the Unix epoch.
-        """
-        checkout_at: int
-        """
-        Lodging check-out time. Measured in seconds since the Unix epoch.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the lodging company.
-        """
-        daily_room_rate_amount: NotRequired[int]
-        """
-        The daily lodging room rate.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsLodgingDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "gift_shop",
-                    "laundry",
-                    "mini_bar",
-                    "other",
-                    "restaurant",
-                    "telephone",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        fire_safety_act_compliance: NotRequired[bool]
-        """
-        Indicates whether the lodging location is compliant with the Fire Safety Act.
-        """
-        name: NotRequired[str]
-        """
-        The name of the lodging location.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep their booking while failing to cancel the reservation.
-        """
-        number_of_rooms: NotRequired[int]
-        """
-        The number of rooms on the booking
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.CaptureParamsPaymentDetailsLodgingPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        property_phone_number: NotRequired[str]
-        """
-        The phone number of the lodging location.
-        """
-        room_class: NotRequired[str]
-        """
-        The room class for this purchase.
-        """
-        room_nights: NotRequired[int]
-        """
-        The number of room nights
-        """
-        total_room_tax_amount: NotRequired[int]
-        """
-        The total tax amount associating with the room reservation.
-        """
-        total_tax_amount: NotRequired[int]
-        """
-        The total tax amount
-        """
-
-    class CaptureParamsPaymentDetailsLodgingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CaptureParamsPaymentDetailsLodgingAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CaptureParamsPaymentDetailsLodgingDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsLodgingDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CaptureParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CaptureParamsPaymentDetailsLodgingPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the lodging reservation.
-        """
-
-    class CaptureParamsPaymentDetailsSubscription(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsSubscriptionAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        auto_renewal: NotRequired[bool]
-        """
-        Info whether the subscription will be auto renewed upon expiry.
-        """
-        billing_interval: NotRequired[
-            "PaymentIntentService.CaptureParamsPaymentDetailsSubscriptionBillingInterval"
-        ]
-        """
-        Subscription billing details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Subscription end time. Measured in seconds since the Unix epoch.
-        """
-        name: str
-        """
-        Name of the product on subscription. e.g. Apple Music Subscription
-        """
-        starts_at: NotRequired[int]
-        """
-        Subscription start time. Measured in seconds since the Unix epoch.
-        """
-
-    class CaptureParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CaptureParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
-        count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-        """
-
     class CaptureParamsTransferData(TypedDict):
         amount: NotRequired[int]
         """
@@ -788,16 +91,6 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParams(TypedDict):
-        application_fee_amount: NotRequired["Literal['']|int"]
-        """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-        async_workflows: NotRequired[
-            "PaymentIntentService.ConfirmParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
-        """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
         ]
@@ -828,12 +121,6 @@ class PaymentIntentService(StripeService):
         off_session: NotRequired["bool|Literal['one_off', 'recurring']"]
         """
         Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
-        """
-        payment_details: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentDetails"
-        ]
-        """
-        Provides industry-specific information about the charge.
         """
         payment_method: NotRequired[str]
         """
@@ -898,28 +185,6 @@ class PaymentIntentService(StripeService):
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
         """
 
-    class ConfirmParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.ConfirmParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class ConfirmParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.ConfirmParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class ConfirmParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
-        """
-
     class ConfirmParamsMandateData(TypedDict):
         customer_acceptance: NotRequired[
             "PaymentIntentService.ConfirmParamsMandateDataCustomerAcceptance"
@@ -961,669 +226,6 @@ class PaymentIntentService(StripeService):
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class ConfirmParamsPaymentDetails(TypedDict):
-        car_rental: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRental"
-        ]
-        """
-        Car rental details for this PaymentIntent.
-        """
-        event_details: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetails"
-        ]
-        """
-        Event details for this PaymentIntent
-        """
-        flight: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsFlight"
-        ]
-        """
-        Flight reservation details for this PaymentIntent
-        """
-        lodging: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsLodging"
-        ]
-        """
-        Lodging reservation details for this PaymentIntent
-        """
-        subscription: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsSubscription"
-        ]
-        """
-        Subscription details for this PaymentIntent
-        """
-
-    class ConfirmParamsPaymentDetailsCarRental(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: str
-        """
-        The booking number associated with the car rental.
-        """
-        car_class_code: NotRequired[str]
-        """
-        Class code of the car.
-        """
-        car_make: NotRequired[str]
-        """
-        Make of the car.
-        """
-        car_model: NotRequired[str]
-        """
-        Model of the car.
-        """
-        company: NotRequired[str]
-        """
-        The name of the rental car company.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the car rental company.
-        """
-        days_rented: int
-        """
-        Number of days the car is being rented.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        drivers: NotRequired[
-            List[
-                "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalDriver"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "extra_mileage",
-                    "gas",
-                    "late_return",
-                    "one_way_service",
-                    "parking_violation",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep nor cancel their booking.
-        """
-        pickup_address: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalPickupAddress"
-        ]
-        """
-        Car pick-up address.
-        """
-        pickup_at: int
-        """
-        Car pick-up time. Measured in seconds since the Unix epoch.
-        """
-        rate_amount: NotRequired[int]
-        """
-        Rental rate.
-        """
-        rate_interval: NotRequired[Literal["day", "month", "week"]]
-        """
-        The frequency at which the rate amount is applied. One of `day`, `week` or `month`
-        """
-        renter_name: NotRequired[str]
-        """
-        The name of the person or entity renting the car.
-        """
-        return_address: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalReturnAddress"
-        ]
-        """
-        Car return address.
-        """
-        return_at: int
-        """
-        Car return time. Measured in seconds since the Unix epoch.
-        """
-        tax_exempt: NotRequired[bool]
-        """
-        Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsCarRentalDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalDriver(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the car reservation.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ConfirmParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ConfirmParamsPaymentDetailsEventDetails(TypedDict):
-        access_controlled_venue: NotRequired[bool]
-        """
-        Indicates if the tickets are digitally checked when entering the venue.
-        """
-        address: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetailsAddress"
-        ]
-        """
-        The event location's address.
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetailsAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        company: NotRequired[str]
-        """
-        The name of the company
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetailsDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Event end time. Measured in seconds since the Unix epoch.
-        """
-        genre: NotRequired[str]
-        """
-        Type of the event entertainment (concert, sports event etc)
-        """
-        name: str
-        """
-        The name of the event.
-        """
-        starts_at: NotRequired[int]
-        """
-        Event start time. Measured in seconds since the Unix epoch.
-        """
-
-    class ConfirmParamsPaymentDetailsEventDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ConfirmParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class ConfirmParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class ConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class ConfirmParamsPaymentDetailsFlight(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsFlightAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        agency_number: NotRequired[str]
-        """
-        The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsFlightDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        passenger_name: NotRequired[str]
-        """
-        The name of the person or entity on the reservation.
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.ConfirmParamsPaymentDetailsFlightPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation.
-        """
-        segments: List[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsFlightSegment"
-        ]
-        """
-        The individual flight segments associated with the trip.
-        """
-        ticket_number: NotRequired[str]
-        """
-        The ticket number associated with the travel reservation.
-        """
-
-    class ConfirmParamsPaymentDetailsFlightAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class ConfirmParamsPaymentDetailsFlightDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsFlightDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class ConfirmParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class ConfirmParamsPaymentDetailsFlightPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the flight reservation.
-        """
-
-    class ConfirmParamsPaymentDetailsFlightSegment(TypedDict):
-        amount: NotRequired[int]
-        """
-        The flight segment amount.
-        """
-        arrival_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the arrival airport.
-        """
-        arrives_at: NotRequired[int]
-        """
-        The arrival time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
-        """
-        departs_at: int
-        """
-        The departure time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        departure_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the departure airport.
-        """
-        flight_number: NotRequired[str]
-        """
-        The flight number associated with the segment
-        """
-        service_class: NotRequired[
-            Literal["business", "economy", "first", "premium_economy"]
-        ]
-        """
-        The fare class for the segment.
-        """
-
-    class ConfirmParamsPaymentDetailsLodging(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsLodgingAddress"
-        ]
-        """
-        The lodging location's address.
-        """
-        adults: NotRequired[int]
-        """
-        The number of adults on the booking
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsLodgingAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: NotRequired[str]
-        """
-        The booking number associated with the lodging reservation.
-        """
-        category: NotRequired[Literal["hotel", "vacation_rental"]]
-        """
-        The lodging category
-        """
-        checkin_at: int
-        """
-        Loding check-in time. Measured in seconds since the Unix epoch.
-        """
-        checkout_at: int
-        """
-        Lodging check-out time. Measured in seconds since the Unix epoch.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the lodging company.
-        """
-        daily_room_rate_amount: NotRequired[int]
-        """
-        The daily lodging room rate.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsLodgingDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "gift_shop",
-                    "laundry",
-                    "mini_bar",
-                    "other",
-                    "restaurant",
-                    "telephone",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        fire_safety_act_compliance: NotRequired[bool]
-        """
-        Indicates whether the lodging location is compliant with the Fire Safety Act.
-        """
-        name: NotRequired[str]
-        """
-        The name of the lodging location.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep their booking while failing to cancel the reservation.
-        """
-        number_of_rooms: NotRequired[int]
-        """
-        The number of rooms on the booking
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.ConfirmParamsPaymentDetailsLodgingPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        property_phone_number: NotRequired[str]
-        """
-        The phone number of the lodging location.
-        """
-        room_class: NotRequired[str]
-        """
-        The room class for this purchase.
-        """
-        room_nights: NotRequired[int]
-        """
-        The number of room nights
-        """
-        total_room_tax_amount: NotRequired[int]
-        """
-        The total tax amount associating with the room reservation.
-        """
-        total_tax_amount: NotRequired[int]
-        """
-        The total tax amount
-        """
-
-    class ConfirmParamsPaymentDetailsLodgingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ConfirmParamsPaymentDetailsLodgingAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class ConfirmParamsPaymentDetailsLodgingDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsLodgingDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class ConfirmParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class ConfirmParamsPaymentDetailsLodgingPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the lodging reservation.
-        """
-
-    class ConfirmParamsPaymentDetailsSubscription(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsSubscriptionAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        auto_renewal: NotRequired[bool]
-        """
-        Info whether the subscription will be auto renewed upon expiry.
-        """
-        billing_interval: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentDetailsSubscriptionBillingInterval"
-        ]
-        """
-        Subscription billing details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Subscription end time. Measured in seconds since the Unix epoch.
-        """
-        name: str
-        """
-        Name of the product on subscription. e.g. Apple Music Subscription
-        """
-        starts_at: NotRequired[int]
-        """
-        Subscription start time. Measured in seconds since the Unix epoch.
-        """
-
-    class ConfirmParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class ConfirmParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
-        count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         """
 
     class ConfirmParamsPaymentMethodData(TypedDict):
@@ -1765,12 +367,6 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodDataMbWay"
-        ]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1811,12 +407,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodDataPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataPix"
         ]
@@ -1834,12 +424,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodDataRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataRevolutPay"
@@ -1892,17 +476,14 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -2176,9 +757,6 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
-        pass
-
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -2229,20 +807,6 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -2253,26 +817,6 @@ class PaymentIntentService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class ConfirmParamsPaymentMethodDataRechnung(TypedDict):
-        dob: "PaymentIntentService.ConfirmParamsPaymentMethodDataRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class ConfirmParamsPaymentMethodDataRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
@@ -2463,12 +1007,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
-        mb_way: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMbWay"
-        ]
-        """
-        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
-        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMobilepay"
         ]
@@ -2505,12 +1043,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         """
-        payto: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
-        """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPix"
         ]
@@ -2522,12 +1054,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        rechnung: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsRevolutPay"
@@ -2870,12 +1396,6 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
-        request_decremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
-        """
         request_extended_authorization: NotRequired[
             Literal["if_available", "never"]
         ]
@@ -2927,12 +1447,6 @@ class PaymentIntentService(StripeService):
         statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        statement_details: NotRequired[
-            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsCardStatementDetails"
-        ]
-        """
-        Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
         three_d_secure: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
@@ -3030,46 +1544,6 @@ class PaymentIntentService(StripeService):
         requested_priority: NotRequired[Literal["domestic", "international"]]
         """
         Routing requested priority
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress"
-        ]
-        """
-        Please pass in an address that is within your Stripe user account country
-        """
-        phone: NotRequired[str]
-        """
-        Phone number (e.g., a toll-free number that customers can call)
-        """
-
-    class ConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
         """
 
     class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
@@ -3454,20 +1928,6 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class ConfirmParamsPaymentMethodOptionsMbWay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
     class ConfirmParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -3591,10 +2051,6 @@ class PaymentIntentService(StripeService):
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        reference_id: NotRequired[str]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
         risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
@@ -3612,83 +2068,6 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        subsellers: NotRequired[List[str]]
-        """
-        The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
-        amount: NotRequired[int]
-        """
-        Amount that will be collected. It is required when `amount_type` is `fixed`.
-        """
-        amount_type: NotRequired[Literal["fixed", "maximum"]]
-        """
-        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
-        """
-        end_date: NotRequired[str]
-        """
-        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
-        """
-        payment_schedule: NotRequired[
-            Literal[
-                "adhoc",
-                "annual",
-                "daily",
-                "fortnightly",
-                "monthly",
-                "quarterly",
-                "semi_annual",
-                "weekly",
-            ]
-        ]
-        """
-        The periodicity at which payments will be collected.
-        """
-        payments_per_period: NotRequired[int]
-        """
-        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-        """
-        purpose: NotRequired[
-            Literal[
-                "dependant_support",
-                "government",
-                "loan",
-                "mortgage",
-                "other",
-                "pension",
-                "personal",
-                "retail",
-                "salary",
-                "tax",
-                "utility",
-            ]
-        ]
-        """
-        The purpose for which payments are made. Defaults to retail.
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
@@ -3726,9 +2105,6 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-
-    class ConfirmParamsPaymentMethodOptionsRechnung(TypedDict):
-        pass
 
     class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -3886,12 +2262,6 @@ class PaymentIntentService(StripeService):
         """
         Provide filters for the linked accounts that the customer can select for the payment method
         """
-        manual_entry: NotRequired[
-            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
-        ]
-        """
-        Customize manual entry behavior
-        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -3903,14 +2273,7 @@ class PaymentIntentService(StripeService):
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -3928,18 +2291,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
-        """
-        institution: NotRequired[str]
-        """
-        ID of the institution to use to filter for selectable accounts.
-        """
-
-    class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
-        TypedDict,
-    ):
-        mode: Literal["automatic", "custom"]
-        """
-        Settings for configuring manual entry of account details.
         """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -4055,12 +2406,6 @@ class PaymentIntentService(StripeService):
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        async_workflows: NotRequired[
-            "PaymentIntentService.CreateParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
-        """
         automatic_payment_methods: NotRequired[
             "PaymentIntentService.CreateParamsAutomaticPaymentMethods"
         ]
@@ -4133,12 +2478,6 @@ class PaymentIntentService(StripeService):
         """
         The Stripe account ID that these funds are intended for. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        payment_details: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetails"
-        ]
-        """
-        Provides industry-specific information about the charge.
-        """
         payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
@@ -4181,10 +2520,6 @@ class PaymentIntentService(StripeService):
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
-        secret_key_confirmation: NotRequired[Literal["optional", "required"]]
-        """
-        Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
-        """
         setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4223,28 +2558,6 @@ class PaymentIntentService(StripeService):
         use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
-        """
-
-    class CreateParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.CreateParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class CreateParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.CreateParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class CreateParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class CreateParamsAutomaticPaymentMethods(TypedDict):
@@ -4300,669 +2613,6 @@ class PaymentIntentService(StripeService):
         user_agent: str
         """
         The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class CreateParamsPaymentDetails(TypedDict):
-        car_rental: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRental"
-        ]
-        """
-        Car rental details for this PaymentIntent.
-        """
-        event_details: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsEventDetails"
-        ]
-        """
-        Event details for this PaymentIntent
-        """
-        flight: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsFlight"
-        ]
-        """
-        Flight reservation details for this PaymentIntent
-        """
-        lodging: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsLodging"
-        ]
-        """
-        Lodging reservation details for this PaymentIntent
-        """
-        subscription: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsSubscription"
-        ]
-        """
-        Subscription details for this PaymentIntent
-        """
-
-    class CreateParamsPaymentDetailsCarRental(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRentalAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: str
-        """
-        The booking number associated with the car rental.
-        """
-        car_class_code: NotRequired[str]
-        """
-        Class code of the car.
-        """
-        car_make: NotRequired[str]
-        """
-        Make of the car.
-        """
-        car_model: NotRequired[str]
-        """
-        Model of the car.
-        """
-        company: NotRequired[str]
-        """
-        The name of the rental car company.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the car rental company.
-        """
-        days_rented: int
-        """
-        Number of days the car is being rented.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRentalDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        drivers: NotRequired[
-            List[
-                "PaymentIntentService.CreateParamsPaymentDetailsCarRentalDriver"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "extra_mileage",
-                    "gas",
-                    "late_return",
-                    "one_way_service",
-                    "parking_violation",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep nor cancel their booking.
-        """
-        pickup_address: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRentalPickupAddress"
-        ]
-        """
-        Car pick-up address.
-        """
-        pickup_at: int
-        """
-        Car pick-up time. Measured in seconds since the Unix epoch.
-        """
-        rate_amount: NotRequired[int]
-        """
-        Rental rate.
-        """
-        rate_interval: NotRequired[Literal["day", "month", "week"]]
-        """
-        The frequency at which the rate amount is applied. One of `day`, `week` or `month`
-        """
-        renter_name: NotRequired[str]
-        """
-        The name of the person or entity renting the car.
-        """
-        return_address: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRentalReturnAddress"
-        ]
-        """
-        Car return address.
-        """
-        return_at: int
-        """
-        Car return time. Measured in seconds since the Unix epoch.
-        """
-        tax_exempt: NotRequired[bool]
-        """
-        Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsCarRentalDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalDriver(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the car reservation.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsPaymentDetailsEventDetails(TypedDict):
-        access_controlled_venue: NotRequired[bool]
-        """
-        Indicates if the tickets are digitally checked when entering the venue.
-        """
-        address: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsEventDetailsAddress"
-        ]
-        """
-        The event location's address.
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsEventDetailsAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        company: NotRequired[str]
-        """
-        The name of the company
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsEventDetailsDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Event end time. Measured in seconds since the Unix epoch.
-        """
-        genre: NotRequired[str]
-        """
-        Type of the event entertainment (concert, sports event etc)
-        """
-        name: str
-        """
-        The name of the event.
-        """
-        starts_at: NotRequired[int]
-        """
-        Event start time. Measured in seconds since the Unix epoch.
-        """
-
-    class CreateParamsPaymentDetailsEventDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CreateParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsEventDetailsDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CreateParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CreateParamsPaymentDetailsFlight(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsFlightAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        agency_number: NotRequired[str]
-        """
-        The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsFlightDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        passenger_name: NotRequired[str]
-        """
-        The name of the person or entity on the reservation.
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.CreateParamsPaymentDetailsFlightPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation.
-        """
-        segments: List[
-            "PaymentIntentService.CreateParamsPaymentDetailsFlightSegment"
-        ]
-        """
-        The individual flight segments associated with the trip.
-        """
-        ticket_number: NotRequired[str]
-        """
-        The ticket number associated with the travel reservation.
-        """
-
-    class CreateParamsPaymentDetailsFlightAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CreateParamsPaymentDetailsFlightDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsFlightDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CreateParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CreateParamsPaymentDetailsFlightPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the flight reservation.
-        """
-
-    class CreateParamsPaymentDetailsFlightSegment(TypedDict):
-        amount: NotRequired[int]
-        """
-        The flight segment amount.
-        """
-        arrival_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the arrival airport.
-        """
-        arrives_at: NotRequired[int]
-        """
-        The arrival time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
-        """
-        departs_at: int
-        """
-        The departure time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        departure_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the departure airport.
-        """
-        flight_number: NotRequired[str]
-        """
-        The flight number associated with the segment
-        """
-        service_class: NotRequired[
-            Literal["business", "economy", "first", "premium_economy"]
-        ]
-        """
-        The fare class for the segment.
-        """
-
-    class CreateParamsPaymentDetailsLodging(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsLodgingAddress"
-        ]
-        """
-        The lodging location's address.
-        """
-        adults: NotRequired[int]
-        """
-        The number of adults on the booking
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsLodgingAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: NotRequired[str]
-        """
-        The booking number associated with the lodging reservation.
-        """
-        category: NotRequired[Literal["hotel", "vacation_rental"]]
-        """
-        The lodging category
-        """
-        checkin_at: int
-        """
-        Loding check-in time. Measured in seconds since the Unix epoch.
-        """
-        checkout_at: int
-        """
-        Lodging check-out time. Measured in seconds since the Unix epoch.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the lodging company.
-        """
-        daily_room_rate_amount: NotRequired[int]
-        """
-        The daily lodging room rate.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsLodgingDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "gift_shop",
-                    "laundry",
-                    "mini_bar",
-                    "other",
-                    "restaurant",
-                    "telephone",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        fire_safety_act_compliance: NotRequired[bool]
-        """
-        Indicates whether the lodging location is compliant with the Fire Safety Act.
-        """
-        name: NotRequired[str]
-        """
-        The name of the lodging location.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep their booking while failing to cancel the reservation.
-        """
-        number_of_rooms: NotRequired[int]
-        """
-        The number of rooms on the booking
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.CreateParamsPaymentDetailsLodgingPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        property_phone_number: NotRequired[str]
-        """
-        The phone number of the lodging location.
-        """
-        room_class: NotRequired[str]
-        """
-        The room class for this purchase.
-        """
-        room_nights: NotRequired[int]
-        """
-        The number of room nights
-        """
-        total_room_tax_amount: NotRequired[int]
-        """
-        The total tax amount associating with the room reservation.
-        """
-        total_tax_amount: NotRequired[int]
-        """
-        The total tax amount
-        """
-
-    class CreateParamsPaymentDetailsLodgingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsPaymentDetailsLodgingAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CreateParamsPaymentDetailsLodgingDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsLodgingDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class CreateParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class CreateParamsPaymentDetailsLodgingPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the lodging reservation.
-        """
-
-    class CreateParamsPaymentDetailsSubscription(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsSubscriptionAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        auto_renewal: NotRequired[bool]
-        """
-        Info whether the subscription will be auto renewed upon expiry.
-        """
-        billing_interval: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentDetailsSubscriptionBillingInterval"
-        ]
-        """
-        Subscription billing details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Subscription end time. Measured in seconds since the Unix epoch.
-        """
-        name: str
-        """
-        Name of the product on subscription. e.g. Apple Music Subscription
-        """
-        starts_at: NotRequired[int]
-        """
-        Subscription start time. Measured in seconds since the Unix epoch.
-        """
-
-    class CreateParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class CreateParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
-        count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         """
 
     class CreateParamsPaymentMethodData(TypedDict):
@@ -5104,12 +2754,6 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodDataMbWay"
-        ]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -5150,12 +2794,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodDataPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataPix"
         ]
@@ -5173,12 +2811,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodDataRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataRevolutPay"
@@ -5231,17 +2863,14 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -5515,9 +3144,6 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataMbWay(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -5568,20 +3194,6 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -5592,26 +3204,6 @@ class PaymentIntentService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodDataRechnung(TypedDict):
-        dob: "PaymentIntentService.CreateParamsPaymentMethodDataRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
@@ -5802,12 +3394,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
-        mb_way: NotRequired[
-            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMbWay"
-        ]
-        """
-        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
-        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMobilepay"
         ]
@@ -5844,12 +3430,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         """
-        payto: NotRequired[
-            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
-        """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPix"
         ]
@@ -5861,12 +3441,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        rechnung: NotRequired[
-            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsRevolutPay"
@@ -6209,12 +3783,6 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
-        request_decremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
-        """
         request_extended_authorization: NotRequired[
             Literal["if_available", "never"]
         ]
@@ -6266,12 +3834,6 @@ class PaymentIntentService(StripeService):
         statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        statement_details: NotRequired[
-            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsCardStatementDetails"
-        ]
-        """
-        Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
         three_d_secure: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodOptionsCardThreeDSecure"
@@ -6369,46 +3931,6 @@ class PaymentIntentService(StripeService):
         requested_priority: NotRequired[Literal["domestic", "international"]]
         """
         Routing requested priority
-        """
-
-    class CreateParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodOptionsCardStatementDetailsAddress"
-        ]
-        """
-        Please pass in an address that is within your Stripe user account country
-        """
-        phone: NotRequired[str]
-        """
-        Phone number (e.g., a toll-free number that customers can call)
-        """
-
-    class CreateParamsPaymentMethodOptionsCardStatementDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
         """
 
     class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
@@ -6793,20 +4315,6 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class CreateParamsPaymentMethodOptionsMbWay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -6930,10 +4438,6 @@ class PaymentIntentService(StripeService):
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        reference_id: NotRequired[str]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
         risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
@@ -6951,83 +4455,6 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        subsellers: NotRequired[List[str]]
-        """
-        The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-        """
-
-    class CreateParamsPaymentMethodOptionsPayto(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodOptionsPaytoMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
-    class CreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
-        amount: NotRequired[int]
-        """
-        Amount that will be collected. It is required when `amount_type` is `fixed`.
-        """
-        amount_type: NotRequired[Literal["fixed", "maximum"]]
-        """
-        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
-        """
-        end_date: NotRequired[str]
-        """
-        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
-        """
-        payment_schedule: NotRequired[
-            Literal[
-                "adhoc",
-                "annual",
-                "daily",
-                "fortnightly",
-                "monthly",
-                "quarterly",
-                "semi_annual",
-                "weekly",
-            ]
-        ]
-        """
-        The periodicity at which payments will be collected.
-        """
-        payments_per_period: NotRequired[int]
-        """
-        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-        """
-        purpose: NotRequired[
-            Literal[
-                "dependant_support",
-                "government",
-                "loan",
-                "mortgage",
-                "other",
-                "pension",
-                "personal",
-                "retail",
-                "salary",
-                "tax",
-                "utility",
-            ]
-        ]
-        """
-        The purpose for which payments are made. Defaults to retail.
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
@@ -7065,9 +4492,6 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-
-    class CreateParamsPaymentMethodOptionsRechnung(TypedDict):
-        pass
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -7225,12 +4649,6 @@ class PaymentIntentService(StripeService):
         """
         Provide filters for the linked accounts that the customer can select for the payment method
         """
-        manual_entry: NotRequired[
-            "PaymentIntentService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
-        ]
-        """
-        Customize manual entry behavior
-        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -7242,14 +4660,7 @@ class PaymentIntentService(StripeService):
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -7267,18 +4678,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
-        """
-        institution: NotRequired[str]
-        """
-        ID of the institution to use to filter for selectable accounts.
-        """
-
-    class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
-        TypedDict,
-    ):
-        mode: Literal["automatic", "custom"]
-        """
-        Settings for configuring manual entry of account details.
         """
 
     class CreateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -7404,69 +4803,6 @@ class PaymentIntentService(StripeService):
         returned on the successful charge's `transfer` field.
         """
 
-    class DecrementAuthorizationParams(TypedDict):
-        amount: int
-        """
-        The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount and greater than the already captured amount.
-        """
-        application_fee_amount: NotRequired[int]
-        """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-        async_workflows: NotRequired[
-            "PaymentIntentService.DecrementAuthorizationParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        transfer_data: NotRequired[
-            "PaymentIntentService.DecrementAuthorizationParamsTransferData"
-        ]
-        """
-        The parameters used to automatically create a transfer after the payment is captured.
-        Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-
-    class DecrementAuthorizationParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.DecrementAuthorizationParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class DecrementAuthorizationParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.DecrementAuthorizationParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class DecrementAuthorizationParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
-        """
-
-    class DecrementAuthorizationParamsTransferData(TypedDict):
-        amount: NotRequired[int]
-        """
-        The amount that will be transferred automatically when a charge succeeds.
-        """
-
     class IncrementAuthorizationParams(TypedDict):
         amount: int
         """
@@ -7475,12 +4811,6 @@ class PaymentIntentService(StripeService):
         application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-        async_workflows: NotRequired[
-            "PaymentIntentService.IncrementAuthorizationParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
         """
         description: NotRequired[str]
         """
@@ -7504,28 +4834,6 @@ class PaymentIntentService(StripeService):
         """
         The parameters used to automatically create a transfer after the payment is captured.
         Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-
-    class IncrementAuthorizationParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.IncrementAuthorizationParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class IncrementAuthorizationParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.IncrementAuthorizationParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class IncrementAuthorizationParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
@@ -7615,12 +4923,6 @@ class PaymentIntentService(StripeService):
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
-        async_workflows: NotRequired[
-            "PaymentIntentService.UpdateParamsAsyncWorkflows"
-        ]
-        """
-        Automations to be run during the PaymentIntent lifecycle
-        """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
         ]
@@ -7647,23 +4949,14 @@ class PaymentIntentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        mandate_data: NotRequired[
-            "PaymentIntentService.UpdateParamsMandateData"
-        ]
-        """
-        This hash contains details about the Mandate to create.
-        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        payment_details: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentDetails"
-        ]
-        """
-        Provides industry-specific information about the charge.
-        """
         payment_method: NotRequired[str]
+        """
+        ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
+        """
         payment_method_configuration: NotRequired[str]
         """
         The ID of the payment method configuration to use with this PaymentIntent.
@@ -7729,719 +5022,6 @@ class PaymentIntentService(StripeService):
         transfer_group: NotRequired[str]
         """
         A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-        """
-
-    class UpdateParamsAsyncWorkflows(TypedDict):
-        inputs: NotRequired[
-            "PaymentIntentService.UpdateParamsAsyncWorkflowsInputs"
-        ]
-        """
-        Arguments passed in automations
-        """
-
-    class UpdateParamsAsyncWorkflowsInputs(TypedDict):
-        tax: NotRequired[
-            "PaymentIntentService.UpdateParamsAsyncWorkflowsInputsTax"
-        ]
-        """
-        Tax arguments for automations
-        """
-
-    class UpdateParamsAsyncWorkflowsInputsTax(TypedDict):
-        calculation: Union[Literal[""], str]
-        """
-        The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
-        """
-
-    class UpdateParamsMandateData(TypedDict):
-        customer_acceptance: (
-            "PaymentIntentService.UpdateParamsMandateDataCustomerAcceptance"
-        )
-        """
-        This hash contains details about the customer acceptance of the Mandate.
-        """
-
-    class UpdateParamsMandateDataCustomerAcceptance(TypedDict):
-        online: "PaymentIntentService.UpdateParamsMandateDataCustomerAcceptanceOnline"
-        """
-        If this is a Mandate accepted online, this hash contains details about the online acceptance.
-        """
-        type: Literal["online"]
-        """
-        The type of customer acceptance information included with the Mandate.
-        """
-
-    class UpdateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: NotRequired[str]
-        """
-        The IP address from which the Mandate was accepted by the customer.
-        """
-        user_agent: NotRequired[str]
-        """
-        The user agent of the browser from which the Mandate was accepted by the customer.
-        """
-
-    class UpdateParamsPaymentDetails(TypedDict):
-        car_rental: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRental"
-        ]
-        """
-        Car rental details for this PaymentIntent.
-        """
-        event_details: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsEventDetails"
-        ]
-        """
-        Event details for this PaymentIntent
-        """
-        flight: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsFlight"
-        ]
-        """
-        Flight reservation details for this PaymentIntent
-        """
-        lodging: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsLodging"
-        ]
-        """
-        Lodging reservation details for this PaymentIntent
-        """
-        subscription: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsSubscription"
-        ]
-        """
-        Subscription details for this PaymentIntent
-        """
-
-    class UpdateParamsPaymentDetailsCarRental(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: str
-        """
-        The booking number associated with the car rental.
-        """
-        car_class_code: NotRequired[str]
-        """
-        Class code of the car.
-        """
-        car_make: NotRequired[str]
-        """
-        Make of the car.
-        """
-        car_model: NotRequired[str]
-        """
-        Model of the car.
-        """
-        company: NotRequired[str]
-        """
-        The name of the rental car company.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the car rental company.
-        """
-        days_rented: int
-        """
-        Number of days the car is being rented.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        drivers: NotRequired[
-            List[
-                "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalDriver"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "extra_mileage",
-                    "gas",
-                    "late_return",
-                    "one_way_service",
-                    "parking_violation",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep nor cancel their booking.
-        """
-        pickup_address: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalPickupAddress"
-        ]
-        """
-        Car pick-up address.
-        """
-        pickup_at: int
-        """
-        Car pick-up time. Measured in seconds since the Unix epoch.
-        """
-        rate_amount: NotRequired[int]
-        """
-        Rental rate.
-        """
-        rate_interval: NotRequired[Literal["day", "month", "week"]]
-        """
-        The frequency at which the rate amount is applied. One of `day`, `week` or `month`
-        """
-        renter_name: NotRequired[str]
-        """
-        The name of the person or entity renting the car.
-        """
-        return_address: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalReturnAddress"
-        ]
-        """
-        Car return address.
-        """
-        return_at: int
-        """
-        Car return time. Measured in seconds since the Unix epoch.
-        """
-        tax_exempt: NotRequired[bool]
-        """
-        Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsCarRentalDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalDriver(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the car reservation.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsPaymentDetailsEventDetails(TypedDict):
-        access_controlled_venue: NotRequired[bool]
-        """
-        Indicates if the tickets are digitally checked when entering the venue.
-        """
-        address: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsEventDetailsAddress"
-        ]
-        """
-        The event location's address.
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsEventDetailsAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        company: NotRequired[str]
-        """
-        The name of the company
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsEventDetailsDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Event end time. Measured in seconds since the Unix epoch.
-        """
-        genre: NotRequired[str]
-        """
-        Type of the event entertainment (concert, sports event etc)
-        """
-        name: str
-        """
-        The name of the event.
-        """
-        starts_at: NotRequired[int]
-        """
-        Event start time. Measured in seconds since the Unix epoch.
-        """
-
-    class UpdateParamsPaymentDetailsEventDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class UpdateParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsEventDetailsDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class UpdateParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class UpdateParamsPaymentDetailsFlight(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsFlightAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        agency_number: NotRequired[str]
-        """
-        The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsFlightDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        passenger_name: NotRequired[str]
-        """
-        The name of the person or entity on the reservation.
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.UpdateParamsPaymentDetailsFlightPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation.
-        """
-        segments: List[
-            "PaymentIntentService.UpdateParamsPaymentDetailsFlightSegment"
-        ]
-        """
-        The individual flight segments associated with the trip.
-        """
-        ticket_number: NotRequired[str]
-        """
-        The ticket number associated with the travel reservation.
-        """
-
-    class UpdateParamsPaymentDetailsFlightAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class UpdateParamsPaymentDetailsFlightDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsFlightDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class UpdateParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class UpdateParamsPaymentDetailsFlightPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the flight reservation.
-        """
-
-    class UpdateParamsPaymentDetailsFlightSegment(TypedDict):
-        amount: NotRequired[int]
-        """
-        The flight segment amount.
-        """
-        arrival_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the arrival airport.
-        """
-        arrives_at: NotRequired[int]
-        """
-        The arrival time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        carrier: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
-        """
-        departs_at: int
-        """
-        The departure time for the flight segment. Measured in seconds since the Unix epoch.
-        """
-        departure_airport: NotRequired[str]
-        """
-        The International Air Transport Association (IATA) airport code for the departure airport.
-        """
-        flight_number: NotRequired[str]
-        """
-        The flight number associated with the segment
-        """
-        service_class: NotRequired[
-            Literal["business", "economy", "first", "premium_economy"]
-        ]
-        """
-        The fare class for the segment.
-        """
-
-    class UpdateParamsPaymentDetailsLodging(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsLodgingAddress"
-        ]
-        """
-        The lodging location's address.
-        """
-        adults: NotRequired[int]
-        """
-        The number of adults on the booking
-        """
-        affiliate: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsLodgingAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        booking_number: NotRequired[str]
-        """
-        The booking number associated with the lodging reservation.
-        """
-        category: NotRequired[Literal["hotel", "vacation_rental"]]
-        """
-        The lodging category
-        """
-        checkin_at: int
-        """
-        Loding check-in time. Measured in seconds since the Unix epoch.
-        """
-        checkout_at: int
-        """
-        Lodging check-out time. Measured in seconds since the Unix epoch.
-        """
-        customer_service_phone_number: NotRequired[str]
-        """
-        The customer service phone number of the lodging company.
-        """
-        daily_room_rate_amount: NotRequired[int]
-        """
-        The daily lodging room rate.
-        """
-        delivery: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsLodgingDelivery"
-        ]
-        """
-        Delivery details for this purchase.
-        """
-        extra_charges: NotRequired[
-            List[
-                Literal[
-                    "gift_shop",
-                    "laundry",
-                    "mini_bar",
-                    "other",
-                    "restaurant",
-                    "telephone",
-                ]
-            ]
-        ]
-        """
-        List of additional charges being billed.
-        """
-        fire_safety_act_compliance: NotRequired[bool]
-        """
-        Indicates whether the lodging location is compliant with the Fire Safety Act.
-        """
-        name: NotRequired[str]
-        """
-        The name of the lodging location.
-        """
-        no_show: NotRequired[bool]
-        """
-        Indicates if the customer did not keep their booking while failing to cancel the reservation.
-        """
-        number_of_rooms: NotRequired[int]
-        """
-        The number of rooms on the booking
-        """
-        passengers: NotRequired[
-            List[
-                "PaymentIntentService.UpdateParamsPaymentDetailsLodgingPassenger"
-            ]
-        ]
-        """
-        The details of the passengers in the travel reservation
-        """
-        property_phone_number: NotRequired[str]
-        """
-        The phone number of the lodging location.
-        """
-        room_class: NotRequired[str]
-        """
-        The room class for this purchase.
-        """
-        room_nights: NotRequired[int]
-        """
-        The number of room nights
-        """
-        total_room_tax_amount: NotRequired[int]
-        """
-        The total tax amount associating with the room reservation.
-        """
-        total_tax_amount: NotRequired[int]
-        """
-        The total tax amount
-        """
-
-    class UpdateParamsPaymentDetailsLodgingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsPaymentDetailsLodgingAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class UpdateParamsPaymentDetailsLodgingDelivery(TypedDict):
-        mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
-        """
-        The delivery method for the payment
-        """
-        recipient: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsLodgingDeliveryRecipient"
-        ]
-        """
-        Details of the recipient.
-        """
-
-    class UpdateParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
-        email: NotRequired[str]
-        """
-        The email of the recipient the ticket is delivered to.
-        """
-        name: NotRequired[str]
-        """
-        The name of the recipient the ticket is delivered to.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number of the recipient the ticket is delivered to.
-        """
-
-    class UpdateParamsPaymentDetailsLodgingPassenger(TypedDict):
-        name: str
-        """
-        Full name of the person or entity on the lodging reservation.
-        """
-
-    class UpdateParamsPaymentDetailsSubscription(TypedDict):
-        affiliate: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsSubscriptionAffiliate"
-        ]
-        """
-        Affiliate details for this purchase.
-        """
-        auto_renewal: NotRequired[bool]
-        """
-        Info whether the subscription will be auto renewed upon expiry.
-        """
-        billing_interval: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentDetailsSubscriptionBillingInterval"
-        ]
-        """
-        Subscription billing details for this purchase.
-        """
-        ends_at: NotRequired[int]
-        """
-        Subscription end time. Measured in seconds since the Unix epoch.
-        """
-        name: str
-        """
-        Name of the product on subscription. e.g. Apple Music Subscription
-        """
-        starts_at: NotRequired[int]
-        """
-        Subscription start time. Measured in seconds since the Unix epoch.
-        """
-
-    class UpdateParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-        name: str
-        """
-        The name of the affiliate that originated the purchase.
-        """
-
-    class UpdateParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
-        count: int
-        """
-        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-        """
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
         """
 
     class UpdateParamsPaymentMethodData(TypedDict):
@@ -8583,12 +5163,6 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodDataMbWay"
-        ]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -8629,12 +5203,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodDataPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataPix"
         ]
@@ -8652,12 +5220,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodDataRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataRevolutPay"
@@ -8710,17 +5272,14 @@ class PaymentIntentService(StripeService):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -8994,9 +5553,6 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
-    class UpdateParamsPaymentMethodDataMbWay(TypedDict):
-        pass
-
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -9047,20 +5603,6 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class UpdateParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class UpdateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -9071,26 +5613,6 @@ class PaymentIntentService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class UpdateParamsPaymentMethodDataRechnung(TypedDict):
-        dob: "PaymentIntentService.UpdateParamsPaymentMethodDataRechnungDob"
-        """
-        Customer's date of birth
-        """
-
-    class UpdateParamsPaymentMethodDataRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class UpdateParamsPaymentMethodDataRevolutPay(TypedDict):
@@ -9281,12 +5803,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
-        mb_way: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMbWay"
-        ]
-        """
-        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
-        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMobilepay"
         ]
@@ -9323,12 +5839,6 @@ class PaymentIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
         """
-        payto: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
-        """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPix"
         ]
@@ -9340,12 +5850,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
-        """
-        rechnung: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
         """
         revolut_pay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsRevolutPay"
@@ -9688,12 +6192,6 @@ class PaymentIntentService(StripeService):
         """
         Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         """
-        request_decremental_authorization: NotRequired[
-            Literal["if_available", "never"]
-        ]
-        """
-        Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
-        """
         request_extended_authorization: NotRequired[
             Literal["if_available", "never"]
         ]
@@ -9745,12 +6243,6 @@ class PaymentIntentService(StripeService):
         statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
-        """
-        statement_details: NotRequired[
-            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsCardStatementDetails"
-        ]
-        """
-        Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
         three_d_secure: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodOptionsCardThreeDSecure"
@@ -9848,46 +6340,6 @@ class PaymentIntentService(StripeService):
         requested_priority: NotRequired[Literal["domestic", "international"]]
         """
         Routing requested priority
-        """
-
-    class UpdateParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
-        address: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodOptionsCardStatementDetailsAddress"
-        ]
-        """
-        Please pass in an address that is within your Stripe user account country
-        """
-        phone: NotRequired[str]
-        """
-        Phone number (e.g., a toll-free number that customers can call)
-        """
-
-    class UpdateParamsPaymentMethodOptionsCardStatementDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
         """
 
     class UpdateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
@@ -10272,20 +6724,6 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class UpdateParamsPaymentMethodOptionsMbWay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
     class UpdateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -10409,10 +6847,6 @@ class PaymentIntentService(StripeService):
         """
         A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         """
-        reference_id: NotRequired[str]
-        """
-        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-        """
         risk_correlation_id: NotRequired[str]
         """
         The risk correlation ID for an on-session payment using a saved PayPal payment method.
@@ -10430,83 +6864,6 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        subsellers: NotRequired[List[str]]
-        """
-        The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-        """
-
-    class UpdateParamsPaymentMethodOptionsPayto(TypedDict):
-        mandate_options: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodOptionsPaytoMandateOptions"
-        ]
-        """
-        Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
-        """
-        setup_future_usage: NotRequired[
-            "Literal['']|Literal['none', 'off_session']"
-        ]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-
-        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-
-    class UpdateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
-        amount: NotRequired[int]
-        """
-        Amount that will be collected. It is required when `amount_type` is `fixed`.
-        """
-        amount_type: NotRequired[Literal["fixed", "maximum"]]
-        """
-        The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
-        """
-        end_date: NotRequired[str]
-        """
-        Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
-        """
-        payment_schedule: NotRequired[
-            Literal[
-                "adhoc",
-                "annual",
-                "daily",
-                "fortnightly",
-                "monthly",
-                "quarterly",
-                "semi_annual",
-                "weekly",
-            ]
-        ]
-        """
-        The periodicity at which payments will be collected.
-        """
-        payments_per_period: NotRequired[int]
-        """
-        The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
-        """
-        purpose: NotRequired[
-            Literal[
-                "dependant_support",
-                "government",
-                "loan",
-                "mortgage",
-                "other",
-                "pension",
-                "personal",
-                "retail",
-                "salary",
-                "tax",
-                "utility",
-            ]
-        ]
-        """
-        The purpose for which payments are made. Defaults to retail.
         """
 
     class UpdateParamsPaymentMethodOptionsPix(TypedDict):
@@ -10544,9 +6901,6 @@ class PaymentIntentService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-
-    class UpdateParamsPaymentMethodOptionsRechnung(TypedDict):
-        pass
 
     class UpdateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -10704,12 +7058,6 @@ class PaymentIntentService(StripeService):
         """
         Provide filters for the linked accounts that the customer can select for the payment method
         """
-        manual_entry: NotRequired[
-            "PaymentIntentService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
-        ]
-        """
-        Customize manual entry behavior
-        """
         permissions: NotRequired[
             List[
                 Literal[
@@ -10721,14 +7069,7 @@ class PaymentIntentService(StripeService):
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -10746,18 +7087,6 @@ class PaymentIntentService(StripeService):
         ]
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
-        """
-        institution: NotRequired[str]
-        """
-        ID of the institution to use to filter for selectable accounts.
-        """
-
-    class UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
-        TypedDict,
-    ):
-        mode: Literal["automatic", "custom"]
-        """
-        Settings for configuring manual entry of account details.
         """
 
     class UpdateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
@@ -11356,80 +7685,6 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=sanitize_id(intent),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def decrement_authorization(
-        self,
-        intent: str,
-        params: "PaymentIntentService.DecrementAuthorizationParams",
-        options: RequestOptions = {},
-    ) -> PaymentIntent:
-        """
-        Perform a decremental authorization on an eligible
-        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
-        PaymentIntent's status must be requires_capture and
-        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
-        must be available.
-
-        Decremental authorizations decrease the authorized amount on your customer's card
-        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
-
-        After decrement, the PaymentIntent object
-        returns with the updated
-        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
-        The PaymentIntent will now be capturable up to the new authorized amount.
-
-        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-        After it's fully captured, a PaymentIntent can no longer be decremented.
-        """
-        return cast(
-            PaymentIntent,
-            self._request(
-                "post",
-                "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(intent),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def decrement_authorization_async(
-        self,
-        intent: str,
-        params: "PaymentIntentService.DecrementAuthorizationParams",
-        options: RequestOptions = {},
-    ) -> PaymentIntent:
-        """
-        Perform a decremental authorization on an eligible
-        [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
-        PaymentIntent's status must be requires_capture and
-        [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
-        must be available.
-
-        Decremental authorizations decrease the authorized amount on your customer's card
-        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
-
-        After decrement, the PaymentIntent object
-        returns with the updated
-        [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
-        The PaymentIntent will now be capturable up to the new authorized amount.
-
-        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-        After it's fully captured, a PaymentIntent can no longer be decremented.
-        """
-        return cast(
-            PaymentIntent,
-            await self._request_async(
-                "post",
-                "/v1/payment_intents/{intent}/decrement_authorization".format(
                     intent=sanitize_id(intent),
                 ),
                 base_address="api",
