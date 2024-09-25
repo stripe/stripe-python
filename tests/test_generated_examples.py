@@ -25871,13 +25871,13 @@ class TestGeneratedExamples(object):
         stripe.terminal.Reader.process_setup_intent(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
-            allow_redisplay="always",
+            customer_consent_collected=True,
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
         )
 
     def test_terminal_readers_process_setup_intent_post_service(
@@ -25896,7 +25896,7 @@ class TestGeneratedExamples(object):
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
-                "allow_redisplay": "always",
+                "customer_consent_collected": True,
             },
         )
         http_client_mock.assert_requested(
@@ -25904,7 +25904,7 @@ class TestGeneratedExamples(object):
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
         )
 
     @pytest.mark.anyio
@@ -25914,13 +25914,13 @@ class TestGeneratedExamples(object):
         await stripe.terminal.Reader.process_setup_intent_async(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
-            allow_redisplay="always",
+            customer_consent_collected=True,
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
         )
 
     @pytest.mark.anyio
@@ -25940,7 +25940,7 @@ class TestGeneratedExamples(object):
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
-                "allow_redisplay": "always",
+                "customer_consent_collected": True,
             },
         )
         http_client_mock.assert_requested(
@@ -25948,7 +25948,7 @@ class TestGeneratedExamples(object):
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
         )
 
     def test_test_helpers_customers_fund_cash_balance_post(

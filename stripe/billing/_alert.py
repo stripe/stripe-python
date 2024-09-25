@@ -28,18 +28,13 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     OBJECT_NAME: ClassVar[Literal["billing.alert"]] = "billing.alert"
 
-    class UsageThreshold(StripeObject):
-        class Filter(StripeObject):
-            customer: Optional[ExpandableField["Customer"]]
-            """
-            Limit the scope of the alert to this customer ID
-            """
-            type: Literal["customer"]
+    class Filter(StripeObject):
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        Limit the scope of the alert to this customer ID
+        """
 
-        filters: Optional[List[Filter]]
-        """
-        The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        """
+    class UsageThresholdConfig(StripeObject):
         gte: int
         """
         The value at which this alert will trigger.
@@ -52,7 +47,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         Defines how the alert will behave.
         """
-        _inner_class_types = {"filters": Filter}
 
     class ActivateParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -75,20 +69,36 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         Specifies which fields in the response should be expanded.
         """
+        filter: NotRequired["Alert.CreateParamsFilter"]
+        """
+        Filters to limit the scope of an alert.
+        """
         title: str
         """
         The title of the alert.
         """
-        usage_threshold: NotRequired["Alert.CreateParamsUsageThreshold"]
+        usage_threshold_config: NotRequired[
+            "Alert.CreateParamsUsageThresholdConfig"
+        ]
         """
         The configuration of the usage threshold.
         """
 
-    class CreateParamsUsageThreshold(TypedDict):
-        filters: NotRequired[List["Alert.CreateParamsUsageThresholdFilter"]]
+    class CreateParamsFilter(TypedDict):
+        customer: NotRequired[str]
         """
-        The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        Limit the scope to this alert only to this customer.
         """
+        subscription: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription.
+        """
+        subscription_item: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription item.
+        """
+
+    class CreateParamsUsageThresholdConfig(TypedDict):
         gte: int
         """
         Defines at which value the alert will fire.
@@ -100,16 +110,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         recurrence: Literal["one_time"]
         """
         Whether the alert should only fire only once, or once per billing cycle.
-        """
-
-    class CreateParamsUsageThresholdFilter(TypedDict):
-        customer: NotRequired[str]
-        """
-        Limit the scope to this usage alert only to this customer.
-        """
-        type: Literal["customer"]
-        """
-        What type of filter is being applied to this usage alert.
         """
 
     class DeactivateParams(RequestOptions):
@@ -154,6 +154,10 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     """
     Defines the type of the alert.
     """
+    filter: Optional[Filter]
+    """
+    Limits the scope of the alert to a specific [customer](https://stripe.com/docs/api/customers).
+    """
     id: str
     """
     Unique identifier for the object.
@@ -174,7 +178,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     """
     Title of the alert.
     """
-    usage_threshold: Optional[UsageThreshold]
+    usage_threshold_config: Optional[UsageThresholdConfig]
     """
     Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter).
     """
@@ -583,4 +587,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"usage_threshold": UsageThreshold}
+    _inner_class_types = {
+        "filter": Filter,
+        "usage_threshold_config": UsageThresholdConfig,
+    }

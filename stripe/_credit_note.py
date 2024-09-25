@@ -27,9 +27,6 @@ if TYPE_CHECKING:
     from stripe._refund import Refund
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_rate import TaxRate
-    from stripe.billing._credit_balance_transaction import (
-        CreditBalanceTransaction,
-    )
 
 
 @nested_resource_class_methods("line")
@@ -54,26 +51,6 @@ class CreditNote(
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
-        """
-
-    class PretaxCreditAmount(StripeObject):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the pretax credit amount.
-        """
-        credit_balance_transaction: Optional[
-            ExpandableField["CreditBalanceTransaction"]
-        ]
-        """
-        The credit balance transaction that was applied to get this pretax credit amount.
-        """
-        discount: Optional[ExpandableField["Discount"]]
-        """
-        The discount that was applied to get this pretax credit amount.
-        """
-        type: Literal["credit_balance_transaction", "discount"]
-        """
-        Type of the pretax credit amount referenced.
         """
 
     class ShippingCost(StripeObject):
@@ -734,7 +711,6 @@ class CreditNote(
     """
     The link to download the PDF of the credit note.
     """
-    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     reason: Optional[
         Literal[
             "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
@@ -1146,7 +1122,6 @@ class CreditNote(
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
-        "pretax_credit_amounts": PretaxCreditAmount,
         "shipping_cost": ShippingCost,
         "tax_amounts": TaxAmount,
     }

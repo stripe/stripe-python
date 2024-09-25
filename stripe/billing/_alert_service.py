@@ -31,22 +31,36 @@ class AlertService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        filter: NotRequired["AlertService.CreateParamsFilter"]
+        """
+        Filters to limit the scope of an alert.
+        """
         title: str
         """
         The title of the alert.
         """
-        usage_threshold: NotRequired["AlertService.CreateParamsUsageThreshold"]
+        usage_threshold_config: NotRequired[
+            "AlertService.CreateParamsUsageThresholdConfig"
+        ]
         """
         The configuration of the usage threshold.
         """
 
-    class CreateParamsUsageThreshold(TypedDict):
-        filters: NotRequired[
-            List["AlertService.CreateParamsUsageThresholdFilter"]
-        ]
+    class CreateParamsFilter(TypedDict):
+        customer: NotRequired[str]
         """
-        The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        Limit the scope to this alert only to this customer.
         """
+        subscription: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription.
+        """
+        subscription_item: NotRequired[str]
+        """
+        Limit the scope of this rated usage alert to this subscription item.
+        """
+
+    class CreateParamsUsageThresholdConfig(TypedDict):
         gte: int
         """
         Defines at which value the alert will fire.
@@ -58,16 +72,6 @@ class AlertService(StripeService):
         recurrence: Literal["one_time"]
         """
         Whether the alert should only fire only once, or once per billing cycle.
-        """
-
-    class CreateParamsUsageThresholdFilter(TypedDict):
-        customer: NotRequired[str]
-        """
-        Limit the scope to this usage alert only to this customer.
-        """
-        type: Literal["customer"]
-        """
-        What type of filter is being applied to this usage alert.
         """
 
     class DeactivateParams(TypedDict):
