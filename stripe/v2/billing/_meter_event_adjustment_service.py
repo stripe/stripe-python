@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.v2.billing._meter_event_adjustment_v2 import MeterEventAdjustmentV2
+from stripe.v2.billing._meter_event_adjustment import MeterEventAdjustment
 from typing import cast
 from typing_extensions import Literal, TypedDict
 
@@ -32,12 +32,12 @@ class MeterEventAdjustmentService(StripeService):
         self,
         params: "MeterEventAdjustmentService.CreateParams",
         options: RequestOptions = {},
-    ) -> MeterEventAdjustmentV2:
+    ) -> MeterEventAdjustment:
         """
         Creates a meter event adjustment to cancel a previously sent meter event.
         """
         return cast(
-            MeterEventAdjustmentV2,
+            MeterEventAdjustment,
             self._request(
                 "post",
                 "/v2/billing/meter_event_adjustments",
@@ -51,12 +51,12 @@ class MeterEventAdjustmentService(StripeService):
         self,
         params: "MeterEventAdjustmentService.CreateParams",
         options: RequestOptions = {},
-    ) -> MeterEventAdjustmentV2:
+    ) -> MeterEventAdjustment:
         """
         Creates a meter event adjustment to cancel a previously sent meter event.
         """
         return cast(
-            MeterEventAdjustmentV2,
+            MeterEventAdjustment,
             await self._request_async(
                 "post",
                 "/v2/billing/meter_event_adjustments",

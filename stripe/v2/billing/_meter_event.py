@@ -5,13 +5,13 @@ from typing import ClassVar, Dict
 from typing_extensions import Literal
 
 
-class MeterEventV2(StripeObject):
+class MeterEvent(StripeObject):
     """
     Fix me empty_doc_string.
     """
 
-    OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event"]] = (
-        "v2.billing.meter_event"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event"]] = (
+        "billing.meter_event"
     )
     created: str
     """
@@ -29,7 +29,7 @@ class MeterEventV2(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["v2.billing.meter_event"]
+    object: Literal["billing.meter_event"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """

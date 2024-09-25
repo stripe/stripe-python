@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.v2.billing._meter_event_v2 import MeterEventV2
+from stripe.v2.billing._meter_event import MeterEvent
 from typing import Dict, cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,12 +37,12 @@ class MeterEventService(StripeService):
         self,
         params: "MeterEventService.CreateParams",
         options: RequestOptions = {},
-    ) -> MeterEventV2:
+    ) -> MeterEvent:
         """
-        Creates a meter event. Validates the event synchronously.
+        Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
         return cast(
-            MeterEventV2,
+            MeterEvent,
             self._request(
                 "post",
                 "/v2/billing/meter_events",
@@ -56,12 +56,12 @@ class MeterEventService(StripeService):
         self,
         params: "MeterEventService.CreateParams",
         options: RequestOptions = {},
-    ) -> MeterEventV2:
+    ) -> MeterEvent:
         """
-        Creates a meter event. Validates the event synchronously.
+        Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
         return cast(
-            MeterEventV2,
+            MeterEvent,
             await self._request_async(
                 "post",
                 "/v2/billing/meter_events",

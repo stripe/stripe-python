@@ -44,7 +44,7 @@ class MeterEventStreamService(StripeService):
         options: RequestOptions = {},
     ) -> None:
         """
-        Sends a meter event for asynchronous processing. Supports higher rate limits. Requires a meter event session for authentication.
+        Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
         """
         self._request(
             "post",
@@ -60,7 +60,7 @@ class MeterEventStreamService(StripeService):
         options: RequestOptions = {},
     ) -> None:
         """
-        Sends a meter event for asynchronous processing. Supports higher rate limits. Requires a meter event session for authentication.
+        Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
         """
         await self._request_async(
             "post",

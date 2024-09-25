@@ -5,9 +5,9 @@ from typing import ClassVar
 from typing_extensions import Literal
 
 
-class MeterEventAdjustmentV2(StripeObject):
-    OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event_adjustment"]] = (
-        "v2.billing.meter_event_adjustment"
+class MeterEventAdjustment(StripeObject):
+    OBJECT_NAME: ClassVar[Literal["billing.meter_event_adjustment"]] = (
+        "billing.meter_event_adjustment"
     )
 
     class Cancel(StripeObject):
@@ -36,16 +36,16 @@ class MeterEventAdjustmentV2(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["v2.billing.meter_event_adjustment"]
+    object: Literal["billing.meter_event_adjustment"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
     status: Literal["complete", "pending"]
     """
-    The meter event adjustment's status.
+    Open Enum. The meter event adjustment's status.
     """
     type: Literal["cancel"]
     """
-    Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+    Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
     """
     _inner_class_types = {"cancel": Cancel}
