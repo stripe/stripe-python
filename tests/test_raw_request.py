@@ -2,11 +2,11 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 
+import pytest
+
 import stripe
-from stripe._api_version import _ApiVersion
 
 from tests.test_api_requestor import GMT1
-import pytest
 
 
 class TestRawRequest(object):
@@ -17,6 +17,8 @@ class TestRawRequest(object):
     }
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
+    POST_REL_URL_V2 = "/v2/billing/meter_event_session"
+    GET_REL_URL_V2 = "/v2/accounts/acct_123"
 
     def test_form_request_get(
         self, http_client_mock, stripe_mock_stripe_client
@@ -67,30 +69,32 @@ class TestRawRequest(object):
     ):
         http_client_mock.stub_request(
             "post",
-            path=self.POST_REL_URL,
-            rbody='{"id": "acct_123", "object": "account"}',
+            path=self.POST_REL_URL_V2,
+            rbody='{"id": "bmes_123", "object": "billing.meter_event_session"}',
             rcode=200,
             rheaders={},
         )
 
-        params = dict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
+        params = dict({}, **self.ENCODE_INPUTS)
         expectation = (
             '{"type": "standard", "int": 123, "datetime": 1356994801}'
         )
 
         resp = stripe_mock_stripe_client.raw_request(
-            "post", self.POST_REL_URL, **params
+            "post", self.POST_REL_URL_V2, **params
         )
 
         http_client_mock.assert_requested(
             "post",
-            path=self.POST_REL_URL,
+            path=self.POST_REL_URL_V2,
             content_type="application/json",
             post_data=expectation,
             is_json=True,
         )
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe_mock_stripe_client.deserialize(
+            resp, api_mode="V2"
+        )
         assert isinstance(deserialized, stripe.Account)
 
     def test_form_request_with_extra_headers(
@@ -122,21 +126,20 @@ class TestRawRequest(object):
     ):
         http_client_mock.stub_request(
             "get",
-            path=self.GET_REL_URL,
+            path=self.GET_REL_URL_V2,
             rbody='{"id": "acct_123", "object": "account"}',
             rcode=200,
             rheaders={},
         )
-        params = {"api_mode": "preview"}
+        params = {}
 
         stripe_mock_stripe_client.raw_request(
-            "get", self.GET_REL_URL, **params
+            "get", self.GET_REL_URL_V2, **params
         )
 
         http_client_mock.assert_requested(
             "get",
-            path=self.GET_REL_URL,
-            stripe_version=_ApiVersion.PREVIEW,
+            path=self.GET_REL_URL_V2,
         )
 
     def test_preview_request_overridden_api_version(
@@ -144,24 +147,23 @@ class TestRawRequest(object):
     ):
         http_client_mock.stub_request(
             "post",
-            path=self.POST_REL_URL,
+            path=self.POST_REL_URL_V2,
             rbody='{"id": "acct_123", "object": "account"}',
             rcode=200,
             rheaders={},
         )
         stripe_version_override = "2023-05-15.preview"
         params = {
-            "api_mode": "preview",
             "stripe_version": stripe_version_override,
         }
 
         stripe_mock_stripe_client.raw_request(
-            "post", self.POST_REL_URL, **params
+            "post", self.POST_REL_URL_V2, **params
         )
 
         http_client_mock.assert_requested(
             "post",
-            path=self.POST_REL_URL,
+            path=self.POST_REL_URL_V2,
             content_type="application/json",
             stripe_version=stripe_version_override,
             post_data="{}",

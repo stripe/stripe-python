@@ -4460,6 +4460,26 @@ class TestGeneratedExamples(object):
             post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2&mode=payment",
         )
 
+    def test_core_events_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/ll_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("ll_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/ll_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_country_specs_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.CountrySpec.list(limit=3)
         http_client_mock.assert_requested(
@@ -25985,13 +26005,13 @@ class TestGeneratedExamples(object):
         stripe.terminal.Reader.process_setup_intent(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
-            customer_consent_collected=True,
+            allow_redisplay="always",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
         )
 
     def test_terminal_readers_process_setup_intent_post_service(
@@ -26010,7 +26030,7 @@ class TestGeneratedExamples(object):
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
-                "customer_consent_collected": True,
+                "allow_redisplay": "always",
             },
         )
         http_client_mock.assert_requested(
@@ -26018,7 +26038,7 @@ class TestGeneratedExamples(object):
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
         )
 
     @pytest.mark.anyio
@@ -26028,13 +26048,13 @@ class TestGeneratedExamples(object):
         await stripe.terminal.Reader.process_setup_intent_async(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
-            customer_consent_collected=True,
+            allow_redisplay="always",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
         )
 
     @pytest.mark.anyio
@@ -26054,7 +26074,7 @@ class TestGeneratedExamples(object):
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
-                "customer_consent_collected": True,
+                "allow_redisplay": "always",
             },
         )
         http_client_mock.assert_requested(
@@ -26062,7 +26082,7 @@ class TestGeneratedExamples(object):
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
         )
 
     def test_test_helpers_customers_fund_cash_balance_post(

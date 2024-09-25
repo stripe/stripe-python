@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._subscription_item import SubscriptionItem
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
 
 
 class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
@@ -62,6 +65,30 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         start: int
         """
         The start of the period. This value is inclusive.
+        """
+
+    class PretaxCreditAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the pretax credit amount.
+        """
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
+        """
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount"]
+        """
+        Type of the pretax credit amount referenced.
         """
 
     class ProrationDetails(StripeObject):
@@ -417,6 +444,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The plan of the subscription, if the line item is a subscription or a proration.
     """
+    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     price: Optional["Price"]
     """
     The price of the line item.
@@ -441,11 +469,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
     """
-    tax_amounts: Optional[List[TaxAmount]]
+    tax_amounts: List[TaxAmount]
     """
     The amount of tax calculated per tax rate for this line item
     """
-    tax_rates: Optional[List["TaxRate"]]
+    tax_rates: List["TaxRate"]
     """
     The tax rates which apply to the line item.
     """
@@ -502,6 +530,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "discount_amounts": DiscountAmount,
         "margin_amounts": MarginAmount,
         "period": Period,
+        "pretax_credit_amounts": PretaxCreditAmount,
         "proration_details": ProrationDetails,
         "tax_amounts": TaxAmount,
     }

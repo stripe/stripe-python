@@ -23,6 +23,9 @@ OBJECT_CLASSES = {
     stripe.billing_portal.Session.OBJECT_NAME: stripe.billing_portal.Session,
     stripe.billing.Alert.OBJECT_NAME: stripe.billing.Alert,
     stripe.billing.AlertTriggered.OBJECT_NAME: stripe.billing.AlertTriggered,
+    stripe.billing.CreditBalanceSummary.OBJECT_NAME: stripe.billing.CreditBalanceSummary,
+    stripe.billing.CreditBalanceTransaction.OBJECT_NAME: stripe.billing.CreditBalanceTransaction,
+    stripe.billing.CreditGrant.OBJECT_NAME: stripe.billing.CreditGrant,
     stripe.billing.Meter.OBJECT_NAME: stripe.billing.Meter,
     stripe.billing.MeterErrorReport.OBJECT_NAME: stripe.billing.MeterErrorReport,
     stripe.billing.MeterEvent.OBJECT_NAME: stripe.billing.MeterEvent,
@@ -75,7 +78,7 @@ OBJECT_CLASSES = {
     stripe.Invoice.OBJECT_NAME: stripe.Invoice,
     stripe.InvoiceItem.OBJECT_NAME: stripe.InvoiceItem,
     stripe.InvoiceLineItem.OBJECT_NAME: stripe.InvoiceLineItem,
-    stripe.InvoicePayment.OBJECT_NAME: stripe.InvoicePayment,
+    stripe.InvoiceRenderingTemplate.OBJECT_NAME: stripe.InvoiceRenderingTemplate,
     stripe.issuing.Authorization.OBJECT_NAME: stripe.issuing.Authorization,
     stripe.issuing.Card.OBJECT_NAME: stripe.issuing.Card,
     stripe.issuing.Cardholder.OBJECT_NAME: stripe.issuing.Cardholder,
@@ -89,7 +92,6 @@ OBJECT_CLASSES = {
     stripe.LoginLink.OBJECT_NAME: stripe.LoginLink,
     stripe.Mandate.OBJECT_NAME: stripe.Mandate,
     stripe.Margin.OBJECT_NAME: stripe.Margin,
-    stripe.Order.OBJECT_NAME: stripe.Order,
     stripe.PaymentIntent.OBJECT_NAME: stripe.PaymentIntent,
     stripe.PaymentLink.OBJECT_NAME: stripe.PaymentLink,
     stripe.PaymentMethod.OBJECT_NAME: stripe.PaymentMethod,
@@ -162,4 +164,13 @@ OBJECT_CLASSES = {
     stripe.UsageRecordSummary.OBJECT_NAME: stripe.UsageRecordSummary,
     stripe.WebhookEndpoint.OBJECT_NAME: stripe.WebhookEndpoint,
     # Object classes: The end of the section generated from our OpenAPI spec
+}
+
+V2_OBJECT_CLASSES = {
+    # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
+    stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
+    stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
+    stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,
+    # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

@@ -63,9 +63,8 @@ class Customer(
     UpdateableAPIResource["Customer"],
 ):
     """
-    This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
-
-    Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
+    This object represents a customer of your business. Use it to [create recurring charges](https://stripe.com/docs/invoicing/customer), [save payment](https://stripe.com/docs/payments/save-during-payment) and contact information,
+    and track payments that belong to the same customer.
     """
 
     OBJECT_NAME: ClassVar[Literal["customer"]] = "customer"
@@ -111,6 +110,10 @@ class Customer(
             amount_tax_display: Optional[str]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+            """
+            template: Optional[str]
+            """
+            ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice.
             """
 
         custom_fields: Optional[List[CustomField]]
@@ -451,6 +454,10 @@ class Customer(
         ]
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for future invoices.
         """
 
     class CreateParamsShipping(TypedDict):
@@ -1114,6 +1121,10 @@ class Customer(
         ]
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for future invoices.
         """
 
     class ModifyParamsShipping(TypedDict):

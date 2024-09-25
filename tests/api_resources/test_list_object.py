@@ -83,13 +83,15 @@ class TestListObject(object):
 
     def test_iter(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(arr)
+        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V1")
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(lo) == expected
 
     def test_iter_reversed(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(list(reversed(arr)))
+        expected = stripe.util.convert_to_stripe_object(
+            list(reversed(arr)), api_mode="V1"
+        )
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(reversed(lo)) == expected
 

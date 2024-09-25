@@ -40,7 +40,6 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount
     from stripe._invoice_line_item import InvoiceLineItem
-    from stripe._invoice_payment import InvoicePayment
     from stripe._margin import Margin
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -51,6 +50,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -522,6 +524,7 @@ class Invoice(
                 "terminal_reader_busy",
                 "terminal_reader_collected_data_invalid",
                 "terminal_reader_hardware_fault",
+                "terminal_reader_invalid_location_for_activation",
                 "terminal_reader_invalid_location_for_payment",
                 "terminal_reader_offline",
                 "terminal_reader_timeout",
@@ -845,6 +848,14 @@ class Invoice(
         """
         Invoice pdf rendering options
         """
+        template: Optional[str]
+        """
+        ID of the rendering template that the invoice is formatted by.
+        """
+        template_version: Optional[int]
+        """
+        Version of the rendering template that the invoice is using.
+        """
         _inner_class_types = {"pdf": Pdf}
 
     class ShippingCost(StripeObject):
@@ -1025,14 +1036,28 @@ class Invoice(
         The discount that was applied to get this discount amount.
         """
 
-    class TotalMarginAmount(StripeObject):
+    class TotalPretaxCreditAmount(StripeObject):
         amount: int
         """
-        The amount, in cents (or local equivalent), of the reduction in line item amount.
+        The amount, in cents (or local equivalent), of the pretax credit amount.
         """
-        margin: ExpandableField["Margin"]
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
         """
-        The margin that was applied to get this margin amount.
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount"]
+        """
+        Type of the pretax credit amount referenced.
         """
 
     class TotalTaxAmount(StripeObject):
@@ -1899,6 +1924,14 @@ class Invoice(
         pdf: NotRequired["Invoice.CreateParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
         """
 
     class CreateParamsRenderingPdf(TypedDict):
@@ -4553,6 +4586,14 @@ class Invoice(
         pdf: NotRequired["Invoice.ModifyParamsRenderingPdf"]
         """
         Invoice pdf rendering options
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
+        template_version: NotRequired["Literal['']|int"]
+        """
+        The specific version of invoice rendering template to use for this invoice.
         """
 
     class ModifyParamsRenderingPdf(TypedDict):
@@ -9226,6 +9267,10 @@ class Invoice(
     Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     """
     automatic_tax: AutomaticTax
+    automatically_finalizes_at: Optional[int]
+    """
+    The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
+    """
     billing_reason: Optional[
         Literal[
             "automatic_pending_invoice_item_invoice",
@@ -9510,10 +9555,7 @@ class Invoice(
     """
     The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     """
-    total_margin_amounts: Optional[List[TotalMarginAmount]]
-    """
-    The aggregate amounts calculated per margin across all line items.
-    """
+    total_pretax_credit_amounts: Optional[List[TotalPretaxCreditAmount]]
     total_tax_amounts: List[TotalTaxAmount]
     """
     The aggregate amounts calculated per tax rate for all line items.
@@ -11345,7 +11387,7 @@ class Invoice(
         "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
-        "total_margin_amounts": TotalMarginAmount,
+        "total_pretax_credit_amounts": TotalPretaxCreditAmount,
         "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }

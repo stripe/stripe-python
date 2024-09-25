@@ -7,6 +7,7 @@ from stripe import (
     DEFAULT_API_BASE,
     DEFAULT_CONNECT_API_BASE,
     DEFAULT_UPLOAD_API_BASE,
+    DEFAULT_METER_EVENTS_API_BASE,
 )
 
 from stripe._error import AuthenticationError
@@ -25,6 +26,7 @@ from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
+from stripe.v2._event import ThinEvent
 
 from typing import Any, Dict, Optional, Union, cast
 
@@ -66,6 +68,9 @@ from stripe._forwarding_service import ForwardingService
 from stripe._gift_cards_service import GiftCardsService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
+from stripe._invoice_rendering_template_service import (
+    InvoiceRenderingTemplateService,
+)
 from stripe._invoice_item_service import InvoiceItemService
 from stripe._issuing_service import IssuingService
 from stripe._mandate_service import MandateService
@@ -107,6 +112,7 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
+from stripe._v2_service import V2Service
 # services: The end of the section generated from our OpenAPI spec
 
 
@@ -116,6 +122,7 @@ class StripeClient(object):
         api_key: str,
         *,
         stripe_account: Optional[str] = None,
+        stripe_context: Optional[str] = None,
         stripe_version: Optional[str] = None,
         base_addresses: BaseAddresses = {},
         client_id: Optional[str] = None,
@@ -147,12 +154,14 @@ class StripeClient(object):
             "api": DEFAULT_API_BASE,
             "connect": DEFAULT_CONNECT_API_BASE,
             "files": DEFAULT_UPLOAD_API_BASE,
+            "meter_events": DEFAULT_METER_EVENTS_API_BASE,
             **base_addresses,
         }
 
         self._requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
+            stripe_context=stripe_context,
             stripe_version=stripe_version or _ApiVersion.CURRENT,
             base_addresses=base_addresses,
             max_network_retries=max_network_retries,
@@ -217,6 +226,9 @@ class StripeClient(object):
         self.gift_cards = GiftCardsService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
+        self.invoice_rendering_templates = InvoiceRenderingTemplateService(
+            self._requestor,
+        )
         self.invoice_items = InvoiceItemService(self._requestor)
         self.issuing = IssuingService(self._requestor)
         self.mandates = MandateService(self._requestor)
@@ -262,9 +274,27 @@ class StripeClient(object):
         self.transfers = TransferService(self._requestor)
         self.treasury = TreasuryService(self._requestor)
         self.webhook_endpoints = WebhookEndpointService(self._requestor)
+        self.v2 = V2Service(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
-    def construct_event(
+    def parse_thin_event(
+        self,
+        raw: Union[bytes, str, bytearray],
+        sig_header: str,
+        secret: str,
+        tolerance: int = Webhook.DEFAULT_TOLERANCE,
+    ) -> ThinEvent:
+        payload = (
+            cast(Union[bytes, bytearray], raw).decode("utf-8")
+            if hasattr(raw, "decode")
+            else cast(str, raw)
+        )
+
+        WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
+
+        return json.loads(payload)
+
+    def parse_snapshot_event(
         self,
         payload: Union[bytes, str],
         sig_header: str,
