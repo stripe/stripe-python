@@ -10,6 +10,7 @@ from stripe import (
     DEFAULT_METER_EVENTS_API_BASE,
 )
 
+from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
 from stripe._request_options import extract_options_from_dict
@@ -23,7 +24,7 @@ from stripe._http_client import (
 from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe._util import _convert_to_stripe_object
+from stripe._util import _convert_to_stripe_object, get_api_mode
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2._event import ThinEvent
@@ -306,7 +307,7 @@ class StripeClient(object):
     def raw_request(self, method_: str, url_: str, **params):
         params = params.copy()
         options, params = extract_options_from_dict(params)
-        api_mode = params.pop("api_mode", None)
+        api_mode = get_api_mode(url_)
         base_address = params.pop("base", "api")
 
         stripe_context = params.pop("stripe_context", None)
@@ -330,12 +331,12 @@ class StripeClient(object):
             usage=["raw_request"],
         )
 
-        return self._requestor._interpret_response(rbody, rcode, rheaders)
+        return self._requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
     async def raw_request_async(self, method_: str, url_: str, **params):
         params = params.copy()
         options, params = extract_options_from_dict(params)
-        api_mode = params.pop("api_mode", None)
+        api_mode = get_api_mode(url_)
         base_address = params.pop("base", "api")
 
         rbody, rcode, rheaders = await self._requestor.request_raw_async(
@@ -348,16 +349,18 @@ class StripeClient(object):
             usage=["raw_request"],
         )
 
-        return self._requestor._interpret_response(rbody, rcode, rheaders)
+        return self._requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
     def deserialize(
         self,
         resp: Union[StripeResponse, Dict[str, Any]],
         params: Optional[Dict[str, Any]] = None,
+        *,
+        api_mode: ApiMode
     ) -> StripeObject:
         return _convert_to_stripe_object(
             resp=resp,
             params=params,
             requestor=self._requestor,
-            api_mode="V1",
+            api_mode=api_mode,
         )
