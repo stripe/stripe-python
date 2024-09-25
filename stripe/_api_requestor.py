@@ -541,8 +541,6 @@ class _APIRequestor(object):
         ):
             # If user specified an API version, honor it
             request_options["stripe_version"] = options["stripe_version"]
-        elif api_mode == "V2":
-            request_options["stripe_version"] = stripe.preview_api_version
 
         if request_options.get("api_key") is None:
             raise error.AuthenticationError(

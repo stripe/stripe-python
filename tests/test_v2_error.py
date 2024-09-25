@@ -53,7 +53,6 @@ class TestV2Error(object):
             method,
             path=path,
             api_key="keyinfo_test_123",
-            stripe_version=stripe.preview_api_version,
         )
 
     @pytest.mark.skip("python doesn't have any errors with invalid params yet")
@@ -96,7 +95,6 @@ class TestV2Error(object):
             method,
             path=path,
             api_key="keyinfo_test_123",
-            stripe_version=stripe.preview_api_version,
         )
 
     def test_falls_back_to_v1_error(
@@ -140,5 +138,4 @@ class TestV2Error(object):
             method,
             path=path,
             api_key="keyinfo_test_123",
-            stripe_version=stripe.preview_api_version,
         )

@@ -53,7 +53,6 @@ class TestStripeClient(object):
             api_base=stripe.DEFAULT_API_BASE,
             path=path,
             api_key="keyinfo_test_123",
-            stripe_version=stripe.preview_api_version,
         )
         assert event.id is not None
         assert isinstance(event, Event)
