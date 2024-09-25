@@ -1,8 +1,12 @@
 from __future__ import absolute_import, division, print_function
+
+import json
+
+import pytest
+
 import stripe
 from stripe import error
-import json
-import pytest
+from tests.http_client_mock import HTTPClientMock
 
 
 class TestV2Error(object):
@@ -13,14 +17,18 @@ class TestV2Error(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-    def test_raises_v2_error(self, stripe_client, http_client_mock):
+    def test_raises_v2_error(
+        self,
+        stripe_client: stripe.StripeClient,
+        http_client_mock: HTTPClientMock,
+    ):
         method = "get"
-        path = "/v2/financial_addresses/faddr_xyz"
+        path = "/v2/core/events/evt_123"
 
         error_response = {
             "error": {
-                "type": "insufficient_funds",
-                "code": "outbound_payment_insufficient_funds",
+                "type": "temporary_session_expired",
+                "code": "session_bad",
                 "message": "you messed up",
             }
         }
@@ -33,13 +41,13 @@ class TestV2Error(object):
         )
 
         try:
-            stripe_client.v2.financial_addresses.retrieve("faddr_xyz")
-        except error.InsufficientFundsError as e:
-            assert e.code == "outbound_payment_insufficient_funds"
-            assert e.error.code == "outbound_payment_insufficient_funds"
+            stripe_client.v2.core.events.retrieve("evt_123")
+        except error.TemporarySessionExpiredError as e:
+            assert e.code == "session_bad"
+            assert e.error.code == "session_bad"
             assert e.error.message == "you messed up"
         else:
-            assert False, "Should have raised a NotFoundError"
+            assert False, "Should have raised a TemporarySessionExpiredError"
 
         http_client_mock.assert_requested(
             method,
@@ -48,7 +56,12 @@ class TestV2Error(object):
             stripe_version=stripe.preview_api_version,
         )
 
-    def test_raises_v2_error_with_field(self, stripe_client, http_client_mock):
+    @pytest.mark.skip("python doesn't have any errors with invalid params yet")
+    def test_raises_v2_error_with_field(
+        self,
+        stripe_client: stripe.StripeClient,
+        http_client_mock: HTTPClientMock,
+    ):
         method = "post"
         path = "/v2/payment_methods/us_bank_accounts"
 
@@ -86,10 +99,13 @@ class TestV2Error(object):
             stripe_version=stripe.preview_api_version,
         )
 
-    def test_falls_back_to_v1_error(self, stripe_client, http_client_mock):
+    def test_falls_back_to_v1_error(
+        self,
+        stripe_client: stripe.StripeClient,
+        http_client_mock: HTTPClientMock,
+    ):
         method = "post"
-        obp_id = "obp_123"
-        path = "/v2/outbound_payments/%s/cancel" % obp_id
+        path = "/v2/billing/meter_events"
 
         error_response = {
             "error": {
@@ -107,7 +123,9 @@ class TestV2Error(object):
         )
 
         try:
-            stripe_client.v2.outbound_payments.cancel(obp_id)
+            stripe_client.v2.billing.meter_events.create(
+                {"event_name": "asdf", "payload": {}}
+            )
         except error.InvalidRequestError as e:
             assert e.param == "invalid_param"
             assert repr(e) == (

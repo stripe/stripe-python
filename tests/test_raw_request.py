@@ -15,7 +15,7 @@ class TestRawRequest(object):
     }
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
-    POST_REL_URL_V2 = "/v2/accounts"
+    POST_REL_URL_V2 = "/v2/billing/meter_event_session"
     GET_REL_URL_V2 = "/v2/accounts/acct_123"
 
     def test_form_request_get(self, http_client_mock):
@@ -62,7 +62,7 @@ class TestRawRequest(object):
         http_client_mock.stub_request(
             "post",
             path=self.POST_REL_URL_V2,
-            rbody='{"id": "acct_123", "object": "account"}',
+            rbody='{"id": "bmes_123", "object": "billing.meter_event_session"}',
             rcode=200,
             rheaders={},
         )
@@ -83,7 +83,7 @@ class TestRawRequest(object):
         )
 
         deserialized = stripe.deserialize(resp, api_mode="V2")
-        assert isinstance(deserialized, stripe.v2.Account)
+        assert isinstance(deserialized, stripe.v2.billing.MeterEventSession)
 
     def test_form_request_with_extra_headers(self, http_client_mock):
         http_client_mock.stub_request(

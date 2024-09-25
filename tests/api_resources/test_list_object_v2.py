@@ -1,13 +1,12 @@
 from __future__ import absolute_import, division, print_function
 
-
-import pytest
 import json
 
+import pytest
+
 import stripe
-
-
 from stripe.v2._list_object import ListObject
+from tests.http_client_mock import HTTPClientMock
 
 
 class TestListObjectV2(object):
@@ -97,19 +96,22 @@ class TestListObjectV2(object):
             "pm_128",
         ]
 
-    def test_iter_forwards_api_key(self, http_client_mock):
+    def test_iter_forwards_api_key(self, http_client_mock: HTTPClientMock):
         client = stripe.StripeClient(
             http_client=http_client_mock.get_mock_http_client(),
             api_key="sk_test_xyz",
         )
 
         method = "get"
-        path = "/v2/financial_accounts"
+        query_string_1 = "object_id=obj_123"
+        query_string_2 = "object_id=obj_123&page=page_2"
+        path = "/v2/core/events"
 
         http_client_mock.stub_request(
             method,
             path=path,
-            rbody='{"data": [{"id": "x"}], "next_page_url": "/v2/financial_accounts?page=page_2"}',
+            query_string=query_string_1,
+            rbody='{"data": [{"id": "x"}], "next_page_url": "/v2/core/events?object_id=obj_123&page=page_2"}',
             rcode=200,
             rheaders={},
         )
@@ -117,14 +119,15 @@ class TestListObjectV2(object):
         http_client_mock.stub_request(
             method,
             path=path,
-            query_string="page=page_2",
+            query_string=query_string_2,
             rbody='{"data": [{"id": "y"}, {"id": "z"}], "next_page_url": null}',
             rcode=200,
             rheaders={},
         )
 
-        lo = client.v2.financial_accounts.list(
-            options={"api_key": "sk_test_iter_forwards_options"}
+        lo = client.v2.core.events.list(
+            params={"object_id": "obj_123"},
+            options={"api_key": "sk_test_iter_forwards_options"},
         )
 
         seen = [item["id"] for item in lo.auto_paging_iter()]
@@ -133,11 +136,12 @@ class TestListObjectV2(object):
         http_client_mock.assert_requested(
             method,
             path=path,
+            query_string=query_string_1,
             api_key="sk_test_iter_forwards_options",
         )
         http_client_mock.assert_requested(
             method,
             path=path,
-            query_string="page=page_2",
+            query_string=query_string_2,
             api_key="sk_test_iter_forwards_options",
         )
