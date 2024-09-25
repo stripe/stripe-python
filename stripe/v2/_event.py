@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import json
 from typing import ClassVar, Optional
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal
 
 from stripe._stripe_object import StripeObject
 
@@ -69,25 +70,55 @@ class Event(StripeObject):
 # The end of the section generated from our OpenAPI spec
 
 
-class Reason(TypedDict):
+class Reason:
     id: str
     idempotency_key: str
 
+    def __init__(self, d) -> None:
+        self.id = d["id"]
+        self.idempotency_key = d["idempotency_key"]
 
-class RelatedObject(TypedDict):
+    def __repr__(self) -> str:
+        return f"<Reason id={self.id} idempotency_key={self.idempotency_key}>"
+
+
+class RelatedObject:
     id: str
     type: str
     url: str
 
+    def __init__(self, d) -> None:
+        self.id = d["id"]
+        self.type_ = d["type"]
+        self.url = d["url"]
 
-class ThinEvent(TypedDict):
+    def __repr__(self) -> str:
+        return f"<RelatedObject id={self.id} type={self.type_} url={self.url}>"
+
+
+class ThinEvent:
     """
-    ThinEvent represents the json that's delivered from an Event Destination. It's a basic `dict` with no additional methods or properties. Use it to check basic information about a delivered event. If you want more details, use `stripe.v2.Event.retrieve(thin_event["id"])` to fetch the full event object.
+    ThinEvent represents the json that's delivered from an Event Destination. It's a basic `dict` with no additional methods or properties. Use it to check basic information about a delivered event. If you want more details, use `stripe.v2.Event.retrieve(thin_event.id)` to fetch the full event object.
     """
 
     id: str
     type: str
     created: str
-    context: Optional[str]
-    related_object: Optional[RelatedObject]
-    reason: Optional[Reason]
+    context: Optional[str] = None
+    related_object: Optional[RelatedObject] = None
+    reason: Optional[Reason] = None
+
+    def __init__(self, payload: str) -> None:
+        parsed = json.loads(payload)
+
+        self.id = parsed["id"]
+        self.type = parsed["type"]
+        self.created = parsed["created"]
+        self.context = parsed.get("context")
+        if parsed.get("related_object"):
+            self.related_object = RelatedObject(parsed["related_object"])
+        if parsed.get("reason"):
+            self.reason = Reason(parsed["reason"])
+
+    def __repr__(self) -> str:
+        return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} related_object={self.related_object} reason={self.reason}>"

@@ -4,7 +4,6 @@ from typing import Callable
 import pytest
 
 import stripe
-from stripe._stripe_object import StripeObject
 from stripe import ThinEvent
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
 
@@ -25,6 +24,10 @@ class TestV2Event(object):
                     "type": "financial_account",
                     "url": "/v2/financial_accounts/fa_123",
                     "stripe_context": "acct_123",
+                },
+                "reason": {
+                    "id": "foo",
+                    "idempotency_key": "bar",
                 },
             }
         )
@@ -75,14 +78,28 @@ class TestV2Event(object):
 
         return _parse_thin_event
 
-    def test_parses_v2_event(
+    def test_parses_thin_event(
         self, parse_thin_event: EventParser, v2_payload_no_data: str
     ):
         event = parse_thin_event(v2_payload_no_data)
 
-        # parse event returns a plain dict
-        assert not isinstance(event, StripeObject)
-        assert event == json.loads(v2_payload_no_data)
+        assert isinstance(event, ThinEvent)
+        assert event.id == "evt_234"
+
+        assert event.related_object
+        assert event.related_object.id == "fa_123"
+
+        assert event.reason
+        assert event.reason.id == "foo"
+
+    def test_parses_thin_event_with_data(
+        self, parse_thin_event: EventParser, v2_payload_with_data: str
+    ):
+        event = parse_thin_event(v2_payload_with_data)
+
+        assert isinstance(event, ThinEvent)
+        assert not hasattr(event, "data")
+        assert event.reason is None
 
     def test_validates_signature(
         self, stripe_client: stripe.StripeClient, v2_payload_no_data
