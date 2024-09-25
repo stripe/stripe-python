@@ -3,6 +3,7 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
@@ -18,12 +19,16 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._account import Account as AccountResource
     from stripe._customer import Customer
+    from stripe.financial_connections._account_inferred_balance import (
+        AccountInferredBalance,
+    )
     from stripe.financial_connections._account_owner import AccountOwner
     from stripe.financial_connections._account_ownership import (
         AccountOwnership,
     )
 
 
+@nested_resource_class_methods("inferred_balance")
 class Account(ListableAPIResource["Account"]):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
@@ -102,6 +107,20 @@ class Account(ListableAPIResource["Account"]):
         The status of the last refresh attempt.
         """
 
+    class InferredBalancesRefresh(StripeObject):
+        last_attempted_at: int
+        """
+        The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        next_refresh_available_at: Optional[int]
+        """
+        Time at which the next inferred balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        """
+        status: Literal["failed", "pending", "succeeded"]
+        """
+        The status of the last refresh attempt.
+        """
+
     class OwnershipRefresh(StripeObject):
         last_attempted_at: int
         """
@@ -138,6 +157,24 @@ class Account(ListableAPIResource["Account"]):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+
+    class ListInferredBalancesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
     class ListOwnersParams(RequestOptions):
@@ -203,7 +240,11 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["balance", "ownership", "transactions"]]
+        features: List[
+            Literal[
+                "balance", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
         """
         The list of account features that you would like to refresh.
         """
@@ -219,7 +260,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features to which you would like to subscribe.
         """
@@ -229,7 +270,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["transactions"]]
+        features: List[Literal["balance", "inferred_balances", "transactions"]]
         """
         The list of account features from which you would like to unsubscribe.
         """
@@ -261,6 +302,10 @@ class Account(ListableAPIResource["Account"]):
     id: str
     """
     Unique identifier for the object.
+    """
+    inferred_balances_refresh: Optional[InferredBalancesRefresh]
+    """
+    The state of the most recent attempt to refresh the account's inferred balance history.
     """
     institution_name: str
     """
@@ -322,7 +367,9 @@ class Account(ListableAPIResource["Account"]):
 
     If `category` is `investment` or `other`, this will be `other`.
     """
-    subscriptions: Optional[List[Literal["transactions"]]]
+    subscriptions: Optional[
+        List[Literal["balance", "inferred_balances", "transactions"]]
+    ]
     """
     The list of data refresh subscriptions requested on this account.
     """
@@ -947,10 +994,51 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
+    @classmethod
+    def list_inferred_balances(
+        cls,
+        account: str,
+        **params: Unpack["Account.ListInferredBalancesParams"],
+    ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        return cast(
+            ListObject["AccountInferredBalance"],
+            cls._static_request(
+                "get",
+                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_inferred_balances_async(
+        cls,
+        account: str,
+        **params: Unpack["Account.ListInferredBalancesParams"],
+    ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        return cast(
+            ListObject["AccountInferredBalance"],
+            await cls._static_request_async(
+                "get",
+                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "account_holder": AccountHolder,
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
+        "inferred_balances_refresh": InferredBalancesRefresh,
         "ownership_refresh": OwnershipRefresh,
         "transaction_refresh": TransactionRefresh,
     }

@@ -163,6 +163,31 @@ class Subscription(
         issuer: Issuer
         _inner_class_types = {"issuer": Issuer}
 
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
+
     class PauseCollection(StripeObject):
         behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
         """
@@ -277,6 +302,10 @@ class Subscription(
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
                         """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
+                        """
 
                     filters: Optional[Filters]
                     permissions: Optional[
@@ -293,7 +322,14 @@ class Subscription(
                     The list of permissions to request. The `payment_method` permission must be included.
                     """
                     prefetch: Optional[
-                        List[Literal["balances", "ownership", "transactions"]]
+                        List[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ]
+                        ]
                     ]
                     """
                     Data features requested to be retrieved upon account creation.
@@ -419,6 +455,10 @@ class Subscription(
         """
         The point after which the changes reflected by this update will be discarded and no longer applied.
         """
+        prebilling_iterations: Optional[int]
+        """
+        The number of iterations of prebilling to apply.
+        """
         subscription_items: Optional[List["SubscriptionItem"]]
         """
         List of subscription items, each with an attached plan, that will be set if the update is applied.
@@ -430,6 +470,24 @@ class Subscription(
         trial_from_plan: Optional[bool]
         """
         Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        """
+
+    class Prebilling(StripeObject):
+        invoice: ExpandableField["Invoice"]
+        """
+        ID of the prebilling invoice.
+        """
+        period_end: int
+        """
+        The end of the last period for which the invoice pre-bills.
+        """
+        period_start: int
+        """
+        The start of the first period for which the invoice pre-bills.
+        """
+        update_behavior: Optional[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
         """
 
     class TransferData(StripeObject):
@@ -635,6 +693,10 @@ class Subscription(
         """
         Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
         """
+        prebilling: NotRequired["Subscription.CreateParamsPrebilling"]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed now.
+        """
         promotion_code: NotRequired[str]
         """
         The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
@@ -701,9 +763,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
@@ -793,9 +887,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsInvoiceSettings(TypedDict):
@@ -855,6 +981,10 @@ class Subscription(
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
+        trial: NotRequired["Subscription.CreateParamsItemTrial"]
+        """
+        Define options to configure the trial on the subscription item.
+        """
 
     class CreateParamsItemBillingThresholds(TypedDict):
         usage_gte: int
@@ -871,9 +1001,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.CreateParamsItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.CreateParamsItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsItemPriceData(TypedDict):
@@ -912,6 +1074,16 @@ class Subscription(
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        """
+
+    class CreateParamsItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
         """
 
     class CreateParamsPaymentSettings(TypedDict):
@@ -1133,7 +1305,14 @@ class Subscription(
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[Literal["balances", "ownership", "transactions"]]
+            List[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ]
+            ]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -1148,6 +1327,10 @@ class Subscription(
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class CreateParamsPendingInvoiceItemInterval(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -1157,6 +1340,16 @@ class Subscription(
         interval_count: NotRequired[int]
         """
         The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class CreateParamsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+        update_behavior: NotRequired[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -1457,6 +1650,10 @@ class Subscription(
         """
         Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
         """
+        prebilling: NotRequired["Subscription.ModifyParamsPrebilling"]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed now.
+        """
         promotion_code: NotRequired[str]
         """
         The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
@@ -1525,9 +1722,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.ModifyParamsAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsAddInvoiceItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsAddInvoiceItemPriceData(TypedDict):
@@ -1607,9 +1836,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.ModifyParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.ModifyParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsInvoiceSettings(TypedDict):
@@ -1697,9 +1958,41 @@ class Subscription(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Subscription.ModifyParamsItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Subscription.ModifyParamsItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsItemPriceData(TypedDict):
@@ -1969,7 +2262,14 @@ class Subscription(
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
         prefetch: NotRequired[
-            List[Literal["balances", "ownership", "transactions"]]
+            List[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ]
+            ]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -1984,6 +2284,10 @@ class Subscription(
         """
         The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
         """
+        institution: NotRequired[str]
+        """
+        ID of the institution to use to filter for selectable accounts.
+        """
 
     class ModifyParamsPendingInvoiceItemInterval(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -1993,6 +2297,16 @@ class Subscription(
         interval_count: NotRequired[int]
         """
         The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class ModifyParamsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+        update_behavior: NotRequired[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         """
 
     class ModifyParamsTransferData(TypedDict):
@@ -2167,6 +2481,10 @@ class Subscription(
     """
     List of subscription items, each with an attached price.
     """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription.
+    """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
     The most recent invoice this subscription has generated.
@@ -2210,6 +2528,10 @@ class Subscription(
     pending_update: Optional[PendingUpdate]
     """
     If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
+    """
+    prebilling: Optional[Prebilling]
+    """
+    Time period and invoice for a Subscription billed in advance.
     """
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
@@ -2871,10 +3193,12 @@ class Subscription(
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "pause_collection": PauseCollection,
         "payment_settings": PaymentSettings,
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
         "pending_update": PendingUpdate,
+        "prebilling": Prebilling,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }

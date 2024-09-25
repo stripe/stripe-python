@@ -95,6 +95,10 @@ class AccountService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        risk_controls: NotRequired["AccountService.CreateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
         settings: NotRequired["AccountService.CreateParamsSettings"]
         """
         Options for customizing how the account functions within Stripe.
@@ -400,6 +404,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesMobilepayPayments"
         ]
@@ -436,11 +446,29 @@ class AccountService(StripeService):
         """
         The paynow_payments capability.
         """
+        paypal_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaypalPayments"
+        ]
+        """
+        The paypal_payments capability.
+        """
+        payto_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPromptpayPayments"
         ]
         """
         The promptpay_payments capability.
+        """
+        rechnung_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
         """
         revolut_pay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesRevolutPayPayments"
@@ -683,6 +711,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesMbWayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -719,7 +753,25 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1035,6 +1087,18 @@ class AccountService(StripeService):
         """
 
     class CreateParamsController(TypedDict):
+        application: NotRequired[
+            "AccountService.CreateParamsControllerApplication"
+        ]
+        """
+        A hash of configuration describing the Connect application that controls the account.
+        """
+        dashboard: NotRequired[
+            "AccountService.CreateParamsControllerDashboard"
+        ]
+        """
+        Properties of the account's dashboard.
+        """
         fees: NotRequired["AccountService.CreateParamsControllerFees"]
         """
         A hash of configuration for who pays Stripe fees for product usage on this account.
@@ -1052,6 +1116,26 @@ class AccountService(StripeService):
         ]
         """
         A hash of configuration for Stripe-hosted dashboards.
+        """
+
+    class CreateParamsControllerApplication(TypedDict):
+        loss_liable: bool
+        """
+        Whether the controller is liable for losses on this account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+        """
+        onboarding_owner: NotRequired[bool]
+        """
+        Whether the controller owns onboarding for this account.
+        """
+        pricing_controls: NotRequired[bool]
+        """
+        Whether the controller has pricing controls for this account.
+        """
+
+    class CreateParamsControllerDashboard(TypedDict):
+        type: NotRequired[Literal["express", "full", "none"]]
+        """
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
         """
 
     class CreateParamsControllerFees(TypedDict):
@@ -1446,6 +1530,30 @@ class AccountService(StripeService):
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
+    class CreateParamsRiskControls(TypedDict):
+        charges: NotRequired["AccountService.CreateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["AccountService.CreateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class CreateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class CreateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
     class CreateParamsSettings(TypedDict):
         bacs_debit_payments: NotRequired[
             "AccountService.CreateParamsSettingsBacsDebitPayments"
@@ -1456,6 +1564,10 @@ class AccountService(StripeService):
         branding: NotRequired["AccountService.CreateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
+        """
+        capital: NotRequired["AccountService.CreateParamsSettingsCapital"]
+        """
+        Settings specific to the account's use of the Capital product.
         """
         card_issuing: NotRequired[
             "AccountService.CreateParamsSettingsCardIssuing"
@@ -1476,6 +1588,10 @@ class AccountService(StripeService):
         payouts: NotRequired["AccountService.CreateParamsSettingsPayouts"]
         """
         Settings specific to the account's payouts.
+        """
+        tax_forms: NotRequired["AccountService.CreateParamsSettingsTaxForms"]
+        """
+        Settings specific to the account's tax forms.
         """
         treasury: NotRequired["AccountService.CreateParamsSettingsTreasury"]
         """
@@ -1504,6 +1620,16 @@ class AccountService(StripeService):
         secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
+        """
+
+    class CreateParamsSettingsCapital(TypedDict):
+        payout_destination: NotRequired[Dict[str, str]]
+        """
+        Per-currency mapping of user-selected destination accounts used to pay out loans.
+        """
+        payout_destination_selector: NotRequired[Dict[str, List[str]]]
+        """
+        Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
         """
 
     class CreateParamsSettingsCardIssuing(TypedDict):
@@ -1614,6 +1740,12 @@ class AccountService(StripeService):
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+
+    class CreateParamsSettingsTaxForms(TypedDict):
+        consented_to_paperless_delivery: NotRequired[bool]
+        """
+        Whether the account opted out of receiving their tax forms by postal delivery.
         """
 
     class CreateParamsSettingsTreasury(TypedDict):
@@ -1784,6 +1916,10 @@ class AccountService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        risk_controls: NotRequired["AccountService.UpdateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
         """
         settings: NotRequired["AccountService.UpdateParamsSettings"]
         """
@@ -2086,6 +2222,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesMobilepayPayments"
         ]
@@ -2122,11 +2264,29 @@ class AccountService(StripeService):
         """
         The paynow_payments capability.
         """
+        paypal_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaypalPayments"
+        ]
+        """
+        The paypal_payments capability.
+        """
+        payto_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPromptpayPayments"
         ]
         """
         The promptpay_payments capability.
+        """
+        rechnung_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
         """
         revolut_pay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesRevolutPayPayments"
@@ -2369,6 +2529,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesMbWayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2405,7 +2571,25 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3094,6 +3278,30 @@ class AccountService(StripeService):
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
+    class UpdateParamsRiskControls(TypedDict):
+        charges: NotRequired["AccountService.UpdateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["AccountService.UpdateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class UpdateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class UpdateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
     class UpdateParamsSettings(TypedDict):
         bacs_debit_payments: NotRequired[
             "AccountService.UpdateParamsSettingsBacsDebitPayments"
@@ -3104,6 +3312,10 @@ class AccountService(StripeService):
         branding: NotRequired["AccountService.UpdateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
+        """
+        capital: NotRequired["AccountService.UpdateParamsSettingsCapital"]
+        """
+        Settings specific to the account's use of the Capital product.
         """
         card_issuing: NotRequired[
             "AccountService.UpdateParamsSettingsCardIssuing"
@@ -3128,6 +3340,10 @@ class AccountService(StripeService):
         payouts: NotRequired["AccountService.UpdateParamsSettingsPayouts"]
         """
         Settings specific to the account's payouts.
+        """
+        tax_forms: NotRequired["AccountService.UpdateParamsSettingsTaxForms"]
+        """
+        Settings specific to the account's tax forms.
         """
         treasury: NotRequired["AccountService.UpdateParamsSettingsTreasury"]
         """
@@ -3156,6 +3372,16 @@ class AccountService(StripeService):
         secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
+        """
+
+    class UpdateParamsSettingsCapital(TypedDict):
+        payout_destination: NotRequired[Dict[str, str]]
+        """
+        Per-currency mapping of user-selected destination accounts used to pay out loans.
+        """
+        payout_destination_selector: NotRequired[Dict[str, List[str]]]
+        """
+        Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
         """
 
     class UpdateParamsSettingsCardIssuing(TypedDict):
@@ -3272,6 +3498,12 @@ class AccountService(StripeService):
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+
+    class UpdateParamsSettingsTaxForms(TypedDict):
+        consented_to_paperless_delivery: NotRequired[bool]
+        """
+        Whether the account opted out of receiving their tax forms by postal delivery.
         """
 
     class UpdateParamsSettingsTreasury(TypedDict):

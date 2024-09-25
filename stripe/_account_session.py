@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -67,6 +67,39 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
                 """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancing(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancingApplication(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancingPromotion(StripeObject):
+            class Features(StripeObject):
+                pass
 
             enabled: bool
             """
@@ -214,6 +247,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
         balances: Balances
+        capital_financing: Optional[CapitalFinancing]
+        capital_financing_application: Optional[CapitalFinancingApplication]
+        capital_financing_promotion: Optional[CapitalFinancingPromotion]
         documents: Documents
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
@@ -226,6 +262,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
             "balances": Balances,
+            "capital_financing": CapitalFinancing,
+            "capital_financing_application": CapitalFinancingApplication,
+            "capital_financing_promotion": CapitalFinancingPromotion,
             "documents": Documents,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
@@ -263,15 +302,75 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
+        app_install: NotRequired[
+            "AccountSession.CreateParamsComponentsAppInstall"
+        ]
+        """
+        Configuration for the app install component.
+        """
+        app_viewport: NotRequired[
+            "AccountSession.CreateParamsComponentsAppViewport"
+        ]
+        """
+        Configuration for the app viewport component.
+        """
         balances: NotRequired["AccountSession.CreateParamsComponentsBalances"]
         """
         Configuration for the balances embedded component.
+        """
+        capital_financing: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancing"
+        ]
+        """
+        Configuration for the capital financing embedded component.
+        """
+        capital_financing_application: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingApplication"
+        ]
+        """
+        Configuration for the capital financing application embedded component.
+        """
+        capital_financing_promotion: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingPromotion"
+        ]
+        """
+        Configuration for the capital financing promotion embedded component.
+        """
+        capital_overview: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalOverview"
+        ]
+        """
+        Configuration for the capital overview embedded component.
         """
         documents: NotRequired[
             "AccountSession.CreateParamsComponentsDocuments"
         ]
         """
         Configuration for the documents embedded component.
+        """
+        financial_account: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccount"
+        ]
+        """
+        Configuration for the financial account component.
+        """
+        financial_account_transactions: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountTransactions"
+        ]
+        """
+        Configuration for the financial account transactions component.
+        """
+        issuing_card: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCard"
+        ]
+        """
+        Configuration for the issuing card component.
+        """
+        issuing_cards_list: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsList"
+        ]
+        """
+        Configuration for the issuing cards list component.
         """
         notification_banner: NotRequired[
             "AccountSession.CreateParamsComponentsNotificationBanner"
@@ -284,6 +383,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
         """
         Configuration for the payment details embedded component.
+        """
+        payment_method_settings: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentMethodSettings"
+        ]
+        """
+        Configuration for the payment method settings embedded component.
         """
         payments: NotRequired["AccountSession.CreateParamsComponentsPayments"]
         """
@@ -299,6 +404,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the payouts list embedded component.
         """
+        recipients: NotRequired[
+            "AccountSession.CreateParamsComponentsRecipients"
+        ]
         tax_registrations: NotRequired[
             "AccountSession.CreateParamsComponentsTaxRegistrations"
         ]
@@ -348,6 +456,42 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
         """
 
+    class CreateParamsComponentsAppInstall(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAppInstallFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAppInstallFeatures(TypedDict):
+        allowed_apps: NotRequired["Literal['']|List[str]"]
+        """
+        List of apps allowed to be enabled for this account session.
+        """
+
+    class CreateParamsComponentsAppViewport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAppViewportFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAppViewportFeatures(TypedDict):
+        allowed_apps: NotRequired["Literal['']|List[str]"]
+        """
+        List of apps allowed to be enabled for this account session.
+        """
+
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
         """
@@ -378,6 +522,66 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
 
+    class CreateParamsComponentsCapitalFinancing(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingApplication(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingApplicationFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingApplicationFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalFinancingFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingPromotionFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsCapitalOverview(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalOverviewFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
+        pass
+
     class CreateParamsComponentsDocuments(TypedDict):
         enabled: bool
         """
@@ -392,6 +596,79 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
+
+    class CreateParamsComponentsFinancialAccount(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
+        external_account_collection: NotRequired[bool]
+        """
+        Whether to allow external accounts to be linked for money transfer.
+        """
+        money_movement: NotRequired[bool]
+        """
+        Whether to allow money movement features.
+        """
+
+    class CreateParamsComponentsFinancialAccountTransactions(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsFinancialAccountTransactionsFeatures"
+        ]
+
+    class CreateParamsComponentsFinancialAccountTransactionsFeatures(
+        TypedDict
+    ):
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute features.
+        """
+
+    class CreateParamsComponentsIssuingCard(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsIssuingCardsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
+        card_management: NotRequired[bool]
+        """
+        Whether to allow card management features.
+        """
+        cardholder_management: NotRequired[bool]
+        """
+        Whether to allow cardholder management features.
+        """
 
     class CreateParamsComponentsNotificationBanner(TypedDict):
         enabled: bool
@@ -440,6 +717,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
+
+    class CreateParamsComponentsPaymentMethodSettings(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentMethodSettingsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool
@@ -514,6 +806,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsRecipients(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsRecipientsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsRecipientsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):

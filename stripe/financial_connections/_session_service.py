@@ -22,6 +22,14 @@ class SessionService(StripeService):
         """
         Filters to restrict the kinds of accounts to collect.
         """
+        limits: NotRequired["SessionService.CreateParamsLimits"]
+        """
+        Settings for configuring Session-specific limits.
+        """
+        manual_entry: NotRequired["SessionService.CreateParamsManualEntry"]
+        """
+        Settings for configuring manual entry of account details for this Session.
+        """
         permissions: List[
             Literal["balances", "ownership", "payment_method", "transactions"]
         ]
@@ -31,7 +39,14 @@ class SessionService(StripeService):
         Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
         """
         prefetch: NotRequired[
-            List[Literal["balances", "ownership", "transactions"]]
+            List[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ]
+            ]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -73,6 +88,22 @@ class SessionService(StripeService):
         countries: NotRequired[List[str]]
         """
         List of countries from which to collect accounts.
+        """
+        institution: NotRequired[str]
+        """
+        Stripe ID of the institution with which the customer should be directed to log in.
+        """
+
+    class CreateParamsLimits(TypedDict):
+        accounts: int
+        """
+        The number of accounts that can be linked in this Session.
+        """
+
+    class CreateParamsManualEntry(TypedDict):
+        mode: NotRequired[Literal["automatic", "custom"]]
+        """
+        Whether manual entry will be handled by Stripe during the Session.
         """
 
     class RetrieveParams(TypedDict):

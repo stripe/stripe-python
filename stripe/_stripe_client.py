@@ -12,6 +12,7 @@ from stripe import (
 
 from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
+from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
 from stripe._http_client import (
@@ -20,11 +21,14 @@ from stripe._http_client import (
     new_http_client_async_fallback,
 )
 from stripe._api_version import _ApiVersion
+from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
+from stripe._util import _convert_to_stripe_object
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2._event import ThinEvent
 
-from typing import Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -32,6 +36,7 @@ from stripe._oauth_service import OAuthService
 # services: The beginning of the section generated from our OpenAPI spec
 from stripe._account_service import AccountService
 from stripe._account_link_service import AccountLinkService
+from stripe._account_notice_service import AccountNoticeService
 from stripe._account_session_service import AccountSessionService
 from stripe._apple_pay_domain_service import ApplePayDomainService
 from stripe._application_fee_service import ApplicationFeeService
@@ -40,6 +45,7 @@ from stripe._balance_service import BalanceService
 from stripe._balance_transaction_service import BalanceTransactionService
 from stripe._billing_service import BillingService
 from stripe._billing_portal_service import BillingPortalService
+from stripe._capital_service import CapitalService
 from stripe._charge_service import ChargeService
 from stripe._checkout_service import CheckoutService
 from stripe._climate_service import ClimateService
@@ -59,6 +65,7 @@ from stripe._file_service import FileService
 from stripe._file_link_service import FileLinkService
 from stripe._financial_connections_service import FinancialConnectionsService
 from stripe._forwarding_service import ForwardingService
+from stripe._gift_cards_service import GiftCardsService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
 from stripe._invoice_rendering_template_service import (
@@ -67,6 +74,8 @@ from stripe._invoice_rendering_template_service import (
 from stripe._invoice_item_service import InvoiceItemService
 from stripe._issuing_service import IssuingService
 from stripe._mandate_service import MandateService
+from stripe._margin_service import MarginService
+from stripe._order_service import OrderService
 from stripe._payment_intent_service import PaymentIntentService
 from stripe._payment_link_service import PaymentLinkService
 from stripe._payment_method_service import PaymentMethodService
@@ -80,6 +89,7 @@ from stripe._price_service import PriceService
 from stripe._product_service import ProductService
 from stripe._promotion_code_service import PromotionCodeService
 from stripe._quote_service import QuoteService
+from stripe._quote_phase_service import QuotePhaseService
 from stripe._radar_service import RadarService
 from stripe._refund_service import RefundService
 from stripe._reporting_service import ReportingService
@@ -148,7 +158,7 @@ class StripeClient(object):
             **base_addresses,
         }
 
-        requestor_options = RequestorOptions(
+        self._requestor_options = RequestorOptions(
             api_key=api_key,
             stripe_account=stripe_account,
             stripe_context=stripe_context,
@@ -167,7 +177,7 @@ class StripeClient(object):
             )
 
         self._requestor = _APIRequestor(
-            options=requestor_options,
+            options=self._requestor_options,
             client=http_client,
         )
 
@@ -182,6 +192,7 @@ class StripeClient(object):
         # top-level services: The beginning of the section generated from our OpenAPI spec
         self.accounts = AccountService(self._requestor)
         self.account_links = AccountLinkService(self._requestor)
+        self.account_notices = AccountNoticeService(self._requestor)
         self.account_sessions = AccountSessionService(self._requestor)
         self.apple_pay_domains = ApplePayDomainService(self._requestor)
         self.application_fees = ApplicationFeeService(self._requestor)
@@ -190,6 +201,7 @@ class StripeClient(object):
         self.balance_transactions = BalanceTransactionService(self._requestor)
         self.billing = BillingService(self._requestor)
         self.billing_portal = BillingPortalService(self._requestor)
+        self.capital = CapitalService(self._requestor)
         self.charges = ChargeService(self._requestor)
         self.checkout = CheckoutService(self._requestor)
         self.climate = ClimateService(self._requestor)
@@ -211,6 +223,7 @@ class StripeClient(object):
             self._requestor
         )
         self.forwarding = ForwardingService(self._requestor)
+        self.gift_cards = GiftCardsService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
         self.invoice_rendering_templates = InvoiceRenderingTemplateService(
@@ -219,6 +232,8 @@ class StripeClient(object):
         self.invoice_items = InvoiceItemService(self._requestor)
         self.issuing = IssuingService(self._requestor)
         self.mandates = MandateService(self._requestor)
+        self.margins = MarginService(self._requestor)
+        self.orders = OrderService(self._requestor)
         self.payment_intents = PaymentIntentService(self._requestor)
         self.payment_links = PaymentLinkService(self._requestor)
         self.payment_methods = PaymentMethodService(self._requestor)
@@ -234,6 +249,7 @@ class StripeClient(object):
         self.products = ProductService(self._requestor)
         self.promotion_codes = PromotionCodeService(self._requestor)
         self.quotes = QuoteService(self._requestor)
+        self.quote_phases = QuotePhaseService(self._requestor)
         self.radar = RadarService(self._requestor)
         self.refunds = RefundService(self._requestor)
         self.reporting = ReportingService(self._requestor)
@@ -298,3 +314,62 @@ class StripeClient(object):
         )
 
         return event
+
+    def raw_request(self, method_: str, url_: str, **params):
+        params = params.copy()
+        options, params = extract_options_from_dict(params)
+        api_mode = params.pop("api_mode", None)
+        base_address = params.pop("base", "api")
+
+        stripe_context = params.pop("stripe_context", None)
+
+        # stripe-context goes *here* and not in api_requestor. Properties
+        # go on api_requestor when you want them to persist onto requests
+        # made when you call instance methods on APIResources that come from
+        # the first request. No need for that here, as we aren't deserializing APIResources
+        if stripe_context is not None:
+            options["headers"] = options.get("headers", {})
+            assert isinstance(options["headers"], dict)
+            options["headers"].update({"Stripe-Context": stripe_context})
+
+        rbody, rcode, rheaders = self._requestor.request_raw(
+            method_,
+            url_,
+            params=params,
+            options=options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["raw_request"],
+        )
+
+        return self._requestor._interpret_response(rbody, rcode, rheaders)
+
+    async def raw_request_async(self, method_: str, url_: str, **params):
+        params = params.copy()
+        options, params = extract_options_from_dict(params)
+        api_mode = params.pop("api_mode", None)
+        base_address = params.pop("base", "api")
+
+        rbody, rcode, rheaders = await self._requestor.request_raw_async(
+            method_,
+            url_,
+            params=params,
+            options=options,
+            base_address=base_address,
+            api_mode=api_mode,
+            usage=["raw_request"],
+        )
+
+        return self._requestor._interpret_response(rbody, rcode, rheaders)
+
+    def deserialize(
+        self,
+        resp: Union[StripeResponse, Dict[str, Any]],
+        params: Optional[Dict[str, Any]] = None,
+    ) -> StripeObject:
+        return _convert_to_stripe_object(
+            resp=resp,
+            params=params,
+            requestor=self._requestor,
+            api_mode="V1",
+        )

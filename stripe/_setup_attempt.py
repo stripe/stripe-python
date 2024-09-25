@@ -338,6 +338,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Paypal(StripeObject):
             pass
 
+        class Payto(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -396,6 +399,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -418,6 +422,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "link": Link,
             "paypal": Paypal,
+            "payto": Payto,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -479,11 +484,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "gift_card_balance_insufficient",
+                "gift_card_code_exists",
+                "gift_card_inactive",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -573,6 +582,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "return_intent_already_processed",
                 "routing_number_invalid",
                 "secret_key_required",
+                "sensitive_data_access_expired",
                 "sepa_unsupported_account",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
@@ -590,6 +600,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
+                "terminal_reader_collected_data_invalid",
                 "terminal_reader_hardware_fault",
                 "terminal_reader_invalid_location_for_activation",
                 "terminal_reader_invalid_location_for_payment",

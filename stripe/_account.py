@@ -278,6 +278,10 @@ class Account(
         """
         The status of the link_payments capability of the account, or whether the account can directly process Link charges.
         """
+        mb_way_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the MB WAY payments capability of the account, or whether the account can directly process MB WAY charges.
+        """
         mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
@@ -304,9 +308,21 @@ class Account(
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
+        paypal_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
+        """
+        payto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
+        """
         promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
+        """
+        rechnung_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
         """
         revolut_pay_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -600,12 +616,33 @@ class Account(
         }
 
     class Controller(StripeObject):
+        class Application(StripeObject):
+            loss_liable: bool
+            """
+            `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
+            """
+            onboarding_owner: bool
+            """
+            `true` if the Connect application is responsible for onboarding the account.
+            """
+            pricing_controls: bool
+            """
+            `true` if the Connect application is responsible for paying Stripe fees on pricing-control eligible products.
+            """
+
+        class Dashboard(StripeObject):
+            type: Literal["express", "full", "none"]
+            """
+            Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
+            """
+
         class Fees(StripeObject):
             payer: Literal[
                 "account",
                 "application",
                 "application_custom",
                 "application_express",
+                "application_unified_accounts_beta",
             ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
@@ -623,6 +660,8 @@ class Account(
             A value indicating the Stripe dashboard this account has access to independent of the Connect application.
             """
 
+        application: Optional[Application]
+        dashboard: Optional[Dashboard]
         fees: Optional[Fees]
         is_controller: Optional[bool]
         """
@@ -639,6 +678,8 @@ class Account(
         The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
         """
         _inner_class_types = {
+            "application": Application,
+            "dashboard": Dashboard,
             "fees": Fees,
             "losses": Losses,
             "stripe_dashboard": StripeDashboard,
@@ -944,6 +985,23 @@ class Account(
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class RiskControls(StripeObject):
+        class Charges(StripeObject):
+            pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
+
+        class Payouts(StripeObject):
+            pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
+
+        charges: Charges
+        payouts: Payouts
+        _inner_class_types = {"charges": Charges, "payouts": Payouts}
+
     class Settings(StripeObject):
         class BacsDebitPayments(StripeObject):
             display_name: Optional[str]
@@ -971,6 +1029,16 @@ class Account(
             secondary_color: Optional[str]
             """
             A CSS hex color value representing the secondary branding color for this account
+            """
+
+        class Capital(StripeObject):
+            payout_destination: Optional[Dict[str, str]]
+            """
+            Per-currency mapping of user-selected destination accounts used to pay out loans.
+            """
+            payout_destination_selector: Optional[Dict[str, List[str]]]
+            """
+            Per-currency mapping of all destination accounts eligible to receive loan payouts.
             """
 
         class CardIssuing(StripeObject):
@@ -1091,6 +1159,12 @@ class Account(
             SEPA creditor identifier that identifies the company making the payment.
             """
 
+        class TaxForms(StripeObject):
+            consented_to_paperless_delivery: bool
+            """
+            Whether the account opted out of receiving their tax forms by postal delivery.
+            """
+
         class Treasury(StripeObject):
             class TosAcceptance(StripeObject):
                 date: Optional[int]
@@ -1111,6 +1185,7 @@ class Account(
 
         bacs_debit_payments: Optional[BacsDebitPayments]
         branding: Branding
+        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1118,10 +1193,12 @@ class Account(
         payments: Payments
         payouts: Optional[Payouts]
         sepa_debit_payments: Optional[SepaDebitPayments]
+        tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
             "branding": Branding,
+            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
@@ -1129,6 +1206,7 @@ class Account(
             "payments": Payments,
             "payouts": Payouts,
             "sepa_debit_payments": SepaDebitPayments,
+            "tax_forms": TaxForms,
             "treasury": Treasury,
         }
 
@@ -1299,6 +1377,10 @@ class Account(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        risk_controls: NotRequired["Account.CreateParamsRiskControls"]
+        """
+        A hash to configure risk controls on the account. Please see [this page for more details](https://stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
         """
         settings: NotRequired["Account.CreateParamsSettings"]
         """
@@ -1605,6 +1687,12 @@ class Account(
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesMobilepayPayments"
         ]
@@ -1641,11 +1729,29 @@ class Account(
         """
         The paynow_payments capability.
         """
+        paypal_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaypalPayments"
+        ]
+        """
+        The paypal_payments capability.
+        """
+        payto_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaytoPayments"
+        ]
+        """
+        The payto_payments capability.
+        """
         promptpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPromptpayPayments"
         ]
         """
         The promptpay_payments capability.
+        """
+        rechnung_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesRechnungPayments"
+        ]
+        """
+        The rechnung_payments capability.
         """
         revolut_pay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesRevolutPayPayments"
@@ -1884,6 +1990,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesMbWayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -1920,7 +2032,25 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2230,6 +2360,14 @@ class Account(
         """
 
     class CreateParamsController(TypedDict):
+        application: NotRequired["Account.CreateParamsControllerApplication"]
+        """
+        A hash of configuration describing the Connect application that controls the account.
+        """
+        dashboard: NotRequired["Account.CreateParamsControllerDashboard"]
+        """
+        Properties of the account's dashboard.
+        """
         fees: NotRequired["Account.CreateParamsControllerFees"]
         """
         A hash of configuration for who pays Stripe fees for product usage on this account.
@@ -2247,6 +2385,26 @@ class Account(
         ]
         """
         A hash of configuration for Stripe-hosted dashboards.
+        """
+
+    class CreateParamsControllerApplication(TypedDict):
+        loss_liable: bool
+        """
+        Whether the controller is liable for losses on this account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+        """
+        onboarding_owner: NotRequired[bool]
+        """
+        Whether the controller owns onboarding for this account.
+        """
+        pricing_controls: NotRequired[bool]
+        """
+        Whether the controller has pricing controls for this account.
+        """
+
+    class CreateParamsControllerDashboard(TypedDict):
+        type: NotRequired[Literal["express", "full", "none"]]
+        """
+        Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
         """
 
     class CreateParamsControllerFees(TypedDict):
@@ -2633,6 +2791,30 @@ class Account(
         The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
         """
 
+    class CreateParamsRiskControls(TypedDict):
+        charges: NotRequired["Account.CreateParamsRiskControlsCharges"]
+        """
+        Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+        payouts: NotRequired["Account.CreateParamsRiskControlsPayouts"]
+        """
+        Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+        """
+
+    class CreateParamsRiskControlsCharges(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
+    class CreateParamsRiskControlsPayouts(TypedDict):
+        pause_requested: NotRequired[bool]
+        """
+        To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        There can be a delay before the risk control is paused or unpaused.
+        """
+
     class CreateParamsSettings(TypedDict):
         bacs_debit_payments: NotRequired[
             "Account.CreateParamsSettingsBacsDebitPayments"
@@ -2643,6 +2825,10 @@ class Account(
         branding: NotRequired["Account.CreateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
+        """
+        capital: NotRequired["Account.CreateParamsSettingsCapital"]
+        """
+        Settings specific to the account's use of the Capital product.
         """
         card_issuing: NotRequired["Account.CreateParamsSettingsCardIssuing"]
         """
@@ -2659,6 +2845,10 @@ class Account(
         payouts: NotRequired["Account.CreateParamsSettingsPayouts"]
         """
         Settings specific to the account's payouts.
+        """
+        tax_forms: NotRequired["Account.CreateParamsSettingsTaxForms"]
+        """
+        Settings specific to the account's tax forms.
         """
         treasury: NotRequired["Account.CreateParamsSettingsTreasury"]
         """
@@ -2687,6 +2877,16 @@ class Account(
         secondary_color: NotRequired[str]
         """
         A CSS hex color value representing the secondary branding color for this account.
+        """
+
+    class CreateParamsSettingsCapital(TypedDict):
+        payout_destination: NotRequired[Dict[str, str]]
+        """
+        Per-currency mapping of user-selected destination accounts used to pay out loans.
+        """
+        payout_destination_selector: NotRequired[Dict[str, List[str]]]
+        """
+        Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
         """
 
     class CreateParamsSettingsCardIssuing(TypedDict):
@@ -2795,6 +2995,12 @@ class Account(
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+
+    class CreateParamsSettingsTaxForms(TypedDict):
+        consented_to_paperless_delivery: NotRequired[bool]
+        """
+        Whether the account opted out of receiving their tax forms by postal delivery.
         """
 
     class CreateParamsSettingsTreasury(TypedDict):
@@ -3919,6 +4125,7 @@ class Account(
     Whether Stripe can send payouts to this account.
     """
     requirements: Optional[Requirements]
+    risk_controls: Optional[RiskControls]
     settings: Optional[Settings]
     """
     Options for customizing how the account functions within Stripe.
@@ -5030,6 +5237,7 @@ class Account(
         "controller": Controller,
         "future_requirements": FutureRequirements,
         "requirements": Requirements,
+        "risk_controls": RiskControls,
         "settings": Settings,
         "tos_acceptance": TosAcceptance,
     }

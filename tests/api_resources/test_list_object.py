@@ -51,18 +51,6 @@ class TestListObject(object):
         assert res.foo == "bar"
         assert res.stripe_account == "acct_123"
 
-    def test_create_maintains_list_properties(
-        self, http_client_mock, list_object
-    ):
-        # Testing with real requests because our mock makes it impossible to
-        # test otherwise
-        charge = stripe.Charge.retrieve("ch_123", api_key="sk_test_custom")
-        res = charge.refunds.create(amount=123)
-        http_client_mock.assert_requested(
-            "post", path="/v1/charges/ch_123/refunds", post_data="amount=123"
-        )
-        assert res.api_key == "sk_test_custom"
-
     def test_retrieve(self, http_client_mock, list_object):
         http_client_mock.stub_request(
             "get",

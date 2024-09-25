@@ -20,11 +20,13 @@ if not TYPE_CHECKING:
         apps,
         billing,
         billing_portal,
+        capital,
         checkout,
         climate,
         entitlements,
         financial_connections,
         forwarding,
+        gift_cards,
         identity,
         issuing,
         radar,
@@ -37,6 +39,7 @@ if not TYPE_CHECKING:
     )
     from stripe.api_resources.account import Account
     from stripe.api_resources.account_link import AccountLink
+    from stripe.api_resources.account_notice import AccountNotice
     from stripe.api_resources.account_session import AccountSession
     from stripe.api_resources.apple_pay_domain import ApplePayDomain
     from stripe.api_resources.application import Application
@@ -100,6 +103,12 @@ if not TYPE_CHECKING:
     from stripe.api_resources.product_feature import ProductFeature
     from stripe.api_resources.promotion_code import PromotionCode
     from stripe.api_resources.quote import Quote
+    from stripe.api_resources.quote_line import QuoteLine
+    from stripe.api_resources.quote_phase import QuotePhase
+    from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
+    from stripe.api_resources.quote_preview_subscription_schedule import (
+        QuotePreviewSubscriptionSchedule,
+    )
     from stripe.api_resources.refund import Refund
     from stripe.api_resources.reserve_transaction import ReserveTransaction
     from stripe.api_resources.reversal import Reversal

@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
@@ -23,13 +24,23 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
     from stripe._invoice import Invoice
+    from stripe._invoice_line_item import InvoiceLineItem
     from stripe._line_item import LineItem
+    from stripe._quote_line import QuoteLine
+    from stripe._quote_preview_invoice import QuotePreviewInvoice
+    from stripe._quote_preview_subscription_schedule import (
+        QuotePreviewSubscriptionSchedule,
+    )
     from stripe._subscription import Subscription
-    from stripe._subscription_schedule import SubscriptionSchedule
+    from stripe._subscription_schedule import (
+        SubscriptionSchedule as SubscriptionScheduleResource,
+    )
     from stripe._tax_rate import TaxRate
     from stripe.test_helpers._test_clock import TestClock
 
 
+@nested_resource_class_methods("preview_invoice")
+@nested_resource_class_methods("preview_subscription_schedule")
 class Quote(
     CreateableAPIResource["Quote"],
     ListableAPIResource["Quote"],
@@ -70,6 +81,31 @@ class Quote(
         _inner_class_types = {"liability": Liability}
 
     class Computed(StripeObject):
+        class LastReestimationDetails(StripeObject):
+            class Failed(StripeObject):
+                failure_code: Optional[str]
+                """
+                The failure `code` is more granular than the `reason` provided and may correspond to a Stripe error code. For automation errors, this field is one of: `reverse_api_failure`, `reverse_api_deadline_exceeeded`, or `reverse_api_response_validation_error`, which are Stripe error codes and map to the error `message` field.
+                """
+                message: Optional[str]
+                """
+                Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
+                """
+                reason: Literal["automation_failure", "internal_error"]
+                """
+                The reason the reestimation failed.
+                """
+
+            failed: Optional[Failed]
+            """
+            When `status` is `failed`, provides details about the quote reestimation failure.
+            """
+            status: Literal["failed", "in_progress", "succeeded"]
+            """
+            Latest status of the reestimation.
+            """
+            _inner_class_types = {"failed": Failed}
+
         class Recurring(StripeObject):
             class TotalDetails(StripeObject):
                 class Breakdown(StripeObject):
@@ -262,12 +298,24 @@ class Quote(
             total_details: TotalDetails
             _inner_class_types = {"total_details": TotalDetails}
 
+        last_reestimation_details: Optional[LastReestimationDetails]
+        """
+        Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
+        """
         recurring: Optional[Recurring]
         """
         The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
         """
+        updated_at: Optional[int]
+        """
+        The time at which the quote's estimated schedules and upcoming invoices were generated.
+        """
         upfront: Upfront
-        _inner_class_types = {"recurring": Recurring, "upfront": Upfront}
+        _inner_class_types = {
+            "last_reestimation_details": LastReestimationDetails,
+            "recurring": Recurring,
+            "upfront": Upfront,
+        }
 
     class FromQuote(StripeObject):
         is_revision: bool
@@ -297,6 +345,129 @@ class Quote(
         issuer: Issuer
         _inner_class_types = {"issuer": Issuer}
 
+    class StatusDetails(StripeObject):
+        class Canceled(StripeObject):
+            reason: Optional[
+                Literal[
+                    "canceled",
+                    "quote_accepted",
+                    "quote_expired",
+                    "quote_superseded",
+                    "subscription_canceled",
+                ]
+            ]
+            """
+            The reason this quote was marked as canceled.
+            """
+            transitioned_at: Optional[int]
+            """
+            Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
+            """
+
+        class Stale(StripeObject):
+            class LastReason(StripeObject):
+                class LinesInvalid(StripeObject):
+                    invalid_at: int
+                    """
+                    The timestamp at which the lines were marked as invalid.
+                    """
+                    lines: List[str]
+                    """
+                    The list of lines that became invalid at the given timestamp.
+                    """
+
+                class SubscriptionChanged(StripeObject):
+                    previous_subscription: Optional["Subscription"]
+                    """
+                    The subscription's state before the quote was marked as stale.
+                    """
+
+                class SubscriptionScheduleChanged(StripeObject):
+                    previous_subscription_schedule: Optional[
+                        "SubscriptionScheduleResource"
+                    ]
+                    """
+                    The subscription schedule's state before the quote was marked as stale.
+                    """
+
+                line_invalid: Optional[str]
+                """
+                The ID of the line that is invalid if the stale reason type is `line_invalid`.
+                """
+                lines_invalid: Optional[List[LinesInvalid]]
+                """
+                The IDs of the lines that are invalid if the stale reason type is `lines_invalid`.
+                """
+                marked_stale: Optional[str]
+                """
+                The user supplied mark stale reason.
+                """
+                subscription_canceled: Optional[str]
+                """
+                The ID of the subscription that was canceled.
+                """
+                subscription_changed: Optional[SubscriptionChanged]
+                subscription_expired: Optional[str]
+                """
+                The ID of the subscription that was expired.
+                """
+                subscription_schedule_canceled: Optional[str]
+                """
+                The ID of the subscription schedule that was canceled.
+                """
+                subscription_schedule_changed: Optional[
+                    SubscriptionScheduleChanged
+                ]
+                subscription_schedule_released: Optional[str]
+                """
+                The ID of the subscription schedule that was released.
+                """
+                type: Optional[
+                    Literal[
+                        "accept_failed_validations",
+                        "bill_on_acceptance_invalid",
+                        "line_invalid",
+                        "lines_invalid",
+                        "marked_stale",
+                        "subscription_canceled",
+                        "subscription_changed",
+                        "subscription_expired",
+                        "subscription_schedule_canceled",
+                        "subscription_schedule_changed",
+                        "subscription_schedule_released",
+                    ]
+                ]
+                """
+                The reason the quote was marked as stale.
+                """
+                _inner_class_types = {
+                    "lines_invalid": LinesInvalid,
+                    "subscription_changed": SubscriptionChanged,
+                    "subscription_schedule_changed": SubscriptionScheduleChanged,
+                }
+
+            expires_at: Optional[int]
+            """
+            Time at which the quote expires. Measured in seconds since the Unix epoch.
+            """
+            last_reason: Optional[LastReason]
+            """
+            The most recent reason this quote was marked as stale.
+            """
+            last_updated_at: Optional[int]
+            """
+            Time at which the stale reason was updated. Measured in seconds since the Unix epoch.
+            """
+            transitioned_at: Optional[int]
+            """
+            Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
+            """
+            _inner_class_types = {"last_reason": LastReason}
+
+        canceled: Optional[Canceled]
+        stale: Optional[Stale]
+        _inner_class_types = {"canceled": Canceled, "stale": Stale}
+
     class StatusTransitions(StripeObject):
         accepted_at: Optional[int]
         """
@@ -312,6 +483,116 @@ class Quote(
         """
 
     class SubscriptionData(StripeObject):
+        class BillOnAcceptance(StripeObject):
+            class BillFrom(StripeObject):
+                class LineStartsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                line_starts_at: Optional[LineStartsAt]
+                """
+                The timestamp the given line starts at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "line_starts_at",
+                    "now",
+                    "pause_collection_start",
+                    "quote_acceptance_date",
+                    "timestamp",
+                ]
+                """
+                The type of method to specify the `bill_from` time.
+                """
+                _inner_class_types = {"line_starts_at": LineStartsAt}
+
+            class BillUntil(StripeObject):
+                class Duration(StripeObject):
+                    interval: Literal["day", "month", "week", "year"]
+                    """
+                    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                    """
+
+                class LineEndsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                duration: Optional[Duration]
+                """
+                Time span for the quote line starting from the `starts_at` date.
+                """
+                line_ends_at: Optional[LineEndsAt]
+                """
+                The timestamp the given line ends at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "duration",
+                    "line_ends_at",
+                    "schedule_end",
+                    "timestamp",
+                    "upcoming_invoice",
+                ]
+                """
+                The type of method to specify the `bill_until` time.
+                """
+                _inner_class_types = {
+                    "duration": Duration,
+                    "line_ends_at": LineEndsAt,
+                }
+
+            bill_from: Optional[BillFrom]
+            """
+            The start of the period to bill from when the Quote is accepted.
+            """
+            bill_until: Optional[BillUntil]
+            """
+            The end of the period to bill until when the Quote is accepted.
+            """
+            _inner_class_types = {
+                "bill_from": BillFrom,
+                "bill_until": BillUntil,
+            }
+
+        class Prebilling(StripeObject):
+            iterations: int
+
+        bill_on_acceptance: Optional[BillOnAcceptance]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: Optional[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        billing_cycle_anchor: Optional[Literal["reset"]]
+        """
+        Whether the subscription will always start a new billing period when the quote is accepted.
+        """
         description: Optional[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -320,14 +601,206 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
         """
+        end_behavior: Optional[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        from_schedule: Optional[
+            ExpandableField["SubscriptionScheduleResource"]
+        ]
+        """
+        The id of the subscription schedule that will be updated when the quote is accepted.
+        """
+        from_subscription: Optional[ExpandableField["Subscription"]]
+        """
+        The id of the subscription that will be updated when the quote is accepted.
+        """
         metadata: Optional[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        prebilling: Optional[Prebilling]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
+        """
+        proration_behavior: Optional[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
         """
         trial_period_days: Optional[int]
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
+        _inner_class_types = {
+            "bill_on_acceptance": BillOnAcceptance,
+            "prebilling": Prebilling,
+        }
+
+    class SubscriptionDataOverride(StripeObject):
+        class AppliesTo(StripeObject):
+            new_reference: Optional[str]
+            """
+            A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+            """
+            subscription_schedule: Optional[str]
+            """
+            The ID of the schedule the line applies to.
+            """
+            type: Literal["new_reference", "subscription_schedule"]
+            """
+            Describes whether the quote line is affecting a new schedule or an existing schedule.
+            """
+
+        class BillOnAcceptance(StripeObject):
+            class BillFrom(StripeObject):
+                class LineStartsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                line_starts_at: Optional[LineStartsAt]
+                """
+                The timestamp the given line starts at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "line_starts_at",
+                    "now",
+                    "pause_collection_start",
+                    "quote_acceptance_date",
+                    "timestamp",
+                ]
+                """
+                The type of method to specify the `bill_from` time.
+                """
+                _inner_class_types = {"line_starts_at": LineStartsAt}
+
+            class BillUntil(StripeObject):
+                class Duration(StripeObject):
+                    interval: Literal["day", "month", "week", "year"]
+                    """
+                    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                    """
+
+                class LineEndsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                duration: Optional[Duration]
+                """
+                Time span for the quote line starting from the `starts_at` date.
+                """
+                line_ends_at: Optional[LineEndsAt]
+                """
+                The timestamp the given line ends at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "duration",
+                    "line_ends_at",
+                    "schedule_end",
+                    "timestamp",
+                    "upcoming_invoice",
+                ]
+                """
+                The type of method to specify the `bill_until` time.
+                """
+                _inner_class_types = {
+                    "duration": Duration,
+                    "line_ends_at": LineEndsAt,
+                }
+
+            bill_from: Optional[BillFrom]
+            """
+            The start of the period to bill from when the Quote is accepted.
+            """
+            bill_until: Optional[BillUntil]
+            """
+            The end of the period to bill until when the Quote is accepted.
+            """
+            _inner_class_types = {
+                "bill_from": BillFrom,
+                "bill_until": BillUntil,
+            }
+
+        applies_to: AppliesTo
+        bill_on_acceptance: Optional[BillOnAcceptance]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: Optional[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        customer: Optional[str]
+        """
+        The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+        """
+        description: Optional[str]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        end_behavior: Optional[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        proration_behavior: Optional[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+        """
+        _inner_class_types = {
+            "applies_to": AppliesTo,
+            "bill_on_acceptance": BillOnAcceptance,
+        }
+
+    class SubscriptionSchedule(StripeObject):
+        class AppliesTo(StripeObject):
+            new_reference: Optional[str]
+            """
+            A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+            """
+            subscription_schedule: Optional[str]
+            """
+            The ID of the schedule the line applies to.
+            """
+            type: Literal["new_reference", "subscription_schedule"]
+            """
+            Describes whether the quote line is affecting a new schedule or an existing schedule.
+            """
+
+        applies_to: AppliesTo
+        subscription_schedule: str
+        """
+        The subscription schedule that was created or updated from this quote.
+        """
+        _inner_class_types = {"applies_to": AppliesTo}
 
     class TotalDetails(StripeObject):
         class Breakdown(StripeObject):
@@ -434,6 +907,10 @@ class Quote(
         """
 
     class CreateParams(RequestOptions):
+        allow_backdated_lines: NotRequired[bool]
+        """
+        Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
+        """
         application_fee_amount: NotRequired["Literal['']|int"]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
@@ -496,6 +973,10 @@ class Quote(
         """
         A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
         """
+        lines: NotRequired[List["Quote.CreateParamsLine"]]
+        """
+        A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -507,6 +988,12 @@ class Quote(
         subscription_data: NotRequired["Quote.CreateParamsSubscriptionData"]
         """
         When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
+        """
+        subscription_data_overrides: NotRequired[
+            List["Quote.CreateParamsSubscriptionDataOverride"]
+        ]
+        """
+        List representing overrides for `subscription_data` configurations for specific subscription schedules.
         """
         test_clock: NotRequired[str]
         """
@@ -548,9 +1035,37 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired["Quote.CreateParamsDiscountDiscountEnd"]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired["Quote.CreateParamsDiscountDiscountEndDuration"]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsFromQuote(TypedDict):
@@ -581,6 +1096,418 @@ class Quote(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsLine(TypedDict):
+        actions: NotRequired[List["Quote.CreateParamsLineAction"]]
+        """
+        An array of operations the quote line performs.
+        """
+        applies_to: NotRequired["Quote.CreateParamsLineAppliesTo"]
+        """
+        Details to identify the subscription schedule the quote line applies to.
+        """
+        billing_cycle_anchor: NotRequired[
+            Literal["automatic", "line_starts_at"]
+        ]
+        """
+        For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+        """
+        cancel_subscription_schedule: NotRequired[
+            "Quote.CreateParamsLineCancelSubscriptionSchedule"
+        ]
+        """
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
+        """
+        ends_at: NotRequired["Quote.CreateParamsLineEndsAt"]
+        """
+        Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
+        """
+        set_pause_collection: NotRequired[
+            "Quote.CreateParamsLineSetPauseCollection"
+        ]
+        """
+        Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+        """
+        set_schedule_end: NotRequired[
+            Literal["line_ends_at", "line_starts_at"]
+        ]
+        """
+        Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
+        """
+        starts_at: NotRequired["Quote.CreateParamsLineStartsAt"]
+        """
+        Details to identify the earliest timestamp where the proposed change should take effect.
+        """
+        trial_settings: NotRequired["Quote.CreateParamsLineTrialSettings"]
+        """
+        Settings related to subscription trials.
+        """
+
+    class CreateParamsLineAction(TypedDict):
+        add_discount: NotRequired["Quote.CreateParamsLineActionAddDiscount"]
+        """
+        Details for the `add_discount` type.
+        """
+        add_item: NotRequired["Quote.CreateParamsLineActionAddItem"]
+        """
+        Details for the `add_item` type.
+        """
+        add_metadata: NotRequired[Dict[str, str]]
+        """
+        Details for the `add_metadata` type: specify a hash of key-value pairs.
+        """
+        remove_discount: NotRequired[
+            "Quote.CreateParamsLineActionRemoveDiscount"
+        ]
+        """
+        Details for the `remove_discount` type.
+        """
+        remove_item: NotRequired["Quote.CreateParamsLineActionRemoveItem"]
+        """
+        Details for the `remove_item` type.
+        """
+        remove_metadata: NotRequired[List[str]]
+        """
+        Details for the `remove_metadata` type: specify an array of metadata keys.
+        """
+        set_discounts: NotRequired[
+            List["Quote.CreateParamsLineActionSetDiscount"]
+        ]
+        """
+        Details for the `set_discounts` type.
+        """
+        set_items: NotRequired[List["Quote.CreateParamsLineActionSetItem"]]
+        """
+        Details for the `set_items` type.
+        """
+        set_metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Details for the `set_metadata` type: specify an array of key-value pairs.
+        """
+        type: Literal[
+            "add_discount",
+            "add_item",
+            "add_metadata",
+            "clear_discounts",
+            "clear_metadata",
+            "remove_discount",
+            "remove_item",
+            "remove_metadata",
+            "set_discounts",
+            "set_items",
+            "set_metadata",
+        ]
+        """
+        The type of action the quote line performs.
+        """
+
+    class CreateParamsLineActionAddDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to redeem.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount for a coupon that was already redeemed.
+        """
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionAddDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        index: NotRequired[int]
+        """
+        The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The promotion code to redeem.
+        """
+
+    class CreateParamsLineActionAddDiscountDiscountEnd(TypedDict):
+        type: Literal["line_ends_at"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsLineActionAddItem(TypedDict):
+        discounts: NotRequired[
+            List["Quote.CreateParamsLineActionAddItemDiscount"]
+        ]
+        """
+        The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+        """
+        trial: NotRequired["Quote.CreateParamsLineActionAddItemTrial"]
+        """
+        Options that configure the trial on the subscription item.
+        """
+
+    class CreateParamsLineActionAddItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionAddItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineActionAddItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsLineActionAddItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class CreateParamsLineActionRemoveDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to remove from the `discounts` array.
+        """
+        discount: NotRequired[str]
+        """
+        The ID of a discount to remove from the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The ID of a promotion code to remove from the `discounts` array.
+        """
+
+    class CreateParamsLineActionRemoveItem(TypedDict):
+        price: str
+        """
+        ID of a price to remove.
+        """
+
+    class CreateParamsLineActionSetDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to replace the `discounts` array with.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount to replace the `discounts` array with.
+        """
+        promotion_code: NotRequired[str]
+        """
+        An ID of an existing promotion code to replace the `discounts` array with.
+        """
+
+    class CreateParamsLineActionSetItem(TypedDict):
+        discounts: NotRequired[
+            List["Quote.CreateParamsLineActionSetItemDiscount"]
+        ]
+        """
+        If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+        """
+        trial: NotRequired["Quote.CreateParamsLineActionSetItemTrial"]
+        """
+        If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+        """
+
+    class CreateParamsLineActionSetItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionSetItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineActionSetItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsLineActionSetItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class CreateParamsLineAppliesTo(TypedDict):
+        new_reference: NotRequired[str]
+        """
+        A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        """
+        subscription_schedule: NotRequired[str]
+        """
+        The ID of the schedule the line applies to.
+        """
+        type: Literal["new_reference", "subscription_schedule"]
+        """
+        Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class CreateParamsLineCancelSubscriptionSchedule(TypedDict):
+        cancel_at: Literal["line_starts_at"]
+        """
+        Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
+        """
+        invoice_now: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
+        """
+        prorate: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
+        """
+
+    class CreateParamsLineEndsAt(TypedDict):
+        discount_end: NotRequired["Quote.CreateParamsLineEndsAtDiscountEnd"]
+        """
+        Use the `end` time of a given discount.
+        """
+        duration: NotRequired["Quote.CreateParamsLineEndsAtDuration"]
+        """
+        Time span for the quote line starting from the `starts_at` date.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "billing_period_end",
+            "discount_end",
+            "duration",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        Select a way to pass in `ends_at`.
+        """
+
+    class CreateParamsLineEndsAtDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class CreateParamsLineEndsAtDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsLineItem(TypedDict):
@@ -616,9 +1543,41 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsLineItemPriceData(TypedDict):
@@ -659,7 +1618,91 @@ class Quote(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsLineSetPauseCollection(TypedDict):
+        set: NotRequired["Quote.CreateParamsLineSetPauseCollectionSet"]
+        """
+        Details of the pause_collection behavior to apply to the amendment.
+        """
+        type: Literal["remove", "set"]
+        """
+        Determines the type of the pause_collection amendment.
+        """
+
+    class CreateParamsLineSetPauseCollectionSet(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+
+    class CreateParamsLineStartsAt(TypedDict):
+        discount_end: NotRequired["Quote.CreateParamsLineStartsAtDiscountEnd"]
+        """
+        Use the `end` time of a given discount.
+        """
+        line_ends_at: NotRequired["Quote.CreateParamsLineStartsAtLineEndsAt"]
+        """
+        The timestamp the given line ends at.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "discount_end",
+            "line_ends_at",
+            "now",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        Select a way to pass in `starts_at`.
+        """
+
+    class CreateParamsLineStartsAtDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class CreateParamsLineStartsAtLineEndsAt(TypedDict):
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class CreateParamsLineTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "Quote.CreateParamsLineTrialSettingsEndBehavior"
+        ]
+        """
+        Defines how the subscription should behave when a trial ends.
+        """
+
+    class CreateParamsLineTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
+        """
+        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+        """
+
     class CreateParamsSubscriptionData(TypedDict):
+        bill_on_acceptance: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptance"
+        ]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        billing_cycle_anchor: NotRequired["Literal['']|Literal['reset']"]
+        """
+        When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
+        """
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -670,13 +1713,305 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
+        end_behavior: NotRequired[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        from_subscription: NotRequired[str]
+        """
+        The id of a subscription that the quote will update. By default, the quote will contain the state of the subscription (such as line items, collection method and billing thresholds) unless overridden.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
+        prebilling: NotRequired[
+            "Literal['']|Quote.CreateParamsSubscriptionDataPrebilling"
+        ]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+
+        When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+
+        Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+
+        Prorations can be disabled by passing `none`.
+        """
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillFrom"
+        ]
+        """
+        The start of the period to bill from when the Quote is accepted.
+        """
+        bill_until: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntil"
+        ]
+        """
+        The end of the period to bill until when the Quote is accepted.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillFrom(TypedDict):
+        line_starts_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt"
+        ]
+        """
+        Details of a Quote line to start the bill period from.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+        """
+        The type of method to specify the `bill_from` time.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration"
+        ]
+        """
+        Details of the duration over which to bill.
+        """
+        line_ends_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt"
+        ]
+        """
+        Details of a Quote line item from which to bill until.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        The type of method to specify the `bill_until` time.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class CreateParamsSubscriptionDataOverride(TypedDict):
+        applies_to: "Quote.CreateParamsSubscriptionDataOverrideAppliesTo"
+        """
+        Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
+        """
+        bill_on_acceptance: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptance"
+        ]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        customer: NotRequired[str]
+        """
+        The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
+        """
+        description: NotRequired[str]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        end_behavior: NotRequired[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+
+        When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+
+        Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+
+        Prorations can be disabled by passing `none`.
+        """
+
+    class CreateParamsSubscriptionDataOverrideAppliesTo(TypedDict):
+        new_reference: NotRequired[str]
+        """
+        A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        """
+        subscription_schedule: NotRequired[str]
+        """
+        The ID of the schedule the line applies to.
+        """
+        type: Literal["new_reference", "subscription_schedule"]
+        """
+        Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom"
+        ]
+        """
+        The start of the period to bill from when the Quote is accepted.
+        """
+        bill_until: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil"
+        ]
+        """
+        The end of the period to bill until when the Quote is accepted.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom(
+        TypedDict,
+    ):
+        line_starts_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt"
+        ]
+        """
+        Details of a Quote line to start the bill period from.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+        """
+        The type of method to specify the `bill_from` time.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration"
+        ]
+        """
+        Details of the duration over which to bill.
+        """
+        line_ends_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt"
+        ]
+        """
+        Details of a Quote line item from which to bill until.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        The type of method to specify the `bill_until` time.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class CreateParamsSubscriptionDataPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -739,11 +2074,7 @@ class Quote(
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class ListParams(RequestOptions):
-        customer: NotRequired[str]
-        """
-        The ID of the customer whose quotes will be retrieved.
-        """
+    class ListLinesParams(RequestOptions):
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -760,7 +2091,37 @@ class Quote(
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        status: NotRequired[Literal["accepted", "canceled", "draft", "open"]]
+
+    class ListParams(RequestOptions):
+        customer: NotRequired[str]
+        """
+        The ID of the customer whose quotes will be retrieved.
+        """
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        from_subscription: NotRequired[str]
+        """
+        The subscription which the quote updates.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired[
+            Literal[
+                "accepted", "accepting", "canceled", "draft", "open", "stale"
+            ]
+        ]
         """
         The status of the quote.
         """
@@ -769,7 +2130,81 @@ class Quote(
         Provides a list of quotes that are associated with the specified test clock. The response will not include quotes with test clocks if this and the customer parameter is not set.
         """
 
+    class ListPreviewInvoiceLinesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListPreviewInvoicesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListPreviewSubscriptionSchedulesParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class MarkDraftParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class MarkStaleParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        reason: NotRequired[str]
+        """
+        Reason the Quote is being marked stale.
+        """
+
     class ModifyParams(RequestOptions):
+        allow_backdated_lines: NotRequired[bool]
+        """
+        Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
+        """
         application_fee_amount: NotRequired["Literal['']|int"]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
@@ -828,6 +2263,10 @@ class Quote(
         """
         A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
         """
+        lines: NotRequired[List["Quote.ModifyParamsLine"]]
+        """
+        A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -839,6 +2278,12 @@ class Quote(
         subscription_data: NotRequired["Quote.ModifyParamsSubscriptionData"]
         """
         When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
+        """
+        subscription_data_overrides: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsSubscriptionDataOverride]"
+        ]
+        """
+        List representing overrides for `subscription_data` configurations for specific subscription schedules.
         """
         transfer_data: NotRequired[
             "Literal['']|Quote.ModifyParamsTransferData"
@@ -876,9 +2321,37 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired["Quote.ModifyParamsDiscountDiscountEnd"]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired["Quote.ModifyParamsDiscountDiscountEndDuration"]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsInvoiceSettings(TypedDict):
@@ -899,6 +2372,422 @@ class Quote(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class ModifyParamsLine(TypedDict):
+        actions: NotRequired[List["Quote.ModifyParamsLineAction"]]
+        """
+        An array of operations the quote line performs.
+        """
+        applies_to: NotRequired["Quote.ModifyParamsLineAppliesTo"]
+        """
+        Details to identify the subscription schedule the quote line applies to.
+        """
+        billing_cycle_anchor: NotRequired[
+            Literal["automatic", "line_starts_at"]
+        ]
+        """
+        For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+        """
+        cancel_subscription_schedule: NotRequired[
+            "Quote.ModifyParamsLineCancelSubscriptionSchedule"
+        ]
+        """
+        A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
+        """
+        ends_at: NotRequired["Quote.ModifyParamsLineEndsAt"]
+        """
+        Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
+        """
+        id: NotRequired[str]
+        """
+        The ID of an existing line on the quote.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
+        """
+        set_pause_collection: NotRequired[
+            "Quote.ModifyParamsLineSetPauseCollection"
+        ]
+        """
+        Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+        """
+        set_schedule_end: NotRequired[
+            Literal["line_ends_at", "line_starts_at"]
+        ]
+        """
+        Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
+        """
+        starts_at: NotRequired["Quote.ModifyParamsLineStartsAt"]
+        """
+        Details to identify the earliest timestamp where the proposed change should take effect.
+        """
+        trial_settings: NotRequired["Quote.ModifyParamsLineTrialSettings"]
+        """
+        Settings related to subscription trials.
+        """
+
+    class ModifyParamsLineAction(TypedDict):
+        add_discount: NotRequired["Quote.ModifyParamsLineActionAddDiscount"]
+        """
+        Details for the `add_discount` type.
+        """
+        add_item: NotRequired["Quote.ModifyParamsLineActionAddItem"]
+        """
+        Details for the `add_item` type.
+        """
+        add_metadata: NotRequired[Dict[str, str]]
+        """
+        Details for the `add_metadata` type: specify a hash of key-value pairs.
+        """
+        remove_discount: NotRequired[
+            "Quote.ModifyParamsLineActionRemoveDiscount"
+        ]
+        """
+        Details for the `remove_discount` type.
+        """
+        remove_item: NotRequired["Quote.ModifyParamsLineActionRemoveItem"]
+        """
+        Details for the `remove_item` type.
+        """
+        remove_metadata: NotRequired[List[str]]
+        """
+        Details for the `remove_metadata` type: specify an array of metadata keys.
+        """
+        set_discounts: NotRequired[
+            List["Quote.ModifyParamsLineActionSetDiscount"]
+        ]
+        """
+        Details for the `set_discounts` type.
+        """
+        set_items: NotRequired[List["Quote.ModifyParamsLineActionSetItem"]]
+        """
+        Details for the `set_items` type.
+        """
+        set_metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Details for the `set_metadata` type: specify an array of key-value pairs.
+        """
+        type: Literal[
+            "add_discount",
+            "add_item",
+            "add_metadata",
+            "clear_discounts",
+            "clear_metadata",
+            "remove_discount",
+            "remove_item",
+            "remove_metadata",
+            "set_discounts",
+            "set_items",
+            "set_metadata",
+        ]
+        """
+        The type of action the quote line performs.
+        """
+
+    class ModifyParamsLineActionAddDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to redeem.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount for a coupon that was already redeemed.
+        """
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionAddDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        index: NotRequired[int]
+        """
+        The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The promotion code to redeem.
+        """
+
+    class ModifyParamsLineActionAddDiscountDiscountEnd(TypedDict):
+        type: Literal["line_ends_at"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsLineActionAddItem(TypedDict):
+        discounts: NotRequired[
+            List["Quote.ModifyParamsLineActionAddItemDiscount"]
+        ]
+        """
+        The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+        """
+        trial: NotRequired["Quote.ModifyParamsLineActionAddItemTrial"]
+        """
+        Options that configure the trial on the subscription item.
+        """
+
+    class ModifyParamsLineActionAddItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionAddItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineActionAddItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsLineActionAddItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class ModifyParamsLineActionRemoveDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to remove from the `discounts` array.
+        """
+        discount: NotRequired[str]
+        """
+        The ID of a discount to remove from the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The ID of a promotion code to remove from the `discounts` array.
+        """
+
+    class ModifyParamsLineActionRemoveItem(TypedDict):
+        price: str
+        """
+        ID of a price to remove.
+        """
+
+    class ModifyParamsLineActionSetDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to replace the `discounts` array with.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount to replace the `discounts` array with.
+        """
+        promotion_code: NotRequired[str]
+        """
+        An ID of an existing promotion code to replace the `discounts` array with.
+        """
+
+    class ModifyParamsLineActionSetItem(TypedDict):
+        discounts: NotRequired[
+            List["Quote.ModifyParamsLineActionSetItemDiscount"]
+        ]
+        """
+        If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+        """
+        trial: NotRequired["Quote.ModifyParamsLineActionSetItemTrial"]
+        """
+        If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+        """
+
+    class ModifyParamsLineActionSetItemDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionSetItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineActionSetItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsLineActionSetItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class ModifyParamsLineAppliesTo(TypedDict):
+        new_reference: NotRequired[str]
+        """
+        A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        """
+        subscription_schedule: NotRequired[str]
+        """
+        The ID of the schedule the line applies to.
+        """
+        type: Literal["new_reference", "subscription_schedule"]
+        """
+        Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class ModifyParamsLineCancelSubscriptionSchedule(TypedDict):
+        cancel_at: Literal["line_starts_at"]
+        """
+        Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
+        """
+        invoice_now: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
+        """
+        prorate: NotRequired[bool]
+        """
+        If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
+        """
+
+    class ModifyParamsLineEndsAt(TypedDict):
+        discount_end: NotRequired["Quote.ModifyParamsLineEndsAtDiscountEnd"]
+        """
+        Use the `end` time of a given discount.
+        """
+        duration: NotRequired["Quote.ModifyParamsLineEndsAtDuration"]
+        """
+        Time span for the quote line starting from the `starts_at` date.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "billing_period_end",
+            "discount_end",
+            "duration",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        Select a way to pass in `ends_at`.
+        """
+
+    class ModifyParamsLineEndsAtDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class ModifyParamsLineEndsAtDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsLineItem(TypedDict):
@@ -938,9 +2827,41 @@ class Quote(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsLineItemPriceData(TypedDict):
@@ -981,7 +2902,95 @@ class Quote(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class ModifyParamsLineSetPauseCollection(TypedDict):
+        set: NotRequired["Quote.ModifyParamsLineSetPauseCollectionSet"]
+        """
+        Details of the pause_collection behavior to apply to the amendment.
+        """
+        type: Literal["remove", "set"]
+        """
+        Determines the type of the pause_collection amendment.
+        """
+
+    class ModifyParamsLineSetPauseCollectionSet(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+
+    class ModifyParamsLineStartsAt(TypedDict):
+        discount_end: NotRequired["Quote.ModifyParamsLineStartsAtDiscountEnd"]
+        """
+        Use the `end` time of a given discount.
+        """
+        line_ends_at: NotRequired["Quote.ModifyParamsLineStartsAtLineEndsAt"]
+        """
+        The timestamp the given line ends at.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "discount_end",
+            "line_ends_at",
+            "now",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        Select a way to pass in `starts_at`.
+        """
+
+    class ModifyParamsLineStartsAtDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class ModifyParamsLineStartsAtLineEndsAt(TypedDict):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class ModifyParamsLineTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "Quote.ModifyParamsLineTrialSettingsEndBehavior"
+        ]
+        """
+        Defines how the subscription should behave when a trial ends.
+        """
+
+    class ModifyParamsLineTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
+        """
+        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+        """
+
     class ModifyParamsSubscriptionData(TypedDict):
+        bill_on_acceptance: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataBillOnAcceptance"
+        ]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        billing_cycle_anchor: NotRequired["Literal['']|Literal['reset']"]
+        """
+        When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
+        """
         description: NotRequired["Literal['']|str"]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -992,13 +3001,301 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
+        end_behavior: NotRequired[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
+        prebilling: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataPrebilling"
+        ]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+
+        When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+
+        Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+
+        Prorations can be disabled by passing `none`.
+        """
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillFrom"
+        ]
+        """
+        The start of the period to bill from when the Quote is accepted.
+        """
+        bill_until: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntil"
+        ]
+        """
+        The end of the period to bill until when the Quote is accepted.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillFrom(TypedDict):
+        line_starts_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt"
+        ]
+        """
+        Details of a Quote line to start the bill period from.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+        """
+        The type of method to specify the `bill_from` time.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration"
+        ]
+        """
+        Details of the duration over which to bill.
+        """
+        line_ends_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt"
+        ]
+        """
+        Details of a Quote line item from which to bill until.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        The type of method to specify the `bill_until` time.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class ModifyParamsSubscriptionDataOverride(TypedDict):
+        applies_to: "Quote.ModifyParamsSubscriptionDataOverrideAppliesTo"
+        """
+        Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
+        """
+        bill_on_acceptance: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptance"
+        ]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        customer: NotRequired[str]
+        """
+        The customer the Subscription Data override applies to.
+        """
+        description: NotRequired["Literal['']|str"]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        end_behavior: NotRequired[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+
+        When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+
+        Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+
+        Prorations can be disabled by passing `none`.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideAppliesTo(TypedDict):
+        new_reference: NotRequired[str]
+        """
+        A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        """
+        subscription_schedule: NotRequired[str]
+        """
+        The ID of the schedule the line applies to.
+        """
+        type: Literal["new_reference", "subscription_schedule"]
+        """
+        Describes whether the quote line is affecting a new schedule or an existing schedule.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom"
+        ]
+        """
+        The start of the period to bill from when the Quote is accepted.
+        """
+        bill_until: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil"
+        ]
+        """
+        The end of the period to bill until when the Quote is accepted.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom(
+        TypedDict,
+    ):
+        line_starts_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt"
+        ]
+        """
+        Details of a Quote line to start the bill period from.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+        """
+        The type of method to specify the `bill_from` time.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration"
+        ]
+        """
+        Details of the duration over which to bill.
+        """
+        line_ends_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt"
+        ]
+        """
+        Details of a Quote line item from which to bill until.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp.
+        """
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+        """
+        The type of method to specify the `bill_until` time.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired[str]
+        """
+        The ID of a quote line.
+        """
+        index: NotRequired[int]
+        """
+        The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+        """
+
+    class ModifyParamsSubscriptionDataPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
         """
 
     class ModifyParamsTransferData(TypedDict):
@@ -1021,12 +3318,22 @@ class Quote(
         Specifies which fields in the response should be expanded.
         """
 
+    class ReestimateParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
 
+    allow_backdated_lines: Optional[bool]
+    """
+    Allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
+    """
     amount_subtotal: int
     """
     Total before any discounts or taxes are applied.
@@ -1106,6 +3413,10 @@ class Quote(
     """
     A list of items the customer is being quoted for.
     """
+    lines: Optional[List[str]]
+    """
+    A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -1126,9 +3437,15 @@ class Quote(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    status: Literal["accepted", "canceled", "draft", "open"]
+    status: Literal[
+        "accepted", "accepting", "canceled", "draft", "open", "stale"
+    ]
     """
     The status of the quote.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    Details on when and why a quote has been marked as stale or canceled.
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
@@ -1136,9 +3453,19 @@ class Quote(
     The subscription that was created or updated from this quote.
     """
     subscription_data: SubscriptionData
-    subscription_schedule: Optional[ExpandableField["SubscriptionSchedule"]]
+    subscription_data_overrides: Optional[List[SubscriptionDataOverride]]
+    """
+    List representing overrides for `subscription_data` configurations for specific subscription schedules.
+    """
+    subscription_schedule: Optional[
+        ExpandableField["SubscriptionScheduleResource"]
+    ]
     """
     The subscription schedule that was created or updated from this quote.
+    """
+    subscription_schedules: Optional[List[SubscriptionSchedule]]
+    """
+    The subscription schedules that were created or updated from this quote.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -1755,6 +4082,460 @@ class Quote(
         )
 
     @classmethod
+    def _cls_list_lines(
+        cls, quote: str, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def list_lines(
+        quote: str, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @overload
+    def list_lines(
+        self, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_list_lines")
+    def list_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_lines_async(
+        cls, quote: str, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_lines_async(
+        quote: str, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @overload
+    async def list_lines_async(
+        self, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_list_lines_async")
+    async def list_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_list_preview_invoice_lines(
+        cls,
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(quote),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def list_preview_invoice_lines(
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @overload
+    def list_preview_invoice_lines(
+        self,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_list_preview_invoice_lines")
+    def list_preview_invoice_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(self.get("id")),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_preview_invoice_lines_async(
+        cls,
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(quote),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_preview_invoice_lines_async(
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @overload
+    async def list_preview_invoice_lines_async(
+        self,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_list_preview_invoice_lines_async")
+    async def list_preview_invoice_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        preview_invoice: str,
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(self.get("id")),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_mark_draft(
+        cls, quote: str, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def mark_draft(
+        quote: str, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @overload
+    def mark_draft(self, **params: Unpack["Quote.MarkDraftParams"]) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_draft")
+    def mark_draft(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_mark_draft_async(
+        cls, quote: str, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def mark_draft_async(
+        quote: str, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @overload
+    async def mark_draft_async(
+        self, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_draft_async")
+    async def mark_draft_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.MarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_mark_stale(
+        cls, quote: str, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def mark_stale(
+        quote: str, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @overload
+    def mark_stale(self, **params: Unpack["Quote.MarkStaleParams"]) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_stale")
+    def mark_stale(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_mark_stale_async(
+        cls, quote: str, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def mark_stale_async(
+        quote: str, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @overload
+    async def mark_stale_async(
+        self, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_stale_async")
+    async def mark_stale_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.MarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(
         cls, id: str, **params: Unpack["Quote.ModifyParams"]
     ) -> "Quote":
@@ -1891,6 +4672,116 @@ class Quote(
         )
 
     @classmethod
+    def _cls_reestimate(
+        cls, quote: str, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def reestimate(
+        quote: str, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @overload
+    def reestimate(
+        self, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_reestimate")
+    def reestimate(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_reestimate_async(
+        cls, quote: str, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reestimate_async(
+        quote: str, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @overload
+    async def reestimate_async(
+        self, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_reestimate_async")
+    async def reestimate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Quote.ReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
@@ -1912,13 +4803,92 @@ class Quote(
         await instance.refresh_async()
         return instance
 
+    @classmethod
+    def list_preview_invoices(
+        cls, quote: str, **params: Unpack["Quote.ListPreviewInvoicesParams"]
+    ) -> ListObject["QuotePreviewInvoice"]:
+        """
+        Preview the invoices that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["QuotePreviewInvoice"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_preview_invoices_async(
+        cls, quote: str, **params: Unpack["Quote.ListPreviewInvoicesParams"]
+    ) -> ListObject["QuotePreviewInvoice"]:
+        """
+        Preview the invoices that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["QuotePreviewInvoice"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_preview_subscription_schedules(
+        cls,
+        quote: str,
+        **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"],
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
+        """
+        Preview the schedules that would be generated by accepting the quote
+        """
+        return cast(
+            ListObject["QuotePreviewSubscriptionSchedule"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_preview_subscription_schedules_async(
+        cls,
+        quote: str,
+        **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"],
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
+        """
+        Preview the schedules that would be generated by accepting the quote
+        """
+        return cast(
+            ListObject["QuotePreviewSubscriptionSchedule"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "computed": Computed,
         "from_quote": FromQuote,
         "invoice_settings": InvoiceSettings,
+        "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "subscription_data": SubscriptionData,
+        "subscription_data_overrides": SubscriptionDataOverride,
+        "subscription_schedules": SubscriptionSchedule,
         "total_details": TotalDetails,
         "transfer_data": TransferData,
     }

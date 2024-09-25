@@ -18512,6 +18512,80 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
+    def test_quotes_preview_invoices_lines_get(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.Quote.list_preview_invoice_lines(
+            "qt_xyz",
+            "in_xyz",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+            query_string="",
+        )
+
+    def test_quotes_preview_invoices_lines_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.list_preview_invoice_lines(
+            "qt_xyz",
+            "in_xyz",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_quotes_preview_invoices_lines_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.Quote.list_preview_invoice_lines_async(
+            "qt_xyz",
+            "in_xyz",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_quotes_preview_invoices_lines_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.quotes.list_preview_invoice_lines_async(
+            "qt_xyz",
+            "in_xyz",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_radar_early_fraud_warnings_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -23285,6 +23359,66 @@ class TestGeneratedExamples(object):
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_forms_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
+        stripe.tax.Form.pdf("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+        )
+
+    def test_tax_forms_pdf_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.forms.pdf("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
+        )
+
+    @pytest.mark.anyio
+    async def test_tax_forms_pdf_get_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.tax.Form.pdf_async("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+        )
+
+    @pytest.mark.anyio
+    async def test_tax_forms_pdf_get_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.tax.forms.pdf_async("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
         )
 
     def test_tax_ids_delete(self, http_client_mock: HTTPClientMock) -> None:

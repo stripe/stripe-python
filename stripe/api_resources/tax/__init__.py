@@ -16,10 +16,12 @@ warn(
     stacklevel=2,
 )
 if not TYPE_CHECKING:
+    from stripe.api_resources.tax.association import Association
     from stripe.api_resources.tax.calculation import Calculation
     from stripe.api_resources.tax.calculation_line_item import (
         CalculationLineItem,
     )
+    from stripe.api_resources.tax.form import Form
     from stripe.api_resources.tax.registration import Registration
     from stripe.api_resources.tax.settings import Settings
     from stripe.api_resources.tax.transaction import Transaction

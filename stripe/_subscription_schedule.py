@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from stripe._coupon import Coupon
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
+    from stripe._invoice import Invoice
     from stripe._payment_method import PaymentMethod
     from stripe._plan import Plan
     from stripe._price import Price
@@ -165,9 +166,44 @@ class SubscriptionSchedule(
             "transfer_data": TransferData,
         }
 
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
+
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
             class Discount(StripeObject):
+                class DiscountEnd(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    The discount end timestamp.
+                    """
+                    type: Literal["timestamp"]
+                    """
+                    The discount end type.
+                    """
+
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
                 ID of the coupon to create a new discount for.
@@ -176,10 +212,15 @@ class SubscriptionSchedule(
                 """
                 ID of an existing discount on the object (or one of its ancestors) to reuse.
                 """
+                discount_end: Optional[DiscountEnd]
+                """
+                Details to determine how long the discount should be applied for.
+                """
                 promotion_code: Optional[ExpandableField["PromotionCode"]]
                 """
                 ID of the promotion code to create a new discount for.
                 """
+                _inner_class_types = {"discount_end": DiscountEnd}
 
             discounts: List[Discount]
             """
@@ -231,6 +272,16 @@ class SubscriptionSchedule(
             """
 
         class Discount(StripeObject):
+            class DiscountEnd(StripeObject):
+                timestamp: Optional[int]
+                """
+                The discount end timestamp.
+                """
+                type: Literal["timestamp"]
+                """
+                The discount end type.
+                """
+
             coupon: Optional[ExpandableField["Coupon"]]
             """
             ID of the coupon to create a new discount for.
@@ -239,10 +290,15 @@ class SubscriptionSchedule(
             """
             ID of an existing discount on the object (or one of its ancestors) to reuse.
             """
+            discount_end: Optional[DiscountEnd]
+            """
+            Details to determine how long the discount should be applied for.
+            """
             promotion_code: Optional[ExpandableField["PromotionCode"]]
             """
             ID of the promotion code to create a new discount for.
             """
+            _inner_class_types = {"discount_end": DiscountEnd}
 
         class InvoiceSettings(StripeObject):
             class Issuer(StripeObject):
@@ -277,6 +333,16 @@ class SubscriptionSchedule(
                 """
 
             class Discount(StripeObject):
+                class DiscountEnd(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    The discount end timestamp.
+                    """
+                    type: Literal["timestamp"]
+                    """
+                    The discount end type.
+                    """
+
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
                 ID of the coupon to create a new discount for.
@@ -285,9 +351,24 @@ class SubscriptionSchedule(
                 """
                 ID of an existing discount on the object (or one of its ancestors) to reuse.
                 """
+                discount_end: Optional[DiscountEnd]
+                """
+                Details to determine how long the discount should be applied for.
+                """
                 promotion_code: Optional[ExpandableField["PromotionCode"]]
                 """
                 ID of the promotion code to create a new discount for.
+                """
+                _inner_class_types = {"discount_end": DiscountEnd}
+
+            class Trial(StripeObject):
+                converts_to: Optional[List[str]]
+                """
+                List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+                """
+                type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
                 """
 
             billing_thresholds: Optional[BillingThresholds]
@@ -318,10 +399,21 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
             """
+            trial: Optional[Trial]
+            """
+            Options that configure the trial on the subscription item.
+            """
             _inner_class_types = {
                 "billing_thresholds": BillingThresholds,
                 "discounts": Discount,
+                "trial": Trial,
             }
+
+        class PauseCollection(StripeObject):
+            behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+            """
+            The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            """
 
         class TransferData(StripeObject):
             amount_percent: Optional[float]
@@ -332,6 +424,19 @@ class SubscriptionSchedule(
             """
             The account where funds from the payment will be transferred to upon payment success.
             """
+
+        class TrialSettings(StripeObject):
+            class EndBehavior(StripeObject):
+                prorate_up_front: Optional[Literal["defer", "include"]]
+                """
+                Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+                """
+
+            end_behavior: Optional[EndBehavior]
+            """
+            Defines how the subscription should behave when a trial ends.
+            """
+            _inner_class_types = {"end_behavior": EndBehavior}
 
         add_invoice_items: List[AddInvoiceItem]
         """
@@ -400,6 +505,10 @@ class SubscriptionSchedule(
         """
         The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
         """
+        pause_collection: Optional[PauseCollection]
+        """
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        """
         proration_behavior: Literal[
             "always_invoice", "create_prorations", "none"
         ]
@@ -414,9 +523,17 @@ class SubscriptionSchedule(
         """
         The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
         """
+        trial_continuation: Optional[Literal["continue", "none"]]
+        """
+        Specify behavior of the trial when crossing schedule phase boundaries
+        """
         trial_end: Optional[int]
         """
         When the trial ends within the phase.
+        """
+        trial_settings: Optional[TrialSettings]
+        """
+        Settings related to any trials on the subscription during this phase.
         """
         _inner_class_types = {
             "add_invoice_items": AddInvoiceItem,
@@ -425,8 +542,640 @@ class SubscriptionSchedule(
             "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,
+            "pause_collection": PauseCollection,
             "transfer_data": TransferData,
+            "trial_settings": TrialSettings,
         }
+
+    class Prebilling(StripeObject):
+        invoice: ExpandableField["Invoice"]
+        """
+        ID of the prebilling invoice.
+        """
+        period_end: int
+        """
+        The end of the last period for which the invoice pre-bills.
+        """
+        period_start: int
+        """
+        The start of the first period for which the invoice pre-bills.
+        """
+        update_behavior: Optional[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+        """
+
+    class AmendParams(RequestOptions):
+        amendments: NotRequired[
+            List["SubscriptionSchedule.AmendParamsAmendment"]
+        ]
+        """
+        Changes to apply to the phases of the subscription schedule, in the order provided.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        prebilling: NotRequired[
+            "Literal['']|List[SubscriptionSchedule.AmendParamsPrebilling]"
+        ]
+        """
+        Provide any time periods to bill in advance.
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        In cases where the amendment changes the currently active phase,
+         specifies if and how to prorate at the time of the request.
+        """
+        schedule_settings: NotRequired[
+            "SubscriptionSchedule.AmendParamsScheduleSettings"
+        ]
+        """
+        Changes to apply to the subscription schedule.
+        """
+
+    class AmendParamsAmendment(TypedDict):
+        amendment_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentEnd"
+        ]
+        """
+        Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
+        """
+        amendment_start: (
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentStart"
+        )
+        """
+        Details to identify the earliest timestamp where the proposed change should take effect.
+        """
+        billing_cycle_anchor: NotRequired[
+            Literal["amendment_start", "automatic"]
+        ]
+        """
+        For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+        """
+        discount_actions: NotRequired[
+            List["SubscriptionSchedule.AmendParamsAmendmentDiscountAction"]
+        ]
+        """
+        Changes to the coupons being redeemed or discounts being applied during the amendment time span.
+        """
+        item_actions: NotRequired[
+            List["SubscriptionSchedule.AmendParamsAmendmentItemAction"]
+        ]
+        """
+        Changes to the subscription items during the amendment time span.
+        """
+        metadata_actions: NotRequired[
+            List["SubscriptionSchedule.AmendParamsAmendmentMetadataAction"]
+        ]
+        """
+        Instructions for how to modify phase metadata
+        """
+        proration_behavior: NotRequired[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
+        """
+        set_pause_collection: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentSetPauseCollection"
+        ]
+        """
+        Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+        """
+        set_schedule_end: NotRequired[
+            Literal["amendment_end", "amendment_start"]
+        ]
+        """
+        Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
+        """
+        trial_settings: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentTrialSettings"
+        ]
+        """
+        Settings related to subscription trials.
+        """
+
+    class AmendParamsAmendmentAmendmentEnd(TypedDict):
+        discount_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentEndDiscountEnd"
+        ]
+        """
+        Use the `end` time of a given discount.
+        """
+        duration: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentEndDuration"
+        ]
+        """
+        Time span for the amendment starting from the `amendment_start`.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
+        """
+        type: Literal[
+            "discount_end",
+            "duration",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ]
+        """
+        Select one of three ways to pass the `amendment_end`.
+        """
+
+    class AmendParamsAmendmentAmendmentEndDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class AmendParamsAmendmentAmendmentEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class AmendParamsAmendmentAmendmentStart(TypedDict):
+        amendment_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentStartAmendmentEnd"
+        ]
+        """
+        Details of another amendment in the same array, immediately after which this amendment should begin.
+        """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentAmendmentStartDiscountEnd"
+        ]
+        """
+        Use the `end` time of a given discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the amendment to start.
+        """
+        type: Literal[
+            "amendment_end",
+            "discount_end",
+            "now",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ]
+        """
+        Select one of three ways to pass the `amendment_start`.
+        """
+
+    class AmendParamsAmendmentAmendmentStartAmendmentEnd(TypedDict):
+        index: int
+        """
+        The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
+        """
+
+    class AmendParamsAmendmentAmendmentStartDiscountEnd(TypedDict):
+        discount: str
+        """
+        The ID of a specific discount.
+        """
+
+    class AmendParamsAmendmentDiscountAction(TypedDict):
+        add: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentDiscountActionAdd"
+        ]
+        """
+        Details of the discount to add.
+        """
+        remove: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentDiscountActionRemove"
+        ]
+        """
+        Details of the discount to remove.
+        """
+        set: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentDiscountActionSet"
+        ]
+        """
+        Details of the discount to replace the existing discounts with.
+        """
+        type: Literal["add", "remove", "set"]
+        """
+        Determines the type of discount action.
+        """
+
+    class AmendParamsAmendmentDiscountActionAdd(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to redeem.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount for a coupon that was already redeemed.
+        """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentDiscountActionAddDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        index: NotRequired[int]
+        """
+        The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The promotion code to redeem.
+        """
+
+    class AmendParamsAmendmentDiscountActionAddDiscountEnd(TypedDict):
+        type: Literal["amendment_end"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class AmendParamsAmendmentDiscountActionRemove(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to remove from the `discounts` array.
+        """
+        discount: NotRequired[str]
+        """
+        The ID of a discount to remove from the `discounts` array.
+        """
+        promotion_code: NotRequired[str]
+        """
+        The ID of a promotion code to remove from the `discounts` array.
+        """
+
+    class AmendParamsAmendmentDiscountActionSet(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The coupon code to replace the `discounts` array with.
+        """
+        discount: NotRequired[str]
+        """
+        An ID of an existing discount to replace the `discounts` array with.
+        """
+        promotion_code: NotRequired[str]
+        """
+        An ID of an existing promotion code to replace the `discounts` array with.
+        """
+
+    class AmendParamsAmendmentItemAction(TypedDict):
+        add: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionAdd"
+        ]
+        """
+        Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
+        """
+        remove: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionRemove"
+        ]
+        """
+        Details of the subscription item to remove.
+        """
+        set: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionSet"
+        ]
+        """
+        Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
+        """
+        type: Literal["add", "remove", "set"]
+        """
+        Determines the type of item action.
+        """
+
+    class AmendParamsAmendmentItemActionAdd(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionSchedule.AmendParamsAmendmentItemActionAddDiscount"
+            ]
+        ]
+        """
+        The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+        """
+        trial: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionAddTrial"
+        ]
+        """
+        Options that configure the trial on the subscription item.
+        """
+
+    class AmendParamsAmendmentItemActionAddDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionAddDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class AmendParamsAmendmentItemActionAddDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionAddDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class AmendParamsAmendmentItemActionAddDiscountDiscountEndDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class AmendParamsAmendmentItemActionAddTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class AmendParamsAmendmentItemActionRemove(TypedDict):
+        price: str
+        """
+        ID of a price to remove.
+        """
+
+    class AmendParamsAmendmentItemActionSet(TypedDict):
+        discounts: NotRequired[
+            List[
+                "SubscriptionSchedule.AmendParamsAmendmentItemActionSetDiscount"
+            ]
+        ]
+        """
+        If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+        """
+        tax_rates: NotRequired[List[str]]
+        """
+        If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+        """
+        trial: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionSetTrial"
+        ]
+        """
+        If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+        """
+
+    class AmendParamsAmendmentItemActionSetDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired[str]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionSetDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+        promotion_code: NotRequired[str]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class AmendParamsAmendmentItemActionSetDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentItemActionSetDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class AmendParamsAmendmentItemActionSetDiscountDiscountEndDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class AmendParamsAmendmentItemActionSetTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class AmendParamsAmendmentMetadataAction(TypedDict):
+        add: NotRequired[Dict[str, str]]
+        """
+        Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
+        """
+        remove: NotRequired[List[str]]
+        """
+        Keys to remove from schedule phase metadata.
+        """
+        set: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
+        """
+        type: Literal["add", "remove", "set"]
+        """
+        Select one of three ways to update phase-level `metadata` on subscription schedules.
+        """
+
+    class AmendParamsAmendmentSetPauseCollection(TypedDict):
+        set: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentSetPauseCollectionSet"
+        ]
+        """
+        Details of the pause_collection behavior to apply to the amendment.
+        """
+        type: Literal["remove", "set"]
+        """
+        Determines the type of the pause_collection amendment.
+        """
+
+    class AmendParamsAmendmentSetPauseCollectionSet(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+
+    class AmendParamsAmendmentTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "SubscriptionSchedule.AmendParamsAmendmentTrialSettingsEndBehavior"
+        ]
+        """
+        Defines how the subscription should behave when a trial ends.
+        """
+
+    class AmendParamsAmendmentTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
+        """
+        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+        """
+
+    class AmendParamsPrebilling(TypedDict):
+        bill_from: NotRequired[
+            "SubscriptionSchedule.AmendParamsPrebillingBillFrom"
+        ]
+        """
+        The beginning of the prebilled time period. The default value is `now`.
+        """
+        bill_until: NotRequired[
+            "SubscriptionSchedule.AmendParamsPrebillingBillUntil"
+        ]
+        """
+        The end of the prebilled time period.
+        """
+        invoice_at: NotRequired[Literal["now"]]
+        """
+        When the prebilling invoice should be created. The default value is `now`.
+        """
+        update_behavior: NotRequired[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+        """
+
+    class AmendParamsPrebillingBillFrom(TypedDict):
+        amendment_start: NotRequired[
+            "SubscriptionSchedule.AmendParamsPrebillingBillFromAmendmentStart"
+        ]
+        """
+        Start the prebilled period when a specified amendment begins.
+        """
+        timestamp: NotRequired[int]
+        """
+        Start the prebilled period at a precise integer timestamp, starting from the Unix epoch.
+        """
+        type: Literal["amendment_start", "now", "timestamp"]
+        """
+        Select one of several ways to pass the `bill_from` value.
+        """
+
+    class AmendParamsPrebillingBillFromAmendmentStart(TypedDict):
+        index: int
+        """
+        The position of the amendment in the `amendments` array with which prebilling should begin. Indexes start from 0 and must be less than the total number of supplied amendments.
+        """
+
+    class AmendParamsPrebillingBillUntil(TypedDict):
+        amendment_end: NotRequired[
+            "SubscriptionSchedule.AmendParamsPrebillingBillUntilAmendmentEnd"
+        ]
+        """
+        End the prebilled period when a specified amendment ends.
+        """
+        duration: NotRequired[
+            "SubscriptionSchedule.AmendParamsPrebillingBillUntilDuration"
+        ]
+        """
+        Time span for prebilling, starting from `bill_from`.
+        """
+        timestamp: NotRequired[int]
+        """
+        End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
+        """
+        type: Literal["amendment_end", "duration", "schedule_end", "timestamp"]
+        """
+        Select one of several ways to pass the `bill_until` value.
+        """
+
+    class AmendParamsPrebillingBillUntilAmendmentEnd(TypedDict):
+        index: int
+        """
+        The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
+        """
+
+    class AmendParamsPrebillingBillUntilDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class AmendParamsScheduleSettings(TypedDict):
+        end_behavior: NotRequired[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
 
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -443,6 +1192,12 @@ class SubscriptionSchedule(
         """
 
     class CreateParams(RequestOptions):
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
         customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
@@ -474,6 +1229,10 @@ class SubscriptionSchedule(
         phases: NotRequired[List["SubscriptionSchedule.CreateParamsPhase"]]
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
+        """
+        prebilling: NotRequired["SubscriptionSchedule.CreateParamsPrebilling"]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed now.
         """
         start_date: NotRequired["int|Literal['now']"]
         """
@@ -685,6 +1444,12 @@ class SubscriptionSchedule(
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
+        pause_collection: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhasePauseCollection"
+        ]
+        """
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
@@ -701,9 +1466,19 @@ class SubscriptionSchedule(
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
+        trial_continuation: NotRequired[Literal["continue", "none"]]
+        """
+        Specify trial behavior when crossing phase boundaries
+        """
         trial_end: NotRequired[int]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+        """
+        trial_settings: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseTrialSettings"
+        ]
+        """
+        Settings related to subscription trials.
         """
 
     class CreateParamsPhaseAddInvoiceItem(TypedDict):
@@ -743,9 +1518,43 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemDiscountDiscountEndDuration(
+        TypedDict
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -813,9 +1622,41 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsPhaseDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
@@ -883,6 +1724,10 @@ class SubscriptionSchedule(
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
+        trial: NotRequired["SubscriptionSchedule.CreateParamsPhaseItemTrial"]
+        """
+        Options that configure the trial on the subscription item.
+        """
 
     class CreateParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
@@ -899,9 +1744,41 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsPhaseItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsPhaseItemPriceData(TypedDict):
@@ -944,6 +1821,22 @@ class SubscriptionSchedule(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsPhaseItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class CreateParamsPhasePauseCollection(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+
     class CreateParamsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[float]
         """
@@ -952,6 +1845,30 @@ class SubscriptionSchedule(
         destination: str
         """
         ID of an existing, connected Stripe account.
+        """
+
+    class CreateParamsPhaseTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseTrialSettingsEndBehavior"
+        ]
+        """
+        Defines how the subscription should behave when a trial ends.
+        """
+
+    class CreateParamsPhaseTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
+        """
+        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+        """
+
+    class CreateParamsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+        update_behavior: NotRequired[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         """
 
     class ListParams(RequestOptions):
@@ -1075,6 +1992,12 @@ class SubscriptionSchedule(
         """
 
     class ModifyParams(RequestOptions):
+        billing_behavior: NotRequired[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
         default_settings: NotRequired[
             "SubscriptionSchedule.ModifyParamsDefaultSettings"
         ]
@@ -1098,6 +2021,10 @@ class SubscriptionSchedule(
         phases: NotRequired[List["SubscriptionSchedule.ModifyParamsPhase"]]
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
+        """
+        prebilling: NotRequired["SubscriptionSchedule.ModifyParamsPrebilling"]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed now.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1311,6 +2238,12 @@ class SubscriptionSchedule(
         """
         The account on behalf of which to charge, for each of the associated subscription's invoices.
         """
+        pause_collection: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhasePauseCollection"
+        ]
+        """
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
         ]
@@ -1331,9 +2264,19 @@ class SubscriptionSchedule(
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
+        trial_continuation: NotRequired[Literal["continue", "none"]]
+        """
+        Specify trial behavior when crossing phase boundaries
+        """
         trial_end: NotRequired["int|Literal['now']"]
         """
         Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+        """
+        trial_settings: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseTrialSettings"
+        ]
+        """
+        Settings related to subscription trials.
         """
 
     class ModifyParamsPhaseAddInvoiceItem(TypedDict):
@@ -1373,9 +2316,43 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemDiscountDiscountEndDuration(
+        TypedDict
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -1443,9 +2420,41 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsPhaseDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsPhaseInvoiceSettings(TypedDict):
@@ -1513,6 +2522,10 @@ class SubscriptionSchedule(
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
+        trial: NotRequired["SubscriptionSchedule.ModifyParamsPhaseItemTrial"]
+        """
+        Options that configure the trial on the subscription item.
+        """
 
     class ModifyParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
@@ -1529,9 +2542,41 @@ class SubscriptionSchedule(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsPhaseItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsPhaseItemPriceData(TypedDict):
@@ -1574,6 +2619,22 @@ class SubscriptionSchedule(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class ModifyParamsPhaseItemTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    class ModifyParamsPhasePauseCollection(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        """
+        The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        """
+
     class ModifyParamsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[float]
         """
@@ -1582,6 +2643,30 @@ class SubscriptionSchedule(
         destination: str
         """
         ID of an existing, connected Stripe account.
+        """
+
+    class ModifyParamsPhaseTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseTrialSettingsEndBehavior"
+        ]
+        """
+        Defines how the subscription should behave when a trial ends.
+        """
+
+    class ModifyParamsPhaseTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired[Literal["defer", "include"]]
+        """
+        Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+        """
+
+    class ModifyParamsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+        update_behavior: NotRequired[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
         """
 
     class ReleaseParams(RequestOptions):
@@ -1603,6 +2688,12 @@ class SubscriptionSchedule(
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the schedule.
+    """
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
+    """
+    Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     """
     canceled_at: Optional[int]
     """
@@ -1633,6 +2724,10 @@ class SubscriptionSchedule(
     """
     Unique identifier for the object.
     """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription schedule.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -1648,6 +2743,10 @@ class SubscriptionSchedule(
     phases: List[Phase]
     """
     Configuration for the subscription schedule's phases.
+    """
+    prebilling: Optional[Prebilling]
+    """
+    Time period and invoice for a Subscription billed in advance.
     """
     released_at: Optional[int]
     """
@@ -1671,6 +2770,120 @@ class SubscriptionSchedule(
     """
     ID of the test clock this subscription schedule belongs to.
     """
+
+    @classmethod
+    def _cls_amend(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.AmendParams"],
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def amend(
+        schedule: str, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @overload
+    def amend(
+        self, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @class_method_variant("_cls_amend")
+    def amend(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_amend_async(
+        cls,
+        schedule: str,
+        **params: Unpack["SubscriptionSchedule.AmendParams"],
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def amend_async(
+        schedule: str, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @overload
+    async def amend_async(
+        self, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @class_method_variant("_cls_amend_async")
+    async def amend_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionSchedule.AmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_cancel(
@@ -2031,5 +3244,7 @@ class SubscriptionSchedule(
     _inner_class_types = {
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "phases": Phase,
+        "prebilling": Prebilling,
     }

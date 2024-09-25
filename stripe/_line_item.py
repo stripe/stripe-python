@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
@@ -7,6 +8,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount as DiscountResource
     from stripe._price import Price
+    from stripe._product import Product
     from stripe._tax_rate import TaxRate
 
 
@@ -107,6 +109,12 @@ class LineItem(StripeObject):
     price: Optional["Price"]
     """
     The price used to generate the line item.
+    """
+    product: Optional[ExpandableField["Product"]]
+    """
+    The ID of the product for this line item.
+
+    This will always be the same as `price.product`.
     """
     quantity: Optional[int]
     """

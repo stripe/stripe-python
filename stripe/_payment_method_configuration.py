@@ -719,6 +719,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Payto(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Promptpay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1083,6 +1105,10 @@ class PaymentMethodConfiguration(
         paypal: NotRequired["PaymentMethodConfiguration.CreateParamsPaypal"]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        payto: NotRequired["PaymentMethodConfiguration.CreateParamsPayto"]
+        """
+        PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
         """
         promptpay: NotRequired[
             "PaymentMethodConfiguration.CreateParamsPromptpay"
@@ -1579,6 +1605,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsPayto(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPaytoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaytoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsPromptpay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsPromptpayDisplayPreference"
@@ -1893,6 +1933,10 @@ class PaymentMethodConfiguration(
         paypal: NotRequired["PaymentMethodConfiguration.ModifyParamsPaypal"]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        payto: NotRequired["PaymentMethodConfiguration.ModifyParamsPayto"]
+        """
+        PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
         """
         promptpay: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsPromptpay"
@@ -2389,6 +2433,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsPayto(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPaytoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPaytoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsPromptpay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsPromptpayDisplayPreference"
@@ -2584,6 +2642,7 @@ class PaymentMethodConfiguration(
     """
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    payto: Optional[Payto]
     promptpay: Optional[Promptpay]
     revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
@@ -2762,6 +2821,7 @@ class PaymentMethodConfiguration(
         "p24": P24,
         "paynow": Paynow,
         "paypal": Paypal,
+        "payto": Payto,
         "promptpay": Promptpay,
         "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,

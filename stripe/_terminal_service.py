@@ -4,6 +4,9 @@ from stripe._stripe_service import StripeService
 from stripe.terminal._configuration_service import ConfigurationService
 from stripe.terminal._connection_token_service import ConnectionTokenService
 from stripe.terminal._location_service import LocationService
+from stripe.terminal._reader_collected_data_service import (
+    ReaderCollectedDataService,
+)
 from stripe.terminal._reader_service import ReaderService
 
 
@@ -14,3 +17,6 @@ class TerminalService(StripeService):
         self.connection_tokens = ConnectionTokenService(self._requestor)
         self.locations = LocationService(self._requestor)
         self.readers = ReaderService(self._requestor)
+        self.reader_collected_data = ReaderCollectedDataService(
+            self._requestor
+        )

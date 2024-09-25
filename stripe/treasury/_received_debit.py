@@ -140,6 +140,27 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
         """
+        received_credit_capital_withholding: Optional[str]
+        """
+        The ReceivedCredit that Capital withheld from
+        """
+
+    class NetworkDetails(StripeObject):
+        class Ach(StripeObject):
+            addenda: Optional[str]
+            """
+            ACH Addenda record
+            """
+
+        ach: Optional[Ach]
+        """
+        Details about an ACH transaction.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedDebit.
+        """
+        _inner_class_types = {"ach": Ach}
 
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
@@ -190,6 +211,12 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         """
+        network_details: NotRequired[
+            "ReceivedDebit.CreateParamsNetworkDetails"
+        ]
+        """
+        Details about the network used for the ReceivedDebit.
+        """
 
     class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
         type: Literal["us_bank_account"]
@@ -215,6 +242,22 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         routing_number: NotRequired[str]
         """
         The bank account's routing number.
+        """
+
+    class CreateParamsNetworkDetails(TypedDict):
+        ach: NotRequired["ReceivedDebit.CreateParamsNetworkDetailsAch"]
+        """
+        Optional fields for `ach`.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedDebit.
+        """
+
+    class CreateParamsNetworkDetailsAch(TypedDict):
+        addenda: NotRequired[str]
+        """
+        Addenda record data associated with this ReceivedDebit.
         """
 
     class ListParams(RequestOptions):
@@ -298,6 +341,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     network: Literal["ach", "card", "stripe"]
     """
     The network used for the ReceivedDebit.
+    """
+    network_details: Optional[NetworkDetails]
+    """
+    Details specific to the money movement rails.
     """
     object: Literal["treasury.received_debit"]
     """
@@ -420,6 +467,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     _inner_class_types = {
         "initiating_payment_method_details": InitiatingPaymentMethodDetails,
         "linked_flows": LinkedFlows,
+        "network_details": NetworkDetails,
         "reversal_details": ReversalDetails,
     }
 

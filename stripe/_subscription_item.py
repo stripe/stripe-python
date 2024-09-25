@@ -49,6 +49,16 @@ class SubscriptionItem(
         Usage threshold that triggers the subscription to create an invoice
         """
 
+    class Trial(StripeObject):
+        converts_to: Optional[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
     class CreateParams(RequestOptions):
         billing_thresholds: NotRequired[
             "Literal['']|SubscriptionItem.CreateParamsBillingThresholds"
@@ -121,6 +131,10 @@ class SubscriptionItem(
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
+        trial: NotRequired["SubscriptionItem.CreateParamsTrial"]
+        """
+        Options that configure the trial on the subscription item.
+        """
 
     class CreateParamsBillingThresholds(TypedDict):
         usage_gte: int
@@ -137,9 +151,41 @@ class SubscriptionItem(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionItem.CreateParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionItem.CreateParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class CreateParamsPriceData(TypedDict):
@@ -178,6 +224,16 @@ class SubscriptionItem(
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        """
+
+    class CreateParamsTrial(TypedDict):
+        converts_to: NotRequired[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
         """
 
     class CreateUsageRecordParams(RequestOptions):
@@ -342,9 +398,41 @@ class SubscriptionItem(
         """
         ID of an existing discount on the object (or one of its ancestors) to reuse.
         """
+        discount_end: NotRequired[
+            "SubscriptionItem.ModifyParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "SubscriptionItem.ModifyParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
     class ModifyParamsPriceData(TypedDict):
@@ -446,6 +534,10 @@ class SubscriptionItem(
     tax_rates: Optional[List["TaxRate"]]
     """
     The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+    """
+    trial: Optional[Trial]
+    """
+    Options that configure the trial on the subscription item.
     """
     deleted: Optional[Literal[True]]
     """
@@ -774,4 +866,7 @@ class SubscriptionItem(
             ),
         )
 
-    _inner_class_types = {"billing_thresholds": BillingThresholds}
+    _inner_class_types = {
+        "billing_thresholds": BillingThresholds,
+        "trial": Trial,
+    }
