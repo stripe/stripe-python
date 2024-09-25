@@ -2,8 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 
-import pytest
-
 import stripe
 
 from tests.test_api_requestor import GMT1
@@ -20,9 +18,7 @@ class TestRawRequest(object):
     POST_REL_URL_V2 = "/v2/billing/meter_event_session"
     GET_REL_URL_V2 = "/v2/accounts/acct_123"
 
-    def test_form_request_get(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_form_request_get(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             path=self.GET_REL_URL,
@@ -31,15 +27,13 @@ class TestRawRequest(object):
             rheaders={},
         )
 
-        resp = stripe_mock_stripe_client.raw_request("get", self.GET_REL_URL)
+        resp = stripe.raw_request("get", self.GET_REL_URL)
         http_client_mock.assert_requested("get", path=self.GET_REL_URL)
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe.deserialize(resp, api_mode="V1")
         assert isinstance(deserialized, stripe.Account)
 
-    def test_form_request_post(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_form_request_post(self, http_client_mock):
         http_client_mock.stub_request(
             "post",
             path=self.POST_REL_URL,
@@ -50,7 +44,7 @@ class TestRawRequest(object):
 
         expectation = "type=standard&int=123&datetime=1356994801"
 
-        resp = stripe_mock_stripe_client.raw_request(
+        resp = stripe.raw_request(
             "post", self.POST_REL_URL, **self.ENCODE_INPUTS
         )
 
@@ -61,12 +55,10 @@ class TestRawRequest(object):
             post_data=expectation,
         )
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe.deserialize(resp, api_mode="V1")
         assert isinstance(deserialized, stripe.Account)
 
-    def test_preview_request_post(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_preview_request_post(self, http_client_mock):
         http_client_mock.stub_request(
             "post",
             path=self.POST_REL_URL_V2,
@@ -80,9 +72,7 @@ class TestRawRequest(object):
             '{"type": "standard", "int": 123, "datetime": 1356994801}'
         )
 
-        resp = stripe_mock_stripe_client.raw_request(
-            "post", self.POST_REL_URL_V2, **params
-        )
+        resp = stripe.raw_request("post", self.POST_REL_URL_V2, **params)
 
         http_client_mock.assert_requested(
             "post",
@@ -92,14 +82,10 @@ class TestRawRequest(object):
             is_json=True,
         )
 
-        deserialized = stripe_mock_stripe_client.deserialize(
-            resp, api_mode="V2"
-        )
-        assert isinstance(deserialized, stripe.Account)
+        deserialized = stripe.deserialize(resp, api_mode="V2")
+        assert isinstance(deserialized, stripe.v2.billing.MeterEventSession)
 
-    def test_form_request_with_extra_headers(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_form_request_with_extra_headers(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             path=self.GET_REL_URL,
@@ -111,9 +97,7 @@ class TestRawRequest(object):
         extra_headers = {"foo": "bar", "Stripe-Account": "acct_123"}
         params = {"headers": extra_headers}
 
-        stripe_mock_stripe_client.raw_request(
-            "get", self.GET_REL_URL, **params
-        )
+        stripe.raw_request("get", self.GET_REL_URL, **params)
 
         http_client_mock.assert_requested(
             "get",
@@ -121,9 +105,7 @@ class TestRawRequest(object):
             extra_headers=extra_headers,
         )
 
-    def test_preview_request_default_api_version(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_preview_request_default_api_version(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             path=self.GET_REL_URL_V2,
@@ -133,18 +115,14 @@ class TestRawRequest(object):
         )
         params = {}
 
-        stripe_mock_stripe_client.raw_request(
-            "get", self.GET_REL_URL_V2, **params
-        )
+        stripe.raw_request("get", self.GET_REL_URL_V2, **params)
 
         http_client_mock.assert_requested(
             "get",
             path=self.GET_REL_URL_V2,
         )
 
-    def test_preview_request_overridden_api_version(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
+    def test_preview_request_overridden_api_version(self, http_client_mock):
         http_client_mock.stub_request(
             "post",
             path=self.POST_REL_URL_V2,
@@ -157,9 +135,7 @@ class TestRawRequest(object):
             "stripe_version": stripe_version_override,
         }
 
-        stripe_mock_stripe_client.raw_request(
-            "post", self.POST_REL_URL_V2, **params
-        )
+        stripe.raw_request("post", self.POST_REL_URL_V2, **params)
 
         http_client_mock.assert_requested(
             "post",
@@ -169,52 +145,3 @@ class TestRawRequest(object):
             post_data="{}",
             is_json=True,
         )
-
-    @pytest.mark.anyio
-    async def test_form_request_get_async(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
-        http_client_mock.stub_request(
-            "get",
-            path=self.GET_REL_URL,
-            rbody='{"id": "acct_123", "object": "account"}',
-            rcode=200,
-            rheaders={},
-        )
-
-        resp = await stripe_mock_stripe_client.raw_request_async(
-            "get", self.GET_REL_URL
-        )
-
-        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
-
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
-        assert isinstance(deserialized, stripe.Account)
-
-    def test_raw_request_usage_reported(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
-        http_client_mock.stub_request(
-            "post",
-            path=self.POST_REL_URL,
-            rbody='{"id": "acct_123", "object": "account"}',
-            rcode=200,
-            rheaders={},
-        )
-
-        expectation = "type=standard&int=123&datetime=1356994801"
-
-        resp = stripe_mock_stripe_client.raw_request(
-            "post", self.POST_REL_URL, **self.ENCODE_INPUTS
-        )
-
-        http_client_mock.assert_requested(
-            "post",
-            path=self.POST_REL_URL,
-            content_type="application/x-www-form-urlencoded",
-            post_data=expectation,
-            usage=["raw_request"],
-        )
-
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
-        assert isinstance(deserialized, stripe.Account)

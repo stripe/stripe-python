@@ -177,12 +177,6 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
-        mb_way: NotRequired[
-            "ConfirmationTokenService.CreateParamsPaymentMethodDataMbWay"
-        ]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -223,12 +217,6 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        payto: NotRequired[
-            "ConfirmationTokenService.CreateParamsPaymentMethodDataPayto"
-        ]
-        """
-        If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-        """
         pix: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPix"
         ]
@@ -246,12 +234,6 @@ class ConfirmationTokenService(StripeService):
         ]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        rechnung: NotRequired[
-            "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnung"
-        ]
-        """
-        If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         """
         revolut_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataRevolutPay"
@@ -304,17 +286,14 @@ class ConfirmationTokenService(StripeService):
             "klarna",
             "konbini",
             "link",
-            "mb_way",
             "mobilepay",
             "multibanco",
             "oxxo",
             "p24",
             "paynow",
             "paypal",
-            "payto",
             "pix",
             "promptpay",
-            "rechnung",
             "revolut_pay",
             "sepa_debit",
             "sofort",
@@ -588,9 +567,6 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataMbWay(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -641,20 +617,6 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataPayto(TypedDict):
-        account_number: NotRequired[str]
-        """
-        The account number for the bank account.
-        """
-        bsb_number: NotRequired[str]
-        """
-        Bank-State-Branch number of the bank account.
-        """
-        pay_id: NotRequired[str]
-        """
-        The PayID alias for the bank account.
-        """
-
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -665,28 +627,6 @@ class ConfirmationTokenService(StripeService):
         session: NotRequired[str]
         """
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsPaymentMethodDataRechnung(TypedDict):
-        dob: (
-            "ConfirmationTokenService.CreateParamsPaymentMethodDataRechnungDob"
-        )
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsPaymentMethodDataRechnungDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):

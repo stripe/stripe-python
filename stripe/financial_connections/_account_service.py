@@ -5,9 +5,6 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._account import Account
-from stripe.financial_connections._account_inferred_balance_service import (
-    AccountInferredBalanceService,
-)
 from stripe.financial_connections._account_owner_service import (
     AccountOwnerService,
 )
@@ -18,7 +15,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.inferred_balances = AccountInferredBalanceService(self._requestor)
         self.owners = AccountOwnerService(self._requestor)
 
     class DisconnectParams(TypedDict):
@@ -68,11 +64,7 @@ class AccountService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[
-            Literal[
-                "balance", "inferred_balances", "ownership", "transactions"
-            ]
-        ]
+        features: List[Literal["balance", "ownership", "transactions"]]
         """
         The list of account features that you would like to refresh.
         """
@@ -88,7 +80,7 @@ class AccountService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["balance", "inferred_balances", "transactions"]]
+        features: List[Literal["transactions"]]
         """
         The list of account features to which you would like to subscribe.
         """
@@ -98,7 +90,7 @@ class AccountService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["balance", "inferred_balances", "transactions"]]
+        features: List[Literal["transactions"]]
         """
         The list of account features from which you would like to unsubscribe.
         """

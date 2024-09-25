@@ -4,7 +4,7 @@ from stripe._account_session import AccountSession
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from typing import List, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 class AccountSessionService(StripeService):
@@ -35,77 +35,17 @@ class AccountSessionService(StripeService):
         """
         Configuration for the account onboarding embedded component.
         """
-        app_install: NotRequired[
-            "AccountSessionService.CreateParamsComponentsAppInstall"
-        ]
-        """
-        Configuration for the app install component.
-        """
-        app_viewport: NotRequired[
-            "AccountSessionService.CreateParamsComponentsAppViewport"
-        ]
-        """
-        Configuration for the app viewport component.
-        """
         balances: NotRequired[
             "AccountSessionService.CreateParamsComponentsBalances"
         ]
         """
         Configuration for the balances embedded component.
         """
-        capital_financing: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancing"
-        ]
-        """
-        Configuration for the capital financing embedded component.
-        """
-        capital_financing_application: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancingApplication"
-        ]
-        """
-        Configuration for the capital financing application embedded component.
-        """
-        capital_financing_promotion: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotion"
-        ]
-        """
-        Configuration for the capital financing promotion embedded component.
-        """
-        capital_overview: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalOverview"
-        ]
-        """
-        Configuration for the capital overview embedded component.
-        """
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
         """
         Configuration for the documents embedded component.
-        """
-        financial_account: NotRequired[
-            "AccountSessionService.CreateParamsComponentsFinancialAccount"
-        ]
-        """
-        Configuration for the financial account component.
-        """
-        financial_account_transactions: NotRequired[
-            "AccountSessionService.CreateParamsComponentsFinancialAccountTransactions"
-        ]
-        """
-        Configuration for the financial account transactions component.
-        """
-        issuing_card: NotRequired[
-            "AccountSessionService.CreateParamsComponentsIssuingCard"
-        ]
-        """
-        Configuration for the issuing card component.
-        """
-        issuing_cards_list: NotRequired[
-            "AccountSessionService.CreateParamsComponentsIssuingCardsList"
-        ]
-        """
-        Configuration for the issuing cards list component.
         """
         notification_banner: NotRequired[
             "AccountSessionService.CreateParamsComponentsNotificationBanner"
@@ -118,12 +58,6 @@ class AccountSessionService(StripeService):
         ]
         """
         Configuration for the payment details embedded component.
-        """
-        payment_method_settings: NotRequired[
-            "AccountSessionService.CreateParamsComponentsPaymentMethodSettings"
-        ]
-        """
-        Configuration for the payment method settings embedded component.
         """
         payments: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayments"
@@ -143,9 +77,6 @@ class AccountSessionService(StripeService):
         """
         Configuration for the payouts list embedded component.
         """
-        recipients: NotRequired[
-            "AccountSessionService.CreateParamsComponentsRecipients"
-        ]
         tax_registrations: NotRequired[
             "AccountSessionService.CreateParamsComponentsTaxRegistrations"
         ]
@@ -195,42 +126,6 @@ class AccountSessionService(StripeService):
         Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
         """
 
-    class CreateParamsComponentsAppInstall(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsAppInstallFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsAppInstallFeatures(TypedDict):
-        allowed_apps: NotRequired["Literal['']|List[str]"]
-        """
-        List of apps allowed to be enabled for this account session.
-        """
-
-    class CreateParamsComponentsAppViewport(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsAppViewportFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsAppViewportFeatures(TypedDict):
-        allowed_apps: NotRequired["Literal['']|List[str]"]
-        """
-        List of apps allowed to be enabled for this account session.
-        """
-
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
         """
@@ -261,66 +156,6 @@ class AccountSessionService(StripeService):
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
 
-    class CreateParamsComponentsCapitalFinancing(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancingFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsCapitalFinancingApplication(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancingApplicationFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsCapitalFinancingApplicationFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsCapitalFinancingFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotionFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsCapitalOverview(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsCapitalOverviewFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
-        pass
-
     class CreateParamsComponentsDocuments(TypedDict):
         enabled: bool
         """
@@ -335,79 +170,6 @@ class AccountSessionService(StripeService):
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
         pass
-
-    class CreateParamsComponentsFinancialAccount(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsFinancialAccountFeatures"
-        ]
-
-    class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
-        external_account_collection: NotRequired[bool]
-        """
-        Whether to allow external accounts to be linked for money transfer.
-        """
-        money_movement: NotRequired[bool]
-        """
-        Whether to allow money movement features.
-        """
-
-    class CreateParamsComponentsFinancialAccountTransactions(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsFinancialAccountTransactionsFeatures"
-        ]
-
-    class CreateParamsComponentsFinancialAccountTransactionsFeatures(
-        TypedDict
-    ):
-        card_spend_dispute_management: NotRequired[bool]
-        """
-        Whether to allow card spend dispute features.
-        """
-
-    class CreateParamsComponentsIssuingCard(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsIssuingCardFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsIssuingCardsList(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsIssuingCardsListFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
-        card_management: NotRequired[bool]
-        """
-        Whether to allow card management features.
-        """
-        cardholder_management: NotRequired[bool]
-        """
-        Whether to allow cardholder management features.
-        """
 
     class CreateParamsComponentsNotificationBanner(TypedDict):
         enabled: bool
@@ -456,21 +218,6 @@ class AccountSessionService(StripeService):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
-
-    class CreateParamsComponentsPaymentMethodSettings(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsPaymentMethodSettingsFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
-        pass
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool
@@ -545,21 +292,6 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsRecipients(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsRecipientsFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsRecipientsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):

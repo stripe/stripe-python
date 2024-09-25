@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     from stripe._customer_balance_transaction import CustomerBalanceTransaction
     from stripe._discount import Discount
     from stripe._invoice import Invoice
-    from stripe._refund import Refund as RefundResource
+    from stripe._refund import Refund
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_rate import TaxRate
 
@@ -214,10 +214,6 @@ class CreditNote(
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
-        refunds: NotRequired[List["CreditNote.CreateParamsRefund"]]
-        """
-        Refunds to link to this credit note.
-        """
         shipping_cost: NotRequired["CreditNote.CreateParamsShippingCost"]
         """
         When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
@@ -275,16 +271,6 @@ class CreditNote(
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class CreateParamsRefund(TypedDict):
-        amount_refunded: NotRequired[int]
-        """
-        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -441,10 +427,6 @@ class CreditNote(
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
-        refunds: NotRequired[List["CreditNote.PreviewLinesParamsRefund"]]
-        """
-        Refunds to link to this credit note.
-        """
         shipping_cost: NotRequired["CreditNote.PreviewLinesParamsShippingCost"]
         """
         When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
@@ -506,16 +488,6 @@ class CreditNote(
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class PreviewLinesParamsRefund(TypedDict):
-        amount_refunded: NotRequired[int]
-        """
-        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
 
     class PreviewLinesParamsShippingCost(TypedDict):
@@ -584,10 +556,6 @@ class CreditNote(
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
-        refunds: NotRequired[List["CreditNote.PreviewParamsRefund"]]
-        """
-        Refunds to link to this credit note.
-        """
         shipping_cost: NotRequired["CreditNote.PreviewParamsShippingCost"]
         """
         When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
@@ -645,16 +613,6 @@ class CreditNote(
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class PreviewParamsRefund(TypedDict):
-        amount_refunded: NotRequired[int]
-        """
-        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
 
     class PreviewParamsShippingCost(TypedDict):
@@ -761,13 +719,9 @@ class CreditNote(
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     """
-    refund: Optional[ExpandableField["RefundResource"]]
+    refund: Optional[ExpandableField["Refund"]]
     """
     Refund related to this credit note.
-    """
-    refunds: Optional[List[Refund]]
-    """
-    Refunds related to this credit note.
     """
     shipping_cost: Optional[ShippingCost]
     """

@@ -19,9 +19,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.billing.alert import Alert
     from stripe.api_resources.billing.alert_triggered import AlertTriggered
     from stripe.api_resources.billing.meter import Meter
-    from stripe.api_resources.billing.meter_error_report import (
-        MeterErrorReport,
-    )
     from stripe.api_resources.billing.meter_event import MeterEvent
     from stripe.api_resources.billing.meter_event_adjustment import (
         MeterEventAdjustment,

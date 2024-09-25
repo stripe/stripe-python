@@ -79,10 +79,6 @@ class CreditNoteService(StripeService):
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
-        refunds: NotRequired[List["CreditNoteService.CreateParamsRefund"]]
-        """
-        Refunds to link to this credit note.
-        """
         shipping_cost: NotRequired[
             "CreditNoteService.CreateParamsShippingCost"
         ]
@@ -142,16 +138,6 @@ class CreditNoteService(StripeService):
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class CreateParamsRefund(TypedDict):
-        amount_refunded: NotRequired[int]
-        """
-        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -268,10 +254,6 @@ class CreditNoteService(StripeService):
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
-        refunds: NotRequired[List["CreditNoteService.PreviewParamsRefund"]]
-        """
-        Refunds to link to this credit note.
-        """
         shipping_cost: NotRequired[
             "CreditNoteService.PreviewParamsShippingCost"
         ]
@@ -331,16 +313,6 @@ class CreditNoteService(StripeService):
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class PreviewParamsRefund(TypedDict):
-        amount_refunded: NotRequired[int]
-        """
-        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
 
     class PreviewParamsShippingCost(TypedDict):

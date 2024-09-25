@@ -64,29 +64,6 @@ class Session(CreateableAPIResource["Session"]):
         """
         List of countries from which to filter accounts.
         """
-        institution: Optional[str]
-        """
-        Stripe ID of the institution with which the customer should be directed to log in.
-        """
-
-    class Limits(StripeObject):
-        accounts: int
-        """
-        The number of accounts that can be linked in this Session.
-        """
-
-    class ManualEntry(StripeObject):
-        pass
-
-    class StatusDetails(StripeObject):
-        class Cancelled(StripeObject):
-            reason: Literal["custom_manual_entry", "other"]
-            """
-            The reason for the Session being cancelled.
-            """
-
-        cancelled: Optional[Cancelled]
-        _inner_class_types = {"cancelled": Cancelled}
 
     class CreateParams(RequestOptions):
         account_holder: "Session.CreateParamsAccountHolder"
@@ -101,14 +78,6 @@ class Session(CreateableAPIResource["Session"]):
         """
         Filters to restrict the kinds of accounts to collect.
         """
-        limits: NotRequired["Session.CreateParamsLimits"]
-        """
-        Settings for configuring Session-specific limits.
-        """
-        manual_entry: NotRequired["Session.CreateParamsManualEntry"]
-        """
-        Settings for configuring manual entry of account details for this Session.
-        """
         permissions: List[
             Literal["balances", "ownership", "payment_method", "transactions"]
         ]
@@ -118,14 +87,7 @@ class Session(CreateableAPIResource["Session"]):
         Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
         """
         prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
+            List[Literal["balances", "ownership", "transactions"]]
         ]
         """
         List of data features that you would like to retrieve upon account creation.
@@ -168,22 +130,6 @@ class Session(CreateableAPIResource["Session"]):
         """
         List of countries from which to collect accounts.
         """
-        institution: NotRequired[str]
-        """
-        Stripe ID of the institution with which the customer should be directed to log in.
-        """
-
-    class CreateParamsLimits(TypedDict):
-        accounts: int
-        """
-        The number of accounts that can be linked in this Session.
-        """
-
-    class CreateParamsManualEntry(TypedDict):
-        mode: NotRequired[Literal["automatic", "custom"]]
-        """
-        Whether manual entry will be handled by Stripe during the Session.
-        """
 
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -208,12 +154,10 @@ class Session(CreateableAPIResource["Session"]):
     """
     Unique identifier for the object.
     """
-    limits: Optional[Limits]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    manual_entry: Optional[ManualEntry]
     object: Literal["financial_connections.session"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -224,13 +168,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     Permissions requested for accounts collected during this session.
     """
-    prefetch: Optional[
-        List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
-            ]
-        ]
-    ]
+    prefetch: Optional[List[Literal["balances", "ownership", "transactions"]]]
     """
     Data features requested to be retrieved upon account creation.
     """
@@ -238,11 +176,6 @@ class Session(CreateableAPIResource["Session"]):
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
     """
-    status: Optional[Literal["cancelled", "failed", "pending", "succeeded"]]
-    """
-    The current state of the session.
-    """
-    status_details: Optional[StatusDetails]
 
     @classmethod
     def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
@@ -296,10 +229,4 @@ class Session(CreateableAPIResource["Session"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {
-        "account_holder": AccountHolder,
-        "filters": Filters,
-        "limits": Limits,
-        "manual_entry": ManualEntry,
-        "status_details": StatusDetails,
-    }
+    _inner_class_types = {"account_holder": AccountHolder, "filters": Filters}

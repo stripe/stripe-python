@@ -9,7 +9,7 @@ import warnings
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import quote_plus  # noqa: F401
+from urllib.parse import parse_qsl, quote_plus  # noqa: F401
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (

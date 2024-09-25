@@ -35,12 +35,7 @@ class AccountLinkService(StripeService):
         """
         The URL that the user will be redirected to upon leaving or completing the linked flow.
         """
-        type: Literal[
-            "account_onboarding",
-            "account_update",
-            "capital_financing_offer",
-            "capital_financing_reporting",
-        ]
+        type: Literal["account_onboarding", "account_update"]
         """
         The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
         """

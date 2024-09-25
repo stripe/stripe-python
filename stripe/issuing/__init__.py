@@ -10,12 +10,6 @@ from stripe.issuing._cardholder import Cardholder as Cardholder
 from stripe.issuing._cardholder_service import (
     CardholderService as CardholderService,
 )
-from stripe.issuing._credit_underwriting_record import (
-    CreditUnderwritingRecord as CreditUnderwritingRecord,
-)
-from stripe.issuing._credit_underwriting_record_service import (
-    CreditUnderwritingRecordService as CreditUnderwritingRecordService,
-)
 from stripe.issuing._dispute import Dispute as Dispute
 from stripe.issuing._dispute_service import DisputeService as DisputeService
 from stripe.issuing._personalization_design import (

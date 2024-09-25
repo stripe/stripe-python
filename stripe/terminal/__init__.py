@@ -15,10 +15,4 @@ from stripe.terminal._location_service import (
     LocationService as LocationService,
 )
 from stripe.terminal._reader import Reader as Reader
-from stripe.terminal._reader_collected_data import (
-    ReaderCollectedData as ReaderCollectedData,
-)
-from stripe.terminal._reader_collected_data_service import (
-    ReaderCollectedDataService as ReaderCollectedDataService,
-)
 from stripe.terminal._reader_service import ReaderService as ReaderService
