@@ -6,8 +6,8 @@ from typing_extensions import Literal
 
 
 class MeterEventAdjustmentV2(StripeObject):
-    OBJECT_NAME: ClassVar[Literal["billing.meter_event_adjustment_v2"]] = (
-        "billing.meter_event_adjustment_v2"
+    OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event_adjustment"]] = (
+        "v2.billing.meter_event_adjustment"
     )
 
     class Cancel(StripeObject):
@@ -36,7 +36,7 @@ class MeterEventAdjustmentV2(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["billing.meter_event_adjustment_v2"]
+    object: Literal["v2.billing.meter_event_adjustment"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
