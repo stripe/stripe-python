@@ -97,9 +97,6 @@ from stripe._webhook import (
     WebhookSignature as WebhookSignature,
 )
 
-from stripe._raw_request import raw_request as raw_request  # noqa
-from stripe._raw_request import deserialize as deserialize  # noqa
-
 # StripeClient
 from stripe._stripe_client import StripeClient as StripeClient  # noqa
 

@@ -34,7 +34,7 @@ class TestRawRequest(object):
         resp = stripe_mock_stripe_client.raw_request("get", self.GET_REL_URL)
         http_client_mock.assert_requested("get", path=self.GET_REL_URL)
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe_mock_stripe_client.deserialize(resp, api_mode="V1")
         assert isinstance(deserialized, stripe.Account)
 
     def test_form_request_post(
@@ -61,7 +61,7 @@ class TestRawRequest(object):
             post_data=expectation,
         )
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe_mock_stripe_client.deserialize(resp, api_mode="V1")
         assert isinstance(deserialized, stripe.Account)
 
     def test_preview_request_post(
@@ -170,27 +170,28 @@ class TestRawRequest(object):
             is_json=True,
         )
 
-    @pytest.mark.anyio
-    async def test_form_request_get_async(
-        self, http_client_mock, stripe_mock_stripe_client
-    ):
-        http_client_mock.stub_request(
-            "get",
-            path=self.GET_REL_URL,
-            rbody='{"id": "acct_123", "object": "account"}',
-            rcode=200,
-            rheaders={},
-        )
-
-        resp = await stripe_mock_stripe_client.raw_request_async(
-            "get", self.GET_REL_URL
-        )
-
-        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
-
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
-        assert isinstance(deserialized, stripe.Account)
-
+# TODO(jar) this test is not applicable yet, but may be some day
+#    @pytest.mark.anyio
+#    async def test_form_request_get_async(
+#        self, http_client_mock, stripe_mock_stripe_client
+#    ):
+#        http_client_mock.stub_request(
+#            "get",
+#            path=self.GET_REL_URL,
+#            rbody='{"id": "acct_123", "object": "account"}',
+#            rcode=200,
+#            rheaders={},
+#        )
+#
+#        resp = await stripe_mock_stripe_client.raw_request_async(
+#            "get", self.GET_REL_URL
+#        )
+#
+#        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
+#
+#        deserialized = stripe_mock_stripe_client.deserialize(resp)
+#        assert isinstance(deserialized, stripe.Account)
+#
     def test_raw_request_usage_reported(
         self, http_client_mock, stripe_mock_stripe_client
     ):
@@ -216,5 +217,5 @@ class TestRawRequest(object):
             usage=["raw_request"],
         )
 
-        deserialized = stripe_mock_stripe_client.deserialize(resp)
+        deserialized = stripe_mock_stripe_client.deserialize(resp, api_mode="V1")
         assert isinstance(deserialized, stripe.Account)

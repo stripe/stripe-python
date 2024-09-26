@@ -369,7 +369,7 @@ class TestIntegration(object):
         resp = await client.raw_request_async(
             "post", "/v1/customers", description="My test customer"
         )
-        cus = client.deserialize(resp.data)
+        cus = client.deserialize(resp.data, api_mode="V1")
 
         reqs = MockServerRequestHandler.get_requests(1)
         req = reqs[0]
