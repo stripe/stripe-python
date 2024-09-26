@@ -529,7 +529,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ):
         """
-        Mechanism for issuing an API call
+        Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
         """
         request_options = merge_options(self._options, options)
 
@@ -800,7 +800,7 @@ class _APIRequestor(object):
         rbody: object,
         rcode: int,
         rheaders: Mapping[str, str],
-        api_mode: Optional[ApiMode],
+        api_mode: ApiMode,
     ) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
@@ -831,7 +831,7 @@ class _APIRequestor(object):
         stream: IOBase,
         rcode: int,
         rheaders: Mapping[str, str],
-        api_mode: Optional[ApiMode],
+        api_mode: ApiMode,
     ) -> StripeStreamResponse:
         # Streaming response are handled with minimal processing for the success
         # case (ie. we don't want to read the content). When an error is
@@ -862,7 +862,7 @@ class _APIRequestor(object):
         stream: AsyncIterable[bytes],
         rcode: int,
         rheaders: Mapping[str, str],
-        api_mode: Optional[ApiMode],
+        api_mode: ApiMode,
     ) -> StripeStreamResponseAsync:
         if self._should_handle_code_as_error(rcode):
             json_content = b"".join([chunk async for chunk in stream])
