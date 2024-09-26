@@ -8,6 +8,9 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
 
 
 class CreditNoteLineItem(StripeObject):
@@ -27,6 +30,26 @@ class CreditNoteLineItem(StripeObject):
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
+        """
+
+    class PretaxCreditAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the pretax credit amount.
+        """
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
+        """
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount"]
+        """
+        Type of the pretax credit amount referenced.
         """
 
     class TaxAmount(StripeObject):
@@ -105,6 +128,7 @@ class CreditNoteLineItem(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     quantity: Optional[int]
     """
     The number of units of product being credited.
@@ -135,5 +159,6 @@ class CreditNoteLineItem(StripeObject):
     """
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "pretax_credit_amounts": PretaxCreditAmount,
         "tax_amounts": TaxAmount,
     }
