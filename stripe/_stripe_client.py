@@ -281,7 +281,7 @@ class StripeClient(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        return json.loads(payload)
+        return ThinEvent(payload)
 
     def parse_snapshot_event(
         self,
