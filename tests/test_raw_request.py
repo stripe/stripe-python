@@ -2,8 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 
-import pytest
-
 import stripe
 
 from tests.test_api_requestor import GMT1
