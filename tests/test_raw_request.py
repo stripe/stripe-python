@@ -97,7 +97,7 @@ class TestRawRequest(object):
         deserialized = stripe_mock_stripe_client.deserialize(
             resp, api_mode="V2"
         )
-        assert isinstance(deserialized, stripe.Account)
+        assert isinstance(deserialized, stripe.v2.billing.MeterEventSession)
 
     def test_form_request_with_extra_headers(
         self, http_client_mock, stripe_mock_stripe_client
