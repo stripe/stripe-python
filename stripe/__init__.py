@@ -576,7 +576,7 @@ from stripe._usage_record import UsageRecord as UsageRecord
 from stripe._usage_record_summary import (
     UsageRecordSummary as UsageRecordSummary,
 )
-from stripe._v2_service import V2Service as V2Service
+from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (
     WebhookEndpointService as WebhookEndpointService,

@@ -107,7 +107,7 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
-from stripe._v2_service import V2Service
+from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
 
 
@@ -263,7 +263,7 @@ class StripeClient(object):
         self.transfers = TransferService(self._requestor)
         self.treasury = TreasuryService(self._requestor)
         self.webhook_endpoints = WebhookEndpointService(self._requestor)
-        self.v2 = V2Service(self._requestor)
+        self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
     def parse_thin_event(
@@ -331,7 +331,9 @@ class StripeClient(object):
             usage=["raw_request"],
         )
 
-        return self._requestor._interpret_response(rbody, rcode, rheaders, api_mode)
+        return self._requestor._interpret_response(
+            rbody, rcode, rheaders, api_mode
+        )
 
     async def raw_request_async(self, method_: str, url_: str, **params):
         params = params.copy()
@@ -349,14 +351,16 @@ class StripeClient(object):
             usage=["raw_request"],
         )
 
-        return self._requestor._interpret_response(rbody, rcode, rheaders, api_mode)
+        return self._requestor._interpret_response(
+            rbody, rcode, rheaders, api_mode
+        )
 
     def deserialize(
         self,
         resp: Union[StripeResponse, Dict[str, Any]],
         params: Optional[Dict[str, Any]] = None,
         *,
-        api_mode: ApiMode
+        api_mode: ApiMode,
     ) -> StripeObject:
         return _convert_to_stripe_object(
             resp=resp,

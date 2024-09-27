@@ -5,18 +5,21 @@ from stripe.events import V1BillingMeterErrorReportTriggeredEvent
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-api_key = os.environ.get('STRIPE_API_KEY')
-webhook_secret = os.environ.get('WEBHOOK_SECRET')
+api_key = os.environ.get("STRIPE_API_KEY")
+webhook_secret = os.environ.get("WEBHOOK_SECRET")
 
 client = StripeClient(api_key)
 
-@app.route('/webhook', methods=['POST'])
+
+@app.route("/webhook", methods=["POST"])
 def webhook():
     webhook_body = request.data
-    sig_header = request.headers.get('Stripe-Signature')
+    sig_header = request.headers.get("Stripe-Signature")
 
     try:
-        thin_event = client.parse_thin_event(webhook_body, sig_header, webhook_secret)
+        thin_event = client.parse_thin_event(
+            webhook_body, sig_header, webhook_secret
+        )
 
         # Fetch the event data to understand the failure
         event = client.v2.core.events.retrieve(thin_event.id)
@@ -32,5 +35,6 @@ def webhook():
     except Exception as e:
         return jsonify(error=str(e)), 400
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(port=4242)
