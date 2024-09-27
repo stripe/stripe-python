@@ -27,6 +27,7 @@ def webhook():
             # CHECK: fetch_object is present and callable, returning a strongly-typed object (without casting)
             meter = event.fetch_related_object()
             meter_id = meter.id
+            print("Success! " + str(meter_id))
 
             # Record the failures and alert your team
             # Add your logic here
