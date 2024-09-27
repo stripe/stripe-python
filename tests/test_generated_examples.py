@@ -4460,6 +4460,26 @@ class TestGeneratedExamples(object):
             post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2&mode=payment",
         )
 
+    def test_core_events_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/ll_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("ll_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/ll_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_country_specs_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.CountrySpec.list(limit=3)
         http_client_mock.assert_requested(

@@ -7,6 +7,7 @@ class RequestOptions(TypedDict):
     api_key: NotRequired["str|None"]
     stripe_version: NotRequired["str|None"]
     stripe_account: NotRequired["str|None"]
+    stripe_context: NotRequired["str|None"]
     max_network_retries: NotRequired["int|None"]
     idempotency_key: NotRequired["str|None"]
     content_type: NotRequired["str|None"]
@@ -25,6 +26,7 @@ def merge_options(
         return {
             "api_key": requestor.api_key,
             "stripe_account": requestor.stripe_account,
+            "stripe_context": requestor.stripe_context,
             "stripe_version": requestor.stripe_version,
             "max_network_retries": requestor.max_network_retries,
             "idempotency_key": None,
@@ -36,6 +38,8 @@ def merge_options(
         "api_key": request.get("api_key") or requestor.api_key,
         "stripe_account": request.get("stripe_account")
         or requestor.stripe_account,
+        "stripe_context": request.get("stripe_context")
+        or requestor.stripe_context,
         "stripe_version": request.get("stripe_version")
         or requestor.stripe_version,
         "max_network_retries": request.get("max_network_retries")
@@ -62,6 +66,7 @@ def extract_options_from_dict(
         "api_key",
         "stripe_version",
         "stripe_account",
+        "stripe_context",
         "max_network_retries",
         "idempotency_key",
         "content_type",

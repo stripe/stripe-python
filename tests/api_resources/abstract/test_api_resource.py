@@ -95,7 +95,7 @@ class TestAPIResource(object):
         }
 
         converted = stripe.util.convert_to_stripe_object(
-            sample, "akey", None, None
+            sample, "akey", None, None, api_mode="V1"
         )
 
         # Types

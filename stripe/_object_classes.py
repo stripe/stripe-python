@@ -148,3 +148,12 @@ OBJECT_CLASSES = {
     stripe.WebhookEndpoint.OBJECT_NAME: stripe.WebhookEndpoint,
     # Object classes: The end of the section generated from our OpenAPI spec
 }
+
+V2_OBJECT_CLASSES = {
+    # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
+    stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
+    stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
+    stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,
+    # V2 Object classes: The end of the section generated from our OpenAPI spec
+}

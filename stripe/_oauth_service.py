@@ -57,7 +57,7 @@ class OAuthService(StripeService):
         self._set_client_id(params)
         if "response_type" not in params:
             params["response_type"] = "code"
-        query = urlencode(list(_api_encode(params)))
+        query = urlencode(list(_api_encode(params, "V1")))
 
         # connect_api_base will be always set to stripe.DEFAULT_CONNECT_API_BASE
         # if it is not overridden on the client explicitly.

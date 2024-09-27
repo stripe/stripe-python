@@ -135,7 +135,7 @@ class TestWebhookSignature(object):
 class TestStripeClientConstructEvent(object):
     def test_construct_event(self, stripe_mock_stripe_client):
         header = generate_header()
-        event = stripe_mock_stripe_client.construct_event(
+        event = stripe_mock_stripe_client.parse_snapshot_event(
             DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
@@ -144,21 +144,21 @@ class TestStripeClientConstructEvent(object):
         payload = "this is not valid JSON"
         header = generate_header(payload=payload)
         with pytest.raises(ValueError):
-            stripe_mock_stripe_client.construct_event(
+            stripe_mock_stripe_client.parse_snapshot_event(
                 payload, header, DUMMY_WEBHOOK_SECRET
             )
 
     def test_raise_on_invalid_header(self, stripe_mock_stripe_client):
         header = "bad_header"
         with pytest.raises(stripe.error.SignatureVerificationError):
-            stripe_mock_stripe_client.construct_event(
+            stripe_mock_stripe_client.parse_snapshot_event(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
 
     def test_construct_event_from_bytearray(self, stripe_mock_stripe_client):
         header = generate_header()
         payload = bytearray(DUMMY_WEBHOOK_PAYLOAD, "utf-8")
-        event = stripe_mock_stripe_client.construct_event(
+        event = stripe_mock_stripe_client.parse_snapshot_event(
             payload, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
@@ -166,7 +166,7 @@ class TestStripeClientConstructEvent(object):
     def test_construct_event_from_bytes(self, stripe_mock_stripe_client):
         header = generate_header()
         payload = bytes(DUMMY_WEBHOOK_PAYLOAD, "utf-8")
-        event = stripe_mock_stripe_client.construct_event(
+        event = stripe_mock_stripe_client.parse_snapshot_event(
             payload, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
@@ -181,7 +181,7 @@ class TestStripeClientConstructEvent(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
         header = generate_header()
-        event = client.construct_event(
+        event = client.parse_snapshot_event(
             DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
         )
         assert event._requestor == client._requestor

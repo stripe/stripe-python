@@ -82,7 +82,7 @@ class TestSearchResultObject(object):
 
     def test_iter(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(arr)
+        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V1")
         sro = stripe.SearchResultObject.construct_from({"data": arr}, None)
         assert list(sro) == expected
 

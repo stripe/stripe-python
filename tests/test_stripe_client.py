@@ -2,7 +2,11 @@ from __future__ import absolute_import, division, print_function
 import stripe
 import pytest
 
+from stripe.v2._event import Event
 from stripe._http_client import new_default_http_client
+from stripe.events._v1_billing_meter_error_report_triggered_event import (
+    V1BillingMeterErrorReportTriggeredEvent,
+)
 
 
 class TestStripeClient(object):
@@ -27,6 +31,32 @@ class TestStripeClient(object):
         )
         http_client_mock.assert_requested(method, path=path)
         assert customer.id is not None
+
+    def test_v2_events_retrieve(self, http_client_mock):
+        method = "get"
+        path = "/v2/core/events/evt_123"
+        http_client_mock.stub_request(
+            method,
+            path=path,
+            rbody='{"id": "evt_123","object": "event", "type": "v1.billing.meter.error_report_triggered"}',
+            rcode=200,
+            rheaders={},
+        )
+        client = stripe.StripeClient(
+            api_key="keyinfo_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+        event = client.v2.core.events.retrieve("evt_123")
+
+        http_client_mock.assert_requested(
+            method,
+            api_base=stripe.DEFAULT_API_BASE,
+            path=path,
+            api_key="keyinfo_test_123",
+        )
+        assert event.id is not None
+        assert isinstance(event, Event)
+        assert isinstance(event, V1BillingMeterErrorReportTriggeredEvent)
 
     def test_no_api_key(self):
         with pytest.raises(stripe.error.AuthenticationError):
@@ -61,12 +91,14 @@ class TestStripeClient(object):
         api_base = "https://example.com"
         api_key = "sk_test_456"
         stripe_account = "acct_123"
+        stripe_context = "wksp_123"
 
         stripe_client = stripe.StripeClient(
             api_key=api_key,
             http_client=http_client_mock.get_mock_http_client(),
             base_addresses={"api": api_base},
             stripe_account=stripe_account,
+            stripe_context=stripe_context,
         )
 
         stripe_client.customers.retrieve("cus_xxxxxxxxxxxxx")
@@ -77,6 +109,7 @@ class TestStripeClient(object):
             path=path,
             api_key=api_key,
             stripe_account=stripe_account,
+            stripe_context=stripe_context,
             stripe_version=stripe.api_version,
         )
 
@@ -111,15 +144,18 @@ class TestStripeClient(object):
         client_api_base = "https://example.com"
         client_api_key = "sk_test_456"
         client_stripe_account = "acct_123"
+        client_stripe_context = "wksp_123"
 
         request_api_key = "sk_test_789"
         request_stripe_account = "acct_456"
+        request_stripe_context = "wksp_456"
 
         stripe_client = stripe.StripeClient(
             api_key=client_api_key,
             http_client=http_client_mock.get_mock_http_client(),
             base_addresses={"api": client_api_base},
             stripe_account=client_stripe_account,
+            stripe_context=client_stripe_context,
         )
 
         stripe_client.customers.retrieve(
@@ -127,6 +163,7 @@ class TestStripeClient(object):
             options={
                 "api_key": request_api_key,
                 "stripe_account": request_stripe_account,
+                "stripe_context": request_stripe_context,
             },
         )
 
@@ -136,6 +173,7 @@ class TestStripeClient(object):
             path=path,
             api_key=request_api_key,
             stripe_account=request_stripe_account,
+            stripe_context=request_stripe_context,
             stripe_version=stripe.api_version,
         )
 
@@ -177,6 +215,31 @@ class TestStripeClient(object):
             path=path,
             api_key="sk_test_456",
             stripe_version=stripe.api_version,
+        )
+
+    def test_v2_encodes_none_as_null(self, http_client_mock):
+        http_client_mock.stub_request(
+            "post",
+            path="/v2/billing/meter_events",
+            rbody='{"event_name": "cool", "payload": {}, "identifier": null}',
+            rcode=200,
+            rheaders={},
+        )
+
+        client = stripe.StripeClient(
+            api_key="sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_events.create(
+            {"event_name": "cool", "payload": {}, "identifier": None}  # type: ignore - None is not valid for `identifier`
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            content_type="application/json",
+            post_data='{"event_name": "cool", "payload": {}, "identifier": null}',
+            is_json=True,
         )
 
     def test_carries_over_requestor_options_to_resource(
@@ -230,7 +293,8 @@ class TestStripeClient(object):
 
         http_client_mock.stub_request(
             "get",
-            path="/v1/accounts",
+            path="/v2/core/events",
+            query_string="object_id=obj_123",
             rbody='{"data": [{"id": "x"}], "next_page": "page_2"}',
             rcode=200,
             rheaders={},
@@ -238,7 +302,9 @@ class TestStripeClient(object):
 
         my_options: stripe.RequestOptions = {"api_key": "sk_test_xyz"}
 
-        client.accounts.list(options=my_options)
+        client.v2.core.events.list(
+            {"object_id": "obj_123"}, options=my_options
+        )
 
         assert my_options == {"api_key": "sk_test_xyz"}
 
