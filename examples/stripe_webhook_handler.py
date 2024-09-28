@@ -24,7 +24,6 @@ def webhook():
         # Fetch the event data to understand the failure
         event = client.v2.core.events.retrieve(thin_event.id)
         if isinstance(event, V1BillingMeterErrorReportTriggeredEvent):
-            # CHECK: fetch_object is present and callable, returning a strongly-typed object (without casting)
             meter = event.fetch_related_object()
             meter_id = meter.id
             print("Success! " + str(meter_id))
