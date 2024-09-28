@@ -321,7 +321,7 @@ def _convert_to_stripe_object(
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
-            if api_mode == "V2" and klass_name == "event":
+            if api_mode == "V2" and klass_name == "v2.core.event":
                 event_name = resp.get("type", "")
                 klass = get_thin_event_classes().get(
                     event_name, stripe.StripeObject

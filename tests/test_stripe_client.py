@@ -38,7 +38,7 @@ class TestStripeClient(object):
         http_client_mock.stub_request(
             method,
             path=path,
-            rbody='{"id": "evt_123","object": "event", "type": "v1.billing.meter.error_report_triggered"}',
+            rbody='{"id": "evt_123","object": "v2.core.event", "type": "v1.billing.meter.error_report_triggered"}',
             rcode=200,
             rheaders={},
         )
