@@ -28,7 +28,7 @@ class Event(StripeObject):
 
         type: Literal["request"]
         """
-        Open Enum. Event reason type.
+        Event reason type.
         """
         request: Optional[Request]
         """

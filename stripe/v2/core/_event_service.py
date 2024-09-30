@@ -12,11 +12,17 @@ from typing_extensions import NotRequired, TypedDict
 class EventService(StripeService):
     class ListParams(TypedDict):
         limit: NotRequired[int]
+        """
+        The page size.
+        """
         object_id: str
         """
         Primary object ID used to retrieve related events.
         """
         page: NotRequired[str]
+        """
+        The requested page number.
+        """
 
     class RetrieveParams(TypedDict):
         pass
