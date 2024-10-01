@@ -102,11 +102,29 @@ class ThinEvent:
     """
 
     id: str
+    """
+    Unique identifier for the event.
+    """
     type: str
+    """
+    The type of the event.
+    """
     created: str
+    """
+    Time at which the object was created.
+    """
     context: Optional[str] = None
+    """
+    [Optional] Authentication context needed to fetch the event or related object.
+    """
     related_object: Optional[RelatedObject] = None
+    """
+    [Optional] Object containing the reference to API resource relevant to the event.
+    """
     reason: Optional[Reason] = None
+    """
+    [Optional] Reason for the event.
+    """
 
     def __init__(self, payload: str) -> None:
         parsed = json.loads(payload)
