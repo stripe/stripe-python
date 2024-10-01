@@ -283,7 +283,7 @@ class StripeClient(object):
 
         return ThinEvent(payload)
 
-    def parse_snapshot_event(
+    def construct_event(
         self,
         payload: Union[bytes, str],
         sig_header: str,
