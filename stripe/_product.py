@@ -176,6 +176,12 @@ class Product(
         """
         Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
         """
+        custom_unit_amount: NotRequired[
+            "Product.CreateParamsDefaultPriceDataCustomUnitAmount"
+        ]
+        """
+        When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
+        """
         recurring: NotRequired["Product.CreateParamsDefaultPriceDataRecurring"]
         """
         The recurring components of a price such as `interval` and `interval_count`.
@@ -188,7 +194,7 @@ class Product(
         """
         unit_amount: NotRequired[int]
         """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount`, `unit_amount_decimal`, or `custom_unit_amount` is required.
         """
         unit_amount_decimal: NotRequired[str]
         """
@@ -263,6 +269,24 @@ class Product(
         up_to: Union[Literal["inf"], int]
         """
         Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
+        """
+
+    class CreateParamsDefaultPriceDataCustomUnitAmount(TypedDict):
+        enabled: bool
+        """
+        Pass in `true` to enable `custom_unit_amount`, otherwise omit `custom_unit_amount`.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum unit amount the customer can specify for this item.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        """
+        preset: NotRequired[int]
+        """
+        The starting unit amount which can be updated by the customer.
         """
 
     class CreateParamsDefaultPriceDataRecurring(TypedDict):

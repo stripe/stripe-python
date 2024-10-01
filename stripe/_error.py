@@ -1,7 +1,6 @@
 from typing import Dict, Optional, Union, cast
 
-# Used for global variable
-import stripe  # noqa: IMP101
+import stripe  # noqa
 from stripe._error_object import ErrorObject
 
 
@@ -13,7 +12,7 @@ class StripeError(Exception):
     headers: Optional[Dict[str, str]]
     code: Optional[str]
     request_id: Optional[str]
-    error: Optional[ErrorObject]
+    error: Optional["ErrorObject"]
 
     def __init__(
         self,
@@ -76,10 +75,13 @@ class StripeError(Exception):
             or not isinstance(self.json_body["error"], dict)
         ):
             return None
+        from stripe._error_object import ErrorObject
 
         return ErrorObject._construct_from(
             values=self.json_body["error"],
             requestor=stripe._APIRequestor._global_instance(),
+            # We pass in API mode as "V1" here because it's required,
+            # but ErrorObject is reused for both V1 and V2 errors.
             api_mode="V1",
         )
 
@@ -177,3 +179,11 @@ class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
         super(SignatureVerificationError, self).__init__(message, http_body)
         self.sig_header = sig_header
+
+
+# classDefinitions: The beginning of the section generated from our OpenAPI spec
+class TemporarySessionExpiredError(StripeError):
+    pass
+
+
+# classDefinitions: The end of the section generated from our OpenAPI spec

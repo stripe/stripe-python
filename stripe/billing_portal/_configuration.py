@@ -315,8 +315,8 @@ class Configuration(
         """
 
     class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
-        default_allowed_updates: Union[
-            Literal[""], List[Literal["price", "promotion_code", "quantity"]]
+        default_allowed_updates: NotRequired[
+            "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
         ]
         """
         The types of subscription updates that are supported. When empty, subscriptions are not updateable.
@@ -325,11 +325,8 @@ class Configuration(
         """
         Whether the feature is enabled.
         """
-        products: Union[
-            Literal[""],
-            List[
-                "Configuration.CreateParamsFeaturesSubscriptionUpdateProduct"
-            ],
+        products: NotRequired[
+            "Literal['']|List[Configuration.CreateParamsFeaturesSubscriptionUpdateProduct]"
         ]
         """
         The list of up to 10 products that support subscription updates.

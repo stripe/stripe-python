@@ -18,6 +18,13 @@ warn(
 if not TYPE_CHECKING:
     from stripe.api_resources.billing.alert import Alert
     from stripe.api_resources.billing.alert_triggered import AlertTriggered
+    from stripe.api_resources.billing.credit_balance_summary import (
+        CreditBalanceSummary,
+    )
+    from stripe.api_resources.billing.credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
+    from stripe.api_resources.billing.credit_grant import CreditGrant
     from stripe.api_resources.billing.meter import Meter
     from stripe.api_resources.billing.meter_event import MeterEvent
     from stripe.api_resources.billing.meter_event_adjustment import (

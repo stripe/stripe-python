@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount
     from stripe._invoice_line_item import InvoiceLineItem
+    from stripe._margin import Margin
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
     from stripe._quote import Quote
@@ -49,6 +50,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -963,6 +967,30 @@ class Invoice(
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
+        """
+
+    class TotalPretaxCreditAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the pretax credit amount.
+        """
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
+        """
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount"]
+        """
+        Type of the pretax credit amount referenced.
         """
 
     class TotalTaxAmount(StripeObject):
@@ -6445,6 +6473,7 @@ class Invoice(
     """
     The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     """
+    total_pretax_credit_amounts: Optional[List[TotalPretaxCreditAmount]]
     total_tax_amounts: List[TotalTaxAmount]
     """
     The aggregate amounts calculated per tax rate for all line items.
@@ -7811,6 +7840,7 @@ class Invoice(
         "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
+        "total_pretax_credit_amounts": TotalPretaxCreditAmount,
         "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }
