@@ -275,7 +275,7 @@ response = client.raw_request(
 )
 
 # (Optional) response is a StripeResponse. You can use `client.deserialize` to get a StripeObject.
-deserialized_resp = client.deserialize(response)
+deserialized_resp = client.deserialize(response, api_mode='V1')
 ```
 
 ### Async
