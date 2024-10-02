@@ -266,15 +266,16 @@ stripe.add_beta_version("feature_beta", "v3")
 
 ### Custom requests
 
-If you would like to send a request to an undocumented API (for example you are in a private beta), or if you prefer to bypass the method definitions in the library and specify your request details directly, you can use the `raw_request` method on `stripe`.
+If you would like to send a request to an undocumented API (for example you are in a private beta), or if you prefer to bypass the method definitions in the library and specify your request details directly, you can use the `raw_request` method on `StripeClient`.
 
 ```python
-response = stripe.raw_request(
+client = StripeClient("sk_test_...")
+response = client.raw_request(
     "post", "/v1/beta_endpoint", param=123, stripe_version="2022-11-15; feature_beta=v3"
 )
 
-# (Optional) response is a StripeResponse. You can use `stripe.deserialize` to get a StripeObject.
-deserialized_resp = stripe.deserialize(response)
+# (Optional) response is a StripeResponse. You can use `client.deserialize` to get a StripeObject.
+deserialized_resp = client.deserialize(response, api_mode='V1')
 ```
 
 ### Async

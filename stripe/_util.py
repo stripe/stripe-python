@@ -192,8 +192,19 @@ else:
         return result == 0
 
 
-def get_object_classes():
+def get_thin_event_classes():
+    from stripe.events._event_classes import THIN_EVENT_CLASSES
+
+    return THIN_EVENT_CLASSES
+
+
+def get_object_classes(api_mode):
     # This is here to avoid a circular dependency
+    if api_mode == "V2":
+        from stripe._object_classes import V2_OBJECT_CLASSES
+
+        return V2_OBJECT_CLASSES
+
     from stripe._object_classes import OBJECT_CLASSES
 
     return OBJECT_CLASSES
@@ -310,7 +321,20 @@ def _convert_to_stripe_object(
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
-            klass = get_object_classes().get(klass_name, StripeObject)
+            if api_mode == "V2" and klass_name == "v2.core.event":
+                event_name = resp.get("type", "")
+                klass = get_thin_event_classes().get(
+                    event_name, stripe.StripeObject
+                )
+            else:
+                klass = get_object_classes(api_mode).get(
+                    klass_name, stripe.StripeObject
+                )
+        # TODO: this is a horrible hack. The API needs
+        # to return something for `object` here.
+
+        elif "data" in resp and "next_page_url" in resp:
+            klass = stripe.v2.ListObject
         elif klass_ is not None:
             klass = klass_
         else:
@@ -391,6 +415,13 @@ def merge_dicts(x, y):
 def sanitize_id(id):
     quotedId = quote_plus(id)
     return quotedId
+
+
+def get_api_mode(url):
+    if url.startswith("/v2"):
+        return "V2"
+    else:
+        return "V1"
 
 
 class class_method_variant(object):

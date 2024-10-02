@@ -8,6 +8,7 @@ from typing import Optional
 class RequestorOptions(object):
     api_key: Optional[str]
     stripe_account: Optional[str]
+    stripe_context: Optional[str]
     stripe_version: Optional[str]
     base_addresses: BaseAddresses
     max_network_retries: Optional[int]
@@ -16,12 +17,14 @@ class RequestorOptions(object):
         self,
         api_key: Optional[str] = None,
         stripe_account: Optional[str] = None,
+        stripe_context: Optional[str] = None,
         stripe_version: Optional[str] = None,
         base_addresses: BaseAddresses = {},
         max_network_retries: Optional[int] = None,
     ):
         self.api_key = api_key
         self.stripe_account = stripe_account
+        self.stripe_context = stripe_context
         self.stripe_version = stripe_version
         self.base_addresses = {}
 
@@ -33,6 +36,10 @@ class RequestorOptions(object):
             self.base_addresses["connect"] = base_addresses.get("connect")
         if base_addresses.get("files") is not None:
             self.base_addresses["files"] = base_addresses.get("files")
+        if base_addresses.get("meter_events") is not None:
+            self.base_addresses["meter_events"] = base_addresses.get(
+                "meter_events"
+            )
 
         self.max_network_retries = max_network_retries
 
@@ -43,6 +50,7 @@ class RequestorOptions(object):
         return {
             "api_key": self.api_key,
             "stripe_account": self.stripe_account,
+            "stripe_context": self.stripe_context,
             "stripe_version": self.stripe_version,
             "base_addresses": self.base_addresses,
             "max_network_retries": self.max_network_retries,
@@ -59,6 +67,7 @@ class _GlobalRequestorOptions(RequestorOptions):
             "api": stripe.api_base,
             "connect": stripe.connect_api_base,
             "files": stripe.upload_api_base,
+            "meter_events": stripe.meter_events_api_base,
         }
 
     @property
@@ -71,6 +80,10 @@ class _GlobalRequestorOptions(RequestorOptions):
 
     @property
     def stripe_account(self):
+        return None
+
+    @property
+    def stripe_context(self):
         return None
 
     @property

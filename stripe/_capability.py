@@ -368,7 +368,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     requirements: Optional[Requirements]
     status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
     """
-    The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+    The status of the capability.
     """
 
     def instance_url(self):
