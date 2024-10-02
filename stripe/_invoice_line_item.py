@@ -86,7 +86,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The margin that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        type: Literal["credit_balance_transaction", "discount", "margin"]
         """
         Type of the pretax credit amount referenced.
         """

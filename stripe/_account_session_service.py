@@ -146,6 +146,12 @@ class AccountSessionService(StripeService):
         recipients: NotRequired[
             "AccountSessionService.CreateParamsComponentsRecipients"
         ]
+        reporting_chart: NotRequired[
+            "AccountSessionService.CreateParamsComponentsReportingChart"
+        ]
+        """
+        Configuration for the reporting chart embedded component.
+        """
         tax_registrations: NotRequired[
             "AccountSessionService.CreateParamsComponentsTaxRegistrations"
         ]
@@ -568,6 +574,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsRecipientsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsReportingChart(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsReportingChartFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsReportingChartFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):

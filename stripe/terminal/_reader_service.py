@@ -123,6 +123,12 @@ class ReaderService(StripeService):
         """
 
     class CollectPaymentMethodParamsCollectConfig(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+        """
         enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
