@@ -148,7 +148,7 @@ class HTTPClient(object):
         http: Optional[str]
         https: Optional[str]
 
-    MAX_DELAY = 2
+    MAX_DELAY = 5
     INITIAL_DELAY = 0.5
     MAX_RETRY_AFTER = 60
     _proxy: Optional[_Proxy]
@@ -242,10 +242,11 @@ class HTTPClient(object):
         self,
         num_retries: int,
         response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
-    ):
-        # Apply exponential backoff with initial_network_retry_delay on the
-        # number of num_retries so far as inputs.
-        # Do not allow the number to exceed max_network_retry_delay.
+    ) -> float:
+        """
+        Apply exponential backoff with initial_network_retry_delay on the number of num_retries so far as inputs.
+        Do not allow the number to exceed `max_network_retry_delay`.
+        """
         sleep_seconds = min(
             HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
             HTTPClient.MAX_DELAY,
@@ -263,9 +264,11 @@ class HTTPClient(object):
 
         return sleep_seconds
 
-    def _add_jitter_time(self, sleep_seconds: float):
-        # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
-        # Also separated method here to isolate randomness for tests
+    def _add_jitter_time(self, sleep_seconds: float) -> float:
+        """
+        Randomize the value in `[(sleep_seconds/ 2) to (sleep_seconds)]`.
+        Also separated method here to isolate randomness for tests
+        """
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
 
@@ -900,6 +903,11 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
+class _Proxy(TypedDict):
+    http: Optional[ParseResult]
+    https: Optional[ParseResult]
+
+
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
         http: Optional[ParseResult]
@@ -1025,7 +1033,7 @@ class PycurlClient(HTTPClient):
         self._curl.setopt(self.pycurl.TIMEOUT, 80)
         self._curl.setopt(
             self.pycurl.HTTPHEADER,
-            ["%s: %s" % (k, v) for k, v in iter(dict(headers).items())],
+            ["%s: %s" % (k, v) for k, v in dict(headers).items()],
         )
         if self._verify_ssl_certs:
             self._curl.setopt(self.pycurl.CAINFO, stripe.ca_bundle_path)

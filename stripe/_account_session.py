@@ -407,6 +407,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         recipients: NotRequired[
             "AccountSession.CreateParamsComponentsRecipients"
         ]
+        reporting_chart: NotRequired[
+            "AccountSession.CreateParamsComponentsReportingChart"
+        ]
+        """
+        Configuration for the reporting chart embedded component.
+        """
         tax_registrations: NotRequired[
             "AccountSession.CreateParamsComponentsTaxRegistrations"
         ]
@@ -829,6 +835,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsRecipientsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsReportingChart(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsReportingChartFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsReportingChartFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsTaxRegistrations(TypedDict):

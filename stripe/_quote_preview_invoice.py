@@ -25,6 +25,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -1026,6 +1029,30 @@ class QuotePreviewInvoice(StripeObject):
         The margin that was applied to get this margin amount.
         """
 
+    class TotalPretaxCreditAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the pretax credit amount.
+        """
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
+        """
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount", "margin"]
+        """
+        Type of the pretax credit amount referenced.
+        """
+
     class TotalTaxAmount(StripeObject):
         amount: int
         """
@@ -1399,6 +1426,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     The aggregate amounts calculated per margin across all line items.
     """
+    total_pretax_credit_amounts: Optional[List[TotalPretaxCreditAmount]]
     total_tax_amounts: List[TotalTaxAmount]
     """
     The aggregate amounts calculated per tax rate for all line items.
@@ -1431,6 +1459,7 @@ class QuotePreviewInvoice(StripeObject):
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
         "total_margin_amounts": TotalMarginAmount,
+        "total_pretax_credit_amounts": TotalPretaxCreditAmount,
         "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }

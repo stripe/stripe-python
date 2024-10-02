@@ -605,12 +605,6 @@ class Quote(
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
-        from_schedule: Optional[
-            ExpandableField["SubscriptionScheduleResource"]
-        ]
-        """
-        The id of the subscription schedule that will be updated when the quote is accepted.
-        """
         from_subscription: Optional[ExpandableField["Subscription"]]
         """
         The id of the subscription that will be updated when the quote is accepted.

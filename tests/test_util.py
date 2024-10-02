@@ -135,7 +135,7 @@ class TestUtil(object):
             "livemode": False,
         }
 
-        obj = util.convert_to_stripe_object(resp)
+        obj = util.convert_to_stripe_object(resp, api_mode="V1")
         assert isinstance(obj, stripe.Balance)
         assert isinstance(obj.available, list)
         assert isinstance(obj.available[0], stripe.stripe_object.StripeObject)
@@ -149,4 +149,6 @@ class TestUtil(object):
 
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
+        if isinstance(sanitized_id, bytes):
+            sanitized_id = sanitized_id.decode("utf-8", "strict")
         assert sanitized_id == "cu++%25x+123"
