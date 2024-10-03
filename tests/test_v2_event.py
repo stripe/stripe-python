@@ -18,7 +18,7 @@ class TestV2Event(object):
                 "id": "evt_234",
                 "object": "v2.core.event",
                 "type": "financial_account.balance.opened",
-                "livemode": "false",
+                "livemode": True,
                 "created": "2022-02-15T00:27:45.330Z",
                 "related_object": {
                     "id": "fa_123",
@@ -40,7 +40,7 @@ class TestV2Event(object):
                 "id": "evt_234",
                 "object": "v2.core.event",
                 "type": "financial_account.balance.opened",
-                "livemode": "false",
+                "livemode": False,
                 "created": "2022-02-15T00:27:45.330Z",
                 "related_object": {
                     "id": "fa_123",
