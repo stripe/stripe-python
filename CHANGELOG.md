@@ -1,3 +1,12 @@
+## 11.2.0b1 - 2024-10-03
+* [#1407](https://github.com/stripe/stripe-python/pull/1407) Updates beta branch with changes in master & update generated code
+  * Add support for `reporting_chart` on parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `total_pretax_credit_amounts` on resource `stripe.QuotePreviewInvoice`
+  * Add support for `allow_redisplay` on parameter class `stripe.terminal.Reader.CollectPaymentMethodParamsCollectConfig`
+  * Remove support for `from_schedule` on resource class `stripe.Quote.SubscriptionData`
+  * Move `raw_request` and related methods from `_raw_request` module to the `StripeClient` class
+  * Remove `_preview` module; use raw request methods in the `StripeClient` class instead
+
 ## 11.1.0 - 2024-10-03
 * [#1409](https://github.com/stripe/stripe-python/pull/1409) Update the class for `ThinEvent` to include `livemode`
 * [#1408](https://github.com/stripe/stripe-python/pull/1408) Update generated code
