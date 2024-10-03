@@ -1,4 +1,7 @@
-# Changelog
+## 11.1.0 - 2024-10-03
+* [#1409](https://github.com/stripe/stripe-python/pull/1409) Update the class for `ThinEvent` to include `livemode`
+* [#1408](https://github.com/stripe/stripe-python/pull/1408) Update generated code
+  * Remove the support for resource `Margin` that was accidentally made public in the last release
 
 ## 11.0.0 - 2024-10-01
 * [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
