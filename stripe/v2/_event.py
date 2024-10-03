@@ -111,6 +111,10 @@ class ThinEvent:
     """
     created: str
     """
+    Livemode indicates if the event is from a production(true) or test(false) account.
+    """
+    livemode: bool
+    """
     Time at which the object was created.
     """
     context: Optional[str] = None
@@ -132,6 +136,7 @@ class ThinEvent:
         self.id = parsed["id"]
         self.type = parsed["type"]
         self.created = parsed["created"]
+        self.livemode = parsed.get("livemode")
         self.context = parsed.get("context")
         if parsed.get("related_object"):
             self.related_object = RelatedObject(parsed["related_object"])
