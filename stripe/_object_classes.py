@@ -81,6 +81,7 @@ OBJECT_CLASSES = {
     stripe.LineItem.OBJECT_NAME: stripe.LineItem,
     stripe.LoginLink.OBJECT_NAME: stripe.LoginLink,
     stripe.Mandate.OBJECT_NAME: stripe.Mandate,
+    stripe.Margin.OBJECT_NAME: stripe.Margin,
     stripe.PaymentIntent.OBJECT_NAME: stripe.PaymentIntent,
     stripe.PaymentLink.OBJECT_NAME: stripe.PaymentLink,
     stripe.PaymentMethod.OBJECT_NAME: stripe.PaymentMethod,

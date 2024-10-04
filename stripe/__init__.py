@@ -444,6 +444,7 @@ from stripe._line_item import LineItem as LineItem
 from stripe._login_link import LoginLink as LoginLink
 from stripe._mandate import Mandate as Mandate
 from stripe._mandate_service import MandateService as MandateService
+from stripe._margin import Margin as Margin
 from stripe._payment_intent import PaymentIntent as PaymentIntent
 from stripe._payment_intent_service import (
     PaymentIntentService as PaymentIntentService,
