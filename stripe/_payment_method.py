@@ -981,6 +981,9 @@ class PaymentMethod(
         """
         _inner_class_types = {"networks": Networks}
 
+    class KakaoPay(StripeObject):
+        pass
+
     class Klarna(StripeObject):
         class Dob(StripeObject):
             day: Optional[int]
@@ -1005,6 +1008,41 @@ class PaymentMethod(
     class Konbini(StripeObject):
         pass
 
+    class KrCard(StripeObject):
+        brand: Optional[
+            Literal[
+                "bc",
+                "citi",
+                "hana",
+                "hyundai",
+                "jeju",
+                "jeonbuk",
+                "kakaobank",
+                "kbank",
+                "kdbbank",
+                "kookmin",
+                "kwangju",
+                "lotte",
+                "mg",
+                "nh",
+                "post",
+                "samsung",
+                "savingsbank",
+                "shinhan",
+                "shinhyup",
+                "suhyup",
+                "tossbank",
+                "woori",
+            ]
+        ]
+        """
+        The local credit or debit card brand.
+        """
+        last4: Optional[str]
+        """
+        The last four digits of the card. This may not be present for American Express cards.
+        """
+
     class Link(StripeObject):
         email: Optional[str]
         """
@@ -1023,6 +1061,12 @@ class PaymentMethod(
 
     class Multibanco(StripeObject):
         pass
+
+    class NaverPay(StripeObject):
+        funding: Literal["card", "points"]
+        """
+        Whether to fund this transaction with Naver Pay points or a card.
+        """
 
     class Oxxo(StripeObject):
         pass
@@ -1061,6 +1105,9 @@ class PaymentMethod(
         """
         The customer's bank, if provided.
         """
+
+    class Payco(StripeObject):
+        pass
 
     class Paynow(StripeObject):
         pass
@@ -1130,6 +1177,9 @@ class PaymentMethod(
         _inner_class_types = {"dob": Dob}
 
     class RevolutPay(StripeObject):
+        pass
+
+    class SamsungPay(StripeObject):
         pass
 
     class SepaDebit(StripeObject):
@@ -1394,6 +1444,10 @@ class PaymentMethod(
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired["PaymentMethod.CreateParamsKakaoPay"]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired["PaymentMethod.CreateParamsKlarna"]
         """
         If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
@@ -1401,6 +1455,10 @@ class PaymentMethod(
         konbini: NotRequired["PaymentMethod.CreateParamsKonbini"]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired["PaymentMethod.CreateParamsKrCard"]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired["PaymentMethod.CreateParamsLink"]
         """
@@ -1422,6 +1480,10 @@ class PaymentMethod(
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired["PaymentMethod.CreateParamsNaverPay"]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1429,6 +1491,10 @@ class PaymentMethod(
         p24: NotRequired["PaymentMethod.CreateParamsP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired["PaymentMethod.CreateParamsPayco"]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         payment_method: NotRequired[str]
         """
@@ -1466,6 +1532,10 @@ class PaymentMethod(
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired["PaymentMethod.CreateParamsSamsungPay"]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -1502,14 +1572,18 @@ class PaymentMethod(
                 "giropay",
                 "grabpay",
                 "ideal",
+                "kakao_pay",
                 "klarna",
                 "konbini",
+                "kr_card",
                 "link",
                 "mb_way",
                 "mobilepay",
                 "multibanco",
+                "naver_pay",
                 "oxxo",
                 "p24",
+                "payco",
                 "paynow",
                 "paypal",
                 "payto",
@@ -1517,6 +1591,7 @@ class PaymentMethod(
                 "promptpay",
                 "rechnung",
                 "revolut_pay",
+                "samsung_pay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -1790,6 +1865,9 @@ class PaymentMethod(
     class CreateParamsInteracPresent(TypedDict):
         pass
 
+    class CreateParamsKakaoPay(TypedDict):
+        pass
+
     class CreateParamsKlarna(TypedDict):
         dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob"]
         """
@@ -1813,6 +1891,9 @@ class PaymentMethod(
     class CreateParamsKonbini(TypedDict):
         pass
 
+    class CreateParamsKrCard(TypedDict):
+        pass
+
     class CreateParamsLink(TypedDict):
         pass
 
@@ -1824,6 +1905,12 @@ class PaymentMethod(
 
     class CreateParamsMultibanco(TypedDict):
         pass
+
+    class CreateParamsNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class CreateParamsOxxo(TypedDict):
         pass
@@ -1862,6 +1949,9 @@ class PaymentMethod(
         """
         The customer's bank.
         """
+
+    class CreateParamsPayco(TypedDict):
+        pass
 
     class CreateParamsPaynow(TypedDict):
         pass
@@ -1916,6 +2006,9 @@ class PaymentMethod(
         """
 
     class CreateParamsRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsSamsungPay(TypedDict):
         pass
 
     class CreateParamsSepaDebit(TypedDict):
@@ -2011,14 +2104,18 @@ class PaymentMethod(
                 "giropay",
                 "grabpay",
                 "ideal",
+                "kakao_pay",
                 "klarna",
                 "konbini",
+                "kr_card",
                 "link",
                 "mb_way",
                 "mobilepay",
                 "multibanco",
+                "naver_pay",
                 "oxxo",
                 "p24",
+                "payco",
                 "paynow",
                 "paypal",
                 "payto",
@@ -2026,6 +2123,7 @@ class PaymentMethod(
                 "promptpay",
                 "rechnung",
                 "revolut_pay",
+                "samsung_pay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -2067,6 +2165,10 @@ class PaymentMethod(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        naver_pay: NotRequired["PaymentMethod.ModifyParamsNaverPay"]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
         payto: NotRequired["PaymentMethod.ModifyParamsPayto"]
         """
@@ -2148,6 +2250,12 @@ class PaymentMethod(
     class ModifyParamsLink(TypedDict):
         pass
 
+    class ModifyParamsNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
     class ModifyParamsPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -2215,8 +2323,10 @@ class PaymentMethod(
     """
     ideal: Optional[Ideal]
     interac_present: Optional[InteracPresent]
+    kakao_pay: Optional[KakaoPay]
     klarna: Optional[Klarna]
     konbini: Optional[Konbini]
+    kr_card: Optional[KrCard]
     link: Optional[Link]
     livemode: bool
     """
@@ -2229,12 +2339,14 @@ class PaymentMethod(
     """
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
+    naver_pay: Optional[NaverPay]
     object: Literal["payment_method"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
     oxxo: Optional[Oxxo]
     p24: Optional[P24]
+    payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     payto: Optional[Payto]
@@ -2246,6 +2358,7 @@ class PaymentMethod(
     """
     rechnung: Optional[Rechnung]
     revolut_pay: Optional[RevolutPay]
+    samsung_pay: Optional[SamsungPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
@@ -2271,14 +2384,18 @@ class PaymentMethod(
         "grabpay",
         "ideal",
         "interac_present",
+        "kakao_pay",
         "klarna",
         "konbini",
+        "kr_card",
         "link",
         "mb_way",
         "mobilepay",
         "multibanco",
+        "naver_pay",
         "oxxo",
         "p24",
+        "payco",
         "paynow",
         "paypal",
         "payto",
@@ -2286,6 +2403,7 @@ class PaymentMethod(
         "promptpay",
         "rechnung",
         "revolut_pay",
+        "samsung_pay",
         "sepa_debit",
         "sofort",
         "swish",
@@ -2779,14 +2897,18 @@ class PaymentMethod(
         "grabpay": Grabpay,
         "ideal": Ideal,
         "interac_present": InteracPresent,
+        "kakao_pay": KakaoPay,
         "klarna": Klarna,
         "konbini": Konbini,
+        "kr_card": KrCard,
         "link": Link,
         "mb_way": MbWay,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
+        "naver_pay": NaverPay,
         "oxxo": Oxxo,
         "p24": P24,
+        "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
         "payto": Payto,
@@ -2795,6 +2917,7 @@ class PaymentMethod(
         "radar_options": RadarOptions,
         "rechnung": Rechnung,
         "revolut_pay": RevolutPay,
+        "samsung_pay": SamsungPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "swish": Swish,

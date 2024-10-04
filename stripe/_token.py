@@ -349,7 +349,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         gender: NotRequired[str]
         """
-        The individual's gender (International regulations require either "male" or "female").
+        The individual's gender
         """
         id_number: NotRequired[str]
         """

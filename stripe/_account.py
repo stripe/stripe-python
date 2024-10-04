@@ -2552,7 +2552,7 @@ class Account(
         """
         gender: NotRequired[str]
         """
-        The individual's gender (International regulations require either "male" or "female").
+        The individual's gender
         """
         id_number: NotRequired[str]
         """
@@ -4071,7 +4071,7 @@ class Account(
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
     """
-    Whether the account can create live charges.
+    Whether the account can process charges.
     """
     company: Optional[Company]
     controller: Optional[Controller]
@@ -4122,7 +4122,7 @@ class Account(
     """
     payouts_enabled: Optional[bool]
     """
-    Whether Stripe can send payouts to this account.
+    Whether the funds in this account can be paid out.
     """
     requirements: Optional[Requirements]
     risk_controls: Optional[RiskControls]

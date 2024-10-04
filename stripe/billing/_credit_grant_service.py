@@ -27,7 +27,7 @@ class CreditGrantService(StripeService):
         """
         customer: str
         """
-        Id of the customer to whom the credit should be granted.
+        ID of the customer to whom the credit should be granted.
         """
         effective_at: NotRequired[int]
         """
@@ -47,7 +47,7 @@ class CreditGrantService(StripeService):
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard and on invoices.
+        A descriptive name shown in dashboard.
         """
 
     class CreateParamsAmount(TypedDict):

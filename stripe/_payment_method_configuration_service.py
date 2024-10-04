@@ -245,7 +245,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.CreateParamsUsBankAccount"
         ]
         """
-        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
         """
         wechat_pay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsWechatPay"
@@ -1109,7 +1109,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.UpdateParamsUsBankAccount"
         ]
         """
-        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
         """
         wechat_pay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsWechatPay"

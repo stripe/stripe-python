@@ -109,6 +109,9 @@ class Mandate(APIResource["Mandate"]):
         class Cashapp(StripeObject):
             pass
 
+        class KrCard(StripeObject):
+            pass
+
         class Link(StripeObject):
             pass
 
@@ -209,6 +212,7 @@ class Mandate(APIResource["Mandate"]):
         bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
@@ -226,6 +230,7 @@ class Mandate(APIResource["Mandate"]):
             "bacs_debit": BacsDebit,
             "card": Card,
             "cashapp": Cashapp,
+            "kr_card": KrCard,
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,

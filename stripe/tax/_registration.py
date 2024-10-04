@@ -87,6 +87,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class By(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Ca(StripeObject):
             class ProvinceStandard(StripeObject):
                 province: str
@@ -114,6 +120,12 @@ class Registration(
             """
 
         class Co(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Cr(StripeObject):
             type: Literal["simplified"]
             """
             Type of registration in `country`.
@@ -174,6 +186,12 @@ class Registration(
             Type of registration in an EU country.
             """
             _inner_class_types = {"standard": Standard}
+
+        class Ec(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
 
         class Ee(StripeObject):
             class Standard(StripeObject):
@@ -397,6 +415,18 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class Ma(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Md(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Mt(StripeObject):
             class Standard(StripeObject):
                 place_of_supply_scheme: Literal["small_seller", "standard"]
@@ -503,6 +533,18 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class Rs(StripeObject):
+            type: Literal["standard"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Ru(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Sa(StripeObject):
             type: Literal["simplified"]
             """
@@ -569,6 +611,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Tz(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Us(StripeObject):
             class LocalAmusementTax(StripeObject):
                 jurisdiction: str
@@ -625,6 +673,12 @@ class Registration(
                 "state_sales_tax": StateSalesTax,
             }
 
+        class Uz(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Vn(StripeObject):
             type: Literal["simplified"]
             """
@@ -643,14 +697,17 @@ class Registration(
         be: Optional[Be]
         bg: Optional[Bg]
         bh: Optional[Bh]
+        by: Optional[By]
         ca: Optional[Ca]
         ch: Optional[Ch]
         cl: Optional[Cl]
         co: Optional[Co]
+        cr: Optional[Cr]
         cy: Optional[Cy]
         cz: Optional[Cz]
         de: Optional[De]
         dk: Optional[Dk]
+        ec: Optional[Ec]
         ee: Optional[Ee]
         eg: Optional[Eg]
         es: Optional[Es]
@@ -672,6 +729,8 @@ class Registration(
         lt: Optional[Lt]
         lu: Optional[Lu]
         lv: Optional[Lv]
+        ma: Optional[Ma]
+        md: Optional[Md]
         mt: Optional[Mt]
         mx: Optional[Mx]
         my: Optional[My]
@@ -683,6 +742,8 @@ class Registration(
         pl: Optional[Pl]
         pt: Optional[Pt]
         ro: Optional[Ro]
+        rs: Optional[Rs]
+        ru: Optional[Ru]
         sa: Optional[Sa]
         se: Optional[Se]
         sg: Optional[Sg]
@@ -690,7 +751,9 @@ class Registration(
         sk: Optional[Sk]
         th: Optional[Th]
         tr: Optional[Tr]
+        tz: Optional[Tz]
         us: Optional[Us]
+        uz: Optional[Uz]
         vn: Optional[Vn]
         za: Optional[Za]
         _inner_class_types = {
@@ -700,14 +763,17 @@ class Registration(
             "be": Be,
             "bg": Bg,
             "bh": Bh,
+            "by": By,
             "ca": Ca,
             "ch": Ch,
             "cl": Cl,
             "co": Co,
+            "cr": Cr,
             "cy": Cy,
             "cz": Cz,
             "de": De,
             "dk": Dk,
+            "ec": Ec,
             "ee": Ee,
             "eg": Eg,
             "es": Es,
@@ -729,6 +795,8 @@ class Registration(
             "lt": Lt,
             "lu": Lu,
             "lv": Lv,
+            "ma": Ma,
+            "md": Md,
             "mt": Mt,
             "mx": Mx,
             "my": My,
@@ -740,6 +808,8 @@ class Registration(
             "pl": Pl,
             "pt": Pt,
             "ro": Ro,
+            "rs": Rs,
+            "ru": Ru,
             "sa": Sa,
             "se": Se,
             "sg": Sg,
@@ -747,7 +817,9 @@ class Registration(
             "sk": Sk,
             "th": Th,
             "tr": Tr,
+            "tz": Tz,
             "us": Us,
+            "uz": Uz,
             "vn": Vn,
             "za": Za,
         }
@@ -805,6 +877,10 @@ class Registration(
         """
         Options for the registration in BH.
         """
+        by: NotRequired["Registration.CreateParamsCountryOptionsBy"]
+        """
+        Options for the registration in BY.
+        """
         ca: NotRequired["Registration.CreateParamsCountryOptionsCa"]
         """
         Options for the registration in CA.
@@ -821,6 +897,10 @@ class Registration(
         """
         Options for the registration in CO.
         """
+        cr: NotRequired["Registration.CreateParamsCountryOptionsCr"]
+        """
+        Options for the registration in CR.
+        """
         cy: NotRequired["Registration.CreateParamsCountryOptionsCy"]
         """
         Options for the registration in CY.
@@ -836,6 +916,10 @@ class Registration(
         dk: NotRequired["Registration.CreateParamsCountryOptionsDk"]
         """
         Options for the registration in DK.
+        """
+        ec: NotRequired["Registration.CreateParamsCountryOptionsEc"]
+        """
+        Options for the registration in EC.
         """
         ee: NotRequired["Registration.CreateParamsCountryOptionsEe"]
         """
@@ -917,6 +1001,14 @@ class Registration(
         """
         Options for the registration in LV.
         """
+        ma: NotRequired["Registration.CreateParamsCountryOptionsMa"]
+        """
+        Options for the registration in MA.
+        """
+        md: NotRequired["Registration.CreateParamsCountryOptionsMd"]
+        """
+        Options for the registration in MD.
+        """
         mt: NotRequired["Registration.CreateParamsCountryOptionsMt"]
         """
         Options for the registration in MT.
@@ -961,6 +1053,14 @@ class Registration(
         """
         Options for the registration in RO.
         """
+        rs: NotRequired["Registration.CreateParamsCountryOptionsRs"]
+        """
+        Options for the registration in RS.
+        """
+        ru: NotRequired["Registration.CreateParamsCountryOptionsRu"]
+        """
+        Options for the registration in RU.
+        """
         sa: NotRequired["Registration.CreateParamsCountryOptionsSa"]
         """
         Options for the registration in SA.
@@ -989,9 +1089,17 @@ class Registration(
         """
         Options for the registration in TR.
         """
+        tz: NotRequired["Registration.CreateParamsCountryOptionsTz"]
+        """
+        Options for the registration in TZ.
+        """
         us: NotRequired["Registration.CreateParamsCountryOptionsUs"]
         """
         Options for the registration in US.
+        """
+        uz: NotRequired["Registration.CreateParamsCountryOptionsUz"]
+        """
+        Options for the registration in UZ.
         """
         vn: NotRequired["Registration.CreateParamsCountryOptionsVn"]
         """
@@ -1074,6 +1182,12 @@ class Registration(
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsBy(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsCa(TypedDict):
         province_standard: NotRequired[
             "Registration.CreateParamsCountryOptionsCaProvinceStandard"
@@ -1105,6 +1219,12 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsCo(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCr(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
@@ -1180,6 +1300,12 @@ class Registration(
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsEc(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsEe(TypedDict):
@@ -1452,6 +1578,18 @@ class Registration(
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsMa(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMd(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsMt(TypedDict):
         standard: NotRequired[
             "Registration.CreateParamsCountryOptionsMtStandard"
@@ -1578,6 +1716,18 @@ class Registration(
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsRs(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsRu(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsSa(TypedDict):
         type: Literal["simplified"]
         """
@@ -1656,6 +1806,12 @@ class Registration(
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsTz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsUs(TypedDict):
         local_amusement_tax: NotRequired[
             "Registration.CreateParamsCountryOptionsUsLocalAmusementTax"
@@ -1721,6 +1877,12 @@ class Registration(
         ]
         """
         The type of the election for the state sales tax registration.
+        """
+
+    class CreateParamsCountryOptionsUz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsVn(TypedDict):

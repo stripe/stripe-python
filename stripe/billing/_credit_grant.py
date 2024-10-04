@@ -81,7 +81,7 @@ class CreditGrant(
         """
         customer: str
         """
-        Id of the customer to whom the credit should be granted.
+        ID of the customer to whom the credit should be granted.
         """
         effective_at: NotRequired[int]
         """
@@ -101,7 +101,7 @@ class CreditGrant(
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard and on invoices.
+        A descriptive name shown in dashboard.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -202,7 +202,7 @@ class CreditGrant(
     """
     customer: ExpandableField["Customer"]
     """
-    Id of the customer to whom the credit was granted.
+    ID of the customer to whom the credit was granted.
     """
     effective_at: Optional[int]
     """
@@ -226,7 +226,7 @@ class CreditGrant(
     """
     name: Optional[str]
     """
-    A descriptive name shown in dashboard and on invoices.
+    A descriptive name shown in dashboard.
     """
     object: Literal["billing.credit_grant"]
     """

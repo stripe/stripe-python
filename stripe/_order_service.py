@@ -839,6 +839,14 @@ class OrderService(StripeService):
         """
         Controls when the funds will be captured from the customer's account.
         """
+        line_items: NotRequired[
+            List[
+                "OrderService.CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -896,6 +904,58 @@ class OrderService(StripeService):
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "OrderService.CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -1162,6 +1222,7 @@ class OrderService(StripeService):
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "by_tin",
             "ca_bn",
             "ca_gst_hst",
             "ca_pst_bc",
@@ -1197,6 +1258,8 @@ class OrderService(StripeService):
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "ma_vat",
+            "md_vat",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -1220,15 +1283,18 @@ class OrderService(StripeService):
             "th_vat",
             "tr_tin",
             "tw_vat",
+            "tz_vat",
             "ua_vat",
             "us_ein",
             "uy_ruc",
+            "uz_tin",
+            "uz_vat",
             "ve_rif",
             "vn_tin",
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
@@ -2101,6 +2167,14 @@ class OrderService(StripeService):
         """
         Controls when the funds will be captured from the customer's account.
         """
+        line_items: NotRequired[
+            List[
+                "OrderService.UpdateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -2158,6 +2232,58 @@ class OrderService(StripeService):
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "OrderService.UpdateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -2424,6 +2550,7 @@ class OrderService(StripeService):
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "by_tin",
             "ca_bn",
             "ca_gst_hst",
             "ca_pst_bc",
@@ -2459,6 +2586,8 @@ class OrderService(StripeService):
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "ma_vat",
+            "md_vat",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -2482,15 +2611,18 @@ class OrderService(StripeService):
             "th_vat",
             "tr_tin",
             "tw_vat",
+            "tz_vat",
             "ua_vat",
             "us_ein",
             "uy_ruc",
+            "uz_tin",
+            "uz_vat",
             "ve_rif",
             "vn_tin",
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """

@@ -332,6 +332,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Klarna(StripeObject):
             pass
 
+        class KrCard(StripeObject):
+            pass
+
         class Link(StripeObject):
             pass
 
@@ -397,6 +400,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         cashapp: Optional[Cashapp]
         ideal: Optional[Ideal]
         klarna: Optional[Klarna]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
@@ -420,6 +424,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "cashapp": Cashapp,
             "ideal": Ideal,
             "klarna": Klarna,
+            "kr_card": KrCard,
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
@@ -566,6 +571,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
+                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",
