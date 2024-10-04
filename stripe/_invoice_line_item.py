@@ -17,6 +17,7 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice_item import InvoiceItem
+    from stripe._margin import Margin
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._subscription import Subscription
@@ -70,6 +71,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         discount: Optional[ExpandableField["Discount"]]
         """
         The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
         """
         type: Literal["credit_balance_transaction", "discount"]
         """

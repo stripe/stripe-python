@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount
     from stripe._invoice_line_item import InvoiceLineItem
+    from stripe._margin import Margin
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
     from stripe._quote import Quote
@@ -982,6 +983,10 @@ class Invoice(
         discount: Optional[ExpandableField["Discount"]]
         """
         The discount that was applied to get this pretax credit amount.
+        """
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
         """
         type: Literal["credit_balance_transaction", "discount"]
         """
