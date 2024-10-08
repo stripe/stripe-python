@@ -1,3 +1,14 @@
+"""
+thinevent_webhook_handler.py - receive and process thin events like the
+v1.billing.meter.error_report_triggered event.
+
+In this example, we:
+   - use parseThinEvent to parse the received thin event webhook body
+   - call StripeClient.v2.core.events.retrieve to retrieve the full event object
+  - if it is a V1BillingMeterErrorReportTriggeredEvent event type, call fetchRelatedObject
+    to retrieve the Billing Meter object associated with the event.
+"""
+
 import os
 from stripe import StripeClient
 from stripe.events import V1BillingMeterErrorReportTriggeredEvent
