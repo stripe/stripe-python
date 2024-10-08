@@ -528,6 +528,24 @@ class AccountService(StripeService):
         """
         The treasury capability.
         """
+        treasury_evolve: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryEvolve"
+        ]
+        """
+        The treasury_evolve capability.
+        """
+        treasury_fifth_third: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryFifthThird"
+        ]
+        """
+        The treasury_fifth_third capability.
+        """
+        treasury_goldman_sachs: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryGoldmanSachs"
+        ]
+        """
+        The treasury_goldman_sachs capability.
+        """
         twint_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesTwintPayments"
         ]
@@ -830,6 +848,24 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryEvolve(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2356,6 +2392,24 @@ class AccountService(StripeService):
         """
         The treasury capability.
         """
+        treasury_evolve: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryEvolve"
+        ]
+        """
+        The treasury_evolve capability.
+        """
+        treasury_fifth_third: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryFifthThird"
+        ]
+        """
+        The treasury_fifth_third capability.
+        """
+        treasury_goldman_sachs: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryGoldmanSachs"
+        ]
+        """
+        The treasury_goldman_sachs capability.
+        """
         twint_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesTwintPayments"
         ]
@@ -2658,6 +2712,24 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryEvolve(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
