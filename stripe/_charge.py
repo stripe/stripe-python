@@ -1293,6 +1293,12 @@ class Charge(
             """
             _inner_class_types = {"receipt": Receipt}
 
+        class KakaoPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
+
         class Klarna(StripeObject):
             class PayerDetails(StripeObject):
                 class Address(StripeObject):
@@ -1337,6 +1343,45 @@ class Charge(
             If the payment succeeded, this contains the details of the convenience store where the payment was completed.
             """
             _inner_class_types = {"store": Store}
+
+        class KrCard(StripeObject):
+            brand: Optional[
+                Literal[
+                    "bc",
+                    "citi",
+                    "hana",
+                    "hyundai",
+                    "jeju",
+                    "jeonbuk",
+                    "kakaobank",
+                    "kbank",
+                    "kdbbank",
+                    "kookmin",
+                    "kwangju",
+                    "lotte",
+                    "mg",
+                    "nh",
+                    "post",
+                    "samsung",
+                    "savingsbank",
+                    "shinhan",
+                    "shinhyup",
+                    "suhyup",
+                    "tossbank",
+                    "woori",
+                ]
+            ]
+            """
+            The local credit or debit card brand.
+            """
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card. This may not be present for American Express cards.
+            """
 
         class Link(StripeObject):
             country: Optional[str]
@@ -1385,6 +1430,12 @@ class Charge(
             reference: Optional[str]
             """
             Reference number associated with this Multibanco payment.
+            """
+
+        class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
             """
 
         class Oxxo(StripeObject):
@@ -1436,6 +1487,12 @@ class Charge(
             Owner's verified full name. Values are verified or provided by Przelewy24 directly
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             Przelewy24 rarely provides this information so the attribute is usually empty.
+            """
+
+        class Payco(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
             """
 
         class Paynow(StripeObject):
@@ -1596,6 +1653,12 @@ class Charge(
 
         class RevolutPay(StripeObject):
             pass
+
+        class SamsungPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
@@ -1771,14 +1834,18 @@ class Charge(
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
+        naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
@@ -1786,6 +1853,7 @@ class Charge(
         promptpay: Optional[Promptpay]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
+        samsung_pay: Optional[SamsungPay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1825,14 +1893,18 @@ class Charge(
             "grabpay": Grabpay,
             "ideal": Ideal,
             "interac_present": InteracPresent,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_card": KrCard,
             "link": Link,
             "mb_way": MbWay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
+            "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "payto": Payto,
@@ -1840,6 +1912,7 @@ class Charge(
             "promptpay": Promptpay,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
+            "samsung_pay": SamsungPay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,

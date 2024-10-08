@@ -329,7 +329,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class KakaoPay(StripeObject):
+            pass
+
         class Klarna(StripeObject):
+            pass
+
+        class KrCard(StripeObject):
             pass
 
         class Link(StripeObject):
@@ -396,7 +402,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
@@ -419,7 +427,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card_present": CardPresent,
             "cashapp": Cashapp,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
+            "kr_card": KrCard,
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
@@ -566,6 +576,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
+                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",

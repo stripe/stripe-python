@@ -14,11 +14,9 @@ class PaymentIntentService(StripeService):
     class ApplyCustomerBalanceParams(TypedDict):
         amount: NotRequired[int]
         """
-        Amount that you intend to apply to this PaymentIntent from the customer's cash balance.
+        Amount that you intend to apply to this PaymentIntent from the customer's cash balance. If the PaymentIntent was created by an Invoice, the full amount of the PaymentIntent is applied regardless of this parameter.
 
-        A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (for example, 100 cents to charge 1 USD or 100 to charge 100 JPY, a zero-decimal currency).
-
-        The maximum amount is the amount of the PaymentIntent.
+        A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (for example, 100 cents to charge 1 USD or 100 to charge 100 JPY, a zero-decimal currency). The maximum amount is the amount of the PaymentIntent.
 
         When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent.
         """
@@ -1747,6 +1745,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataKlarna"
         ]
@@ -1758,6 +1762,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataLink"
@@ -1787,6 +1797,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -1798,6 +1814,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataPaynow"
@@ -1847,6 +1869,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -1889,14 +1917,18 @@ class PaymentIntentService(StripeService):
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mb_way",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "payto",
@@ -1904,6 +1936,7 @@ class PaymentIntentService(StripeService):
             "promptpay",
             "rechnung",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -2148,6 +2181,9 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataKakaoPay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataKlarnaDob"
@@ -2173,6 +2209,9 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -2184,6 +2223,12 @@ class PaymentIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -2222,6 +2267,9 @@ class PaymentIntentService(StripeService):
         """
         The customer's bank.
         """
+
+    class ConfirmParamsPaymentMethodDataPayco(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
         pass
@@ -2276,6 +2324,9 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -2445,6 +2496,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
         """
+        kakao_pay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this sub-hash contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsKlarna"
         ]
@@ -2456,6 +2513,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this sub-hash contains details about the KR Card payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsLink"
@@ -2481,6 +2544,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsOxxo"
         ]
@@ -2492,6 +2561,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        payco: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         """
         paynow: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPaynow"
@@ -2534,6 +2609,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -3321,6 +3402,28 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -3426,6 +3529,28 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -3504,6 +3629,16 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -3540,6 +3675,16 @@ class PaymentIntentService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class ConfirmParamsPaymentMethodOptionsPayco(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -3558,6 +3703,14 @@ class PaymentIntentService(StripeService):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds will be captured from the customer's account.
+        """
+        line_items: NotRequired[
+            List[
+                "PaymentIntentService.ConfirmParamsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -3616,6 +3769,54 @@ class PaymentIntentService(StripeService):
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaypalLineItem(TypedDict):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaypalLineItemTax(TypedDict):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
@@ -3750,6 +3951,16 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class ConfirmParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -5086,6 +5297,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataKlarna"
         ]
@@ -5097,6 +5314,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataLink"
@@ -5126,6 +5349,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -5137,6 +5366,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataPaynow"
@@ -5186,6 +5421,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -5228,14 +5469,18 @@ class PaymentIntentService(StripeService):
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mb_way",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "payto",
@@ -5243,6 +5488,7 @@ class PaymentIntentService(StripeService):
             "promptpay",
             "rechnung",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -5487,6 +5733,9 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataKakaoPay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataKlarnaDob"
@@ -5512,6 +5761,9 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -5523,6 +5775,12 @@ class PaymentIntentService(StripeService):
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -5561,6 +5819,9 @@ class PaymentIntentService(StripeService):
         """
         The customer's bank.
         """
+
+    class CreateParamsPaymentMethodDataPayco(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataPaynow(TypedDict):
         pass
@@ -5615,6 +5876,9 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -5784,6 +6048,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
         """
+        kakao_pay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this sub-hash contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsKlarna"
         ]
@@ -5795,6 +6065,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this sub-hash contains details about the KR Card payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsLink"
@@ -5820,6 +6096,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsOxxo"
         ]
@@ -5831,6 +6113,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        payco: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         """
         paynow: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPaynow"
@@ -5873,6 +6161,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -6660,6 +6954,28 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -6765,6 +7081,28 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -6843,6 +7181,16 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -6879,6 +7227,16 @@ class PaymentIntentService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class CreateParamsPaymentMethodOptionsPayco(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6897,6 +7255,14 @@ class PaymentIntentService(StripeService):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds will be captured from the customer's account.
+        """
+        line_items: NotRequired[
+            List[
+                "PaymentIntentService.CreateParamsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -6955,6 +7321,54 @@ class PaymentIntentService(StripeService):
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypalLineItem(TypedDict):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypalLineItemTax(TypedDict):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class CreateParamsPaymentMethodOptionsPayto(TypedDict):
@@ -7089,6 +7503,16 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -8565,6 +8989,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataKlarna"
         ]
@@ -8576,6 +9006,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataLink"
@@ -8605,6 +9041,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -8616,6 +9058,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataPaynow"
@@ -8665,6 +9113,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataSepaDebit"
         ]
@@ -8707,14 +9161,18 @@ class PaymentIntentService(StripeService):
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mb_way",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "payto",
@@ -8722,6 +9180,7 @@ class PaymentIntentService(StripeService):
             "promptpay",
             "rechnung",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -8966,6 +9425,9 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataInteracPresent(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataKakaoPay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataKlarnaDob"
@@ -8991,6 +9453,9 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -9002,6 +9467,12 @@ class PaymentIntentService(StripeService):
 
     class UpdateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class UpdateParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -9040,6 +9511,9 @@ class PaymentIntentService(StripeService):
         """
         The customer's bank.
         """
+
+    class UpdateParamsPaymentMethodDataPayco(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodDataPaynow(TypedDict):
         pass
@@ -9094,6 +9568,9 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -9263,6 +9740,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
         """
+        kakao_pay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this sub-hash contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsKlarna"
         ]
@@ -9274,6 +9757,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this sub-hash contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this sub-hash contains details about the KR Card payment method options.
         """
         link: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsLink"
@@ -9299,6 +9788,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsOxxo"
         ]
@@ -9310,6 +9805,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        payco: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         """
         paynow: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPaynow"
@@ -9352,6 +9853,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSepaDebit"
@@ -10139,6 +10646,28 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class UpdateParamsPaymentMethodOptionsKlarna(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -10244,6 +10773,28 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class UpdateParamsPaymentMethodOptionsLink(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -10322,6 +10873,16 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class UpdateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -10358,6 +10919,16 @@ class PaymentIntentService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class UpdateParamsPaymentMethodOptionsPayco(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class UpdateParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -10376,6 +10947,14 @@ class PaymentIntentService(StripeService):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds will be captured from the customer's account.
+        """
+        line_items: NotRequired[
+            List[
+                "PaymentIntentService.UpdateParamsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
         """
         preferred_locale: NotRequired[
             Literal[
@@ -10434,6 +11013,54 @@ class PaymentIntentService(StripeService):
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPaypalLineItem(TypedDict):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPaypalLineItemTax(TypedDict):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class UpdateParamsPaymentMethodOptionsPayto(TypedDict):
@@ -10568,6 +11195,16 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class UpdateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class UpdateParamsPaymentMethodOptionsSepaDebit(TypedDict):

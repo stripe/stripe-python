@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from stripe._application import Application
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
-    from stripe._line_item import LineItem
+    from stripe._line_item import LineItem as LineItemResource
     from stripe._payment_intent import PaymentIntent
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_rate import TaxRate
@@ -399,9 +399,59 @@ class Order(
                     """
 
                 class Paypal(StripeObject):
+                    class LineItem(StripeObject):
+                        class Tax(StripeObject):
+                            amount: int
+                            """
+                            The tax for a single unit of the line item in minor units. Cannot be a negative number.
+                            """
+                            behavior: Literal["exclusive", "inclusive"]
+                            """
+                            The tax behavior for the line item.
+                            """
+
+                        category: Optional[
+                            Literal[
+                                "digital_goods", "donation", "physical_goods"
+                            ]
+                        ]
+                        """
+                        Type of the line item.
+                        """
+                        description: Optional[str]
+                        """
+                        Description of the line item.
+                        """
+                        name: str
+                        """
+                        Descriptive name of the line item.
+                        """
+                        quantity: int
+                        """
+                        Quantity of the line item. Cannot be a negative number.
+                        """
+                        sku: Optional[str]
+                        """
+                        Client facing stock keeping unit, article number or similar.
+                        """
+                        sold_by: Optional[str]
+                        """
+                        The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
+                        """
+                        tax: Optional[Tax]
+                        unit_amount: int
+                        """
+                        Price for a single unit of the line item in minor units. Cannot be a negative number.
+                        """
+                        _inner_class_types = {"tax": Tax}
+
                     capture_method: Optional[Literal["manual"]]
                     """
                     Controls when the funds will be captured from the customer's account.
+                    """
+                    line_items: Optional[List[LineItem]]
+                    """
+                    The line items purchased by the customer.
                     """
                     preferred_locale: Optional[str]
                     """
@@ -431,6 +481,7 @@ class Order(
                     """
                     The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
                     """
+                    _inner_class_types = {"line_items": LineItem}
 
                 class SepaDebit(StripeObject):
                     class MandateOptions(StripeObject):
@@ -738,6 +789,7 @@ class Order(
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
                 "ca_pst_bc",
@@ -773,6 +825,8 @@ class Order(
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "ma_vat",
+                "md_vat",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -796,16 +850,19 @@ class Order(
                 "th_vat",
                 "tr_tin",
                 "tw_vat",
+                "tz_vat",
                 "ua_vat",
                 "unknown",
                 "us_ein",
                 "uy_ruc",
+                "uz_tin",
+                "uz_vat",
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1719,6 +1776,14 @@ class Order(
         """
         Controls when the funds will be captured from the customer's account.
         """
+        line_items: NotRequired[
+            List[
+                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -1776,6 +1841,58 @@ class Order(
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -2042,6 +2159,7 @@ class Order(
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "by_tin",
             "ca_bn",
             "ca_gst_hst",
             "ca_pst_bc",
@@ -2077,6 +2195,8 @@ class Order(
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "ma_vat",
+            "md_vat",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -2100,15 +2220,18 @@ class Order(
             "th_vat",
             "tr_tin",
             "tw_vat",
+            "tz_vat",
             "ua_vat",
             "us_ein",
             "uy_ruc",
+            "uz_tin",
+            "uz_vat",
             "ve_rif",
             "vn_tin",
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
@@ -2971,6 +3094,14 @@ class Order(
         """
         Controls when the funds will be captured from the customer's account.
         """
+        line_items: NotRequired[
+            List[
+                "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem"
+            ]
+        ]
+        """
+        The line items purchased by the customer.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -3028,6 +3159,58 @@ class Order(
         subsellers: NotRequired[List[str]]
         """
         The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        name: str
+        """
+        Descriptive name of the line item.
+        """
+        quantity: int
+        """
+        Quantity of the line item. Must be a positive number.
+        """
+        sku: NotRequired[str]
+        """
+        Client facing stock keeping unit, article number or similar.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+        tax: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax"
+        ]
+        """
+        The tax information for the line item.
+        """
+        unit_amount: int
+        """
+        Price for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The tax for a single unit of the line item in minor units. Cannot be a negative number.
+        """
+        behavior: Literal["exclusive", "inclusive"]
+        """
+        The tax behavior for the line item.
         """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -3294,6 +3477,7 @@ class Order(
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "by_tin",
             "ca_bn",
             "ca_gst_hst",
             "ca_pst_bc",
@@ -3329,6 +3513,8 @@ class Order(
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "ma_vat",
+            "md_vat",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -3352,15 +3538,18 @@ class Order(
             "th_vat",
             "tr_tin",
             "tw_vat",
+            "tz_vat",
             "ua_vat",
             "us_ein",
             "uy_ruc",
+            "uz_tin",
+            "uz_vat",
             "ve_rif",
             "vn_tin",
             "za_vat",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
         """
         value: str
         """
@@ -3447,7 +3636,7 @@ class Order(
     """
     A recent IP address of the purchaser used for tax reporting and tax location inference.
     """
-    line_items: Optional[ListObject["LineItem"]]
+    line_items: Optional[ListObject["LineItemResource"]]
     """
     A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost. There is a maximum of 100 line items.
     """
@@ -3652,12 +3841,12 @@ class Order(
     @classmethod
     def _cls_list_line_items(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             cls._static_request(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3669,7 +3858,7 @@ class Order(
     @staticmethod
     def list_line_items(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3678,7 +3867,7 @@ class Order(
     @overload
     def list_line_items(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3687,12 +3876,12 @@ class Order(
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             self._request(
                 "get",
                 "/v1/orders/{id}/line_items".format(
@@ -3705,12 +3894,12 @@ class Order(
     @classmethod
     async def _cls_list_line_items_async(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await cls._static_request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3722,7 +3911,7 @@ class Order(
     @staticmethod
     async def list_line_items_async(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3731,7 +3920,7 @@ class Order(
     @overload
     async def list_line_items_async(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3740,12 +3929,12 @@ class Order(
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await self._request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(

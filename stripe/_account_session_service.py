@@ -178,9 +178,13 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsAccountManagementFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
         """
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):
@@ -196,9 +200,13 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
         """
 
     class CreateParamsComponentsAppInstall(TypedDict):
@@ -250,13 +258,17 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsBalancesFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        """
         edit_payout_schedule: NotRequired[bool]
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
         """
         instant_payouts: NotRequired[bool]
         """
@@ -352,6 +364,10 @@ class AccountSessionService(StripeService):
         ]
 
     class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        """
         external_account_collection: NotRequired[bool]
         """
         Whether to allow external accounts to be linked for money transfer.
@@ -383,7 +399,7 @@ class AccountSessionService(StripeService):
     ):
         card_spend_dispute_management: NotRequired[bool]
         """
-        Whether to allow card spend dispute features.
+        Whether to allow card spend dispute management features.
         """
 
     class CreateParamsComponentsIssuingCard(TypedDict):
@@ -418,9 +434,17 @@ class AccountSessionService(StripeService):
         """
         Whether to allow card management features.
         """
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute management features.
+        """
         cardholder_management: NotRequired[bool]
         """
         Whether to allow cardholder management features.
+        """
+        spend_control_management: NotRequired[bool]
+        """
+        Whether to allow spend control management features.
         """
 
     class CreateParamsComponentsNotificationBanner(TypedDict):
@@ -436,9 +460,13 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
         """
 
     class CreateParamsComponentsPaymentDetails(TypedDict):
@@ -529,13 +557,17 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        """
         edit_payout_schedule: NotRequired[bool]
         """
         Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements.
+        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
         """
         instant_payouts: NotRequired[bool]
         """

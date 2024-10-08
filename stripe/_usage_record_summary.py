@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class UsageRecordSummary(StripeObject):
+    """
+    A usage record summary represents an aggregated view of how much usage was accrued for a subscription item within a subscription billing period.
+    """
+
     OBJECT_NAME: ClassVar[Literal["usage_record_summary"]] = (
         "usage_record_summary"
     )

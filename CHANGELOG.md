@@ -1,3 +1,5 @@
+# Changelog
+
 ## 11.2.0b1 - 2024-10-03
 * [#1407](https://github.com/stripe/stripe-python/pull/1407) Updates beta branch with changes in master & update generated code
   * Add support for `reporting_chart` on parameter class `stripe.AccountSession.CreateParamsComponents`
