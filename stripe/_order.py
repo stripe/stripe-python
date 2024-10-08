@@ -3841,12 +3841,12 @@ class Order(
     @classmethod
     def _cls_list_line_items(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             cls._static_request(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3858,7 +3858,7 @@ class Order(
     @staticmethod
     def list_line_items(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3867,7 +3867,7 @@ class Order(
     @overload
     def list_line_items(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3876,12 +3876,12 @@ class Order(
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             self._request(
                 "get",
                 "/v1/orders/{id}/line_items".format(
@@ -3894,12 +3894,12 @@ class Order(
     @classmethod
     async def _cls_list_line_items_async(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await cls._static_request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3911,7 +3911,7 @@ class Order(
     @staticmethod
     async def list_line_items_async(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3920,7 +3920,7 @@ class Order(
     @overload
     async def list_line_items_async(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3929,12 +3929,12 @@ class Order(
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await self._request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(
