@@ -241,6 +241,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
                     "lease_tax",
                     "pst",
                     "qst",
+                    "retail_delivery_fee",
                     "rst",
                     "sales_tax",
                     "vat",
@@ -319,13 +320,31 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     class TaxBreakdown(StripeObject):
         class TaxRateDetails(StripeObject):
+            class FlatAmount(StripeObject):
+                amount: int
+                """
+                Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+                """
+                currency: str
+                """
+                Three-letter ISO currency code, in lowercase.
+                """
+
             country: Optional[str]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
+            flat_amount: Optional[FlatAmount]
+            """
+            The amount of the tax rate when the `rate_type` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate.
+            """
             percentage_decimal: str
             """
             The tax rate percentage as a string. For example, 8.5% is represented as `"8.5"`.
+            """
+            rate_type: Optional[Literal["flat_amount", "percentage"]]
+            """
+            Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
             """
             state: Optional[str]
             """
@@ -342,6 +361,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
                     "lease_tax",
                     "pst",
                     "qst",
+                    "retail_delivery_fee",
                     "rst",
                     "sales_tax",
                     "vat",
@@ -350,6 +370,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             The tax type, such as `vat` or `sales_tax`.
             """
+            _inner_class_types = {"flat_amount": FlatAmount}
 
         amount: int
         """
