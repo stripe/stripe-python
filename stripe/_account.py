@@ -835,6 +835,12 @@ class Account(
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class Groups(StripeObject):
+        payments_pricing: Optional[str]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+        """
+
     class Requirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
@@ -1369,6 +1375,10 @@ class Account(
         A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        """
+        groups: NotRequired["Account.CreateParamsGroups"]
+        """
+        A hash of account group type to tokens. These are account groups this account should be added to
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
@@ -2509,6 +2519,12 @@ class Account(
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsGroups(TypedDict):
+        payments_pricing: NotRequired["Literal['']|str"]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
         """
 
     class CreateParamsIndividual(TypedDict):
@@ -4100,6 +4116,10 @@ class Account(
     External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
     """
     future_requirements: Optional[FutureRequirements]
+    groups: Optional[Groups]
+    """
+    The groups associated with the account.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -5236,6 +5256,7 @@ class Account(
         "company": Company,
         "controller": Controller,
         "future_requirements": FutureRequirements,
+        "groups": Groups,
         "requirements": Requirements,
         "risk_controls": RiskControls,
         "settings": Settings,
