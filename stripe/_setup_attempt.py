@@ -329,6 +329,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class KakaoPay(StripeObject):
+            pass
+
         class Klarna(StripeObject):
             pass
 
@@ -399,6 +402,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
@@ -423,6 +427,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card_present": CardPresent,
             "cashapp": Cashapp,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
