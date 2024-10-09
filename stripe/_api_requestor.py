@@ -29,15 +29,14 @@ from stripe._util import (
     log_info,
     dashboard_link,
     _convert_to_stripe_object,
+    get_api_mode,
 )
 from stripe._version import VERSION
 import stripe._error as error
 import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
-from stripe._encode import (
-    _api_encode,
-)
+from stripe._encode import _api_encode, _json_encode_date_callback
 from stripe._stripe_response import (
     StripeResponse,
     StripeStreamResponse,
@@ -183,8 +182,8 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
+        api_mode = get_api_mode(url)
         requestor = self._replace_options(options)
-        api_mode = "V1"
         rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,
@@ -195,14 +194,16 @@ class _APIRequestor(object):
             options=options,
             usage=usage,
         )
-        resp = requestor._interpret_response(rbody, rcode, rheaders)
+        resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
-        return _convert_to_stripe_object(
+        obj = _convert_to_stripe_object(
             resp=resp,
             params=params,
             requestor=requestor,
             api_mode=api_mode,
         )
+
+        return obj
 
     async def request_async(
         self,
@@ -214,7 +215,7 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
-        api_mode = "V1"
+        api_mode = get_api_mode(url)
         requestor = self._replace_options(options)
         rbody, rcode, rheaders = await requestor.request_raw_async(
             method.lower(),
@@ -226,14 +227,16 @@ class _APIRequestor(object):
             options=options,
             usage=usage,
         )
-        resp = requestor._interpret_response(rbody, rcode, rheaders)
+        resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
-        return _convert_to_stripe_object(
+        obj = _convert_to_stripe_object(
             resp=resp,
             params=params,
             requestor=requestor,
             api_mode=api_mode,
         )
+
+        return obj
 
     def request_stream(
         self,
@@ -245,7 +248,7 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         usage: Optional[List[str]] = None,
     ) -> StripeStreamResponse:
-        api_mode = "V1"
+        api_mode = get_api_mode(url)
         stream, rcode, rheaders = self.request_raw(
             method.lower(),
             url,
@@ -262,6 +265,7 @@ class _APIRequestor(object):
             cast(IOBase, stream),
             rcode,
             rheaders,
+            api_mode,
         )
         return resp
 
@@ -275,7 +279,7 @@ class _APIRequestor(object):
         base_address: BaseAddress,
         usage: Optional[List[str]] = None,
     ) -> StripeStreamResponseAsync:
-        api_mode = "V1"
+        api_mode = get_api_mode(url)
         stream, rcode, rheaders = await self.request_raw_async(
             method.lower(),
             url,
@@ -290,10 +294,13 @@ class _APIRequestor(object):
             stream,
             rcode,
             rheaders,
+            api_mode,
         )
         return resp
 
-    def handle_error_response(self, rbody, rcode, resp, rheaders) -> NoReturn:
+    def handle_error_response(
+        self, rbody, rcode, resp, rheaders, api_mode
+    ) -> NoReturn:
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
@@ -316,15 +323,60 @@ class _APIRequestor(object):
             )
 
         if err is None:
-            err = self.specific_api_error(
-                rbody, rcode, resp, rheaders, error_data
+            err = (
+                self.specific_v2_api_error(
+                    rbody, rcode, resp, rheaders, error_data
+                )
+                if api_mode == "V2"
+                else self.specific_v1_api_error(
+                    rbody, rcode, resp, rheaders, error_data
+                )
             )
 
         raise err
 
-    def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
+    def specific_v2_api_error(self, rbody, rcode, resp, rheaders, error_data):
+        type = error_data.get("type")
+        code = error_data.get("code")
+        message = error_data.get("message")
+        error_args = {
+            "message": message,
+            "http_body": rbody,
+            "http_status": rcode,
+            "json_body": resp,
+            "headers": rheaders,
+            "code": code,
+        }
+
         log_info(
-            "Stripe API error received",
+            "Stripe v2 API error received",
+            error_code=code,
+            error_type=error_data.get("type"),
+            error_message=message,
+            error_param=error_data.get("param"),
+        )
+
+        if type == "idempotency_error":
+            return error.IdempotencyError(
+                message,
+                rbody,
+                rcode,
+                resp,
+                rheaders,
+                code,
+            )
+        # switchCases: The beginning of the section generated from our OpenAPI spec
+        elif type == "temporary_session_expired":
+            return error.TemporarySessionExpiredError(**error_args)
+        # switchCases: The end of the section generated from our OpenAPI spec
+
+        return self.specific_v1_api_error(
+            rbody, rcode, resp, rheaders, error_data
+        )
+
+    def specific_v1_api_error(self, rbody, rcode, resp, rheaders, error_data):
+        log_info(
+            "Stripe v1 API error received",
             error_code=error_data.get("code"),
             error_type=error_data.get("type"),
             error_message=error_data.get("message"),
@@ -402,8 +454,13 @@ class _APIRequestor(object):
 
         return None
 
-    def request_headers(self, method, options: RequestOptions):
-        user_agent = "Stripe/v1 PythonBindings/%s" % (VERSION,)
+    def request_headers(
+        self, method: HttpVerb, api_mode: ApiMode, options: RequestOptions
+    ):
+        user_agent = "Stripe/%s PythonBindings/%s" % (
+            api_mode.lower(),
+            VERSION,
+        )
         if stripe.app_info:
             user_agent += " " + self._format_app_info(stripe.app_info)
 
@@ -436,13 +493,23 @@ class _APIRequestor(object):
         if stripe_account:
             headers["Stripe-Account"] = stripe_account
 
+        stripe_context = options.get("stripe_context")
+        if stripe_context:
+            headers["Stripe-Context"] = stripe_context
+
         idempotency_key = options.get("idempotency_key")
         if idempotency_key:
             headers["Idempotency-Key"] = idempotency_key
 
-        if method == "post":
+        # IKs should be set for all POST requests and v2 delete requests
+        if method == "post" or (api_mode == "V2" and method == "delete"):
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
-            headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        if method == "post":
+            if api_mode == "V2":
+                headers["Content-Type"] = "application/json"
+            else:
+                headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         stripe_version = options.get("stripe_version")
         if stripe_version:
@@ -462,9 +529,18 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ):
         """
-        Mechanism for issuing an API call
+        Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
         """
         request_options = merge_options(self._options, options)
+
+        # Special stripe_version handling for v2 requests:
+        if (
+            options
+            and "stripe_version" in options
+            and (options["stripe_version"] is not None)
+        ):
+            # If user specified an API version, honor it
+            request_options["stripe_version"] = options["stripe_version"]
 
         if request_options.get("api_key") is None:
             raise error.AuthenticationError(
@@ -480,14 +556,19 @@ class _APIRequestor(object):
             url,
         )
 
-        encoded_params = urlencode(list(_api_encode(params or {})))
+        encoded_params = urlencode(list(_api_encode(params or {}, api_mode)))
 
         # Don't use strict form encoding by changing the square bracket control
         # characters back to their literals. This is fine by the server, and
         # makes these parameter strings easier to read.
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
-        encoded_body = encoded_params
+        if api_mode == "V2":
+            encoded_body = json.dumps(
+                params or {}, default=_json_encode_date_callback
+            )
+        else:
+            encoded_body = encoded_params
 
         supplied_headers = None
         if (
@@ -496,7 +577,12 @@ class _APIRequestor(object):
         ):
             supplied_headers = dict(request_options["headers"])
 
-        headers = self.request_headers(method, request_options)
+        headers = self.request_headers(
+            # this cast is safe because the blocks below validate that `method` is one of the allowed values
+            cast(HttpVerb, method),
+            api_mode,
+            request_options,
+        )
 
         if method == "get" or method == "delete":
             if params:
@@ -714,6 +800,7 @@ class _APIRequestor(object):
         rbody: object,
         rcode: int,
         rheaders: Mapping[str, str],
+        api_mode: ApiMode,
     ) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
@@ -734,30 +821,17 @@ class _APIRequestor(object):
                 rheaders,
             )
         if self._should_handle_code_as_error(rcode):
-            self.handle_error_response(rbody, rcode, resp.data, rheaders)
-        return resp
-
-    async def _interpret_streaming_response_async(
-        self,
-        stream: AsyncIterable[bytes],
-        rcode: int,
-        rheaders: Mapping[str, str],
-    ) -> StripeStreamResponseAsync:
-        if self._should_handle_code_as_error(rcode):
-            json_content = b"".join([chunk async for chunk in stream])
-            self._interpret_response(json_content, rcode, rheaders)
-            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
-            raise RuntimeError(
-                "_interpret_response should have raised an error"
+            self.handle_error_response(
+                rbody, rcode, resp.data, rheaders, api_mode
             )
-        else:
-            return StripeStreamResponseAsync(stream, rcode, rheaders)
+        return resp
 
     def _interpret_streaming_response(
         self,
         stream: IOBase,
         rcode: int,
         rheaders: Mapping[str, str],
+        api_mode: ApiMode,
     ) -> StripeStreamResponse:
         # Streaming response are handled with minimal processing for the success
         # case (ie. we don't want to read the content). When an error is
@@ -775,10 +849,27 @@ class _APIRequestor(object):
                     % self._get_http_client().name
                 )
 
-            self._interpret_response(json_content, rcode, rheaders)
+            self._interpret_response(json_content, rcode, rheaders, api_mode)
             # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
                 "_interpret_response should have raised an error"
             )
         else:
             return StripeStreamResponse(stream, rcode, rheaders)
+
+    async def _interpret_streaming_response_async(
+        self,
+        stream: AsyncIterable[bytes],
+        rcode: int,
+        rheaders: Mapping[str, str],
+        api_mode: ApiMode,
+    ) -> StripeStreamResponseAsync:
+        if self._should_handle_code_as_error(rcode):
+            json_content = b"".join([chunk async for chunk in stream])
+            self._interpret_response(json_content, rcode, rheaders, api_mode)
+            # _interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            raise RuntimeError(
+                "_interpret_response should have raised an error"
+            )
+        else:
+            return StripeStreamResponseAsync(stream, rcode, rheaders)

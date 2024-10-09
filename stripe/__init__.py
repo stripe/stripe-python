@@ -2,6 +2,7 @@ from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import sys as _sys
 import os
+import warnings
 
 # Stripe Python bindings
 # API docs at http://stripe.com/docs/api
@@ -25,6 +26,7 @@ from stripe._version import VERSION as VERSION
 DEFAULT_API_BASE: str = "https://api.stripe.com"
 DEFAULT_CONNECT_API_BASE: str = "https://connect.stripe.com"
 DEFAULT_UPLOAD_API_BASE: str = "https://files.stripe.com"
+DEFAULT_METER_EVENTS_API_BASE: str = "https://meter-events.stripe.com"
 
 
 api_key: Optional[str] = None
@@ -32,22 +34,62 @@ client_id: Optional[str] = None
 api_base: str = DEFAULT_API_BASE
 connect_api_base: str = DEFAULT_CONNECT_API_BASE
 upload_api_base: str = DEFAULT_UPLOAD_API_BASE
+meter_events_api_base: str = DEFAULT_METER_EVENTS_API_BASE
 api_version: str = _ApiVersion.CURRENT
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
 app_info: Optional[AppInfo] = None
 enable_telemetry: bool = True
-max_network_retries: int = 0
+max_network_retries: int = 2
 ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
+
+# Lazily initialized stripe.default_http_client
+default_http_client = None
+_default_proxy = None
+
+
+def ensure_default_http_client():
+    if default_http_client:
+        _warn_if_mismatched_proxy()
+        return
+    _init_default_http_client()
+
+
+def _init_default_http_client():
+    global _default_proxy
+    global default_http_client
+
+    # If the stripe.default_http_client has not been set by the user
+    # yet, we'll set it here. This way, we aren't creating a new
+    # HttpClient for every request.
+    default_http_client = new_default_http_client(
+        verify_ssl_certs=verify_ssl_certs, proxy=proxy
+    )
+    _default_proxy = proxy
+
+
+def _warn_if_mismatched_proxy():
+    global _default_proxy
+    from stripe import proxy
+
+    if proxy != _default_proxy:
+        warnings.warn(
+            "stripe.proxy was updated after sending a "
+            "request - this is a no-op. To use a different proxy, "
+            "set stripe.default_http_client to a new client "
+            "configured with the proxy."
+        )
+
 
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
 
 # OAuth
 from stripe._oauth import OAuth as OAuth
+from stripe._oauth_service import OAuthService as OAuthService
 
 # Webhooks
 from stripe._webhook import (
@@ -57,6 +99,8 @@ from stripe._webhook import (
 
 # StripeClient
 from stripe._stripe_client import StripeClient as StripeClient  # noqa
+
+from stripe.v2._event import ThinEvent as ThinEvent  # noqa
 
 
 # Sets some basic information about the running application that's sent along
@@ -180,8 +224,6 @@ if not TYPE_CHECKING:
     from stripe import _request_metrics as request_metrics
     from stripe._file import File as FileUpload
 
-    import warnings
-
     # Python 3.7+ supports module level __getattr__ that allows us to lazy load deprecated modules
     # this matters because if we pre-load all modules from api_resources while suppressing warning
     # users will never see those warnings
@@ -218,6 +260,7 @@ from stripe import (
     checkout as checkout,
     climate as climate,
     entitlements as entitlements,
+    events as events,
     financial_connections as financial_connections,
     forwarding as forwarding,
     identity as identity,
@@ -229,6 +272,7 @@ from stripe import (
     terminal as terminal,
     test_helpers as test_helpers,
     treasury as treasury,
+    v2 as v2,
 )
 from stripe._account import Account as Account
 from stripe._account_capability_service import (
@@ -354,6 +398,9 @@ from stripe._entitlements_service import (
 from stripe._ephemeral_key import EphemeralKey as EphemeralKey
 from stripe._ephemeral_key_service import (
     EphemeralKeyService as EphemeralKeyService,
+)
+from stripe._error import (
+    TemporarySessionExpiredError as TemporarySessionExpiredError,
 )
 from stripe._event import Event as Event
 from stripe._event_service import EventService as EventService
@@ -529,6 +576,7 @@ from stripe._usage_record import UsageRecord as UsageRecord
 from stripe._usage_record_summary import (
     UsageRecordSummary as UsageRecordSummary,
 )
+from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (
     WebhookEndpointService as WebhookEndpointService,

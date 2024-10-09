@@ -317,7 +317,12 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_code: Optional[
-        Literal["account_closed", "account_frozen", "other"]
+        Literal[
+            "account_closed",
+            "account_frozen",
+            "international_transaction",
+            "other",
+        ]
     ]
     """
     Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.

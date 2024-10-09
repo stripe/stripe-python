@@ -22,6 +22,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._subscription_item import SubscriptionItem
     from stripe._tax_rate import TaxRate
+    from stripe.billing._credit_balance_transaction import (
+        CreditBalanceTransaction,
+    )
 
 
 class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
@@ -51,6 +54,26 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         start: int
         """
         The start of the period. This value is inclusive.
+        """
+
+    class PretaxCreditAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the pretax credit amount.
+        """
+        credit_balance_transaction: Optional[
+            ExpandableField["CreditBalanceTransaction"]
+        ]
+        """
+        The credit balance transaction that was applied to get this pretax credit amount.
+        """
+        discount: Optional[ExpandableField["Discount"]]
+        """
+        The discount that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount"]
+        """
+        Type of the pretax credit amount referenced.
         """
 
     class ProrationDetails(StripeObject):
@@ -362,6 +385,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The plan of the subscription, if the line item is a subscription or a proration.
     """
+    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     price: Optional["Price"]
     """
     The price of the line item.
@@ -446,6 +470,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "period": Period,
+        "pretax_credit_amounts": PretaxCreditAmount,
         "proration_details": ProrationDetails,
         "tax_amounts": TaxAmount,
     }

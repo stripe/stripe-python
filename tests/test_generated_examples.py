@@ -4460,6 +4460,26 @@ class TestGeneratedExamples(object):
             post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2&mode=payment",
         )
 
+    def test_core_events_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/ll_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("ll_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/ll_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_country_specs_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.CountrySpec.list(limit=3)
         http_client_mock.assert_requested(
@@ -25843,92 +25863,6 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="payment_intent=pi_xxxxxxxxxxxxx",
-        )
-
-    def test_terminal_readers_process_setup_intent_post(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        stripe.terminal.Reader.process_setup_intent(
-            "tmr_xxxxxxxxxxxxx",
-            setup_intent="seti_xxxxxxxxxxxxx",
-            customer_consent_collected=True,
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-            query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
-        )
-
-    def test_terminal_readers_process_setup_intent_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.terminal.readers.process_setup_intent(
-            "tmr_xxxxxxxxxxxxx",
-            {
-                "setup_intent": "seti_xxxxxxxxxxxxx",
-                "customer_consent_collected": True,
-            },
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
-        )
-
-    @pytest.mark.anyio
-    async def test_terminal_readers_process_setup_intent_post_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        await stripe.terminal.Reader.process_setup_intent_async(
-            "tmr_xxxxxxxxxxxxx",
-            setup_intent="seti_xxxxxxxxxxxxx",
-            customer_consent_collected=True,
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-            query_string="",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
-        )
-
-    @pytest.mark.anyio
-    async def test_terminal_readers_process_setup_intent_post_service_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        await client.terminal.readers.process_setup_intent_async(
-            "tmr_xxxxxxxxxxxxx",
-            {
-                "setup_intent": "seti_xxxxxxxxxxxxx",
-                "customer_consent_collected": True,
-            },
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="setup_intent=seti_xxxxxxxxxxxxx&customer_consent_collected=True",
         )
 
     def test_test_helpers_customers_fund_cash_balance_post(

@@ -1,3 +1,41 @@
+## 11.1.0 - 2024-10-03
+* [#1409](https://github.com/stripe/stripe-python/pull/1409) Update the class for `ThinEvent` to include `livemode`
+* [#1408](https://github.com/stripe/stripe-python/pull/1408) Update generated code
+  * Remove the support for resource `Margin` that was accidentally made public in the last release
+
+## 11.0.0 - 2024-10-01
+* [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
+
+  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-09-30.acacia) and carefully review the API changes before upgrading.
+
+  ### ⚠️ Breaking changes due to changes in the API
+
+
+  * Rename for `usage_threshold_config` to `usage_threshold` on parameter class `stripe.billing.Alert.CreateParams` and resource `stripe.billing.Alert`
+  * Remove support for `filter` on parameter class `stripe.billing.Alert.CreateParams` and resource `stripe.billing.Alert`. Use the filters on the `usage_threshold` instead
+  * * Remove support for `customer_consent_collected` on parameter class `stripe.terminal.Reader.ProcessSetupIntentParams`
+
+  ### ⚠️ Other Breaking changes in the SDK
+  * Adjusted default values for HTTP requests. You can use the old defaults by setting them explicitly. New values are:
+    - max retries: `0` -> `2`
+    - max timeout (seconds): `2` -> `5`
+  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview).  Rename `construct_event()` method on the same class to `parse_snapshot_event()` to clearly distinguish between the two kinds of events.
+
+  ### Additions
+
+  * Add support for `custom_unit_amount` on parameter class `stripe.Product.CreateParamsDefaultPriceData`
+  * Add support for `usage_threshold` on parameter class `stripe.billing.Alert.CreateParams` and resource `stripe.billing.Alert`
+  * Add support for `allow_redisplay` on parameter classes `stripe.terminal.Reader.ProcessPaymentIntentParamsProcessConfig` and `stripe.terminal.Reader.ProcessSetupIntentParams`
+  * Add support for `international_transaction` on enum `stripe.treasury.ReceivedCredit.failure_code`
+  * Add support for `2024-09-30.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
+  * Add support for new Usage Billing APIs `stripe.v2.billing.MeterEvent`, `stripe.v2.billing.MeterEventAdjustments`, `stripe.v2.billing.MeterEventSession`, `stripe.v2.billing.MeterEventStream` and the new Events API `stripe.v2.core.Events` under the [v2 namespace ](https://docs.corp.stripe.com/api-v2-overview)
+  * Add method [rawRequest()](https://github.com/stripe/stripe-python/tree/master?tab=readme-ov-file#custom-requests) on the `StripeClient` class that takes a HTTP method type, url and relevant parameters to make requests to the Stripe API that are not yet supported in the SDK.
+
+  ### Other changes
+  * Change type of `default_allowed_updates` on  `stripe.billing_portal.Configuration.CreateParamsFeaturesSubscriptionUpdate` from `Union[Literal[''], List[Literal['price', 'promotion_code', 'quantity']]]` to `NotRequired[Literal['']|List[Literal['price', 'promotion_code', 'quantity']]]`
+  * Change type of `products` on  `stripe.billing_portal.Configuration.CreateParamsFeaturesSubscriptionUpdate` from `Union[Literal[''], List[Configuration.CreateParamsFeaturesSubscriptionUpdateProduct]]` to `NotRequired[Literal['']|List[Configuration.CreateParamsFeaturesSubscriptionUpdateProduct]]`
+
+
 ## 10.12.0 - 2024-09-18
 * [#1394](https://github.com/stripe/stripe-python/pull/1394) Update generated code
   * Add support for `international_transaction` on enum `stripe.treasury.ReceivedDebit.failure_code`

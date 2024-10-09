@@ -13,6 +13,8 @@ from queue import Queue
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 
+from stripe._stripe_client import StripeClient
+
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
@@ -101,7 +103,6 @@ class TestIntegration(object):
         stripe._default_proxy = None
         stripe.enable_telemetry = False
         stripe.max_network_retries = 3
-        stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
         stripe.upload_api_base = orig_attrs["api_base"]
@@ -348,7 +349,9 @@ class TestIntegration(object):
     async def set_global_async_http_client(self, async_http_client):
         stripe.default_http_client = async_http_client
 
-    async def test_async_success(self, set_global_async_http_client):
+    async def test_async_raw_request_success(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             default_body = '{"id": "cus_123", "object": "customer"}'.encode(
                 "utf-8"
@@ -357,11 +360,16 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
-
-        cus = await stripe.Customer.create_async(
-            description="My test customer"
+        client = StripeClient(
+            "sk_test_123",
+            base_addresses={
+                "api": "http://localhost:%s" % self.mock_server_port
+            },
         )
+        resp = await client.raw_request_async(
+            "post", "/v1/customers", description="My test customer"
+        )
+        cus = client.deserialize(resp.data, api_mode="V1")
 
         reqs = MockServerRequestHandler.get_requests(1)
         req = reqs[0]
@@ -370,14 +378,15 @@ class TestIntegration(object):
         assert req.command == "POST"
         assert isinstance(cus, stripe.Customer)
 
-    async def test_async_timeout(self, set_global_async_http_client):
+    async def test_async_raw_request_timeout(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 time.sleep(0.02)
                 return super().do_request(n)
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
         # If we set HTTPX's generic timeout the test is flaky (sometimes it's a ReadTimeout, sometimes its a ConnectTimeout)
         # so we set only the read timeout specifically.
         hc = stripe.default_http_client
@@ -391,11 +400,20 @@ class TestIntegration(object):
             expected_message = "A ServerTimeoutError was raised"
         else:
             raise ValueError(f"Unknown http client: {hc.name}")
-        stripe.max_network_retries = 0
 
         exception = None
         try:
-            await stripe.Customer.create_async(description="My test customer")
+            client = StripeClient(
+                "sk_test_123",
+                http_client=hc,
+                base_addresses={
+                    "api": "http://localhost:%s" % self.mock_server_port
+                },
+                max_network_retries=0,
+            )
+            await client.raw_request_async(
+                "post", "/v1/customers", description="My test customer"
+            )
         except stripe.APIConnectionError as e:
             exception = e
 
@@ -403,7 +421,9 @@ class TestIntegration(object):
 
         assert expected_message in str(exception.user_message)
 
-    async def test_async_retries(self, set_global_async_http_client):
+    async def test_async_raw_request_retries(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 if n == 0:
@@ -417,16 +437,26 @@ class TestIntegration(object):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
-        await stripe.Customer.create_async(description="My test customer")
+        client = StripeClient(
+            "sk_test_123",
+            base_addresses={
+                "api": "http://localhost:%s" % self.mock_server_port
+            },
+            max_network_retries=stripe.max_network_retries,
+        )
+        await client.raw_request_async(
+            "post", "/v1/customers", description="My test customer"
+        )
 
         reqs = MockServerRequestHandler.get_requests(2)
         req = reqs[0]
 
         assert req.path == "/v1/customers"
 
-    async def test_async_unretryable(self, set_global_async_http_client):
+    async def test_async_raw_request_unretryable(
+        self, set_global_async_http_client
+    ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
                 return (
@@ -438,11 +468,18 @@ class TestIntegration(object):
             pass
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
 
         exception = None
         try:
-            await stripe.Customer.create_async(description="My test customer")
+            client = StripeClient(
+                "sk_test_123",
+                base_addresses={
+                    "api": "http://localhost:%s" % self.mock_server_port
+                },
+            )
+            await client.raw_request_async(
+                "post", "/v1/customers", description="My test customer"
+            )
         except stripe.AuthenticationError as e:
             exception = e
 

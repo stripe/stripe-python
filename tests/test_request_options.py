@@ -42,6 +42,7 @@ class TestRequestOptions(object):
                 "api_key": "sk_test_123",
                 "stripe_version": "2020-01-01",
                 "stripe_account": "acct_123",
+                "stripe_context": "wksp_123",
                 "idempotency_key": "idemp_123",
                 "headers": {
                     "X-Stripe-Header": "Some-Value",
@@ -52,6 +53,7 @@ class TestRequestOptions(object):
         assert options.get("api_key") == "sk_test_123"
         assert options.get("stripe_version") == "2020-01-01"
         assert options.get("stripe_account") == "acct_123"
+        assert options.get("stripe_context") == "wksp_123"
         assert options.get("idempotency_key") == "idemp_123"
         assert options.get("headers") == {"X-Stripe-Header": "Some-Value"}
         assert remaining == {"foo": "bar"}
