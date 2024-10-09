@@ -262,6 +262,10 @@ class Account(
         """
         The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
         """
+        kakao_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
+        """
         klarna_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
@@ -269,6 +273,10 @@ class Account(
         konbini_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
+        """
+        kr_card_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
         """
         legacy_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -296,6 +304,10 @@ class Account(
         """
         The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
         """
+        naver_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -303,6 +315,10 @@ class Account(
         p24_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
+        """
+        payco_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Payco capability of the account, or whether the account can directly process Payco payments.
         """
         paynow_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -329,6 +345,12 @@ class Account(
         ]
         """
         The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
+        """
+        samsung_pay_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
         """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -1689,6 +1711,12 @@ class Account(
         """
         The jp_bank_transfer_payments capability.
         """
+        kakao_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKakaoPayPayments"
+        ]
+        """
+        The kakao_pay_payments capability.
+        """
         klarna_payments: NotRequired[
             "Account.CreateParamsCapabilitiesKlarnaPayments"
         ]
@@ -1700,6 +1728,12 @@ class Account(
         ]
         """
         The konbini_payments capability.
+        """
+        kr_card_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKrCardPayments"
+        ]
+        """
+        The kr_card_payments capability.
         """
         legacy_payments: NotRequired[
             "Account.CreateParamsCapabilitiesLegacyPayments"
@@ -1737,6 +1771,12 @@ class Account(
         """
         The mx_bank_transfer_payments capability.
         """
+        naver_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesNaverPayPayments"
+        ]
+        """
+        The naver_pay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -1748,6 +1788,12 @@ class Account(
         ]
         """
         The p24_payments capability.
+        """
+        payco_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaycoPayments"
+        ]
+        """
+        The payco_payments capability.
         """
         paynow_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaynowPayments"
@@ -1784,6 +1830,12 @@ class Account(
         ]
         """
         The revolut_pay_payments capability.
+        """
+        samsung_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSamsungPayPayments"
+        ]
+        """
+        The samsung_pay_payments capability.
         """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
@@ -2010,6 +2062,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesKakaoPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2017,6 +2075,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesKrCardPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2058,6 +2122,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2065,6 +2135,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2101,6 +2177,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesRevolutPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSamsungPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
