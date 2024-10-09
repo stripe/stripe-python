@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.forwarding._request import Request
-from typing import List, cast
+from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -14,6 +14,10 @@ class RequestService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         payment_method: str
         """
