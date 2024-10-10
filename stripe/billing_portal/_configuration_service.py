@@ -11,7 +11,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ConfigurationService(StripeService):
     class CreateParams(TypedDict):
-        business_profile: "ConfigurationService.CreateParamsBusinessProfile"
+        business_profile: NotRequired[
+            "ConfigurationService.CreateParamsBusinessProfile"
+        ]
         """
         The business information shown to customers in the portal.
         """

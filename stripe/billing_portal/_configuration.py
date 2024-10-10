@@ -173,7 +173,9 @@ class Configuration(
         """
 
     class CreateParams(RequestOptions):
-        business_profile: "Configuration.CreateParamsBusinessProfile"
+        business_profile: NotRequired[
+            "Configuration.CreateParamsBusinessProfile"
+        ]
         """
         The business information shown to customers in the portal.
         """

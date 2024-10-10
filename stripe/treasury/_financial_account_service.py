@@ -110,6 +110,10 @@ class FinancialAccountService(StripeService):
         """
 
     class CreateParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -332,6 +336,10 @@ class FinancialAccountService(StripeService):
         """
 
     class UpdateParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.

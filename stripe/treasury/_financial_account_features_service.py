@@ -7,7 +7,7 @@ from stripe.treasury._financial_account_features import (
     FinancialAccountFeatures,
 )
 from typing import List, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAccountFeaturesService(StripeService):
@@ -86,6 +86,10 @@ class FinancialAccountFeaturesService(StripeService):
         """
 
     class UpdateParamsFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
