@@ -167,6 +167,16 @@ class InboundTransfer(
         Specifies which fields in the response should be expanded.
         """
 
+    class ConfirmParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        funds_availability_delay: NotRequired[int]
+        """
+        Represents the number of seconds after an Inbound Transfer has been committed to our banking partners that the user delays funds availability into the financial account. The maximum allowed delay is 5 days.
+        """
+
     class CreateParams(RequestOptions):
         amount: int
         """
@@ -464,6 +474,122 @@ class InboundTransfer(
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_confirm(
+        cls,
+        inbound_transfer: str,
+        **params: Unpack["InboundTransfer.ConfirmParams"],
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            cls._static_request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
+                    inbound_transfer=sanitize_id(inbound_transfer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def confirm(
+        inbound_transfer: str,
+        **params: Unpack["InboundTransfer.ConfirmParams"],
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        ...
+
+    @overload
+    def confirm(
+        self, **params: Unpack["InboundTransfer.ConfirmParams"]
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm")
+    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InboundTransfer.ConfirmParams"]
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            self._request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
+                    inbound_transfer=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_confirm_async(
+        cls,
+        inbound_transfer: str,
+        **params: Unpack["InboundTransfer.ConfirmParams"],
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            await cls._static_request_async(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
+                    inbound_transfer=sanitize_id(inbound_transfer)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_async(
+        inbound_transfer: str,
+        **params: Unpack["InboundTransfer.ConfirmParams"],
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        ...
+
+    @overload
+    async def confirm_async(
+        self, **params: Unpack["InboundTransfer.ConfirmParams"]
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_async")
+    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["InboundTransfer.ConfirmParams"]
+    ) -> "InboundTransfer":
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            "InboundTransfer",
+            await self._request_async(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
                     inbound_transfer=sanitize_id(self.get("id"))
                 ),
                 params=params,

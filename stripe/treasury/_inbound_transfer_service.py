@@ -16,6 +16,16 @@ class InboundTransferService(StripeService):
         Specifies which fields in the response should be expanded.
         """
 
+    class ConfirmParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        funds_availability_delay: NotRequired[int]
+        """
+        Represents the number of seconds after an Inbound Transfer has been committed to our banking partners that the user delays funds availability into the financial account. The maximum allowed delay is 5 days.
+        """
+
     class CreateParams(TypedDict):
         amount: int
         """
@@ -240,6 +250,50 @@ class InboundTransferService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=sanitize_id(inbound_transfer),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def confirm(
+        self,
+        inbound_transfer: str,
+        params: "InboundTransferService.ConfirmParams" = {},
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            InboundTransfer,
+            self._request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
+                    inbound_transfer=sanitize_id(inbound_transfer),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def confirm_async(
+        self,
+        inbound_transfer: str,
+        params: "InboundTransferService.ConfirmParams" = {},
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        Confirm an InboundTransfer.
+        """
+        return cast(
+            InboundTransfer,
+            await self._request_async(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/confirm".format(
                     inbound_transfer=sanitize_id(inbound_transfer),
                 ),
                 base_address="api",
