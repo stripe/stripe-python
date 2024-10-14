@@ -108,7 +108,16 @@ class Form(ListableAPIResource["Form"]):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
         type: NotRequired[
-            Literal["ca_mrdp", "us_1099_k", "us_1099_misc", "us_1099_nec"]
+            Literal[
+                "au_serr",
+                "ca_mrdp",
+                "eu_dac7",
+                "gb_mrdp",
+                "nz_mrdp",
+                "us_1099_k",
+                "us_1099_misc",
+                "us_1099_nec",
+            ]
         ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
@@ -165,7 +174,16 @@ class Form(ListableAPIResource["Form"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     payee: Payee
-    type: Literal["ca_mrdp", "us_1099_k", "us_1099_misc", "us_1099_nec"]
+    type: Literal[
+        "au_serr",
+        "ca_mrdp",
+        "eu_dac7",
+        "gb_mrdp",
+        "nz_mrdp",
+        "us_1099_k",
+        "us_1099_misc",
+        "us_1099_nec",
+    ]
     """
     The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.
     """
