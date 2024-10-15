@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
+from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
-from typing_extensions import Literal, TYPE_CHECKING
+from stripe._test_helpers import APIResourceTestHelpers
+from typing import ClassVar, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Type,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -140,6 +149,125 @@ class CustomerCashBalanceTransaction(StripeObject):
         The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
         """
 
+    class CreateParams(RequestOptions):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        customer: str
+        """
+        The ID of the customer.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        funded: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFunded"
+        ]
+        """
+        If this is a `type=funded` transaction, contains information about the funding.
+        """
+        funding_reversed: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundingReversed"
+        ]
+        """
+        If this is a `type=funding_reversed` transaction, contains information about the reversal of a funding.
+        """
+        net_amount: NotRequired[int]
+        """
+        The amount associated with the cash balance transaction. Only applicable to transactions of type `funded`.
+        """
+        type: Literal["funded", "funding_reversed"]
+        """
+        The type of cash balance transaction to generate.
+        """
+
+    class CreateParamsFunded(TypedDict):
+        bank_transfer: (
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransfer"
+        )
+
+    class CreateParamsFundedBankTransfer(TypedDict):
+        ca_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferCaBankTransfer"
+        ]
+        """
+        CA-specific details of the bank transfer funding.
+        """
+        eu_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferEuBankTransfer"
+        ]
+        """
+        EU-specific details of the bank transfer funding.
+        """
+        gb_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferGbBankTransfer"
+        ]
+        """
+        GB-specific details of the bank transfer funding.
+        """
+        jp_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferJpBankTransfer"
+        ]
+        """
+        JP-specific details of the bank transfer funding.
+        """
+        mx_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferMxBankTransfer"
+        ]
+        """
+        MX-specific details of the bank transfer funding.
+        """
+        reference: NotRequired[str]
+        type: NotRequired[
+            Literal[
+                "eu_bank_transfer",
+                "gb_bank_transfer",
+                "jp_bank_transfer",
+                "mx_bank_transfer",
+                "us_bank_transfer",
+            ]
+        ]
+        us_bank_transfer: NotRequired[
+            "CustomerCashBalanceTransaction.CreateParamsFundedBankTransferUsBankTransfer"
+        ]
+        """
+        US-specific details of the bank transfer funding.
+        """
+
+    class CreateParamsFundedBankTransferCaBankTransfer(TypedDict):
+        pass
+
+    class CreateParamsFundedBankTransferEuBankTransfer(TypedDict):
+        bic: NotRequired[str]
+        iban_last4: NotRequired[str]
+        network: NotRequired[Literal["sepa", "swift"]]
+        sender_name: NotRequired[str]
+
+    class CreateParamsFundedBankTransferGbBankTransfer(TypedDict):
+        account_number_last4: NotRequired[str]
+        sender_name: NotRequired[str]
+        sort_code: NotRequired[str]
+
+    class CreateParamsFundedBankTransferJpBankTransfer(TypedDict):
+        sender_bank: NotRequired[str]
+        sender_branch: NotRequired[str]
+        sender_name: NotRequired[str]
+
+    class CreateParamsFundedBankTransferMxBankTransfer(TypedDict):
+        pass
+
+    class CreateParamsFundedBankTransferUsBankTransfer(TypedDict):
+        network: NotRequired[Literal["ach", "domestic_wire_us", "swift"]]
+        sender_name: NotRequired[str]
+
+    class CreateParamsFundingReversed(TypedDict):
+        reversed_customer_cash_balance_transaction: str
+        """
+        The ID of the `funded` cash balance transaction to be reversed.
+        """
+
     adjusted_for_overdraft: Optional[AdjustedForOverdraft]
     applied_to_payment: Optional[AppliedToPayment]
     created: int
@@ -192,6 +320,50 @@ class CustomerCashBalanceTransaction(StripeObject):
     The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
     """
     unapplied_from_payment: Optional[UnappliedFromPayment]
+
+    class TestHelpers(
+        APIResourceTestHelpers["CustomerCashBalanceTransaction"]
+    ):
+        _resource_cls: Type["CustomerCashBalanceTransaction"]
+
+        @classmethod
+        def create(
+            cls,
+            **params: Unpack["CustomerCashBalanceTransaction.CreateParams"],
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Simulate various customer cash balance side-effects by creating synthetic cash balance transactions in testmode.
+            """
+            return cast(
+                "CustomerCashBalanceTransaction",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/customer_cash_balance_transactions",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def create_async(
+            cls,
+            **params: Unpack["CustomerCashBalanceTransaction.CreateParams"],
+        ) -> "CustomerCashBalanceTransaction":
+            """
+            Simulate various customer cash balance side-effects by creating synthetic cash balance transactions in testmode.
+            """
+            return cast(
+                "CustomerCashBalanceTransaction",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/customer_cash_balance_transactions",
+                    params=params,
+                ),
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
     _inner_class_types = {
         "adjusted_for_overdraft": AdjustedForOverdraft,
         "applied_to_payment": AppliedToPayment,
@@ -200,3 +372,8 @@ class CustomerCashBalanceTransaction(StripeObject):
         "transferred_to_balance": TransferredToBalance,
         "unapplied_from_payment": UnappliedFromPayment,
     }
+
+
+CustomerCashBalanceTransaction.TestHelpers._resource_cls = (
+    CustomerCashBalanceTransaction
+)
