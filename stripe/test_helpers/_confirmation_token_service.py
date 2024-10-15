@@ -589,7 +589,7 @@ class ConfirmationTokenService(StripeService):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
