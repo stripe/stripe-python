@@ -69,6 +69,12 @@ class ConfirmationTokenService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -318,6 +324,7 @@ class ConfirmationTokenService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -402,6 +409,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):

@@ -282,6 +282,9 @@ class Charge(
             Transaction ID of this particular Alipay transaction.
             """
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -1818,6 +1821,7 @@ class Charge(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -1877,6 +1881,7 @@ class Charge(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,

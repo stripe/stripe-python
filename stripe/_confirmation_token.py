@@ -107,6 +107,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Alipay(StripeObject):
             pass
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -1378,6 +1381,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
         """
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -1428,6 +1432,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1483,6 +1488,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
@@ -1627,6 +1633,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
+        alma: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
         """
         amazon_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataAmazonPay"
@@ -1869,6 +1881,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1951,6 +1964,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):

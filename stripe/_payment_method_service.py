@@ -45,6 +45,10 @@ class PaymentMethodService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentMethodService.CreateParamsAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired["PaymentMethodService.CreateParamsAmazonPay"]
         """
         If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
@@ -241,6 +245,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -323,6 +328,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAlma(TypedDict):
         pass
 
     class CreateParamsAmazonPay(TypedDict):
@@ -775,6 +783,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",

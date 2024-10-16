@@ -1655,6 +1655,12 @@ class PaymentIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -1904,6 +1910,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1988,6 +1995,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -2400,6 +2410,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        alma: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
+        """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -2776,6 +2792,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
@@ -5207,6 +5233,12 @@ class PaymentIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -5456,6 +5488,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -5540,6 +5573,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -5952,6 +5988,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        alma: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
+        """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -6328,6 +6370,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
@@ -8899,6 +8951,12 @@ class PaymentIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataAmazonPay"
         ]
@@ -9148,6 +9206,7 @@ class PaymentIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -9232,6 +9291,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -9644,6 +9706,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
         """
+        alma: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
+        """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -10020,6 +10088,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class UpdateParamsPaymentMethodOptionsAmazonPay(TypedDict):

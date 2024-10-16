@@ -69,6 +69,9 @@ class PaymentMethod(
     class Alipay(StripeObject):
         pass
 
+    class Alma(StripeObject):
+        pass
+
     class AmazonPay(StripeObject):
         pass
 
@@ -1366,6 +1369,10 @@ class PaymentMethod(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentMethod.CreateParamsAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired["PaymentMethod.CreateParamsAmazonPay"]
         """
         If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
@@ -1558,6 +1565,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -1638,6 +1646,9 @@ class PaymentMethod(
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAlma(TypedDict):
         pass
 
     class CreateParamsAmazonPay(TypedDict):
@@ -2090,6 +2101,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -2294,6 +2306,7 @@ class PaymentMethod(
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
+    alma: Optional[Alma]
     amazon_pay: Optional[AmazonPay]
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
@@ -2368,6 +2381,7 @@ class PaymentMethod(
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "alma",
         "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
@@ -2880,6 +2894,7 @@ class PaymentMethod(
         "affirm": Affirm,
         "afterpay_clearpay": AfterpayClearpay,
         "alipay": Alipay,
+        "alma": Alma,
         "amazon_pay": AmazonPay,
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,

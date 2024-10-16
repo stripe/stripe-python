@@ -138,6 +138,12 @@ class SetupIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -387,6 +393,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -471,6 +478,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -1526,6 +1536,12 @@ class SetupIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -1767,6 +1783,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1849,6 +1866,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -2881,6 +2901,12 @@ class SetupIntentService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataAmazonPay"
         ]
@@ -3122,6 +3148,7 @@ class SetupIntentService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -3204,6 +3231,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataAmazonPay(TypedDict):
