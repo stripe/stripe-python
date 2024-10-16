@@ -28,7 +28,10 @@ class CreditGrant(
     UpdateableAPIResource["CreditGrant"],
 ):
     """
-    A credit grant is a resource that records a grant of billing credits to a customer.
+    A credit grant is an API resource that documents the allocation of some billing credits to a customer.
+
+    Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
+    end
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.credit_grant"]] = (
@@ -60,7 +63,7 @@ class CreditGrant(
         class Scope(StripeObject):
             price_type: Literal["metered"]
             """
-            The price type to which credit grants can apply to. We currently only support `metered` price type.
+            The price type to which credit grants can apply to. We currently only support `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
             """
 
         scope: Scope
@@ -194,7 +197,7 @@ class CreditGrant(
     applicability_config: ApplicabilityConfig
     category: Literal["paid", "promotional"]
     """
-    The category of this credit grant.
+    The category of this credit grant. This is for tracking purposes and will not be displayed to the customer.
     """
     created: int
     """

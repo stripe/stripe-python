@@ -129,6 +129,9 @@ class CreditNoteLineItem(StripeObject):
     String representing the object's type. Objects of the same type share the same value.
     """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    """
+    The pretax credit amounts (ex: discount, credit grants, etc) for this line item.
+    """
     quantity: Optional[int]
     """
     The number of units of product being credited.
