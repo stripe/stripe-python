@@ -205,6 +205,10 @@ class FinancialAccount(
         """
 
     class CreateParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -421,6 +425,10 @@ class FinancialAccount(
         """
 
     class ModifyParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -589,6 +597,10 @@ class FinancialAccount(
         """
 
     class UpdateFeaturesParamsFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.

@@ -27,11 +27,11 @@ class CreditBalanceSummaryService(StripeService):
             "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScope"
         ]
         """
-        The credit applicability scope for which to fetch balance summary.
+        The billing credit applicability scope for which to fetch credit balance summary.
         """
         credit_grant: NotRequired[str]
         """
-        The credit grant for which to fetch balance summary.
+        The credit grant for which to fetch credit balance summary.
         """
         type: Literal["applicability_scope", "credit_grant"]
         """

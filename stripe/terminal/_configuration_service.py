@@ -127,6 +127,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for NZD
         """
+        pln: NotRequired["ConfigurationService.CreateParamsTippingPln"]
+        """
+        Tipping configuration for PLN
+        """
         sek: NotRequired["ConfigurationService.CreateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -281,6 +285,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingNzd(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingPln(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -492,6 +510,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for NZD
         """
+        pln: NotRequired["ConfigurationService.UpdateParamsTippingPln"]
+        """
+        Tipping configuration for PLN
+        """
         sek: NotRequired["ConfigurationService.UpdateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -646,6 +668,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingNzd(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingPln(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip

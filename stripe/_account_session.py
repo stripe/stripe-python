@@ -461,7 +461,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class CreateParamsComponentsAccountManagementFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
         """
         external_account_collection: NotRequired[bool]
         """
@@ -483,7 +483,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
         """
         external_account_collection: NotRequired[bool]
         """
@@ -743,7 +743,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and true otherwise.
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
         """
         external_account_collection: NotRequired[bool]
         """
