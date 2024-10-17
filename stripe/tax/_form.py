@@ -28,6 +28,36 @@ class Form(ListableAPIResource["Form"]):
 
     OBJECT_NAME: ClassVar[Literal["tax.form"]] = "tax.form"
 
+    class AuSerr(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class CaMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class EuDac7(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
     class FilingStatus(StripeObject):
         class Jurisdiction(StripeObject):
             country: str
@@ -53,6 +83,26 @@ class Form(ListableAPIResource["Form"]):
         The current status of the filed form.
         """
         _inner_class_types = {"jurisdiction": Jurisdiction}
+
+    class GbMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class NzMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
 
     class Payee(StripeObject):
         account: Optional[ExpandableField["Account"]]
@@ -149,6 +199,8 @@ class Form(ListableAPIResource["Form"]):
         Specifies which fields in the response should be expanded.
         """
 
+    au_serr: Optional[AuSerr]
+    ca_mrdp: Optional[CaMrdp]
     corrected_by: Optional[ExpandableField["Form"]]
     """
     The form that corrects this form, if any.
@@ -157,10 +209,12 @@ class Form(ListableAPIResource["Form"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    eu_dac7: Optional[EuDac7]
     filing_statuses: List[FilingStatus]
     """
     A list of tax filing statuses. Note that a filing status will only be included if the form has been filed directly with the jurisdiction's tax authority.
     """
+    gb_mrdp: Optional[GbMrdp]
     id: str
     """
     Unique identifier for the object.
@@ -169,6 +223,7 @@ class Form(ListableAPIResource["Form"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    nz_mrdp: Optional[NzMrdp]
     object: Literal["tax.form"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -352,7 +407,12 @@ class Form(ListableAPIResource["Form"]):
         return instance
 
     _inner_class_types = {
+        "au_serr": AuSerr,
+        "ca_mrdp": CaMrdp,
+        "eu_dac7": EuDac7,
         "filing_statuses": FilingStatus,
+        "gb_mrdp": GbMrdp,
+        "nz_mrdp": NzMrdp,
         "payee": Payee,
         "us_1099_k": Us1099K,
         "us_1099_misc": Us1099Misc,
