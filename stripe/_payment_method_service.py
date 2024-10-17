@@ -115,6 +115,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentMethodService.CreateParamsGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired["PaymentMethodService.CreateParamsGrabpay"]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
@@ -205,6 +209,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentMethodService.CreateParamsQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "PaymentMethodService.CreateParamsRadarOptions"
         ]
@@ -226,6 +234,10 @@ class PaymentMethodService(StripeService):
         sepa_debit: NotRequired["PaymentMethodService.CreateParamsSepaDebit"]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired["PaymentMethodService.CreateParamsShopeepay"]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired["PaymentMethodService.CreateParamsSofort"]
         """
@@ -258,6 +270,7 @@ class PaymentMethodService(StripeService):
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
                 "ideal",
                 "kakao_pay",
@@ -277,10 +290,12 @@ class PaymentMethodService(StripeService):
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -527,6 +542,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsGiropay(TypedDict):
         pass
 
+    class CreateParamsGopay(TypedDict):
+        pass
+
     class CreateParamsGrabpay(TypedDict):
         pass
 
@@ -672,6 +690,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsPromptpay(TypedDict):
         pass
 
+    class CreateParamsQris(TypedDict):
+        pass
+
     class CreateParamsRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -709,6 +730,9 @@ class PaymentMethodService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsShopeepay(TypedDict):
+        pass
 
     class CreateParamsSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -796,6 +820,7 @@ class PaymentMethodService(StripeService):
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
                 "ideal",
                 "kakao_pay",
@@ -815,10 +840,12 @@ class PaymentMethodService(StripeService):
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",

@@ -1837,6 +1837,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Gopay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Grabpay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2234,6 +2246,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Qris(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Rechnung(StripeObject):
             pass
 
@@ -2277,6 +2301,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
             _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Shopeepay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
 
         class Sofort(StripeObject):
             preferred_language: Optional[
@@ -2468,6 +2504,7 @@ class PaymentIntent(
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
@@ -2488,10 +2525,12 @@ class PaymentIntent(
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         twint: Optional[Twint]
@@ -2517,6 +2556,7 @@ class PaymentIntent(
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
             "ideal": Ideal,
             "interac_present": InteracPresent,
@@ -2537,10 +2577,12 @@ class PaymentIntent(
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
             "swish": Swish,
             "twint": Twint,
@@ -4317,6 +4359,10 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataGrabpay"
         ]
@@ -4427,6 +4473,10 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataRadarOptions"
         ]
@@ -4456,6 +4506,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSofort"
@@ -4488,6 +4544,7 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -4507,10 +4564,12 @@ class PaymentIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -4724,6 +4783,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -4871,6 +4933,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -4908,6 +4973,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class ConfirmParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -5058,6 +5126,12 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay"
         ]
@@ -5178,6 +5252,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRechnung"
         ]
@@ -5201,6 +5281,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort"
@@ -5959,6 +6045,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6518,6 +6618,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -6577,6 +6691,20 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -7847,6 +7975,10 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataGrabpay"
         ]
@@ -7955,6 +8087,10 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataRadarOptions"
         ]
@@ -7984,6 +8120,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSofort"
@@ -8016,6 +8158,7 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -8035,10 +8178,12 @@ class PaymentIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -8252,6 +8397,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -8399,6 +8547,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -8436,6 +8587,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -8586,6 +8740,12 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay"
         ]
@@ -8706,6 +8866,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRechnung"
         ]
@@ -8729,6 +8895,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSofort"
@@ -9487,6 +9659,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -10046,6 +10232,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -10105,6 +10305,20 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -11485,6 +11699,10 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataGrabpay"
         ]
@@ -11593,6 +11811,10 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataRadarOptions"
         ]
@@ -11622,6 +11844,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSofort"
@@ -11654,6 +11882,7 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -11673,10 +11902,12 @@ class PaymentIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -11890,6 +12121,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -12037,6 +12271,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -12074,6 +12311,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class ModifyParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -12224,6 +12464,12 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay"
         ]
@@ -12344,6 +12590,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRechnung"
         ]
@@ -12367,6 +12619,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSofort"
@@ -13125,6 +13383,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -13684,6 +13956,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ModifyParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -13743,6 +14029,20 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[

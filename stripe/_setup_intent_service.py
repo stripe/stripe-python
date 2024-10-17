@@ -216,6 +216,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataGopay"
+        ]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataGrabpay"
         ]
@@ -340,6 +346,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataRadarOptions"
         ]
@@ -369,6 +381,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataSofort"
@@ -405,6 +423,7 @@ class SetupIntentService(StripeService):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -424,10 +443,12 @@ class SetupIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -643,6 +664,9 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -790,6 +814,9 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -827,6 +854,9 @@ class SetupIntentService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class ConfirmParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -1610,6 +1640,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataGopay"
+        ]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataGrabpay"
         ]
@@ -1730,6 +1766,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataRadarOptions"
         ]
@@ -1759,6 +1801,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataSofort"
@@ -1795,6 +1843,7 @@ class SetupIntentService(StripeService):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -1814,10 +1863,12 @@ class SetupIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -2031,6 +2082,9 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -2178,6 +2232,9 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -2215,6 +2272,9 @@ class SetupIntentService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -2975,6 +3035,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataGopay"
+        ]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataGrabpay"
         ]
@@ -3095,6 +3161,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataRadarOptions"
         ]
@@ -3124,6 +3196,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+        """
+        shopeepay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         """
         sofort: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataSofort"
@@ -3160,6 +3238,7 @@ class SetupIntentService(StripeService):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -3179,10 +3258,12 @@ class SetupIntentService(StripeService):
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -3396,6 +3477,9 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -3543,6 +3627,9 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -3580,6 +3667,9 @@ class SetupIntentService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class UpdateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]

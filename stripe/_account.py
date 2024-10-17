@@ -238,6 +238,10 @@ class Account(
         """
         The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
         """
+        gopay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
+        """
         grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
@@ -336,6 +340,10 @@ class Account(
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
+        qris_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Qris capability of the account, or whether the account can directly process Qris payments.
+        """
         rechnung_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
@@ -361,6 +369,10 @@ class Account(
         sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        shopeepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
         """
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -1681,6 +1693,12 @@ class Account(
         """
         The giropay_payments capability.
         """
+        gopay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesGopayPayments"
+        ]
+        """
+        The gopay_payments capability.
+        """
         grabpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesGrabpayPayments"
         ]
@@ -1819,6 +1837,12 @@ class Account(
         """
         The promptpay_payments capability.
         """
+        qris_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesQrisPayments"
+        ]
+        """
+        The qris_payments capability.
+        """
         rechnung_payments: NotRequired[
             "Account.CreateParamsCapabilitiesRechnungPayments"
         ]
@@ -1848,6 +1872,12 @@ class Account(
         ]
         """
         The sepa_debit_payments capability.
+        """
+        shopeepay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesShopeepayPayments"
+        ]
+        """
+        The shopeepay_payments capability.
         """
         sofort_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSofortPayments"
@@ -2032,6 +2062,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesGopayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2170,6 +2206,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesQrisPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2195,6 +2237,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesShopeepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
