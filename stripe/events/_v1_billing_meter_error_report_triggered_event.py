@@ -108,7 +108,7 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
             requestor=requestor,
             api_mode=api_mode,
         )
-        if evt.data:
+        if hasattr(evt, "data"):
             evt.data = V1BillingMeterErrorReportTriggeredEvent.V1BillingMeterErrorReportTriggeredEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,

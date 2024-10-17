@@ -105,7 +105,7 @@ class V1BillingMeterNoMeterFoundEvent(Event):
             requestor=requestor,
             api_mode=api_mode,
         )
-        if evt.data:
+        if hasattr(evt, "data"):
             evt.data = V1BillingMeterNoMeterFoundEvent.V1BillingMeterNoMeterFoundEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
