@@ -170,6 +170,10 @@ class Account(
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
+        alma_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Alma capability of the account, or whether the account can directly process Alma payments.
+        """
         amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
@@ -1603,6 +1607,12 @@ class Account(
         """
         The afterpay_clearpay_payments capability.
         """
+        alma_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesAlmaPayments"
+        ]
+        """
+        The alma_payments capability.
+        """
         amazon_pay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesAmazonPayPayments"
         ]
@@ -1967,6 +1977,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAlmaPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
