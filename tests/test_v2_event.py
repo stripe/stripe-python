@@ -5,6 +5,9 @@ import pytest
 
 import stripe
 from stripe import ThinEvent
+from stripe.events._v1_billing_meter_error_report_triggered_event import (
+    V1BillingMeterErrorReportTriggeredEvent,
+)
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
 
 EventParser = Callable[[str], ThinEvent]
@@ -17,13 +20,13 @@ class TestV2Event(object):
             {
                 "id": "evt_234",
                 "object": "v2.core.event",
-                "type": "financial_account.balance.opened",
+                "type": "v1.billing.meter.error_report_triggered",
                 "livemode": True,
                 "created": "2022-02-15T00:27:45.330Z",
                 "related_object": {
-                    "id": "fa_123",
-                    "type": "financial_account",
-                    "url": "/v2/financial_accounts/fa_123",
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
                     "stripe_context": "acct_123",
                 },
                 "reason": {
@@ -39,19 +42,19 @@ class TestV2Event(object):
             {
                 "id": "evt_234",
                 "object": "v2.core.event",
-                "type": "financial_account.balance.opened",
+                "type": "v1.billing.meter.error_report_triggered",
                 "livemode": False,
                 "created": "2022-02-15T00:27:45.330Z",
+                "context": "acct_123",
                 "related_object": {
-                    "id": "fa_123",
-                    "type": "financial_account",
-                    "url": "/v2/financial_accounts/fa_123",
-                    "stripe_context": "acct_123",
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
                 },
                 "data": {
-                    "containing_compartment_id": "compid",
-                    "id": "foo",
-                    "type": "bufo",
+                    "reason": {
+                        "error_count": 1,
+                    }
                 },
             }
         )
@@ -89,7 +92,7 @@ class TestV2Event(object):
         assert event.id == "evt_234"
 
         assert event.related_object
-        assert event.related_object.id == "fa_123"
+        assert event.related_object.id == "mtr_123"
 
         assert event.reason
         assert event.reason.id == "foo"
@@ -110,3 +113,34 @@ class TestV2Event(object):
             stripe_client.parse_thin_event(
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
             )
+
+    def test_v2_events_data_type(self, http_client_mock, v2_payload_with_data):
+        method = "get"
+        path = "/v2/core/events/evt_123"
+        http_client_mock.stub_request(
+            method,
+            path=path,
+            rbody=v2_payload_with_data,
+            rcode=200,
+            rheaders={},
+        )
+        client = stripe.StripeClient(
+            api_key="keyinfo_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+        event = client.v2.core.events.retrieve("evt_123")
+
+        http_client_mock.assert_requested(
+            method,
+            api_base=stripe.DEFAULT_API_BASE,
+            path=path,
+            api_key="keyinfo_test_123",
+        )
+        assert event.id is not None
+        assert isinstance(event, V1BillingMeterErrorReportTriggeredEvent)
+        assert event.data is not None
+        assert isinstance(
+            event.data,
+            V1BillingMeterErrorReportTriggeredEvent.V1BillingMeterErrorReportTriggeredEventData,
+        )
+        assert event.data.reason.error_count == 1
