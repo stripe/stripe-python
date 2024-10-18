@@ -28,7 +28,10 @@ class CreditGrant(
     UpdateableAPIResource["CreditGrant"],
 ):
     """
-    A credit grant is a resource that records a grant of some credit to a customer.
+    A credit grant is an API resource that documents the allocation of some billing credits to a customer.
+
+    Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
+    end
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.credit_grant"]] = (
@@ -52,7 +55,7 @@ class CreditGrant(
         """
         type: Literal["monetary"]
         """
-        The type of this amount. We currently only support `monetary` credits.
+        The type of this amount. We currently only support `monetary` billing credits.
         """
         _inner_class_types = {"monetary": Monetary}
 
@@ -60,7 +63,7 @@ class CreditGrant(
         class Scope(StripeObject):
             price_type: Literal["metered"]
             """
-            The price type to which credit grants can apply to. We currently only support `metered` price type.
+            The price type to which credit grants can apply to. We currently only support `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
             """
 
         scope: Scope
@@ -81,11 +84,11 @@ class CreditGrant(
         """
         customer: str
         """
-        Id of the customer to whom the credit should be granted.
+        ID of the customer to whom the billing credits should be granted.
         """
         effective_at: NotRequired[int]
         """
-        The time when the credit becomes effective i.e when it is eligible to be used. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective i.e when they are eligible to be used. Defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -93,7 +96,7 @@ class CreditGrant(
         """
         expires_at: NotRequired[int]
         """
-        The time when the credit will expire. If not specified, the credit will never expire.
+        The time when the billing credits will expire. If not specified, the billing credits will never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -101,7 +104,7 @@ class CreditGrant(
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard and on invoices.
+        A descriptive name shown in dashboard.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -111,7 +114,7 @@ class CreditGrant(
         """
         type: Literal["monetary"]
         """
-        Specify the type of this amount. We currently only support `monetary` credits.
+        Specify the type of this amount. We currently only support `monetary` billing credits.
         """
 
     class CreateParamsAmountMonetary(TypedDict):
@@ -171,7 +174,7 @@ class CreditGrant(
         """
         expires_at: NotRequired["Literal['']|int"]
         """
-        The time when the credit created by this credit grant will expire. If set to empty, the credit will never expire.
+        The time when the billing credits created by this credit grant will expire. If set to empty, the billing credits will never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -194,7 +197,7 @@ class CreditGrant(
     applicability_config: ApplicabilityConfig
     category: Literal["paid", "promotional"]
     """
-    The category of this credit grant.
+    The category of this credit grant. This is for tracking purposes and will not be displayed to the customer.
     """
     created: int
     """
@@ -202,15 +205,15 @@ class CreditGrant(
     """
     customer: ExpandableField["Customer"]
     """
-    Id of the customer to whom the credit was granted.
+    ID of the customer to whom the billing credits are granted.
     """
     effective_at: Optional[int]
     """
-    The time when the credit becomes effective i.e when it is eligible to be used.
+    The time when the billing credits become effective i.e when they are eligible to be used.
     """
     expires_at: Optional[int]
     """
-    The time when the credit will expire. If not present, the credit will never expire.
+    The time when the billing credits will expire. If not present, the billing credits will never expire.
     """
     id: str
     """
@@ -226,7 +229,7 @@ class CreditGrant(
     """
     name: Optional[str]
     """
-    A descriptive name shown in dashboard and on invoices.
+    A descriptive name shown in dashboard.
     """
     object: Literal["billing.credit_grant"]
     """

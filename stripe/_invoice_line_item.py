@@ -17,7 +17,6 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice_item import InvoiceItem
-    from stripe._margin import Margin
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._subscription import Subscription
@@ -71,10 +70,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         discount: Optional[ExpandableField["Discount"]]
         """
         The discount that was applied to get this pretax credit amount.
-        """
-        margin: Optional[ExpandableField["Margin"]]
-        """
-        The margin that was applied to get this pretax credit amount.
         """
         type: Literal["credit_balance_transaction", "discount"]
         """
@@ -324,6 +319,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
                 "vat",
@@ -391,6 +387,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The plan of the subscription, if the line item is a subscription or a proration.
     """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    """
+    Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
+    """
     price: Optional["Price"]
     """
     The price of the line item.

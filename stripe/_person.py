@@ -588,7 +588,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     gender: Optional[str]
     """
-    The person's gender (International regulations require either "male" or "female").
+    The person's gender.
     """
     id: str
     """
