@@ -100,9 +100,7 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
         requestor: "_APIRequestor",
         api_mode: ApiMode,
     ) -> "V1BillingMeterErrorReportTriggeredEvent":
-        evt = super(
-            V1BillingMeterErrorReportTriggeredEvent, cls
-        )._construct_from(
+        evt = super()._construct_from(
             values=values,
             last_response=last_response,
             requestor=requestor,

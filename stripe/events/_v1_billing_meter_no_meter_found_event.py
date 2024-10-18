@@ -99,7 +99,7 @@ class V1BillingMeterNoMeterFoundEvent(Event):
         requestor: "_APIRequestor",
         api_mode: ApiMode,
     ) -> "V1BillingMeterNoMeterFoundEvent":
-        evt = super(V1BillingMeterNoMeterFoundEvent, cls)._construct_from(
+        evt = super()._construct_from(
             values=values,
             last_response=last_response,
             requestor=requestor,
