@@ -107,6 +107,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Alipay(StripeObject):
             pass
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -895,6 +898,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Giropay(StripeObject):
             pass
 
+        class Gopay(StripeObject):
+            pass
+
         class Grabpay(StripeObject):
             pass
 
@@ -1197,6 +1203,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Promptpay(StripeObject):
             pass
 
+        class Qris(StripeObject):
+            pass
+
         class Rechnung(StripeObject):
             class Dob(StripeObject):
                 day: int
@@ -1257,6 +1266,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             Last four characters of the IBAN.
             """
             _inner_class_types = {"generated_from": GeneratedFrom}
+
+        class Shopeepay(StripeObject):
+            pass
 
         class Sofort(StripeObject):
             country: Optional[str]
@@ -1378,6 +1390,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
         """
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -1396,6 +1409,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
@@ -1416,10 +1430,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         twint: Optional[Twint]
@@ -1428,6 +1444,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1441,6 +1458,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "interac_present",
@@ -1461,10 +1479,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -1483,6 +1503,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
@@ -1497,6 +1518,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
             "ideal": Ideal,
             "interac_present": InteracPresent,
@@ -1517,10 +1539,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
             "swish": Swish,
             "twint": Twint,
@@ -1628,6 +1652,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -1695,6 +1725,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
+        """
+        gopay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataGopay"
+        ]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
         """
         grabpay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataGrabpay"
@@ -1816,6 +1852,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataRadarOptions"
         ]
@@ -1846,6 +1888,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSofort"
         ]
@@ -1869,6 +1917,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1880,6 +1929,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -1899,10 +1949,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -1951,6 +2003,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -2113,6 +2168,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -2138,7 +2196,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -2260,6 +2318,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -2297,6 +2358,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]

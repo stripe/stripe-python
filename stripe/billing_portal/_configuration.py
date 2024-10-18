@@ -125,6 +125,21 @@ class Configuration(
                 The product ID.
                 """
 
+            class ScheduleAtPeriodEnd(StripeObject):
+                class Condition(StripeObject):
+                    type: Literal[
+                        "decreasing_item_amount", "shortening_interval"
+                    ]
+                    """
+                    The type of condition.
+                    """
+
+                conditions: List[Condition]
+                """
+                List of conditions. When any condition is true, an update will be scheduled at the end of the current period.
+                """
+                _inner_class_types = {"conditions": Condition}
+
             default_allowed_updates: List[
                 Literal["price", "promotion_code", "quantity"]
             ]
@@ -145,7 +160,11 @@ class Configuration(
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
-            _inner_class_types = {"products": Product}
+            schedule_at_period_end: Optional[ScheduleAtPeriodEnd]
+            _inner_class_types = {
+                "products": Product,
+                "schedule_at_period_end": ScheduleAtPeriodEnd,
+            }
 
         customer_update: CustomerUpdate
         invoice_history: InvoiceHistory
@@ -173,7 +192,9 @@ class Configuration(
         """
 
     class CreateParams(RequestOptions):
-        business_profile: "Configuration.CreateParamsBusinessProfile"
+        business_profile: NotRequired[
+            "Configuration.CreateParamsBusinessProfile"
+        ]
         """
         The business information shown to customers in the portal.
         """
@@ -337,6 +358,12 @@ class Configuration(
         """
         Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
         """
+        schedule_at_period_end: NotRequired[
+            "Configuration.CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd"
+        ]
+        """
+        Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
@@ -346,6 +373,24 @@ class Configuration(
         product: str
         """
         The product id.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
+        conditions: NotRequired[
+            List[
+                "Configuration.CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition"
+            ]
+        ]
+        """
+        List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
+        TypedDict,
+    ):
+        type: Literal["decreasing_item_amount", "shortening_interval"]
+        """
+        The type of condition.
         """
 
     class CreateParamsLoginPage(TypedDict):
@@ -539,6 +584,12 @@ class Configuration(
         """
         Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
         """
+        schedule_at_period_end: NotRequired[
+            "Configuration.ModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd"
+        ]
+        """
+        Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
 
     class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
@@ -548,6 +599,22 @@ class Configuration(
         product: str
         """
         The product id.
+        """
+
+    class ModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
+        conditions: NotRequired[
+            "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition]"
+        ]
+        """
+        List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
+        """
+
+    class ModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
+        TypedDict,
+    ):
+        type: Literal["decreasing_item_amount", "shortening_interval"]
+        """
+        The type of condition.
         """
 
     class ModifyParamsLoginPage(TypedDict):

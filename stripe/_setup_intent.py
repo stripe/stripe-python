@@ -862,6 +862,10 @@ class SetupIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -925,6 +929,10 @@ class SetupIntent(
         ]
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
+        """
+        gopay: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
         """
         grabpay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataGrabpay"
@@ -1028,6 +1036,10 @@ class SetupIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataRadarOptions"
         ]
@@ -1058,6 +1070,12 @@ class SetupIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataSofort"]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -1075,6 +1093,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1086,6 +1105,7 @@ class SetupIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -1105,10 +1125,12 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -1157,6 +1179,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -1319,6 +1344,9 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -1344,7 +1372,7 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -1464,6 +1492,9 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -1501,6 +1532,9 @@ class SetupIntent(
         """
         IBAN of the bank account.
         """
+
+    class ConfirmParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -2202,6 +2236,10 @@ class SetupIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["SetupIntent.CreateParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -2265,6 +2303,10 @@ class SetupIntent(
         ]
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
+        """
+        gopay: NotRequired["SetupIntent.CreateParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
         """
         grabpay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataGrabpay"
@@ -2366,6 +2408,10 @@ class SetupIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["SetupIntent.CreateParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataRadarOptions"
         ]
@@ -2396,6 +2442,12 @@ class SetupIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired["SetupIntent.CreateParamsPaymentMethodDataSofort"]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -2413,6 +2465,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -2424,6 +2477,7 @@ class SetupIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -2443,10 +2497,12 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -2495,6 +2551,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -2657,6 +2716,9 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -2682,7 +2744,7 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -2802,6 +2864,9 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -2839,6 +2904,9 @@ class SetupIntent(
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -3505,6 +3573,10 @@ class SetupIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataAmazonPay"
         ]
@@ -3568,6 +3640,10 @@ class SetupIntent(
         ]
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
+        """
+        gopay: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
         """
         grabpay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataGrabpay"
@@ -3669,6 +3745,10 @@ class SetupIntent(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataRadarOptions"
         ]
@@ -3699,6 +3779,12 @@ class SetupIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataSofort"]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -3716,6 +3802,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -3727,6 +3814,7 @@ class SetupIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
             "ideal",
             "kakao_pay",
@@ -3746,10 +3834,12 @@ class SetupIntent(
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -3798,6 +3888,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -3960,6 +4053,9 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
         pass
 
@@ -3985,7 +4081,7 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -4105,6 +4201,9 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataQris(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -4142,6 +4241,9 @@ class SetupIntent(
         """
         IBAN of the bank account.
         """
+
+    class ModifyParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]

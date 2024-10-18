@@ -170,6 +170,10 @@ class Account(
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
+        alma_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Alma capability of the account, or whether the account can directly process Alma payments.
+        """
         amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
@@ -238,6 +242,10 @@ class Account(
         """
         The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
         """
+        gopay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
+        """
         grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
@@ -262,6 +270,10 @@ class Account(
         """
         The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
         """
+        kakao_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
+        """
         klarna_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
@@ -269,6 +281,10 @@ class Account(
         konbini_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
+        """
+        kr_card_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
         """
         legacy_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -296,6 +312,10 @@ class Account(
         """
         The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
         """
+        naver_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -303,6 +323,10 @@ class Account(
         p24_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
+        """
+        payco_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Payco capability of the account, or whether the account can directly process Payco payments.
         """
         paynow_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -320,6 +344,10 @@ class Account(
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
+        qris_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Qris capability of the account, or whether the account can directly process Qris payments.
+        """
         rechnung_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
@@ -330,6 +358,12 @@ class Account(
         """
         The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
         """
+        samsung_pay_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
+        """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -339,6 +373,10 @@ class Account(
         sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        shopeepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
         """
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -367,6 +405,22 @@ class Account(
         treasury: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the banking capability, or whether the account can have bank accounts.
+        """
+        treasury_evolve: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the treasury_evolve capability of the account.
+        """
+        treasury_fifth_third: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the treasury_fifth_third capability of the account.
+        """
+        treasury_goldman_sachs: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the treasury_goldman_sachs capability of the account.
         """
         twint_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -1553,6 +1607,12 @@ class Account(
         """
         The afterpay_clearpay_payments capability.
         """
+        alma_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesAlmaPayments"
+        ]
+        """
+        The alma_payments capability.
+        """
         amazon_pay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesAmazonPayPayments"
         ]
@@ -1643,6 +1703,12 @@ class Account(
         """
         The giropay_payments capability.
         """
+        gopay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesGopayPayments"
+        ]
+        """
+        The gopay_payments capability.
+        """
         grabpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesGrabpayPayments"
         ]
@@ -1673,6 +1739,12 @@ class Account(
         """
         The jp_bank_transfer_payments capability.
         """
+        kakao_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKakaoPayPayments"
+        ]
+        """
+        The kakao_pay_payments capability.
+        """
         klarna_payments: NotRequired[
             "Account.CreateParamsCapabilitiesKlarnaPayments"
         ]
@@ -1684,6 +1756,12 @@ class Account(
         ]
         """
         The konbini_payments capability.
+        """
+        kr_card_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKrCardPayments"
+        ]
+        """
+        The kr_card_payments capability.
         """
         legacy_payments: NotRequired[
             "Account.CreateParamsCapabilitiesLegacyPayments"
@@ -1721,6 +1799,12 @@ class Account(
         """
         The mx_bank_transfer_payments capability.
         """
+        naver_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesNaverPayPayments"
+        ]
+        """
+        The naver_pay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -1732,6 +1816,12 @@ class Account(
         ]
         """
         The p24_payments capability.
+        """
+        payco_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaycoPayments"
+        ]
+        """
+        The payco_payments capability.
         """
         paynow_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaynowPayments"
@@ -1757,6 +1847,12 @@ class Account(
         """
         The promptpay_payments capability.
         """
+        qris_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesQrisPayments"
+        ]
+        """
+        The qris_payments capability.
+        """
         rechnung_payments: NotRequired[
             "Account.CreateParamsCapabilitiesRechnungPayments"
         ]
@@ -1769,6 +1865,12 @@ class Account(
         """
         The revolut_pay_payments capability.
         """
+        samsung_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSamsungPayPayments"
+        ]
+        """
+        The samsung_pay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -1780,6 +1882,12 @@ class Account(
         ]
         """
         The sepa_debit_payments capability.
+        """
+        shopeepay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesShopeepayPayments"
+        ]
+        """
+        The shopeepay_payments capability.
         """
         sofort_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSofortPayments"
@@ -1812,6 +1920,24 @@ class Account(
         treasury: NotRequired["Account.CreateParamsCapabilitiesTreasury"]
         """
         The treasury capability.
+        """
+        treasury_evolve: NotRequired[
+            "Account.CreateParamsCapabilitiesTreasuryEvolve"
+        ]
+        """
+        The treasury_evolve capability.
+        """
+        treasury_fifth_third: NotRequired[
+            "Account.CreateParamsCapabilitiesTreasuryFifthThird"
+        ]
+        """
+        The treasury_fifth_third capability.
+        """
+        treasury_goldman_sachs: NotRequired[
+            "Account.CreateParamsCapabilitiesTreasuryGoldmanSachs"
+        ]
+        """
+        The treasury_goldman_sachs capability.
         """
         twint_payments: NotRequired[
             "Account.CreateParamsCapabilitiesTwintPayments"
@@ -1851,6 +1977,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAlmaPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1946,6 +2078,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesGopayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -1976,6 +2114,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesKakaoPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -1983,6 +2127,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesKrCardPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2024,6 +2174,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2031,6 +2187,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2060,6 +2222,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesQrisPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2072,6 +2240,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesSamsungPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2079,6 +2253,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesShopeepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2115,6 +2295,24 @@ class Account(
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryEvolve(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

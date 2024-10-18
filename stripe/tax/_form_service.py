@@ -31,7 +31,18 @@ class FormService(StripeService):
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        type: NotRequired[Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]]
+        type: NotRequired[
+            Literal[
+                "au_serr",
+                "ca_mrdp",
+                "eu_dac7",
+                "gb_mrdp",
+                "nz_mrdp",
+                "us_1099_k",
+                "us_1099_misc",
+                "us_1099_nec",
+            ]
+        ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
         """
@@ -41,9 +52,13 @@ class FormService(StripeService):
         """
         The ID of the Stripe account whose forms will be retrieved.
         """
-        type: NotRequired[Literal["account"]]
+        external_reference: NotRequired[str]
         """
-        Specifies the payee type. Always `account`.
+        The external reference to the payee whose forms will be retrieved.
+        """
+        type: NotRequired[Literal["account", "external_reference"]]
+        """
+        Specifies the payee type. Either `account` or `external_reference`.
         """
 
     class PdfParams(TypedDict):

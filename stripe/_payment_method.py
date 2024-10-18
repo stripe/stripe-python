@@ -69,6 +69,9 @@ class PaymentMethod(
     class Alipay(StripeObject):
         pass
 
+    class Alma(StripeObject):
+        pass
+
     class AmazonPay(StripeObject):
         pass
 
@@ -850,6 +853,9 @@ class PaymentMethod(
     class Giropay(StripeObject):
         pass
 
+    class Gopay(StripeObject):
+        pass
+
     class Grabpay(StripeObject):
         pass
 
@@ -1152,6 +1158,9 @@ class PaymentMethod(
     class Promptpay(StripeObject):
         pass
 
+    class Qris(StripeObject):
+        pass
+
     class RadarOptions(StripeObject):
         session: Optional[str]
         """
@@ -1218,6 +1227,9 @@ class PaymentMethod(
         Last four characters of the IBAN.
         """
         _inner_class_types = {"generated_from": GeneratedFrom}
+
+    class Shopeepay(StripeObject):
+        pass
 
     class Sofort(StripeObject):
         country: Optional[str]
@@ -1366,6 +1378,10 @@ class PaymentMethod(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentMethod.CreateParamsAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired["PaymentMethod.CreateParamsAmazonPay"]
         """
         If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
@@ -1429,6 +1445,10 @@ class PaymentMethod(
         giropay: NotRequired["PaymentMethod.CreateParamsGiropay"]
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
+        """
+        gopay: NotRequired["PaymentMethod.CreateParamsGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
         """
         grabpay: NotRequired["PaymentMethod.CreateParamsGrabpay"]
         """
@@ -1520,6 +1540,10 @@ class PaymentMethod(
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentMethod.CreateParamsQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired["PaymentMethod.CreateParamsRadarOptions"]
         """
         Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -1540,6 +1564,10 @@ class PaymentMethod(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired["PaymentMethod.CreateParamsShopeepay"]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired["PaymentMethod.CreateParamsSofort"]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -1558,6 +1586,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -1570,6 +1599,7 @@ class PaymentMethod(
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
                 "ideal",
                 "kakao_pay",
@@ -1589,10 +1619,12 @@ class PaymentMethod(
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -1638,6 +1670,9 @@ class PaymentMethod(
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAlma(TypedDict):
         pass
 
     class CreateParamsAmazonPay(TypedDict):
@@ -1834,6 +1869,9 @@ class PaymentMethod(
     class CreateParamsGiropay(TypedDict):
         pass
 
+    class CreateParamsGopay(TypedDict):
+        pass
+
     class CreateParamsGrabpay(TypedDict):
         pass
 
@@ -1859,7 +1897,7 @@ class PaymentMethod(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsInteracPresent(TypedDict):
@@ -1979,6 +2017,9 @@ class PaymentMethod(
     class CreateParamsPromptpay(TypedDict):
         pass
 
+    class CreateParamsQris(TypedDict):
+        pass
+
     class CreateParamsRadarOptions(TypedDict):
         session: NotRequired[str]
         """
@@ -2016,6 +2057,9 @@ class PaymentMethod(
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsShopeepay(TypedDict):
+        pass
 
     class CreateParamsSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -2090,6 +2134,7 @@ class PaymentMethod(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -2102,6 +2147,7 @@ class PaymentMethod(
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
                 "ideal",
                 "kakao_pay",
@@ -2121,10 +2167,12 @@ class PaymentMethod(
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -2294,6 +2342,7 @@ class PaymentMethod(
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
+    alma: Optional[Alma]
     amazon_pay: Optional[AmazonPay]
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
@@ -2316,6 +2365,7 @@ class PaymentMethod(
     eps: Optional[Eps]
     fpx: Optional[Fpx]
     giropay: Optional[Giropay]
+    gopay: Optional[Gopay]
     grabpay: Optional[Grabpay]
     id: str
     """
@@ -2352,6 +2402,7 @@ class PaymentMethod(
     payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
+    qris: Optional[Qris]
     radar_options: Optional[RadarOptions]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -2360,6 +2411,7 @@ class PaymentMethod(
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
     sepa_debit: Optional[SepaDebit]
+    shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
     twint: Optional[Twint]
@@ -2368,6 +2420,7 @@ class PaymentMethod(
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "alma",
         "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
@@ -2381,6 +2434,7 @@ class PaymentMethod(
         "eps",
         "fpx",
         "giropay",
+        "gopay",
         "grabpay",
         "ideal",
         "interac_present",
@@ -2401,10 +2455,12 @@ class PaymentMethod(
         "payto",
         "pix",
         "promptpay",
+        "qris",
         "rechnung",
         "revolut_pay",
         "samsung_pay",
         "sepa_debit",
+        "shopeepay",
         "sofort",
         "swish",
         "twint",
@@ -2880,6 +2936,7 @@ class PaymentMethod(
         "affirm": Affirm,
         "afterpay_clearpay": AfterpayClearpay,
         "alipay": Alipay,
+        "alma": Alma,
         "amazon_pay": AmazonPay,
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,
@@ -2894,6 +2951,7 @@ class PaymentMethod(
         "eps": Eps,
         "fpx": Fpx,
         "giropay": Giropay,
+        "gopay": Gopay,
         "grabpay": Grabpay,
         "ideal": Ideal,
         "interac_present": InteracPresent,
@@ -2914,11 +2972,13 @@ class PaymentMethod(
         "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
+        "qris": Qris,
         "radar_options": RadarOptions,
         "rechnung": Rechnung,
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
         "sepa_debit": SepaDebit,
+        "shopeepay": Shopeepay,
         "sofort": Sofort,
         "swish": Swish,
         "twint": Twint,
