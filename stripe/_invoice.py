@@ -1277,6 +1277,10 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice.
         """
+        automatically_finalizes_at: NotRequired[int]
+        """
+        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -3002,6 +3006,10 @@ class Invoice(
         automatic_tax: NotRequired["Invoice.ModifyParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice.
+        """
+        automatically_finalizes_at: NotRequired[int]
+        """
+        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
