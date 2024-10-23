@@ -676,6 +676,9 @@ class QuotePreviewInvoice(StripeObject):
                 """
                 _inner_class_types = {"bank_transfer": BankTransfer}
 
+            class IdBankTransfer(StripeObject):
+                pass
+
             class Konbini(StripeObject):
                 pass
 
@@ -752,6 +755,10 @@ class QuotePreviewInvoice(StripeObject):
             """
             If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
             """
+            id_bank_transfer: Optional[IdBankTransfer]
+            """
+            If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
+            """
             konbini: Optional[Konbini]
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
@@ -769,6 +776,7 @@ class QuotePreviewInvoice(StripeObject):
                 "bancontact": Bancontact,
                 "card": Card,
                 "customer_balance": CustomerBalance,
+                "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
                 "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
@@ -800,6 +808,7 @@ class QuotePreviewInvoice(StripeObject):
                     "fpx",
                     "giropay",
                     "grabpay",
+                    "id_bank_transfer",
                     "ideal",
                     "jp_credit_transfer",
                     "kakao_pay",

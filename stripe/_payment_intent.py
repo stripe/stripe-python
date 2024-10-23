@@ -1861,6 +1861,26 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class IdBankTransfer(StripeObject):
+            expires_after: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now till 2678400 seconds (31 days) from now.
+            """
+            expires_at: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Ideal(StripeObject):
             setup_future_usage: Optional[Literal["none", "off_session"]]
             """
@@ -2506,6 +2526,7 @@ class PaymentIntent(
         giropay: Optional[Giropay]
         gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -2558,6 +2579,7 @@ class PaymentIntent(
             "giropay": Giropay,
             "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -4369,6 +4391,12 @@ class PaymentIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -4546,6 +4574,7 @@ class PaymentIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -4788,6 +4817,12 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -5137,6 +5172,12 @@ class PaymentIntent(
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal"
@@ -6060,6 +6101,28 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -7985,6 +8048,12 @@ class PaymentIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -8160,6 +8229,7 @@ class PaymentIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -8402,6 +8472,12 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -8751,6 +8827,12 @@ class PaymentIntent(
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdeal"
@@ -9674,6 +9756,28 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -11709,6 +11813,12 @@ class PaymentIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -11884,6 +11994,7 @@ class PaymentIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -12126,6 +12237,12 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ModifyParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -12475,6 +12592,12 @@ class PaymentIntent(
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal"
@@ -13398,6 +13521,28 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -14339,6 +14484,28 @@ class PaymentIntent(
         query: str
         """
         The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for payment intents](https://stripe.com/docs/search#query-fields-for-payment-intents).
+        """
+
+    class TriggerActionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        scan_qr_code: NotRequired[
+            "PaymentIntent.TriggerActionParamsScanQrCode"
+        ]
+        """
+        True to simulate success, false to simulate failure.
+        """
+        type: Literal["expire", "fund"]
+        """
+        The type of action to be simulated.
+        """
+
+    class TriggerActionParamsScanQrCode(TypedDict):
+        result: NotRequired[Literal["failure", "success"]]
+        """
+        Whether the QR Code scan's payment should succeed or fail.
         """
 
     class VerifyMicrodepositsParams(RequestOptions):
@@ -15962,6 +16129,116 @@ class PaymentIntent(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    @classmethod
+    def _cls_trigger_action(
+        cls, intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def trigger_action(
+        intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    def trigger_action(
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action")
+    def trigger_action(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_trigger_action_async(
+        cls, intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def trigger_action_async(
+        intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    async def trigger_action_async(
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action_async")
+    async def trigger_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_verify_microdeposits(

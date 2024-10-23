@@ -499,6 +499,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class IdBankTransfer(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Ideal(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1076,6 +1098,12 @@ class PaymentMethodConfiguration(
         """
         GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsIdBankTransfer"
+        ]
+        """
+        Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
+        """
         ideal: NotRequired["PaymentMethodConfiguration.CreateParamsIdeal"]
         """
         iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
@@ -1486,6 +1514,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsGrabpayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsIdBankTransfer(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsIdBankTransferDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsIdBankTransferDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1926,6 +1968,12 @@ class PaymentMethodConfiguration(
         """
         GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsIdBankTransfer"
+        ]
+        """
+        Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
+        """
         ideal: NotRequired["PaymentMethodConfiguration.ModifyParamsIdeal"]
         """
         iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
@@ -2337,6 +2385,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsIdBankTransfer(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsIdBankTransferDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsIdBankTransferDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsIdeal(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsIdealDisplayPreference"
@@ -2670,6 +2732,7 @@ class PaymentMethodConfiguration(
     """
     Unique identifier for the object.
     """
+    id_bank_transfer: Optional[IdBankTransfer]
     ideal: Optional[Ideal]
     is_default: bool
     """
@@ -2870,6 +2933,7 @@ class PaymentMethodConfiguration(
         "giropay": Giropay,
         "google_pay": GooglePay,
         "grabpay": Grabpay,
+        "id_bank_transfer": IdBankTransfer,
         "ideal": Ideal,
         "jcb": Jcb,
         "klarna": Klarna,

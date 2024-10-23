@@ -159,6 +159,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataIdeal"
         ]
@@ -356,6 +362,7 @@ class ConfirmationTokenService(StripeService):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -600,6 +607,12 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[

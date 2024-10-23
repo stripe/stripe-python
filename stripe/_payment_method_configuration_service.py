@@ -137,6 +137,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsIdBankTransfer"
+        ]
+        """
+        Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
+        """
         ideal: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsIdeal"
         ]
@@ -565,6 +571,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsGrabpayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsIdBankTransfer(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsIdBankTransferDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsIdBankTransferDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1023,6 +1043,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsIdBankTransfer"
+        ]
+        """
+        Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
+        """
         ideal: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsIdeal"
         ]
@@ -1447,6 +1473,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsGrabpayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsIdBankTransfer(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsIdBankTransferDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsIdBankTransferDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
