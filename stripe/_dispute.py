@@ -233,7 +233,7 @@ class Dispute(
         """
         The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
         """
-        enhanced_evidence: Optional[EnhancedEvidence]
+        enhanced_evidence: EnhancedEvidence
         product_description: Optional[str]
         """
         A description of the product or service that was sold.
@@ -323,7 +323,7 @@ class Dispute(
         """
         Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
         """
-        enhanced_eligibility: Optional[EnhancedEligibility]
+        enhanced_eligibility: EnhancedEligibility
         has_evidence: bool
         """
         Whether evidence has been staged for this dispute.
@@ -764,9 +764,7 @@ class Dispute(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    enhanced_eligibility_types: Optional[
-        List[Literal["visa_compelling_evidence_3"]]
-    ]
+    enhanced_eligibility_types: List[Literal["visa_compelling_evidence_3"]]
     """
     List of eligibility types that are included in `enhanced_evidence`.
     """

@@ -328,9 +328,6 @@ class Refund(
             _inner_class_types = {"email_sent": EmailSent}
 
         display_details: Optional[DisplayDetails]
-        """
-        Contains the refund details.
-        """
         type: str
         """
         Type of the next action to perform.
