@@ -81,6 +81,14 @@
   * Move `raw_request` and related methods from `_raw_request` module to the `StripeClient` class
   * Remove `_preview` module; use raw request methods in the `StripeClient` class instead
 
+## 11.1.1 - 2024-10-18
+* [#1414](https://github.com/stripe/stripe-python/pull/1414) Deserialize into correct v2 EventData types
+  * Fixes a bug where v2 EventData was not being deserialized into the appropriate type for `V1BillingMeterErrorReportTriggeredEvent` and `V1BillingMeterNoMeterFoundEvent`
+* [#1415](https://github.com/stripe/stripe-python/pull/1415) update object tags for meter-related classes
+  
+  - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
+* [#1412](https://github.com/stripe/stripe-python/pull/1412) Clean up examples
+
 ## 11.1.0 - 2024-10-03
 * [#1409](https://github.com/stripe/stripe-python/pull/1409) Update the class for `ThinEvent` to include `livemode`
 * [#1408](https://github.com/stripe/stripe-python/pull/1408) Update generated code

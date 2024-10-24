@@ -904,6 +904,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Grabpay(StripeObject):
             pass
 
+        class IdBankTransfer(StripeObject):
+            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            bank_code: Optional[str]
+            bank_name: Optional[str]
+            display_name: Optional[str]
+
         class Ideal(StripeObject):
             bank: Optional[
                 Literal[
@@ -1411,6 +1417,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         giropay: Optional[Giropay]
         gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -1460,6 +1467,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "interac_present",
             "kakao_pay",
@@ -1520,6 +1528,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "giropay": Giropay,
             "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -1738,6 +1747,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataIdeal"
         ]
@@ -1931,6 +1946,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -2173,6 +2189,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[

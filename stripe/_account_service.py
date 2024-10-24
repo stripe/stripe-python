@@ -372,6 +372,18 @@ class AccountService(StripeService):
         """
         The grabpay_payments capability.
         """
+        id_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesIdBankTransferPayments"
+        ]
+        """
+        The id_bank_transfer_payments capability.
+        """
+        id_bank_transfer_payments_bca: NotRequired[
+            "AccountService.CreateParamsCapabilitiesIdBankTransferPaymentsBca"
+        ]
+        """
+        The id_bank_transfer_payments_bca capability.
+        """
         ideal_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesIdealPayments"
         ]
@@ -746,6 +758,18 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1715,6 +1739,12 @@ class AccountService(StripeService):
         """
         Settings specific to Bacs Direct Debit.
         """
+        bank_bca_onboarding: NotRequired[
+            "AccountService.CreateParamsSettingsBankBcaOnboarding"
+        ]
+        """
+        Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+        """
         branding: NotRequired["AccountService.CreateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
@@ -1756,6 +1786,16 @@ class AccountService(StripeService):
         display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+        """
+
+    class CreateParamsSettingsBankBcaOnboarding(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        Bank BCA business account holder name
+        """
+        business_account_number: NotRequired[str]
+        """
+        Bank BCA business account number
         """
 
     class CreateParamsSettingsBranding(TypedDict):
@@ -2344,6 +2384,18 @@ class AccountService(StripeService):
         """
         The grabpay_payments capability.
         """
+        id_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesIdBankTransferPayments"
+        ]
+        """
+        The id_bank_transfer_payments capability.
+        """
+        id_bank_transfer_payments_bca: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesIdBankTransferPaymentsBca"
+        ]
+        """
+        The id_bank_transfer_payments_bca capability.
+        """
         ideal_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesIdealPayments"
         ]
@@ -2718,6 +2770,18 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesGrabpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3617,6 +3681,12 @@ class AccountService(StripeService):
         """
         Settings specific to Bacs Direct Debit payments.
         """
+        bank_bca_onboarding: NotRequired[
+            "AccountService.UpdateParamsSettingsBankBcaOnboarding"
+        ]
+        """
+        Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+        """
         branding: NotRequired["AccountService.UpdateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
@@ -3662,6 +3732,16 @@ class AccountService(StripeService):
         display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+        """
+
+    class UpdateParamsSettingsBankBcaOnboarding(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        Bank BCA business account holder name
+        """
+        business_account_number: NotRequired[str]
+        """
+        Bank BCA business account number
         """
 
     class UpdateParamsSettingsBranding(TypedDict):

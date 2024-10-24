@@ -21,7 +21,7 @@ class EventService(StripeService):
         """
         page: NotRequired[str]
         """
-        The requested page number.
+        The requested page.
         """
 
     class RetrieveParams(TypedDict):
