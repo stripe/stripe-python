@@ -48,7 +48,7 @@ class CardService(StripeService):
         """
         second_line: NotRequired["Literal['']|str"]
         """
-        The second line to print on the card.
+        The second line to print on the card. Max length: 24 characters.
         """
         shipping: NotRequired["CardService.CreateParamsShipping"]
         """

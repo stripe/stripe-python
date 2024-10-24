@@ -69,6 +69,12 @@ class ConfirmationTokenService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -159,6 +165,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataKlarna"
         ]
@@ -170,6 +182,12 @@ class ConfirmationTokenService(StripeService):
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataLink"
@@ -193,6 +211,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -204,6 +228,12 @@ class ConfirmationTokenService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPaynow"
@@ -241,6 +271,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -270,6 +306,7 @@ class ConfirmationTokenService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -283,18 +320,23 @@ class ConfirmationTokenService(StripeService):
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -346,6 +388,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -533,10 +578,13 @@ class ConfirmationTokenService(StripeService):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataKakaoPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataKlarna(TypedDict):
@@ -564,6 +612,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -572,6 +623,12 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -611,6 +668,9 @@ class ConfirmationTokenService(StripeService):
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPaynow(TypedDict):
         pass
 
@@ -630,6 +690,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

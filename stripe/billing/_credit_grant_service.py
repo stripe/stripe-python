@@ -27,11 +27,11 @@ class CreditGrantService(StripeService):
         """
         customer: str
         """
-        Id of the customer to whom the credit should be granted.
+        ID of the customer to whom the billing credits should be granted.
         """
         effective_at: NotRequired[int]
         """
-        The time when the credit becomes effective i.e when it is eligible to be used. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective i.e when they are eligible to be used. Defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -39,7 +39,7 @@ class CreditGrantService(StripeService):
         """
         expires_at: NotRequired[int]
         """
-        The time when the credit will expire. If not specified, the credit will never expire.
+        The time when the billing credits will expire. If not specified, the billing credits will never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -47,7 +47,7 @@ class CreditGrantService(StripeService):
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard and on invoices.
+        A descriptive name shown in dashboard.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -57,7 +57,7 @@ class CreditGrantService(StripeService):
         """
         type: Literal["monetary"]
         """
-        Specify the type of this amount. We currently only support `monetary` credits.
+        Specify the type of this amount. We currently only support `monetary` billing credits.
         """
 
     class CreateParamsAmountMonetary(TypedDict):
@@ -123,7 +123,7 @@ class CreditGrantService(StripeService):
         """
         expires_at: NotRequired["Literal['']|int"]
         """
-        The time when the credit created by this credit grant will expire. If set to empty, the credit will never expire.
+        The time when the billing credits created by this credit grant will expire. If set to empty, the billing credits will never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """

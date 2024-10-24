@@ -27,6 +27,23 @@ class PaymentMethodDomain(
         "payment_method_domain"
     )
 
+    class AmazonPay(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
     class ApplePay(StripeObject):
         class StatusDetails(StripeObject):
             error_message: str
@@ -157,6 +174,10 @@ class PaymentMethodDomain(
         Specifies which fields in the response should be expanded.
         """
 
+    amazon_pay: AmazonPay
+    """
+    Indicates the status of a specific payment method on a payment method domain.
+    """
     apple_pay: ApplePay
     """
     Indicates the status of a specific payment method on a payment method domain.
@@ -483,6 +504,7 @@ class PaymentMethodDomain(
         )
 
     _inner_class_types = {
+        "amazon_pay": AmazonPay,
         "apple_pay": ApplePay,
         "google_pay": GooglePay,
         "link": Link,

@@ -33,6 +33,12 @@ class CardService(StripeService):
         Specifies which fields in the response should be expanded.
         """
 
+    class SubmitCardParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     def deliver_card(
         self,
         card: str,
@@ -201,6 +207,50 @@ class CardService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                    card=sanitize_id(card),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def submit_card(
+        self,
+        card: str,
+        params: "CardService.SubmitCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+        """
+        return cast(
+            Card,
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
+                    card=sanitize_id(card),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def submit_card_async(
+        self,
+        card: str,
+        params: "CardService.SubmitCardParams" = {},
+        options: RequestOptions = {},
+    ) -> Card:
+        """
+        Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+        """
+        return cast(
+            Card,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
                     card=sanitize_id(card),
                 ),
                 base_address="api",

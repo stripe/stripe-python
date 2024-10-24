@@ -761,7 +761,7 @@ class FinancialAccount(
     """
     status: Literal["closed", "open"]
     """
-    The enum specifying what state the account is in.
+    Status of this FinancialAccount.
     """
     status_details: StatusDetails
     supported_currencies: List[str]
