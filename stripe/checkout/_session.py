@@ -348,6 +348,7 @@ class Session(
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
                 "ca_pst_bc",
@@ -383,6 +384,8 @@ class Session(
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "ma_vat",
+                "md_vat",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -406,16 +409,19 @@ class Session(
                 "th_vat",
                 "tr_tin",
                 "tw_vat",
+                "tz_vat",
                 "ua_vat",
                 "unknown",
                 "us_ein",
                 "uy_ruc",
+                "uz_tin",
+                "uz_vat",
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
             """
             value: Optional[str]
             """
@@ -847,6 +853,22 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class KakaoPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Klarna(StripeObject):
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
@@ -867,6 +889,22 @@ class Session(
             The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
             """
             setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class KrCard(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -913,6 +951,12 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class NaverPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Oxxo(StripeObject):
             expires_after_days: int
             """
@@ -939,6 +983,12 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class Payco(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
             """
 
         class Paynow(StripeObject):
@@ -993,6 +1043,12 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class SamsungPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
             """
 
         class SepaDebit(StripeObject):
@@ -1101,17 +1157,22 @@ class Session(
         giropay: Optional[Giropay]
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
+        naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
+        samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -1134,17 +1195,22 @@ class Session(
             "giropay": Giropay,
             "grabpay": Grabpay,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_card": KrCard,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
+            "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "pix": Pix,
             "revolut_pay": RevolutPay,
+            "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -1828,6 +1894,7 @@ class Session(
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "alma",
                     "amazon_pay",
                     "au_becs_debit",
                     "bacs_debit",
@@ -1842,18 +1909,23 @@ class Session(
                     "giropay",
                     "grabpay",
                     "ideal",
+                    "kakao_pay",
                     "klarna",
                     "konbini",
+                    "kr_card",
                     "link",
                     "mobilepay",
                     "multibanco",
+                    "naver_pay",
                     "oxxo",
                     "p24",
+                    "payco",
                     "paynow",
                     "paypal",
                     "pix",
                     "promptpay",
                     "revolut_pay",
+                    "samsung_pay",
                     "sepa_debit",
                     "sofort",
                     "swish",
@@ -2589,6 +2661,12 @@ class Session(
         """
         contains details about the Ideal payment method options.
         """
+        kakao_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired["Session.CreateParamsPaymentMethodOptionsKlarna"]
         """
         contains details about the Klarna payment method options.
@@ -2596,6 +2674,10 @@ class Session(
         konbini: NotRequired["Session.CreateParamsPaymentMethodOptionsKonbini"]
         """
         contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired["Session.CreateParamsPaymentMethodOptionsKrCard"]
+        """
+        contains details about the Korean card payment method options.
         """
         link: NotRequired["Session.CreateParamsPaymentMethodOptionsLink"]
         """
@@ -2613,6 +2695,12 @@ class Session(
         """
         contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        contains details about the Kakao Pay payment method options.
+        """
         oxxo: NotRequired["Session.CreateParamsPaymentMethodOptionsOxxo"]
         """
         contains details about the OXXO payment method options.
@@ -2620,6 +2708,10 @@ class Session(
         p24: NotRequired["Session.CreateParamsPaymentMethodOptionsP24"]
         """
         contains details about the P24 payment method options.
+        """
+        payco: NotRequired["Session.CreateParamsPaymentMethodOptionsPayco"]
+        """
+        contains details about the PAYCO payment method options.
         """
         paynow: NotRequired["Session.CreateParamsPaymentMethodOptionsPaynow"]
         """
@@ -2638,6 +2730,12 @@ class Session(
         ]
         """
         contains details about the RevolutPay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -3007,6 +3105,18 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -3025,6 +3135,18 @@ class Session(
         The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
         """
         setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3071,6 +3193,18 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -3102,6 +3236,9 @@ class Session(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class CreateParamsPaymentMethodOptionsPayco(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -3188,6 +3325,9 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
         setup_future_usage: NotRequired[

@@ -43,7 +43,7 @@ class CreditBalanceTransaction(
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
@@ -72,24 +72,24 @@ class CreditBalanceTransaction(
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
         class CreditsApplied(StripeObject):
             invoice: ExpandableField["Invoice"]
             """
-            The invoice to which the credits were applied.
+            The invoice to which the billing credits were applied.
             """
             invoice_line_item: str
             """
-            The invoice line item to which the credits were applied.
+            The invoice line item to which the billing credits were applied.
             """
 
         amount: Amount
         credits_applied: Optional[CreditsApplied]
         """
-        Details of how the credits were applied to an invoice. Only present if `type` is `credits_applied`.
+        Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`.
         """
         type: Literal["credits_applied", "credits_expired", "credits_voided"]
         """
@@ -138,19 +138,19 @@ class CreditBalanceTransaction(
     """
     credit: Optional[Credit]
     """
-    Credit details for this balance transaction. Only present if type is `credit`.
+    Credit details for this credit balance transaction. Only present if type is `credit`.
     """
     credit_grant: ExpandableField["CreditGrant"]
     """
-    The credit grant associated with this balance transaction.
+    The credit grant associated with this credit balance transaction.
     """
     debit: Optional[Debit]
     """
-    Debit details for this balance transaction. Only present if type is `debit`.
+    Debit details for this credit balance transaction. Only present if type is `debit`.
     """
     effective_at: int
     """
-    The effective time of this balance transaction.
+    The effective time of this credit balance transaction.
     """
     id: str
     """
@@ -170,7 +170,7 @@ class CreditBalanceTransaction(
     """
     type: Optional[Literal["credit", "debit"]]
     """
-    The type of balance transaction (credit or debit).
+    The type of credit balance transaction (credit or debit).
     """
 
     @classmethod

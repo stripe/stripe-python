@@ -35,6 +35,10 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        alma: NotRequired["PaymentMethodConfigurationService.CreateParamsAlma"]
+        """
+        Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
+        """
         amazon_pay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsAmazonPay"
         ]
@@ -239,7 +243,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.CreateParamsUsBankAccount"
         ]
         """
-        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
         """
         wechat_pay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsWechatPay"
@@ -303,6 +307,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsAlma(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsAlmaDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsAlmaDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -883,6 +901,10 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
         """
+        alma: NotRequired["PaymentMethodConfigurationService.UpdateParamsAlma"]
+        """
+        Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
+        """
         amazon_pay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsAmazonPay"
         ]
@@ -1083,7 +1105,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.UpdateParamsUsBankAccount"
         ]
         """
-        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+        Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
         """
         wechat_pay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsWechatPay"
@@ -1147,6 +1169,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsAlipayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsAlma(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsAlmaDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsAlmaDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

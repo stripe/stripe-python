@@ -66,6 +66,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in BH.
         """
+        by: NotRequired["RegistrationService.CreateParamsCountryOptionsBy"]
+        """
+        Options for the registration in BY.
+        """
         ca: NotRequired["RegistrationService.CreateParamsCountryOptionsCa"]
         """
         Options for the registration in CA.
@@ -82,6 +86,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in CO.
         """
+        cr: NotRequired["RegistrationService.CreateParamsCountryOptionsCr"]
+        """
+        Options for the registration in CR.
+        """
         cy: NotRequired["RegistrationService.CreateParamsCountryOptionsCy"]
         """
         Options for the registration in CY.
@@ -97,6 +105,10 @@ class RegistrationService(StripeService):
         dk: NotRequired["RegistrationService.CreateParamsCountryOptionsDk"]
         """
         Options for the registration in DK.
+        """
+        ec: NotRequired["RegistrationService.CreateParamsCountryOptionsEc"]
+        """
+        Options for the registration in EC.
         """
         ee: NotRequired["RegistrationService.CreateParamsCountryOptionsEe"]
         """
@@ -178,6 +190,14 @@ class RegistrationService(StripeService):
         """
         Options for the registration in LV.
         """
+        ma: NotRequired["RegistrationService.CreateParamsCountryOptionsMa"]
+        """
+        Options for the registration in MA.
+        """
+        md: NotRequired["RegistrationService.CreateParamsCountryOptionsMd"]
+        """
+        Options for the registration in MD.
+        """
         mt: NotRequired["RegistrationService.CreateParamsCountryOptionsMt"]
         """
         Options for the registration in MT.
@@ -222,6 +242,14 @@ class RegistrationService(StripeService):
         """
         Options for the registration in RO.
         """
+        rs: NotRequired["RegistrationService.CreateParamsCountryOptionsRs"]
+        """
+        Options for the registration in RS.
+        """
+        ru: NotRequired["RegistrationService.CreateParamsCountryOptionsRu"]
+        """
+        Options for the registration in RU.
+        """
         sa: NotRequired["RegistrationService.CreateParamsCountryOptionsSa"]
         """
         Options for the registration in SA.
@@ -250,9 +278,17 @@ class RegistrationService(StripeService):
         """
         Options for the registration in TR.
         """
+        tz: NotRequired["RegistrationService.CreateParamsCountryOptionsTz"]
+        """
+        Options for the registration in TZ.
+        """
         us: NotRequired["RegistrationService.CreateParamsCountryOptionsUs"]
         """
         Options for the registration in US.
+        """
+        uz: NotRequired["RegistrationService.CreateParamsCountryOptionsUz"]
+        """
+        Options for the registration in UZ.
         """
         vn: NotRequired["RegistrationService.CreateParamsCountryOptionsVn"]
         """
@@ -335,6 +371,12 @@ class RegistrationService(StripeService):
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsBy(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsCa(TypedDict):
         province_standard: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsCaProvinceStandard"
@@ -366,6 +408,12 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsCo(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCr(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.
@@ -441,6 +489,12 @@ class RegistrationService(StripeService):
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsEc(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsEe(TypedDict):
@@ -713,6 +767,18 @@ class RegistrationService(StripeService):
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsMa(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMd(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsMt(TypedDict):
         standard: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsMtStandard"
@@ -839,6 +905,18 @@ class RegistrationService(StripeService):
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsRs(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsRu(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsSa(TypedDict):
         type: Literal["simplified"]
         """
@@ -917,6 +995,12 @@ class RegistrationService(StripeService):
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsTz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsUs(TypedDict):
         local_amusement_tax: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsUsLocalAmusementTax"
@@ -944,6 +1028,7 @@ class RegistrationService(StripeService):
             "local_amusement_tax",
             "local_lease_tax",
             "state_communications_tax",
+            "state_retail_delivery_fee",
             "state_sales_tax",
         ]
         """
@@ -982,6 +1067,12 @@ class RegistrationService(StripeService):
         ]
         """
         The type of the election for the state sales tax registration.
+        """
+
+    class CreateParamsCountryOptionsUz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsVn(TypedDict):

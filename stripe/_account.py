@@ -170,6 +170,10 @@ class Account(
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
+        alma_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Alma capability of the account, or whether the account can directly process Alma payments.
+        """
         amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
@@ -262,6 +266,10 @@ class Account(
         """
         The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
         """
+        kakao_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
+        """
         klarna_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
@@ -269,6 +277,10 @@ class Account(
         konbini_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
+        """
+        kr_card_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
         """
         legacy_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -292,6 +304,10 @@ class Account(
         """
         The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
         """
+        naver_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -299,6 +315,10 @@ class Account(
         p24_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
+        """
+        payco_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Payco capability of the account, or whether the account can directly process Payco payments.
         """
         paynow_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -313,6 +333,12 @@ class Account(
         ]
         """
         The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
+        """
+        samsung_pay_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
         """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -793,6 +819,12 @@ class Account(
         Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
+
+    class Groups(StripeObject):
+        payments_pricing: Optional[str]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+        """
 
     class Requirements(StripeObject):
         class Alternative(StripeObject):
@@ -1292,6 +1324,10 @@ class Account(
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
+        groups: NotRequired["Account.CreateParamsGroups"]
+        """
+        A hash of account group type to tokens. These are account groups this account should be added to
+        """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
         Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -1461,6 +1497,12 @@ class Account(
         """
         The afterpay_clearpay_payments capability.
         """
+        alma_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesAlmaPayments"
+        ]
+        """
+        The alma_payments capability.
+        """
         amazon_pay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesAmazonPayPayments"
         ]
@@ -1581,6 +1623,12 @@ class Account(
         """
         The jp_bank_transfer_payments capability.
         """
+        kakao_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKakaoPayPayments"
+        ]
+        """
+        The kakao_pay_payments capability.
+        """
         klarna_payments: NotRequired[
             "Account.CreateParamsCapabilitiesKlarnaPayments"
         ]
@@ -1592,6 +1640,12 @@ class Account(
         ]
         """
         The konbini_payments capability.
+        """
+        kr_card_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesKrCardPayments"
+        ]
+        """
+        The kr_card_payments capability.
         """
         legacy_payments: NotRequired[
             "Account.CreateParamsCapabilitiesLegacyPayments"
@@ -1623,6 +1677,12 @@ class Account(
         """
         The mx_bank_transfer_payments capability.
         """
+        naver_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesNaverPayPayments"
+        ]
+        """
+        The naver_pay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -1634,6 +1694,12 @@ class Account(
         ]
         """
         The p24_payments capability.
+        """
+        payco_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaycoPayments"
+        ]
+        """
+        The payco_payments capability.
         """
         paynow_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaynowPayments"
@@ -1652,6 +1718,12 @@ class Account(
         ]
         """
         The revolut_pay_payments capability.
+        """
+        samsung_pay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSamsungPayPayments"
+        ]
+        """
+        The samsung_pay_payments capability.
         """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
@@ -1735,6 +1807,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAlmaPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1860,6 +1938,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesKakaoPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -1867,6 +1951,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesKrCardPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1902,6 +1992,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -1909,6 +2005,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1927,6 +2029,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesRevolutPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSamsungPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2353,6 +2461,12 @@ class Account(
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
         """
 
+    class CreateParamsGroups(TypedDict):
+        payments_pricing: NotRequired["Literal['']|str"]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+        """
+
     class CreateParamsIndividual(TypedDict):
         address: NotRequired["Account.CreateParamsIndividualAddress"]
         """
@@ -2394,7 +2508,7 @@ class Account(
         """
         gender: NotRequired[str]
         """
-        The individual's gender (International regulations require either "male" or "female").
+        The individual's gender
         """
         id_number: NotRequired[str]
         """
@@ -3865,7 +3979,7 @@ class Account(
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
     """
-    Whether the account can create live charges.
+    Whether the account can process charges.
     """
     company: Optional[Company]
     controller: Optional[Controller]
@@ -3894,6 +4008,10 @@ class Account(
     External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
     """
     future_requirements: Optional[FutureRequirements]
+    groups: Optional[Groups]
+    """
+    The groups associated with the account.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -3916,7 +4034,7 @@ class Account(
     """
     payouts_enabled: Optional[bool]
     """
-    Whether Stripe can send payouts to this account.
+    Whether the funds in this account can be paid out.
     """
     requirements: Optional[Requirements]
     settings: Optional[Settings]
@@ -4790,7 +4908,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
         """
-        Creates a single-use login link for a connected account to access the Express Dashboard.
+        Creates a login link for a connected account to access the Express Dashboard.
 
         You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """
@@ -4810,7 +4928,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
         """
-        Creates a single-use login link for a connected account to access the Express Dashboard.
+        Creates a login link for a connected account to access the Express Dashboard.
 
         You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """
@@ -5029,6 +5147,7 @@ class Account(
         "company": Company,
         "controller": Controller,
         "future_requirements": FutureRequirements,
+        "groups": Groups,
         "requirements": Requirements,
         "settings": Settings,
         "tos_acceptance": TosAcceptance,
