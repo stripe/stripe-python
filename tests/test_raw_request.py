@@ -72,7 +72,7 @@ class TestRawRequest(object):
         http_client_mock.stub_request(
             "post",
             path=self.POST_REL_URL_V2,
-            rbody='{"id": "bmes_123", "object": "billing.meter_event_session"}',
+            rbody='{"id": "bmes_123", "object": "v2.billing.meter_event_session"}',
             rcode=200,
             rheaders={},
         )
