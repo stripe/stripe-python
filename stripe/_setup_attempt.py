@@ -263,6 +263,24 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Cashapp(StripeObject):
             pass
 
+        class IdBankTransfer(StripeObject):
+            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            """
+            Bank where the account is located.
+            """
+            bank_code: Optional[str]
+            """
+            Local bank code of the bank.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            display_name: Optional[str]
+            """
+            Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
+            """
+
         class Ideal(StripeObject):
             bank: Optional[
                 Literal[
@@ -401,6 +419,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
@@ -426,6 +445,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "kakao_pay": KakaoPay,
             "klarna": Klarna,
@@ -576,7 +596,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
-                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",

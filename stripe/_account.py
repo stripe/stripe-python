@@ -250,6 +250,18 @@ class Account(
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
         """
+        id_bank_transfer_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the Indonesia Bank Transfer payments capability of the account, or whether the account can directly process Indonesia Bank Transfer charges.
+        """
+        id_bank_transfer_payments_bca: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of Bank BCA onboarding of the account.
+        """
         ideal_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
@@ -1073,6 +1085,16 @@ class Account(
             The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
             """
 
+        class BankBcaOnboarding(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            Bank BCA business account holder name.
+            """
+            business_account_number: Optional[str]
+            """
+            Bank BCA business account number.
+            """
+
         class Branding(StripeObject):
             icon: Optional[ExpandableField["File"]]
             """
@@ -1244,6 +1266,7 @@ class Account(
             _inner_class_types = {"tos_acceptance": TosAcceptance}
 
         bacs_debit_payments: Optional[BacsDebitPayments]
+        bank_bca_onboarding: Optional[BankBcaOnboarding]
         branding: Branding
         capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
@@ -1257,6 +1280,7 @@ class Account(
         treasury: Optional[Treasury]
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
+            "bank_bca_onboarding": BankBcaOnboarding,
             "branding": Branding,
             "capital": Capital,
             "card_issuing": CardIssuing,
@@ -1715,6 +1739,18 @@ class Account(
         """
         The grabpay_payments capability.
         """
+        id_bank_transfer_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesIdBankTransferPayments"
+        ]
+        """
+        The id_bank_transfer_payments capability.
+        """
+        id_bank_transfer_payments_bca: NotRequired[
+            "Account.CreateParamsCapabilitiesIdBankTransferPaymentsBca"
+        ]
+        """
+        The id_bank_transfer_payments_bca capability.
+        """
         ideal_payments: NotRequired[
             "Account.CreateParamsCapabilitiesIdealPayments"
         ]
@@ -2085,6 +2121,18 @@ class Account(
         """
 
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3036,6 +3084,12 @@ class Account(
         """
         Settings specific to Bacs Direct Debit.
         """
+        bank_bca_onboarding: NotRequired[
+            "Account.CreateParamsSettingsBankBcaOnboarding"
+        ]
+        """
+        Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+        """
         branding: NotRequired["Account.CreateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
@@ -3073,6 +3127,16 @@ class Account(
         display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+        """
+
+    class CreateParamsSettingsBankBcaOnboarding(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        Bank BCA business account holder name
+        """
+        business_account_number: NotRequired[str]
+        """
+        Bank BCA business account number
         """
 
     class CreateParamsSettingsBranding(TypedDict):
@@ -5215,7 +5279,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
         """
-        Creates a single-use login link for a connected account to access the Express Dashboard.
+        Creates a login link for a connected account to access the Express Dashboard.
 
         You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """
@@ -5235,7 +5299,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
     ) -> "LoginLink":
         """
-        Creates a single-use login link for a connected account to access the Express Dashboard.
+        Creates a login link for a connected account to access the Express Dashboard.
 
         You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
         """

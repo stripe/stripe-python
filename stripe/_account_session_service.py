@@ -146,6 +146,9 @@ class AccountSessionService(StripeService):
         recipients: NotRequired[
             "AccountSessionService.CreateParamsComponentsRecipients"
         ]
+        """
+        Configuration for the recipients component.
+        """
         reporting_chart: NotRequired[
             "AccountSessionService.CreateParamsComponentsReportingChart"
         ]
@@ -362,6 +365,9 @@ class AccountSessionService(StripeService):
         features: NotRequired[
             "AccountSessionService.CreateParamsComponentsFinancialAccountFeatures"
         ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
     class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
@@ -601,12 +607,12 @@ class AccountSessionService(StripeService):
         features: NotRequired[
             "AccountSessionService.CreateParamsComponentsRecipientsFeatures"
         ]
-        """
-        The list of features enabled in the embedded component.
-        """
 
     class CreateParamsComponentsRecipientsFeatures(TypedDict):
-        pass
+        send_money: NotRequired[bool]
+        """
+        Whether to allow sending money.
+        """
 
     class CreateParamsComponentsReportingChart(TypedDict):
         enabled: bool

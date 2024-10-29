@@ -210,7 +210,6 @@ class SetupIntent(
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
-                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",
@@ -940,6 +939,12 @@ class SetupIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -1107,6 +1112,7 @@ class SetupIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -1349,6 +1355,12 @@ class SetupIntent(
 
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -2314,6 +2326,12 @@ class SetupIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["SetupIntent.CreateParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -2479,6 +2497,7 @@ class SetupIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -2721,6 +2740,12 @@ class SetupIntent(
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -3651,6 +3676,12 @@ class SetupIntent(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -3816,6 +3847,7 @@ class SetupIntent(
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -4058,6 +4090,12 @@ class SetupIntent(
 
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ModifyParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
