@@ -123,6 +123,12 @@ class PaymentMethodService(StripeService):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodService.CreateParamsIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["PaymentMethodService.CreateParamsIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -272,6 +278,7 @@ class PaymentMethodService(StripeService):
                 "giropay",
                 "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -548,6 +555,12 @@ class PaymentMethodService(StripeService):
     class CreateParamsGrabpay(TypedDict):
         pass
 
+    class CreateParamsIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
+
     class CreateParamsIdeal(TypedDict):
         bank: NotRequired[
             Literal[
@@ -822,6 +835,7 @@ class PaymentMethodService(StripeService):
                 "giropay",
                 "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",

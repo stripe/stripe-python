@@ -872,6 +872,7 @@ class Customer(
                 "giropay",
                 "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",

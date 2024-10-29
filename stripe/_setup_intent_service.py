@@ -228,6 +228,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataIdeal"
         ]
@@ -425,6 +431,7 @@ class SetupIntentService(StripeService):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -669,6 +676,12 @@ class SetupIntentService(StripeService):
 
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -1652,6 +1665,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataIdeal"
         ]
@@ -1845,6 +1864,7 @@ class SetupIntentService(StripeService):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -2087,6 +2107,12 @@ class SetupIntentService(StripeService):
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -3047,6 +3073,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataIdeal"
         ]
@@ -3240,6 +3272,7 @@ class SetupIntentService(StripeService):
             "giropay",
             "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -3482,6 +3515,12 @@ class SetupIntentService(StripeService):
 
     class UpdateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class UpdateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class UpdateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[

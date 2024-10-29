@@ -859,6 +859,12 @@ class PaymentMethod(
     class Grabpay(StripeObject):
         pass
 
+    class IdBankTransfer(StripeObject):
+        bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        bank_code: Optional[str]
+        bank_name: Optional[str]
+        display_name: Optional[str]
+
     class Ideal(StripeObject):
         bank: Optional[
             Literal[
@@ -1454,6 +1460,12 @@ class PaymentMethod(
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         """
+        id_bank_transfer: NotRequired[
+            "PaymentMethod.CreateParamsIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        """
         ideal: NotRequired["PaymentMethod.CreateParamsIdeal"]
         """
         If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
@@ -1601,6 +1613,7 @@ class PaymentMethod(
                 "giropay",
                 "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -1874,6 +1887,12 @@ class PaymentMethod(
 
     class CreateParamsGrabpay(TypedDict):
         pass
+
+    class CreateParamsIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsIdeal(TypedDict):
         bank: NotRequired[
@@ -2149,6 +2168,7 @@ class PaymentMethod(
                 "giropay",
                 "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -2371,6 +2391,7 @@ class PaymentMethod(
     """
     Unique identifier for the object.
     """
+    id_bank_transfer: Optional[IdBankTransfer]
     ideal: Optional[Ideal]
     interac_present: Optional[InteracPresent]
     kakao_pay: Optional[KakaoPay]
@@ -2436,6 +2457,7 @@ class PaymentMethod(
         "giropay",
         "gopay",
         "grabpay",
+        "id_bank_transfer",
         "ideal",
         "interac_present",
         "kakao_pay",
@@ -2953,6 +2975,7 @@ class PaymentMethod(
         "giropay": Giropay,
         "gopay": Gopay,
         "grabpay": Grabpay,
+        "id_bank_transfer": IdBankTransfer,
         "ideal": Ideal,
         "interac_present": InteracPresent,
         "kakao_pay": KakaoPay,
