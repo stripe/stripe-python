@@ -1,5 +1,5 @@
 ## 11.2.0 - 2024-10-29
-* [#1411](https://github.com/stripe/stripe-python/pull/1411) Update generated code
+* [#1411](https://github.com/stripe/stripe-python/pull/1411) This release changes the pinned API version to `2024-10-28.acacia`.
   * Add support for resource `stripe.v2.EventDestinations`
   * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
   * Add support for `alma_payments`, `kakao_pay_payments`, `kr_card_payments`, `naver_pay_payments`, `payco_payments`, `samsung_pay_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
