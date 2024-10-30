@@ -810,6 +810,10 @@ class Session(
             """
 
         class BacsDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -822,6 +826,7 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2988,7 +2993,7 @@ class Session(
             "Session.CreateParamsPaymentMethodOptionsNaverPay"
         ]
         """
-        contains details about the Kakao Pay payment method options.
+        contains details about the Naver Pay payment method options.
         """
         oxxo: NotRequired["Session.CreateParamsPaymentMethodOptionsOxxo"]
         """
@@ -3174,6 +3179,12 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -3186,6 +3197,9 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -3399,6 +3413,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3439,6 +3457,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3487,6 +3509,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3531,7 +3557,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
-        pass
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -3701,7 +3730,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
-        pass
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
         setup_future_usage: NotRequired[

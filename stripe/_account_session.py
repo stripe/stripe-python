@@ -729,6 +729,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow cardholder management features.
         """
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts.
+        """
         spend_control_management: NotRequired[bool]
         """
         Whether to allow spend control management features.

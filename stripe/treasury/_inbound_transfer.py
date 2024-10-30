@@ -330,7 +330,7 @@ class InboundTransfer(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    origin_payment_method: str
+    origin_payment_method: Optional[str]
     """
     The origin payment method to be debited for an InboundTransfer.
     """

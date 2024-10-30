@@ -24,6 +24,12 @@ from stripe.issuing._dispute_settlement_detail import (
 from stripe.issuing._dispute_settlement_detail_service import (
     DisputeSettlementDetailService as DisputeSettlementDetailService,
 )
+from stripe.issuing._fraud_liability_debit import (
+    FraudLiabilityDebit as FraudLiabilityDebit,
+)
+from stripe.issuing._fraud_liability_debit_service import (
+    FraudLiabilityDebitService as FraudLiabilityDebitService,
+)
 from stripe.issuing._personalization_design import (
     PersonalizationDesign as PersonalizationDesign,
 )

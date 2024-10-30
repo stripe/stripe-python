@@ -502,6 +502,7 @@ from stripe._payment_method_domain_service import (
 from stripe._payment_method_service import (
     PaymentMethodService as PaymentMethodService,
 )
+from stripe._payment_record import PaymentRecord as PaymentRecord
 from stripe._payout import Payout as Payout
 from stripe._payout_service import PayoutService as PayoutService
 from stripe._person import Person as Person

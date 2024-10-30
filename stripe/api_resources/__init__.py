@@ -98,6 +98,7 @@ if not TYPE_CHECKING:
         PaymentMethodConfiguration,
     )
     from stripe.api_resources.payment_method_domain import PaymentMethodDomain
+    from stripe.api_resources.payment_record import PaymentRecord
     from stripe.api_resources.payout import Payout
     from stripe.api_resources.person import Person
     from stripe.api_resources.plan import Plan

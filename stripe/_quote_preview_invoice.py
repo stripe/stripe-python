@@ -802,6 +802,7 @@ class QuotePreviewInvoice(StripeObject):
                     "boleto",
                     "card",
                     "cashapp",
+                    "custom",
                     "customer_balance",
                     "eps",
                     "fpx",

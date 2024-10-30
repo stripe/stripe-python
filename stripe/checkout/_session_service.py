@@ -1081,7 +1081,7 @@ class SessionService(StripeService):
             "SessionService.CreateParamsPaymentMethodOptionsNaverPay"
         ]
         """
-        contains details about the Kakao Pay payment method options.
+        contains details about the Naver Pay payment method options.
         """
         oxxo: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsOxxo"
@@ -1281,6 +1281,12 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -1293,6 +1299,9 @@ class SessionService(StripeService):
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -1506,6 +1515,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1546,6 +1559,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1594,6 +1611,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1638,7 +1659,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
-        pass
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -1808,7 +1832,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
-        pass
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
         setup_future_usage: NotRequired[
