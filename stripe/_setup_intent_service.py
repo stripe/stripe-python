@@ -1474,7 +1474,7 @@ class SetupIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         return_url: NotRequired[str]
         """
@@ -2953,7 +2953,7 @@ class SetupIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
 
     class UpdateParamsPaymentMethodData(TypedDict):

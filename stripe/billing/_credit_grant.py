@@ -31,7 +31,6 @@ class CreditGrant(
     A credit grant is an API resource that documents the allocation of some billing credits to a customer.
 
     Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
-    end
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.credit_grant"]] = (
@@ -63,7 +62,7 @@ class CreditGrant(
         class Scope(StripeObject):
             price_type: Literal["metered"]
             """
-            The price type to which credit grants can apply to. We currently only support `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            The price type for which credit grants can apply. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
             """
 
         scope: Scope
@@ -84,11 +83,11 @@ class CreditGrant(
         """
         customer: str
         """
-        ID of the customer to whom the billing credits should be granted.
+        ID of the customer to receive the billing credits.
         """
         effective_at: NotRequired[int]
         """
-        The time when the billing credits become effective i.e when they are eligible to be used. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective—when they're eligible for use. Defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -96,15 +95,15 @@ class CreditGrant(
         """
         expires_at: NotRequired[int]
         """
-        The time when the billing credits will expire. If not specified, the billing credits will never expire.
+        The time when the billing credits will expire. If not specified, the billing credits don't expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format.
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard.
+        A descriptive name shown in the Dashboard.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -136,7 +135,7 @@ class CreditGrant(
     class CreateParamsApplicabilityConfigScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type to which credit grants can apply to. We currently only support `metered` price type.
+        The price type for which credit grants can apply. We currently only support the `metered` price type.
         """
 
     class ExpireParams(RequestOptions):
@@ -174,11 +173,11 @@ class CreditGrant(
         """
         expires_at: NotRequired["Literal['']|int"]
         """
-        The time when the billing credits created by this credit grant will expire. If set to empty, the billing credits will never expire.
+        The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format.
+        Set of key-value pairs you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
         """
 
     class RetrieveParams(RequestOptions):
@@ -197,7 +196,7 @@ class CreditGrant(
     applicability_config: ApplicabilityConfig
     category: Literal["paid", "promotional"]
     """
-    The category of this credit grant. This is for tracking purposes and will not be displayed to the customer.
+    The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.
     """
     created: int
     """
@@ -205,15 +204,15 @@ class CreditGrant(
     """
     customer: ExpandableField["Customer"]
     """
-    ID of the customer to whom the billing credits are granted.
+    ID of the customer receiving the billing credits.
     """
     effective_at: Optional[int]
     """
-    The time when the billing credits become effective i.e when they are eligible to be used.
+    The time when the billing credits become effective—when they're eligible for use.
     """
     expires_at: Optional[int]
     """
-    The time when the billing credits will expire. If not present, the billing credits will never expire.
+    The time when the billing credits expire. If not present, the billing credits don't expire.
     """
     id: str
     """
@@ -285,7 +284,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -304,7 +303,7 @@ class CreditGrant(
         id: str, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         ...
 
@@ -313,7 +312,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         ...
 
@@ -322,7 +321,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -340,7 +339,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -359,7 +358,7 @@ class CreditGrant(
         id: str, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         ...
 
@@ -368,7 +367,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         ...
 
@@ -377,7 +376,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.ExpireParams"]
     ) -> "CreditGrant":
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -395,7 +394,7 @@ class CreditGrant(
         cls, **params: Unpack["CreditGrant.ListParams"]
     ) -> ListObject["CreditGrant"]:
         """
-        Retrieve a list of credit grants
+        Retrieve a list of credit grants.
         """
         result = cls._static_request(
             "get",
@@ -415,7 +414,7 @@ class CreditGrant(
         cls, **params: Unpack["CreditGrant.ListParams"]
     ) -> ListObject["CreditGrant"]:
         """
-        Retrieve a list of credit grants
+        Retrieve a list of credit grants.
         """
         result = await cls._static_request_async(
             "get",
@@ -491,7 +490,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -510,7 +509,7 @@ class CreditGrant(
         id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         ...
 
@@ -519,7 +518,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         ...
 
@@ -528,7 +527,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -546,7 +545,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -565,7 +564,7 @@ class CreditGrant(
         id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         ...
 
@@ -574,7 +573,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         ...
 
@@ -583,7 +582,7 @@ class CreditGrant(
         self, **params: Unpack["CreditGrant.VoidGrantParams"]
     ) -> "CreditGrant":
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             "CreditGrant",

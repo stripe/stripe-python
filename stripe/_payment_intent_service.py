@@ -4533,7 +4533,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         radar_options: NotRequired[
             "PaymentIntentService.CreateParamsRadarOptions"
