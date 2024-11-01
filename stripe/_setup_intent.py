@@ -532,6 +532,7 @@ class SetupIntent(
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -1727,6 +1728,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -2130,7 +2132,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodData"
@@ -3110,6 +3112,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -3551,7 +3554,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodData"
@@ -4460,6 +4463,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -4914,7 +4918,7 @@ class SetupIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the payment method configuration used for this Setup Intent.
+    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """

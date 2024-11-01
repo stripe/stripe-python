@@ -1054,6 +1054,7 @@ class SetupIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1457,7 +1458,7 @@ class SetupIntentService(StripeService):
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodData"
@@ -2485,6 +2486,7 @@ class SetupIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -2936,7 +2938,7 @@ class SetupIntentService(StripeService):
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodData"
@@ -3893,6 +3895,7 @@ class SetupIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",

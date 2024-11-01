@@ -3035,6 +3035,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -4515,7 +4516,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodData"
@@ -6744,6 +6745,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -8232,6 +8234,12 @@ class PaymentIntentService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        payment_method_options: NotRequired[
+            "PaymentIntentService.IncrementAuthorizationParamsPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific configuration for this PaymentIntent.
+        """
         statement_descriptor: NotRequired[str]
         """
         Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -8265,6 +8273,17 @@ class PaymentIntentService(StripeService):
         """
         The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
+
+    class IncrementAuthorizationParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "Literal['']|PaymentIntentService.IncrementAuthorizationParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+
+    class IncrementAuthorizationParamsPaymentMethodOptionsCard(TypedDict):
+        pass
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
         amount: NotRequired[int]
@@ -8426,7 +8445,7 @@ class PaymentIntentService(StripeService):
         payment_method: NotRequired[str]
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodData"
@@ -10615,6 +10634,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
