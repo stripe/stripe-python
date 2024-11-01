@@ -866,6 +866,32 @@ class Session(
                 """
 
             installments: Optional[Installments]
+            request_decremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+            """
+            request_extended_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+            """
+            request_incremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+            """
+            request_multicapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+            """
+            request_overcapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
+            """
             request_three_d_secure: Literal["any", "automatic", "challenge"]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -3237,6 +3263,32 @@ class Session(
         ]
         """
         Installment options for card payments
+        """
+        request_decremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_extended_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_incremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+        """
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+        """
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]

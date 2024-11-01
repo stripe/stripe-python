@@ -1340,6 +1340,32 @@ class SessionService(StripeService):
         """
         Installment options for card payments
         """
+        request_decremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_extended_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_incremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+        """
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+        """
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
+        """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
         ]

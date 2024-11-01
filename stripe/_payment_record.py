@@ -7,7 +7,10 @@ from typing_extensions import Literal
 
 class PaymentRecord(StripeObject):
     """
-    A PaymentRecord represents a payment that happened on or off Stripe.
+    A Payment Record is a resource that allows you to represent payments that occur on- or off-Stripe.
+    For example, you can create a Payment Record to model a payment made on a different payment processor,
+    in order to mark an Invoice as paid and a Subscription as active. Payment Records consist of one or
+    more Payment Attempt Records, which represent individual attempts made on a payment network.
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_record"]] = "payment_record"
@@ -65,7 +68,7 @@ class PaymentRecord(StripeObject):
     class CustomerDetails(StripeObject):
         customer: Optional[str]
         """
-        ID of the Stripe customer for this payment.
+        ID of the Stripe Customer associated with this payment.
         """
         email: Optional[str]
         """
@@ -110,7 +113,7 @@ class PaymentRecord(StripeObject):
 
             address: Address
             """
-            Address data
+            A representation of a physical address.
             """
             email: Optional[str]
             """
@@ -133,7 +136,7 @@ class PaymentRecord(StripeObject):
             """
             type: Optional[str]
             """
-            The Custom Payment Method Type associated with this payment.
+            The custom payment method type associated with this payment.
             """
 
         billing_details: Optional[BillingDetails]
@@ -150,7 +153,7 @@ class PaymentRecord(StripeObject):
         """
         type: Literal["custom"]
         """
-        The type of payment method used for this payment attempt.
+        The type of Payment Method used for this payment attempt.
         """
         _inner_class_types = {
             "billing_details": BillingDetails,
@@ -186,37 +189,37 @@ class PaymentRecord(StripeObject):
 
         address: Address
         """
-        Address data
+        A representation of a physical address.
         """
         name: Optional[str]
         """
-        The recipient's name.
+        The shipping recipient's name.
         """
         phone: Optional[str]
         """
-        The recipient's phone number.
+        The shipping recipient's phone number.
         """
         _inner_class_types = {"address": Address}
 
     amount_canceled: AmountCanceled
     """
-    Amount object
+    A representation of an amount of money, consisting of an amount and a currency.
     """
     amount_failed: AmountFailed
     """
-    Amount object
+    A representation of an amount of money, consisting of an amount and a currency.
     """
     amount_guaranteed: AmountGuaranteed
     """
-    Amount object
+    A representation of an amount of money, consisting of an amount and a currency.
     """
     amount_refunded: AmountRefunded
     """
-    Amount object
+    A representation of an amount of money, consisting of an amount and a currency.
     """
     amount_requested: AmountRequested
     """
-    Amount object
+    A representation of an amount of money, consisting of an amount and a currency.
     """
     created: int
     """
@@ -228,7 +231,7 @@ class PaymentRecord(StripeObject):
     """
     customer_presence: Optional[Literal["off_session", "on_session"]]
     """
-    Whether the customer was present during the transaction.
+    Indicates whether the customer was present in your checkout flow during this payment.
     """
     description: Optional[str]
     """
@@ -240,7 +243,7 @@ class PaymentRecord(StripeObject):
     """
     latest_payment_attempt_record: str
     """
-    ID of the latest PaymentAttemptRecord attached to this PaymentRecord.
+    ID of the latest Payment Attempt Record attached to this Payment Record.
     """
     livemode: bool
     """
@@ -256,11 +259,11 @@ class PaymentRecord(StripeObject):
     """
     payment_method_details: Optional[PaymentMethodDetails]
     """
-    Information about the method used to make this payment.
+    Information about the Payment Method debited for this payment.
     """
     payment_reference: Optional[str]
     """
-    An opaque string for manual reconciliation of this payment, for example a check number.
+    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     """
     shipping_details: Optional[ShippingDetails]
     """
