@@ -97,6 +97,7 @@ OBJECT_CLASSES = {
     stripe.Mandate.OBJECT_NAME: stripe.Mandate,
     stripe.Margin.OBJECT_NAME: stripe.Margin,
     stripe.Order.OBJECT_NAME: stripe.Order,
+    stripe.PaymentAttemptRecord.OBJECT_NAME: stripe.PaymentAttemptRecord,
     stripe.PaymentIntent.OBJECT_NAME: stripe.PaymentIntent,
     stripe.PaymentLink.OBJECT_NAME: stripe.PaymentLink,
     stripe.PaymentMethod.OBJECT_NAME: stripe.PaymentMethod,
