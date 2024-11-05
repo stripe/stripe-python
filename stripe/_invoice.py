@@ -1381,6 +1381,7 @@ class Invoice(
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -9287,6 +9288,7 @@ class Invoice(
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]

@@ -244,6 +244,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
                     "retail_delivery_fee",
                     "rst",
                     "sales_tax",
+                    "service_tax",
                     "vat",
                 ]
                 """
@@ -364,6 +365,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
                     "retail_delivery_fee",
                     "rst",
                     "sales_tax",
+                    "service_tax",
                     "vat",
                 ]
             ]

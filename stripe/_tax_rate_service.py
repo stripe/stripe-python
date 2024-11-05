@@ -65,6 +65,7 @@ class TaxRateService(StripeService):
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -173,6 +174,7 @@ class TaxRateService(StripeService):
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
