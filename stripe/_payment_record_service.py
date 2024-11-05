@@ -151,7 +151,7 @@ class PaymentRecordService(StripeService):
         """
         City, district, suburb, town, or village.
         """
-        country: str
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
@@ -173,9 +173,13 @@ class PaymentRecordService(StripeService):
         """
 
     class ReportPaymentAttemptParamsPaymentMethodDetailsCustom(TypedDict):
-        display_name: str
+        display_name: NotRequired[str]
         """
         Display name for the custom (user-defined) payment method type used to make this payment.
+        """
+        type: NotRequired[str]
+        """
+        The custom payment method type associated with this payment.
         """
 
     class ReportPaymentAttemptParamsShippingDetails(TypedDict):
@@ -199,7 +203,7 @@ class PaymentRecordService(StripeService):
         """
         City, district, suburb, town, or village.
         """
-        country: str
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
@@ -373,7 +377,7 @@ class PaymentRecordService(StripeService):
         """
         City, district, suburb, town, or village.
         """
-        country: str
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
@@ -395,9 +399,13 @@ class PaymentRecordService(StripeService):
         """
 
     class ReportPaymentParamsPaymentMethodDetailsCustom(TypedDict):
-        display_name: str
+        display_name: NotRequired[str]
         """
         Display name for the custom (user-defined) payment method type used to make this payment.
+        """
+        type: NotRequired[str]
+        """
+        The custom payment method type associated with this payment.
         """
 
     class ReportPaymentParamsShippingDetails(TypedDict):
@@ -421,7 +429,7 @@ class PaymentRecordService(StripeService):
         """
         City, district, suburb, town, or village.
         """
-        country: str
+        country: NotRequired[str]
         """
         Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         """
