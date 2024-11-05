@@ -659,10 +659,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow external accounts to be linked for money transfer.
         """
-        money_movement: NotRequired[bool]
-        """
-        Whether to allow money movement features.
-        """
         send_money: NotRequired[bool]
         """
         Whether to allow sending money.
@@ -680,6 +676,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         features: NotRequired[
             "AccountSession.CreateParamsComponentsFinancialAccountTransactionsFeatures"
         ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
     class CreateParamsComponentsFinancialAccountTransactionsFeatures(
         TypedDict
@@ -702,7 +701,22 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsIssuingCardFeatures(TypedDict):
-        pass
+        card_management: NotRequired[bool]
+        """
+        Whether to allow card management features.
+        """
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute management features.
+        """
+        cardholder_management: NotRequired[bool]
+        """
+        Whether to allow cardholder management features.
+        """
+        spend_control_management: NotRequired[bool]
+        """
+        Whether to allow spend control management features.
+        """
 
     class CreateParamsComponentsIssuingCardsList(TypedDict):
         enabled: bool
