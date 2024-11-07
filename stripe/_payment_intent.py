@@ -451,10 +451,72 @@ class PaymentIntent(
         class DisplayBankTransferInstructions(StripeObject):
             class FinancialAddress(StripeObject):
                 class Aba(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
                     account_number: str
                     """
                     The ABA account number
                     """
+                    account_type: str
+                    """
+                    The account type
+                    """
+                    bank_address: BankAddress
                     bank_name: str
                     """
                     The bank name
@@ -463,6 +525,10 @@ class PaymentIntent(
                     """
                     The ABA routing number
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Iban(StripeObject):
                     account_holder_name: str
@@ -511,10 +577,72 @@ class PaymentIntent(
                     """
 
                 class Swift(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
                     account_number: str
                     """
                     The account number
                     """
+                    account_type: str
+                    """
+                    The account type
+                    """
+                    bank_address: BankAddress
                     bank_name: str
                     """
                     The bank name
@@ -523,6 +651,10 @@ class PaymentIntent(
                     """
                     The SWIFT code
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Zengin(StripeObject):
                     account_holder_name: Optional[str]
@@ -10804,12 +10936,6 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        payment_method_options: NotRequired[
-            "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptions"
-        ]
-        """
-        Payment method-specific configuration for this PaymentIntent.
-        """
         statement_descriptor: NotRequired[str]
         """
         Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -10843,17 +10969,6 @@ class PaymentIntent(
         """
         The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
         """
-
-    class IncrementAuthorizationParamsPaymentMethodOptions(TypedDict):
-        card: NotRequired[
-            "Literal['']|PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptionsCard"
-        ]
-        """
-        Configuration for any card payments attempted on this PaymentIntent.
-        """
-
-    class IncrementAuthorizationParamsPaymentMethodOptionsCard(TypedDict):
-        pass
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
         amount: NotRequired[int]

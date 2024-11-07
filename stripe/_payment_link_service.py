@@ -832,7 +832,7 @@ class PaymentLinkService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
@@ -1634,7 +1634,7 @@ class PaymentLinkService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class UpdateParamsSubscriptionData(TypedDict):

@@ -16,6 +16,12 @@ class SessionService(StripeService):
         self.line_items = SessionLineItemService(self._requestor)
 
     class CreateParams(TypedDict):
+        adaptive_pricing: NotRequired[
+            "SessionService.CreateParamsAdaptivePricing"
+        ]
+        """
+        Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+        """
         after_expiration: NotRequired[
             "SessionService.CreateParamsAfterExpiration"
         ]
@@ -367,6 +373,12 @@ class SessionService(StripeService):
         ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
+        """
+
+    class CreateParamsAdaptivePricing(TypedDict):
+        enabled: NotRequired[bool]
+        """
+        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -1864,6 +1876,12 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -1876,6 +1894,9 @@ class SessionService(StripeService):
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -2258,7 +2279,7 @@ class SessionService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
