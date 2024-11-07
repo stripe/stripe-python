@@ -149,6 +149,24 @@ class Authorization(
             "reported_breakdown": ReportedBreakdown,
         }
 
+    class FraudChallenge(StripeObject):
+        channel: Literal["sms"]
+        """
+        The method by which the fraud challenge was delivered to the cardholder.
+        """
+        status: Literal[
+            "expired", "pending", "rejected", "undeliverable", "verified"
+        ]
+        """
+        The status of the fraud challenge.
+        """
+        undeliverable_reason: Optional[
+            Literal["no_phone_number", "unsupported_phone_number"]
+        ]
+        """
+        If the challenge is not deliverable, the reason why.
+        """
+
     class Fuel(StripeObject):
         industry_product_code: Optional[str]
         """
@@ -1550,6 +1568,16 @@ class Authorization(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
+    class RespondParams(RequestOptions):
+        confirmed: bool
+        """
+        Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false).
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -1607,6 +1635,10 @@ class Authorization(
     fleet: Optional[Fleet]
     """
     Fleet-specific information for authorizations using Fleet cards.
+    """
+    fraud_challenges: Optional[List[FraudChallenge]]
+    """
+    Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons.
     """
     fuel: Optional[Fuel]
     """
@@ -1666,6 +1698,10 @@ class Authorization(
     [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).
     """
     verification_data: VerificationData
+    verified_by_fraud_challenge: Optional[bool]
+    """
+    Whether the authorization bypassed fraud risk checks because the cardholder has previously completed a fraud challenge on a similar high-risk authorization from the same merchant.
+    """
     wallet: Optional[str]
     """
     The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -2507,6 +2543,120 @@ class Authorization(
             )
 
         @classmethod
+        def _cls_respond(
+            cls,
+            authorization: str,
+            **params: Unpack["Authorization.RespondParams"],
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
+                        authorization=sanitize_id(authorization)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def respond(
+            authorization: str, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            ...
+
+        @overload
+        def respond(
+            self, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            ...
+
+        @class_method_variant("_cls_respond")
+        def respond(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
+                        authorization=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_respond_async(
+            cls,
+            authorization: str,
+            **params: Unpack["Authorization.RespondParams"],
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            return cast(
+                "Authorization",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
+                        authorization=sanitize_id(authorization)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def respond_async(
+            authorization: str, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            ...
+
+        @overload
+        async def respond_async(
+            self, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            ...
+
+        @class_method_variant("_cls_respond_async")
+        async def respond_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Authorization.RespondParams"]
+        ) -> "Authorization":
+            """
+            Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+            """
+            return cast(
+                "Authorization",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
+                        authorization=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
         def _cls_reverse(
             cls,
             authorization: str,
@@ -2627,6 +2777,7 @@ class Authorization(
     _inner_class_types = {
         "amount_details": AmountDetails,
         "fleet": Fleet,
+        "fraud_challenges": FraudChallenge,
         "fuel": Fuel,
         "merchant_data": MerchantData,
         "network_data": NetworkData,
