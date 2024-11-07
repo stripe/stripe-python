@@ -3035,6 +3035,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -4515,7 +4516,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodData"
@@ -4533,7 +4534,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         radar_options: NotRequired[
             "PaymentIntentService.CreateParamsRadarOptions"
@@ -6744,6 +6745,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -8426,7 +8428,7 @@ class PaymentIntentService(StripeService):
         payment_method: NotRequired[str]
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodData"
@@ -10615,6 +10617,7 @@ class PaymentIntentService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",

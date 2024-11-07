@@ -378,10 +378,6 @@ class AccountSessionService(StripeService):
         """
         Whether to allow external accounts to be linked for money transfer.
         """
-        money_movement: NotRequired[bool]
-        """
-        Whether to allow money movement features.
-        """
         send_money: NotRequired[bool]
         """
         Whether to allow sending money.
@@ -399,6 +395,9 @@ class AccountSessionService(StripeService):
         features: NotRequired[
             "AccountSessionService.CreateParamsComponentsFinancialAccountTransactionsFeatures"
         ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
     class CreateParamsComponentsFinancialAccountTransactionsFeatures(
         TypedDict
@@ -421,7 +420,22 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsIssuingCardFeatures(TypedDict):
-        pass
+        card_management: NotRequired[bool]
+        """
+        Whether to allow card management features.
+        """
+        card_spend_dispute_management: NotRequired[bool]
+        """
+        Whether to allow card spend dispute management features.
+        """
+        cardholder_management: NotRequired[bool]
+        """
+        Whether to allow cardholder management features.
+        """
+        spend_control_management: NotRequired[bool]
+        """
+        Whether to allow spend control management features.
+        """
 
     class CreateParamsComponentsIssuingCardsList(TypedDict):
         enabled: bool
@@ -447,6 +461,10 @@ class AccountSessionService(StripeService):
         cardholder_management: NotRequired[bool]
         """
         Whether to allow cardholder management features.
+        """
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts.
         """
         spend_control_management: NotRequired[bool]
         """

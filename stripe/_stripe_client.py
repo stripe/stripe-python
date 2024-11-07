@@ -77,6 +77,7 @@ from stripe._issuing_service import IssuingService
 from stripe._mandate_service import MandateService
 from stripe._margin_service import MarginService
 from stripe._order_service import OrderService
+from stripe._payment_attempt_record_service import PaymentAttemptRecordService
 from stripe._payment_intent_service import PaymentIntentService
 from stripe._payment_link_service import PaymentLinkService
 from stripe._payment_method_service import PaymentMethodService
@@ -84,6 +85,7 @@ from stripe._payment_method_configuration_service import (
     PaymentMethodConfigurationService,
 )
 from stripe._payment_method_domain_service import PaymentMethodDomainService
+from stripe._payment_record_service import PaymentRecordService
 from stripe._payout_service import PayoutService
 from stripe._plan_service import PlanService
 from stripe._price_service import PriceService
@@ -234,6 +236,9 @@ class StripeClient(object):
         self.mandates = MandateService(self._requestor)
         self.margins = MarginService(self._requestor)
         self.orders = OrderService(self._requestor)
+        self.payment_attempt_records = PaymentAttemptRecordService(
+            self._requestor
+        )
         self.payment_intents = PaymentIntentService(self._requestor)
         self.payment_links = PaymentLinkService(self._requestor)
         self.payment_methods = PaymentMethodService(self._requestor)
@@ -243,6 +248,7 @@ class StripeClient(object):
         self.payment_method_domains = PaymentMethodDomainService(
             self._requestor
         )
+        self.payment_records = PaymentRecordService(self._requestor)
         self.payouts = PayoutService(self._requestor)
         self.plans = PlanService(self._requestor)
         self.prices = PriceService(self._requestor)

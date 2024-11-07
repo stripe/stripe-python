@@ -702,7 +702,7 @@ class Authorization(
         unit_cost: NotRequired[int]
 
     class CreateParams(RequestOptions):
-        amount: int
+        amount: NotRequired[int]
         """
         The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
@@ -739,6 +739,14 @@ class Authorization(
         is_amount_controllable: NotRequired[bool]
         """
         If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        """
+        merchant_amount: NotRequired[int]
+        """
+        The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        merchant_currency: NotRequired[str]
+        """
+        The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         merchant_data: NotRequired["Authorization.CreateParamsMerchantData"]
         """
@@ -1582,7 +1590,7 @@ class Authorization(
     """
     card: "Card"
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     """
     cardholder: Optional[ExpandableField["Cardholder"]]
     """

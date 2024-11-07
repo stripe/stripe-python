@@ -91,6 +91,9 @@ if not TYPE_CHECKING:
     from stripe.api_resources.mandate import Mandate
     from stripe.api_resources.margin import Margin
     from stripe.api_resources.order import Order
+    from stripe.api_resources.payment_attempt_record import (
+        PaymentAttemptRecord,
+    )
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_link import PaymentLink
     from stripe.api_resources.payment_method import PaymentMethod
@@ -98,6 +101,7 @@ if not TYPE_CHECKING:
         PaymentMethodConfiguration,
     )
     from stripe.api_resources.payment_method_domain import PaymentMethodDomain
+    from stripe.api_resources.payment_record import PaymentRecord
     from stripe.api_resources.payout import Payout
     from stripe.api_resources.person import Person
     from stripe.api_resources.plan import Plan
