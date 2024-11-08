@@ -2329,7 +2329,9 @@ class Session(
         """
         The shipping rate options to apply to this Session. Up to a maximum of 5.
         """
-        submit_type: NotRequired[Literal["auto", "book", "donate", "pay"]]
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
         """
         Describes the type of transaction being performed by Checkout in order to customize
         relevant text on the page, such as the submit button. `submit_type` can only be
@@ -4997,7 +4999,9 @@ class Session(
     """
     The status of the Checkout Session, one of `open`, `complete`, or `expired`.
     """
-    submit_type: Optional[Literal["auto", "book", "donate", "pay"]]
+    submit_type: Optional[
+        Literal["auto", "book", "donate", "pay", "subscribe"]
+    ]
     """
     Describes the type of transaction being performed by Checkout in order to customize
     relevant text on the page, such as the submit button. `submit_type` can only be
