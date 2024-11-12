@@ -991,6 +991,10 @@ class Token(CreateableAPIResource["Token"]):
         """
 
     class CreateParamsPersonRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
