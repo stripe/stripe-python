@@ -269,7 +269,7 @@ class AuthorizationService(StripeService):
         unit_cost: NotRequired[int]
 
     class CreateParams(TypedDict):
-        amount: int
+        amount: NotRequired[int]
         """
         The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
@@ -308,6 +308,14 @@ class AuthorizationService(StripeService):
         is_amount_controllable: NotRequired[bool]
         """
         If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        """
+        merchant_amount: NotRequired[int]
+        """
+        The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        merchant_currency: NotRequired[str]
+        """
+        The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         merchant_data: NotRequired[
             "AuthorizationService.CreateParamsMerchantData"
@@ -1045,6 +1053,16 @@ class AuthorizationService(StripeService):
         If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         """
 
+    class RespondParams(TypedDict):
+        confirmed: bool
+        """
+        Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false).
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class ReverseParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -1217,6 +1235,50 @@ class AuthorizationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def respond(
+        self,
+        authorization: str,
+        params: "AuthorizationService.RespondParams",
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+        """
+        return cast(
+            Authorization,
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
+                    authorization=sanitize_id(authorization),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def respond_async(
+        self,
+        authorization: str,
+        params: "AuthorizationService.RespondParams",
+        options: RequestOptions = {},
+    ) -> Authorization:
+        """
+        Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+        """
+        return cast(
+            Authorization,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
                     authorization=sanitize_id(authorization),
                 ),
                 base_address="api",

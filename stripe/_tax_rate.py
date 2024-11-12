@@ -89,6 +89,7 @@ class TaxRate(
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -191,6 +192,7 @@ class TaxRate(
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -290,6 +292,7 @@ class TaxRate(
             "retail_delivery_fee",
             "rst",
             "sales_tax",
+            "service_tax",
             "vat",
         ]
     ]

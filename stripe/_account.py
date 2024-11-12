@@ -798,9 +798,27 @@ class Account(
         """
         Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
-        disabled_reason: Optional[str]
+        disabled_reason: Optional[
+            Literal[
+                "action_required.requested_capabilities",
+                "listed",
+                "other",
+                "platform_paused",
+                "rejected.fraud",
+                "rejected.incomplete_verification",
+                "rejected.listed",
+                "rejected.other",
+                "rejected.platform_fraud",
+                "rejected.platform_other",
+                "rejected.platform_terms_of_service",
+                "rejected.terms_of_service",
+                "requirements.past_due",
+                "requirements.pending_verification",
+                "under_review",
+            ]
+        ]
         """
-        This is typed as a string for consistency with `requirements.disabled_reason`.
+        This is typed as an enum for consistency with `requirements.disabled_reason`.
         """
         errors: Optional[List[Error]]
         """
@@ -954,9 +972,27 @@ class Account(
         """
         Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
         """
-        disabled_reason: Optional[str]
+        disabled_reason: Optional[
+            Literal[
+                "action_required.requested_capabilities",
+                "listed",
+                "other",
+                "platform_paused",
+                "rejected.fraud",
+                "rejected.incomplete_verification",
+                "rejected.listed",
+                "rejected.other",
+                "rejected.platform_fraud",
+                "rejected.platform_other",
+                "rejected.platform_terms_of_service",
+                "rejected.terms_of_service",
+                "requirements.past_due",
+                "requirements.pending_verification",
+                "under_review",
+            ]
+        ]
         """
-        If the account is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `action_required.requested_capabilities`, `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.incomplete_verification`, `rejected.listed`, `rejected.other`, `rejected.terms_of_service`, `under_review`, or `other`.
+        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
         """
         errors: Optional[List[Error]]
         """
