@@ -191,6 +191,64 @@ class FundingInstructions(StripeObject):
                 """
 
             class Spei(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
+                account_holder_name: str
+                """
+                The account holder name
+                """
+                bank_address: BankAddress
                 bank_code: str
                 """
                 The three-digit bank code
@@ -203,6 +261,10 @@ class FundingInstructions(StripeObject):
                 """
                 The CLABE number
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class Swift(StripeObject):
                 class AccountHolderAddress(StripeObject):
