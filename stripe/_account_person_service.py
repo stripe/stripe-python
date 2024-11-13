@@ -321,6 +321,10 @@ class AccountPersonService(StripeService):
         """
 
     class CreateParamsRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -412,6 +416,10 @@ class AccountPersonService(StripeService):
         """
 
     class ListParamsRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        A filter on the list of people returned based on whether these people are authorizers of the account's representative.
+        """
         director: NotRequired[bool]
         """
         A filter on the list of people returned based on whether these people are directors of the account's company.
@@ -750,6 +758,10 @@ class AccountPersonService(StripeService):
         """
 
     class UpdateParamsRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
