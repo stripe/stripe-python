@@ -61,6 +61,10 @@ class Refund(
             pass
 
         class Blik(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.
@@ -202,6 +206,10 @@ class Refund(
             pass
 
         class Swish(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.

@@ -81,6 +81,7 @@ class FileService(StripeService):
                 "dispute_evidence",
                 "document_provider_identity_document",
                 "finance_report_run",
+                "financial_account_statement",
                 "identity_document",
                 "identity_document_downloadable",
                 "issuing_regulatory_reporting",
