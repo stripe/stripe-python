@@ -2665,7 +2665,7 @@ class PaymentIntent(
         class Swish(StripeObject):
             reference: Optional[str]
             """
-            The order ID displayed in the Swish app after the payment is authorized.
+            A reference for this payment to be displayed in the Swish app.
             """
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -7105,7 +7105,7 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -10761,7 +10761,7 @@ class PaymentIntent(
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -14527,7 +14527,7 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
