@@ -1,5 +1,12 @@
 # Changelog
 
+## 11.3.0b3 - 2024-11-14
+* [#1422](https://github.com/stripe/stripe-python/pull/1422) Update generated code for beta
+  * Add support for `account_holder_address` on resource classes `stripe.FundingInstructions.BankTransfer.FinancialAddress.Iban`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.SortCode`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Spei`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Zengin`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Iban`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.SortCode`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Spei`, and `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Zengin`
+  * Add support for `bank_address` on resource classes `stripe.FundingInstructions.BankTransfer.FinancialAddress.Iban`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.SortCode`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Spei`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Zengin`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Iban`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.SortCode`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Spei`, and `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Zengin`
+  * Add support for `account_holder_name` on resource classes `stripe.FundingInstructions.BankTransfer.FinancialAddress.Spei` and `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Spei`
+  * Add support for `subscribe` on enum `stripe.PaymentLink.ModifyParams.submit_type`
+
 ## 11.3.0b2 - 2024-11-07
 * [#1421](https://github.com/stripe/stripe-python/pull/1421) Update generated code for beta
   * Add support for `card_management` on parameter class `stripe.AccountSession.CreateParamsComponentsIssuingCardFeatures`
