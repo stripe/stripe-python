@@ -286,7 +286,42 @@ class Charge(
             pass
 
         class AmazonPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
             bsb_number: Optional[str]
@@ -1683,7 +1718,42 @@ class Charge(
             pass
 
         class RevolutPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
             buyer_id: Optional[str]
