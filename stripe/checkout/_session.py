@@ -1523,6 +1523,14 @@ class Session(
 
     class Permissions(StripeObject):
         class Update(StripeObject):
+            line_items: Optional[Literal["client_only", "server_only"]]
+            """
+            Determines which entity is allowed to update the line items.
+
+            Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+
+            When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+            """
             shipping_details: Optional[Literal["client_only", "server_only"]]
             """
             Determines which entity is allowed to update the shipping details.
@@ -2676,6 +2684,10 @@ class Session(
         dynamic_tax_rates: NotRequired[List[str]]
         """
         The [tax rates](https://stripe.com/docs/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         price: NotRequired[str]
         """
@@ -3931,6 +3943,14 @@ class Session(
         """
 
     class CreateParamsPermissionsUpdate(TypedDict):
+        line_items: NotRequired[Literal["client_only", "server_only"]]
+        """
+        Determines which entity is allowed to update the line items.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+
+        When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        """
         shipping_details: NotRequired[Literal["client_only", "server_only"]]
         """
         Determines which entity is allowed to update the shipping details.
@@ -4560,6 +4580,22 @@ class Session(
         """
         Specifies which fields in the response should be expanded.
         """
+        line_items: NotRequired[List["Session.ModifyParamsLineItem"]]
+        """
+        A list of items the customer is purchasing.
+
+        When updating line items, the entire array of line items must be retransmitted.
+
+        To retain an existing line item, specify its `id`.
+
+        To update an existing line item, specify its `id` along with the new values of the fields to be updated.
+
+        To add a new line item, specify a `price` and `quantity`. Recurring prices are not supported yet.
+
+        To remove an existing line item, omit the line item's ID from the retransmitted array.
+
+        To reorder a line item, specify it at the desired position in the retransmitted array.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -4615,6 +4651,48 @@ class Session(
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class ModifyParamsLineItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "Session.ModifyParamsLineItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for this item's quantity to be adjusted by the customer during Checkout.
+        """
+        id: NotRequired[str]
+        """
+        ID of an existing line item.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        price: NotRequired[str]
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices).
+        """
+        quantity: NotRequired[int]
+        """
+        The quantity of the line item being purchased.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        """
+
+    class ModifyParamsLineItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
         """
 
     class ModifyParamsShippingOption(TypedDict):
