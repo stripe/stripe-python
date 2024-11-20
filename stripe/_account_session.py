@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -23,7 +23,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class Components(StripeObject):
         class AccountManagement(StripeObject):
             class Features(StripeObject):
-                disable_stripe_user_authentication: Optional[bool]
+                disable_stripe_user_authentication: bool
                 """
                 Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
                 """
@@ -41,7 +41,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class AccountOnboarding(StripeObject):
             class Features(StripeObject):
-                disable_stripe_user_authentication: Optional[bool]
+                disable_stripe_user_authentication: bool
                 """
                 Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
                 """
@@ -59,7 +59,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class Balances(StripeObject):
             class Features(StripeObject):
-                disable_stripe_user_authentication: Optional[bool]
+                disable_stripe_user_authentication: bool
                 """
                 Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
                 """
@@ -100,7 +100,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class NotificationBanner(StripeObject):
             class Features(StripeObject):
-                disable_stripe_user_authentication: Optional[bool]
+                disable_stripe_user_authentication: bool
                 """
                 Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
                 """
@@ -170,7 +170,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class Payouts(StripeObject):
             class Features(StripeObject):
-                disable_stripe_user_authentication: Optional[bool]
+                disable_stripe_user_authentication: bool
                 """
                 Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
                 """

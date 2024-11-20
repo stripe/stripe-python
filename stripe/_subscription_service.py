@@ -588,6 +588,7 @@ class SubscriptionService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1041,7 +1042,7 @@ class SubscriptionService(StripeService):
             "Literal['']|SubscriptionService.UpdateParamsPauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         payment_behavior: NotRequired[
             Literal[
@@ -1480,6 +1481,7 @@ class SubscriptionService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1765,7 +1767,7 @@ class SubscriptionService(StripeService):
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/docs/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 
@@ -1809,7 +1811,7 @@ class SubscriptionService(StripeService):
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/docs/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 

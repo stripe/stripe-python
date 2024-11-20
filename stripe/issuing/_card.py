@@ -30,7 +30,7 @@ class Card(
     UpdateableAPIResource["Card"],
 ):
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
@@ -3428,7 +3428,7 @@ class Card(
     """
     An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
 
-    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
     """
     created: int
     """

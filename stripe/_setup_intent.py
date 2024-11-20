@@ -526,6 +526,7 @@ class SetupIntent(
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -1532,6 +1533,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1842,7 +1844,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodData"
@@ -1859,7 +1861,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         return_url: NotRequired[str]
         """
@@ -2725,6 +2727,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -3073,7 +3076,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodData"
@@ -3090,7 +3093,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
 
     class ModifyParamsPaymentMethodData(TypedDict):
@@ -3885,6 +3888,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -4246,7 +4250,7 @@ class SetupIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the payment method configuration used for this Setup Intent.
+    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """

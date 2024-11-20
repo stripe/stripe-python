@@ -109,7 +109,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type to which credit grants can apply to. We currently only support `metered` price type.
+        The price type for which credit grants can apply. We currently only support the `metered` price type.
         """
 
     balances: List[Balance]

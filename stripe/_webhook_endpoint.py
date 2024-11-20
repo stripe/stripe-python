@@ -136,6 +136,7 @@ class WebhookEndpoint(
                 "2024-06-20",
                 "2024-09-30.acacia",
                 "2024-10-28.acacia",
+                "2024-11-20.acacia",
             ]
         ]
         """
