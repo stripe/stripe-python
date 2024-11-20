@@ -1,3 +1,27 @@
+## 11.3.0 - 2024-11-20
+* [#1424](https://github.com/stripe/stripe-python/pull/1424) This release changes the pinned API version to `2024-11-20.acacia`.
+  * Add support for `authorizer` on parameter classes `stripe.Account.CreatePersonParamsRelationship`, `stripe.Account.ListPersonsParamsRelationship`, `stripe.Account.ModifyPersonParamsRelationship`, `stripe.Account.PersonsParamsRelationship`, and `stripe.Token.CreateParamsPersonRelationship` and resource class `stripe.Person.Relationship`
+  * Add support for `account_holder_address`, `account_holder_name`, `account_type` and `bank_address` on resource classes `stripe.FundingInstructions.BankTransfer.FinancialAddress.Aba`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Swift`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Aba`, and `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Swift`
+  * Add support for `submit_type` on parameter class `stripe.PaymentLink.ModifyParams`
+  * Add support for `trace_id` on resource `stripe.Payout`
+  * Add support for `network_decline_code` on resource classes `stripe.Refund.DestinationDetails.Blik` and `stripe.Refund.DestinationDetails.Swish`
+  * Add support for `adaptive_pricing` on parameter class `stripe.checkout.Session.CreateParams` and resource `stripe.checkout.Session`
+  * Add support for `mandate_options` on parameter classes `stripe.checkout.Session.CreateParamsPaymentMethodOptionsBacsDebit` and `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSepaDebit` and resource classes `stripe.checkout.Session.PaymentMethodOptions.BacsDebit` and `stripe.checkout.Session.PaymentMethodOptions.SepaDebit`
+  * Add support for `request_extended_authorization`, `request_incremental_authorization`, `request_multicapture` and `request_overcapture` on parameter class `stripe.checkout.Session.CreateParamsPaymentMethodOptionsCard` and resource class `stripe.checkout.Session.PaymentMethodOptions.Card`
+  * Add support for `capture_method` on parameter classes `stripe.checkout.Session.CreateParamsPaymentMethodOptionsKakaoPay`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsKrCard`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsNaverPay`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsPayco`, and `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSamsungPay`
+  * Add support for `merchant_amount` and `merchant_currency` on parameter class `stripe.issuing.Authorization.CreateParams`
+  * Add support for `fraud_challenges`, `verified_by_fraud_challenge` and `respond` on resource `stripe.issuing.Authorization`
+  * Change type of `disabled_reason` on  `stripe.Account.FutureRequirements` and `stripe.Account.Requirements` from `str` to `Literal['action_required.requested_capabilities', 'listed', 'other', 'platform_paused', 'rejected.fraud', 'rejected.incomplete_verification', 'rejected.listed', 'rejected.other', 'rejected.platform_fraud', 'rejected.platform_other', 'rejected.platform_terms_of_service', 'rejected.terms_of_service', 'requirements.past_due', 'requirements.pending_verification', 'under_review']`
+  * Change type of `disable_stripe_user_authentication` on  `stripe.AccountSession.Components.AccountManagement.Features`, `stripe.AccountSession.Components.AccountOnboarding.Features`, `stripe.AccountSession.Components.Balances.Features`, `stripe.AccountSession.Components.NotificationBanner.Features`, and `stripe.AccountSession.Components.Payouts.Features` from `Optional[bool]` to `bool`
+  * Add support for `subscribe` on enums `stripe.checkout.Session.submit_type`, `stripe.checkout.Session.CreateParams.submit_type`, `stripe.PaymentLink.submit_type`, and `stripe.PaymentLink.CreateParams.submit_type`
+  * Add support for `li_vat` on enums `stripe.checkout.Session.CustomerDetails.TaxId.type`, `stripe.Customer.CreateParamsTaxIdDatum.type`, `stripe.Customer.CreateTaxIdParams.type`, `stripe.Invoice.CustomerTaxId.type`, `stripe.Invoice.CreatePreviewParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingParamsCustomerDetailsTaxId.type`, `stripe.Invoice.UpcomingLinesParamsCustomerDetailsTaxId.type`, `stripe.tax.Calculation.CustomerDetails.TaxId.type`, `stripe.tax.Calculation.CreateParamsCustomerDetailsTaxId.type`, `stripe.tax.Transaction.CustomerDetails.TaxId.type`, `stripe.TaxId.type`, and `stripe.TaxId.CreateParams.type`
+  * Add support for `financial_account_statement` on enums `stripe.File.purpose` and `stripe.File.ListParams.purpose`
+  * Add support for `service_tax` on enums `stripe.Invoice.AddLinesParamsLineTaxAmountTaxRateData.tax_type`, `stripe.Invoice.UpdateLinesParamsLineTaxAmountTaxRateData.tax_type`, `stripe.InvoiceLineItem.ModifyParamsTaxAmountTaxRateData.tax_type`, `stripe.tax.Calculation.ShippingCost.TaxBreakdown.TaxRateDetails.tax_type`, `stripe.tax.Calculation.TaxBreakdown.TaxRateDetails.tax_type`, `stripe.tax.CalculationLineItem.TaxBreakdown.TaxRateDetails.tax_type`, `stripe.tax.Transaction.ShippingCost.TaxBreakdown.TaxRateDetails.tax_type`, `stripe.TaxRate.tax_type`, `stripe.TaxRate.CreateParams.tax_type`, and `stripe.TaxRate.ModifyParams.tax_type`
+  * Add support for `link` on enums `stripe.PaymentIntent.PaymentMethodOptions.Card.network`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsCard.network`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsCard.network`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsCard.network`, `stripe.SetupIntent.PaymentMethodOptions.Card.network`, `stripe.SetupIntent.ConfirmParamsPaymentMethodOptionsCard.network`, `stripe.SetupIntent.CreateParamsPaymentMethodOptionsCard.network`, `stripe.SetupIntent.ModifyParamsPaymentMethodOptionsCard.network`, `stripe.Subscription.PaymentSettings.PaymentMethodOptions.Card.network`, `stripe.Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsCard.network`, and `stripe.Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsCard.network`
+  * Add support for `2024-11-20.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
+  * Change type of `amount` on  `stripe.issuing.Authorization.CreateParams` from `int` to `NotRequired[int]`
+  * Change type of `origin_payment_method` on  `stripe.treasury.InboundTransfer` from `str` to `Optional[str]`
+
 ## 11.2.0 - 2024-10-29
 * [#1411](https://github.com/stripe/stripe-python/pull/1411) This release changes the pinned API version to `2024-10-28.acacia`.
   * Add support for resource `stripe.v2.EventDestinations`
@@ -36,7 +60,7 @@
 * [#1414](https://github.com/stripe/stripe-python/pull/1414) Deserialize into correct v2 EventData types
   * Fixes a bug where v2 EventData was not being deserialized into the appropriate type for `V1BillingMeterErrorReportTriggeredEvent` and `V1BillingMeterNoMeterFoundEvent`
 * [#1415](https://github.com/stripe/stripe-python/pull/1415) update object tags for meter-related classes
-  
+
   - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
 * [#1412](https://github.com/stripe/stripe-python/pull/1412) Clean up examples
 
