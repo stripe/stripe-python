@@ -406,7 +406,9 @@ class SessionService(StripeService):
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        Set to true to enable automatic taxes.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired[
             "SessionService.CreateParamsAutomaticTaxLiability"
