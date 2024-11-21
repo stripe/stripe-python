@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,6 +19,11 @@ class LineItem(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["item"]] = "item"
 
+    class AdjustableQuantity(StripeObject):
+        enabled: bool
+        maximum: Optional[int]
+        minimum: Optional[int]
+
     class Discount(StripeObject):
         amount: int
         """
@@ -31,6 +36,11 @@ class LineItem(StripeObject):
 
         Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
         """
+
+    class Display(StripeObject):
+        description: Optional[str]
+        images: List[str]
+        name: str
 
     class Tax(StripeObject):
         amount: int
@@ -70,6 +80,7 @@ class LineItem(StripeObject):
         The amount on which tax is calculated, in cents (or local equivalent).
         """
 
+    adjustable_quantity: Optional[AdjustableQuantity]
     amount_discount: int
     """
     Total discount amount applied. If no discounts were applied, defaults to 0.
@@ -98,9 +109,14 @@ class LineItem(StripeObject):
     """
     The discounts applied to the line item.
     """
+    display: Optional[Display]
     id: str
     """
     Unique identifier for the object.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["item"]
     """
@@ -124,4 +140,9 @@ class LineItem(StripeObject):
     """
     The taxes applied to the line item.
     """
-    _inner_class_types = {"discounts": Discount, "taxes": Tax}
+    _inner_class_types = {
+        "adjustable_quantity": AdjustableQuantity,
+        "discounts": Discount,
+        "display": Display,
+        "taxes": Tax,
+    }

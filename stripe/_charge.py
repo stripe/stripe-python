@@ -151,6 +151,14 @@ class Charge(
             The predicate to evaluate the payment against.
             """
 
+        network_advice_code: Optional[str]
+        """
+        For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        """
         network_status: Optional[str]
         """
         Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
@@ -286,7 +294,42 @@ class Charge(
             pass
 
         class AmazonPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
             bsb_number: Optional[str]
@@ -447,6 +490,17 @@ class Charge(
                 status: Literal["available", "unavailable"]
                 """
                 Indicates whether or not the authorized amount can be over-captured.
+                """
+
+            class PartialAuthorization(StripeObject):
+                status: Literal[
+                    "declined",
+                    "fully_authorized",
+                    "not_requested",
+                    "partially_authorized",
+                ]
+                """
+                Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
                 """
 
             class ThreeDSecure(StripeObject):
@@ -712,6 +766,10 @@ class Charge(
             """
             The authorized amount.
             """
+            amount_requested: Optional[int]
+            """
+            The latest amount intended to be authorized by this charge.
+            """
             authorization_code: Optional[str]
             """
             Authorization code on the charge.
@@ -793,6 +851,7 @@ class Charge(
             If this card has network token credentials, this contains the details of the network token credentials.
             """
             overcapture: Optional[Overcapture]
+            partial_authorization: Optional[PartialAuthorization]
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -810,6 +869,7 @@ class Charge(
                 "multicapture": Multicapture,
                 "network_token": NetworkToken,
                 "overcapture": Overcapture,
+                "partial_authorization": PartialAuthorization,
                 "three_d_secure": ThreeDSecure,
                 "wallet": Wallet,
             }
@@ -1683,7 +1743,42 @@ class Charge(
             pass
 
         class RevolutPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
             buyer_id: Optional[str]

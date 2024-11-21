@@ -898,7 +898,9 @@ class PaymentLink(
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired["PaymentLink.CreateParamsAutomaticTaxLiability"]
         """
@@ -1756,7 +1758,9 @@ class PaymentLink(
     class ModifyParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired["PaymentLink.ModifyParamsAutomaticTaxLiability"]
         """

@@ -304,6 +304,14 @@ class PaymentIntent(
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
         """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        """
         param: Optional[str]
         """
         If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
@@ -2035,6 +2043,12 @@ class PaymentIntent(
             request_overcapture: Optional[Literal["if_available", "never"]]
             """
             Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+            """
+            request_partial_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request partial authorization on this PaymentIntent.
             """
             request_three_d_secure: Optional[
                 Literal["any", "automatic", "challenge"]
@@ -6063,6 +6077,12 @@ class PaymentIntent(
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
+        """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
         ]
@@ -9719,6 +9739,12 @@ class PaymentIntent(
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
+        """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
         ]
@@ -11172,6 +11198,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        payment_method_options: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific configuration for this PaymentIntent.
+        """
         statement_descriptor: NotRequired[str]
         """
         Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -11204,6 +11236,22 @@ class PaymentIntent(
         calculation: Union[Literal[""], str]
         """
         The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+        """
+
+    class IncrementAuthorizationParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+
+    class IncrementAuthorizationParamsPaymentMethodOptionsCard(TypedDict):
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
@@ -13484,6 +13532,12 @@ class PaymentIntent(
         request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]

@@ -312,6 +312,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.finalized",
         "invoice.marked_uncollectible",
         "invoice.overdue",
+        "invoice.overpaid",
         "invoice.paid",
         "invoice.payment.overpaid",
         "invoice.payment_action_required",
