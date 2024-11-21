@@ -1492,7 +1492,7 @@ class Account(
         """
         groups: NotRequired["Account.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
