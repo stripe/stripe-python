@@ -1475,7 +1475,7 @@ class SubscriptionService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
