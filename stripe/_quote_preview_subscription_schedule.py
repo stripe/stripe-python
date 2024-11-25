@@ -63,6 +63,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Type of the account referenced.
                 """
 
+            disabled_reason: Optional[Literal["requires_location_inputs"]]
+            """
+            If Stripe disabled automatic tax, this enum describes why.
+            """
             enabled: bool
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
@@ -243,6 +247,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Type of the account referenced.
                 """
 
+            disabled_reason: Optional[Literal["requires_location_inputs"]]
+            """
+            If Stripe disabled automatic tax, this enum describes why.
+            """
             enabled: bool
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
