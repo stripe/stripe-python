@@ -665,7 +665,7 @@ class CustomerService(StripeService):
             Literal["auto", "deferred", "immediately"]
         ]
         """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
         """
 
     def delete(
