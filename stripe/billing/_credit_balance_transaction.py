@@ -178,7 +178,7 @@ class CreditBalanceTransaction(
         cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         result = cls._static_request(
             "get",
@@ -198,7 +198,7 @@ class CreditBalanceTransaction(
         cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         result = await cls._static_request_async(
             "get",
@@ -220,7 +220,7 @@ class CreditBalanceTransaction(
         **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -233,7 +233,7 @@ class CreditBalanceTransaction(
         **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
