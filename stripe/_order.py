@@ -485,7 +485,10 @@ class Order(
 
                 class SepaDebit(StripeObject):
                     class MandateOptions(StripeObject):
-                        pass
+                        reference_prefix: Optional[str]
+                        """
+                        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                        """
 
                     mandate_options: Optional[MandateOptions]
                     setup_future_usage: Optional[
@@ -1921,7 +1924,10 @@ class Order(
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -3240,7 +3246,10 @@ class Order(
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[

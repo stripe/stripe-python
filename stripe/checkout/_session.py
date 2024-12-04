@@ -819,7 +819,10 @@ class Session(
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -1329,7 +1332,10 @@ class Session(
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -3264,7 +3270,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -3847,7 +3856,10 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -4861,7 +4873,7 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    The client secret of the Session. Use this with [initCustomCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+    The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """

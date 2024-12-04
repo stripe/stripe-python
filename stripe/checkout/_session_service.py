@@ -1321,7 +1321,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -1904,7 +1907,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]

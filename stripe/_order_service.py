@@ -983,7 +983,10 @@ class OrderService(StripeService):
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -2312,7 +2315,10 @@ class OrderService(StripeService):
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
