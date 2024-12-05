@@ -478,7 +478,10 @@ class SetupIntent(
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
@@ -642,7 +645,10 @@ class SetupIntent(
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
@@ -1711,7 +1717,10 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -1970,7 +1979,10 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
@@ -3095,7 +3107,10 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -3354,7 +3369,10 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
@@ -4446,7 +4464,10 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsCard(TypedDict):
         mandate_options: NotRequired[
@@ -4705,7 +4726,10 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[

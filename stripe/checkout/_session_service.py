@@ -1321,7 +1321,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -1904,7 +1907,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -2631,13 +2637,13 @@ class SessionService(StripeService):
         """
         A list of items the customer is purchasing.
 
-        When updating line items, the entire array of line items must be retransmitted.
+        When updating line items, you must retransmit the entire array of line items.
 
         To retain an existing line item, specify its `id`.
 
-        To update an existing line item, specify its `id` along with the new values of the fields to be updated.
+        To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`. Recurring prices are not supported yet.
+        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 

@@ -28,7 +28,7 @@ class Meter(
     UpdateableAPIResource["Meter"],
 ):
     """
-    A billing meter is a resource that allows you to track usage of a particular event. For example, you might create a billing meter to track the number of API calls made by a particular user. You can then attach the billing meter to a price and attach the price to a subscription to charge the user for the number of API calls they make.
+    Meters specify how to aggregate meter events over a billing period. Meter events represent the actions that customers take in your system. Meters attach to prices and form the basis of the bill.
 
     Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
     """
@@ -74,7 +74,7 @@ class Meter(
         """
         display_name: str
         """
-        The meter's name.
+        The meter's name. Not visible to the customer.
         """
         event_name: str
         """
@@ -96,7 +96,7 @@ class Meter(
     class CreateParamsCustomerMapping(TypedDict):
         event_payload_key: str
         """
-        The key in the usage event payload to use for mapping the event to a customer.
+        The key in the meter event payload to use for mapping the event to a customer.
         """
         type: Literal["by_id"]
         """
@@ -180,7 +180,7 @@ class Meter(
     class ModifyParams(RequestOptions):
         display_name: NotRequired[str]
         """
-        The meter's name.
+        The meter's name. Not visible to the customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -243,7 +243,7 @@ class Meter(
     @classmethod
     def create(cls, **params: Unpack["Meter.CreateParams"]) -> "Meter":
         """
-        Creates a billing meter
+        Creates a billing meter.
         """
         return cast(
             "Meter",
@@ -259,7 +259,7 @@ class Meter(
         cls, **params: Unpack["Meter.CreateParams"]
     ) -> "Meter":
         """
-        Creates a billing meter
+        Creates a billing meter.
         """
         return cast(
             "Meter",
@@ -275,7 +275,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             "Meter",
@@ -294,7 +294,7 @@ class Meter(
         id: str, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         ...
 
@@ -303,7 +303,7 @@ class Meter(
         self, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         ...
 
@@ -312,7 +312,7 @@ class Meter(
         self, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             "Meter",
@@ -330,7 +330,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             "Meter",
@@ -349,7 +349,7 @@ class Meter(
         id: str, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         ...
 
@@ -358,7 +358,7 @@ class Meter(
         self, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         ...
 
@@ -367,7 +367,7 @@ class Meter(
         self, **params: Unpack["Meter.DeactivateParams"]
     ) -> "Meter":
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             "Meter",
@@ -423,7 +423,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.ModifyParams"]
     ) -> "Meter":
         """
-        Updates a billing meter
+        Updates a billing meter.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -440,7 +440,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.ModifyParams"]
     ) -> "Meter":
         """
-        Updates a billing meter
+        Updates a billing meter.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -457,7 +457,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             "Meter",
@@ -476,7 +476,7 @@ class Meter(
         id: str, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         ...
 
@@ -485,7 +485,7 @@ class Meter(
         self, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         ...
 
@@ -494,7 +494,7 @@ class Meter(
         self, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             "Meter",
@@ -512,7 +512,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             "Meter",
@@ -531,7 +531,7 @@ class Meter(
         id: str, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         ...
 
@@ -540,7 +540,7 @@ class Meter(
         self, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         ...
 
@@ -549,7 +549,7 @@ class Meter(
         self, **params: Unpack["Meter.ReactivateParams"]
     ) -> "Meter":
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             "Meter",
@@ -567,7 +567,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.RetrieveParams"]
     ) -> "Meter":
         """
-        Retrieves a billing meter given an ID
+        Retrieves a billing meter given an ID.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -578,7 +578,7 @@ class Meter(
         cls, id: str, **params: Unpack["Meter.RetrieveParams"]
     ) -> "Meter":
         """
-        Retrieves a billing meter given an ID
+        Retrieves a billing meter given an ID.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

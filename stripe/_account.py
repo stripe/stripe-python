@@ -184,6 +184,12 @@ class Account(
         """
         The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
         """
+        automatic_indirect_tax: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the automatic_indirect_tax capability of the account.
+        """
         bacs_debit_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
@@ -1492,7 +1498,7 @@ class Account(
         """
         groups: NotRequired["Account.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
@@ -1684,6 +1690,12 @@ class Account(
         ]
         """
         The au_becs_debit_payments capability.
+        """
+        automatic_indirect_tax: NotRequired[
+            "Account.CreateParamsCapabilitiesAutomaticIndirectTax"
+        ]
+        """
+        The automatic_indirect_tax capability.
         """
         bacs_debit_payments: NotRequired[
             "Account.CreateParamsCapabilitiesBacsDebitPayments"
@@ -2067,6 +2079,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

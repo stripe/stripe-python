@@ -1656,6 +1656,10 @@ class PaymentLinkService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
+        trial_period_days: NotRequired["Literal['']|int"]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        """
         trial_settings: NotRequired[
             "Literal['']|PaymentLinkService.UpdateParamsSubscriptionDataTrialSettings"
         ]

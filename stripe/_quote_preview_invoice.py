@@ -130,6 +130,15 @@ class QuotePreviewInvoice(StripeObject):
             Type of the account referenced.
             """
 
+        disabled_reason: Optional[
+            Literal[
+                "finalization_requires_location_inputs",
+                "finalization_system_error",
+            ]
+        ]
+        """
+        If Stripe disabled automatic tax, this enum describes why.
+        """
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.

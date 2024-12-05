@@ -48,7 +48,7 @@ class CreditBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CreditBalanceTransaction]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         return cast(
             ListObject[CreditBalanceTransaction],
@@ -67,7 +67,7 @@ class CreditBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CreditBalanceTransaction]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         return cast(
             ListObject[CreditBalanceTransaction],
@@ -87,7 +87,7 @@ class CreditBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CreditBalanceTransaction:
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         return cast(
             CreditBalanceTransaction,
@@ -109,7 +109,7 @@ class CreditBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CreditBalanceTransaction:
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         return cast(
             CreditBalanceTransaction,

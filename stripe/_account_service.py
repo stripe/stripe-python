@@ -89,7 +89,7 @@ class AccountService(StripeService):
         """
         groups: NotRequired["AccountService.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
@@ -281,6 +281,12 @@ class AccountService(StripeService):
         ]
         """
         The au_becs_debit_payments capability.
+        """
+        automatic_indirect_tax: NotRequired[
+            "AccountService.CreateParamsCapabilitiesAutomaticIndirectTax"
+        ]
+        """
+        The automatic_indirect_tax capability.
         """
         bacs_debit_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesBacsDebitPayments"
@@ -668,6 +674,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2105,7 +2117,7 @@ class AccountService(StripeService):
         """
         groups: NotRequired["AccountService.UpdateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
@@ -2293,6 +2305,12 @@ class AccountService(StripeService):
         ]
         """
         The au_becs_debit_payments capability.
+        """
+        automatic_indirect_tax: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesAutomaticIndirectTax"
+        ]
+        """
+        The automatic_indirect_tax capability.
         """
         bacs_debit_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesBacsDebitPayments"
@@ -2680,6 +2698,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

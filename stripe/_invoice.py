@@ -148,6 +148,15 @@ class Invoice(
             Type of the account referenced.
             """
 
+        disabled_reason: Optional[
+            Literal[
+                "finalization_requires_location_inputs",
+                "finalization_system_error",
+            ]
+        ]
+        """
+        If Stripe disabled automatic tax, this enum describes why.
+        """
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
@@ -3891,7 +3900,7 @@ class Invoice(
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -6739,7 +6748,7 @@ class Invoice(
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -6895,7 +6904,7 @@ class Invoice(
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -8770,7 +8779,7 @@ class Invoice(
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -8922,7 +8931,7 @@ class Invoice(
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """

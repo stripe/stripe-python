@@ -1800,7 +1800,10 @@ class PaymentIntent(
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -2687,7 +2690,10 @@ class PaymentIntent(
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -5938,7 +5944,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -7142,7 +7151,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsShopeepay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -9600,7 +9612,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -10804,7 +10819,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsShopeepay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -13394,7 +13412,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -14598,7 +14619,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsShopeepay(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
