@@ -241,6 +241,10 @@ class Authorization(
         """
         State where the seller is located
         """
+        tax_id: Optional[str]
+        """
+        The seller's tax identification number. Currently populated for French merchants only.
+        """
         terminal_id: Optional[str]
         """
         An ID assigned by the seller to the location of the sale.
