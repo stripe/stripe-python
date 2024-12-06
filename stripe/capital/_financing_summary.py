@@ -19,7 +19,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
 
     class Details(StripeObject):
         class CurrentRepaymentInterval(StripeObject):
-            due_at: int
+            due_at: float
             """
             The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
             Given in seconds since unix epoch.
@@ -37,7 +37,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         """
         Amount of financing offered, in minor units.
         """
-        advance_paid_out_at: Optional[int]
+        advance_paid_out_at: Optional[float]
         """
         The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
         """
@@ -61,7 +61,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         """
         The balance remaining to be paid on the financing, in minor units.
         """
-        repayments_begin_at: Optional[int]
+        repayments_begin_at: Optional[float]
         """
         The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.
         """
