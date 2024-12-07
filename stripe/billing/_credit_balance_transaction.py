@@ -47,12 +47,31 @@ class CreditBalanceTransaction(
             """
             _inner_class_types = {"monetary": Monetary}
 
+        class CreditsApplicationInvoiceVoided(StripeObject):
+            invoice: ExpandableField["Invoice"]
+            """
+            The invoice to which the reinstated billing credits were originally applied.
+            """
+            invoice_line_item: str
+            """
+            The invoice line item to which the reinstated billing credits were originally applied.
+            """
+
         amount: Amount
-        type: Literal["credits_granted"]
+        credits_application_invoice_voided: Optional[
+            CreditsApplicationInvoiceVoided
+        ]
+        """
+        Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`.
+        """
+        type: Literal["credits_application_invoice_voided", "credits_granted"]
         """
         The type of credit transaction.
         """
-        _inner_class_types = {"amount": Amount}
+        _inner_class_types = {
+            "amount": Amount,
+            "credits_application_invoice_voided": CreditsApplicationInvoiceVoided,
+        }
 
     class Debit(StripeObject):
         class Amount(StripeObject):

@@ -492,17 +492,6 @@ class Charge(
                 Indicates whether or not the authorized amount can be over-captured.
                 """
 
-            class PartialAuthorization(StripeObject):
-                status: Literal[
-                    "declined",
-                    "fully_authorized",
-                    "not_requested",
-                    "partially_authorized",
-                ]
-                """
-                Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
-                """
-
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
                     Literal["challenge", "frictionless"]
@@ -766,10 +755,6 @@ class Charge(
             """
             The authorized amount.
             """
-            amount_requested: Optional[int]
-            """
-            The latest amount intended to be authorized by this charge.
-            """
             authorization_code: Optional[str]
             """
             Authorization code on the charge.
@@ -851,7 +836,6 @@ class Charge(
             If this card has network token credentials, this contains the details of the network token credentials.
             """
             overcapture: Optional[Overcapture]
-            partial_authorization: Optional[PartialAuthorization]
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -869,7 +853,6 @@ class Charge(
                 "multicapture": Multicapture,
                 "network_token": NetworkToken,
                 "overcapture": Overcapture,
-                "partial_authorization": PartialAuthorization,
                 "three_d_secure": ThreeDSecure,
                 "wallet": Wallet,
             }
