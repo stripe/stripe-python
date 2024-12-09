@@ -686,6 +686,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Contains information about card networks that can be used to process the payment.
             """
+            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            """
+            Status of a card based on the card issuer.
+            """
             three_d_secure_usage: Optional[ThreeDSecureUsage]
             """
             Contains details on how this Card may be used for 3D Secure authentication.

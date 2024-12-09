@@ -211,6 +211,12 @@ class DisputeService(StripeService):
         """
         Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         """
+        visa_compliance: NotRequired[
+            "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompliance"
+        ]
+        """
+        Evidence provided for Visa Compliance evidence submission.
+        """
 
     class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
         TypedDict,
@@ -362,6 +368,12 @@ class DisputeService(StripeService):
         state: NotRequired["Literal['']|str"]
         """
         State, county, province, or region.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
+        fee_acknowledged: NotRequired[bool]
+        """
+        A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
         """
 
     def list(

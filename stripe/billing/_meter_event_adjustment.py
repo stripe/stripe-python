@@ -76,7 +76,7 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
         cls, **params: Unpack["MeterEventAdjustment.CreateParams"]
     ) -> "MeterEventAdjustment":
         """
-        Creates a billing meter event adjustment
+        Creates a billing meter event adjustment.
         """
         return cast(
             "MeterEventAdjustment",
@@ -92,7 +92,7 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
         cls, **params: Unpack["MeterEventAdjustment.CreateParams"]
     ) -> "MeterEventAdjustment":
         """
-        Creates a billing meter event adjustment
+        Creates a billing meter event adjustment.
         """
         return cast(
             "MeterEventAdjustment",
