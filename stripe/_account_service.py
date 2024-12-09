@@ -89,7 +89,7 @@ class AccountService(StripeService):
         """
         groups: NotRequired["AccountService.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
@@ -1861,7 +1861,7 @@ class AccountService(StripeService):
         """
         groups: NotRequired["AccountService.UpdateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """

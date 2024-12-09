@@ -105,7 +105,7 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsAccountManagementFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
         """
         external_account_collection: NotRequired[bool]
         """
@@ -127,7 +127,7 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
         """
         external_account_collection: NotRequired[bool]
         """
@@ -149,7 +149,7 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsBalancesFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
         """
         edit_payout_schedule: NotRequired[bool]
         """
@@ -198,7 +198,7 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
         """
         external_account_collection: NotRequired[bool]
         """
@@ -280,7 +280,7 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
         """
         edit_payout_schedule: NotRequired[bool]
         """

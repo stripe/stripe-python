@@ -31,7 +31,7 @@ class CreditGrantService(StripeService):
         """
         effective_at: NotRequired[int]
         """
-        The time when the billing credits become effective—when they're eligible for use. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -39,11 +39,11 @@ class CreditGrantService(StripeService):
         """
         expires_at: NotRequired[int]
         """
-        The time when the billing credits will expire. If not specified, the billing credits don't expire.
+        The time when the billing credits expire. If not specified, the billing credits don't expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
+        Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
         name: NotRequired[str]
         """
@@ -79,7 +79,7 @@ class CreditGrantService(StripeService):
     class CreateParamsApplicabilityConfigScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type for which credit grants can apply. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
 
     class ExpireParams(TypedDict):
@@ -127,7 +127,7 @@ class CreditGrantService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
+        Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
 
     class VoidGrantParams(TypedDict):
@@ -180,7 +180,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -199,7 +199,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -219,7 +219,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         return cast(
             CreditGrant,
@@ -239,7 +239,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         return cast(
             CreditGrant,
@@ -259,7 +259,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -279,7 +279,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         return cast(
             CreditGrant,

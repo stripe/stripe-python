@@ -394,7 +394,9 @@ class SessionService(StripeService):
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        Set to true to enable automatic taxes.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired[
             "SessionService.CreateParamsAutomaticTaxLiability"
@@ -1297,7 +1299,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -1793,7 +1798,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
