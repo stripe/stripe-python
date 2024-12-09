@@ -836,6 +836,10 @@ class Charge(
             If this card has network token credentials, this contains the details of the network token credentials.
             """
             overcapture: Optional[Overcapture]
+            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            """
+            Status of a card based on the card issuer.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
