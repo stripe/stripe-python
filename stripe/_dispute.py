@@ -176,9 +176,17 @@ class Dispute(
                     "prior_undisputed_transactions": PriorUndisputedTransaction,
                 }
 
+            class VisaCompliance(StripeObject):
+                fee_acknowledged: bool
+                """
+                A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
+                """
+
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
+            visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
+                "visa_compliance": VisaCompliance,
             }
 
         access_activity_log: Optional[str]
@@ -314,9 +322,19 @@ class Dispute(
                 Visa Compelling Evidence 3.0 eligibility status.
                 """
 
+            class VisaCompliance(StripeObject):
+                status: Literal[
+                    "fee_acknowledged", "requires_fee_acknowledgement"
+                ]
+                """
+                Visa Compelling Evidence 3.0 eligibility status.
+                """
+
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
+            visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
+                "visa_compliance": VisaCompliance,
             }
 
         due_by: Optional[int]
@@ -585,6 +603,12 @@ class Dispute(
         """
         Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         """
+        visa_compliance: NotRequired[
+            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompliance"
+        ]
+        """
+        Evidence provided for Visa Compliance evidence submission.
+        """
 
     class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
         TypedDict,
@@ -736,6 +760,12 @@ class Dispute(
         state: NotRequired["Literal['']|str"]
         """
         State, county, province, or region.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
+        fee_acknowledged: NotRequired[bool]
+        """
+        A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
         """
 
     class RetrieveParams(RequestOptions):

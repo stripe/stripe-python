@@ -48,16 +48,6 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
         """
 
-    class AmountRefunded(StripeObject):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        value: int
-        """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
-        """
-
     class AmountRequested(StripeObject):
         currency: str
         """
@@ -654,10 +644,6 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     A representation of an amount of money, consisting of an amount and a currency.
     """
     amount_guaranteed: AmountGuaranteed
-    """
-    A representation of an amount of money, consisting of an amount and a currency.
-    """
-    amount_refunded: AmountRefunded
     """
     A representation of an amount of money, consisting of an amount and a currency.
     """
@@ -1282,7 +1268,6 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         "amount_canceled": AmountCanceled,
         "amount_failed": AmountFailed,
         "amount_guaranteed": AmountGuaranteed,
-        "amount_refunded": AmountRefunded,
         "amount_requested": AmountRequested,
         "customer_details": CustomerDetails,
         "payment_method_details": PaymentMethodDetails,

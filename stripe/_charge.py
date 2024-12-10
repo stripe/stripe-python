@@ -852,6 +852,10 @@ class Charge(
             """
             overcapture: Optional[Overcapture]
             partial_authorization: Optional[PartialAuthorization]
+            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            """
+            Status of a card based on the card issuer.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
