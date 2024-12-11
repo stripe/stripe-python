@@ -630,6 +630,14 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
         """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        """
         param: Optional[str]
         """
         If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.

@@ -25,7 +25,11 @@ class RequestService(StripeService):
         """
         replacements: List[
             Literal[
-                "card_cvc", "card_expiry", "card_number", "cardholder_name"
+                "card_cvc",
+                "card_expiry",
+                "card_number",
+                "cardholder_name",
+                "request_signature",
             ]
         ]
         """

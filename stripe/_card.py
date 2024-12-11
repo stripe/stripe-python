@@ -155,6 +155,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    """
+    Status of a card based on the card issuer.
+    """
     status: Optional[str]
     """
     For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.

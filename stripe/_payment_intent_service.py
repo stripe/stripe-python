@@ -1391,7 +1391,10 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -2333,7 +2336,10 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -2360,7 +2366,7 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -3962,7 +3968,10 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -4904,7 +4913,10 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -4931,7 +4943,7 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6555,7 +6567,10 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class UpdateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -7497,7 +7512,10 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class UpdateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -7524,7 +7542,7 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """

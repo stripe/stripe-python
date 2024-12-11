@@ -237,7 +237,9 @@ class PaymentLinkService(StripeService):
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired[
             "PaymentLinkService.CreateParamsAutomaticTaxLiability"
@@ -1093,7 +1095,9 @@ class PaymentLinkService(StripeService):
     class UpdateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired[
             "PaymentLinkService.UpdateParamsAutomaticTaxLiability"
@@ -1645,6 +1649,10 @@ class PaymentLinkService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        trial_period_days: NotRequired["Literal['']|int"]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "Literal['']|PaymentLinkService.UpdateParamsSubscriptionDataTrialSettings"

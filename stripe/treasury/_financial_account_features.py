@@ -209,7 +209,7 @@ class FinancialAccountFeatures(StripeObject):
 
         ach: Optional[Ach]
         """
-        Toggle settings for enabling/disabling an ACH specific feature
+        Toggle settings for enabling/disabling an inbound ACH specific feature
         """
         _inner_class_types = {"ach": Ach}
 
@@ -355,7 +355,7 @@ class FinancialAccountFeatures(StripeObject):
 
         ach: Optional[Ach]
         """
-        Toggle settings for enabling/disabling an ACH specific feature
+        Toggle settings for enabling/disabling an outbound ACH specific feature
         """
         us_domestic_wire: Optional[UsDomesticWire]
         """
@@ -460,7 +460,7 @@ class FinancialAccountFeatures(StripeObject):
 
         ach: Optional[Ach]
         """
-        Toggle settings for enabling/disabling an ACH specific feature
+        Toggle settings for enabling/disabling an outbound ACH specific feature
         """
         us_domestic_wire: Optional[UsDomesticWire]
         """

@@ -160,7 +160,7 @@ class Configuration(
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
-            schedule_at_period_end: Optional[ScheduleAtPeriodEnd]
+            schedule_at_period_end: ScheduleAtPeriodEnd
             _inner_class_types = {
                 "products": Product,
                 "schedule_at_period_end": ScheduleAtPeriodEnd,

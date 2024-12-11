@@ -284,6 +284,14 @@ class PaymentIntent(
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
         """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        """
         param: Optional[str]
         """
         If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
@@ -511,10 +519,64 @@ class PaymentIntent(
                     }
 
                 class Iban(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: str
                     """
                     The name of the person or business that owns the bank account
                     """
+                    bank_address: BankAddress
                     bic: str
                     """
                     The BIC/SWIFT code of the account.
@@ -527,8 +589,65 @@ class PaymentIntent(
                     """
                     The IBAN of the account.
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class SortCode(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: str
                     """
                     The name of the person or business that owns the bank account
@@ -537,12 +656,75 @@ class PaymentIntent(
                     """
                     The account number
                     """
+                    bank_address: BankAddress
                     sort_code: str
                     """
                     The six-digit sort code
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Spei(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
+                    bank_address: BankAddress
                     bank_code: str
                     """
                     The three-digit bank code
@@ -555,6 +737,10 @@ class PaymentIntent(
                     """
                     The CLABE number
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Swift(StripeObject):
                     class AccountHolderAddress(StripeObject):
@@ -637,6 +823,59 @@ class PaymentIntent(
                     }
 
                 class Zengin(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: Optional[str]
                     """
                     The account holder name
@@ -649,6 +888,7 @@ class PaymentIntent(
                     """
                     The bank account type. In Japan, this can only be `futsu` or `toza`.
                     """
+                    bank_address: BankAddress
                     bank_code: Optional[str]
                     """
                     The bank code of the account
@@ -665,6 +905,10 @@ class PaymentIntent(
                     """
                     The branch name of the account
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 aba: Optional[Aba]
                 """
@@ -1225,7 +1469,10 @@ class PaymentIntent(
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -1883,7 +2130,10 @@ class PaymentIntent(
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -1921,7 +2171,7 @@ class PaymentIntent(
         class Swish(StripeObject):
             reference: Optional[str]
             """
-            The order ID displayed in the Swish app after the payment is authorized.
+            A reference for this payment to be displayed in the Swish app.
             """
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -3576,7 +3826,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -4518,7 +4771,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -4545,7 +4801,7 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6117,7 +6373,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -7059,7 +7318,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -7086,7 +7348,7 @@ class PaymentIntent(
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -8652,7 +8914,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -9594,7 +9859,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -9621,7 +9889,7 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
