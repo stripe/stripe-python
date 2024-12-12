@@ -1244,7 +1244,9 @@ class HTTPXClient(HTTPClient):
 
         kwargs = {}
         if self._verify_ssl_certs:
-            kwargs["verify"] = stripe.ca_bundle_path
+            kwargs["verify"] = ssl.create_default_context(
+                capath=stripe.ca_bundle_path
+            )
         else:
             kwargs["verify"] = False
 
