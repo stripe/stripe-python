@@ -108,7 +108,11 @@ class Request(
         """
         replacements: List[
             Literal[
-                "card_cvc", "card_expiry", "card_number", "cardholder_name"
+                "card_cvc",
+                "card_expiry",
+                "card_number",
+                "cardholder_name",
+                "request_signature",
             ]
         ]
         """
@@ -214,7 +218,13 @@ class Request(
     The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
     """
     replacements: List[
-        Literal["card_cvc", "card_expiry", "card_number", "cardholder_name"]
+        Literal[
+            "card_cvc",
+            "card_expiry",
+            "card_number",
+            "cardholder_name",
+            "request_signature",
+        ]
     ]
     """
     The field kinds to be replaced in the forwarded request.
