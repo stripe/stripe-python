@@ -282,6 +282,9 @@ class Charge(
             Transaction ID of this particular Alipay transaction.
             """
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -709,7 +712,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             capture_before: Optional[int]
             """
@@ -776,7 +779,7 @@ class Charge(
             multicapture: Optional[Multicapture]
             network: Optional[str]
             """
-            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             network_token: Optional[NetworkToken]
             """
@@ -868,7 +871,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -934,7 +937,7 @@ class Charge(
             """
             network: Optional[str]
             """
-            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             network_transaction_id: Optional[str]
             """
@@ -1257,7 +1260,7 @@ class Charge(
             """
             network: Optional[str]
             """
-            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             network_transaction_id: Optional[str]
             """
@@ -1284,6 +1287,12 @@ class Charge(
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
             _inner_class_types = {"receipt": Receipt}
+
+        class KakaoPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
 
         class Klarna(StripeObject):
             class PayerDetails(StripeObject):
@@ -1330,6 +1339,45 @@ class Charge(
             """
             _inner_class_types = {"store": Store}
 
+        class KrCard(StripeObject):
+            brand: Optional[
+                Literal[
+                    "bc",
+                    "citi",
+                    "hana",
+                    "hyundai",
+                    "jeju",
+                    "jeonbuk",
+                    "kakaobank",
+                    "kbank",
+                    "kdbbank",
+                    "kookmin",
+                    "kwangju",
+                    "lotte",
+                    "mg",
+                    "nh",
+                    "post",
+                    "samsung",
+                    "savingsbank",
+                    "shinhan",
+                    "shinhyup",
+                    "suhyup",
+                    "tossbank",
+                    "woori",
+                ]
+            ]
+            """
+            The local credit or debit card brand.
+            """
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card. This may not be present for American Express cards.
+            """
+
         class Link(StripeObject):
             country: Optional[str]
             """
@@ -1374,6 +1422,12 @@ class Charge(
             reference: Optional[str]
             """
             Reference number associated with this Multibanco payment.
+            """
+
+        class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
             """
 
         class Oxxo(StripeObject):
@@ -1425,6 +1479,12 @@ class Charge(
             Owner's verified full name. Values are verified or provided by Przelewy24 directly
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             Przelewy24 rarely provides this information so the attribute is usually empty.
+            """
+
+        class Payco(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
             """
 
         class Paynow(StripeObject):
@@ -1486,6 +1546,12 @@ class Charge(
 
         class RevolutPay(StripeObject):
             pass
+
+        class SamsungPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
@@ -1645,6 +1711,7 @@ class Charge(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -1661,18 +1728,23 @@ class Charge(
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
+        naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
+        samsung_pay: Optional[SamsungPay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1696,6 +1768,7 @@ class Charge(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
@@ -1712,18 +1785,23 @@ class Charge(
             "grabpay": Grabpay,
             "ideal": Ideal,
             "interac_present": InteracPresent,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_card": KrCard,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
+            "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
+            "samsung_pay": SamsungPay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,

@@ -51,6 +51,9 @@ class Refund(
         class Alipay(StripeObject):
             pass
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -58,6 +61,10 @@ class Refund(
             pass
 
         class Blik(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.
@@ -189,6 +196,10 @@ class Refund(
             pass
 
         class Swish(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.
@@ -227,6 +238,7 @@ class Refund(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_bank_transfer: Optional[AuBankTransfer]
         blik: Optional[Blik]
@@ -262,6 +274,7 @@ class Refund(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_bank_transfer": AuBankTransfer,
             "blik": Blik,
@@ -311,9 +324,6 @@ class Refund(
             _inner_class_types = {"email_sent": EmailSent}
 
         display_details: Optional[DisplayDetails]
-        """
-        Contains the refund details.
-        """
         type: str
         """
         Type of the next action to perform.

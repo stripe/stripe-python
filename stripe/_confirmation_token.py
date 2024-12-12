@@ -107,6 +107,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Alipay(StripeObject):
             pass
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -282,7 +285,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         brand: Optional[str]
                         """
-                        Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                        Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
                         """
                         brand_product: Optional[str]
                         """
@@ -348,7 +351,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         network: Optional[str]
                         """
-                        Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                        Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
                         """
                         network_transaction_id: Optional[str]
                         """
@@ -627,7 +630,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
             brand: str
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             checks: Optional[Checks]
             """
@@ -730,7 +733,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -1026,6 +1029,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             _inner_class_types = {"networks": Networks}
 
+        class KakaoPay(StripeObject):
+            pass
+
         class Klarna(StripeObject):
             class Dob(StripeObject):
                 day: Optional[int]
@@ -1050,6 +1056,41 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Konbini(StripeObject):
             pass
 
+        class KrCard(StripeObject):
+            brand: Optional[
+                Literal[
+                    "bc",
+                    "citi",
+                    "hana",
+                    "hyundai",
+                    "jeju",
+                    "jeonbuk",
+                    "kakaobank",
+                    "kbank",
+                    "kdbbank",
+                    "kookmin",
+                    "kwangju",
+                    "lotte",
+                    "mg",
+                    "nh",
+                    "post",
+                    "samsung",
+                    "savingsbank",
+                    "shinhan",
+                    "shinhyup",
+                    "suhyup",
+                    "tossbank",
+                    "woori",
+                ]
+            ]
+            """
+            The local credit or debit card brand.
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card. This may not be present for American Express cards.
+            """
+
         class Link(StripeObject):
             email: Optional[str]
             """
@@ -1065,6 +1106,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         class Multibanco(StripeObject):
             pass
+
+        class NaverPay(StripeObject):
+            funding: Literal["card", "points"]
+            """
+            Whether to fund this transaction with Naver Pay points or a card.
+            """
 
         class Oxxo(StripeObject):
             pass
@@ -1104,6 +1151,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The customer's bank, if provided.
             """
 
+        class Payco(StripeObject):
+            pass
+
         class Paynow(StripeObject):
             pass
 
@@ -1125,6 +1175,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             pass
 
         class RevolutPay(StripeObject):
+            pass
+
+        class SamsungPay(StripeObject):
             pass
 
         class SepaDebit(StripeObject):
@@ -1280,6 +1333,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
         """
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -1301,18 +1355,23 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
+        naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
+        samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -1322,6 +1381,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1338,18 +1398,23 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "grabpay",
             "ideal",
             "interac_present",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -1369,6 +1434,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
@@ -1386,18 +1452,23 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "grabpay": Grabpay,
             "ideal": Ideal,
             "interac_present": InteracPresent,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_card": KrCard,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
+            "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
+            "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -1506,6 +1577,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -1592,6 +1669,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataKlarna"
         ]
@@ -1603,6 +1686,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataLink"
@@ -1626,6 +1715,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1635,6 +1730,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         p24: NotRequired["ConfirmationToken.CreateParamsPaymentMethodDataP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataPayco"
+        ]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataPaynow"
@@ -1670,6 +1771,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -1699,6 +1806,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -1712,18 +1820,23 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -1773,6 +1886,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -1960,10 +2076,13 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataKakaoPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataKlarna(TypedDict):
@@ -1991,6 +2110,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -1999,6 +2121,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -2038,6 +2166,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPaynow(TypedDict):
         pass
 
@@ -2057,6 +2188,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

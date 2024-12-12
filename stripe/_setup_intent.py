@@ -526,6 +526,7 @@ class SetupIntent(
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -765,6 +766,10 @@ class SetupIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -845,6 +850,12 @@ class SetupIntent(
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataKlarna"]
         """
         If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
@@ -854,6 +865,12 @@ class SetupIntent(
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataKrCard"
+        ]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataLink"]
         """
@@ -875,6 +892,12 @@ class SetupIntent(
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -882,6 +905,10 @@ class SetupIntent(
         p24: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPayco"]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPaynow"]
         """
@@ -913,6 +940,12 @@ class SetupIntent(
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -936,6 +969,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -949,18 +983,23 @@ class SetupIntent(
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -1010,6 +1049,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -1197,10 +1239,13 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataKakaoPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
@@ -1226,6 +1271,9 @@ class SetupIntent(
     class ConfirmParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -1234,6 +1282,12 @@ class SetupIntent(
 
     class ConfirmParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -1273,6 +1327,9 @@ class SetupIntent(
         The customer's bank.
         """
 
+    class ConfirmParamsPaymentMethodDataPayco(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataPaynow(TypedDict):
         pass
 
@@ -1292,6 +1349,9 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -1473,6 +1533,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1783,7 +1844,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodData"
@@ -1800,7 +1861,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         return_url: NotRequired[str]
         """
@@ -1901,6 +1962,10 @@ class SetupIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["SetupIntent.CreateParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -1981,6 +2046,12 @@ class SetupIntent(
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired["SetupIntent.CreateParamsPaymentMethodDataKlarna"]
         """
         If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
@@ -1990,6 +2061,10 @@ class SetupIntent(
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired["SetupIntent.CreateParamsPaymentMethodDataKrCard"]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired["SetupIntent.CreateParamsPaymentMethodDataLink"]
         """
@@ -2011,6 +2086,12 @@ class SetupIntent(
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired["SetupIntent.CreateParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -2018,6 +2099,10 @@ class SetupIntent(
         p24: NotRequired["SetupIntent.CreateParamsPaymentMethodDataP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPayco"]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPaynow"]
         """
@@ -2049,6 +2134,12 @@ class SetupIntent(
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -2072,6 +2163,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -2085,18 +2177,23 @@ class SetupIntent(
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -2146,6 +2243,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -2333,10 +2433,13 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataKakaoPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataKlarna(TypedDict):
@@ -2362,6 +2465,9 @@ class SetupIntent(
     class CreateParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -2370,6 +2476,12 @@ class SetupIntent(
 
     class CreateParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -2409,6 +2521,9 @@ class SetupIntent(
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayco(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPaynow(TypedDict):
         pass
 
@@ -2428,6 +2543,9 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -2609,6 +2727,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -2957,7 +3076,7 @@ class SetupIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this SetupIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
         """
         payment_method_data: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodData"
@@ -2974,7 +3093,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"].
+        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
 
     class ModifyParamsPaymentMethodData(TypedDict):
@@ -3003,6 +3122,10 @@ class SetupIntent(
         ]
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        """
+        alma: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
         """
         amazon_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataAmazonPay"
@@ -3084,6 +3207,12 @@ class SetupIntent(
         """
         If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
         """
+        kakao_pay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataKakaoPay"
+        ]
+        """
+        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+        """
         klarna: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataKlarna"]
         """
         If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
@@ -3093,6 +3222,10 @@ class SetupIntent(
         ]
         """
         If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
+        """
+        kr_card: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataKrCard"]
+        """
+        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
         """
         link: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataLink"]
         """
@@ -3114,6 +3247,12 @@ class SetupIntent(
         """
         If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
         """
+        naver_pay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataNaverPay"
+        ]
+        """
+        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
         oxxo: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -3121,6 +3260,10 @@ class SetupIntent(
         p24: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        payco: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPayco"]
+        """
+        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         """
         paynow: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPaynow"]
         """
@@ -3152,6 +3295,12 @@ class SetupIntent(
         """
         If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
+        samsung_pay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataSamsungPay"
+        ]
+        """
+        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit"
         ]
@@ -3175,6 +3324,7 @@ class SetupIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -3188,18 +3338,23 @@ class SetupIntent(
             "giropay",
             "grabpay",
             "ideal",
+            "kakao_pay",
             "klarna",
             "konbini",
+            "kr_card",
             "link",
             "mobilepay",
             "multibanco",
+            "naver_pay",
             "oxxo",
             "p24",
+            "payco",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
             "revolut_pay",
+            "samsung_pay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -3249,6 +3404,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -3436,10 +3594,13 @@ class SetupIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataKakaoPay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataKlarna(TypedDict):
@@ -3465,6 +3626,9 @@ class SetupIntent(
     class ModifyParamsPaymentMethodDataKonbini(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataKrCard(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataLink(TypedDict):
         pass
 
@@ -3473,6 +3637,12 @@ class SetupIntent(
 
     class ModifyParamsPaymentMethodDataMultibanco(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodDataNaverPay(TypedDict):
+        funding: NotRequired[Literal["card", "points"]]
+        """
+        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
 
     class ModifyParamsPaymentMethodDataOxxo(TypedDict):
         pass
@@ -3512,6 +3682,9 @@ class SetupIntent(
         The customer's bank.
         """
 
+    class ModifyParamsPaymentMethodDataPayco(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataPaynow(TypedDict):
         pass
 
@@ -3531,6 +3704,9 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -3712,6 +3888,7 @@ class SetupIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -4073,7 +4250,7 @@ class SetupIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the payment method configuration used for this Setup Intent.
+    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """

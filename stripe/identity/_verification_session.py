@@ -257,7 +257,7 @@ class VerificationSession(
         """
         verification_flow: NotRequired[str]
         """
-        The ID of a Verification Flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
+        The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
         """
 
     class CreateParamsOptions(TypedDict):
@@ -489,7 +489,7 @@ class VerificationSession(
     """
     verification_flow: Optional[str]
     """
-    The configuration token of a Verification Flow from the dashboard.
+    The configuration token of a verification flow from the dashboard.
     """
     verified_outputs: Optional[VerifiedOutputs]
     """

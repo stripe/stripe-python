@@ -116,6 +116,7 @@ class PaymentLinkService(StripeService):
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "alma",
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
@@ -178,7 +179,9 @@ class PaymentLinkService(StripeService):
         """
         The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
         """
-        submit_type: NotRequired[Literal["auto", "book", "donate", "pay"]]
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
         """
         Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
         """
@@ -825,7 +828,7 @@ class PaymentLinkService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
@@ -1021,7 +1024,7 @@ class PaymentLinkService(StripeService):
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -1037,6 +1040,12 @@ class PaymentLinkService(StripeService):
         ]
         """
         Configuration for collecting the customer's shipping address.
+        """
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
+        """
+        Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
         """
         subscription_data: NotRequired[
             "PaymentLinkService.UpdateParamsSubscriptionData"
@@ -1623,7 +1632,7 @@ class PaymentLinkService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class UpdateParamsSubscriptionData(TypedDict):

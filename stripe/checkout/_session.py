@@ -56,6 +56,12 @@ class Session(
 
     OBJECT_NAME: ClassVar[Literal["checkout.session"]] = "checkout.session"
 
+    class AdaptivePricing(StripeObject):
+        enabled: bool
+        """
+        Whether Adaptive Pricing is enabled.
+        """
+
     class AfterExpiration(StripeObject):
         class Recovery(StripeObject):
             allow_promotion_codes: bool
@@ -348,6 +354,7 @@ class Session(
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
                 "ca_pst_bc",
@@ -383,6 +390,9 @@ class Session(
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
+                "ma_vat",
+                "md_vat",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -406,16 +416,19 @@ class Session(
                 "th_vat",
                 "tr_tin",
                 "tw_vat",
+                "tz_vat",
                 "ua_vat",
                 "unknown",
                 "us_ein",
                 "uy_ruc",
+                "uz_tin",
+                "uz_vat",
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
             """
             value: Optional[str]
             """
@@ -640,6 +653,10 @@ class Session(
             """
 
         class BacsDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -652,6 +669,7 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -691,6 +709,26 @@ class Session(
                 """
 
             installments: Optional[Installments]
+            request_extended_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+            """
+            request_incremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+            """
+            request_multicapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+            """
+            request_overcapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
+            """
             request_three_d_secure: Literal["any", "automatic", "challenge"]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -847,6 +885,22 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class KakaoPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Klarna(StripeObject):
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
@@ -867,6 +921,22 @@ class Session(
             The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
             """
             setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class KrCard(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -913,6 +983,12 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class NaverPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Oxxo(StripeObject):
             expires_after_days: int
             """
@@ -939,6 +1015,12 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class Payco(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
             """
 
         class Paynow(StripeObject):
@@ -995,7 +1077,17 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class SamsungPay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class SepaDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -1008,6 +1100,7 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -1101,17 +1194,22 @@ class Session(
         giropay: Optional[Giropay]
         grabpay: Optional[Grabpay]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         konbini: Optional[Konbini]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
+        naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
+        samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -1134,17 +1232,22 @@ class Session(
             "giropay": Giropay,
             "grabpay": Grabpay,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "konbini": Konbini,
+            "kr_card": KrCard,
             "link": Link,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
+            "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "pix": Pix,
             "revolut_pay": RevolutPay,
+            "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -1626,6 +1729,10 @@ class Session(
         _inner_class_types = {"breakdown": Breakdown}
 
     class CreateParams(RequestOptions):
+        adaptive_pricing: NotRequired["Session.CreateParamsAdaptivePricing"]
+        """
+        Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+        """
         after_expiration: NotRequired["Session.CreateParamsAfterExpiration"]
         """
         Configure actions after a Checkout Session has expired.
@@ -1828,6 +1935,7 @@ class Session(
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "alma",
                     "amazon_pay",
                     "au_becs_debit",
                     "bacs_debit",
@@ -1842,18 +1950,23 @@ class Session(
                     "giropay",
                     "grabpay",
                     "ideal",
+                    "kakao_pay",
                     "klarna",
                     "konbini",
+                    "kr_card",
                     "link",
                     "mobilepay",
                     "multibanco",
+                    "naver_pay",
                     "oxxo",
                     "p24",
+                    "payco",
                     "paynow",
                     "paypal",
                     "pix",
                     "promptpay",
                     "revolut_pay",
+                    "samsung_pay",
                     "sepa_debit",
                     "sofort",
                     "swish",
@@ -1920,7 +2033,9 @@ class Session(
         """
         The shipping rate options to apply to this Session. Up to a maximum of 5.
         """
-        submit_type: NotRequired[Literal["auto", "book", "donate", "pay"]]
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
         """
         Describes the type of transaction being performed by Checkout in order to customize
         relevant text on the page, such as the submit button. `submit_type` can only be
@@ -1945,6 +2060,12 @@ class Session(
         ui_mode: NotRequired[Literal["embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
+        """
+
+    class CreateParamsAdaptivePricing(TypedDict):
+        enabled: NotRequired[bool]
+        """
+        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -2589,6 +2710,12 @@ class Session(
         """
         contains details about the Ideal payment method options.
         """
+        kakao_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired["Session.CreateParamsPaymentMethodOptionsKlarna"]
         """
         contains details about the Klarna payment method options.
@@ -2596,6 +2723,10 @@ class Session(
         konbini: NotRequired["Session.CreateParamsPaymentMethodOptionsKonbini"]
         """
         contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired["Session.CreateParamsPaymentMethodOptionsKrCard"]
+        """
+        contains details about the Korean card payment method options.
         """
         link: NotRequired["Session.CreateParamsPaymentMethodOptionsLink"]
         """
@@ -2613,6 +2744,12 @@ class Session(
         """
         contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        contains details about the Naver Pay payment method options.
+        """
         oxxo: NotRequired["Session.CreateParamsPaymentMethodOptionsOxxo"]
         """
         contains details about the OXXO payment method options.
@@ -2620,6 +2757,10 @@ class Session(
         p24: NotRequired["Session.CreateParamsPaymentMethodOptionsP24"]
         """
         contains details about the P24 payment method options.
+        """
+        payco: NotRequired["Session.CreateParamsPaymentMethodOptionsPayco"]
+        """
+        contains details about the PAYCO payment method options.
         """
         paynow: NotRequired["Session.CreateParamsPaymentMethodOptionsPaynow"]
         """
@@ -2638,6 +2779,12 @@ class Session(
         ]
         """
         contains details about the RevolutPay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -2783,6 +2930,12 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -2795,6 +2948,9 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -2832,6 +2988,26 @@ class Session(
         ]
         """
         Installment options for card payments
+        """
+        request_extended_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_incremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+        """
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+        """
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -3007,6 +3183,22 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -3025,6 +3217,22 @@ class Session(
         The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
         """
         setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3071,6 +3279,22 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -3101,6 +3325,12 @@ class Session(
         tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class CreateParamsPaymentMethodOptionsPayco(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
         """
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
@@ -3189,7 +3419,19 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -3202,6 +3444,9 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+
+    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
@@ -3561,7 +3806,7 @@ class Session(
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
@@ -3910,6 +4155,10 @@ class Session(
         Specifies which fields in the response should be expanded.
         """
 
+    adaptive_pricing: Optional[AdaptivePricing]
+    """
+    Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+    """
     after_expiration: Optional[AfterExpiration]
     """
     When set, provides configuration for actions to take if this Checkout Session expires.
@@ -4151,7 +4400,9 @@ class Session(
     """
     The status of the Checkout Session, one of `open`, `complete`, or `expired`.
     """
-    submit_type: Optional[Literal["auto", "book", "donate", "pay"]]
+    submit_type: Optional[
+        Literal["auto", "book", "donate", "pay", "subscribe"]
+    ]
     """
     Describes the type of transaction being performed by Checkout in order to customize
     relevant text on the page, such as the submit button. `submit_type` can only be
@@ -4542,6 +4793,7 @@ class Session(
         return instance
 
     _inner_class_types = {
+        "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
         "automatic_tax": AutomaticTax,
         "consent": Consent,

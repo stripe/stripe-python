@@ -456,7 +456,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     verification_flow: Optional[str]
     """
-    The configuration token of a Verification Flow from the dashboard.
+    The configuration token of a verification flow from the dashboard.
     """
     verification_session: Optional[str]
     """

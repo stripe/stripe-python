@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
@@ -22,6 +23,16 @@ class TaxRate(
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_rate"]] = "tax_rate"
+
+    class FlatAmount(StripeObject):
+        amount: int
+        """
+        Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+        """
+        currency: str
+        """
+        Three-letter ISO currency code, in lowercase.
+        """
 
     class CreateParams(RequestOptions):
         active: NotRequired[bool]
@@ -75,8 +86,10 @@ class TaxRate(
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -176,8 +189,10 @@ class TaxRate(
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -217,6 +232,10 @@ class TaxRate(
     this percentage reflects the rate actually used to calculate tax based on the product's taxability
     and whether the user is registered to collect taxes in the corresponding jurisdiction.
     """
+    flat_amount: Optional[FlatAmount]
+    """
+    The amount of the tax rate when the `rate_type` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -251,6 +270,10 @@ class TaxRate(
     """
     Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions.
     """
+    rate_type: Optional[Literal["flat_amount", "percentage"]]
+    """
+    Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+    """
     state: Optional[str]
     """
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
@@ -266,8 +289,10 @@ class TaxRate(
             "lease_tax",
             "pst",
             "qst",
+            "retail_delivery_fee",
             "rst",
             "sales_tax",
+            "service_tax",
             "vat",
         ]
     ]
@@ -400,3 +425,5 @@ class TaxRate(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"flat_amount": FlatAmount}

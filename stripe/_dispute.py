@@ -37,6 +37,150 @@ class Dispute(
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
 
     class Evidence(StripeObject):
+        class EnhancedEvidence(StripeObject):
+            class VisaCompellingEvidence3(StripeObject):
+                class DisputedTransaction(StripeObject):
+                    class ShippingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    customer_account_id: Optional[str]
+                    """
+                    User Account ID used to log into business platform. Must be recognizable by the user.
+                    """
+                    customer_device_fingerprint: Optional[str]
+                    """
+                    Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+                    """
+                    customer_device_id: Optional[str]
+                    """
+                    Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+                    """
+                    customer_email_address: Optional[str]
+                    """
+                    The email address of the customer.
+                    """
+                    customer_purchase_ip: Optional[str]
+                    """
+                    The IP address that the customer used when making the purchase.
+                    """
+                    merchandise_or_services: Optional[
+                        Literal["merchandise", "services"]
+                    ]
+                    """
+                    Categorization of disputed payment.
+                    """
+                    product_description: Optional[str]
+                    """
+                    A description of the product or service that was sold.
+                    """
+                    shipping_address: Optional[ShippingAddress]
+                    """
+                    The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+                    """
+                    _inner_class_types = {"shipping_address": ShippingAddress}
+
+                class PriorUndisputedTransaction(StripeObject):
+                    class ShippingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    charge: str
+                    """
+                    Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
+                    """
+                    customer_account_id: Optional[str]
+                    """
+                    User Account ID used to log into business platform. Must be recognizable by the user.
+                    """
+                    customer_device_fingerprint: Optional[str]
+                    """
+                    Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+                    """
+                    customer_device_id: Optional[str]
+                    """
+                    Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+                    """
+                    customer_email_address: Optional[str]
+                    """
+                    The email address of the customer.
+                    """
+                    customer_purchase_ip: Optional[str]
+                    """
+                    The IP address that the customer used when making the purchase.
+                    """
+                    product_description: Optional[str]
+                    """
+                    A description of the product or service that was sold.
+                    """
+                    shipping_address: Optional[ShippingAddress]
+                    """
+                    The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+                    """
+                    _inner_class_types = {"shipping_address": ShippingAddress}
+
+                disputed_transaction: Optional[DisputedTransaction]
+                """
+                Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
+                """
+                prior_undisputed_transactions: List[PriorUndisputedTransaction]
+                """
+                List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
+                """
+                _inner_class_types = {
+                    "disputed_transaction": DisputedTransaction,
+                    "prior_undisputed_transactions": PriorUndisputedTransaction,
+                }
+
+            visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
+            _inner_class_types = {
+                "visa_compelling_evidence_3": VisaCompellingEvidence3,
+            }
+
         access_activity_log: Optional[str]
         """
         Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
@@ -89,6 +233,7 @@ class Dispute(
         """
         The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
         """
+        enhanced_evidence: EnhancedEvidence
         product_description: Optional[str]
         """
         A description of the product or service that was sold.
@@ -145,12 +290,40 @@ class Dispute(
         """
         Any additional evidence or statements.
         """
+        _inner_class_types = {"enhanced_evidence": EnhancedEvidence}
 
     class EvidenceDetails(StripeObject):
+        class EnhancedEligibility(StripeObject):
+            class VisaCompellingEvidence3(StripeObject):
+                required_actions: List[
+                    Literal[
+                        "missing_customer_identifiers",
+                        "missing_disputed_transaction_description",
+                        "missing_merchandise_or_services",
+                        "missing_prior_undisputed_transaction_description",
+                        "missing_prior_undisputed_transactions",
+                    ]
+                ]
+                """
+                List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
+                """
+                status: Literal[
+                    "not_qualified", "qualified", "requires_action"
+                ]
+                """
+                Visa Compelling Evidence 3.0 eligibility status.
+                """
+
+            visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
+            _inner_class_types = {
+                "visa_compelling_evidence_3": VisaCompellingEvidence3,
+            }
+
         due_by: Optional[int]
         """
         Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
         """
+        enhanced_eligibility: EnhancedEligibility
         has_evidence: bool
         """
         Whether evidence has been staged for this dispute.
@@ -163,6 +336,7 @@ class Dispute(
         """
         The number of times evidence has been submitted. Typically, you may only submit evidence once.
         """
+        _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
     class PaymentMethodDetails(StripeObject):
         class AmazonPay(StripeObject):
@@ -174,7 +348,7 @@ class Dispute(
         class Card(StripeObject):
             brand: str
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             case_type: Literal["chargeback", "inquiry"]
             """
@@ -341,6 +515,12 @@ class Dispute(
         """
         The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
         """
+        enhanced_evidence: NotRequired[
+            "Literal['']|Dispute.ModifyParamsEvidenceEnhancedEvidence"
+        ]
+        """
+        Additional evidence for qualifying evidence programs.
+        """
         product_description: NotRequired[str]
         """
         A description of the product or service that was sold. Has a maximum character count of 20,000.
@@ -398,6 +578,166 @@ class Dispute(
         Any additional evidence or statements. Has a maximum character count of 20,000.
         """
 
+    class ModifyParamsEvidenceEnhancedEvidence(TypedDict):
+        visa_compelling_evidence_3: NotRequired[
+            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3"
+        ]
+        """
+        Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
+        TypedDict,
+    ):
+        disputed_transaction: NotRequired[
+            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction"
+        ]
+        """
+        Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
+        """
+        prior_undisputed_transactions: NotRequired[
+            List[
+                "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction"
+            ]
+        ]
+        """
+        List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction(
+        TypedDict,
+    ):
+        customer_account_id: NotRequired["Literal['']|str"]
+        """
+        User Account ID used to log into business platform. Must be recognizable by the user.
+        """
+        customer_device_fingerprint: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+        """
+        customer_device_id: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+        """
+        customer_email_address: NotRequired["Literal['']|str"]
+        """
+        The email address of the customer.
+        """
+        customer_purchase_ip: NotRequired["Literal['']|str"]
+        """
+        The IP address that the customer used when making the purchase.
+        """
+        merchandise_or_services: NotRequired[
+            Literal["merchandise", "services"]
+        ]
+        """
+        Categorization of disputed payment.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A description of the product or service that was sold.
+        """
+        shipping_address: NotRequired[
+            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress"
+        ]
+        """
+        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress(
+        TypedDict,
+    ):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["Literal['']|str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State, county, province, or region.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction(
+        TypedDict,
+    ):
+        charge: str
+        """
+        Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
+        """
+        customer_account_id: NotRequired["Literal['']|str"]
+        """
+        User Account ID used to log into business platform. Must be recognizable by the user.
+        """
+        customer_device_fingerprint: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+        """
+        customer_device_id: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+        """
+        customer_email_address: NotRequired["Literal['']|str"]
+        """
+        The email address of the customer.
+        """
+        customer_purchase_ip: NotRequired["Literal['']|str"]
+        """
+        The IP address that the customer used when making the purchase.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A description of the product or service that was sold.
+        """
+        shipping_address: NotRequired[
+            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress"
+        ]
+        """
+        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress(
+        TypedDict,
+    ):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["Literal['']|str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State, county, province, or region.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -423,6 +763,10 @@ class Dispute(
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    enhanced_eligibility_types: List[Literal["visa_compelling_evidence_3"]]
+    """
+    List of eligibility types that are included in `enhanced_evidence`.
     """
     evidence: Evidence
     evidence_details: EvidenceDetails

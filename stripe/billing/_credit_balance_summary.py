@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     """
-    Indicates the credit balance for credits granted to a customer.
+    Indicates the billing credit balance for billing credits granted to a customer.
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.credit_balance_summary"]] = (
@@ -44,7 +44,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
@@ -65,7 +65,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
@@ -95,11 +95,11 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             "CreditBalanceSummary.RetrieveParamsFilterApplicabilityScope"
         ]
         """
-        The credit applicability scope for which to fetch balance summary.
+        The billing credit applicability scope for which to fetch credit balance summary.
         """
         credit_grant: NotRequired[str]
         """
-        The credit grant for which to fetch balance summary.
+        The credit grant for which to fetch credit balance summary.
         """
         type: Literal["applicability_scope", "credit_grant"]
         """
@@ -109,12 +109,12 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type to which credit grants can apply to. We currently only support `metered` price type.
+        The price type for which credit grants can apply. We currently only support the `metered` price type.
         """
 
     balances: List[Balance]
     """
-    The credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
+    The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
     """
     customer: ExpandableField["Customer"]
     """

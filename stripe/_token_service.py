@@ -320,7 +320,7 @@ class TokenService(StripeService):
         """
         gender: NotRequired[str]
         """
-        The individual's gender (International regulations require either "male" or "female").
+        The individual's gender
         """
         id_number: NotRequired[str]
         """
@@ -970,6 +970,10 @@ class TokenService(StripeService):
         """
 
     class CreateParamsPersonRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -1092,7 +1096,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,
@@ -1112,7 +1116,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,

@@ -319,8 +319,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -386,6 +388,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The plan of the subscription, if the line item is a subscription or a proration.
     """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    """
+    Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
+    """
     price: Optional["Price"]
     """
     The price of the line item.

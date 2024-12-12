@@ -30,7 +30,7 @@ class Card(
     UpdateableAPIResource["Card"],
 ):
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
@@ -1211,7 +1211,7 @@ class Card(
         """
         second_line: NotRequired["Literal['']|str"]
         """
-        The second line to print on the card.
+        The second line to print on the card. Max length: 24 characters.
         """
         shipping: NotRequired["Card.CreateParamsShipping"]
         """
@@ -3410,6 +3410,12 @@ class Card(
         Specifies which fields in the response should be expanded.
         """
 
+    class SubmitCardParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     brand: str
     """
     The brand of the card.
@@ -3422,7 +3428,7 @@ class Card(
     """
     An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
 
-    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
     """
     created: int
     """
@@ -4063,6 +4069,116 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_submit_card(
+            cls, card: str, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            return cast(
+                "Card",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def submit_card(
+            card: str, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            ...
+
+        @overload
+        def submit_card(
+            self, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            ...
+
+        @class_method_variant("_cls_submit_card")
+        def submit_card(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            return cast(
+                "Card",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
+                        card=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_submit_card_async(
+            cls, card: str, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            return cast(
+                "Card",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
+                        card=sanitize_id(card)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def submit_card_async(
+            card: str, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            ...
+
+        @overload
+        async def submit_card_async(
+            self, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            ...
+
+        @class_method_variant("_cls_submit_card_async")
+        async def submit_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Card.SubmitCardParams"]
+        ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
+            """
+            return cast(
+                "Card",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
                         card=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,

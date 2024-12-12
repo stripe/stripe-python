@@ -177,7 +177,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             checks: Optional[Checks]
             """
@@ -223,7 +223,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             """
             network: Optional[str]
             """
-            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -329,7 +329,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class KakaoPay(StripeObject):
+            pass
+
         class Klarna(StripeObject):
+            pass
+
+        class KrCard(StripeObject):
             pass
 
         class Link(StripeObject):
@@ -393,7 +399,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
+        kr_card: Optional[KrCard]
         link: Optional[Link]
         paypal: Optional[Paypal]
         revolut_pay: Optional[RevolutPay]
@@ -415,7 +423,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card_present": CardPresent,
             "cashapp": Cashapp,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
+            "kr_card": KrCard,
             "link": Link,
             "paypal": Paypal,
             "revolut_pay": RevolutPay,

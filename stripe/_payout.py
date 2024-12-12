@@ -5,6 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
@@ -40,6 +41,16 @@ class Payout(
     """
 
     OBJECT_NAME: ClassVar[Literal["payout"]] = "payout"
+
+    class TraceId(StripeObject):
+        status: str
+        """
+        Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
+        """
+        value: Optional[str]
+        """
+        The trace ID value if `trace_id.status` is `supported`, otherwise `nil`.
+        """
 
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -280,6 +291,10 @@ class Payout(
     status: str
     """
     Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it's submitted to the bank, when it becomes `in_transit`. The status changes to `paid` if the transaction succeeds, or to `failed` or `canceled` (within 5 business days). Some payouts that fail might initially show as `paid`, then change to `failed`.
+    """
+    trace_id: Optional[TraceId]
+    """
+    A value that generates from the beneficiary's bank that allows users to track payouts with their bank. Banks might call this a "reference number" or something similar.
     """
     type: Literal["bank_account", "card"]
     """
@@ -651,3 +666,5 @@ class Payout(
                 params=params,
             ),
         )
+
+    _inner_class_types = {"trace_id": TraceId}

@@ -141,6 +141,12 @@ class DisputeService(StripeService):
         """
         The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
         """
+        enhanced_evidence: NotRequired[
+            "Literal['']|DisputeService.UpdateParamsEvidenceEnhancedEvidence"
+        ]
+        """
+        Additional evidence for qualifying evidence programs.
+        """
         product_description: NotRequired[str]
         """
         A description of the product or service that was sold. Has a maximum character count of 20,000.
@@ -196,6 +202,166 @@ class DisputeService(StripeService):
         uncategorized_text: NotRequired[str]
         """
         Any additional evidence or statements. Has a maximum character count of 20,000.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidence(TypedDict):
+        visa_compelling_evidence_3: NotRequired[
+            "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3"
+        ]
+        """
+        Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
+        TypedDict,
+    ):
+        disputed_transaction: NotRequired[
+            "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction"
+        ]
+        """
+        Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
+        """
+        prior_undisputed_transactions: NotRequired[
+            List[
+                "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction"
+            ]
+        ]
+        """
+        List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction(
+        TypedDict,
+    ):
+        customer_account_id: NotRequired["Literal['']|str"]
+        """
+        User Account ID used to log into business platform. Must be recognizable by the user.
+        """
+        customer_device_fingerprint: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+        """
+        customer_device_id: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+        """
+        customer_email_address: NotRequired["Literal['']|str"]
+        """
+        The email address of the customer.
+        """
+        customer_purchase_ip: NotRequired["Literal['']|str"]
+        """
+        The IP address that the customer used when making the purchase.
+        """
+        merchandise_or_services: NotRequired[
+            Literal["merchandise", "services"]
+        ]
+        """
+        Categorization of disputed payment.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A description of the product or service that was sold.
+        """
+        shipping_address: NotRequired[
+            "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress"
+        ]
+        """
+        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress(
+        TypedDict,
+    ):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["Literal['']|str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State, county, province, or region.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction(
+        TypedDict,
+    ):
+        charge: str
+        """
+        Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
+        """
+        customer_account_id: NotRequired["Literal['']|str"]
+        """
+        User Account ID used to log into business platform. Must be recognizable by the user.
+        """
+        customer_device_fingerprint: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
+        """
+        customer_device_id: NotRequired["Literal['']|str"]
+        """
+        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
+        """
+        customer_email_address: NotRequired["Literal['']|str"]
+        """
+        The email address of the customer.
+        """
+        customer_purchase_ip: NotRequired["Literal['']|str"]
+        """
+        The IP address that the customer used when making the purchase.
+        """
+        product_description: NotRequired["Literal['']|str"]
+        """
+        A description of the product or service that was sold.
+        """
+        shipping_address: NotRequired[
+            "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress"
+        ]
+        """
+        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
+        """
+
+    class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress(
+        TypedDict,
+    ):
+        city: NotRequired["Literal['']|str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["Literal['']|str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["Literal['']|str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["Literal['']|str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["Literal['']|str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["Literal['']|str"]
+        """
+        State, county, province, or region.
         """
 
     def list(
