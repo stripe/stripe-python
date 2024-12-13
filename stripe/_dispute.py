@@ -176,17 +176,9 @@ class Dispute(
                     "prior_undisputed_transactions": PriorUndisputedTransaction,
                 }
 
-            class VisaCompliance(StripeObject):
-                fee_acknowledged: bool
-                """
-                A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
-                """
-
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
-            visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
-                "visa_compliance": VisaCompliance,
             }
 
         access_activity_log: Optional[str]
@@ -322,19 +314,9 @@ class Dispute(
                 Visa Compelling Evidence 3.0 eligibility status.
                 """
 
-            class VisaCompliance(StripeObject):
-                status: Literal[
-                    "fee_acknowledged", "requires_fee_acknowledgement"
-                ]
-                """
-                Visa compliance eligibility status.
-                """
-
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
-            visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
-                "visa_compliance": VisaCompliance,
             }
 
         due_by: Optional[int]
@@ -603,12 +585,6 @@ class Dispute(
         """
         Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         """
-        visa_compliance: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompliance"
-        ]
-        """
-        Evidence provided for Visa compliance evidence submission.
-        """
 
     class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
         TypedDict,
@@ -760,12 +736,6 @@ class Dispute(
         state: NotRequired["Literal['']|str"]
         """
         State, county, province, or region.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
-        fee_acknowledged: NotRequired[bool]
-        """
-        A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
         """
 
     class RetrieveParams(RequestOptions):

@@ -227,10 +227,6 @@ class Reader(
                 """
                 _inner_class_types = {"tipping": Tipping}
 
-            account: Optional[str]
-            """
-            Account the payment intent belongs to.
-            """
             collect_config: Optional[CollectConfig]
             """
             Represents a per-transaction override of a reader configuration
@@ -248,24 +244,14 @@ class Reader(
             Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
             """
             stripe_account: Optional[str]
-            """
-            This field will be deprecated. Please use `account` instead.
-            """
             _inner_class_types = {"collect_config": CollectConfig}
 
         class ConfirmPaymentIntent(StripeObject):
-            account: Optional[str]
-            """
-            Account the payment intent belongs to.
-            """
             payment_intent: ExpandableField["PaymentIntent"]
             """
             Most recent PaymentIntent processed by the reader.
             """
             stripe_account: Optional[str]
-            """
-            This field will be deprecated. Please use `account` instead.
-            """
 
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
@@ -289,10 +275,6 @@ class Reader(
                 """
                 _inner_class_types = {"tipping": Tipping}
 
-            account: Optional[str]
-            """
-            Account the payment intent belongs to.
-            """
             payment_intent: ExpandableField["PaymentIntent"]
             """
             Most recent PaymentIntent processed by the reader.
@@ -302,9 +284,6 @@ class Reader(
             Represents a per-transaction override of a reader configuration
             """
             stripe_account: Optional[str]
-            """
-            This field will be deprecated. Please use `account` instead.
-            """
             _inner_class_types = {"process_config": ProcessConfig}
 
         class ProcessSetupIntent(StripeObject):
@@ -335,10 +314,6 @@ class Reader(
                 Enable customer initiated cancellation when refunding this payment.
                 """
 
-            account: Optional[str]
-            """
-            Account the payment intent belongs to.
-            """
             amount: Optional[int]
             """
             The amount being refunded.
@@ -378,9 +353,6 @@ class Reader(
             Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
             """
             stripe_account: Optional[str]
-            """
-            This field will be deprecated. Please use `account` instead.
-            """
             _inner_class_types = {"refund_payment_config": RefundPaymentConfig}
 
         class SetReaderDisplay(StripeObject):

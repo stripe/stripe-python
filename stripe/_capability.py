@@ -169,7 +169,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         eventually_due: List[str]
         """
-        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well.
         """
         past_due: List[str]
         """
@@ -332,7 +332,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         eventually_due: List[str]
         """
-        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
         """
         past_due: List[str]
         """
