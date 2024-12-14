@@ -556,6 +556,28 @@ class _APIRequestor(object):
             url,
         )
 
+        params = params or {}
+        if params and (method == "get" or method == "delete"):
+            # if we're sending params in the querystring, then we have to make sure we're not
+            # duplicating anything we got back from the server already (like in a list iterator)
+            # so, we parse the querystring the server sends back so we can merge with what we (or the user) are trying to send
+            # note: server sends back "expand[]" but users supply "expand", so we have to match them up
+            existing_params = {
+                "expand" if k == "expand[]" else k: v
+                for k, v in parse_qs(urlsplit(url).query).items()
+            }
+            # if a user is expanding something that wasn't expanded before, add (and deduplicate) it
+            if "expand" in existing_params and "expand" in params:
+                params["expand"] = list(  # type:ignore - this is a dict
+                    set([*existing_params["expand"], *params["expand"]])
+                )
+
+            params = {
+                **existing_params,
+                # user_supplied params take precedence over server params
+                **params,
+            }
+
         encoded_params = urlencode(list(_api_encode(params or {}, api_mode)))
 
         # Don't use strict form encoding by changing the square bracket control
@@ -586,13 +608,13 @@ class _APIRequestor(object):
 
         if method == "get" or method == "delete":
             if params:
-                query = encoded_params
-                scheme, netloc, path, base_query, fragment = urlsplit(abs_url)
+                # if we're sending query params, we've already merged the incoming ones with the server's "url"
+                # so we can overwrite the whole thing
+                scheme, netloc, path, _, fragment = urlsplit(abs_url)
 
-                if base_query:
-                    query = "%s&%s" % (base_query, query)
-
-                abs_url = urlunsplit((scheme, netloc, path, query, fragment))
+                abs_url = urlunsplit(
+                    (scheme, netloc, path, encoded_params, fragment)
+                )
             post_data = None
         elif method == "post":
             if (
