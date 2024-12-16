@@ -40,7 +40,6 @@ class StripeError(Exception):
                     )
             elif isinstance(http_body, str):
                 body = http_body
-                pass
 
         self._message = message
         self.http_body = body
