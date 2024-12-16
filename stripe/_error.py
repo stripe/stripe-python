@@ -26,14 +26,21 @@ class StripeError(Exception):
         super(StripeError, self).__init__(message)
 
         body: Optional[str] = None
-        if http_body and hasattr(http_body, "decode"):
-            try:
-                body = cast(bytes, http_body).decode("utf-8")
-            except BaseException:
-                body = (
-                    "<Could not decode body as utf-8. "
-                    "Please report to support@stripe.com>"
-                )
+        if http_body:
+            # http_body can sometimes be a memoryview which must be cast
+            # to a "bytes" before calling decode, so we check for the
+            # decode attribute and then cast
+            if hasattr(http_body, "decode"):
+                try:
+                    body = cast(bytes, http_body).decode("utf-8")
+                except BaseException:
+                    body = (
+                        "<Could not decode body as utf-8. "
+                        "Please report to support@stripe.com>"
+                    )
+            elif isinstance(http_body, str):
+                body = http_body
+                pass
 
         self._message = message
         self.http_body = body
