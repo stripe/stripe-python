@@ -103,6 +103,10 @@ class PaymentIntent(
         """
 
     class LastPaymentError(StripeObject):
+        advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
