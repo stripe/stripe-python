@@ -792,7 +792,7 @@ class Account(
         """
         current_deadline: Optional[int]
         """
-        Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
+        Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
         """
         currently_due: Optional[List[str]]
         """
@@ -826,7 +826,7 @@ class Account(
         """
         eventually_due: Optional[List[str]]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
         """
         past_due: Optional[List[str]]
         """
@@ -1000,7 +1000,7 @@ class Account(
         """
         eventually_due: Optional[List[str]]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
         """
         past_due: Optional[List[str]]
         """
@@ -1362,7 +1362,7 @@ class Account(
         """
         groups: NotRequired["Account.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
