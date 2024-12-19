@@ -1,3 +1,6 @@
+## 11.4.1 - 2024-12-19
+* [#1438](https://github.com/stripe/stripe-python/pull/1438) Fix regression when using httpx HTTP client
+
 ## 11.4.0 - 2024-12-18
 * [#1430](https://github.com/stripe/stripe-python/pull/1430) This release changes the pinned API version to `2024-12-18.acacia`.
   * Add support for `allow_redisplay` on resources `stripe.Card` and `stripe.Source`
