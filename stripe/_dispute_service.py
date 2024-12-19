@@ -215,7 +215,7 @@ class DisputeService(StripeService):
             "DisputeService.UpdateParamsEvidenceEnhancedEvidenceVisaCompliance"
         ]
         """
-        Evidence provided for Visa Compliance evidence submission.
+        Evidence provided for Visa compliance evidence submission.
         """
 
     class UpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
@@ -373,7 +373,7 @@ class DisputeService(StripeService):
     class UpdateParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
         fee_acknowledged: NotRequired[bool]
         """
-        A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
+        A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
         """
 
     def list(

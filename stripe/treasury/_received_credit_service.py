@@ -44,7 +44,11 @@ class ReceivedCreditService(StripeService):
 
     class ListParamsLinkedFlows(TypedDict):
         source_flow_type: Literal[
-            "credit_reversal", "other", "outbound_payment", "payout"
+            "credit_reversal",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "payout",
         ]
         """
         The source flow type.
