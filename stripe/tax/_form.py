@@ -62,7 +62,7 @@ class Form(ListableAPIResource["Form"]):
         class Jurisdiction(StripeObject):
             country: str
             """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). Always `US`.
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
             level: Literal["country", "state"]
             """
@@ -70,7 +70,7 @@ class Form(ListableAPIResource["Form"]):
             """
             state: Optional[str]
             """
-            [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States.
+            [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States. Null for non-U.S. forms.
             """
 
         effective_at: int

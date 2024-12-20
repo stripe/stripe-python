@@ -179,7 +179,7 @@ class Dispute(
             class VisaCompliance(StripeObject):
                 fee_acknowledged: bool
                 """
-                A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
+                A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
                 """
 
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
@@ -327,7 +327,7 @@ class Dispute(
                     "fee_acknowledged", "requires_fee_acknowledgement"
                 ]
                 """
-                Visa Compelling Evidence 3.0 eligibility status.
+                Visa compliance eligibility status.
                 """
 
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
@@ -607,7 +607,7 @@ class Dispute(
             "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompliance"
         ]
         """
-        Evidence provided for Visa Compliance evidence submission.
+        Evidence provided for Visa compliance evidence submission.
         """
 
     class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
@@ -765,7 +765,7 @@ class Dispute(
     class ModifyParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
         fee_acknowledged: NotRequired[bool]
         """
-        A field acknowledging the fee incurred when countering a Visa Compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute, and you may incur a $500 fee if the case is lost.
+        A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
         """
 
     class RetrieveParams(RequestOptions):
