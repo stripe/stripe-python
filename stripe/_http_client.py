@@ -1245,7 +1245,7 @@ class HTTPXClient(HTTPClient):
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs["verify"] = ssl.create_default_context(
-                capath=stripe.ca_bundle_path
+                cafile=stripe.ca_bundle_path
             )
         else:
             kwargs["verify"] = False
