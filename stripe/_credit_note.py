@@ -788,7 +788,7 @@ class CreditNote(
     """
     post_payment_amount: Optional[int]
     pre_payment_amount: Optional[int]
-    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    pretax_credit_amounts: List[PretaxCreditAmount]
     """
     The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
     """
