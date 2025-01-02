@@ -1119,6 +1119,9 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -3143,6 +3146,9 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
