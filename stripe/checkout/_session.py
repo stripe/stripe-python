@@ -4016,6 +4016,8 @@ class Session(
         enabled: bool
         """
         Set to `true` to enable phone number collection.
+
+        Can only be set in `payment` and `subscription` mode.
         """
 
     class CreateParamsSavedPaymentMethodOptions(TypedDict):
