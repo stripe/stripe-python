@@ -548,6 +548,20 @@ class Account(
             Town/cho-me.
             """
 
+        class DirectorshipDeclaration(StripeObject):
+            date: Optional[int]
+            """
+            The Unix timestamp marking when the directorship declaration attestation was made.
+            """
+            ip: Optional[str]
+            """
+            The IP address from which the directorship declaration attestation was made.
+            """
+            user_agent: Optional[str]
+            """
+            The user-agent string from the browser where the directorship declaration attestation was made.
+            """
+
         class OwnershipDeclaration(StripeObject):
             date: Optional[int]
             """
@@ -597,6 +611,10 @@ class Account(
         """
         Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
         """
+        directorship_declaration: Optional[DirectorshipDeclaration]
+        """
+        This hash is used to attest that the director information provided to Stripe is both current and correct.
+        """
         executives_provided: Optional[bool]
         """
         Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
@@ -629,6 +647,12 @@ class Account(
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: Optional[
+            Literal[
+                "qualified_entity_exceeds_ownership_threshold",
+                "qualifies_as_financial_institution",
+            ]
+        ]
         phone: Optional[str]
         """
         The company's phone number (used for verification).
@@ -683,6 +707,7 @@ class Account(
             "address": Address,
             "address_kana": AddressKana,
             "address_kanji": AddressKanji,
+            "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
             "verification": Verification,
         }
@@ -2520,6 +2545,9 @@ class Account(
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).

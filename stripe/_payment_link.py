@@ -1694,6 +1694,14 @@ class PaymentLink(
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
+        phone_number_collection: NotRequired[
+            "PaymentLink.ModifyParamsPhoneNumberCollection"
+        ]
+        """
+        Controls phone number collection settings during checkout.
+
+        We recommend that you review your privacy policy and check with your legal contacts.
+        """
         restrictions: NotRequired[
             "Literal['']|PaymentLink.ModifyParamsRestrictions"
         ]
@@ -2031,6 +2039,12 @@ class PaymentLink(
         transfer_group: NotRequired["Literal['']|str"]
         """
         A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
+
+    class ModifyParamsPhoneNumberCollection(TypedDict):
+        enabled: bool
+        """
+        Set to `true` to enable phone number collection.
         """
 
     class ModifyParamsRestrictions(TypedDict):

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+import json
 from stripe import error
 
 
@@ -27,6 +28,22 @@ class TestStripeError(object):
             repr(err) == "StripeError(message='öre', http_status=None, "
             "request_id='123')"
         )
+
+    def test_error_string_body(self):
+        http_body = '{"error": {"code": "some_error"}}'
+        err = error.StripeError(
+            "message", http_body=http_body, json_body=json.loads(http_body)
+        )
+        assert err.http_body is not None
+        assert err.http_body == json.dumps(err.json_body)
+
+    def test_error_bytes_body(self):
+        http_body = '{"error": {"code": "some_error"}}'.encode("utf-8")
+        err = error.StripeError(
+            "message", http_body=http_body, json_body=json.loads(http_body)
+        )
+        assert err.http_body is not None
+        assert err.http_body == json.dumps(err.json_body)
 
     def test_error_object(self):
         err = error.StripeError(

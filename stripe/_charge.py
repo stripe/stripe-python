@@ -151,6 +151,12 @@ class Charge(
             The predicate to evaluate the payment against.
             """
 
+        advice_code: Optional[
+            Literal["confirm_card_data", "do_not_try_again", "try_again_later"]
+        ]
+        """
+        An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+        """
         network_advice_code: Optional[str]
         """
         For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
@@ -1664,6 +1670,10 @@ class Charge(
                 State, county, province, or region.
                 """
 
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
             payer_email: Optional[str]
             """
             Owner's email. Values are provided by PayPal directly

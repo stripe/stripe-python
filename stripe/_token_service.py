@@ -122,6 +122,9 @@ class TokenService(StripeService):
         """
         Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
