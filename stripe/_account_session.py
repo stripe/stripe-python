@@ -131,6 +131,102 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class FinancialAccount(StripeObject):
+            class Features(StripeObject):
+                disable_stripe_user_authentication: bool
+                """
+                Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+                """
+                external_account_collection: bool
+                """
+                Whether to allow external accounts to be linked for money transfer.
+                """
+                send_money: bool
+                """
+                Whether to allow sending money.
+                """
+                transfer_balance: bool
+                """
+                Whether to allow transferring balance.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class FinancialAccountTransactions(StripeObject):
+            class Features(StripeObject):
+                card_spend_dispute_management: bool
+                """
+                Whether to allow card spend dispute management features.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class IssuingCard(StripeObject):
+            class Features(StripeObject):
+                card_management: bool
+                """
+                Whether to allow card management features.
+                """
+                card_spend_dispute_management: bool
+                """
+                Whether to allow card spend dispute management features.
+                """
+                cardholder_management: bool
+                """
+                Whether to allow cardholder management features.
+                """
+                spend_control_management: bool
+                """
+                Whether to allow spend control management features.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class IssuingCardsList(StripeObject):
+            class Features(StripeObject):
+                card_management: bool
+                """
+                Whether to allow card management features.
+                """
+                card_spend_dispute_management: bool
+                """
+                Whether to allow card spend dispute management features.
+                """
+                cardholder_management: bool
+                """
+                Whether to allow cardholder management features.
+                """
+                disable_stripe_user_authentication: bool
+                """
+                Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts.
+                """
+                spend_control_management: bool
+                """
+                Whether to allow spend control management features.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class NotificationBanner(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -271,6 +367,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capital_financing_application: Optional[CapitalFinancingApplication]
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
         documents: Documents
+        financial_account: FinancialAccount
+        financial_account_transactions: FinancialAccountTransactions
+        issuing_card: IssuingCard
+        issuing_cards_list: IssuingCardsList
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payments: Payments
@@ -286,6 +386,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_promotion": CapitalFinancingPromotion,
             "documents": Documents,
+            "financial_account": FinancialAccount,
+            "financial_account_transactions": FinancialAccountTransactions,
+            "issuing_card": IssuingCard,
+            "issuing_cards_list": IssuingCardsList,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payments": Payments,
@@ -372,25 +476,25 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsFinancialAccount"
         ]
         """
-        Configuration for the financial account component.
+        Configuration for the financial account embedded component.
         """
         financial_account_transactions: NotRequired[
             "AccountSession.CreateParamsComponentsFinancialAccountTransactions"
         ]
         """
-        Configuration for the financial account transactions component.
+        Configuration for the financial account transactions embedded component.
         """
         issuing_card: NotRequired[
             "AccountSession.CreateParamsComponentsIssuingCard"
         ]
         """
-        Configuration for the issuing card component.
+        Configuration for the issuing card embedded component.
         """
         issuing_cards_list: NotRequired[
             "AccountSession.CreateParamsComponentsIssuingCardsList"
         ]
         """
-        Configuration for the issuing cards list component.
+        Configuration for the issuing cards list embedded component.
         """
         notification_banner: NotRequired[
             "AccountSession.CreateParamsComponentsNotificationBanner"
