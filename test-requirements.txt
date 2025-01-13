@@ -8,10 +8,7 @@ aiohttp == 3.8.6; python_version <= "3.7"
 aiohttp == 3.9.4; python_version > "3.7"
 anyio[trio] == 3.6.2
 
-pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
 mock >= 4.0; python_version < "3.8"
 pytest-xdist >= 1.31.0
 pytest >= 6.0.0
-coverage >= 4.5.3, < 5
-coveralls

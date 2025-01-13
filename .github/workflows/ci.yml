@@ -22,22 +22,26 @@ jobs:
     name: Lint & Mypy
     runs-on: ubuntu-latest
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+      - name: install deps
+        run: just install
       - name: mypy
-        run: make mypy
+        run: just mypy
       - name: lint
-        run: make lint
+        run: just lint
       - name: fmtcheck
-        run: make fmtcheck
+        run: just format-check
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
 
       - name: Set up Python 3
@@ -46,7 +50,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install tools
-        run: make venv
+        run: just install
 
       - name: Build and check package
         run: |
@@ -70,19 +74,20 @@ jobs:
       fail-fast: false
       matrix:
         python:
-          - { version: "3.6" , env: "py36" }
-          - { version: "3.7" , env: "py37" }
-          - { version: "3.8" , env: "py38" }
-          - { version: "3.9" , env: "py39" }
-          - { version: "3.10" , env: "py310" }
-          - { version: "3.11" , env: "py311" }
-          - { version: "3.12" , env: "py312" }
-          - { version: "pypy-3.7" , env: "py3.7" }
-          - { version: "pypy-3.8" , env: "py3.8" }
-          - { version: "pypy-3.9" , env: "py3.9" }
-          - { version: "pypy-3.10" , env: "py3.10" }
+          - { version: "3.6", env: "py36" }
+          - { version: "3.7", env: "py37" }
+          - { version: "3.8", env: "py38" }
+          - { version: "3.9", env: "py39" }
+          - { version: "3.10", env: "py310" }
+          - { version: "3.11", env: "py311" }
+          - { version: "3.12", env: "py312" }
+          - { version: "pypy-3.7", env: "py3.7" }
+          - { version: "pypy-3.8", env: "py3.8" }
+          - { version: "pypy-3.9", env: "py3.9" }
+          - { version: "pypy-3.10", env: "py3.10" }
     name: Test (${{ matrix.python.version }})
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python.version }} and 3.10
@@ -94,20 +99,15 @@ jobs:
 
       - uses: stripe/openapi/actions/stripe-mock@master
 
+      - name: "Install deps"
+        run: just install
       - name: Typecheck with pyright
-        run: PYRIGHT_ARGS="-- --pythonversion ${{ matrix.python.version }}" make pyright
+        run: just pyright ${{ matrix.python.version }}"
         # Skip typecheking in pypy legs
         if: ${{ !contains(matrix.python.version, 'pypy') }}
 
       - name: Test with pytest
-        run: TOX_ARGS="-e ${{ matrix.python.env }}" make ci-test
-
-      - name: Calculate and publish coverage
-        run: make coveralls
-        if: env.COVERALLS_REPO_TOKEN && matrix.python.version == '3.10'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: just test
 
   publish:
     name: Publish
@@ -137,7 +137,7 @@ jobs:
           GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
           GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - name: Install tools
-        run: make venv
+        run: just install
       - name: Publish packages to PyPy
         run: |
           set -ex

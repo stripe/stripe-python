@@ -10,7 +10,7 @@ $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	${VENV_NAME}/bin/python -m pip install -r requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
-test: venv pyright lint mypy
+test:
 	@${VENV_NAME}/bin/tox -p auto -e $(DEFAULT_TEST_ENV) $(TOX_ARGS)
 
 test-nomock: venv
