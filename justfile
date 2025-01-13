@@ -23,8 +23,13 @@ mypy:
 lint:
     python -m flake8 --show-source stripe tests setup.py
 
-pyright py_version:
-    pyright --pythonversion {{ py_version }}
+pyright:
+    pyright
+
+# use a specific version for this
+ci-pyright py_version:
+    python{{py_version}} --version
+    python{{py_version}} -m pyright --pythonversion {{ py_version }}
 
 format:
     ruff format . --quiet

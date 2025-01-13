@@ -94,15 +94,21 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: |
-            ${{ matrix.python.version }}
+            # the last in the list is the default; 3.10 is just for running pyright
             3.10
+            ${{ matrix.python.version }}
+
+      - name: "check versions"
+        run: |
+          which python
+          echo $PATH
 
       - uses: stripe/openapi/actions/stripe-mock@master
 
       - name: "Install deps"
         run: just install
       - name: Typecheck with pyright
-        run: just pyright ${{ matrix.python.version }}
+        run: just ci-pyright ${{ matrix.python.version }}
         # Skip typecheking in pypy legs
         if: ${{ !contains(matrix.python.version, 'pypy') }}
 
