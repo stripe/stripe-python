@@ -15,11 +15,15 @@ install: venv
     python -m pip install -r requirements.txt --disable-pip-version-check {{ if is_dependency() == "true" {"--quiet"} else {""} }}
 
 # install deps for unit tests
+[no-quiet]
 test-install: venv
     python --version
+    # install this package
+    python -I -m pip install .
+    # install deps
     python -I -m pip install -r test-requirements.txt
 
-test *args: test-install
+test *args:
     # configured in pytest.ini
     pytest {{ args }}
 

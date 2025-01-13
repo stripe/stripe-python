@@ -111,8 +111,8 @@ jobs:
 
       - uses: stripe/openapi/actions/stripe-mock@master
 
-      # - name: "Install test deps"
-      #   run: just test-install
+      - name: "Install test deps"
+        run: just test-install
       # - name: Typecheck with pyright
       #   run: just ci-pyright ${{ matrix.python.version }}
       #   # Skip typecheking in pypy legs
