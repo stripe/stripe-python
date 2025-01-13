@@ -30,6 +30,8 @@ pyright:
 [no-quiet]
 ci-pyright py_version:
     python{{py_version}} --version
+    ls venv/bin
+    pyright --pythonversion {{ py_version }}
     python{{py_version}} -m pyright --pythonversion {{ py_version }}
 
 format:
