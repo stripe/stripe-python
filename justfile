@@ -11,13 +11,15 @@ _default:
     just --list --unsorted
 
 install: venv
+    python --version
     python -m pip install -r requirements.txt --disable-pip-version-check {{ if is_dependency() == "true" {"--quiet"} else {""} }}
 
 # install deps for unit tests
 test-install: venv
+    python --version
     python -I -m pip install -r test-requirements.txt
 
-test *args: install
+test *args: test-install
     # configured in pytest.ini
     pytest {{ args }}
 
@@ -40,9 +42,6 @@ ci-pyright py_version:
 
 [no-quiet]
 ci-pyright2 minor_py_version:
-    # python3.{{minor_py_version}} --version
-    # ls venv/bin
-    # pyright --pythonversion {{ minor_py_version }}
     pyright --pythonversion 3.{{ minor_py_version }}
 
 format:
