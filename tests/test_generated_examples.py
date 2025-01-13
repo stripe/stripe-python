@@ -25865,6 +25865,92 @@ class TestGeneratedExamples(object):
             post_data="payment_intent=pi_xxxxxxxxxxxxx",
         )
 
+    def test_terminal_readers_process_setup_intent_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.terminal.Reader.process_setup_intent(
+            "tmr_xxxxxxxxxxxxx",
+            setup_intent="seti_xxxxxxxxxxxxx",
+            allow_redisplay="always",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+            query_string="",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+        )
+
+    def test_terminal_readers_process_setup_intent_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.process_setup_intent(
+            "tmr_xxxxxxxxxxxxx",
+            {
+                "setup_intent": "seti_xxxxxxxxxxxxx",
+                "allow_redisplay": "always",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+        )
+
+    @pytest.mark.anyio
+    async def test_terminal_readers_process_setup_intent_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.terminal.Reader.process_setup_intent_async(
+            "tmr_xxxxxxxxxxxxx",
+            setup_intent="seti_xxxxxxxxxxxxx",
+            allow_redisplay="always",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+            query_string="",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+        )
+
+    @pytest.mark.anyio
+    async def test_terminal_readers_process_setup_intent_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.terminal.readers.process_setup_intent_async(
+            "tmr_xxxxxxxxxxxxx",
+            {
+                "setup_intent": "seti_xxxxxxxxxxxxx",
+                "allow_redisplay": "always",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+        )
+
     def test_test_helpers_customers_fund_cash_balance_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
