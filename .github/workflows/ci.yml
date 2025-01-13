@@ -36,6 +36,13 @@ jobs:
         run: just lint
       - name: fmtcheck
         run: just format-check
+      - name: typecheck
+        run: |
+          set -eox
+
+          for minor in {6..12}; do
+            just ci-pyright2 $minor
+          done
 
   build:
     name: Build
@@ -105,12 +112,12 @@ jobs:
 
       - uses: stripe/openapi/actions/stripe-mock@master
 
-      - name: "Install deps"
-        run: just install
-      - name: Typecheck with pyright
-        run: just ci-pyright ${{ matrix.python.version }}
-        # Skip typecheking in pypy legs
-        if: ${{ !contains(matrix.python.version, 'pypy') }}
+      - name: "Install test deps"
+        run: just test-install
+      # - name: Typecheck with pyright
+      #   run: just ci-pyright ${{ matrix.python.version }}
+      #   # Skip typecheking in pypy legs
+      #   if: ${{ !contains(matrix.python.version, 'pypy') }}
 
       - name: Test with pytest
         run: just test
