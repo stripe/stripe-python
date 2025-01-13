@@ -17,7 +17,7 @@ class ListObject(StripeObject, Generic[T]):
     """
 
     OBJECT_NAME = "list"
-    data: List[StripeObject]
+    data: List[T]
     next_page_url: Optional[str]
 
     def __getitem__(self, k):
