@@ -40,10 +40,10 @@ ci-pyright py_version:
 
 [no-quiet]
 ci-pyright2 minor_py_version:
-    # python3.{{py_version}} --version
+    # python3.{{minor_py_version}} --version
     # ls venv/bin
-    # pyright --pythonversion {{ py_version }}
-    pyright --pythonversion 3.{{ py_version }}
+    # pyright --pythonversion {{ minor_py_version }}
+    pyright --pythonversion 3.{{ minor_py_version }}
 
 format:
     ruff format . --quiet
