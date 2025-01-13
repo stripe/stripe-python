@@ -7,6 +7,6 @@ virtualenv<20.22.0
 pyright == 1.1.336
 ruff == 0.4.4
 flake8
-mypy == 1.7.0
+mypy == 1.7.0; python_version > "3.7"
 
 -r test-requirements.txt
