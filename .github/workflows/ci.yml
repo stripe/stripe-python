@@ -93,8 +93,8 @@ jobs:
       - name: Set up Python ${{ matrix.python.version }} and 3.10
         uses: actions/setup-python@v4
         with:
+          # the last in the list is the default; 3.10 is just for running pyright
           python-version: |
-            # the last in the list is the default; 3.10 is just for running pyright
             3.10
             ${{ matrix.python.version }}
 
