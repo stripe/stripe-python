@@ -70,17 +70,17 @@ jobs:
       fail-fast: false
       matrix:
         python:
-          - { version: "3.6" , env: "py36" }
-          - { version: "3.7" , env: "py37" }
-          - { version: "3.8" , env: "py38" }
-          - { version: "3.9" , env: "py39" }
-          - { version: "3.10" , env: "py310" }
-          - { version: "3.11" , env: "py311" }
-          - { version: "3.12" , env: "py312" }
-          - { version: "pypy-3.7" , env: "py3.7" }
-          - { version: "pypy-3.8" , env: "py3.8" }
-          - { version: "pypy-3.9" , env: "py3.9" }
-          - { version: "pypy-3.10" , env: "py3.10" }
+          - { version: "3.6", env: "py36" }
+          - { version: "3.7", env: "py37" }
+          - { version: "3.8", env: "py38" }
+          - { version: "3.9", env: "py39" }
+          - { version: "3.10", env: "py310" }
+          - { version: "3.11", env: "py311" }
+          - { version: "3.12", env: "py312" }
+          - { version: "pypy-3.7", env: "pypy37" }
+          - { version: "pypy-3.8", env: "pypy38" }
+          - { version: "pypy-3.9", env: "pypy39" }
+          - { version: "pypy-3.10", env: "pypy310" }
     name: Test (${{ matrix.python.version }})
     steps:
       - uses: actions/checkout@v3
