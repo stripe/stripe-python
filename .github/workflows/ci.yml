@@ -102,7 +102,7 @@ jobs:
       - name: "Install deps"
         run: just install
       - name: Typecheck with pyright
-        run: just pyright ${{ matrix.python.version }}"
+        run: just pyright ${{ matrix.python.version }}
         # Skip typecheking in pypy legs
         if: ${{ !contains(matrix.python.version, 'pypy') }}
 
