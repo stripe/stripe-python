@@ -342,6 +342,12 @@ class Account(
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
         """
+        pay_by_bank_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
+        """
         payco_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Payco capability of the account, or whether the account can directly process Payco payments.
@@ -1926,6 +1932,12 @@ class Account(
         """
         The p24_payments capability.
         """
+        pay_by_bank_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPayByBankPayments"
+        ]
+        """
+        The pay_by_bank_payments capability.
+        """
         payco_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaycoPayments"
         ]
@@ -2314,6 +2326,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPayByBankPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
