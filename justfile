@@ -2,7 +2,7 @@ set quiet
 
 import? '../sdk-codegen/justfile'
 
-VENV_NAME := "venv"
+VENV_NAME := ".venv"
 
 export PATH := `pwd` / VENV_NAME / "bin:" + env('PATH')
 
@@ -31,6 +31,13 @@ format: install-dev-deps
 format-check: install-dev-deps
     ruff format . --check  --quiet
 
+# remove venv
+clean:
+    rm -rf {{ VENV_NAME }}
+
+# blow away and reinstall virtual env
+reset: clean && venv
+
 # build the package for upload
 build: install-build-deps
     # --universal is deprecated, so we'll probably need to look at this eventually
@@ -39,10 +46,10 @@ build: install-build-deps
     python -m twine check dist/*
 
 # run backup type checker
-mypy: install-dev-deps
+typecheck-mypy: _install-all
     mypy
 
-# install the tools for CI & static checks
+# install the tools for local development & static checks
 install-dev-deps: (install "dev")
 
 # install everything for unit tests
@@ -50,6 +57,8 @@ install-test-deps: (install "test")
 
 # install dependencies to build the package
 install-build-deps: (install "build")
+
+_install-all: install-dev-deps install-test-deps install-build-deps
 
 # installs files out of a {group}-requirements.txt into the local venv; mostly used by other recipes
 install group: venv
