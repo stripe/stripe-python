@@ -1,4 +1,4 @@
-set quiet := true
+set quiet
 
 import? '../sdk-codegen/justfile'
 
@@ -7,57 +7,61 @@ VENV_NAME := "venv"
 export PATH := `pwd` / VENV_NAME / "bin:" + env('PATH')
 
 _default:
-    ruff --version
     just --list --unsorted
 
-install: venv
-    python --version
-    python -m pip install -r requirements.txt --disable-pip-version-check {{ if is_dependency() == "true" {"--quiet"} else {""} }}
-
-# install deps for unit tests
-[no-quiet]
-test-install: venv
-    python --version
-    # install this package
-    python -I -m pip install .
-    # install deps
-    python -I -m pip install -r test-requirements.txt
-
-test *args:
+# ⭐ run all unit tests
+test *args: install-test-deps
     # configured in pytest.ini
     pytest {{ args }}
 
-mypy:
-    mypy
-
-lint:
+# ⭐ check for potential mistakes
+lint: install-dev-deps
     python -m flake8 --show-source stripe tests setup.py
 
-pyright:
-    pyright
+# verify types. optional argument to test as of a specific minor python version (e.g. `8` to test `python 3.8`); otherwise uses current version
+typecheck minor_py_version="": install-dev-deps
+    # suppress version update warnings
+    PYRIGHT_PYTHON_IGNORE_WARNINGS=1 pyright {{ if minor_py_version == "" { "" } else { "--pythonversion 3." + minor_py_version } }}
 
-# use a specific version for this
-[no-quiet]
-ci-pyright py_version:
-    python{{py_version}} --version
-    ls venv/bin
-    # pyright --pythonversion {{ py_version }}
-    python{{py_version}} -m pyright --pythonversion {{ py_version }}
-
-[no-quiet]
-ci-pyright2 minor_py_version:
-    pyright --pythonversion 3.{{ minor_py_version }}
-
-format:
+# ⭐ format all code
+format: install-dev-deps
     ruff format . --quiet
 
-format-check:
+# verify formatting, but don't modify files
+format-check: install-dev-deps
     ruff format . --check  --quiet
 
-# create a virtualenv if it doesn't exist
+# build the package for upload
+build: install-build-deps
+    # --universal is deprecated, so we'll probably need to look at this eventually
+    # given that we don't care about universal 2 and 3 packages, we probably don't need it?
+    python -I setup.py clean --all sdist bdist_wheel --universal
+    python -m twine check dist/*
+
+# run backup type checker
+mypy: install-dev-deps
+    mypy
+
+# install the tools for CI & static checks
+install-dev-deps: (install "dev")
+
+# install everything for unit tests
+install-test-deps: (install "test")
+
+# install dependencies to build the package
+install-build-deps: (install "build")
+
+# installs files out of a {group}-requirements.txt into the local venv; mostly used by other recipes
+install group: venv
+    python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if is_dependency() == "true" {"--quiet"} else {""} }}
+
+# create a virtualenv if it doesn't exist; always installs the local package
 [private]
 venv:
-    [ -d {{ VENV_NAME }} ] || python -m venv {{ VENV_NAME }}
+    [ -d {{ VENV_NAME }} ] || ( \
+        python -m venv {{ VENV_NAME }} && \
+        {{ VENV_NAME }}/bin/python -I -m pip install -e . --quiet --disable-pip-version-check \
+    )
 
 # called by tooling
 [private]

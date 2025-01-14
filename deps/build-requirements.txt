@@ -1,0 +1,4 @@
+# packages needed to package & release
+
+twine
+setuptools

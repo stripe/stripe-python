@@ -19,7 +19,7 @@ on:
 
 jobs:
   lint:
-    name: Lint & Mypy
+    name: Static Checks
     runs-on: ubuntu-latest
     steps:
       - uses: extractions/setup-just@v2
@@ -28,20 +28,23 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - name: install deps
-        run: just install
-      - name: mypy
-        run: just mypy
-      - name: lint
-        run: just lint
-      - name: fmtcheck
-        run: just format-check
-      - name: typecheck
+      - name: install tools
+        run: just install-dev-deps
+      # skip deps on all these since we just installed everything
+      - name: check types (mypy, python@3.10)
+        run: just --no-deps mypy
+      - name: check linting
+        run: just --no-deps lint
+      - name: check formatting
+        run: just --no-deps format-check
+      # pyright depends on node, which it handles and installs for itself as needed
+      # we _could_ run setup-node to make it available for it if we're having reliability problems
+      - name: check types (all Python versions)
         run: |
           set -eox
 
           for minor in {6..12}; do
-            just ci-pyright2 $minor
+            just --no-deps typecheck $minor
           done
 
   build:
@@ -56,15 +59,9 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install tools
-        run: just install
-
       - name: Build and check package
         run: |
-          set -x
-          source venv/bin/activate
-          python setup.py clean --all sdist bdist_wheel --universal
-          python -m twine check dist/*
+          just build
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v3
@@ -96,29 +93,13 @@ jobs:
     steps:
       - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python.version }} and 3.10
+      - name: Set up Python ${{ matrix.python.version }}
         uses: actions/setup-python@v4
         with:
-          # the last in the list is the default; 3.10 is just for running pyright
-          # 3.10
           python-version: ${{ matrix.python.version }}
-
-      - name: "check versions"
-        run: |
-          which python
-          echo $PATH
-
       - uses: stripe/openapi/actions/stripe-mock@master
 
       - name: "Install test deps"
-        run: just test-install
-      # - name: Typecheck with pyright
-      #   run: just ci-pyright ${{ matrix.python.version }}
-      #   # Skip typecheking in pypy legs
-      #   if: ${{ !contains(matrix.python.version, 'pypy') }}
-
-      - name: Test with pytest
         run: just test
 
   publish:
@@ -149,8 +130,9 @@ jobs:
           GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
           GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - name: Install tools
-        run: just install
-      - name: Publish packages to PyPy
+        run: just install-build-deps
+      - name: Publish packages to PyPI
+        # could probably move this into a just recipe too?
         run: |
           set -ex
           source venv/bin/activate
