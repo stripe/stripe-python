@@ -2246,6 +2246,7 @@ class SessionService(StripeService):
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",
