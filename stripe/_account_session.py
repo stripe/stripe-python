@@ -552,6 +552,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the tax settings embedded component.
         """
+        tax_threshold_monitoring: NotRequired[
+            "AccountSession.CreateParamsComponentsTaxThresholdMonitoring"
+        ]
+        """
+        Configuration for the tax threshold monitoring embedded component.
+        """
 
     class CreateParamsComponentsAccountManagement(TypedDict):
         enabled: bool
@@ -1060,6 +1066,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsTaxSettingsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsTaxThresholdMonitoring(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsTaxThresholdMonitoringFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsTaxThresholdMonitoringFeatures(TypedDict):
         pass
 
     account: str
