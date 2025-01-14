@@ -11,7 +11,7 @@ _default:
 
 # ⭐ run all unit tests
 test *args: install-test-deps
-    # configured in pytest.ini
+    # configured in pyproject.toml
     pytest {{ args }}
 
 # ⭐ check for potential mistakes
@@ -33,7 +33,8 @@ format-check: install-dev-deps
 
 # remove venv
 clean:
-    rm -rf {{ VENV_NAME }}
+    # clear old files too
+    rm -rf {{ VENV_NAME }} venv .tox
 
 # blow away and reinstall virtual env
 reset: clean && venv
@@ -45,8 +46,9 @@ build: install-build-deps
     python -I setup.py clean --all sdist bdist_wheel --universal
     python -m twine check dist/*
 
-# run backup type checker
-typecheck-mypy: _install-all
+# typecheck some examples w/ mypy
+typecheck-examples: _install-all
+    # configured in pyproject.toml
     mypy
 
 # install the tools for local development & static checks
