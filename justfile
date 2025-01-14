@@ -19,7 +19,7 @@ lint: install-dev-deps
     python -m flake8 --show-source stripe tests setup.py
 
 # verify types. optional argument to test as of a specific minor python version (e.g. `8` to test `python 3.8`); otherwise uses current version
-typecheck minor_py_version="": install-dev-deps
+typecheck minor_py_version="": install-test-deps install-dev-deps
     # suppress version update warnings
     PYRIGHT_PYTHON_IGNORE_WARNINGS=1 pyright {{ if minor_py_version == "" { "" } else { "--pythonversion 3." + minor_py_version } }}
 
