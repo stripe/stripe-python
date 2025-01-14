@@ -19,12 +19,14 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._account import Account
+    from stripe._coupon import Coupon
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
     from stripe._invoice import Invoice
     from stripe._line_item import LineItem
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_link import PaymentLink
+    from stripe._promotion_code import PromotionCode
     from stripe._setup_intent import SetupIntent
     from stripe._shipping_rate import ShippingRate
     from stripe._subscription import Subscription
@@ -664,6 +666,16 @@ class Session(
         The customer's tax IDs after a completed Checkout Session.
         """
         _inner_class_types = {"address": Address, "tax_ids": TaxId}
+
+    class Discount(StripeObject):
+        coupon: Optional[ExpandableField["Coupon"]]
+        """
+        Coupon attached to the Checkout Session.
+        """
+        promotion_code: Optional[ExpandableField["PromotionCode"]]
+        """
+        Promotion code attached to the Checkout Session.
+        """
 
     class InvoiceCreation(StripeObject):
         class InvoiceData(StripeObject):
@@ -4970,6 +4982,10 @@ class Session(
     on file. To access information about the customer once the payment flow is
     complete, use the `customer` attribute.
     """
+    discounts: Optional[List[Discount]]
+    """
+    List of coupons and promotion codes attached to the Checkout Session.
+    """
     expires_at: int
     """
     The timestamp at which the Checkout Session will expire.
@@ -5536,6 +5552,7 @@ class Session(
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "customer_details": CustomerDetails,
+        "discounts": Discount,
         "invoice_creation": InvoiceCreation,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
