@@ -1,0 +1,11 @@
+# packages needed to run static analysis (lints, types, etc)
+# version requirements: any modern python version (currently 3.10)
+
+# typechecking for all versions
+pyright == 1.1.336
+# general typechecking
+mypy == 1.7.0
+# formatting
+ruff == 0.4.4
+# linting
+flake8
