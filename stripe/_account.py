@@ -2844,6 +2844,12 @@ class Account(
         """
         One or more documents showing the company's proof of registration with the national business registry.
         """
+        proof_of_ultimate_beneficial_ownership: NotRequired[
+            "Account.CreateParamsDocumentsProofOfUltimateBeneficialOwnership"
+        ]
+        """
+        One or more documents that demonstrate proof of ultimate beneficial ownership.
+        """
 
     class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[List[str]]
@@ -2882,6 +2888,12 @@ class Account(
         """
 
     class CreateParamsDocumentsProofOfRegistration(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfUltimateBeneficialOwnership(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
