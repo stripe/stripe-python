@@ -2529,6 +2529,12 @@ class Account(
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "Account.CreateParamsCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -2681,6 +2687,20 @@ class Account(
         town: NotRequired[str]
         """
         Town or cho-me.
+        """
+
+    class CreateParamsCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
         """
 
     class CreateParamsCompanyOwnershipDeclaration(TypedDict):
