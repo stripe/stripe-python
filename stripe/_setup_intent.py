@@ -1034,6 +1034,12 @@ class SetupIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -1144,6 +1150,7 @@ class SetupIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -1493,6 +1500,9 @@ class SetupIntent(
         """
         The customer's bank.
         """
+
+    class ConfirmParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataPayco(TypedDict):
         pass
@@ -2426,6 +2436,12 @@ class SetupIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -2536,6 +2552,7 @@ class SetupIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -2885,6 +2902,9 @@ class SetupIntent(
         """
         The customer's bank.
         """
+
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass
@@ -3783,6 +3803,12 @@ class SetupIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -3893,6 +3919,7 @@ class SetupIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -4242,6 +4269,9 @@ class SetupIntent(
         """
         The customer's bank.
         """
+
+    class ModifyParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodDataPayco(TypedDict):
         pass

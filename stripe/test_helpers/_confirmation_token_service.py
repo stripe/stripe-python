@@ -247,6 +247,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPayco"
         ]
@@ -375,6 +381,7 @@ class ConfirmationTokenService(StripeService):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -728,6 +735,9 @@ class ConfirmationTokenService(StripeService):
         """
         The customer's bank.
         """
+
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass

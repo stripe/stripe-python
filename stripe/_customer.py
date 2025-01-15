@@ -925,6 +925,7 @@ class Customer(
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",

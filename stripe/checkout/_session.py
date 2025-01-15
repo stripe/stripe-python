@@ -2311,6 +2311,7 @@ class Session(
                     "naver_pay",
                     "oxxo",
                     "p24",
+                    "pay_by_bank",
                     "payco",
                     "paynow",
                     "paypal",
@@ -3125,6 +3126,12 @@ class Session(
         """
         contains details about the P24 payment method options.
         """
+        pay_by_bank: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        contains details about the Pay By Bank payment method options.
+        """
         payco: NotRequired["Session.CreateParamsPaymentMethodOptionsPayco"]
         """
         contains details about the PAYCO payment method options.
@@ -3706,6 +3713,9 @@ class Session(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired[Literal["manual"]]

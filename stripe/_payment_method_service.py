@@ -187,6 +187,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired["PaymentMethodService.CreateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentMethodService.CreateParamsPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -291,6 +295,7 @@ class PaymentMethodService(StripeService):
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -674,6 +679,9 @@ class PaymentMethodService(StripeService):
         The customer's bank.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPayco(TypedDict):
         pass
 
@@ -848,6 +856,7 @@ class PaymentMethodService(StripeService):
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -910,6 +919,10 @@ class PaymentMethodService(StripeService):
         naver_pay: NotRequired["PaymentMethodService.UpdateParamsNaverPay"]
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
+        pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         payto: NotRequired["PaymentMethodService.UpdateParamsPayto"]
         """
@@ -998,6 +1011,9 @@ class PaymentMethodService(StripeService):
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
+
+    class UpdateParamsPayByBank(TypedDict):
+        pass
 
     class UpdateParamsPayto(TypedDict):
         account_number: NotRequired[str]
