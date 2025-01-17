@@ -417,6 +417,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataPayco"
         ]
@@ -518,6 +524,7 @@ class PaymentIntentService(StripeService):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -856,6 +863,9 @@ class PaymentIntentService(StripeService):
         The customer's bank.
         """
 
+    class ConfirmParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -1115,6 +1125,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPayco"
@@ -2165,6 +2181,9 @@ class PaymentIntentService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class ConfirmParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -2994,6 +3013,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataPayco"
         ]
@@ -3095,6 +3120,7 @@ class PaymentIntentService(StripeService):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -3433,6 +3459,9 @@ class PaymentIntentService(StripeService):
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -3692,6 +3721,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPayco"
@@ -4742,6 +4777,9 @@ class PaymentIntentService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -5593,6 +5631,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataPayco"
         ]
@@ -5694,6 +5738,7 @@ class PaymentIntentService(StripeService):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -6032,6 +6077,9 @@ class PaymentIntentService(StripeService):
         The customer's bank.
         """
 
+    class UpdateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -6291,6 +6339,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPayco"
@@ -7340,6 +7394,9 @@ class PaymentIntentService(StripeService):
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class UpdateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class UpdateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]

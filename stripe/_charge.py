@@ -151,6 +151,12 @@ class Charge(
             The predicate to evaluate the payment against.
             """
 
+        advice_code: Optional[
+            Literal["confirm_card_data", "do_not_try_again", "try_again_later"]
+        ]
+        """
+        An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+        """
         network_advice_code: Optional[str]
         """
         For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
@@ -1532,6 +1538,9 @@ class Charge(
             Przelewy24 rarely provides this information so the attribute is usually empty.
             """
 
+        class PayByBank(StripeObject):
+            pass
+
         class Payco(StripeObject):
             buyer_id: Optional[str]
             """
@@ -1559,6 +1568,10 @@ class Charge(
                 Indicates whether the transaction is eligible for PayPal's seller protection.
                 """
 
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
             payer_email: Optional[str]
             """
             Owner's email. Values are provided by PayPal directly
@@ -1824,6 +1837,7 @@ class Charge(
         naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -1881,6 +1895,7 @@ class Charge(
             "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,

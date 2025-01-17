@@ -127,7 +127,7 @@ class ConfigurationService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class CreateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
@@ -371,7 +371,7 @@ class ConfigurationService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class UpdateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
