@@ -78,6 +78,16 @@ class OutboundTransfer(
             """
             _inner_class_types = {"address": Address}
 
+        class FinancialAccount(StripeObject):
+            id: str
+            """
+            Token of the FinancialAccount.
+            """
+            network: Literal["stripe"]
+            """
+            The rails used to send funds.
+            """
+
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
             """
@@ -113,13 +123,15 @@ class OutboundTransfer(
             """
 
         billing_details: BillingDetails
-        type: Literal["us_bank_account"]
+        financial_account: Optional[FinancialAccount]
+        type: Literal["financial_account", "us_bank_account"]
         """
         The type of the payment method used in the OutboundTransfer.
         """
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
             "us_bank_account": UsBankAccount,
         }
 
@@ -214,6 +226,12 @@ class OutboundTransfer(
         """
         The PaymentMethod to use as the payment instrument for the OutboundTransfer.
         """
+        destination_payment_method_data: NotRequired[
+            "OutboundTransfer.CreateParamsDestinationPaymentMethodData"
+        ]
+        """
+        Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
+        """
         destination_payment_method_options: NotRequired[
             "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions"
         ]
@@ -235,6 +253,16 @@ class OutboundTransfer(
         statement_descriptor: NotRequired[str]
         """
         Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
+        """
+
+    class CreateParamsDestinationPaymentMethodData(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
+        """
+        type: Literal["financial_account"]
+        """
+        The type of the destination.
         """
 
     class CreateParamsDestinationPaymentMethodOptions(TypedDict):

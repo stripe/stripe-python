@@ -697,6 +697,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class PayByBank(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Paynow(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1101,6 +1123,12 @@ class PaymentMethodConfiguration(
         parent: NotRequired[str]
         """
         Configuration's parent configuration. Specify to create a child configuration.
+        """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
         paynow: NotRequired["PaymentMethodConfiguration.CreateParamsPaynow"]
         """
@@ -1591,6 +1619,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPayByBankDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsPaynow(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsPaynowDisplayPreference"
@@ -1929,6 +1971,12 @@ class PaymentMethodConfiguration(
         p24: NotRequired["PaymentMethodConfiguration.ModifyParamsP24"]
         """
         Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
+        """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
         paynow: NotRequired["PaymentMethodConfiguration.ModifyParamsPaynow"]
         """
@@ -2419,6 +2467,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPayByBankDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsPaynow(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsPaynowDisplayPreference"
@@ -2641,6 +2703,7 @@ class PaymentMethodConfiguration(
     """
     For child configs, the configuration's parent configuration.
     """
+    pay_by_bank: Optional[PayByBank]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     promptpay: Optional[Promptpay]
@@ -2820,6 +2883,7 @@ class PaymentMethodConfiguration(
         "multibanco": Multibanco,
         "oxxo": Oxxo,
         "p24": P24,
+        "pay_by_bank": PayByBank,
         "paynow": Paynow,
         "paypal": Paypal,
         "promptpay": Promptpay,

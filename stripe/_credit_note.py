@@ -734,7 +734,7 @@ class CreditNote(
     """
     The link to download the PDF of the credit note.
     """
-    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    pretax_credit_amounts: List[PretaxCreditAmount]
     """
     The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
     """
