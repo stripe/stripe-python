@@ -1,6 +1,6 @@
 set quiet
 
-import? '../sdk-codegen/justfile'
+import? '../sdk-codegen/utils.just'
 
 VENV_NAME := ".venv"
 
@@ -77,5 +77,5 @@ venv:
 # called by tooling
 [private]
 update-version version:
-    @echo "{{ version }}" > VERSION
-    @perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
+    echo "{{ version }}" > VERSION
+    perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
